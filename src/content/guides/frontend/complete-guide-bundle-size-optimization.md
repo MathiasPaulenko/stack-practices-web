@@ -2,7 +2,7 @@
 contentType: guides
 slug: complete-guide-bundle-size-optimization
 title: "Bundle Size Optimization: A Practical Frontend Guide"
-description: "Reduce JavaScript bundle size with tree shaking, code splitting, dynamic imports, dependency analysis, and bundle monitoring for webpack, Vite, and Rollup."
+description: "A hands-on guide to measuring and reducing JavaScript bundle size with tree shaking, code splitting, dependency swaps, compression, and CI budgets."
 metaDescription: "Reduce JavaScript bundle size with tree shaking, code splitting, dynamic imports, dependency analysis, and bundle monitoring for webpack, Vite, and Rollup."
 difficulty: advanced
 topics:
@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/javascript-debounce-throttle-implementation
   - /recipes/javascript-event-loop
   - /recipes/web-performance
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
@@ -41,27 +41,27 @@ seo:
     - module federation
 ---
 
-## Overview
-
-Large JavaScript bundles slow down page load, increase Time to Interactive, and hurt Core
-Web Vitals. This guide covers practical techniques to reduce bundle size: measuring,
-analyzing, tree shaking, code splitting, dynamic imports, dependency replacement,
-compression, polyfill management, and monitoring for webpack, Vite, and Rollup.
+A bloated JavaScript bundle is one of the fastest ways to hurt Time to Interactive and your Core Web
+Vitals score. The good news is that you can usually shrink it a lot by measuring first, then
+picking the right combination of tree shaking, code splitting, dependency swaps, compression, and CI
+budgets. This guide covers webpack, Vite, and Rollup.
 
 ## When to Use
 
-- Initial page load is slow and Lighthouse reports large JavaScript payloads.
-- A dependency audit shows oversized or duplicate libraries.
-- Routes or components below the fold can be deferred.
-- You need to set bundle budgets in CI.
+- Initial page load feels slow and Lighthouse flags large JavaScript payloads.
+- A dependency audit reveals oversized or duplicate libraries.
+- You've got routes or below-the-fold components that can load later.
+- You want to enforce bundle budgets in CI so regressions fail the build.
 
 ## When NOT to Use
 
-- The bundle is already small and the bottleneck is network or server response time.
-- You're optimizing before measuring — use a profiler first.
-- The project uses server-side rendering where HTML size matters more than JS bundle size.
+- The bundle is already small and the real bottleneck is the network or server response time.
+- You're optimizing before measuring. Use a profiler or analyzer first.
+- Server-side rendering is the main delivery path and HTML weight matters more than JS bundle size.
 
 ## Analyzing Bundle Size
+
+Before changing anything, you need a clear picture of what is inside the bundle.
 
 ### Webpack Bundle Analyzer
 
@@ -114,7 +114,7 @@ npx source-map-explorer dist/*.js
 
 ## Tree Shaking
 
-Tree shaking removes unused exports. It requires ES modules and a production build.
+Tree shaking removes unused exports, but it only works with ES modules and production builds.
 
 ```javascript
 // Bad: imports all of lodash
@@ -247,12 +247,12 @@ import(/* webpackPreload: true */ "./CriticalChart");
 
 Common swaps that reduce bundle size:
 
-|From|To|Savings|
-|----|--|-------|
-|moment.js (293KB)|date-fns (13KB) or dayjs (2KB)|large|
-|lodash|lodash-es or native methods|large|
-|axios|native fetch|13KB|
-|uuid|crypto.randomUUID()|7KB|
+| From | To | Savings |
+| --- | --- | --- |
+| moment.js (293KB) | date-fns (13KB) or dayjs (2KB) | large |
+| lodash | lodash-es or native methods | large |
+| axios | native fetch | 13KB |
+| uuid | crypto.randomUUID() | 7KB |
 
 ```javascript
 // Replace lodash with native array methods
@@ -269,7 +269,7 @@ const res = await fetch("/api/users");
 const data = await res.json();
 ```
 
-Check sizes at bundlephobia.com before installing a new package.
+Check sizes on bundlephobia.com before installing a new package.
 
 ## Compression
 
@@ -394,53 +394,53 @@ module.exports = {
 
 ## Best Practices
 
-- Measure first with a bundle analyzer.
-- Prefer native APIs over libraries when possible.
-- Split by route, then by heavy components.
-- Review snapshot diffs before running `vitest -u`.
+- Measure first with a bundle analyzer. Guessing wastes time.
+- Prefer native APIs over libraries when the browser already supports what you need.
+- Split by route first, then by heavy below-the-fold components.
+- Review dependency diffs before bumping a package version.
 - Set bundle budgets in CI and fail builds that exceed them.
-- Compress assets with both gzip and brotli.
+- Compress assets with both gzip and brotli, and serve `.br` when possible.
 
 ## Common Mistakes
 
 - **Guessing the bottleneck** — always analyze before changing dependencies.
 - **Importing full libraries** — `import _ from "lodash"` brings the entire package.
-- **Splitting too granularly** — hundreds of tiny chunks hurt caching and HTTP overhead.
+- **Splitting too granularly** — hundreds of tiny chunks hurt caching and add HTTP overhead.
 - **Ignoring compression** — serving uncompressed JS wastes bandwidth.
 - **Forgetting polyfill scope** — global polyfills bloat modern browsers.
-- **Over-engineering module federation** — it adds complexity for small teams.
+- **Over-engineering module federation** — it adds complexity that small teams rarely need.
 
 ## FAQ
 
 ### What is tree shaking and how does it work?
 
-Tree shaking removes unused exports from ES modules. It needs `import`/`export` syntax, a
-production build, and packages marked as side-effect free. Webpack requires
-`mode: "production"`; Vite and Rollup do it by default.
+Tree shaking removes unused exports from ES modules. It needs `import`/`export` syntax, a production
+build, and packages marked as side-effect free. Webpack requires `mode: "production"`; Vite and
+Rollup do it by default.
 
 ### How is code splitting different from tree shaking?
 
-Tree shaking removes dead code. Code splitting breaks the bundle into smaller chunks loaded
-on demand. Use both: tree shake first, then split by route or heavy component.
+Tree shaking removes dead code. Code splitting breaks the bundle into smaller chunks loaded on
+demand. Use both: tree shake first, then split by route or heavy component.
 
 ### What is the difference between prefetch and preload?
 
-Prefetch loads a resource during idle time for likely future use. Preload loads it
-immediately in parallel with the current page. Use `webpackPrefetch` for next routes and
-`webpackPreload` for critical current-page assets.
+Prefetch loads a resource during idle time for likely future use. Preload loads it immediately in
+parallel with the current page. Use `webpackPrefetch` for next routes and `webpackPreload` for
+critical current-page assets.
 
 ### How do I know which dependencies are bloating my bundle?
 
-Use `webpack-bundle-analyzer`, `rollup-plugin-visualizer`, or `source-map-explorer`. Check
-sizes on bundlephobia.com before installing. Run `npm ls` to spot duplicate dependencies.
+Use `webpack-bundle-analyzer`, `rollup-plugin-visualizer`, or `source-map-explorer`. Check sizes on
+bundlephobia.com before installing. Run `npm ls` to spot duplicate dependencies.
 
 ### Should I use gzip or brotli compression?
 
-Use both. Brotli compresses text 15-25% better. Serve `.br` first and `.gz` as fallback.
-Most CDNs and static hosts support brotli.
+Use both. Brotli compresses text 15-25% better. Serve `.br` first and `.gz` as fallback. Most CDNs
+and static hosts support brotli.
 
 ### How do module federation and micro-frontends affect bundle size?
 
-Module federation lets several apps share dependencies at runtime, reducing duplicate code.
-It adds runtime overhead for loading remote entries. Use it for large teams with
-independent deployments, not small apps.
+Module federation lets several apps share dependencies at runtime, reducing duplicate code. It adds
+runtime overhead for loading remote entries. Use it for large teams with independent deployments,
+not small apps.

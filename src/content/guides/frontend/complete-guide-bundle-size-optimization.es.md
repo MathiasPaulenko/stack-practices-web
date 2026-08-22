@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: complete-guide-bundle-size-optimization
-title: "Optimización de Bundle Size: Guía Práctica"
-description: "Reducí el tamaño de bundles JavaScript con tree shaking, code splitting, imports dinámicos, análisis de dependencias y monitoreo para webpack, Vite y Rollup."
-metaDescription: "Reducí el tamaño de bundles JavaScript con tree shaking, code splitting, imports dinámicos, análisis de dependencias y monitoreo para webpack, Vite y Rollup."
+title: "Optimización del tamaño del bundle: Guía práctica frontend"
+description: "Guía práctica para medir y reducir el tamaño del bundle JavaScript con tree shaking, code splitting, reemplazo de dependencias, compresión y budgets en CI."
+metaDescription: "Reducí el tamaño del bundle JavaScript con tree shaking, code splitting, dynamic imports, análisis de dependencias y monitoreo de bundles para webpack, Vite y Rollup."
 difficulty: advanced
 topics:
   - frontend
@@ -25,13 +25,13 @@ relatedResources:
   - /recipes/javascript-debounce-throttle-implementation
   - /recipes/javascript-event-loop
   - /recipes/web-performance
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Reducí el tamaño de bundles JavaScript con tree shaking, code splitting, imports dinámicos, análisis de dependencias y monitoreo para webpack, Vite y Rollup."
+  metaDescription: "Reducí el tamaño del bundle JavaScript con tree shaking, code splitting, dynamic imports, análisis de dependencias y monitoreo de bundles para webpack, Vite y Rollup."
   keywords:
-    - bundle size optimization
+    - optimizacion bundle size
     - tree shaking
     - code splitting
     - dynamic import
@@ -41,29 +41,28 @@ seo:
     - module federation
 ---
 
-## Resumen
+Un bundle de JavaScript hinchado es una de las formas más rápidas de empeorar el Time to Interactive
+y el puntaje de Core Web Vitals. La buena noticia es que generalmente podés achicarlo mucho midiendo
+primero y luego combinando tree shaking, code splitting, reemplazo de dependencias, compresión y
+budgets en CI. Esta guía cubre webpack, Vite y Rollup.
 
-Bundles de JavaScript grandes ralentizan la carga de la página, aumentan el Time to
-Interactive y perjudican los Core Web Vitals. Esta guía cubre técnicas prácticas para
-reducir el tamaño del bundle: medición, análisis, tree shaking, code splitting, imports
-dinámicos, reemplazo de dependencias, compresión, manejo de polyfills y monitoreo para
-webpack, Vite y Rollup.
+## Cuándo Usarla
 
-## Cuándo Usar
+- La carga inicial se siente lenta y Lighthouse marca payloads grandes de JavaScript.
+- Una auditoría de dependencias revela librerías sobredimensionadas o duplicadas.
+- Tenés rutas o componentes fuera del área visible que pueden cargar después.
+- Querés aplicar budgets de bundle en CI para que las regresiones fallen el build.
 
-- La carga inicial es lenta y Lighthouse reporta payloads grandes de JavaScript.
-- Una auditoría de dependencias muestra librerías sobredimensionadas o duplicadas.
-- Rutas o componentes fuera de pantalla pueden cargarse más tarde.
-- Necesitás definir budgets de bundle en CI.
+## Cuándo NO Usarla
 
-## Cuándo NO Usar
+- El bundle ya es pequeño y el cuello de botella real es la red o el tiempo de respuesta del
+    servidor.
+- Estás optimizando antes de medir. Usá un profiler o analyzer primero.
+- Server-side rendering es el camino principal y el tamaño del HTML pesa más que el bundle JS.
 
-- El bundle ya es pequeño y el cuello de botella es la red o el tiempo de respuesta del
-  servidor.
-- Estás optimizando antes de medir — usá un profiler primero.
-- El proyecto usa server-side rendering y el tamaño del HTML pesa más que el bundle JS.
+## Analizando el tamaño del bundle
 
-## Análisis del Bundle Size
+Antes de cambiar nada, necesitás una imagen clara de qué hay dentro del bundle.
 
 ### Webpack Bundle Analyzer
 
@@ -116,14 +115,15 @@ npx source-map-explorer dist/*.js
 
 ## Tree Shaking
 
-El tree shaking elimina exports no usados. Requiere ES modules y un build de producción.
+El tree shaking elimina exportaciones no usadas, pero solo funciona con ES modules y builds de
+producción.
 
 ```javascript
 // Mal: importa todo lodash
 import _ from "lodash";
 const result = _.chunk([1, 2, 3, 4], 2);
 
-// Bien: importá solo la función
+// Bien: importa solo la función
 import { chunk } from "lodash-es";
 const result = chunk([1, 2, 3, 4], 2);
 ```
@@ -229,49 +229,49 @@ module.exports = {
 };
 ```
 
-## Imports Dinámicos
+## Dynamic Imports
 
 ```javascript
 // Cargar módulo bajo demanda
 const module = await import("./heavy-module.js");
 module.doSomething();
 
-// Prefetch al pasar el mouse
+// Prefetch en hover
 button.addEventListener("mouseenter", () => {
   import(/* webpackPrefetch: true */ "./Chart");
 }, { once: true });
 
-// Preload de chunk crítico en paralelo
+// Preload chunk crítico en paralelo
 import(/* webpackPreload: true */ "./CriticalChart");
 ```
 
 ## Reemplazo de Dependencias
 
-Cambios comunes que reducen el tamaño del bundle:
+Reemplazos comunes que reducen el tamaño del bundle:
 
-|Desde|Hasta|Ahorro|
-|-----|-----|------|
-|moment.js (293KB)|date-fns (13KB) o dayjs (2KB)|grande|
-|lodash|lodash-es o métodos nativos|grande|
-|axios|fetch nativo|13KB|
-|uuid|crypto.randomUUID()|7KB|
+| De | A | Ahorro |
+| --- | --- | --- |
+| moment.js (293KB) | date-fns (13KB) o dayjs (2KB) | grande |
+| lodash | lodash-es o métodos nativos | grande |
+| axios | fetch nativo | 13KB |
+| uuid | crypto.randomUUID() | 7KB |
 
 ```javascript
-// Reemplazá lodash por métodos nativos de array
+// Reemplazar lodash por métodos nativos de array
 const result = array
   .map((x) => x * 2)
   .filter((x) => x > 10)
   .reduce((sum, x) => sum + x, 0);
 
-// Reemplazá uuid por crypto nativo
+// Reemplazar uuid por crypto nativo
 const id = crypto.randomUUID();
 
-// Reemplazá axios por fetch
+// Reemplazar axios por fetch
 const res = await fetch("/api/users");
 const data = await res.json();
 ```
 
-Consultá tamaños en bundlephobia.com antes de instalar un paquete nuevo.
+Consultá los tamaños en bundlephobia.com antes de instalar un nuevo paquete.
 
 ## Compresión
 
@@ -289,7 +289,7 @@ export default {
 };
 ```
 
-### Nginx con archivos precomprimidos
+### Archivos precomprimidos en Nginx
 
 ```nginx
 server {
@@ -311,11 +311,11 @@ Serví brotli primero; gzip es el fallback para navegadores antiguos.
 // Mal: importar todos los polyfills
 import "core-js/stable";
 
-// Bien: importar solo lo necesario
+// Bien: importar solo lo que necesitás
 import "core-js/stable/promise";
 import "core-js/stable/array/flat";
 
-// Mejor: dejar que Babel inyecte polyfills por uso
+// Mejor: dejar que Babel inyecte polyfills según uso
 // babel.config.js
 module.exports = {
   presets: [
@@ -396,56 +396,55 @@ module.exports = {
 
 ## Buenas Prácticas
 
-- Medí primero con un bundle analyzer.
-- Preferí APIs nativas sobre librerías cuando sea posible.
-- Dividí por ruta, luego por componentes pesados.
-- Revisá los diffs de snapshots antes de correr `vitest -u`.
+- Medí primero con un bundle analyzer. Adivinar es perder tiempo.
+- Preferí APIs nativas sobre librerías cuando el navegador ya soporta lo que necesitás.
+- Dividí por ruta primero, luego por componentes pesados fuera del área visible.
+- Revisá los diffs de dependencias antes de actualizar un paquete.
 - Definí budgets de bundle en CI y fallá builds que los superen.
-- Comprimí assets con gzip y brotli.
+- Comprimí assets con gzip y brotli, y serví `.br` cuando sea posible.
 
 ## Errores Comunes
 
 - **Adivinar el cuello de botella** — analizá antes de cambiar dependencias.
 - **Importar librerías completas** — `import _ from "lodash"` trae todo el paquete.
-- **Dividir en demasiados chunks** — cientos de chunks chicos perjudican el cache y el
-  overhead HTTP.
+- **Dividir en demasiados chunks** — cientos de chunks chicos perjudican el cache y agregan overhead
+    HTTP.
 - **Ignorar la compresión** — servir JS sin comprimir desperdicia ancho de banda.
-- **Olvidar el scope de polyfills** — los polyfills globales hinchan navegadores modernos.
-- **Sobre-ingeniería con module federation** — agrega complejidad para equipos pequeños.
+- **Olvidar el alcance de los polyfills** — polyfills globales inflan navegadores modernos.
+- **Sobre-ingeniería con module federation** — agrega complejidad que equipos pequeños rara vez
+    necesitan.
 
 ## Preguntas Frecuentes
 
-### ¿Qué es el tree shaking y cómo funciona?
+### ¿Qué es tree shaking y cómo funciona?
 
-El tree shaking elimina exports no usados de los ES modules. Necesita sintaxis
-`import`/`export`, un build de producción y paquetes marcados como libres de side effects.
-Webpack requiere `mode: "production"`; Vite y Rollup lo hacen por defecto.
+El tree shaking elimina exportaciones no usadas de los ES modules. Necesita sintaxis
+`import`/`export`, un build de producción y paquetes marcados como libres de side effects. Webpack
+requiere `mode: "production"`; Vite y Rollup lo hacen por defecto.
 
-### ¿En qué se diferencia el code splitting del tree shaking?
+### ¿En qué se diferencia code splitting de tree shaking?
 
-El tree shaking elimina código muerto. El code splitting divide el bundle en chunks más
-pequeños que se cargan bajo demanda. Usá ambos: tree shake primero, luego dividí por ruta o
-componente pesado.
+El tree shaking remueve código muerto. El code splitting divide el bundle en chunks más chicos que
+se cargan bajo demanda. Usá ambos: tree shake primero, luego dividí por ruta o componente pesado.
 
 ### ¿Cuál es la diferencia entre prefetch y preload?
 
-Prefetch carga un recurso durante el tiempo ocioso para uso futuro probable. Preload lo
-carga inmediatamente en paralelo con la página actual. Usá `webpackPrefetch` para las
-siguientes rutas y `webpackPreload` para assets críticos de la página actual.
+Prefetch carga un recurso durante el tiempo ocioso para uso futuro probable. Preload lo carga
+inmediatamente en paralelo con la página actual. Usá `webpackPrefetch` para las siguientes rutas y
+`webpackPreload` para assets críticos de la página actual.
 
-### ¿Cómo sé qué dependencias están hinchando mi bundle?
+### ¿Cómo sé qué dependencias están inflando mi bundle?
 
-Usá `webpack-bundle-analyzer`, `rollup-plugin-visualizer` o `source-map-explorer`. Consultá
-los tamaños en bundlephobia.com antes de instalar. Ejecutá `npm ls` para detectar
-dependencias duplicadas.
+Usá `webpack-bundle-analyzer`, `rollup-plugin-visualizer` o `source-map-explorer`. Consultá tamaños
+en bundlephobia.com antes de instalar. Ejecutá `npm ls` para detectar dependencias duplicadas.
 
 ### ¿Debería usar gzip o brotli?
 
-Usá ambos. Brotli comprime texto 15-25% mejor. Serví `.br` primero y `.gz` como fallback. La
+Usá ambos. Brotli comprime texto un 15-25% mejor. Serví `.br` primero y `.gz` como fallback. La
 mayoría de CDNs y hosts estáticos soportan brotli.
 
-### ¿Cómo afectan module federation y micro-frontends al bundle size?
+### ¿Cómo afectan module federation y los micro-frontends al tamaño del bundle?
 
-Module federation permite que varias apps compartan dependencias en runtime, reduciendo
- código duplicado. Agrega overhead de runtime para cargar entradas remotas. Usalo para
-grandes equipos con despliegues independientes, no para apps pequeñas.
+Module federation permite que varias apps compartan dependencias en runtime, reduciendo código
+duplicado. Agrega overhead de runtime para cargar entradas remotas. Usalo para equipos grandes con
+despliegues independientes, no para apps pequeñas.
