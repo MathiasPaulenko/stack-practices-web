@@ -19,7 +19,10 @@ relatedResources:
   - /recipes/python-pandas-etl-pipeline
   - /recipes/python-dbt-model-transformations
   - /recipes/python-spark-groupby-aggregation
-lastUpdated: "2026-07-05"
+  - /recipes/parse-csv-python-pandas
+  - /recipes/batch-processing-patterns
+  - /recipes/python-polars-fast-dataframe
+lastUpdated: "2026-08-22"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
@@ -37,23 +40,25 @@ seo:
 
 ## Overview
 
-Recursive Common Table Expressions (CTEs) allow a query to reference itself, enabling traversal of hierarchical data stored in a single table. A recursive CTE has two parts: a base case (anchor member) that selects the starting rows, and a recursive member that joins those rows back to the source table. This pattern works for org charts, category trees, file systems, threaded comments, and any parent-child relationship stored with a self-referencing foreign key.
+A recursive Common Table Expression (CTE) lets a query reference itself, so you can walk through hierarchical
+data stored in a single table. It's got two moving parts: an anchor member that picks the starting rows, and a
+recursive member that joins those rows back to the source table. That combination handles org charts, category
+trees, file systems, threaded comments, and any parent-child relationship tied together with a self-referencing
+foreign key.
 
 ## When to Use
 
-- Org charts: find all reports of a manager (direct and indirect)
-- Category trees: get all subcategories under a parent
-- File systems: list all files in a directory tree
-- Threaded comments: fetch a comment and all replies
-- Bill of materials: explode an assembly into its component parts
-- Dependency graphs: find all transitive dependencies
+Use a recursive CTE when you need to walk a hierarchy from a known starting point. Common cases include
+finding every direct and indirect report under a manager, listing all subcategories under a parent category,
+traversing a directory tree, fetching a comment and all its replies, exploding a bill of materials into
+components, or following transitive dependencies.
 
 ## When NOT to Use
 
-- Flat queries without hierarchy — a regular CTE or subquery is simpler
-- Very deep hierarchies (1000+ levels) — some databases hit recursion limits
-- Graph traversal with cycles — recursive CTEs don't handle cycles natively
-- When you need shortest path — use graph databases (Neo4j) or graph algorithms
+Skip the recursive CTE for flat queries that don't traverse hierarchy; a regular CTE or a subquery is simpler.
+It also isn't the right tool for very deep hierarchies (some databases hit recursion limits), graph traversal
+with cycles (recursive CTEs don't handle cycles natively), or shortest-path problems (use a graph database or
+algorithm for those).
 
 ## Solution
 
@@ -402,43 +407,57 @@ ORDER SIBLINGS BY employee_name;
 
 ## Best Practices
 
+- Always include a `depth` or `level` column. It makes debugging easier and gives you a simple way to cap
+  recursion.
+- Add a safety limit such as `WHERE depth < N` to prevent infinite recursion on cyclic data.
+- Use `UNION ALL` instead of `UNION`; `UNION` deduplicates, which adds overhead you usually don't need.
+- Build a path column for debugging so you can see the exact traversal route.
+- Test with small datasets first; recursive CTEs can be slow on large tables.
+- Index `parent_id` and `id`; the recursive join hits those columns repeatedly.
+- SQL Server users can override the default limit of 100 with `OPTION (MAXRECURSION N)`.
 
-- For a deeper guide, see [Transform Data in the Warehouse with dbt](/recipes/python-dbt-model-transformations/).
-
-- Always include a depth/level column — helps debug and limit recursion
-- Add a safety limit (`WHERE depth < N`) — prevents infinite recursion on cyclic data
-- Use `UNION ALL` not `UNION` — `UNION` deduplicates which is expensive and usually unnecessary
-- Build a path column for debugging — shows the traversal route
-- Test with small datasets first — recursive CTEs can be slow on large tables
-- Add indexes on parent_id and id — the recursive join hits these columns repeatedly
-- Use `OPTION (MAXRECURSION N)` in SQL Server — default limit is 100
+For a deeper guide, see [Transform Data in the Warehouse with dbt](/recipes/python-dbt-model-transformations/).
 
 ## Common Mistakes
 
-- **Forgetting the anchor member**: without a starting point, the CTE returns nothing. The anchor must select rows that don't depend on the CTE.
-- **Using `UNION` instead of `UNION ALL`**: `UNION` deduplicates results, adding overhead. Use `UNION ALL` unless you specifically need deduplication.
-- **No cycle detection**: cyclic data causes infinite recursion. Add a path column and check for repeats, or add a depth limit.
-- **Not indexing parent_id**: the recursive join does `JOIN c ON c.parent_id = h.id` — without an index on `parent_id`, this is a full table scan per recursion level.
-- **Expecting breadth-first order**: recursive CTEs return depth-first by default. Use `ORDER BY depth` for breadth-first output.
+- Forgetting the anchor member. Without a starting point the CTE returns nothing; the anchor has to select rows
+  that don't depend on the CTE.
+- Using `UNION` instead of `UNION ALL` for no reason. `UNION` deduplicates results and adds overhead, so use
+  `UNION ALL` unless you actually need deduplication.
+- Skipping cycle detection. Cyclic data causes infinite recursion, so add a path column and check for repeats, or
+  add a depth limit.
+- Not indexing `parent_id`. The recursive join does `JOIN c ON c.parent_id = h.id`; without an index on
+  `parent_id`, each level becomes a full table scan.
+- Expecting breadth-first order. Recursive CTEs return depth-first by default. Use `ORDER BY depth` if you want
+  breadth-first output.
 
 ## FAQ
 
 ### What is a recursive CTE?
 
-A CTE that references itself. It has an anchor member (base case) and a recursive member (joins back to the CTE). The database evaluates the anchor first, then repeatedly applies the recursive member until no new rows are generated.
+A recursive CTE is one that references itself. It's got an anchor member (the base case) and a recursive
+member (the part that joins back to the CTE). The database evaluates the anchor first, then keeps applying the
+recursive member until it stops producing new rows.
 
 ### Which databases support recursive CTEs?
 
-PostgreSQL, MySQL 8.0+, SQLite 3.8.4+, SQL Server (2008+), Oracle (11gR2+), Snowflake, BigQuery, and DuckDB. The syntax is similar — some require the `RECURSIVE` keyword, others don't (SQL Server).
+Most modern SQL engines support them: PostgreSQL, MySQL 8.0+, SQLite 3.8.4+, SQL Server (2008+), Oracle
+(11gR2+), Snowflake, BigQuery, and DuckDB. The syntax is similar across engines; some require the `RECURSIVE`
+keyword, and some don't (SQL Server, for example).
 
 ### How do I prevent infinite recursion?
 
-Add a depth limit (`WHERE depth < 100`) or track visited nodes in a path array/string and check for repeats. In SQL Server, use `OPTION (MAXRECURSION N)`.
+Add a depth limit such as `WHERE depth < 100`, or track visited nodes in a path array or string and check for
+repeats. SQL Server also gives you `OPTION (MAXRECURSION N)` as a secondary guard.
 
 ### What is the difference between recursive CTE and CONNECT BY?
 
-`CONNECT BY` is Oracle's proprietary syntax (also supported by Snowflake). Recursive CTEs are the SQL standard. `CONNECT BY` is more concise but less flexible. Use recursive CTEs for portability.
+`CONNECT BY` is Oracle's proprietary syntax, also supported by Snowflake. Recursive CTEs, on the other hand, are
+part of the SQL standard. `CONNECT BY` is more concise but less flexible, so use recursive CTEs when you care
+about portability.
 
 ### Can I use recursive CTEs for graph traversal?
 
-For simple trees (no cycles), yes. For graphs with cycles or when you need shortest path, use a graph database (Neo4j) or graph algorithms. Recursive CTEs don't support cycle detection natively — you need to build it manually.
+For simple trees without cycles, yes. Once cycles or shortest-path problems show up, a graph database or
+graph algorithm is a better fit. Recursive CTEs don't support cycle detection natively, so you've got to build
+that part yourself.

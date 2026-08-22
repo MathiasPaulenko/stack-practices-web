@@ -19,7 +19,10 @@ relatedResources:
   - /recipes/python-pandas-etl-pipeline
   - /recipes/python-dbt-model-transformations
   - /recipes/python-spark-groupby-aggregation
-lastUpdated: "2026-07-05"
+  - /recipes/parse-csv-python-pandas
+  - /recipes/batch-processing-patterns
+  - /recipes/python-polars-fast-dataframe
+lastUpdated: "2026-08-22"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
@@ -35,25 +38,27 @@ seo:
 
 ---
 
-## Overview
+## Visión General
 
-Las Common Table Expressions (CTEs) recursivas permiten que una query se referencie a sí misma, habilitando el traversal de datos jerárquicos almacenados en una sola tabla. Una CTE recursiva tiene dos partes: un caso base (anchor member) que selecciona las rows iniciales, y un recursive member que joinea esas rows de vuelta a la tabla source. Este patrón funciona para org charts, árboles de categorías, file systems, comentarios anidados y cualquier relación parent-child almacenada con una self-referencing foreign key.
+Una Common Table Expression (CTE) recursiva permite que una query se referencie a sí misma, así podés recorrer
+datos jerárquicos almacenados en una sola tabla. Tiene dos partes: un anchor member que selecciona las filas
+iniciales, y un recursive member que joinea esas filas de vuelta a la tabla fuente. Esa combinación sirve para
+org charts, árboles de categorías, file systems, comentarios anidados y cualquier relación parent-child ligada
+con una self-referencing foreign key.
 
-## When to Use
+## Cuándo Usarlo
 
-- Org charts: encontrar todos los reports de un manager (directos e indirectos)
-- Árboles de categorías: obtener todas las subcategorías bajo un parent
-- File systems: listar todos los archivos en un directory tree
-- Comentarios anidados: fetchear un comentario y todas sus respuestas
-- Bill of materials: explotar un assembly en sus component parts
-- Grafos de dependencias: encontrar todas las dependencias transitivas
+Usá una CTE recursiva cuando necesitás recorrer una jerarquía desde un punto de partida conocido. Los casos
+comunes incluyen encontrar todos los reports directos e indirectos de un manager, listar todas las
+subcategorías bajo una categoría padre, recorrer un directory tree, fetchear un comentario y todas sus
+respuestas, explotar un bill of materials en componentes, o seguir dependencias transitivas.
 
-## When NOT to Use
+## Cuándo NO Usarlo
 
-- Queries planas sin jerarquía — una CTE regular o subquery es más simple
-- Jerarquías muy profundas (1000+ niveles) — algunas bases de datos hit recursion limits
-- Graph traversal con ciclos — las CTEs recursivas no manejan ciclos nativamente
-- Cuando necesitas shortest path — usa graph databases (Neo4j) o graph algorithms
+Evitá la CTE recursiva para queries planas que no recorran una jerarquía; una CTE regular o un subquery es más
+simple. Tampoco es la herramienta correcta para jerarquías muy profundas (algunas bases de datos alcanzan
+límites de recursión), graph traversal con ciclos (las CTEs recursivas no manejan ciclos de forma nativa) o
+problemas de shortest path (para eso usá una graph database o un algoritmo especializado).
 
 ## Solution
 
@@ -400,45 +405,58 @@ CONNECT BY PRIOR employee_id = manager_id
 ORDER SIBLINGS BY employee_name;
 ```
 
-## Best Practices
+## Buenas Prácticas
 
+- Siempre incluí una columna `depth` o `level`. Ayuda a debuggear y te da una forma fácil de limitar la recursión.
+- Agregá un safety limit como `WHERE depth < N` para prevenir recursión infinita en datos cíclicos.
+- Usá `UNION ALL` en lugar de `UNION`; `UNION` deduplica, lo cual agrega overhead que usualmente no necesitás.
+- Construí una columna path para debugging, así podés ver la ruta exacta de recorrido.
+- Testeá primero con datasets pequeños, porque las CTEs recursivas pueden ser lentas en tablas grandes.
+- Indexá `parent_id` e `id`; el join recursivo golpea esas columnas repetidamente.
+- En SQL Server, usá `OPTION (MAXRECURSION N)` para anular el límite default de 100.
 
-- For a deeper guide, see [Transform Data in the Warehouse with dbt](/es/recipes/python-dbt-model-transformations/).
+Para una guía más profunda, consultá [Transform Data in the Warehouse with dbt](/es/recipes/python-dbt-model-transformations/).
 
-- Siempre incluye una columna depth/level — ayuda a debuggear y limitar la recursión
-- Agrega un safety limit (`WHERE depth < N`) — previene recursión infinita en data cíclica
-- Usa `UNION ALL` no `UNION` — `UNION` deduplica lo cual es expensive y usualmente innecesario
-- Construye una columna path para debugging — muestra la ruta de traversal
-- Testea con datasets pequeños primero — las CTEs recursivas pueden ser lentas en tablas grandes
-- Agrega índices en parent_id e id — el recursive join hittea estas columnas repetidamente
-- Usa `OPTION (MAXRECURSION N)` en SQL Server — el límite default es 100
+## Errores Comunes
 
-## Common Mistakes
+- Olvidar el anchor member. Sin un punto de partida la CTE no retorna nada; el anchor tiene que seleccionar filas
+  que no dependan de la CTE.
+- Usar `UNION` en lugar de `UNION ALL`. `UNION` deduplica resultados y agrega overhead, así que usá `UNION ALL` a
+  menos que realmente necesites deduplicación.
+- Saltearse la detección de ciclos. Los datos cíclicos causan recursión infinita, así que agregá una columna path
+  y verificá repeticiones, o poné un límite de profundidad.
+- No indexar `parent_id`. El join recursivo hace `JOIN c ON c.parent_id = h.id`; sin índice en `parent_id`, cada
+  nivel se convierte en un full table scan.
+- Esperar orden breadth-first. Las CTEs recursivas retornan depth-first por default. Usá `ORDER BY depth` si querés
+  output breadth-first.
 
-- **Olvidar el anchor member**: sin un punto de partida, la CTE no retorna nada. El anchor debe seleccionar rows que no dependan de la CTE.
-- **Usar `UNION` en lugar de `UNION ALL`**: `UNION` deduplica resultados, agregando overhead. Usa `UNION ALL` a menos que específicamente necesites deduplicación.
-- **Sin detección de ciclos**: data cíclica causa recursión infinita. Agrega una columna path y checkea repeats, o agrega un depth limit.
-- **No indexar parent_id**: el recursive join hace `JOIN c ON c.parent_id = h.id` — sin índice en `parent_id`, esto es un full table scan por nivel de recursión.
-- **Esperar orden breadth-first**: las CTEs recursivas retornan depth-first por default. Usa `ORDER BY depth` para output breadth-first.
-
-## FAQ
+## Preguntas Frecuentes
 
 ### ¿Qué es una CTE recursiva?
 
-Una CTE que se referencia a sí misma. Tiene un anchor member (caso base) y un recursive member (joinea de vuelta a la CTE). La base de datos evalúa el anchor primero, luego aplica repetidamente el recursive member hasta que no se generan nuevas rows.
+Es una CTE que se referencia a sí misma. Tiene un anchor member (el caso base) y un recursive member (la parte
+que joinea de vuelta a la CTE). La base de datos evalúa el anchor primero y sigue aplicando el recursive member
+hasta que deja de generar filas nuevas.
 
 ### ¿Qué bases de datos soportan CTEs recursivas?
 
-PostgreSQL, MySQL 8.0+, SQLite 3.8.4+, SQL Server (2008+), Oracle (11gR2+), Snowflake, BigQuery y DuckDB. La sintaxis es similar — algunas requieren el keyword `RECURSIVE`, otras no (SQL Server).
+PostgreSQL, MySQL 8.0+, SQLite 3.8.4+, SQL Server (2008+), Oracle (11gR2+), Snowflake, BigQuery y DuckDB las
+soportan. La sintaxis es similar en todos; algunos requieren el keyword `RECURSIVE`, y otros no (por ejemplo SQL
+Server).
 
 ### ¿Cómo prevengo recursión infinita?
 
-Agrega un depth limit (`WHERE depth < 100`) o trackea nodos visitados en un path array/string y checkea repeats. En SQL Server, usa `OPTION (MAXRECURSION N)`.
+Agregá un depth limit como `WHERE depth < 100`, o trackeá los nodos visitados en un array o string de path y
+verificá repeticiones. En SQL Server, usá `OPTION (MAXRECURSION N)`.
 
 ### ¿Cuál es la diferencia entre CTE recursiva y CONNECT BY?
 
-`CONNECT BY` es la sintaxis propietaria de Oracle (también soportada por Snowflake). Las CTEs recursivas son el estándar SQL. `CONNECT BY` es más conciso pero menos flexible. Usa CTEs recursivas para portabilidad.
+`CONNECT BY` es la sintaxis propietaria de Oracle, también soportada por Snowflake. Las CTEs recursivas son el
+estándar SQL. `CONNECT BY` es más conciso pero menos flexible, así que usá CTEs recursivas cuando te importe la
+portabilidad.
 
 ### ¿Puedo usar CTEs recursivas para graph traversal?
 
-Para árboles simples (sin ciclos), sí. Para grafos con ciclos o cuando necesitas shortest path, usa una graph database (Neo4j) o graph algorithms. Las CTEs recursivas no soportan detección de ciclos nativamente — necesitas construirla manualmente.
+Para árboles simples sin ciclos, sí. Para grafos con ciclos o problemas de shortest path, usá una graph database
+o un algoritmo especializado. Las CTEs recursivas no soportan detección de ciclos de forma nativa, así que tenés
+que construirla a mano.

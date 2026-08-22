@@ -628,13 +628,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.8% / ES 33.1% (0 patterns)
    - Words: 2471 | Meta: 158 chars
 
-78. - [ ] **sql-cte-recursive-hierarchy** (recipes)
+78. - [x] **sql-cte-recursive-hierarchy** (recipes)
    - Metrics: 14 imp | pos 12.6 | CTR 0.00% | Δ impr 13
    - EN: https://stackpractices.com/recipes/sql-cte-recursive-hierarchy/
    - ES: https://stackpractices.com/es/recipes/sql-cte-recursive-hierarchy/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,557 | Meta: 165 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 39.7% / ES 28.9% (0 patterns)
+   - Words: 1610 | Meta: 165 chars
 
 79. - [ ] **model-view-viewmodel-pattern** (patterns)
    - Metrics: 41 imp | pos 30.9 | CTR 0.00% | Δ impr 0
