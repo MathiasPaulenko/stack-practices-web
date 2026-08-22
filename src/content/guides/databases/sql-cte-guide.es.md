@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/sql-find-duplicate-rows
   - /recipes/sql-recursive-cte-query
   - /guides/complete-guide-postgresql-tuning
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
@@ -38,28 +38,26 @@ seo:
     - rendimiento
 ---
 
-## Resumen
+Una Common Table Expression (CTE) le da nombre a un conjunto de resultados temporal que solo existe
+durante la consulta en la que se define. Introducidas en SQL:1999, las CTEs permiten dividir una
+consulta compleja en bloques con nombre, referenciar el mismo resultado intermedio más de una vez y
+expresar recursión para árboles y grafos. PostgreSQL, SQL Server, MySQL 8+, Oracle y SQLite 3.8.3+
+las soportan.
 
-Una Common Table Expression (CTE) es un conjunto de resultados temporal con nombre que
-existe durante la ejecución de una consulta. Introducida en SQL:1999, las CTEs ayudan a
-dividir consultas complejas en bloques legibles, permiten referenciar la misma
-subconsulta varias veces y habilitan la recursión para datos jerárquicos. Son soportadas
-por PostgreSQL, SQL Server, MySQL 8+, Oracle y SQLite 3.8.3+.
+## Cuándo Usarlas
 
-## Cuándo Usar
+- Una consulta tiene varias subconsultas anidadas y perdés la cuenta de los paréntesis.
+- Necesitás el mismo resultado intermedio en más de un lugar.
+- Estás recorriendo una jerarquía como un organigrama, una lista de materiales o comentarios
+    anidados.
+- Querés que la consulta se lea como una secuencia de pasos con nombre.
+- Te gustaría construir y probar una parte de la consulta a la vez.
 
-- Una consulta tiene varios niveles de subconsultas anidadas.
-- Necesitás referenciar la misma subconsulta varias veces.
-- Estás recorriendo datos jerárquicos: organigramas, listas de materiales, comentarios
-  anidados.
-- La lógica de la consulta necesita ser autodocumentada y modular.
-- Querés construir consultas complejas de forma incremental y probar cada parte.
+## Cuándo NO Usarlas
 
-## Cuándo NO Usar
-
-- Una consulta simple es más rápida y clara como un `SELECT` único o subconsulta inline.
+- Un `SELECT` simple o una subconsulta inline ya es rápido y claro.
 - Tu motor de base de datos no soporta CTEs y no podés actualizarlo.
-- Esperás que una CTE mejore el rendimiento siempre; por defecto no lo hace.
+- Asumís que una CTE va a correr más rápido automáticamente. Por lo general no es así.
 
 ## Sintaxis Básica
 
@@ -70,8 +68,8 @@ WITH cte_name AS (
 SELECT * FROM cte_name;
 ```
 
-La cláusula `WITH` define una o más CTEs. El `SELECT` final puede usarlas como tablas
-regulares.
+La cláusula `WITH` declara una o más CTEs. El `SELECT` final las trata como tablas regulares dentro
+de su alcance.
 
 ## Ejemplo de CTE No Recursiva
 
@@ -99,9 +97,12 @@ CROSS JOIN avg_sales a
 ORDER BY ms.month;
 ```
 
+La primera CTE agrupa órdenes por mes. La segunda calcula el promedio. La consulta final une ambas
+sin repetir agregaciones.
+
 ## Múltiples CTEs
 
-Podés definir varias CTEs en una consulta y encadenarlas.
+Podés declarar varias CTEs y encadenarlas.
 
 ```sql
 WITH
@@ -126,6 +127,8 @@ SELECT
 FROM active_users u
 LEFT JOIN user_orders o ON u.user_id = o.user_id;
 ```
+
+`user_orders` depende de `active_users`. Escribir la consulta así hace explícita la dependencia.
 
 ## CTE Recursiva para Jerarquías
 
@@ -152,7 +155,7 @@ FROM org_tree
 ORDER BY depth, name;
 ```
 
-Para encontrar la cadena de mando de un empleado al CEO, invertí el join:
+Para subir desde un empleado hasta el CEO, invertí el join:
 
 ```sql
 WITH RECURSIVE chain_of_command AS (
@@ -171,10 +174,10 @@ FROM chain_of_command
 ORDER BY steps_to_ceo;
 ```
 
-## CTEs Materializadas en PostgreSQL
+## CTEs MATERIALIZED en PostgreSQL
 
-Por defecto, PostgreSQL inlinea las CTEs. Agregá `MATERIALIZED` para forzar que el motor
-las compute una sola vez y almacene el resultado.
+Por defecto, PostgreSQL puede inlinear una CTE. Agregá `MATERIALIZED` para forzar al motor a
+calcularla una vez y guardar el resultado.
 
 ```sql
 WITH regional_sales AS MATERIALIZED (
@@ -186,52 +189,51 @@ WITH regional_sales AS MATERIALIZED (
 SELECT * FROM regional_sales;
 ```
 
-Usalo cuando la CTE es costosa y se referencia varias veces, o cuando el optimizador elige
-un mal plan. En SQL Server y MySQL el comportamiento depende del motor y no se controla
-con esa palabra clave.
+Usalo cuando la CTE sea costosa y se referencie varias veces, o cuando `EXPLAIN` muestre que el
+planificador elige un mal plan. SQL Server y MySQL manejan la materialización de otra forma y
+normalmente no exponen la palabra clave.
 
 ## CTE vs Subconsulta
 
-|Aspecto|CTE|Subconsulta|
-|-------|---|-----------|
-|Legibilidad|Nombrada, reutilizable|Inline, anónima|
-|Reutilización|Se puede referenciar varias veces|Hay que duplicarla si se usa de nuevo|
-|Recursión|Soportada|No soportada|
-|Materialización|Opcional en PostgreSQL|Se evalúa cada vez por defecto|
+| Aspecto | CTE | Subconsulta |
+| --- | --- | --- |
+| Legibilidad | Nombrada, reutilizable | Inline, anónima |
+| Reutilización | Se puede referenciar varias veces | Hay que duplicarla si se usa otra vez |
+| Recursión | Soportada | No soportada |
+| Materialización | Opcional en PostgreSQL | Evaluada cada vez por defecto |
 
 ## Buenas Prácticas
 
-- Nombrá las CTEs por lo que representan, no por números de paso.
-- Mantené cada CTE enfocada en un solo paso lógico.
-- Agregá un guarda `WHERE depth < N` en toda CTE recursiva.
-- Usá `MATERIALIZED` en PostgreSQL solo cuando el plan muestra que la inlineación es
-  ineficiente.
-- Probá cada CTE por separado reemplazando el `SELECT` final por una consulta rápida de
-  esa CTE.
+- Dale a cada CTE un nombre que describa el resultado, no `paso1` o `paso2`.
+- Mantené un solo paso lógico por CTE; no metas dos ideas distintas en una.
+- Siempre agregá un guarda `WHERE depth < N` en una CTE recursiva.
+- Usá `MATERIALIZED` en PostgreSQL solo después de revisar el plan de consulta.
+- Testeá una CTE en aislamiento seleccionando directamente de ella antes de agregar la consulta
+    final.
 
 ## Errores Comunes
 
-- **Recursión infinita** — olvidar el guarda de terminación o tener un ciclo en los datos.
-- **Tratar CTEs como tablas temporales** — viven solo durante la consulta; para
-  persistencia usá `CREATE TEMP TABLE` o una tabla real.
-- **Suposiciones de rendimiento** — algunos motores inlinean, otros materializan; siempre
-  perfilá.
-- **CTE anidadas en exceso** — diez CTEs encadenadas pueden ser más difíciles de leer que
-  las subconsultas originales.
-- **Recursión mutua** — dos CTEs referenciándose entre sí no está soportado en la mayoría
-  de motores.
+- **Recursión infinita** — olvidar el guarda de terminación o tener un ciclo en los datos de la
+    jerarquía.
+- **Tratar CTEs como tablas temporales** — solo viven durante la consulta. Para persistencia usá
+    `CREATE TEMP TABLE` o una tabla real.
+- **Suposiciones de rendimiento** — algunos motores inlinean CTEs, otros materializan. Siempre medí.
+- **Exceso de CTEs anidadas** — diez CTEs encadenadas pueden ser más difíciles de leer que las
+    subconsultas originales.
+- **Recursión mutua** — dos CTEs que se referencian entre sí no está soportado en la mayoría de
+    motores.
 
 ## Preguntas Frecuentes
 
 ### ¿Las CTEs mejoran el rendimiento?
 
-No inherentemente. Mejoran la legibilidad y mantenibilidad. En PostgreSQL, las CTEs
-`MATERIALIZED` pueden ayudar cuando se usa el mismo resultado varias veces. En SQL Server,
-las CTEs suelen inlinearse.
+No por sí solas. Su principal beneficio es la legibilidad y mantenibilidad. En PostgreSQL, las CTEs
+`MATERIALIZED` pueden ayudar cuando se usa el mismo resultado varias veces. En SQL Server, las CTEs
+suelen inlinearse, así que son principalmente una herramienta de legibilidad.
 
-### ¿Se pueden usar CTEs en UPDATE o DELETE?
+### ¿Puedo usar CTEs en UPDATE o DELETE?
 
-Sí. En PostgreSQL y SQL Server:
+Sí. En PostgreSQL y SQL Server podés escribir:
 
 ```sql
 WITH expired AS (
@@ -243,19 +245,18 @@ WHERE order_id IN (SELECT id FROM expired);
 
 ### ¿MySQL soporta CTEs?
 
-Sí, desde MySQL 8.0. Las CTEs no recursivas y recursivas funcionan con `WITH` y
-`WITH RECURSIVE`.
+Sí, desde MySQL 8.0. Las CTEs recursivas y no recursivas funcionan con `WITH` y `WITH RECURSIVE`.
 
 ### ¿Cómo optimizo una CTE recursiva sobre una jerarquía grande?
 
 - Agregá un límite de profundidad.
-- Indexá la columna de join (`manager_id`, `product_id`, etc.).
+- Indexá la columna de join como `manager_id` o `product_id`.
 - Considerá `MATERIALIZED` en PostgreSQL si el conjunto recursivo se reutiliza.
-- Para jerarquías muy profundas, almacená un path materializado en una columna y consultá
-  eso en vez de recorrer.
+- Para jerarquías muy profundas, una columna con path materializado suele ser más rápida que la
+    recursión.
 
-### ¿Cuándo elijo una CTE sobre una subconsulta?
+### ¿Cuándo elijo una CTE en vez de una subconsulta?
 
-Usá una CTE cuando la misma subconsulta se referencia más de una vez, cuando la consulta
-tiene varios niveles anidados o cuando necesitás recursión. Para una subconsulta simple
-que aparece una sola vez, una subconsulta inline está bien.
+Usá una CTE cuando la misma subconsulta se referencia más de una vez, cuando la consulta tiene
+varios niveles anidados, o cuando necesitás recursión. Para una subconsulta simple que aparece una
+sola vez, una subconsulta inline está bien.

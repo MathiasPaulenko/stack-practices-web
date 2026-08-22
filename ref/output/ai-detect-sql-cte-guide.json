@@ -2,160 +2,165 @@
   {
     "label": "sql-cte-guide-en",
     "model": "desklib",
-    "model_ai_pct": 47.8,
-    "ai_count": 18,
-    "human_count": 21,
-    "skipped_count": 3,
-    "total": 42,
+    "model_ai_pct": 45.5,
+    "ai_count": 15,
+    "human_count": 29,
+    "skipped_count": 6,
+    "total": 50,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 13.6,
-      "stddev": 5.7,
-      "cv": 0.42,
-      "verdict": "somewhat uniform",
-      "sentence_count": 39,
+      "mean": 14.2,
+      "stddev": 9.9,
+      "cv": 0.7,
+      "verdict": "natural variation",
+      "sentence_count": 44,
       "lengths": [
-        20,
-        26,
+        24,
+        28,
         12,
-        7,
-        9,
-        14,
-        8,
+        13,
         11,
+        16,
+        12,
         14,
+        13,
         10,
-        12,
+        8,
+        8,
+        10,
+        7,
+        6,
+        10,
         8,
         9,
-        11,
         15,
-        20,
-        15,
-        20,
-        16,
-        33,
-        9,
-        11,
-        15,
-        16,
+        19,
         14,
-        22,
-        11,
+        21,
+        13,
+        72,
+        13,
+        12,
+        10,
+        15,
+        15,
+        12,
+        10,
+        9,
         15,
         13,
-        5,
+        7,
         14,
-        7,
-        9,
+        13,
+        12,
         11,
-        7,
+        9,
         10,
-        15,
+        13,
         24,
         13
       ]
     },
     "top_ai_sentences": [
       [
-        "In PostgreSQL and SQL Server:\n\n\n\n\n\nYes, since MySQL 8.0.",
-        0.9665
+        "Test a CTE in isolation by selecting from it directly before adding the final query.",
+        0.9175
       ],
       [
-        "A simple query is faster and clearer as a single SELECT or inline subquery.",
-        0.9025
+        "In PostgreSQL and SQL Server you can write:\n\n\n\n\n\nYes, since MySQL 8.0.",
+        0.871
       ],
       [
-        "They're supported by PostgreSQL, SQL Server, MySQL 8+, Oracle, and\nSQLite 3.8.3+.",
-        0.8914
+        "Their main benefit is readability and maintainability.",
+        0.7927
       ],
       [
-        "They improve readability and maintainability.",
-        0.8571
+        "PostgreSQL, SQL Server, MySQL 8+, Oracle, and SQLite 3.8.3+ all support them.",
+        0.7693
       ],
       [
-        "A query has several nested subquery levels.",
-        0.833
-      ],
-      [
-        "The final SELECT can use them like regular\n tables.",
-        0.7806
+        "You'd like to build and test one piece of the query at a time.",
+        0.7631
       ],
       [
         "Your database engine doesn't support CTEs and you can't upgrade.",
         0.744
       ],
       [
-        "In SQL Server,\nCTEs are usually inlined.",
-        0.7098
+        "You want the query to read like a sequence of named steps.",
+        0.7148
       ],
       [
         "In PostgreSQL,\nMATERIALIZED CTEs can help when the same result is used several times.",
         0.6826
       ],
       [
-        "Use a CTE when the same subquery is referenced more than once, when the query has\nseveral nested levels, or when you need recursion.",
+        "The same intermediate result is needed in more than one place.",
+        0.6432
+      ],
+      [
+        "Use a CTE when the same subquery is referenced more than once, when the query has several nested\nlevels, or when you need recursion.",
         0.6394
       ],
       [
-        "You need to reference the same subquery several times.",
-        0.6128
+        "The final SELECT treats them like regular tables in\nscope.",
+        0.6318
       ],
       [
-        "A Common Table Expression (CTE) is a named temporary result set that exists for the\nduration of a single query.",
-        0.608
+        "The final query joins\nthe two without repeating any aggregation.",
+        0.6219
       ],
       [
-        "You want to build complex queries incrementally and test each part.",
-        0.5883
-      ],
-      [
-        "For a one-off simple subquery that\nappears once, an inline subquery is fine.",
+        "For a one-off simple subquery that appears once, an inline\nsubquery is fine.",
         0.5703
       ],
       [
-        "|Aspect|CTE|Subquery|\n|------|---|--------|\n|Readability|Named, reusable|Inline, anonymous|\n|Reusability|Can reference more than once|Must duplicate if used again|\n|Recursion|Suppo",
-        0.5487
+        "You assume a CTE will automatically run faster.",
+        0.5564
       ],
       [
-        "You can define several CTEs in one query and chain them.",
-        0.5345
+        "| Aspect | CTE | Subquery |\n| --- | --- | --- |\n| Readability | Named, reusable | Inline, anonymous |\n| Reusability | Can reference more than once | Must duplicate if used again |\n",
+        0.5337
       ],
       [
-        "Keep each CTE focused on a single logical step.",
-        0.5209
+        "The second CTE computes the average.",
+        0.4793
       ],
       [
-        "The WITH clause defines one or more CTEs.",
-        0.5184
+        "In SQL Server, CTEs are\nusually inlined, so they're mostly a readability feature.",
+        0.4697
       ],
       [
-        "Query logic needs to be self-documenting and modular.",
-        0.4926
+        "For persistence, use CREATE TEMP\n    TABLE or a real table.",
+        0.4635
       ],
       [
-        "To find the chain of command from an employee to the CEO, reverse the join:\n\n\n\n\n\nBy default, PostgreSQL inlines CTEs.",
-        0.4237
+        "**Performance assumptions** \u2014 some engines inline CTEs, others materialize.",
+        0.4576
       ],
       [
-        "You expect a CTE to always improve performance; it doesn't by default.",
-        0.4179
+        "Add MATERIALIZED to force the engine to compute it once\nand store the result.",
+        0.4522
       ],
       [
-        "**Mutual recursion** \u2014 two CTEs referencing each other isn't supported in most\n  engines.",
+        "A Common Table Expression (CTE) gives a temporary result set a name, and you can use it only for the\nquery it's defined in.",
+        0.4246
+      ],
+      [
+        "The first CTE aggregates orders by month.",
+        0.4209
+      ],
+      [
+        "**Mutual recursion** \u2014 two CTEs referencing each other isn't supported in most engines.",
         0.4163
       ],
       [
-        "**Over-nesting CTEs** \u2014 ten chained CTEs can become harder to read than the original\n  subqueries.",
-        0.3661
+        "The WITH clause declares one or more CTEs.",
+        0.4075
       ],
       [
-        "Non-recursive and recursive CTEs both work with WITH and\nWITH RECURSIVE.",
-        0.3458
-      ],
-      [
-        "Index the join column (manager_id, product_id, etc.).",
-        0.3226
+        "Use MATERIALIZED in PostgreSQL only after checking the query plan.",
+        0.3934
       ]
     ],
     "diagnostics_sample": []
@@ -163,161 +168,167 @@
   {
     "label": "sql-cte-guide-es",
     "model": "desklib",
-    "model_ai_pct": 39.6,
-    "ai_count": 11,
-    "human_count": 29,
-    "skipped_count": 2,
-    "total": 42,
+    "model_ai_pct": 40.5,
+    "ai_count": 12,
+    "human_count": 34,
+    "skipped_count": 4,
+    "total": 50,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 13.9,
-      "stddev": 6.5,
-      "cv": 0.47,
-      "verdict": "somewhat uniform",
-      "sentence_count": 40,
+      "mean": 14.4,
+      "stddev": 10.5,
+      "cv": 0.73,
+      "verdict": "natural variation",
+      "sentence_count": 46,
       "lengths": [
-        21,
-        27,
-        12,
-        8,
-        7,
-        10,
-        10,
+        25,
+        30,
         11,
-        15,
         13,
-        13,
-        8,
-        8,
-        9,
-        15,
-        20,
-        16,
-        19,
-        18,
-        39,
-        9,
-        11,
+        10,
         14,
-        16,
-        15,
-        21,
-        11,
-        18,
-        16,
-        5,
-        15,
-        7,
-        9,
+        13,
+        13,
         12,
+        13,
+        10,
+        6,
+        8,
+        12,
+        7,
         5,
         8,
+        6,
+        8,
+        15,
+        18,
+        14,
+        22,
+        17,
+        76,
+        14,
+        12,
+        12,
+        15,
+        18,
+        11,
+        10,
         10,
         18,
+        18,
+        8,
+        15,
+        15,
+        11,
+        12,
+        5,
+        9,
+        10,
+        16,
         24,
         14
       ]
     },
     "top_ai_sentences": [
       [
-        "**Recursi\u00f3n infinita** \u2014 olvidar el guarda de terminaci\u00f3n o tener un ciclo en los datos.",
-        0.9876
+        "**Recursi\u00f3n infinita** \u2014 olvidar el guarda de terminaci\u00f3n o tener un ciclo en los datos de la\n    jerarqu\u00eda.",
+        0.9349
       ],
       [
-        "En PostgreSQL y SQL Server:\n\n\n\n\n\nS\u00ed, desde MySQL 8.0.",
-        0.9651
+        "La primera CTE agrupa \u00f3rdenes por mes.",
+        0.9072
+      ],
+      [
+        "En PostgreSQL y SQL Server pod\u00e9s escribir:\n\n\n\n\n\nS\u00ed, desde MySQL 8.0.",
+        0.9064
       ],
       [
         "Agreg\u00e1 un l\u00edmite de profundidad.",
         0.7722
       ],
       [
-        "Est\u00e1s recorriendo datos jer\u00e1rquicos: organigramas, listas de materiales, comentarios\n  anidados.",
-        0.6706
+        "Quer\u00e9s que la consulta se lea como una secuencia de pasos con nombre.",
+        0.6894
       ],
       [
-        "La l\u00f3gica de la consulta necesita ser autodocumentada y modular.",
-        0.669
+        "La cl\u00e1usula WITH declara una o m\u00e1s CTEs.",
+        0.6457
+      ],
+      [
+        "La consulta final une ambas\nsin repetir agregaciones.",
+        0.6271
+      ],
+      [
+        "Teste\u00e1 una CTE en aislamiento seleccionando directamente de ella antes de agregar la consulta\n    final.",
+        0.6209
       ],
       [
         "En PostgreSQL, las CTEs\nMATERIALIZED pueden ayudar cuando se usa el mismo resultado varias veces.",
         0.6137
       ],
       [
-        "Son soportadas\npor PostgreSQL, SQL Server, MySQL 8+, Oracle y SQLite 3.8.3+.",
-        0.6103
+        "Para subir desde un empleado hasta el CEO, invert\u00ed el join:\n\n\n\n\n\nPor defecto, PostgreSQL puede inlinear una CTE.",
+        0.5989
       ],
       [
-        "Una consulta simple es m\u00e1s r\u00e1pida y clara como un SELECT \u00fanico o subconsulta inline.",
-        0.5928
+        "Su principal beneficio es la legibilidad y mantenibilidad.",
+        0.5979
       ],
       [
-        "Mejoran la legibilidad y mantenibilidad.",
-        0.5602
+        "Por lo general no es as\u00ed.",
+        0.5455
       ],
       [
-        "|Aspecto|CTE|Subconsulta|\n|-------|---|-----------|\n|Legibilidad|Nombrada, reutilizable|Inline, an\u00f3nima|\n|Reutilizaci\u00f3n|Se puede referenciar varias veces|Hay que duplicarla si se u",
-        0.5506
+        "La segunda calcula el promedio.",
+        0.4938
       ],
       [
-        "**Suposiciones de rendimiento** \u2014 algunos motores inlinean, otros materializan; siempre\n  perfil\u00e1.",
-        0.5456
+        "Est\u00e1s recorriendo una jerarqu\u00eda como un organigrama, una lista de materiales o comentarios\n    anidados.",
+        0.4744
       ],
       [
-        "Una consulta tiene varios niveles de subconsultas anidadas.",
-        0.4882
+        "PostgreSQL, SQL Server, MySQL 8+, Oracle y SQLite 3.8.3+\nlas soportan.",
+        0.4582
       ],
       [
-        "En SQL Server,\nlas CTEs suelen inlinearse.",
-        0.4734
+        "Asum\u00eds que una CTE va a correr m\u00e1s r\u00e1pido autom\u00e1ticamente.",
+        0.4373
       ],
       [
-        "Index\u00e1 la columna de join (manager_id, product_id, etc.).",
-        0.4668
-      ],
-      [
-        "El SELECT final puede usarlas como tablas\nregulares.",
-        0.466
+        "**Suposiciones de rendimiento** \u2014 algunos motores inlinean CTEs, otros materializan.",
+        0.4289
       ],
       [
         "Una CTE recursiva tiene un miembro ancla y un miembro recursivo unidos con UNION ALL.",
         0.4014
       ],
       [
-        "Una Common Table Expression (CTE) es un conjunto de resultados temporal con nombre que\nexiste durante la ejecuci\u00f3n de una consulta.",
-        0.3929
+        "En SQL Server, las CTEs\nsuelen inlinearse, as\u00ed que son principalmente una herramienta de legibilidad.",
+        0.3888
       ],
       [
-        "Manten\u00e9 cada CTE enfocada en un solo paso l\u00f3gico.",
-        0.3869
+        "Index\u00e1 la columna de join como manager_id o product_id.",
+        0.3871
+      ],
+      [
+        "Necesit\u00e1s el mismo resultado intermedio en m\u00e1s de un lugar.",
+        0.3725
       ],
       [
         "Consider\u00e1 MATERIALIZED en PostgreSQL si el conjunto recursivo se reutiliza.",
         0.3614
       ],
       [
-        "La cl\u00e1usula WITH define una o m\u00e1s CTEs.",
-        0.3349
+        "Te gustar\u00eda construir y probar una parte de la consulta a la vez.",
+        0.3415
       ],
       [
-        "Quer\u00e9s construir consultas complejas de forma incremental y probar cada parte.",
-        0.3088
+        "**Exceso de CTEs anidadas** \u2014 diez CTEs encadenadas pueden ser m\u00e1s dif\u00edciles de leer que las\n    subconsultas originales.",
+        0.3392
       ],
       [
-        "Necesit\u00e1s referenciar la misma subconsulta varias veces.",
-        0.3048
-      ],
-      [
-        "Tu motor de base de datos no soporta CTEs y no pod\u00e9s actualizarlo.",
-        0.2905
-      ],
-      [
-        "Pod\u00e9s definir varias CTEs en una consulta y encadenarlas.",
-        0.2762
-      ],
-      [
-        "Para una subconsulta simple\nque aparece una sola vez, una subconsulta inline est\u00e1 bien.",
-        0.2689
+        "Pod\u00e9s declarar varias CTEs y encadenarlas.",
+        0.3134
       ]
     ],
     "diagnostics_sample": []

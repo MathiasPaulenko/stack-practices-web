@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/sql-find-duplicate-rows
   - /recipes/sql-recursive-cte-query
   - /guides/complete-guide-postgresql-tuning
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
@@ -38,28 +38,24 @@ seo:
     - performance
 ---
 
-## Overview
-
-A Common Table Expression (CTE) is a named temporary result set that exists for the
-duration of a single query. Introduced in SQL:1999, CTEs help break complex queries into
-readable blocks, let you reference the same subquery more than once, and enable recursion
-for hierarchical data. They're supported by PostgreSQL, SQL Server, MySQL 8+, Oracle, and
-SQLite 3.8.3+.
+A Common Table Expression (CTE) gives a temporary result set a name, and you can use it only for the
+query it's defined in. Introduced in SQL:1999, CTEs let you split a complicated query into named
+blocks, reference the same intermediate result more than once, and express recursion for trees and
+graphs. PostgreSQL, SQL Server, MySQL 8+, Oracle, and SQLite 3.8.3+ all support them.
 
 ## When to Use
 
-- A query has several nested subquery levels.
-- You need to reference the same subquery several times.
-- You're traversing hierarchical data, such as org charts, bills of materials, or
-  threaded comments.
-- Query logic needs to be self-documenting and modular.
-- You want to build complex queries incrementally and test each part.
+- A query has several nested subqueries and you keep losing track of parentheses.
+- The same intermediate result is needed in more than one place.
+- You're walking a hierarchy such as an org chart, a bill of materials, or threaded comments.
+- You want the query to read like a sequence of named steps.
+- You'd like to build and test one piece of the query at a time.
 
 ## When NOT to Use
 
-- A simple query is faster and clearer as a single `SELECT` or inline subquery.
+- A plain `SELECT` or a single inline subquery is already fast and clear.
 - Your database engine doesn't support CTEs and you can't upgrade.
-- You expect a CTE to always improve performance; it doesn't by default.
+- You assume a CTE will automatically run faster. It usually doesn't.
 
 ## Basic Syntax
 
@@ -70,8 +66,8 @@ WITH cte_name AS (
 SELECT * FROM cte_name;
 ```
 
-The `WITH` clause defines one or more CTEs. The final `SELECT` can use them like regular
- tables.
+The `WITH` clause declares one or more CTEs. The final `SELECT` treats them like regular tables in
+scope.
 
 ## Non-Recursive CTE Example
 
@@ -99,9 +95,12 @@ CROSS JOIN avg_sales a
 ORDER BY ms.month;
 ```
 
+The first CTE aggregates orders by month. The second CTE computes the average. The final query joins
+the two without repeating any aggregation.
+
 ## Multiple CTEs
 
-You can define several CTEs in one query and chain them.
+You can declare several CTEs and chain them.
 
 ```sql
 WITH
@@ -126,6 +125,8 @@ SELECT
 FROM active_users u
 LEFT JOIN user_orders o ON u.user_id = o.user_id;
 ```
+
+`user_orders` depends on `active_users`. Writing the query this way makes the dependency explicit.
 
 ## Recursive CTE for Hierarchies
 
@@ -152,7 +153,7 @@ FROM org_tree
 ORDER BY depth, name;
 ```
 
-To find the chain of command from an employee to the CEO, reverse the join:
+To climb from an employee up to the CEO, reverse the join:
 
 ```sql
 WITH RECURSIVE chain_of_command AS (
@@ -173,8 +174,8 @@ ORDER BY steps_to_ceo;
 
 ## Materialized CTEs in PostgreSQL
 
-By default, PostgreSQL inlines CTEs. Add `MATERIALIZED` to force the engine to compute the
-CTE once and store the result.
+By default, PostgreSQL may inline a CTE. Add `MATERIALIZED` to force the engine to compute it once
+and store the result.
 
 ```sql
 WITH regional_sales AS MATERIALIZED (
@@ -186,53 +187,47 @@ WITH regional_sales AS MATERIALIZED (
 SELECT * FROM regional_sales;
 ```
 
-Use this when the CTE is expensive and referenced more than once, or when the optimizer
-chooses a bad plan. In SQL Server and MySQL, the behavior is engine-specific and usually
-not controlled with a keyword.
+Use this when the CTE is expensive and referenced several times, or when `EXPLAIN` shows the planner
+picking a bad plan. SQL Server and MySQL handle materialization differently and usually don't
+expose the keyword.
 
 ## CTE vs Subquery
 
-|Aspect|CTE|Subquery|
-|------|---|--------|
-|Readability|Named, reusable|Inline, anonymous|
-|Reusability|Can reference more than once|Must duplicate if used again|
-|Recursion|Supported|Not supported|
-|Materialization|Optional in PostgreSQL|Evaluated each time by default|
+| Aspect | CTE | Subquery |
+| --- | --- | --- |
+| Readability | Named, reusable | Inline, anonymous |
+| Reusability | Can reference more than once | Must duplicate if used again |
+| Recursion | Supported | Not supported |
+| Materialization | Optional in PostgreSQL | Evaluated each time by default |
 
 ## Best Practices
 
-- Name CTEs by what they represent, not by step numbers.
-- Keep each CTE focused on a single logical step.
-- Add a `WHERE depth < N` guard to every recursive CTE.
-- Use `MATERIALIZED` in PostgreSQL only when the query plan shows the CTE being inlined
-  inefficiently.
-- Test each CTE independently by replacing the final `SELECT` with a quick query of that
-  CTE.
+- Give each CTE a name that describes the result, not `step1` or `step2`.
+- Keep one logical step per CTE; don't pack two different ideas into one.
+- Always add a `WHERE depth < N` guard to a recursive CTE.
+- Use `MATERIALIZED` in PostgreSQL only after checking the query plan.
+- Test a CTE in isolation by selecting from it directly before adding the final query.
 
 ## Common Mistakes
 
-- **Infinite recursion** — forgetting the termination guard or a data cycle in the
-  hierarchy.
-- **Treating CTEs as temp tables** — they live only for the query; for persistence use
-  `CREATE TEMP TABLE` or a real table.
-- **Performance assumptions** — some engines inline CTEs, others materialize; always
-  profile.
-- **Over-nesting CTEs** — ten chained CTEs can become harder to read than the original
-  subqueries.
-- **Mutual recursion** — two CTEs referencing each other isn't supported in most
-  engines.
+- **Infinite recursion** — forgetting the termination guard or having a cycle in the hierarchy data.
+- **Treating CTEs as temp tables** — they live only for the query. For persistence, use `CREATE TEMP
+    TABLE` or a real table.
+- **Performance assumptions** — some engines inline CTEs, others materialize. Always measure.
+- **Over-nesting CTEs** — ten chained CTEs can be harder to read than the original subqueries.
+- **Mutual recursion** — two CTEs referencing each other isn't supported in most engines.
 
 ## FAQ
 
 ### Do CTEs improve performance?
 
-Not inherently. They improve readability and maintainability. In PostgreSQL,
-`MATERIALIZED` CTEs can help when the same result is used several times. In SQL Server,
-CTEs are usually inlined.
+Not by themselves. Their main benefit is readability and maintainability. In PostgreSQL,
+`MATERIALIZED` CTEs can help when the same result is used several times. In SQL Server, CTEs are
+usually inlined, so they're mostly a readability feature.
 
 ### Can I use CTEs in UPDATE or DELETE?
 
-Yes. In PostgreSQL and SQL Server:
+Yes. In PostgreSQL and SQL Server you can write:
 
 ```sql
 WITH expired AS (
@@ -244,19 +239,17 @@ WHERE order_id IN (SELECT id FROM expired);
 
 ### Are CTEs available in MySQL?
 
-Yes, since MySQL 8.0. Non-recursive and recursive CTEs both work with `WITH` and
-`WITH RECURSIVE`.
+Yes, since MySQL 8.0. Non-recursive and recursive CTEs both work with `WITH` and `WITH RECURSIVE`.
 
 ### How do I optimize a recursive CTE on a large hierarchy?
 
 - Add a depth limit.
-- Index the join column (`manager_id`, `product_id`, etc.).
+- Index the join column such as `manager_id` or `product_id`.
 - Consider `MATERIALIZED` in PostgreSQL if the recursive set is reused.
-- For very deep hierarchies, store a materialized path in a column and query that
-  instead.
+- For very deep hierarchies, a materialized path column is usually faster than recursion.
 
 ### When should I choose a CTE over a subquery?
 
-Use a CTE when the same subquery is referenced more than once, when the query has
-several nested levels, or when you need recursion. For a one-off simple subquery that
-appears once, an inline subquery is fine.
+Use a CTE when the same subquery is referenced more than once, when the query has several nested
+levels, or when you need recursion. For a one-off simple subquery that appears once, an inline
+subquery is fine.
