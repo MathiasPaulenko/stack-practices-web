@@ -601,8 +601,8 @@ Use this list to track progress as you audit and improve each resource.
    - EN: https://stackpractices.com/recipes/graphql-mocking-apollo-server/
    - ES: https://stackpractices.com/es/recipes/graphql-mocking-apollo-server/
    - Focus: low CTR
-   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.9% / ES 32.9% (0 patterns)
-   - Words: 1286 | Meta: 148 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 43.4% / ES 34.6% (0 patterns)
+   - Words: 1198 | Meta: 148 chars
 
 75. - [x] **unit-testing-mocking** (recipes)
    - Metrics: 34 imp | pos 32.5 | CTR 0.00% | Δ impr 6

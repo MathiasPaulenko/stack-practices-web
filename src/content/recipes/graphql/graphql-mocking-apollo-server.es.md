@@ -23,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-graphql-testing
   - /guides/complete-guide-graphql-federation-production
   - /guides/complete-guide-graphql-federation
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
 seo:
@@ -36,28 +36,25 @@ seo:
     - graphql testing
 ---
 
-## Resumen
-
-Cuando el backend no está listo, los equipos frontend pueden bloquearse por dependencias de API. El
-mocking integrado de Apollo Server genera datos falsos para cada campo del schema, permitiendo a los
-desarrolladores de UI construir y probar contra un endpoint GraphQL funcional en minutos. Podés
-empezar con mocks auto-generados y reemplazarlos progresivamente con resolvers personalizados
+Cuando el backend todavía no está listo, los equipos frontend pueden quedar bloqueados esperando
+contratos de API. El mocking integrado de Apollo Server cubre ese hueco generando datos falsos para
+cada campo del schema. Los desarrolladores de UI obtienen un endpoint GraphQL funcional en minutos,
+pueden construir contra él y reemplazar progresivamente los auto-mocks con resolvers personalizados
 conforme el schema se estabiliza.
 
 ## Cuándo Usarlo
 
-- Los equipos frontend y backend trabajan en paralelo en una feature nueva.
-- Necesitás una API GraphQL corriendo para demos o prototipos.
-- Testeás componentes de UI contra shapes de datos realistas.
-- Querés simular estados de error antes de que el servicio real esté disponible.
+Usá Apollo mocking cuando frontend y backend se construyen en paralelo, cuando necesitás un endpoint
+GraphQL corriendo para una demo o prototipo, o cuando querés testear componentes de UI contra shapes
+de datos realistas. También sirve para simular estados de error antes de que el servicio real esté
+disponible.
 
 ## Cuándo NO Usarlo
 
-- El backend está disponible y necesitás validación de contrato end-to-end — usá
-  [Integration Testing](/es/recipes/integration-testing/).
-- Necesitás mockear HTTP a nivel de browser sin un servidor — usá
-  [MSW](/es/recipes/api-mocking/).
-- El schema cambia rápidamente — los mocks pueden ocultar breaking changes del schema.
+No lo uses cuando el backend ya esté disponible y necesitás validación de contrato end-to-end; ahí
+conviene [Integration Testing](/es/recipes/integration-testing/). Si querés mockear HTTP a nivel de
+browser sin un servidor, [MSW](/es/recipes/api-mocking/) es una mejor opción. Y si el schema cambia
+muy rápido, los mocks pueden ocultar breaking changes.
 
 ## Solución
 
@@ -178,14 +175,18 @@ los campos no implementados.
 
 ## Explicación
 
-1. **Auto-mocking**: inspecciona el schema y genera un valor por defecto para cada escalar — strings,
-   números, booleanos y listas se completan automáticamente.
-2. **Funciones de mock personalizadas**: sobreescriben los valores por defecto por tipo o escalar. Un
-   mock de `User` devuelve un objeto con generadores a nivel de campo.
-3. **`preserveResolvers`**: permite mezclar datos reales y mockeados. Los campos con resolver usan la
-   implementación real; los que no, usan el mock.
-4. **Integración con Faker**: produce datos realistas — nombres, emails, oraciones, fechas — para que
-   la UI se vea y se comporte como con datos reales.
+El auto-mocking de Apollo inspecciona el schema y genera un valor por defecto para cada escalar, así
+que strings, números, booleanos y listas se completan automáticamente. Podés sobreescribir esos
+valores por defecto con funciones de mock personalizadas por tipo o escalar. Un mock de `User`
+devuelve un objeto con generadores a nivel de campo para cada campo que te importa.
+
+La opción `preserveResolvers` permite mezclar datos reales y mockeados. Los campos que tienen
+resolver conservan su implementación real; los que no, caen en el mock. Eso hace posible construir
+un backend de forma incremental sin romper el frontend.
+
+La integración con Faker produce nombres, emails, oraciones y fechas realistas, así que la UI se ve
+y
+se comporta como si estuviera conectada a datos reales.
 
 ## Variantes
 
@@ -325,7 +326,8 @@ const server = new ApolloServer({
 
 ## Buenas Prácticas
 
-- Usá datos realistas de `faker` para que las revisiones de UI sean más efectivas.
+- Usá datos realistas de `faker` para que las revisiones de UI detecten problemas de layout y
+  comportamiento.
 - Empezá con auto-mocks y luego personalizá los campos uno a uno conforme el schema se estabiliza.
 - Usá `preserveResolvers` durante la migración para mantener resolvers reales para las partes ya
   construidas mientras mockeás el resto.
@@ -335,13 +337,14 @@ const server = new ApolloServer({
 
 ## Errores Comunes
 
-- Mockear con strings vacíos — la UI puede ocultar o colapsar valores vacíos, escondiendo bugs de
+- **Mockear con strings vacíos**. La UI puede ocultar o colapsar valores vacíos, escondiendo bugs de
   layout.
-- No mockear longitudes de listas — un mock de lista con un ítem no testea paginación o estados
+- **No mockear longitudes de listas**. Un mock de lista con un ítem no testea paginación o estados
   vacíos.
-- Olvidar deshabilitar mocks en producción — usá variables de entorno para alternar el mocking.
-- No testear estados de error — mockeá respuestas de error para verificar que la UI los maneja.
-- Dejar que los mocks se separen de los resolvers reales — mantené los shapes de mock alineados con
+- **Olvidar deshabilitar mocks en producción**. Usá variables de entorno para alternar el mocking.
+- **No testear estados de error**. Mockeá respuestas de error para verificar que la UI los maneja.
+- **Dejar que los mocks se separen de los resolvers reales**. Mantené los shapes de mock alineados
+    con
   el schema productivo.
 
 ## Preguntas Frecuentes
@@ -357,7 +360,8 @@ Mockeá el context para devolver un usuario falso, o evitá los controles de aut
 
 ### ¿Uso Apollo mocking o MSW?
 
-Usá Apollo mocking cuando querés un servidor corriendo. Usá MSW cuando querés interceptación del lado
+Usá Apollo mocking cuando querés un servidor corriendo. Usá MSW cuando querés interceptación del
+lado
  del cliente sin un servidor.
 
 ### ¿Puedo mockear subscriptions?
@@ -373,6 +377,6 @@ Proveé funciones de mock para cada escalar y enum en el objeto `mocks`. Por eje
 
 ### ¿Cómo comparto mocks entre tests y el dev server?
 
-Exportá el objeto `mocks` desde un módulo compartido. Importalo tanto en la configuración de tests
-como en la del dev server. Eso asegura datos falsos consistentes entre tests y desarrollo. Usá
+Exportá el objeto `mocks` desde un módulo compartido e importalo tanto en la configuración de tests
+como en la del dev server. Eso mantiene los datos falsos consistentes entre ambientes. Usá
 `faker.seed()` en tests para output determinístico.

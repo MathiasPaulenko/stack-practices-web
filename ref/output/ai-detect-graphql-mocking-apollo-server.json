@@ -2,50 +2,51 @@
   {
     "label": "graphql-mocking-apollo-server-en",
     "model": "desklib",
-    "model_ai_pct": 44.9,
-    "ai_count": 14,
-    "human_count": 31,
-    "skipped_count": 1,
-    "total": 46,
+    "model_ai_pct": 43.4,
+    "ai_count": 16,
+    "human_count": 29,
+    "skipped_count": 4,
+    "total": 49,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 14.5,
-      "stddev": 6.4,
-      "cv": 0.44,
+      "mean": 15.2,
+      "stddev": 7.5,
+      "cv": 0.5,
       "verdict": "somewhat uniform",
       "sentence_count": 45,
       "lengths": [
-        12,
-        26,
+        15,
         17,
-        11,
-        10,
-        7,
-        12,
-        14,
-        16,
+        24,
+        37,
         13,
+        21,
+        18,
+        14,
         25,
         19,
-        21,
-        11,
-        9,
-        8,
+        22,
         14,
+        15,
+        10,
+        17,
+        13,
         23,
         35,
         26,
         30,
-        21,
+        23,
         13,
         17,
         9,
         18,
-        16,
-        17,
-        13,
-        14,
-        15,
+        11,
+        12,
+        6,
+        6,
+        9,
+        6,
+        8,
         10,
         7,
         16,
@@ -56,76 +57,83 @@
         13,
         14,
         9,
-        8,
-        12,
-        10,
+        21,
+        7,
         7
       ]
     },
     "top_ai_sentences": [
       [
-        "Frontend and backend teams work in parallel on a new feature.",
-        0.8546
+        "A User mock returns an object with field-level generators\nfor each field you care about.",
+        0.8272
       ],
       [
-        "Import it in both your test setup and your dev\nserver configuration.",
-        0.8516
+        "It's also useful for simulating error states before the real service is\navailable.",
+        0.7775
       ],
       [
-        "**Auto-mocking** inspects the schema and generates a default value for each scalar \u2014 strings,\n   numbers, booleans, and lists are populated automatically.",
-        0.8121
+        "When the backend isn't ready, frontend teams can end up blocked waiting for API contracts.",
+        0.7731
       ],
       [
-        "**preserveResolvers** lets you mix real and mocked data.",
-        0.783
-      ],
-      [
-        "You need to mock HTTP at the browser level without a server \u2014 use\n  [MSW](/recipes/api-mocking/) instead.",
-        0.7175
-      ],
-      [
-        "Apollo Server's\nbuilt-in mocking generates fake data for every field in the schema, letting UI developers build and\ntest against a working GraphQL endpoint within minutes.",
-        0.7102
-      ],
-      [
-        "Simulate error responses to test error handling in the UI:\nUse realistic data from faker so UI reviews are more effective.",
-        0.6641
-      ],
-      [
-        "Testing UI components against realistic data shapes.",
-        0.6396
+        "If you want to mock HTTP at the\nbrowser level without a server, [MSW](/recipes/api-mocking/) is a better fit.",
+        0.695
       ],
       [
         "For example,\nDate: () => new Date().toISOString() and Role: () => faker.helpers.arrayElement(['ADMIN',\n'EDITOR', 'VIEWER']).",
         0.6368
       ],
       [
-        "**Faker integration** produces realistic data \u2014 names, emails, sentences, dates \u2014 so the UI looks\n   and behaves like it would with real data.",
-        0.6022
+        "The preserveResolvers option lets you mix real and mocked data.",
+        0.6337
       ],
       [
-        "This keeps fake data consistent across test and development environments.",
-        0.5959
+        "Apollo\nServer's built-in mocking fills that gap by generating fake data for every field in the schema.",
+        0.6288
+      ],
+      [
+        "That makes it possible to build\na backend incrementally without breaking the frontend.",
+        0.5999
       ],
       [
         "Use a custom PubSub with fake events for\nsubscription testing.",
         0.5916
       ],
       [
-        "When the backend isn't ready, frontend teams can block on API dependencies.",
-        0.5169
+        "You can override those defaults with\ncustom\nmock functions per type or per scalar.",
+        0.5824
       ],
       [
-        "Use faker.seed() in tests for deterministic output.",
+        "**Letting mocks drift from real resolvers**.",
+        0.5789
+      ],
+      [
+        "The UI may hide or collapse empty values, hiding layout bugs.",
+        0.5575
+      ],
+      [
+        "Apollo's auto-mocking inspects the schema and generates a default value for each scalar, so strings,\nnumbers, booleans, and lists are populated automatically.",
+        0.5438
+      ],
+      [
+        "That keeps fake data consistent across environments.",
+        0.5218
+      ],
+      [
+        "Simulate error responses to test error handling in the UI:\nUse realistic data from faker so UI reviews catch layout and behavior issues.",
+        0.5161
+      ],
+      [
+        "Use faker.seed() in\ntests for deterministic output.",
         0.5136
+      ],
+      [
+        "Export the mocks object from a shared module and import it in both your test setup and your dev\nserver configuration.",
+        0.4935
       ],
       [
         "Apollo's built-in mocking doesn't support subscriptions.",
         0.4655
-      ],
-      [
-        "Fields with a resolver use the real\n   implementation; fields without one use the mock.",
-        0.4643
       ],
       [
         "Mock the context to return a fake user, or bypass auth checks entirely in mock mode.",
@@ -136,32 +144,24 @@
         0.4609
       ],
       [
-        "Export the mocks object from a shared module.",
-        0.4439
+        "Faker integration produces realistic names, emails, sentences, and dates, so the UI looks and\nbehaves\nas if it were connected to real data.",
+        0.4561
+      ],
+      [
+        "**Forgetting to disable mocks in production**.",
+        0.4558
+      ],
+      [
+        "Fields that have a resolver keep\ntheir real implementation; fields without one fall back to the mock.",
+        0.4538
+      ],
+      [
+        "Use environment variables to toggle mocking.",
+        0.4523
       ],
       [
         "Mock list lengths that match real-world cases \u2014 one item isn't enough to test pagination or empty\n  states.",
         0.4423
-      ],
-      [
-        "With preserveResolvers: true, Apollo uses your real resolvers where they exist and falls back to\nmocks for unimplemented fields.",
-        0.4405
-      ],
-      [
-        "You want to simulate error states before the real service is available.",
-        0.4263
-      ],
-      [
-        "Use MSW when you want client-side interception\nwithout a server.",
-        0.4204
-      ],
-      [
-        "You need a running GraphQL API for demos or prototyping.",
-        0.4082
-      ],
-      [
-        "You can start with auto-generated mocks and\nprogressively replace them with custom resolvers as the schema stabilizes.",
-        0.4064
       ]
     ],
     "diagnostics_sample": []
@@ -169,50 +169,53 @@
   {
     "label": "graphql-mocking-apollo-server-es",
     "model": "desklib",
-    "model_ai_pct": 32.9,
+    "model_ai_pct": 34.6,
     "ai_count": 11,
-    "human_count": 34,
-    "skipped_count": 1,
-    "total": 46,
+    "human_count": 36,
+    "skipped_count": 2,
+    "total": 49,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 15.8,
-      "stddev": 7.3,
-      "cv": 0.46,
-      "verdict": "somewhat uniform",
-      "sentence_count": 45,
+      "mean": 16.0,
+      "stddev": 8.2,
+      "cv": 0.51,
+      "verdict": "natural variation",
+      "sentence_count": 47,
       "lengths": [
+        17,
+        17,
+        28,
+        34,
         15,
-        30,
+        19,
         16,
-        12,
-        9,
-        9,
-        13,
-        14,
-        13,
         13,
         27,
         19,
-        22,
+        26,
+        15,
+        19,
+        9,
+        16,
         13,
-        13,
-        7,
-        14,
-        25,
+        27,
         35,
         32,
         34,
-        27,
+        30,
         16,
         18,
         10,
         20,
-        17,
-        19,
-        14,
-        17,
-        21,
+        12,
+        5,
+        13,
+        5,
+        8,
+        5,
+        11,
+        10,
+        10,
         11,
         7,
         17,
@@ -223,80 +226,87 @@
         13,
         14,
         10,
+        22,
         8,
-        13,
-        9,
         7
       ]
     },
     "top_ai_sentences": [
       [
-        "**Funciones de mock personalizadas**: sobreescriben los valores por defecto por tipo o escalar.",
-        0.8684
+        "Un mock de User\ndevuelve un objeto con generadores a nivel de campo para cada campo que te importa.",
+        0.912
       ],
       [
-        "Simul\u00e1 respuestas de error para testear el manejo de errores en la UI:\nUs\u00e1 datos realistas de faker para que las revisiones de UI sean m\u00e1s efectivas.",
-        0.847
-      ],
-      [
-        "Los equipos frontend y backend trabajan en paralelo en una feature nueva.",
-        0.7992
+        "**No mockear longitudes de listas**.",
+        0.8278
       ],
       [
         "Prove\u00e9 funciones de mock para cada escalar y enum en el objeto mocks.",
         0.7864
       ],
       [
+        "**Olvidar deshabilitar mocks en producci\u00f3n**.",
+        0.7706
+      ],
+      [
         "Apollo\nmockea solo los campos sin resolvers.",
         0.7532
       ],
       [
-        "Quer\u00e9s simular estados de error antes de que el servicio real est\u00e9 disponible.",
-        0.6506
+        "Simul\u00e1 respuestas de error para testear el manejo de errores en la UI:\nUs\u00e1 datos realistas de faker para que las revisiones de UI detecten problemas de layout y\n  comportamiento.",
+        0.6885
+      ],
+      [
+        "**No testear estados de error**.",
+        0.6597
       ],
       [
         "Us\u00e1 Apollo mocking cuando quer\u00e9s un servidor corriendo.",
         0.6133
       ],
       [
-        "Un\n   mock de User devuelve un objeto con generadores a nivel de campo.",
-        0.5515
+        "**Dejar que los mocks se separen de los resolvers reales**.",
+        0.6074
       ],
       [
-        "**Auto-mocking**: inspecciona el schema y genera un valor por defecto para cada escalar \u2014 strings,\n   n\u00fameros, booleanos y listas se completan autom\u00e1ticamente.",
-        0.5399
+        "Tambi\u00e9n sirve para simular estados de error antes de que el servicio real est\u00e9\ndisponible.",
+        0.5692
       ],
       [
-        "Us\u00e1 MSW cuando quer\u00e9s interceptaci\u00f3n del lado\n del cliente sin un servidor.",
+        "Us\u00e1 MSW cuando quer\u00e9s interceptaci\u00f3n del\nlado\n del cliente sin un servidor.",
         0.5296
       ],
       [
-        "Export\u00e1 el objeto mocks desde un m\u00f3dulo compartido.",
-        0.5093
+        "La UI puede ocultar o colapsar valores vac\u00edos, escondiendo bugs de\n  layout.",
+        0.4977
       ],
       [
-        "**preserveResolvers**: permite mezclar datos reales y mockeados.",
-        0.4344
+        "Un mock de lista con un \u00edtem no testea paginaci\u00f3n o estados\n  vac\u00edos.",
+        0.4747
       ],
       [
-        "Eso asegura datos falsos consistentes entre tests y desarrollo.",
-        0.4023
+        "Eso mantiene los datos falsos consistentes entre ambientes.",
+        0.456
+      ],
+      [
+        "Eso hace posible construir\nun backend de forma incremental sin romper el frontend.",
+        0.4395
+      ],
+      [
+        "La opci\u00f3n preserveResolvers permite mezclar datos reales y mockeados.",
+        0.4205
+      ],
+      [
+        "Si quer\u00e9s mockear HTTP a nivel de\nbrowser sin un servidor, [MSW](/es/recipes/api-mocking/) es una mejor opci\u00f3n.",
+        0.4176
       ],
       [
         "Us\u00e1\nfaker.seed() en tests para output determin\u00edstico.",
         0.3727
       ],
       [
-        "Teste\u00e1s componentes de UI contra shapes de datos realistas.",
-        0.3434
-      ],
-      [
-        "Cuando el backend no est\u00e1 listo, los equipos frontend pueden bloquearse por dependencias de API.",
-        0.3363
-      ],
-      [
-        "**Integraci\u00f3n con Faker**: produce datos realistas \u2014 nombres, emails, oraciones, fechas \u2014 para que\n   la UI se vea y se comporte como con datos reales.",
-        0.3238
+        "Mocke\u00e1 respuestas de error para verificar que la UI los maneja.",
+        0.3312
       ],
       [
         "Sin esto, Apollo devuelve null en campos de scalares personalizados.",
@@ -311,24 +321,16 @@
         0.2977
       ],
       [
-        "No mockear longitudes de listas \u2014 un mock de lista con un \u00edtem no testea paginaci\u00f3n o estados\n  vac\u00edos.",
-        0.273
+        "Us\u00e1 variables de entorno para alternar el mocking.",
+        0.2891
       ],
       [
-        "Importalo tanto en la configuraci\u00f3n de tests\ncomo en la del dev server.",
-        0.2705
+        "Pod\u00e9s sobreescribir esos\nvalores por defecto con funciones de mock personalizadas por tipo o escalar.",
+        0.2796
       ],
       [
-        "Necesit\u00e1s una API GraphQL corriendo para demos o prototipos.",
-        0.2662
-      ],
-      [
-        "Por ejemplo,\nDate: () => new Date().toISOString() y Role: () => faker.helpers.arrayElement(['ADMIN',\n'EDITOR', 'VIEWER']).",
-        0.2581
-      ],
-      [
-        "El schema cambia r\u00e1pidamente \u2014 los mocks pueden ocultar breaking changes del schema.",
-        0.2327
+        "El auto-mocking de Apollo inspecciona el schema y genera un valor por defecto para cada escalar, as\u00ed\nque strings, n\u00fameros, booleanos y listas se completan autom\u00e1ticamente.",
+        0.2666
       ]
     ],
     "diagnostics_sample": []

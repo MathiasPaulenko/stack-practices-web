@@ -23,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-graphql-testing
   - /guides/complete-guide-graphql-federation-production
   - /guides/complete-guide-graphql-federation
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
 seo:
@@ -36,27 +36,24 @@ seo:
     - graphql testing
 ---
 
-## Overview
-
-When the backend isn't ready, frontend teams can block on API dependencies. Apollo Server's
-built-in mocking generates fake data for every field in the schema, letting UI developers build and
-test against a working GraphQL endpoint within minutes. You can start with auto-generated mocks and
-progressively replace them with custom resolvers as the schema stabilizes.
+When the backend isn't ready, frontend teams can end up blocked waiting for API contracts. Apollo
+Server's built-in mocking fills that gap by generating fake data for every field in the schema. UI
+developers get a working GraphQL endpoint in minutes, can build against it, and gradually replace
+auto-mocks with custom resolvers as the schema stabilizes.
 
 ## When to Use
 
-- Frontend and backend teams work in parallel on a new feature.
-- You need a running GraphQL API for demos or prototyping.
-- Testing UI components against realistic data shapes.
-- You want to simulate error states before the real service is available.
+Reach for Apollo mocking when frontend and backend are being built in parallel, when you need a
+running GraphQL endpoint for a demo or prototype, or when you want to test UI components against
+realistic data shapes. It's also useful for simulating error states before the real service is
+available.
 
 ## When NOT to Use
 
-- The backend is available and you need end-to-end contract validation — use
-  [Integration Testing](/recipes/integration-testing/).
-- You need to mock HTTP at the browser level without a server — use
-  [MSW](/recipes/api-mocking/) instead.
-- The schema is still changing rapidly — mocks can hide breaking schema changes.
+Don't use it when the backend is already available and you need real end-to-end contract validation;
+that calls for [Integration Testing](/recipes/integration-testing/). If you want to mock HTTP at the
+browser level without a server, [MSW](/recipes/api-mocking/) is a better fit. And if the schema is
+still changing rapidly, mocks can hide breaking schema changes.
 
 ## Solution
 
@@ -177,14 +174,19 @@ mocks for unimplemented fields.
 
 ## Explanation
 
-1. **Auto-mocking** inspects the schema and generates a default value for each scalar — strings,
-   numbers, booleans, and lists are populated automatically.
-2. **Custom mock functions** override the defaults per type or per scalar. A `User` mock returns an
-   object with field-level generators.
-3. **`preserveResolvers`** lets you mix real and mocked data. Fields with a resolver use the real
-   implementation; fields without one use the mock.
-4. **Faker integration** produces realistic data — names, emails, sentences, dates — so the UI looks
-   and behaves like it would with real data.
+Apollo's auto-mocking inspects the schema and generates a default value for each scalar, so strings,
+numbers, booleans, and lists are populated automatically. You can override those defaults with
+custom
+mock functions per type or per scalar. A `User` mock returns an object with field-level generators
+for each field you care about.
+
+The `preserveResolvers` option lets you mix real and mocked data. Fields that have a resolver keep
+their real implementation; fields without one fall back to the mock. That makes it possible to build
+a backend incrementally without breaking the frontend.
+
+Faker integration produces realistic names, emails, sentences, and dates, so the UI looks and
+behaves
+as if it were connected to real data.
 
 ## Variants
 
@@ -323,7 +325,7 @@ const server = new ApolloServer({
 
 ## Best Practices
 
-- Use realistic data from `faker` so UI reviews are more effective.
+- Use realistic data from `faker` so UI reviews catch layout and behavior issues.
 - Start with auto-mocks, then customize fields one by one as the schema stabilizes.
 - Use `preserveResolvers` during migration to keep real resolvers for the parts already built while
   mocking the rest.
@@ -333,11 +335,12 @@ const server = new ApolloServer({
 
 ## Common Mistakes
 
-- Mocking with empty strings — the UI may hide or collapse empty values, hiding layout bugs.
-- Not mocking list lengths — a list mock returning one item doesn't test pagination or empty states.
-- Forgetting to disable mocks in production — use environment variables to toggle mocking.
-- Not testing error states — mock error responses to verify the UI handles them.
-- Letting mocks drift from real resolvers — keep mock shapes aligned with the production schema.
+- **Mocking with empty strings**. The UI may hide or collapse empty values, hiding layout bugs.
+- **Not mocking list lengths**. A list mock returning one item doesn't test pagination or empty
+    states.
+- **Forgetting to disable mocks in production**. Use environment variables to toggle mocking.
+- **Not testing error states**. Mock error responses to verify the UI handles them.
+- **Letting mocks drift from real resolvers**. Keep mock shapes aligned with the production schema.
 
 ## FAQ
 
@@ -368,6 +371,6 @@ Provide mock functions for each custom scalar and enum in the `mocks` object. Fo
 
 ### How do I share mocks between tests and the dev server?
 
-Export the `mocks` object from a shared module. Import it in both your test setup and your dev
-server configuration. This keeps fake data consistent across test and development environments.
-Use `faker.seed()` in tests for deterministic output.
+Export the `mocks` object from a shared module and import it in both your test setup and your dev
+server configuration. That keeps fake data consistent across environments. Use `faker.seed()` in
+tests for deterministic output.
