@@ -612,13 +612,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 41.8% / ES 38.0% (0 patterns)
    - Words: 1176 | Meta: 158 chars
 
-76. - [ ] **graceful-shutdown** (recipes)
+76. - [x] **graceful-shutdown** (recipes)
    - Metrics: 27 imp | pos 9.6 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/graceful-shutdown/
    - ES: https://stackpractices.com/es/recipes/graceful-shutdown/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,534 | Meta: 140 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 41.2% / ES 32.2% (0 patterns)
+   - Words: 1638 | Meta: 150 chars
 
 77. - [ ] **encryption-at-rest** (recipes)
    - Metrics: 29 imp | pos 45.1 | CTR 0.00% | Δ impr -9

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: graceful-shutdown
 title: "Implement Graceful Shutdown and Zero-Downtime Restarts"
@@ -22,8 +20,7 @@ relatedResources:
   - /guides/docker-for-developers-guide
   - /guides/kubernetes-basics-guide
   - /recipes/blue-green-deployment
-  - /recipes/traffic-mirroring
-lastUpdated: "2026-06-13"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
@@ -35,20 +32,25 @@ seo:
     - containers
     - web-server
     - deployment
-
-
 ---
-## Overview
 
-A graceful shutdown ensures your application finishes in-flight requests, flushes buffers, closes database connections, and releases locks before exiting. Without it, deployments and scaling events cause dropped requests, data corruption, and cascading failures. This implementation provides SIGTERM handling, connection draining, and zero-downtime deployment patterns for web servers, workers, and containers.
+A graceful shutdown lets your application finish in-flight requests, flush buffers, close database
+connections, and release any locks before it exits. Without it, deployments and scaling events can drop
+requests, corrupt data, or set off cascading failures. This article walks through SIGTERM handling,
+connection draining, and zero-downtime deployment patterns for web servers, workers, and containers.
 
 ## When to Use
 
-Use this resource when:
-- You deploy frequently in Kubernetes, Docker, or auto-scaling groups. See [Docker Basics](/recipes/docker-basics/) for container fundamentals.
-- You run long-polling, WebSocket, or background job workers. See [WebSockets Real-Time](/recipes/websockets-realtime/) for connection lifecycle management.
-- You need to flush metrics, logs, or database writes before termination. See [Structured Logging](/recipes/structured-logging/) for log flushing patterns.
-- You want zero-downtime deployments with rolling updates or blue/green releases. See [Blue-Green Deployment](/recipes/blue-green-deployment/) for traffic switching.
+Reach for this recipe if you deploy often in Kubernetes, Docker, or auto-scaling groups. Long-polling,
+WebSocket, and background workers also benefit, as does any process that needs to flush metrics, logs,
+or database writes before terminating. Zero-downtime deployments with rolling updates or blue/green
+releases are another common fit.
+
+## When NOT to Use
+
+Skip the graceful shutdown layer for short-lived scripts or one-off commands that don't hold state.
+When a process exits quickly and has no open connections to drain, the extra complexity usually isn't
+worth it.
 
 ## Solution
 
@@ -152,7 +154,6 @@ server.listen(8080);
 ```java
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 
 // Spring Boot handles graceful shutdown natively since 2.3
@@ -178,7 +179,6 @@ public class App {
 
 // For non-Spring Java (plain Jetty/Netty):
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.Handler;
 
 Server server = new Server(8080);
 server.setHandler(handler);
@@ -196,56 +196,47 @@ Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 
 ## Explanation
 
-Graceful shutdown is a three-phase process:
+A clean shutdown breaks down into three steps.
 
-1. **Signal reception**: The OS or container runtime sends `SIGTERM` (or `SIGINT` locally). Your application must trap this instead of exiting immediately.
-1. **Draining**: Set a health-check flag to `shutting-down` (returning HTTP 503) so the load balancer stops sending new traffic. Finish in-flight requests within a timeout window.
-1. **Cleanup**: Close database pools, flush logs/metrics, release locks, and exit.
+First, the OS or container runtime sends `SIGTERM` (or `SIGINT` locally). Your application needs to
+catch that signal instead of just quitting.
 
-**Zero-downtime deployments** rely on the orchestrator (Kubernetes, AWS ECS) running the old and new pods concurrently. The old pod receives `SIGTERM`, drains, and exits only after the new pod passes readiness checks.
+Second, start draining. Mark the health endpoint as `shutting-down` so the load balancer stops
+sending new traffic, then finish in-flight requests within your timeout window.
+
+Third, clean up. Start by closing database pools and flushing logs and metrics, then release any
+locks you still hold, and finally exit cleanly.
+
+Zero-downtime deployments rely on the orchestrator running the old and new pods at the same time.
+The
+old pod gets `SIGTERM`, drains, and exits only after the new pod passes its readiness checks.
 
 ## Variants
 
-| Technology | Approach | Notes |
-|------------|----------|-------|
-| Kubernetes | `terminationGracePeriodSeconds` + preStop hook | Default 30s; adjust based on max request time |
-| Docker | `docker stop` sends SIGTERM, then SIGKILL after 10s | Use `--stop-timeout` to extend |
-| systemd | `TimeoutStopSec` in service unit | Align with app drain timeout |
-| Node.js | `server.close()` + connection tracking | Destroy lingering sockets after grace period |
-| Spring Boot | `server.shutdown=graceful` + readiness probe | Built-in since 2.3; Kubernetes-native |
-| Gunicorn | `graceful-timeout` config | Pre-fork workers exit after finishing requests |
+### Kubernetes preStop hook
 
-## What Works
+```yaml
+# deployment.yaml
+spec:
+  template:
+    spec:
+      containers:
+        - name: app
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - /bin/sh
+                  - -c
+                  - |
+                    # Mark as not ready
+                    curl -X POST http://localhost:8080/admin/shutdown
+                    # Wait for endpoint controller to remove pod from Service
+                    sleep 10
+      terminationGracePeriodSeconds: 45  # Must be > preStop + drain time
+```
 
-1. Always implement a `/health` endpoint that returns 503 during shutdown so load balancers route away
-2. Set `terminationGracePeriodSeconds` (K8s) or `stop-timeout` (Docker) to match your drain timeout
-3. Use structured logging to emit a `shutdown_initiated` event for observability and alerting
-4. Handle `SIGTERM`, `SIGINT`, and platform-specific signals (Windows `CTRL_CLOSE_EVENT`)
-5. Test graceful shutdown in CI: send SIGTERM during a load test and verify zero failed requests
-
-## Common Mistakes
-
-1. **Exiting immediately on SIGTERM** — kills in-flight requests; always drain first
-1. **No health-check readiness change** — the load balancer keeps routing to a dying pod
-1. **Blocking the shutdown hook** — shutdown hooks run in parallel; use a latch or single-threaded executor to sequence cleanup
-1. **Database connection pool not closed** — leaked connections cause the next startup to fail with "too many connections"
-1. **Ignoring the preStop hook** — Kubernetes may send SIGTERM before the pod is removed from the service endpoints; a `sleep 5` preStop hook prevents this race
-
-## FAQ
-
-### What is the difference between SIGTERM and SIGKILL?
-
-`SIGTERM` asks politely. Your application can catch it, drain connections, and exit cleanly. `SIGKILL` cannot be caught; the OS forcefully terminates the process. Kubernetes sends SIGKILL after `terminationGracePeriodSeconds` expires.
-
-### How long should my grace period be?
-
-At least as long as your slowest endpoint or job timeout. For HTTP APIs, 10–30 seconds is typical. For batch workers, minutes may be necessary. Always add a small buffer.
-
-### Can I achieve zero-downtime without Kubernetes?
-
-Yes. Use a reverse proxy (Nginx, HAProxy) or service mesh (Envoy) with health checks. Deploy new instances, warm them, then drain and remove old instances. Blue/green and rolling deployments are possible with any load balancer.
-
-### Go HTTP Server with Context Cancellation
+### Go HTTP server with context cancellation
 
 ```go
 package main
@@ -275,13 +266,11 @@ func main() {
         }
     }()
 
-    // Wait for interrupt signal
     quit := make(chan os.Signal, 1)
     signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
     <-quit
     log.Println("Shutdown signal received, draining...")
 
-    // Give outstanding requests 30 seconds to complete
     ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
     defer cancel()
 
@@ -289,49 +278,22 @@ func main() {
         log.Printf("Server forced to shutdown: %v", err)
     }
 
-    // Close database connections, flush buffers
     cleanupResources()
-
     log.Println("Server exited gracefully")
 }
 
 func cleanupResources() {
-    // Close DB pools, flush log buffers, release locks
     log.Println("Cleaning up resources...")
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-    // Simulate work
     time.Sleep(100 * time.Millisecond)
     w.WriteHeader(http.StatusOK)
     w.Write([]byte("OK"))
 }
 ```
 
-### Kubernetes PreStop Hook Detail
-
-```yaml
-# deployment.yaml
-spec:
-  template:
-    spec:
-      containers:
-        - name: app
-          lifecycle:
-            preStop:
-              exec:
-                command:
-                  - /bin/sh
-                  - -c
-                  - |
-                    # Mark as not ready
-                    curl -X POST http://localhost:8080/admin/shutdown
-                    # Wait for endpoint controller to remove pod from Service
-                    sleep 10
-      terminationGracePeriodSeconds: 45  # Must be > preStop + drain time
-```
-
-### Nginx Upstream Drain Configuration
+### Nginx upstream drain
 
 ```nginx
 # nginx.conf
@@ -343,7 +305,6 @@ upstream backend {
     server 10.0.1.12:8080 slow_start=30s;
 }
 
-# Health check to detect draining instances
 location /health {
     proxy_pass http://backend;
     proxy_next_upstream error timeout http_502 http_503;
@@ -352,7 +313,7 @@ location /health {
 }
 ```
 
-### Python (uvicorn) Graceful Shutdown
+### Python (uvicorn) lifespan
 
 ```python
 import signal
@@ -363,12 +324,10 @@ shutdown_event = asyncio.Event()
 
 @asynccontextmanager
 async def lifespan(app):
-    # Startup
     print("Starting up...")
     yield
-    # Shutdown
     print("Draining connections...")
-    await asyncio.sleep(5)  # Let in-flight requests finish
+    await asyncio.sleep(5)
     print("Closing resources...")
     await close_db_pool()
     print("Shutdown complete")
@@ -381,9 +340,78 @@ signal.signal(signal.SIGTERM, handle_sigterm)
 signal.signal(signal.SIGINT, handle_sigterm)
 ```
 
+### Technology summary
 
+Each platform handles the same problem a little differently. Kubernetes uses
+`terminationGracePeriodSeconds` plus a preStop hook (default 30s, so tune it to your slowest request).
+Docker sends `SIGTERM` first, then `SIGKILL` after the stop timeout; use `--stop-timeout` to extend
+that window. In systemd, `TimeoutStopSec` should line up with the application's drain timeout. For
+Node.js, the trick is `server.close()` plus connection tracking to destroy lingering sockets. Spring
+Boot has
+built-in graceful shutdown since 2.3 and works well with Kubernetes readiness probes. Gunicorn exposes
+a `graceful-timeout` config that lets pre-fork workers finish requests before they exit.
 
-## CI Testing FAQ
+## Best Practices
+
+- Always expose a `/health` endpoint that returns 503 during shutdown so the load balancer routes
+  away.
+- Make `terminationGracePeriodSeconds` (Kubernetes) or `stop-timeout` (Docker) line up with your
+  drain timeout.
+- Emit a structured `shutdown_initiated` log event for observability and alerting.
+- Handle `SIGTERM`, `SIGINT`, and platform-specific signals like Windows `CTRL_CLOSE_EVENT`.
+- Test graceful shutdown in CI: send `SIGTERM` during a load test and confirm zero failed requests.
+- Parallelize cleanup tasks. Close database, cache, and message-queue connections together instead
+  of one by one.
+
+## Common Mistakes
+
+- Exiting immediately on SIGTERM kills in-flight requests, so always drain first.
+- Not changing the readiness check means the load balancer keeps routing traffic to a pod that's
+  already shutting down.
+- Blocking the shutdown hook is a problem because hooks run in parallel; use a latch or
+  single-threaded executor to sequence cleanup.
+- Forgetting to close the database pool leaves leaked connections that can make the next startup fail
+  with "too many connections".
+- Ignoring the preStop hook is risky because Kubernetes may send `SIGTERM` before the pod is removed
+  from service endpoints, so a short `sleep` in the preStop hook prevents that race.
+- Using abrupt socket close instead of draining causes client-side errors and unnecessary retries.
+
+## FAQ
+
+### What is the difference between SIGTERM and SIGKILL?
+
+`SIGTERM` asks politely. Your application can catch it, drain connections, and exit cleanly.
+`SIGKILL` can't be caught; the OS forcefully terminates the process. Kubernetes only sends `SIGKILL`
+once `terminationGracePeriodSeconds` expires.
+
+### How long should my grace period be?
+
+Make it at least as long as your slowest endpoint or job timeout. For HTTP APIs, 10–30 seconds is
+usually enough; batch workers may need minutes. Add a small buffer on top, so one slow task doesn't
+force a kill.
+
+### Can I achieve zero-downtime without Kubernetes?
+
+Yes. Use a reverse proxy (Nginx, HAProxy) or service mesh (Envoy) with health checks. Deploy new
+instances, warm them, then drain and remove the old ones. Blue/green and rolling deployments are
+possible with any load balancer.
+
+### Should I drain connections or just stop accepting new ones?
+
+Both. First stop accepting new connections (close the listener), then wait for in-flight requests to
+complete. Set a hard timeout to force-kill long-running requests:
+
+```javascript
+server.close(() => {
+    console.log("All connections closed");
+});
+
+// Force close after 30s
+setTimeout(() => {
+    console.error("Force closing remaining connections");
+    process.exit(1);
+}, 30000);
+```
 
 ### How do I test graceful shutdown in CI?
 
@@ -411,47 +439,9 @@ wait $LOAD_PID
 vegeta attack -duration=30s -rate=100 | vegeta report | grep -q "100.00%"
 ```
 
-### Should I drain connections or just stop accepting new ones?
+### How do I track in-flight requests?
 
-Both. First stop accepting new connections (close listener), then wait for in-flight requests to complete. Set a hard timeout to force-kill long-running requests:
-
-```javascript
-server.close(() => {
-    console.log("All connections closed");
-});
-
-// Force close after 30s
-setTimeout(() => {
-    console.error("Force closing remaining connections");
-    process.exit(1);
-}, 30000);
-```
-
-## Performance Tips
-
-1. **Use connection draining, not abrupt close.** Abrupt close causes client-side errors and retries:
-
-```nginx
-# Nginx: drain for 30s before closing
-worker_shutdown_timeout 30s;
-```
-
-1. **Parallelize cleanup tasks.** Close DB, cache, and MQ connections simultaneously:
-
-```python
-import concurrent.futures
-
-def cleanup_all():
-    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-        futures = [
-            executor.submit(close_db_pool),
-            executor.submit(close_redis),
-            executor.submit(close_mq),
-        ]
-        concurrent.futures.wait(futures, timeout=10)
-```
-
-1. **Track in-flight requests.** Use a counter to know when drain is complete:
+Use a counter to know when the drain is complete:
 
 ```go
 var inFlight int32
@@ -469,10 +459,11 @@ func shutdown() {
 }
 ```
 
-1. **Use `SO_REUSEPORT` for zero-downtime restarts.** New and old processes share the port during handoff:
+### Can I use SO_REUSEPORT for zero-downtime restarts?
+
+Yes. `SO_REUSEPORT` allows the new and old processes to share the port while they hand off traffic:
 
 ```python
-# Python with SO_REUSEPORT
 import socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)

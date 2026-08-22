@@ -1,0 +1,343 @@
+[
+  {
+    "label": "graceful-shutdown-en",
+    "model": "desklib",
+    "model_ai_pct": 41.2,
+    "ai_count": 7,
+    "human_count": 39,
+    "skipped_count": 6,
+    "total": 52,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.9,
+      "stddev": 4.7,
+      "cv": 0.32,
+      "verdict": "somewhat uniform",
+      "sentence_count": 46,
+      "lengths": [
+        21,
+        16,
+        18,
+        14,
+        22,
+        12,
+        15,
+        19,
+        8,
+        11,
+        11,
+        22,
+        21,
+        16,
+        17,
+        9,
+        16,
+        16,
+        11,
+        13,
+        15,
+        14,
+        16,
+        12,
+        10,
+        9,
+        16,
+        12,
+        11,
+        19,
+        21,
+        20,
+        30,
+        13,
+        10,
+        10,
+        7,
+        13,
+        13,
+        14,
+        13,
+        12,
+        10,
+        15,
+        26,
+        16
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Your application needs to\ncatch that signal instead of just quitting.",
+        0.8392
+      ],
+      [
+        "Start by closing database pools and flushing logs and metrics, then release any\nlocks you still hold, and finally exit cleanly.",
+        0.8355
+      ],
+      [
+        "This article walks through SIGTERM handling,\nconnection draining, and zero-downtime deployment patterns for web servers, workers, and containers.",
+        0.7916
+      ],
+      [
+        "A graceful shutdown lets your application finish in-flight requests, flush buffers, close database\nconnections, and release any locks before it exits.",
+        0.7609
+      ],
+      [
+        "A clean shutdown breaks down into three steps.",
+        0.7355
+      ],
+      [
+        "SO_REUSEPORT allows the new and old processes to share the port while they hand off traffic:",
+        0.6614
+      ],
+      [
+        "Skip the graceful shutdown layer for short-lived scripts or one-off commands that don't hold state.",
+        0.5245
+      ],
+      [
+        "Each platform handles the same problem a little differently.",
+        0.4839
+      ],
+      [
+        "Make it at least as long as your slowest endpoint or job timeout.",
+        0.4732
+      ],
+      [
+        "Handle SIGTERM, SIGINT, and platform-specific signals like Windows CTRL_CLOSE_EVENT.",
+        0.4664
+      ],
+      [
+        "Set a hard timeout to force-kill long-running requests:\n\n\n\n\n\nUse a load test with SIGTERM injection:\n\n\n\n\n\nUse a counter to know when the drain is complete:\n\n\n\n\n\nYes.",
+        0.4621
+      ],
+      [
+        "Not changing the readiness check means the load balancer keeps routing traffic to a pod that's\n  already shutting down.",
+        0.4548
+      ],
+      [
+        "Close database, cache, and message-queue connections together instead\n  of one by one.",
+        0.4501
+      ],
+      [
+        "Add a small buffer on top, so one slow task doesn't\nforce a kill.",
+        0.4455
+      ],
+      [
+        "The\nold pod gets SIGTERM, drains, and exits only after the new pod passes its readiness checks.",
+        0.4405
+      ],
+      [
+        "Long-polling,\nWebSocket, and background workers also benefit, as does any process that needs to flush metrics, logs,\nor database writes before terminating.",
+        0.4401
+      ],
+      [
+        "Use a reverse proxy (Nginx, HAProxy) or service mesh (Envoy) with health checks.",
+        0.4324
+      ],
+      [
+        "First, the OS or container runtime sends SIGTERM (or SIGINT locally).",
+        0.4057
+      ],
+      [
+        "When a process exits quickly and has no open connections to drain, the extra complexity usually isn't\nworth it.",
+        0.405
+      ],
+      [
+        "Reach for this recipe if you deploy often in Kubernetes, Docker, or auto-scaling groups.",
+        0.4023
+      ],
+      [
+        "For HTTP APIs, 10\u201330 seconds is\nusually enough; batch workers may need minutes.",
+        0.3899
+      ],
+      [
+        "Zero-downtime deployments with rolling updates or blue/green\nreleases are another common fit.",
+        0.3891
+      ],
+      [
+        "Blue/green and rolling deployments are\npossible with any load balancer.",
+        0.3844
+      ],
+      [
+        "Kubernetes uses\nterminationGracePeriodSeconds plus a preStop hook (default 30s, so tune it to your slowest request).",
+        0.383
+      ],
+      [
+        "Your application can catch it, drain connections, and exit cleanly.",
+        0.3732
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "graceful-shutdown-es",
+    "model": "desklib",
+    "model_ai_pct": 32.2,
+    "ai_count": 10,
+    "human_count": 41,
+    "skipped_count": 7,
+    "total": 58,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.9,
+      "stddev": 6.6,
+      "cv": 0.44,
+      "verdict": "somewhat uniform",
+      "sentence_count": 51,
+      "lengths": [
+        27,
+        18,
+        24,
+        14,
+        29,
+        14,
+        20,
+        20,
+        9,
+        12,
+        11,
+        31,
+        26,
+        19,
+        18,
+        10,
+        19,
+        16,
+        13,
+        14,
+        16,
+        17,
+        18,
+        12,
+        9,
+        11,
+        17,
+        5,
+        20,
+        5,
+        8,
+        5,
+        13,
+        15,
+        6,
+        12,
+        26,
+        9,
+        12,
+        9,
+        13,
+        8,
+        15,
+        14,
+        5,
+        13,
+        10,
+        10,
+        17,
+        31,
+        14
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Tu aplicaci\u00f3n puede interceptarlo, drenar conexiones y salir\nlimpiamente.",
+        0.9789
+      ],
+      [
+        "**No cambiar el readiness check**.",
+        0.7856
+      ],
+      [
+        "**Salir inmediatamente al recibir SIGTERM**.",
+        0.7645
+      ],
+      [
+        "**Cerrar sockets de forma abrupta en lugar de drenar**.",
+        0.7253
+      ],
+      [
+        "Conexiones fugadas pueden hacer que el siguiente inicio\n  falle con \"demasiadas conexiones\".",
+        0.591
+      ],
+      [
+        "SO_REUSEPORT permite que los procesos nuevos y viejos compartan el puerto durante el handoff:",
+        0.5819
+      ],
+      [
+        "Manej\u00e1 SIGTERM, SIGINT y se\u00f1ales espec\u00edficas de plataforma como Windows CTRL_CLOSE_EVENT.",
+        0.5766
+      ],
+      [
+        "Paraleliz\u00e1 las tareas de cleanup.",
+        0.5546
+      ],
+      [
+        "**Olvidar cerrar el pool de conexiones**.",
+        0.5429
+      ],
+      [
+        "El balanceador sigue enviando tr\u00e1fico a un pod que ya se est\u00e1\n  apagando.",
+        0.5422
+      ],
+      [
+        "Tu aplicaci\u00f3n necesita\ninterceptar esa se\u00f1al en lugar de salir inmediatamente.",
+        0.4759
+      ],
+      [
+        "Agreg\u00e1 un peque\u00f1o buffer encima.",
+        0.4339
+      ],
+      [
+        "Este\nart\u00edculo recorre el manejo de SIGTERM, el drenado de conexiones y los patrones de despliegue sin\ndowntime para servidores web, workers y contenedores.",
+        0.4001
+      ],
+      [
+        "Docker env\u00eda SIGTERM primero, luego SIGKILL despu\u00e9s del stop timeout; us\u00e1\n--stop-timeout para extender esa ventana.",
+        0.3728
+      ],
+      [
+        "Recurr\u00ed a esta receta si despleg\u00e1s frecuentemente en Kubernetes, Docker o grupos de auto-escalado.",
+        0.368
+      ],
+      [
+        "Los despliegues blue/green y rolling son\nposibles con cualquier balanceador.",
+        0.342
+      ],
+      [
+        "El cierre abrupto causa errores del lado\n    del\n  cliente y reintentos innecesarios.",
+        0.3061
+      ],
+      [
+        "En systemd, TimeoutStopSec deber\u00eda alinearse con el\ntimeout de drenado de la app.",
+        0.2902
+      ],
+      [
+        "Los workers de long-polling, WebSocket o trabajos en background tambi\u00e9n se benefician, como cualquier\nproceso que necesite vaciar m\u00e9tricas, logs o escrituras de base de datos antes",
+        0.2843
+      ],
+      [
+        "Sete\u00e1 un timeout hard para forzar la terminaci\u00f3n de requests largos:\n\n\n\n\n\nUs\u00e1 una prueba de carga con inyecci\u00f3n de SIGTERM:\n\n\n\n\n\nUs\u00e1 un contador para saber cu\u00e1ndo el drain est\u00e1 com",
+        0.2812
+      ],
+      [
+        "Kubernetes\nenv\u00eda SIGKILL despu\u00e9s de que terminationGracePeriodSeconds expire.",
+        0.2787
+      ],
+      [
+        "Us\u00e1 un reverse proxy (Nginx, HAProxy) o service mesh (Envoy) con health checks.",
+        0.273
+      ],
+      [
+        "Primero, el SO o runtime de contenedor env\u00eda SIGTERM (o SIGINT localmente).",
+        0.2703
+      ],
+      [
+        "Eso mata peticiones en vuelo; siempre dren\u00e1 primero.",
+        0.268
+      ],
+      [
+        "SIGKILL no puede ser interceptado; el SO termina el proceso a la fuerza.",
+        0.2611
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
