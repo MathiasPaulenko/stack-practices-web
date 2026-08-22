@@ -561,8 +561,8 @@ Use this list to track progress as you audit and improve each resource.
    - EN: https://stackpractices.com/recipes/uuid-generation/
    - ES: https://stackpractices.com/es/recipes/uuid-generation/
    - Focus: low CTR
-   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 55.7% / ES 34.0% (0 patterns)
-   - Words: 810 | Meta: 156 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 47.2% / ES 35.4% (0 patterns)
+   - Words: 712 | Meta: 156 chars
 
 70. - [x] **react-form-react-hook-form-validation** (recipes)
    - Metrics: 45 imp | pos 37.4 | CTR 0.00% | Δ impr 0

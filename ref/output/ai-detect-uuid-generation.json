@@ -2,159 +2,165 @@
   {
     "label": "uuid-generation-en",
     "model": "desklib",
-    "model_ai_pct": 55.7,
-    "ai_count": 22,
-    "human_count": 16,
+    "model_ai_pct": 47.2,
+    "ai_count": 21,
+    "human_count": 23,
     "skipped_count": 2,
-    "total": 40,
+    "total": 46,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 13.2,
-      "stddev": 7.0,
-      "cv": 0.53,
+      "mean": 14.7,
+      "stddev": 11.0,
+      "cv": 0.75,
       "verdict": "natural variation",
-      "sentence_count": 38,
+      "sentence_count": 44,
       "lengths": [
+        7,
         15,
         22,
-        20,
-        6,
+        10,
+        19,
         5,
-        8,
-        10,
-        11,
-        10,
-        7,
-        8,
-        41,
-        14,
-        21,
-        13,
-        29,
-        22,
-        13,
-        12,
-        10,
-        13,
-        7,
-        10,
-        13,
-        14,
-        11,
-        11,
+        27,
+        18,
         15,
+        22,
+        79,
+        12,
         7,
-        6,
-        9,
-        12,
+        14,
+        16,
+        15,
+        14,
+        14,
+        15,
         13,
-        5,
+        10,
+        13,
+        13,
+        8,
         11,
+        8,
         13,
+        7,
+        10,
+        14,
+        16,
         12,
-        23
+        11,
+        17,
+        8,
+        6,
+        13,
+        11,
+        10,
+        5,
+        15,
+        13,
+        16,
+        26
       ]
     },
     "top_ai_sentences": [
       [
-        "For practical purposes,\nthey're unique enough for all but the most extreme scale.",
-        0.9386
+        "Storing UUIDs as strings instead of compact binary types, which wastes both space and index\n    efficiency.",
+        0.8793
       ],
       [
-        "If using v4 or v7, remove hyphens for a 32-character string.",
-        0.9018
+        "If you're using v4 or v7, you can strip the hyphens for a\n32-character string.",
+        0.8613
       ],
       [
-        "v4 uses randomness from a cryptographically secure source, so it's unpredictable but\nnot sortable.",
-        0.8664
+        "You've probably run into IDs like 550e8400-e29b-41d4-a716-446655440000.",
+        0.8062
       ],
       [
-        "UUIDs (Universally Unique Identifiers) are 128-bit values designed to be unique across space\nand time.",
-        0.8438
-      ],
-      [
-        "Storing UUIDs as strings instead of native binary types, wasting space and index efficiency.",
-        0.8406
-      ],
-      [
-        "Use BINARY(16) in MySQL to save space compared to CHAR(36).",
-        0.7973
-      ],
-      [
-        "Modern systems increasingly prefer UUID v7 or ULID over v4 because they're sortable by time,\nwhich improves database index performance.",
-        0.7746
+        "For high-write tables, that matters.",
+        0.7896
       ],
       [
         "ULIDs are shorter and URL-safe.",
         0.7675
       ],
       [
-        "Avoid exposing sequential IDs publicly; use UUIDs for external-facing identifiers.",
-        0.767
+        "For database keys, go with v7 or ULID.",
+        0.7657
       ],
       [
-        "Naming files, images, or uploads to prevent collisions.",
-        0.6815
+        "For v4, the chance of collision is about 1 in 2^122.",
+        0.7177
       ],
       [
-        "Creating session or API tokens.",
-        0.6671
+        "In MySQL, BINARY(16)\n    saves a lot of space.",
+        0.7091
       ],
       [
-        "Building systems where clients generate IDs before sending to the server.",
-        0.6569
+        "There's been a quiet shift toward UUID v7 and ULID.",
+        0.7026
       ],
       [
-        "Use v7 or ULID for database keys.",
-        0.6358
+        "Those are UUIDs: 128-bit\nlabels that are designed to be unique across space and time.",
+        0.6751
       ],
       [
-        "Prefer UUID v7 or ULID for database keys to improve B-tree index performance.",
-        0.6222
+        "It's unpredictable, which is what you want for\nsecrets, but it's got no ordering.",
+        0.6434
       ],
       [
-        "Use v4\nfor non-sortable identifiers such as session tokens.",
-        0.6151
+        "In most real workloads, you can stop worrying\nabout it.",
+        0.6055
       ],
       [
-        "The probability of collision for v4 is astronomically low (1 in 2^122).",
-        0.5914
+        "Using UUIDs in small, non-distributed tables where auto-increment integers are good enough.",
+        0.6029
       ],
       [
-        "When used as database primary keys, sortable IDs keep related inserts close together in B-tree\nindexes, which improves write throughput and cache locality compared to purely random",
-        0.578
+        "v4 is still\nfine for things like session tokens that don't need sorting.",
+        0.5999
       ],
       [
-        "Use an auto-increment integer as the internal primary key for clustering performance and a\nUUID as the external-facing identifier for APIs and URLs.",
-        0.5606
+        "Don't bother with UUIDs in small, single-node tables where auto-increment integers are simpler and\nfaster.",
+        0.5841
       ],
       [
-        "|Version|Format|Sortable|Best For|\n|-------|------|--------|--------|\n|v4|Random|No|General purpose, session tokens, widest support|\n|v7|Time-ordered|Yes|Database keys, event logs,",
-        0.5594
+        "Client-side generation is\nanother common case: the client can create an ID before it ever calls the server.",
+        0.5792
       ],
       [
-        "ULID is similar but uses a 26-character\ncrockford-base32 string that's shorter and URL-safe.",
-        0.521
+        "You end\nup with values that are roughly sorted by time while still being unique.",
+        0.5502
       ],
       [
-        "Using UUIDs for small, non-distributed tables where auto-increment integers are sufficient.",
-        0.5203
+        "v4 is built from cryptographically secure randomness.",
+        0.5303
       ],
       [
-        "They're the standard for database primary keys in distributed systems, session\ntokens, file names, and any scenario where auto-incrementing integers are insufficient.",
-        0.5002
+        "Keep sequential IDs internal and expose UUIDs for public-facing identifiers.",
+        0.5282
       ],
       [
-        "Merging data from several sources where IDs must not clash.",
-        0.4897
+        "One common pattern is an auto-increment integer as the internal primary key for clustering\nperformance, plus a UUID as the external-facing identifier for APIs and URLs.",
+        0.5213
       ],
       [
-        "Small, single-node tables where auto-increment integers are simpler and faster.",
-        0.4738
+        "It relies on a central coordinator or a\nmachine ID to avoid collisions.",
+        0.5026
       ],
       [
-        "For systems that need sortable 64-bit IDs, consider Twitter Snowflake, which uses a central\ncoordinator or a machine ID to avoid collisions.",
-        0.4572
+        "If you need sortable 64-bit IDs, look at Twitter Snowflake.",
+        0.4799
+      ],
+      [
+        "UUID v4 causes random B-tree inserts, which hurts write performance on large tables.",
+        0.4551
+      ],
+      [
+        "Validate UUID format when parsing external input.",
+        0.4166
+      ],
+      [
+        "As database primary keys, sortable IDs keep related inserts near each other in B-tree indexes.",
+        0.3653
       ]
     ],
     "diagnostics_sample": []
@@ -162,159 +168,164 @@
   {
     "label": "uuid-generation-es",
     "model": "desklib",
-    "model_ai_pct": 34.0,
-    "ai_count": 6,
-    "human_count": 32,
+    "model_ai_pct": 35.4,
+    "ai_count": 7,
+    "human_count": 36,
     "skipped_count": 2,
-    "total": 40,
+    "total": 45,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 15.7,
-      "stddev": 8.4,
-      "cv": 0.53,
+      "mean": 16.5,
+      "stddev": 14.6,
+      "cv": 0.89,
       "verdict": "natural variation",
-      "sentence_count": 38,
+      "sentence_count": 43,
       "lengths": [
-        18,
+        5,
+        15,
         24,
+        9,
+        22,
+        8,
+        33,
+        21,
+        20,
         27,
-        8,
-        6,
-        8,
-        11,
-        12,
-        16,
-        12,
-        11,
-        51,
-        16,
-        23,
-        18,
-        35,
-        24,
-        18,
-        13,
-        10,
-        18,
-        8,
-        12,
-        13,
-        16,
-        13,
-        12,
-        14,
-        10,
-        10,
-        10,
-        12,
-        11,
+        103,
         7,
+        13,
+        16,
+        10,
+        16,
+        12,
         14,
         17,
+        10,
+        12,
+        14,
+        11,
+        12,
+        6,
+        18,
+        8,
+        12,
+        15,
         16,
-        23
+        13,
+        12,
+        17,
+        11,
+        9,
+        13,
+        11,
+        10,
+        7,
+        15,
+        17,
+        22,
+        26
       ]
     },
     "top_ai_sentences": [
       [
-        "Si us\u00e1s v4 o v7, elimin\u00e1 los guiones para un string de 32\n caracteres.",
-        0.639
+        "Es impredecible, que es lo que quer\u00e9s\npara secretos, pero no tiene orden.",
+        0.9953
       ],
       [
-        "Los sistemas modernos prefieren UUID v7 o ULID sobre v4 porque son ordenables por tiempo, lo que\nmejora el rendimiento de los \u00edndices de base de datos.",
-        0.6345
+        "En la mayor\u00eda de cargas reales, pod\u00e9s\ndejar de preocuparte.",
+        0.775
       ],
       [
-        "Los UUIDs (Universally Unique Identifiers) son valores de 128 bits dise\u00f1ados para ser \u00fanicos en\nespacio y tiempo.",
-        0.5953
+        "Termin\u00e1s con valores aproximadamente ordenados por tiempo y todav\u00eda \u00fanicos.",
+        0.7279
+      ],
+      [
+        "Si us\u00e1s v4 o v7, pod\u00e9s sacar los guiones para un string de\n32 caracteres.",
+        0.7176
+      ],
+      [
+        "Como claves primarias, los IDs ordenables mantienen inserciones relacionadas cerca en los \u00edndices\nB-tree.",
+        0.6885
+      ],
+      [
+        "Seguramente viste IDs como 550e8400-e29b-41d4-a716-446655440000.",
+        0.5794
       ],
       [
         "Los ULID son m\u00e1s cortos y URL-safe.",
         0.5571
       ],
       [
-        "ULID es\nsimilar pero usa un string de 26 caracteres en crockford-base32, m\u00e1s corto y seguro para URLs.",
-        0.5513
-      ],
-      [
-        "Us\u00e1 v7 o ULID para claves de base de datos.",
-        0.5425
-      ],
-      [
-        "IDs p\u00fablicos donde se prefieren slugs cortos y legibles por humanos.",
-        0.4802
-      ],
-      [
-        "La probabilidad de colisi\u00f3n para v4 es astron\u00f3micamente baja (1 en 2^122).",
-        0.474
+        "Esos son UUIDs: etiquetas de 128\nbits dise\u00f1adas para ser \u00fanicas en espacio y tiempo.",
+        0.4956
       ],
       [
         "Valid\u00e1 el formato UUID al parsear input externo.",
         0.4697
       ],
       [
-        "Rutas cr\u00edticas de performance que no toleran el overhead de un CSPRNG.",
-        0.4443
+        "v4 todav\u00eda sirve para cosas como tokens de sesi\u00f3n que no necesitan ordenarse.",
+        0.4425
       ],
       [
-        "Son ordenados por tiempo y reducen la fragmentaci\u00f3n\nde \u00edndices.",
-        0.4358
+        "La\ngeneraci\u00f3n del lado del cliente es otro caso com\u00fan: el cliente puede crear un ID antes de llamar al\nservidor.",
+        0.442
       ],
       [
-        "Us\u00e1 BINARY(16) en MySQL para ahorrar espacio respecto a CHAR(36).",
-        0.4276
+        "Para v4, la chance de colisi\u00f3n es aproximadamente 1 en 2^122.",
+        0.4385
       ],
       [
-        "Usar UUID v4 como clave primaria sin entender la penalizaci\u00f3n de inserciones aleatorias.",
-        0.4259
+        "Eleg\u00ed v7 o ULID cuando el ID sea clave primaria de base de datos.",
+        0.4341
       ],
       [
-        "Nombrar archivos, im\u00e1genes o uploads para evitar colisiones.",
-        0.4017
+        "Elegir UUID v4 como clave primaria sin darse cuenta de la penalizaci\u00f3n de inserciones aleatorias.",
+        0.4199
       ],
       [
-        "Prefer\u00ed UUID v7 o ULID para claves de base de datos para mejorar el rendimiento de \u00edndices\n  B-tree.",
-        0.3708
+        "En tablas con mucha\nescritura, eso se nota.",
+        0.4013
       ],
       [
-        "Construir sistemas donde el cliente genera IDs antes de enviarlos al servidor.",
-        0.3497
+        "En MySQL,\n    BINARY(16) ahorra mucho espacio.",
+        0.3991
       ],
       [
-        "Para fines pr\u00e1cticos,\nson lo suficientemente \u00fanicos salvo en escalas extremas.",
-        0.3329
+        "El orden por tiempo reduce la fragmentaci\u00f3n de\n\u00edndices.",
+        0.3945
       ],
       [
-        "Us\u00e1 v4 para identificadores no ordenables, como tokens de sesi\u00f3n.",
-        0.3308
+        "No uses UUIDs en tablas peque\u00f1as y de un solo nodo, donde los enteros auto-incrementales son m\u00e1s\nsimples y r\u00e1pidos.",
+        0.382
+      ],
+      [
+        "v4 se construye con aleatoriedad criptogr\u00e1ficamente segura.",
+        0.3766
+      ],
+      [
+        "ULID hace lo mismo pero empaqueta el valor en un string de 26 caracteres en crockford-base32.",
+        0.3619
+      ],
+      [
+        "Hay un cambio silencioso hacia UUID v7 y ULID.",
+        0.3577
       ],
       [
         "UUID v4 causa inserciones aleatorias en B-tree, lo que perjudica el rendimiento de escritura en\ntablas grandes.",
         0.3282
       ],
       [
-        "Almacen\u00e1 UUIDs como tipos nativos UUID o BINARY(16) en vez de strings CHAR(36).",
-        0.3269
+        "El orden por tiempo evita que\n    los \u00edndices B-tree se fragmenten.",
+        0.3107
       ],
       [
-        "Tablas peque\u00f1as y de un solo nodo donde los enteros auto-incrementales son m\u00e1s simples y\n  r\u00e1pidos.",
-        0.3195
+        "Es m\u00e1s\ncorto que un UUID en string y seguro para URLs.",
+        0.3082
       ],
       [
-        "Generar claves primarias en bases de datos distribuidas.",
-        0.3166
-      ],
-      [
-        "Crear tokens de sesi\u00f3n o API.",
-        0.3012
-      ],
-      [
-        "v4 usa aleatoriedad de una fuente criptogr\u00e1ficamente segura, por lo que es\nimpredecible pero no ordenable.",
-        0.2867
-      ],
-      [
-        "Para sistemas que necesitan IDs ordenables de 64 bits, consider\u00e1 Twitter Snowflake, que usa un\ncoordinador central o un machine ID para evitar colisiones.",
-        0.284
+        "Depende de un coordinador central o\nun machine ID para evitar colisiones.",
+        0.3034
       ]
     ],
     "diagnostics_sample": []

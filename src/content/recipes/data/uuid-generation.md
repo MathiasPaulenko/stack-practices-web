@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/caching
   - /recipes/merge-json-files
   - /patterns/singleton-pattern
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
 seo:
@@ -43,28 +43,25 @@ seo:
     - java uuid
 ---
 
-## Overview
+You've probably run into IDs like `550e8400-e29b-41d4-a716-446655440000`. Those are UUIDs: 128-bit
+labels that are designed to be unique across space and time. People use them for database primary
+keys in distributed systems, session tokens, uploaded file names, and anywhere an auto-incrementing
+integer isn't enough.
 
-UUIDs (Universally Unique Identifiers) are 128-bit values designed to be unique across space
-and time. They're the standard for database primary keys in distributed systems, session
-tokens, file names, and any scenario where auto-incrementing integers are insufficient.
-
-Modern systems increasingly prefer UUID v7 or ULID over v4 because they're sortable by time,
-which improves database index performance.
+There's been a quiet shift toward UUID v7 and ULID. Both are roughly sorted by time, so inserts
+don't scatter all over a B-tree index the way v4 does. For high-write tables, that matters.
 
 ## When to Use
 
-- Generating primary keys in distributed databases.
-- Creating session or API tokens.
-- Naming files, images, or uploads to prevent collisions.
-- Merging data from several sources where IDs must not clash.
-- Building systems where clients generate IDs before sending to the server.
+The usual suspects are distributed database primary keys, session or API tokens, file and upload
+names, and merging data from several sources where IDs must not collide. Client-side generation is
+another common case: the client can create an ID before it ever calls the server.
 
 ## When NOT to Use
 
-- Small, single-node tables where auto-increment integers are simpler and faster.
-- Performance-critical paths that can't tolerate CSPRNG overhead.
-- Public IDs where short, human-readable slugs are preferred.
+Don't bother with UUIDs in small, single-node tables where auto-increment integers are simpler and
+faster. Avoid them in hot paths that can't pay the CSPRNG tax, and don’t use them when you want
+short, human-readable public slugs.
 
 ## Solution
 
@@ -127,23 +124,29 @@ System.out.println(idV4); // 550e8400-e29b-41d4-a716-446655440000
 
 ## UUID Versions Compared
 
-|Version|Format|Sortable|Best For|
-|-------|------|--------|--------|
-|v4|Random|No|General purpose, session tokens, widest support|
-|v7|Time-ordered|Yes|Database keys, event logs, better index locality|
-|v8|Custom|Configurable|Vendor-specific extensions|
-|ULID|Time + random|Yes|URL-safe, lexicographically sortable IDs|
+| Version | Format | Sortable | Best for |
+| --- | --- | --- | --- |
+| v4 | Random | No | General purpose, session tokens, widest support |
+| v7 | Time-ordered | Yes | Database keys, event logs, better index locality |
+| v8 | Custom | Configurable | Vendor-specific extensions |
+| ULID | Time + random | Yes | URL-safe, lexicographically sortable IDs |
 
 ## Explanation
 
-UUIDs solve the coordination problem: every node can generate an ID without talking to a central
-allocator. v4 uses randomness from a cryptographically secure source, so it's unpredictable but
-not sortable. v7 encodes a Unix timestamp in the most significant bits, giving you roughly
-time-ordered values while keeping randomness in the rest. ULID is similar but uses a 26-character
-crockford-base32 string that's shorter and URL-safe.
+The main reason UUIDs exist is coordination. Every node can mint its own ID without phoning a
+central allocator.
 
-When used as database primary keys, sortable IDs keep related inserts close together in B-tree
-indexes, which improves write throughput and cache locality compared to purely random v4 values.
+v4 is built from cryptographically secure randomness. It's unpredictable, which is what you want for
+secrets, but it's got no ordering.
+
+v7 places a Unix timestamp in the most significant bits and fills the rest with randomness. You end
+up with values that are roughly sorted by time while still being unique.
+
+ULID does the same thing but packs the value into a 26-character crockford-base32 string. A ULID is
+shorter than a UUID string and safe to use in URLs.
+
+As database primary keys, sortable IDs keep related inserts near each other in B-tree indexes. That
+improves write throughput and cache locality compared to purely random v4 values.
 
 ## Variants
 
@@ -170,48 +173,51 @@ console.log(`https://api.example.com/items/${id}`);
 
 ### Snowflake-style IDs
 
-For systems that need sortable 64-bit IDs, consider Twitter Snowflake, which uses a central
-coordinator or a machine ID to avoid collisions.
+If you need sortable 64-bit IDs, look at Twitter Snowflake. It relies on a central coordinator or a
+machine ID to avoid collisions.
 
 ## Best Practices
 
-- Prefer UUID v7 or ULID for database keys to improve B-tree index performance.
-- Store UUIDs as native `UUID` or `BINARY(16)` types instead of `CHAR(36)` strings.
-- Use `BINARY(16)` in MySQL to save space compared to `CHAR(36)`.
+- Reach for v7 or ULID when the ID is a database primary key. The time ordering keeps B-tree indexes
+    from fragmenting.
+- Store UUIDs as native `UUID` or `BINARY(16)` types, not `CHAR(36)` strings. In MySQL, `BINARY(16)`
+    saves a lot of space.
 - Generate IDs client-side only when the client needs them before the server responds.
 - Validate UUID format when parsing external input.
-- Avoid exposing sequential IDs publicly; use UUIDs for external-facing identifiers.
+- Keep sequential IDs internal and expose UUIDs for public-facing identifiers.
 
 ## Common Mistakes
 
-- Using UUID v4 as a primary key without understanding the random insert penalty.
-- Storing UUIDs as strings instead of native binary types, wasting space and index efficiency.
-- Using UUIDs for small, non-distributed tables where auto-increment integers are sufficient.
+- Reaching for UUID v4 as a primary key without realizing the random insert penalty.
+- Storing UUIDs as strings instead of compact binary types, which wastes both space and index
+    efficiency.
+- Using UUIDs in small, non-distributed tables where auto-increment integers are good enough.
 - Generating UUIDs in a hot loop without caching the generator instance.
-- Forgetting that UUID v1 embeds the MAC and timestamp — avoid it for public IDs.
+- Forgetting that UUID v1 leaks MAC and timestamp data, so it shouldn't be used for public IDs.
 
 ## FAQ
 
 ### Should I use UUID v4 or v7 for new projects?
 
-Use v7 or ULID for database keys. They're time-ordered and reduce index fragmentation. Use v4
-for non-sortable identifiers such as session tokens.
+For database keys, go with v7 or ULID. The time ordering reduces index fragmentation. v4 is still
+fine for things like session tokens that don't need sorting.
 
 ### Are UUIDs truly unique?
 
-The probability of collision for v4 is astronomically low (1 in 2^122). For practical purposes,
-they're unique enough for all but the most extreme scale.
+For v4, the chance of collision is about 1 in 2^122. In most real workloads, you can stop worrying
+about it.
 
 ### Can I use UUIDs in URLs?
 
-Yes. ULIDs are shorter and URL-safe. If using v4 or v7, remove hyphens for a 32-character string.
+Yes. ULIDs are shorter and URL-safe. If you're using v4 or v7, you can strip the hyphens for a
+32-character string.
 
 ### Do UUIDs affect database performance?
 
 UUID v4 causes random B-tree inserts, which hurts write performance on large tables. UUID v7 and
-ULID are time-ordered, giving performance similar to auto-increment integers.
+ULID are time-ordered, so their write performance is much closer to auto-increment integers.
 
 ### Can I combine UUIDs with auto-increment IDs?
 
-Yes. Use an auto-increment integer as the internal primary key for clustering performance and a
-UUID as the external-facing identifier for APIs and URLs.
+Yes. One common pattern is an auto-increment integer as the internal primary key for clustering
+performance, plus a UUID as the external-facing identifier for APIs and URLs.

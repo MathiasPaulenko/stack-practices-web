@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/caching
   - /recipes/merge-json-files
   - /patterns/singleton-pattern
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
 seo:
@@ -43,30 +43,27 @@ seo:
     - java uuid
 ---
 
-## Resumen
+Seguramente viste IDs como `550e8400-e29b-41d4-a716-446655440000`. Esos son UUIDs: etiquetas de 128
+bits diseñadas para ser únicas en espacio y tiempo. Se usan para claves primarias en sistemas
+distribuidos, tokens de sesión, nombres de archivos subidos y cualquier lugar donde un entero
+auto-incremental no alcanza.
 
-Los UUIDs (Universally Unique Identifiers) son valores de 128 bits diseñados para ser únicos en
-espacio y tiempo. Son el estándar para claves primarias en sistemas distribuidos, tokens de
-sesión, nombres de archivos y cualquier escenario donde los enteros auto-incrementales no
-alcanzan.
-
-Los sistemas modernos prefieren UUID v7 o ULID sobre v4 porque son ordenables por tiempo, lo que
-mejora el rendimiento de los índices de base de datos.
+Hay un cambio silencioso hacia UUID v7 y ULID. Ambos son aproximadamente ordenados por tiempo, así
+que las inserciones no se esparcen por todo el índice B-tree como pasa con v4. En tablas con mucha
+escritura, eso se nota.
 
 ## Cuándo Usarlo
 
-- Generar claves primarias en bases de datos distribuidas.
-- Crear tokens de sesión o API.
-- Nombrar archivos, imágenes o uploads para evitar colisiones.
-- Fusionar datos de varias fuentes donde los IDs no deben chocar.
-- Construir sistemas donde el cliente genera IDs antes de enviarlos al servidor.
+Los casos típicos son claves primarias en bases de datos distribuidas, tokens de sesión o API,
+nombres de archivos o uploads, y fusionar datos de varias fuentes donde los IDs no deben chocar. La
+generación del lado del cliente es otro caso común: el cliente puede crear un ID antes de llamar al
+servidor.
 
 ## Cuándo NO Usarlo
 
-- Tablas pequeñas y de un solo nodo donde los enteros auto-incrementales son más simples y
-  rápidos.
-- Rutas críticas de performance que no toleran el overhead de un CSPRNG.
-- IDs públicos donde se prefieren slugs cortos y legibles por humanos.
+No uses UUIDs en tablas pequeñas y de un solo nodo, donde los enteros auto-incrementales son más
+simples y rápidos. Evitalos en rutas críticas de performance que no toleren el overhead de un
+CSPRNG, y no los uses cuando necesitás slugs cortos y legibles para el público.
 
 ## Solución
 
@@ -129,24 +126,30 @@ System.out.println(idV4); // 550e8400-e29b-41d4-a716-446655440000
 
 ## Versiones de UUID Comparadas
 
-|Versión|Formato|Ordenable|Ideal para|
-|-------|-------|---------|----------|
-|v4|Random|No|Uso general, tokens de sesión, mayor soporte|
-|v7|Ordenado por tiempo|Sí|Claves de BD, logs de eventos, mejor localidad de índice|
-|v8|Custom|Configurable|Extensiones específicas de vendor|
-|ULID|Tiempo + random|Sí|IDs URL-safe, lexicográficamente sortables|
+| Versión | Formato | Ordenable | Ideal para |
+| --- | --- | --- | --- |
+| v4 | Random | No | Uso general, tokens de sesión, mayor soporte |
+| v7 | Ordenado por tiempo | Sí | Claves de BD, logs de eventos, mejor localidad de índice |
+| v8 | Custom | Configurable | Extensiones específicas de vendor |
+| ULID | Tiempo + random | Sí | IDs URL-safe, lexicográficamente sortables |
 
 ## Explicación
 
-Los UUIDs resuelven el problema de coordinación: cada nodo puede generar un ID sin hablar con un
-asignador central. v4 usa aleatoriedad de una fuente criptográficamente segura, por lo que es
-impredecible pero no ordenable. v7 codifica un timestamp Unix en los bits más significativos, lo
-que da valores aproximadamente ordenados por tiempo manteniendo aleatoriedad en el resto. ULID es
-similar pero usa un string de 26 caracteres en crockford-base32, más corto y seguro para URLs.
+La razón de existir de los UUIDs es la coordinación: cada nodo puede generar su propio ID sin llamar
+a un asignador central.
 
-Cuando se usan como claves primarias, los IDs ordenables mantienen inserciones relacionadas
-juntas en los índices B-tree, lo que mejora el throughput de escritura y la localidad de caché
-respecto a valores v4 puramente aleatorios.
+v4 se construye con aleatoriedad criptográficamente segura. Es impredecible, que es lo que querés
+para secretos, pero no tiene orden.
+
+v7 coloca un timestamp Unix en los bits más significativos y completa el resto con aleatoriedad.
+Terminás con valores aproximadamente ordenados por tiempo y todavía únicos.
+
+ULID hace lo mismo pero empaqueta el valor en un string de 26 caracteres en crockford-base32. Es más
+corto que un UUID en string y seguro para URLs.
+
+Como claves primarias, los IDs ordenables mantienen inserciones relacionadas cerca en los índices
+B-tree. Eso mejora el throughput de escritura y la localidad de caché respecto a valores v4
+puramente aleatorios.
 
 ## Variantes
 
@@ -173,54 +176,54 @@ console.log(`https://api.example.com/items/${id}`);
 
 ### IDs estilo Snowflake
 
-Para sistemas que necesitan IDs ordenables de 64 bits, considerá Twitter Snowflake, que usa un
-coordinador central o un machine ID para evitar colisiones.
+Si necesitás IDs ordenables de 64 bits, mirá Twitter Snowflake. Depende de un coordinador central o
+un machine ID para evitar colisiones.
 
 ## Buenas Prácticas
 
-- Preferí UUID v7 o ULID para claves de base de datos para mejorar el rendimiento de índices
-  B-tree.
-- Almacená UUIDs como tipos nativos `UUID` o `BINARY(16)` en vez de strings `CHAR(36)`.
-- Usá `BINARY(16)` en MySQL para ahorrar espacio respecto a `CHAR(36)`.
-- Generá IDs del lado del cliente solo cuando el cliente los necesita antes de que el servidor
-  responda.
+- Elegí v7 o ULID cuando el ID sea clave primaria de base de datos. El orden por tiempo evita que
+    los índices B-tree se fragmenten.
+- Almacená UUIDs como tipos nativos `UUID` o `BINARY(16)`, no como strings `CHAR(36)`. En MySQL,
+    `BINARY(16)` ahorra mucho espacio.
+- Generá IDs del lado del cliente solo cuando el cliente los necesite antes de que el servidor
+    responda.
 - Validá el formato UUID al parsear input externo.
-- Evitá exponer IDs secuenciales públicamente; usá UUIDs para identificadores orientados al
-  exterior.
+- Mantené IDs secuenciales internos y exponé UUIDs para identificadores orientados al público.
 
 ## Errores Comunes
 
-- Usar UUID v4 como clave primaria sin entender la penalización de inserciones aleatorias.
-- Almacenar UUIDs como strings en vez de tipos binarios nativos, desperdiciando espacio y
-  eficiencia de índice.
+- Elegir UUID v4 como clave primaria sin darse cuenta de la penalización de inserciones aleatorias.
+- Almacenar UUIDs como strings en vez de tipos binarios compactos, desperdiciando espacio y
+    eficiencia de índice.
 - Usar UUIDs en tablas pequeñas y no distribuidas donde los enteros auto-incrementales alcanzan.
 - Generar UUIDs en un hot loop sin cachear la instancia del generador.
-- Olvidar que UUID v1 filtra direcciones MAC y timestamps — evitalo para IDs públicos.
+- Olvidar que UUID v1 filtra direcciones MAC y timestamps, así que no debería usarse para IDs
+    públicos.
 
 ## Preguntas Frecuentes
 
 ### ¿Uso UUID v4 o v7 para proyectos nuevos?
 
-Usá v7 o ULID para claves de base de datos. Son ordenados por tiempo y reducen la fragmentación
-de índices. Usá v4 para identificadores no ordenables, como tokens de sesión.
+Para claves de base de datos, andá con v7 o ULID. El orden por tiempo reduce la fragmentación de
+índices. v4 todavía sirve para cosas como tokens de sesión que no necesitan ordenarse.
 
 ### ¿Son realmente únicos los UUIDs?
 
-La probabilidad de colisión para v4 es astronómicamente baja (1 en 2^122). Para fines prácticos,
-son lo suficientemente únicos salvo en escalas extremas.
+Para v4, la chance de colisión es aproximadamente 1 en 2^122. En la mayoría de cargas reales, podés
+dejar de preocuparte.
 
 ### ¿Puedo usar UUIDs en URLs?
 
-Sí. Los ULID son más cortos y URL-safe. Si usás v4 o v7, eliminá los guiones para un string de 32
- caracteres.
+Sí. Los ULID son más cortos y URL-safe. Si usás v4 o v7, podés sacar los guiones para un string de
+32 caracteres.
 
 ### ¿Afectan los UUIDs al performance de la base de datos?
 
 UUID v4 causa inserciones aleatorias en B-tree, lo que perjudica el rendimiento de escritura en
-tablas grandes. UUID v7 y ULID son ordenados por tiempo, dando un performance similar al de
-enteros auto-incrementales.
+tablas grandes. UUID v7 y ULID son ordenados por tiempo, así que su performance de escritura es
+mucho más parecido al de enteros auto-incrementales.
 
 ### ¿Puedo combinar UUIDs con IDs auto-incrementales?
 
-Sí. Usá un entero auto-incremental como clave primaria interna para el performance de clustering
-y un UUID como identificador externo para APIs y URLs.
+Sí. Un patrón común es un entero auto-incremental como clave primaria interna para el performance de
+clustering, más un UUID como identificador externo para APIs y URLs.
