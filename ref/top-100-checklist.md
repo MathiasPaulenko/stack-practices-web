@@ -668,11 +668,9 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 41.4% / ES 28.0% (0 patterns)
    - Words: 1,391 | Meta: 154 chars
 
-83. - [ ] **complete-guide-sentry-error-tracking** (guides)
-   - Metrics: 22 imp | pos 20.9 | CTR 0.00% | Δ impr 0
-   - EN: https://stackpractices.com/guides/complete-guide-sentry-error-tracking/
-   - ES: https://stackpractices.com/es/guides/complete-guide-sentry-error-tracking/
-   - Focus: low CTR
+83. - [x] **complete-guide-sentry-error-tracking** (guides)
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.8% / ES 35.2% (0 patterns)
+   - Words: 1,962 | Meta: 161 chars
    - Status: ⏳ Pending
    - Words: 1,752 | Meta: 161 chars
 

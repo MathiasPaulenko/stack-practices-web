@@ -1,26 +1,20 @@
 ---
-
-
-
-
-
-
 contentType: guides
 slug: complete-guide-sentry-error-tracking
-title: "Sentry: Error Tracking, Triage y Resolution"
-description: "Dominá Sentry para error tracking en producción. Cubre SDK integration en Python, Node.js, Java, release tracking, source maps, performance monitoring y alerting."
-metaDescription: "Dominá Sentry para error tracking en producción: SDK integration en Python, Node.js, Java, release tracking, source maps, performance monitoring y alerting rules."
+title: "Sentry: Triage y Resolución de Errores"
+description: "Dominá Sentry para el seguimiento de errores en producción. Cubre integración del SDK en Python, Node.js y Java, release tracking, source maps, performance monitoring y alertas."
+metaDescription: "Dominá Sentry para el seguimiento de errores en producción: integración del SDK en Python, Node.js y Java, releases, source maps, performance y alertas."
 difficulty: intermediate
 topics:
   - observability
 tags:
-  - guide
   - sentry
   - error-tracking
   - monitoring
   - alerting
-  - observability
   - debugging
+  - release-tracking
+  - source-maps
 relatedResources:
   - /guides/complete-guide-structured-logging
   - /guides/complete-guide-distributed-tracing
@@ -28,12 +22,12 @@ relatedResources:
   - /guides/complete-guide-monitoring-and-alerting
   - /guides/complete-guide-observability-grafana-stack
   - /guides/complete-guide-prometheus-grafana
-lastUpdated: "2026-07-05"
+lastUpdated: "2026-08-23"
 publishedAt: "2026-07-06"
 author: Mathias Paulenko
 estimatedReadTime: 18
 seo:
-  metaDescription: "Dominá Sentry para error tracking en producción: SDK integration en Python, Node.js, Java, release tracking, source maps, performance monitoring y alerting rules."
+  metaDescription: "Dominá Sentry para el seguimiento de errores en producción: integración del SDK en Python, Node.js y Java, releases, source maps, performance y alertas."
   keywords:
     - sentry
     - error tracking
@@ -42,36 +36,33 @@ seo:
     - release tracking
     - performance monitoring
     - observability
-
-
-
-
-
-
 ---
 
 ## Introducción
 
-Sentry es una platform de error tracking y performance monitoring que capturea exceptions, crashes y performance issues en real-time. Cuando un error ocurre en production, Sentry capturea el stack trace, request context, user information y breadcrumbs que llevaron al error. A continuación: Sentry SDK integration en Python, Node.js y Java, release tracking con source maps, performance monitoring, alerting rules y workflows de production para triaging y resolving errors.
+Sentry captura excepciones, crashes y problemas de performance en producción. Cuando ocurre un error, recolecta el stack
+trace, el contexto del request, la información del usuario y los breadcrumbs que lo precedieron. Esta guía cubre la
+integración del SDK en Python, Node.js y Java, el seguimiento de releases con source maps, el monitoreo de performance,
+reglas de alerta y un flujo de trabajo práctico para triagear y resolver issues.
+
+Si ya conocés Sentry, podés ir directo a [seguimiento de releases y source maps](#release-tracking-y-source-maps)
+o a [reglas de alerta](#reglas-de-alerta).
 
 ## Cómo Funciona Sentry
 
-```
-1. Error ocurre en tu application
-2. Sentry SDK capturea la exception con:
-   - Stack trace (con source maps para minified code)
-   - Request context (URL, headers, body)
-   - User context (ID, email, IP)
-   - Breadcrumbs (events que llevaron al error)
-   - Environment y release tags
-3. SDK manda el event a Sentry server
-4. Sentry deduplica y groupéa errors similares en issues
-5. Sentry notifica a tu team via Slack, email o PagerDuty
-6. Developer triagea el issue, identifica root cause y deployéa un fix
-7. Sentry marca el issue como resolved cuando el fix se deployéa
-```
+1. Un error ocurre en tu aplicación.
+2. El SDK de Sentry captura la excepción junto con el stack trace, el contexto del request, el usuario, breadcrumbs y
+   tags de entorno y release.
+3. El SDK envía el evento al servidor de Sentry.
+4. Sentry deduplica y agrupa errores similares en issues.
+5. Sentry notifica a tu equipo por Slack, email o PagerDuty.
+6. Un developer triagea el issue, identifica la causa raíz y deployea un fix.
+7. Sentry marca el issue como resuelto cuando el nuevo release deja de reportar el error.
 
-## SDK Integration
+Los source maps convierten stack traces minificados en nombres de archivo y números de línea legibles. Sin ellos,
+debuggear errores de frontend o Node.js empaquetado se vuelve un juego de adivinanzas.
+
+## Integración del SDK
 
 ### Python: Flask/Django
 
@@ -382,7 +373,7 @@ jobs:
             --env production
 ```
 
-## Performance Monitoring
+## Monitoreo de Performance
 
 ```python
 # Python: Custom transactions y spans
@@ -431,7 +422,7 @@ async function processOrder(userId: string, items: OrderItem[]): Promise<Order> 
 }
 ```
 
-## Alerting Rules
+## Reglas de Alerta
 
 ```yaml
 # Sentry alert rules (configurado en Sentry UI o via API)
@@ -463,68 +454,81 @@ rules:
       - notify_slack: "#performance"
 ```
 
-## Triage Workflow
+## Flujo de Triage
 
-```
-1. Recibí alert (Slack/email/PagerDuty)
-2. Abrí el issue en Sentry
-3. Revisá:
-   - Stack trace → identificá el failing code
-   - Breadcrumbs → entendé qué llevó al error
-   - User context → quién fue affected
-   - Request context → cuál fue el input
-   - Release tag → qué versión introdujo el bug
-   - Tags → filtrá por environment, service, error type
-4. Asigná el issue a un developer
-5. Linkeá a un Jira/GitHub issue
-6. Escribí un fix y deployéa
-7. Sentry detecta el fix en el new release
-8. Issue se auto-resuelve si no hay new events en 72 hours
-```
+1. Recibí una alerta por Slack, email o PagerDuty.
+2. Abrí el issue en Sentry.
+3. Revisá los datos clave:
+   - Stack trace para identificar el código que falla.
+   - Breadcrumbs para entender qué llevó al error.
+   - Contexto de usuario para saber quién se vio afectado.
+   - Contexto del request para ver el input que lo disparó.
+   - Release tag para detectar qué versión introdujo el bug.
+   - Tags para filtrar por entorno, servicio y tipo de error.
+4. Asigná el issue a un developer.
+5. Vinculalo a un ticket de Jira o GitHub.
+6. Escribí el fix y hacé el deploy.
+7. Sentry detecta el fix en el nuevo release y cierra el issue si no llegan eventos en 72 horas.
 
-## Best Practices
+## Buenas Prácticas
 
+Seteá el tag `release` en cada deployment. Sentry lo usa para auto-resolver issues una vez que el fix está en producción.
+Subí source maps para JavaScript y TypeScript minificados de forma que los stack traces apunten al código fuente real. Usá
+`before_send` para redactar PII como contraseñas, tokens y números de tarjetas.
 
-- For a deeper guide, see [Complete Guide to Observability with the Grafana Stack](/es/guides/complete-guide-observability-grafana-stack/).
+Seteá el contexto del usuario temprano en el ciclo del request para saber quién se vio afectado. Agregá breadcrumbs para
+operaciones clave como consultas a base de datos, llamadas a APIs y cambios de estado. Usá tags como `service`,
+`endpoint`, `feature_flag` y `user_tier` para filtrar. Si también usás el stack de Grafana para dashboards, consultá la
+[guía completa de Observability con Grafana](/es/guides/complete-guide-observability-grafana-stack/).
 
-- Seteá `release` tag en cada deployment — Sentry auto-resuelve issues cuando un fix se deployéa
-- Subí source maps para minified JavaScript — obtené readable stack traces
-- Usá `before_send` para redactar PII — passwords, tokens, credit card numbers
-- Seteá user context early en el request lifecycle — identificá quién fue affected
-- Agregá breadcrumbs para key operations — database queries, API calls, state changes
-- Usá tags para filtering — `service`, `endpoint`, `feature_flag`, `user_tier`
-- Sampleá transactions sabiamente — 10% para high-traffic, 100% para low-traffic
-- Groupéa errors similares — el default grouping de Sentry es bueno, pero custom fingerprinting ayuda
-- Seteá alerting en new errors — capturá regressions antes de que users los reporten
-- Configurá environment filtering — no mandes development errors al production project
+Sampleá transacciones con criterio: 10% para servicios de alto tráfico y 100% para los de bajo tráfico. Agrupá errores
+similares con fingerprinting custom cuando el agrupamiento default no alcanza. Configurá alertas sobre nuevos errores para
+atrapar regresiones antes de que los usuarios las reporten, y filtrá por entorno para que los errores de desarrollo no
+lleguen al proyecto de producción.
 
-## Common Mistakes
+## Errores Comunes
 
-- **No release tracking**: no podés decir qué versión introdujo el bug. Siempre seteá `release`.
-- **No source maps**: minified stack traces son useless. Subí source maps en CI.
-- **Mandar demasiada data**: high sample rates crean noise. Usá 10% para transactions.
-- **No redactar PII**: passwords y tokens leakean a Sentry. Usá `before_send` hook.
-- **Ignorar breadcrumbs**: muestran el path al error. Agregalos para key operations.
-- **Un project para todo**: separá projects por service para cleaner triage.
+No hacer seguimiento de releases imposibilita saber qué versión introdujo un bug. Siempre seteá `release` cuando
+inicializás el SDK.
 
-## FAQ
+Sin source maps, los stack traces minificados son casi inútiles. Subí source maps como parte de tu pipeline de CI, no
+manualmente después del deploy.
+
+Enviar demasiada data con sample rates altos genera ruido. Usá 10% de trace sampling para servicios de alto tráfico y
+subilo a 100% solo para paths críticos o de bajo volumen.
+
+No redactar PII filtra contraseñas, tokens e información personal a Sentry. Usá el hook `before_send` para borrar campos
+sensibles antes de que el evento salga de tu servidor.
+
+Ignorar los breadcrumbs borra el camino hacia el error. Agregalos en operaciones importantes y mantené los mensajes lo
+suficientemente cortos como para escanearlos rápido.
+
+Usar un solo proyecto de Sentry para todo mezcla errores de codebases distintos. Creá proyectos separados por servicio o
+equipo para que el triage sea enfocado.
+
+## Preguntas Frecuentes
 
 ### ¿Qué es Sentry?
 
-Una platform de error tracking y performance monitoring que capturea exceptions, crashes y performance issues en real-time. Provee stack traces, breadcrumbs, user context y release tracking para ayudar a developers a identificar y fixear production errors.
+Sentry es una plataforma de seguimiento de errores y monitoreo de performance. Captura excepciones, crashes y
+problemas de performance con stack traces, breadcrumbs, contexto de usuario y seguimiento de releases.
 
-### ¿Cómo se diferencia Sentry de logging?
+### ¿En qué se diferencia Sentry del logging?
 
-Logging capturea todos los events a un log aggregation system. Sentry específicamente capturea errors y performance issues con rich context (stack traces, breadcrumbs, user info). Usá ambos — logs para audit trails, Sentry para error triage.
+El logging registra eventos en un sistema de agregación para auditoría y debugging. Sentry captura errores y problemas de
+performance con contexto enriquecido, así que podés triagear más rápido. Usá ambos.
 
-### ¿Qué son breadcrumbs?
+### ¿Qué son los breadcrumbs?
 
-Un trail de events que llevan a un error. Incluyen HTTP requests, database queries, UI clicks y log messages. Breadcrumbs te ayudan a entender la secuencia de acciones que causó el error.
+Los breadcrumbs son una traza de eventos que preceden a un error. Incluyen requests HTTP, consultas a base de datos, clics
+de UI y mensajes de log que ayudan a entender la secuencia de acciones que causó el issue.
 
-### ¿Cómo resuelve Sentry issues?
+### ¿Cómo resuelve Sentry los issues?
 
-Cuando deployéas un fix con un new release tag, Sentry checkea si el error still ocurre. Si no hay new events por 72 hours (configurable), el issue se auto-resuelve. También podés manually resolve issues.
+Sentry resuelve un issue cuando se deployea un nuevo release y no llegan eventos nuevos durante un período configurado,
+habitualmente 72 horas. También podés resolverlos manualmente.
 
-### ¿Cuál es el pricing model de Sentry?
+### ¿Cuál es el modelo de precios de Sentry?
 
-Sentry ofrece un free tier (5,000 errors/month), un Team tier ($26/month, 50,000 errors) y Business/Enterprise tiers. Pricing escala con el número de events. Podés self-hostear Sentry usando la open-source version.
+Sentry ofrece un tier gratuito, tiers pagos Team y Business, y planes Enterprise. Los precios escalan según la cantidad
+de eventos que enviés, y podés self-hostear la versión open-source si necesitás control total.

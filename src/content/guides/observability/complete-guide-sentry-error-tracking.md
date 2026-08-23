@@ -1,10 +1,4 @@
 ---
-
-
-
-
-
-
 contentType: guides
 slug: complete-guide-sentry-error-tracking
 title: "Sentry: Error Tracking, Triage, and Resolution"
@@ -14,13 +8,13 @@ difficulty: intermediate
 topics:
   - observability
 tags:
-  - guide
   - sentry
   - error-tracking
   - monitoring
   - alerting
-  - observability
   - debugging
+  - release-tracking
+  - source-maps
 relatedResources:
   - /guides/complete-guide-structured-logging
   - /guides/complete-guide-distributed-tracing
@@ -28,7 +22,7 @@ relatedResources:
   - /guides/complete-guide-monitoring-and-alerting
   - /guides/complete-guide-observability-grafana-stack
   - /guides/complete-guide-prometheus-grafana
-lastUpdated: "2026-07-05"
+lastUpdated: "2026-08-23"
 publishedAt: "2026-07-06"
 author: Mathias Paulenko
 estimatedReadTime: 18
@@ -42,34 +36,28 @@ seo:
     - release tracking
     - performance monitoring
     - observability
-
-
-
-
-
-
 ---
 
 ## Introduction
 
-Sentry is an error tracking and performance monitoring platform that captures exceptions, crashes, and performance issues in real-time. When an error occurs in production, Sentry captures the stack trace, request context, user information, and breadcrumbs leading up to the error. The following guide covers Sentry SDK integration in Python, Node.js, and Java, release tracking with source maps, performance monitoring, alerting rules, and production workflows for triaging and resolving errors.
+Sentry is the tool you reach for when exceptions start slipping through to production. It captures the stack trace, request
+context, user info, and breadcrumbs that led to the failure, then surfaces it all in one place. This guide walks through
+SDK setup for Python, Node.js, and Java, release tracking with source maps, performance monitoring, alerting rules,
+and a
+practical workflow for triaging and fixing errors.
+
+If you've already shipped Sentry, jump straight to
+[release tracking and source maps](#release-tracking-and-source-maps) or [alerting rules](#alerting-rules).
 
 ## How Sentry Works
 
-```
-1. Error occurs in your application
-2. Sentry SDK captures the exception with:
-   - Stack trace (with source maps for minified code)
-   - Request context (URL, headers, body)
-   - User context (ID, email, IP)
-   - Breadcrumbs (events leading to the error)
-   - Environment and release tags
-3. SDK sends the event to Sentry server
-4. Sentry deduplicates and groups similar errors into issues
-5. Sentry notifies your team via Slack, email, or PagerDuty
-6. Developer triages the issue, identifies root cause, and deploys a fix
-7. Sentry marks the issue as resolved when the fix is deployed
-```
+When an error bubbles up in your application, the Sentry SDK intercepts it. It records the stack trace, request context,
+user context, breadcrumbs, and environment and release tags, then ships the event to Sentry's servers. From there, Sentry
+deduplicates and groups similar errors into issues and pings your team in Slack, email, or PagerDuty. A developer opens
+the issue, traces the root cause, deploys a fix, and Sentry resolves the issue once the new release stops reporting it.
+
+Source maps matter here. They turn minified stack traces into readable file names and line numbers; without them, debugging
+bundled frontend or Node.js code is mostly guesswork.
 
 ## SDK Integration
 
@@ -465,66 +453,68 @@ rules:
 
 ## Triage Workflow
 
-```
-1. Receive alert (Slack/email/PagerDuty)
-2. Open the issue in Sentry
-3. Review:
-   - Stack trace → identify the failing code
-   - Breadcrumbs → understand what led to the error
-   - User context → who was affected
-   - Request context → what was the input
-   - Release tag → which version introduced the bug
-   - Tags → filter by environment, service, error type
-4. Assign the issue to a developer
-5. Link to a Jira/GitHub issue
-6. Write a fix and deploy
-7. Sentry detects the fix in the new release
-8. Issue is auto-resolved if no new events in 72 hours
-```
+Once the alert hits Slack, email, or PagerDuty, open the issue in Sentry and read the data: the stack trace tells you where
+the code broke, breadcrumbs replay what led to the crash, user context shows who was affected, request context shows the
+input, the release tag tells you which version introduced the bug, and tags let you filter by environment, service, or
+error type. Assign the issue, link it to a Jira or GitHub ticket, write the fix, and deploy. Sentry notices the new release
+and closes the issue automatically if no events arrive for 72 hours.
 
 ## Best Practices
 
+Always set the `release` tag; Sentry uses it to auto-resolve issues once the fix is in production. Upload source maps for
+minified JavaScript and TypeScript so stack traces point to the actual source. Use `before_send` to scrub PII like
+passwords, tokens, and credit card numbers before the event leaves your server.
 
-- For a deeper guide, see [Complete Guide to Observability with the Grafana Stack](/guides/complete-guide-observability-grafana-stack/).
+Set user context as soon as the request starts so you can see who was affected. Add breadcrumbs around operations like
+database queries, API calls, and state changes. Use tags like `service`, `endpoint`, `feature_flag`, and `user_tier` to
+slice the data. If Grafana is also part of your observability stack, see the
+[Complete Guide to Observability with the Grafana Stack](/guides/complete-guide-observability-grafana-stack/).
 
-- Set `release` tag on every deployment — Sentry auto-resolves issues when a fix is deployed
-- Upload source maps for minified JavaScript — get readable stack traces
-- Use `before_send` to redact PII — passwords, tokens, credit card numbers
-- Set user context early in the request lifecycle — identify who was affected
-- Add breadcrumbs for key operations — database queries, API calls, state changes
-- Use tags for filtering — `service`, `endpoint`, `feature_flag`, `user_tier`
-- Sample transactions wisely — 10% for high-traffic, 100% for low-traffic
-- Group similar errors — Sentry's default grouping is good, but custom fingerprinting helps
-- Set up alerting on new errors — catch regressions before users report them
-- Configure environment filtering — don't send development errors to production project
+For transaction sampling, use 10% in high-volume services and 100% in low-traffic or critical paths. When the default
+grouping misses, use custom fingerprinting. Set up alerts for new errors so regressions don't wait for a user report, and
+filter by environment so development noise stays out of the production project.
 
 ## Common Mistakes
 
-- **No release tracking**: can't tell which version introduced the bug. Always set `release`.
-- **No source maps**: minified stack traces are useless. Upload source maps in CI.
-- **Sending too much data**: high sample rates create noise. Use 10% for transactions.
-- **Not redacting PII**: passwords and tokens leak to Sentry. Use `before_send` hook.
-- **Ignoring breadcrumbs**: they show the path to the error. Add them for key operations.
-- **One project for everything**: separate projects per service for cleaner triage.
+Without release tracking, you can't tell which version introduced a bug. Set `release` every time you initialize the SDK.
+
+Without source maps, minified stack traces are nearly useless. Upload them in your CI pipeline, not by hand after the fact.
+
+Cranking the sample rate to 100% everywhere just creates noise. Use 10% trace sampling for high-traffic services and raise
+it to 100% only for low-traffic or critical paths.
+
+Failing to redact PII sends passwords, tokens, and personal information to Sentry. Use the `before_send` hook to strip
+sensitive fields before the event leaves your server.
+
+It's tempting to skip breadcrumbs, but they show the path to the error. Add them for the operations that matter, and keep
+their messages short enough to scan.
+
+Resist the urge to pile every service into one Sentry project; that just mixes unrelated errors. Split projects by service
+or team so triage stays focused.
 
 ## FAQ
 
 ### What is Sentry?
 
-An error tracking and performance monitoring platform that captures exceptions, crashes, and performance issues in real-time. It provides stack traces, breadcrumbs, user context, and release tracking to help developers identify and fix production errors.
+Sentry tracks errors and monitors performance in production apps. It captures exceptions, crashes, and performance issues
+with stack traces, breadcrumbs, user context, and release tracking.
 
 ### How does Sentry differ from logging?
 
-Logging captures all events to a log aggregation system. Sentry specifically captures errors and performance issues with rich context (stack traces, breadcrumbs, user info). Use both — logs for audit trails, Sentry for error triage.
+Logging writes events to an aggregation system you can use for audit trails and debugging. Sentry grabs errors and
+performance problems with enough context to triage them quickly. Use both.
 
 ### What are breadcrumbs?
 
-A trail of events leading up to an error. They include HTTP requests, database queries, UI clicks, and log messages. Breadcrumbs help you understand the sequence of actions that caused the error.
+Breadcrumbs are the trail of events that led to an error — HTTP requests, database queries, UI clicks, and log messages.
+They help you understand the sequence of actions that caused the issue.
 
 ### How does Sentry resolve issues?
 
-When you deploy a fix with a new release tag, Sentry checks if the error still occurs. If no new events are seen for 72 hours (configurable), the issue is auto-resolved. You can also manually resolve issues.
+Sentry marks an issue resolved when you deploy a new release and no new events show up for a set period, usually 72 hours.
+You can resolve issues manually too.
 
 ### What is Sentry's pricing model?
 
-Sentry offers a free tier (5,000 errors/month), a Team tier ($26/month, 50,000 errors), and Business/Enterprise tiers. Pricing scales with the number of events. You can self-host Sentry using the open-source version.
+Sentry has a free tier, paid Team and Business tiers, and Enterprise plans. Pricing scales with the number of events you
+send, and you can self-host the open-source version if you need full control.
