@@ -670,7 +670,7 @@ Use this list to track progress as you audit and improve each resource.
 
 83. - [x] **complete-guide-sentry-error-tracking** (guides)
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.8% / ES 35.2% (0 patterns)
-   - Words: 1,962 | Meta: 161 chars
+   - Words: 1,962 | Meta: 165 chars
    - Status: ⏳ Pending
    - Words: 1,752 | Meta: 161 chars
 
