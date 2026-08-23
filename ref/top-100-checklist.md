@@ -660,13 +660,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 41.9% / ES 38.3% (0 patterns)
    - Words: 889 | Meta: 128 chars
 
-82. - [ ] **python-spark-groupby-aggregation** (recipes)
+82. - [x] **python-spark-groupby-aggregation** (recipes)
    - Metrics: 22 imp | pos 21 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/python-spark-groupby-aggregation/
    - ES: https://stackpractices.com/es/recipes/python-spark-groupby-aggregation/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,215 | Meta: 154 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 41.4% / ES 28.0% (0 patterns)
+   - Words: 1,391 | Meta: 154 chars
 
 83. - [ ] **complete-guide-sentry-error-tracking** (guides)
    - Metrics: 22 imp | pos 20.9 | CTR 0.00% | Δ impr 0

@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: python-spark-groupby-aggregation
 title: "Large-Scale Aggregation with PySpark"
@@ -14,13 +11,17 @@ tags:
   - data
   - python
   - big-data
-  - recipe
+  - spark
+  - pyspark
+  - aggregation
 relatedResources:
   - /recipes/python-polars-fast-dataframe
   - /recipes/python-airflow-dag-scheduling
   - /recipes/python-dask-parallel-dataframe
   - /recipes/sql-cte-recursive-hierarchy
-lastUpdated: "2026-07-05"
+  - /recipes/batch-processing-patterns
+  - /recipes/python-pandas-etl-pipeline
+lastUpdated: "2026-08-23"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
@@ -32,15 +33,15 @@ seo:
     - pyspark
     - aggregation
     - big-data
-    - recipe
-
-
-
 ---
 
 ## Overview
 
-PySpark is the Python API for Apache Spark, a distributed data processing engine. Group-by aggregations are one of the most common operations in data pipelines — summing revenue by customer, counting events by day, averaging metrics by region. On large datasets (100GB+), the way you write group-by operations affects performance dramatically. This approach handles basic aggregations, window functions, UDAFs, broadcast joins, and partition tuning.
+PySpark is the Python API for Apache Spark, a distributed data processing engine. Group-by aggregations are one of the
+most common operations in data pipelines — summing revenue by customer, counting events by day, averaging metrics by
+region. On large datasets (100GB+), the way you write group-by operations affects performance dramatically. This recipe
+covers basic
+aggregations, window functions, UDAFs, broadcast joins, and partition tuning.
 
 ## When to Use
 
@@ -352,44 +353,55 @@ df_cached.unpersist()
 
 ## Best Practices
 
+Set `spark.sql.shuffle.partitions` based on data size. The default of 200 is fine for large jobs, but use fewer for
+smaller data. Use `broadcast()` for dimension tables under 10MB to avoid expensive shuffles.
 
-- For a deeper guide, see [Parallel DataFrame Operations with Dask](/recipes/python-dask-parallel-dataframe/).
+Use Pandas UDFs instead of regular UDFs; they're vectorized and 10-100x faster. Filter early and push filters before
+joins and aggregations to reduce data volume.
 
-- Set `spark.sql.shuffle.partitions` based on data size — 200 is default, use fewer for small data
-- Use `broadcast()` for dimension tables under 10MB — avoids expensive shuffle
-- Use Pandas UDFs instead of regular UDFs — vectorized, 10-100x faster
-- Filter early — push filters before joins and aggregations to reduce data volume
-- Use `coalesce()` instead of `repartition()` when reducing partitions — avoids full shuffle
-- Enable Adaptive Query Execution (`spark.sql.adaptive.enabled=true`) — Spark optimizes at runtime
-- Use `partitionBy` when writing — enables predicate pushdown for downstream reads
-- Avoid `collect()` on large DataFrames — brings all data to the driver
+Use `coalesce()` instead of `repartition()` when reducing partitions; it avoids a full shuffle. Enable Adaptive Query
+Execution (`spark.sql.adaptive.enabled=true`) so Spark can optimize the plan at runtime.
+
+Use `partitionBy` when writing to enable predicate pushdown for downstream reads, and avoid `collect()` on large
+DataFrames because it brings all data to
+the driver. If you aren't running at cluster scale, [Dask parallel DataFrame operations](/recipes/python-dask-parallel-dataframe/)
+can be a simpler alternative.
 
 ## Common Mistakes
 
-- **Not setting shuffle partitions**: default 200 creates tiny tasks for small aggregations. Set to 20-50 for small data.
-- **Using regular UDFs instead of Pandas UDFs**: regular UDFs serialize each row individually. Pandas UDFs process in batches.
-- **Not broadcasting small tables**: a 5MB dimension table shuffled across 200 partitions is wasteful. Use `broadcast()`.
-- **Calling `collect()` on large results**: brings all data to the driver and crashes it. Use `show()`, `take()`, or write to storage.
-- **Not caching reused DataFrames**: if you use a DataFrame 3+ times, cache it. Otherwise Spark recomputes the lineage each time.
+Not setting shuffle partitions is a frequent issue. The default 200 creates tiny tasks for small aggregations; set it to
+20-50 for small data.
+
+Using regular UDFs instead of Pandas UDFs is slower because regular UDFs serialize each row individually. Pandas UDFs
+process in batches. A 5MB dimension table shuffled across 200 partitions is wasteful, so broadcast small tables instead
+letting Spark shuffle them.
+
+Calling `collect()` on large results brings all data to the driver and can crash it. Use `show()`, `take()`, or write to
+storage instead. If you reuse a DataFrame three or more times, cache it; otherwise Spark recomputes the lineage each time.
 
 ## FAQ
 
 ### How many shuffle partitions should I set?
 
-Rule of thumb: aim for 100-200MB per partition. For 10GB of shuffled data, use 50-100 partitions. For 1TB, use 5000-10000. Enable AQE and let Spark coalesce automatically.
+Rule of thumb: aim for 100-200MB per partition. For 10GB of shuffled data, use 50-100 partitions. For 1TB, use
+5000-10000. Enable AQE and let Spark coalesce automatically.
 
 ### What is the difference between `repartition()` and `coalesce()`?
 
-`repartition()` does a full shuffle to redistribute data. `coalesce()` merges existing partitions without shuffle. Use `coalesce()` when reducing partitions and `repartition()` when increasing or when data is skewed.
+`repartition()` does a full shuffle to redistribute data. `coalesce()` merges existing partitions without shuffle. Use
+`coalesce()` when reducing partitions and `repartition()` when increasing or when data is skewed.
 
 ### How do I handle data skew in group-by?
 
-Use the salting technique: add a random salt (0-9) to the key, aggregate in two stages. Or enable `spark.sql.adaptive.skewJoin.enabled=true` for join skew.
+Use the salting technique: add a random salt (0-9) to the key, aggregate in two stages. Or enable
+`spark.sql.adaptive.skewJoin.enabled=true` for join skew.
 
 ### Should I use DataFrame API or Spark SQL?
 
-Both compile to the same Catalyst optimizer plan. Use whichever is more readable for your team. DataFrame API is better for dynamic/programmatic queries, SQL for static ones.
+Both compile to the same Catalyst optimizer plan. Use whichever is more readable for your team. DataFrame API is better
+for dynamic/programmatic queries, SQL for static ones.
 
 ### How do I monitor Spark performance?
 
-Use the Spark UI (port 4040 by default). Check the Stages tab for shuffle read/write sizes, task duration, and skew. Use `explain()` on DataFrames to see the physical plan.
+Use the Spark UI (port 4040 by default). Check the Stages tab for shuffle read/write sizes, task duration, and skew. Use
+`explain()` on DataFrames to see the physical plan.
