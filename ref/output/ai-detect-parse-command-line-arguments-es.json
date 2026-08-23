@@ -1,0 +1,158 @@
+[
+  {
+    "label": "parse-command-line-arguments.es-en",
+    "model": "desklib",
+    "model_ai_pct": 36.4,
+    "ai_count": 5,
+    "human_count": 29,
+    "skipped_count": 1,
+    "total": 35,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 19.1,
+      "stddev": 20.8,
+      "cv": 1.09,
+      "verdict": "natural variation",
+      "sentence_count": 34,
+      "lengths": [
+        19,
+        23,
+        21,
+        20,
+        20,
+        16,
+        12,
+        15,
+        9,
+        11,
+        19,
+        135,
+        14,
+        11,
+        14,
+        24,
+        16,
+        16,
+        13,
+        21,
+        18,
+        20,
+        22,
+        17,
+        9,
+        9,
+        22,
+        16,
+        22,
+        10,
+        6,
+        8,
+        7,
+        13
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Sobre-ingenieriar subcomandos tambi\u00e9n es\ncom\u00fan: un script simple con flags suele ser m\u00e1s simple que una CLI multinivel.",
+        0.9472
+      ],
+      [
+        "El an\u00e1lisis de argumentos de l\u00ednea de comandos es lo primero que ven los usuarios al ejecutar tu herramienta.",
+        0.9407
+      ],
+      [
+        "En JavaScript, commander es la opci\u00f3n m\u00e1s com\u00fan, con configuraci\u00f3n encadenable.",
+        0.6542
+      ],
+      [
+        "Pon\u00e9 las opciones compartidas en\nuna clase padre o mixin para evitar duplicaci\u00f3n.",
+        0.6429
+      ],
+      [
+        "Click expone envvar= y picocli expone\ndefaultValue = \"${ENV_VAR}\".",
+        0.5477
+      ],
+      [
+        "Tambi\u00e9n se encargan de flags booleanos, argumentos posicionales, inputs vari\u00e1dicos y subcomandos.",
+        0.4863
+      ],
+      [
+        "Click usa decoradores y es m\u00e1s\nf\u00e1cil de componer.",
+        0.4564
+      ],
+      [
+        "En commander, llam\u00e1 a\n.command() para cada subcomando.",
+        0.4453
+      ],
+      [
+        "Cuando faltan\nargumentos requeridos, los usuarios deber\u00edan ver el texto de ayuda, no un stack trace.",
+        0.4415
+      ],
+      [
+        "Sal\u00ed con c\u00f3digo 0 en\ncaso de \u00e9xito y uno distinto de cero ante fallas, as\u00ed los shell scripts pueden detectar cuando algo fall\u00f3.",
+        0.4222
+      ],
+      [
+        "Invoc\u00e1 el punto de entrada de la CLI como una funci\u00f3n en lugar de spawnear subprocesos.",
+        0.4151
+      ],
+      [
+        "Las variables de entorno son ideales para secretos y valores espec\u00edficos de deployment que\nno deber\u00edan aparecer en el historial de shell.",
+        0.4023
+      ],
+      [
+        "Todos los frameworks principales soportan subcomandos.",
+        0.3958
+      ],
+      [
+        "argparse de Python viene con la librer\u00eda est\u00e1ndar y cubre la mayor\u00eda de los scripts.",
+        0.3767
+      ],
+      [
+        "Valid\u00e1 argumentos requeridos temprano\ny mostr\u00e1 mensajes amigables, no stack traces.",
+        0.3747
+      ],
+      [
+        "En picocli, anot\u00e1 clases anidadas con @Command.",
+        0.3514
+      ],
+      [
+        "Mutar estado global en handlers de CLI dificulta el testing y la composici\u00f3n.",
+        0.3407
+      ],
+      [
+        "Ignorar c\u00f3digos de salida significa que los\npipelines de CI/CD no pueden detectar fallas si la CLI siempre sale con 0.",
+        0.3397
+      ],
+      [
+        "Us\u00e1 librer\u00edas que soporten fallbacks de variables de entorno.",
+        0.3305
+      ],
+      [
+        "Si una\nherramienta solo la ejecutan otros scripts, un archivo de configuraci\u00f3n o variables de entorno pueden ser m\u00e1s limpios que\nflags.",
+        0.3272
+      ],
+      [
+        "Eso es mucho m\u00e1s r\u00e1pido que testing basado en shell.",
+        0.3108
+      ],
+      [
+        "Agreg\u00e1\nflags -h y --help a toda CLI, porque los frameworks generan esto autom\u00e1ticamente.",
+        0.2689
+      ],
+      [
+        "Si un script solo necesita una entrada fija, una CLI es innecesaria; us\u00e1 una funci\u00f3n o una variable de entorno.",
+        0.2663
+      ],
+      [
+        "picocli usa\nanotaciones de Java y funciona bien con compilaci\u00f3n a native-image de GraalVM para CLIs de arranque r\u00e1pido.",
+        0.2565
+      ],
+      [
+        "Generan autom\u00e1ticamente texto de ayuda, validan argumentos requeridos y convierten valores como\n--count 5 a enteros.",
+        0.2381
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

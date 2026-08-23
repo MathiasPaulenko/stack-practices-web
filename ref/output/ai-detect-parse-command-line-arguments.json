@@ -1,0 +1,317 @@
+[
+  {
+    "label": "parse-command-line-arguments-en",
+    "model": "desklib",
+    "model_ai_pct": 41.9,
+    "ai_count": 9,
+    "human_count": 24,
+    "skipped_count": 0,
+    "total": 33,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 17.2,
+      "stddev": 20.5,
+      "cv": 1.19,
+      "verdict": "natural variation",
+      "sentence_count": 33,
+      "lengths": [
+        13,
+        21,
+        18,
+        17,
+        18,
+        16,
+        11,
+        11,
+        7,
+        11,
+        14,
+        131,
+        14,
+        12,
+        11,
+        18,
+        13,
+        14,
+        12,
+        16,
+        16,
+        20,
+        20,
+        12,
+        8,
+        9,
+        15,
+        12,
+        21,
+        7,
+        5,
+        14,
+        12
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Use this when you're building developer tools, build scripts, deployment automation, or data pipelines that need\nconfigurable inputs.",
+        0.847
+      ],
+      [
+        "In JavaScript, commander is the most common choice, with chainable configuration.",
+        0.7701
+      ],
+      [
+        "They handle\nboolean flags, positional arguments, variadic inputs, and subcommands too.",
+        0.7172
+      ],
+      [
+        "They generate help text, validate required arguments, and cast values such as --count 5 to integers.",
+        0.5752
+      ],
+      [
+        "All major frameworks support subcommands.",
+        0.5619
+      ],
+      [
+        "Click uses decorators and composes more\ncleanly.",
+        0.5532
+      ],
+      [
+        "| Technology | Library | Approach | Notes |\n| --- | --- | --- | --- |\n| Python | argparse | Standard library | Zero dependencies, auto-generated help |\n| Python | Click | Decorator",
+        0.5214
+      ],
+      [
+        "If a script only needs a single fixed input, skip the CLI and use a function or an environment variable.",
+        0.513
+      ],
+      [
+        "Python's argparse ships with the standard library and covers most scripts.",
+        0.5105
+      ],
+      [
+        "Argument parsing is the first thing users hit when they run your tool.",
+        0.499
+      ],
+      [
+        "Invoke the CLI entry point as a function rather than spawning subprocesses.",
+        0.4976
+      ],
+      [
+        "picocli uses Java\nannotations and works well with GraalVM native-image compilation for fast-startup CLIs.",
+        0.4837
+      ],
+      [
+        "That runs much faster than shell-based testing.",
+        0.4647
+      ],
+      [
+        "When required\narguments go missing, users should see help text, not a stack trace.",
+        0.4328
+      ],
+      [
+        "Environment variables are ideal for secrets and deployment-specific values that shouldn't\nappear in shell history.",
+        0.4281
+      ],
+      [
+        "Ignoring exit codes means CI/CD\npipelines can't detect failures when the CLI always exits with 0.",
+        0.42
+      ],
+      [
+        "CLI frameworks take the raw argument array (sys.argv, process.argv, or String[] args) and turn it into typed\nvalues.",
+        0.4119
+      ],
+      [
+        "For hot paths where\nparsing overhead matters, prefer pre-parsed or compiled options.",
+        0.3933
+      ],
+      [
+        "If a tool is\nonly run by other scripts, a configuration file or environment variables may be cleaner than flags.",
+        0.3806
+      ],
+      [
+        "Click exposes envvar=, and picocli exposes\ndefaultValue = \"${ENV_VAR}\".",
+        0.3748
+      ],
+      [
+        "Validate required arguments early and\nshow friendly errors, not raw stack traces.",
+        0.3673
+      ],
+      [
+        "Add -h and\n--help flags to every CLI, because the frameworks generate them automatically.",
+        0.3467
+      ],
+      [
+        "Exit with 0 for success and a non-zero code\non failure, so calling shell scripts can spot problems.",
+        0.3449
+      ],
+      [
+        "Put shared options in a parent class or mixin to avoid duplication.",
+        0.3405
+      ],
+      [
+        "Use libraries that natively support env var fallbacks.",
+        0.337
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "parse-command-line-arguments-es",
+    "model": "desklib",
+    "model_ai_pct": 38.3,
+    "ai_count": 10,
+    "human_count": 28,
+    "skipped_count": 3,
+    "total": 41,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 17.2,
+      "stddev": 20.1,
+      "cv": 1.17,
+      "verdict": "natural variation",
+      "sentence_count": 38,
+      "lengths": [
+        19,
+        23,
+        12,
+        22,
+        22,
+        20,
+        16,
+        13,
+        15,
+        9,
+        8,
+        19,
+        135,
+        13,
+        13,
+        14,
+        22,
+        9,
+        8,
+        5,
+        12,
+        7,
+        7,
+        15,
+        13,
+        20,
+        22,
+        17,
+        9,
+        9,
+        22,
+        16,
+        22,
+        11,
+        6,
+        8,
+        7,
+        13
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "El an\u00e1lisis de argumentos de l\u00ednea de comandos es lo primero que ven los usuarios al ejecutar tu herramienta.",
+        0.9407
+      ],
+      [
+        "Esta receta cubre las librer\u00edas m\u00e1s comunes en Python, JavaScript y Java.",
+        0.9096
+      ],
+      [
+        "Manten\u00e9 las opciones compartidas\nen una clase padre o mixin para evitar duplicaci\u00f3n.",
+        0.7585
+      ],
+      [
+        "No manejar argumentos requeridos faltantes.",
+        0.736
+      ],
+      [
+        "Los usuarios deber\u00edan ver el texto de ayuda, no un stack trace.",
+        0.6088
+      ],
+      [
+        "Un script simple con flags suele ser m\u00e1s simple que una CLI multinivel.",
+        0.5937
+      ],
+      [
+        "Eso dificulta el testing y la composici\u00f3n.",
+        0.5624
+      ],
+      [
+        "Retorn\u00e1 c\u00f3digos de salida con sentido: 0 para \u00e9xito y distinto de cero para errores, as\u00ed los shell scripts pueden\ndetectar fallas.",
+        0.554
+      ],
+      [
+        "commander domina el ecosistema JavaScript con configuraci\u00f3n encadenable.",
+        0.5313
+      ],
+      [
+        "Mutar estado global en handlers de CLI.",
+        0.5023
+      ],
+      [
+        "Click usa decoradores y es m\u00e1s\nf\u00e1cil de componer.",
+        0.4564
+      ],
+      [
+        "En commander, llam\u00e1 a\n.command() para cada subcomando.",
+        0.4453
+      ],
+      [
+        "Invoc\u00e1 el punto de entrada de la CLI como una funci\u00f3n en lugar de spawnear subprocesos.",
+        0.4151
+      ],
+      [
+        "Las variables de entorno son ideales para secretos y valores espec\u00edficos de deployment que\nno deber\u00edan aparecer en el historial de shell.",
+        0.4023
+      ],
+      [
+        "Eso conduce a c\u00f3digo fr\u00e1gil y no mantenible.",
+        0.4006
+      ],
+      [
+        "Todos los frameworks principales soportan subcomandos.",
+        0.3958
+      ],
+      [
+        "argparse de Python viene con la librer\u00eda est\u00e1ndar y cubre la mayor\u00eda de los scripts.",
+        0.3767
+      ],
+      [
+        "Este enfoque es mucho m\u00e1s r\u00e1pido que testing basado en shell.",
+        0.3645
+      ],
+      [
+        "En picocli, anot\u00e1 clases anidadas con @Command.",
+        0.3514
+      ],
+      [
+        "Us\u00e1 librer\u00edas que soporten fallbacks de variables de entorno.",
+        0.3305
+      ],
+      [
+        "Si una herramienta solo la ejecutan otros scripts, un archivo de configuraci\u00f3n o variables de entorno pueden ser m\u00e1s\nlimpios que flags.",
+        0.3272
+      ],
+      [
+        "Parsear process.argv manualmente en lugar de usar un framework.",
+        0.3216
+      ],
+      [
+        "Tambi\u00e9n manejan flags booleanos, argumentos posicionales opcionales y requeridos, inputs\nvari\u00e1dicos y subcomandos.",
+        0.3175
+      ],
+      [
+        "Valid\u00e1 argumentos requeridos temprano y mostr\u00e1 mensajes amigables en lugar de stack traces.",
+        0.2914
+      ],
+      [
+        "Si un script solo necesita una entrada fija, una CLI es innecesaria; us\u00e1 una funci\u00f3n o una variable de entorno.",
+        0.2663
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
