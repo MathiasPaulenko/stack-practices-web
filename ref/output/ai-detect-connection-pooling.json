@@ -1,0 +1,336 @@
+[
+  {
+    "label": "connection-pooling-en",
+    "model": "desklib",
+    "model_ai_pct": 44.2,
+    "ai_count": 15,
+    "human_count": 30,
+    "skipped_count": 1,
+    "total": 46,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 18.4,
+      "stddev": 17.0,
+      "cv": 0.93,
+      "verdict": "natural variation",
+      "sentence_count": 45,
+      "lengths": [
+        12,
+        16,
+        24,
+        14,
+        18,
+        51,
+        18,
+        26,
+        11,
+        19,
+        25,
+        12,
+        17,
+        12,
+        10,
+        22,
+        22,
+        20,
+        6,
+        121,
+        15,
+        20,
+        16,
+        20,
+        14,
+        18,
+        10,
+        18,
+        12,
+        14,
+        10,
+        14,
+        21,
+        10,
+        16,
+        12,
+        11,
+        11,
+        10,
+        11,
+        7,
+        14,
+        15,
+        13,
+        18
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "The max lifetime caps how old a connection can get before it's replaced, which avoids\nstale sockets and makes credential rotation easier.",
+        0.8905
+      ],
+      [
+        "| Technology | Approach | Notes |\n| ------------ | ---------- | ------- |\n| **PostgreSQL** | psycopg2.pool / pg / HikariCP | Threaded or async pools; match size to concurrency |\n| ",
+        0.8762
+      ],
+      [
+        "We cover database pools for PostgreSQL, MySQL, and Redis, plus HTTP client pooling in Python, JavaScript,\nand Java.",
+        0.8675
+      ],
+      [
+        "Keep connectionTimeout short so requests fail fast instead of hanging forever.",
+        0.8639
+      ],
+      [
+        "In a microservices setup, each service owns its own pool.",
+        0.7817
+      ],
+      [
+        "The idle timeout closes unused connections after\nthey sit around.",
+        0.763
+      ],
+      [
+        "See [database indexing](/recipes/database-indexing/) and\n[query optimization](/recipes/query-optimization/).",
+        0.6826
+      ],
+      [
+        "For a\nbroader performance strategy, see the\n[performance optimization guide](/guides/performance-optimization-guide/).",
+        0.6819
+      ],
+      [
+        "It pays off\nwhen your service keeps calling the same few downstream APIs.",
+        0.6713
+      ],
+      [
+        "The payoff is lower latency, higher throughput, and far fewer \"too many connections\" errors.",
+        0.6403
+      ],
+      [
+        "The maximum\nsize is the ceiling that stops the pool from overwhelming the database or remote server.",
+        0.6194
+      ],
+      [
+        "For HTTP clients, keep-alive reuses the underlying TCP connection across requests to the same host, saving\nthe TLS handshake on every call.",
+        0.5599
+      ],
+      [
+        "Start with the number of concurrent\nworkers plus a small buffer and adjust from there.",
+        0.5337
+      ],
+      [
+        "Also skip it if your driver or HTTP client already manages persistent connections transparently, or if\nyou're on a serverless platform with strict connection lifetime limits.",
+        0.5306
+      ],
+      [
+        "When your code asks for one, the pool\nhands over an idle connection instead of opening a new socket.",
+        0.5242
+      ],
+      [
+        "Keep connectionTimeout lower than your application's\nend-to-end request timeout so you fail fast instead of hanging.",
+        0.4982
+      ],
+      [
+        "Add circuit breakers or\nretries with backoff.",
+        0.4882
+      ],
+      [
+        "The minimum size keeps connections warm so the first request isn't slow.",
+        0.4776
+      ],
+      [
+        "Set pool_maxsize or maxSockets high\nenough for your concurrency, but not so high that you exhaust ephemeral ports.",
+        0.4275
+      ],
+      [
+        "One pool per database per application instance is the usual approach.",
+        0.4127
+      ],
+      [
+        "Always release connections in a finally block so they go\nback to the pool even when an exception is thrown.",
+        0.4056
+      ],
+      [
+        "For OLTP workloads, start with (core_count * 2) + effective_spindle_count.",
+        0.3969
+      ],
+      [
+        "The connection\ntimeout decides how long a caller waits before giving up.",
+        0.396
+      ],
+      [
+        "Use TLS for database\nand service-to-service HTTP connections, but keep a reasonable idle timeout to close stale sockets.",
+        0.3926
+      ],
+      [
+        "A connection pool is a bounded queue of established TCP connections.",
+        0.3858
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "connection-pooling-es",
+    "model": "desklib",
+    "model_ai_pct": 30.3,
+    "ai_count": 6,
+    "human_count": 39,
+    "skipped_count": 1,
+    "total": 46,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 20.2,
+      "stddev": 17.6,
+      "cv": 0.87,
+      "verdict": "natural variation",
+      "sentence_count": 45,
+      "lengths": [
+        15,
+        22,
+        25,
+        14,
+        21,
+        52,
+        22,
+        29,
+        12,
+        18,
+        28,
+        14,
+        20,
+        11,
+        10,
+        26,
+        21,
+        24,
+        6,
+        125,
+        15,
+        17,
+        21,
+        22,
+        17,
+        22,
+        13,
+        21,
+        17,
+        17,
+        9,
+        13,
+        28,
+        10,
+        22,
+        13,
+        13,
+        13,
+        8,
+        14,
+        7,
+        21,
+        13,
+        13,
+        16
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Un pool por base de datos por instancia de aplicaci\u00f3n es lo usual.",
+        0.849
+      ],
+      [
+        "El tama\u00f1o m\u00ednimo mantiene conexiones precalentadas para que la primera\npetici\u00f3n no sea lenta.",
+        0.6783
+      ],
+      [
+        "Cuando tu c\u00f3digo pide una, el\npool entrega una conexi\u00f3n inactiva en lugar de abrir un nuevo socket.",
+        0.6113
+      ],
+      [
+        "El m\u00e1s grande es no liberar conexiones: una que no se devuelve eventualmente vac\u00eda el pool y bloquea\ntodas las peticiones.",
+        0.5359
+      ],
+      [
+        "| Tecnolog\u00eda | Enfoque | Notas |\n| ------------ | --------- | ------- |\n| **PostgreSQL** | psycopg2.pool / pg / HikariCP | Pools threaded o async; ajust\u00e1 el tama\u00f1o a la concurrenci",
+        0.5282
+      ],
+      [
+        "Para una estrategia general de rendimiento,\nconsult\u00e1 la [gu\u00eda de optimizaci\u00f3n de\nperformance](/es/guides/performance-optimization-guide/).",
+        0.5214
+      ],
+      [
+        "Agreg\u00e1 circuit breakers o reintentos con backoff.",
+        0.4657
+      ],
+      [
+        "Para cargas OLTP, empez\u00e1 con (n\u00facleos * 2) + discos_efectivos.",
+        0.4546
+      ],
+      [
+        "Si la base de datos sigue siendo el cuello de botella despu\u00e9s\nde ajustar el pool, los siguientes pasos suelen ser consultas y esquema.",
+        0.4475
+      ],
+      [
+        "Siempre liber\u00e1 conexiones en un bloque\nfinally para que vuelvan al pool incluso si hay una excepci\u00f3n.",
+        0.4432
+      ],
+      [
+        "El tama\u00f1o m\u00e1ximo es el techo que evita que el pool sature la base de datos o el\nservidor remoto.",
+        0.4402
+      ],
+      [
+        "Consult\u00e1\n[database indexing](/es/recipes/database-indexing/) y [query optimization](/es/recipes/query-optimization/).",
+        0.4328
+      ],
+      [
+        "Evitalo cuando un script de corta duraci\u00f3n ejecuta una sola consulta y sale, porque el overhead del pool\nno vale la pena.",
+        0.4178
+      ],
+      [
+        "El resultado es menos latencia, mayor throughput y\nmuchos menos errores de \"demasiadas conexiones\".",
+        0.4118
+      ],
+      [
+        "El connection timeout decide cu\u00e1nto espera el llamador antes de rendirse.",
+        0.34
+      ],
+      [
+        "En entornos cloud o contenerizados, igual\u00e1\nel tama\u00f1o del pool a la concurrencia de la aplicaci\u00f3n, no a los n\u00facleos de CPU.",
+        0.3196
+      ],
+      [
+        "Un pool size de 1 serializa todo el acceso a base de datos y mata el throughput.",
+        0.3118
+      ],
+      [
+        "Un\npool demasiado grande puede saturar el l\u00edmite max_connections de la base de datos y gastar memoria.",
+        0.2871
+      ],
+      [
+        "En microservicios, cada servicio gestiona su propio pool.",
+        0.2698
+      ],
+      [
+        "Monitore\u00e1 m\u00e9tricas de\nwaiting y aument\u00e1 solo si las conexiones empiezan a encolarse.",
+        0.2623
+      ],
+      [
+        "Us\u00e1 TLS para conexiones de base de datos y HTTP entre servicios, pero\nmanten\u00e9 un idle timeout razonable para cerrar sockets viejos.",
+        0.2598
+      ],
+      [
+        "El handshake TCP, la\nnegociaci\u00f3n TLS y la autenticaci\u00f3n en la base de datos suman latencia y consumen CPU en ambos lados.",
+        0.2435
+      ],
+      [
+        "Monitore\u00e1\nconexiones activas, inactivas, en espera y totales; si se encolan, el pool es chico o la base de datos\nest\u00e1 saturada.",
+        0.2434
+      ],
+      [
+        "Cubrimos pools de base de datos para PostgreSQL, MySQL y Redis, m\u00e1s pooling de clientes HTTP en Python,\nJavaScript y Java.",
+        0.2406
+      ],
+      [
+        "Paga cuando tu\nservicio llama repetidamente a las mismas pocas APIs de bajada.",
+        0.2369
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

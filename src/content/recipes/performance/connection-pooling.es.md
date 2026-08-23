@@ -1,56 +1,64 @@
 ---
 contentType: recipes
 slug: connection-pooling
-title: "Configurar connection pooling para bases de datos y"
-description: "Cómo configurar connection pooling para bases de datos y clientes HTTP para mejorar rendimiento y confiabilidad"
-metaDescription: "Configura connection pooling para PostgreSQL, MySQL, Redis y clientes HTTP. Mejora throughput, reduce latencia y previene agotamiento de conexiones."
+title: "Configurar connection pooling para bases de datos y HTTP"
+description: "Configura connection pooling para PostgreSQL, MySQL, Redis y clientes HTTP en Python, JavaScript y Java. Reduce latencia y evita agotamiento de conexiones."
+metaDescription: "Configura connection pooling para PostgreSQL, MySQL, Redis y clientes HTTP en Python, JavaScript y Java. Reduce latencia y evita agotamiento de conexiones."
 difficulty: intermediate
 topics:
   - performance
 tags:
   - performance
   - database
+  - connection-pooling
+  - postgresql
+  - redis
+  - http-client
   - optimization
-  - profiling
-  - latency
 relatedResources:
   - /guides/sql-performance-tuning-guide
   - /guides/performance-optimization-guide
-  - /recipes/cdn-edge-caching
-  - /recipes/debounce-throttle
-  - /patterns/cache-aside-pattern
-  - /recipes/redis-cache-patterns
-  - /recipes/cache-invalidation
   - /recipes/database-indexing
   - /recipes/query-optimization
-lastUpdated: "2026-06-12"
+  - /patterns/cache-aside-pattern
+  - /recipes/redis-cache-patterns
+lastUpdated: "2026-08-23"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Configura connection pooling para PostgreSQL, MySQL, Redis y clientes HTTP. Mejora throughput, reduce latencia y previene agotamiento de conexiones."
+  metaDescription: "Configura connection pooling para PostgreSQL, MySQL, Redis y clientes HTTP en Python, JavaScript y Java. Reduce latencia y evita agotamiento de conexiones."
   keywords:
-    - connection-pooling
-    - base-datos
+    - connection pooling
     - postgresql
+    - hikari
     - redis
-    - http-client
+    - http client
     - rendimiento
-
-
 ---
+
 ## Visión General
 
-Abrir una nueva conexión de base de datos o HTTP para cada petición es costoso. El connection pooling mantiene un conjunto reutilizable de conexiones ya establecidas, reduciendo drásticamente la latencia y previniendo el agotamiento de recursos bajo carga. La mayoría de los incidentes en producción relacionados con "demasiadas conexiones" se resuelven con una configuración adecuada del pool.
+Abrir una nueva conexión de base de datos o HTTP para cada petición es costoso. El handshake TCP, la
+negociación TLS y la autenticación en la base de datos suman latencia y consumen CPU en ambos lados. El
+connection pooling mantiene un conjunto reutilizable de conexiones ya establecidas: tu código toma una,
+ejecuta una consulta o llamada a API, y la devuelve. El resultado es menos latencia, mayor throughput y
+muchos menos errores de "demasiadas conexiones".
 
-El siguiente enfoque cubre connection pooling de base de datos con PostgreSQL, MySQL y Redis, más pooling de clientes HTTP para llamadas a APIs externas.
+Cubrimos pools de base de datos para PostgreSQL, MySQL y Redis, más pooling de clientes HTTP en Python,
+JavaScript y Java.
 
 ## Cuándo Usar
 
-Usa este recurso cuando:
-- Tu aplicación abre una conexión nueva por petición y el throughput es bajo. Consulta [SQL Performance Tuning](/guides/sql-performance-tuning-guide/) para optimización previa.
-- Recibes errores de "demasiadas conexiones" bajo carga. Consulta [Performance Optimization](/guides/performance-optimization-guide/) para diagnóstico de cuellos de botella.
-- Haces llamadas HTTP frecuentes a APIs externas y quieres reutilizar conexiones TCP. Consulta [Call REST API](/recipes/call-rest-api/) para patrones de cliente HTTP.
-- Necesitas ajustar los límites de concurrencia para un servicio web o worker. Consulta [Rate Limiting](/recipes/rate-limiting/) para control de concurrencia.
+Usá connection pooling cuando tu aplicación abre una conexión nueva por petición y el throughput es bajo,
+cuando estás recibiendo errores de "demasiadas conexiones" bajo carga, cuando hacés llamadas frecuentes a
+APIs externas y querés reutilizar TCP, o cuando necesitás limitar la concurrencia para proteger una base
+de datos o servicio remoto.
+
+## Cuándo Evitar
+
+Evitalo cuando un script de corta duración ejecuta una sola consulta y sale, porque el overhead del pool
+no vale la pena. También evitalo si tu driver o cliente HTTP ya maneja conexiones persistentes de forma
+transparente, o si corrés en una plataforma serverless con límites estrictos de vida de conexiones.
 
 ## Solución
 
@@ -118,10 +126,16 @@ async function getUser(userId) {
 }
 
 // Cliente HTTP con keep-alive
-const httpAgent = new (require('http').Agent)({ keepAlive: true, maxSockets: 20 });
-const httpsAgent = new (require('https').Agent)({ keepAlive: true, maxSockets: 20 });
+const http = require('http');
+const https = require('https');
+
+const httpAgent = new http.Agent({ keepAlive: true, maxSockets: 20 });
+const httpsAgent = new https.Agent({ keepAlive: true, maxSockets: 20 });
 
 const api = axios.create({ httpAgent, httpsAgent });
+
+api.get('https://api.example.com/data')
+  .then(res => console.log(res.data));
 ```
 
 ### Java
@@ -130,6 +144,10 @@ const api = axios.create({ httpAgent, httpsAgent });
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import java.sql.*;
+import okhttp3.ConnectionPool;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import java.util.concurrent.TimeUnit;
 
 // HikariCP — el estándar de oro para pooling en JVM
 HikariConfig config = new HikariConfig();
@@ -144,6 +162,7 @@ config.addDataSourceProperty("cachePrepStmts", "true");
 
 HikariDataSource ds = new HikariDataSource(config);
 
+int userId = 1;
 try (Connection conn = ds.getConnection();
      PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE id = ?")) {
     ps.setInt(1, userId);
@@ -153,198 +172,93 @@ try (Connection conn = ds.getConnection();
     }
 }
 
-// Cliente HTTP con pooling (Java 11+)
-HttpClient client = HttpClient.newBuilder()
-    .connectTimeout(Duration.ofSeconds(5))
+// Cliente HTTP con pool acotado
+OkHttpClient httpClient = new OkHttpClient.Builder()
+    .connectionPool(new ConnectionPool(20, 5, TimeUnit.MINUTES))
+    .connectTimeout(5, TimeUnit.SECONDS)
     .build();
+
+Request request = new Request.Builder()
+    .url("https://api.example.com/data")
+    .build();
+
+httpClient.newCall(request).execute();
 ```
 
 ## Explicación
 
-El connection pooling funciona manteniendo una cola acotada de conexiones TCP ya establecidas. Cuando tu código solicita una conexión, el pool entrega una inactiva en lugar de abrir un nuevo socket. Cuando la operación termina, la conexión vuelve al pool en lugar de cerrarse.
+Un connection pool es una cola acotada de conexiones TCP ya establecidas. Cuando tu código pide una, el
+pool entrega una conexión inactiva en lugar de abrir un nuevo socket. Cuando termina el trabajo, la
+conexión vuelve al pool en lugar de cerrarse, así la mayoría de las operaciones se salta el costo del
+handshake y la autenticación.
 
-**Parámetros clave del pool:**
-- **min connections**: Conexiones precalentadas listas al inicio
-- **max connections**: Tope máximo para proteger la base de datos o servidor remoto
-- **connection timeout**: Cuánto esperar por una conexión disponible antes de fallar
-- **idle timeout**: Cuánto mantener una conexión inactiva abierta antes de cerrarla
+Hay algunas palancas importantes. El tamaño mínimo mantiene conexiones precalentadas para que la primera
+petición no sea lenta. El tamaño máximo es el techo que evita que el pool sature la base de datos o el
+servidor remoto. El connection timeout decide cuánto espera el llamador antes de rendirse. El idle
+timeout cierra conexiones que estuvieron inactivas un tiempo. El max lifetime limita qué tan vieja puede
+ser una conexión antes de ser reemplazada, lo cual evita sockets viejos y facilita la rotación de
+credenciales.
 
-Para clientes HTTP, `keep-alive` reutiliza la conexión TCP subyacente entre múltiples peticiones al mismo host, eliminando el overhead del handshake TLS en cada llamada.
+Para clientes HTTP, `keep-alive` reutiliza la conexión TCP subyacente entre peticiones al mismo host,
+ahorrando el handshake TLS en cada llamada. Si la base de datos sigue siendo el cuello de botella después
+de ajustar el pool, los siguientes pasos suelen ser consultas y esquema. Consultá
+[database indexing](/es/recipes/database-indexing/) y [query optimization](/es/recipes/query-optimization/).
 
 ## Variantes
 
 | Tecnología | Enfoque | Notas |
-|------------|---------|-------|
-| PostgreSQL | psycopg2.pool / pg / HikariCP | ThreadedConnectionPool para threads, AsyncConnectionPool para asyncio |
-| MySQL | mysql-connector-python / mysql2 / HikariCP | Mismos conceptos de pool; cuidado con `wait_timeout` del servidor |
-| Redis | redis-py connection pool / ioredis / Lettuce | Redis es rápido, pero el pool sigue siendo importante en alta concurrencia |
-| HTTP (Python) | requests Session + HTTPAdapter | `pool_maxsize` controla conexiones por host |
-| HTTP (Node) | axios + http.Agent | `maxSockets` controla conexiones paralelas |
-| HTTP (Java) | Apache HttpClient / OkHttp | Connection managers integrados con límites por ruta |
+| ------------ | --------- | ------- |
+| **PostgreSQL** | `psycopg2.pool` / `pg` / HikariCP | Pools threaded o async; ajustá el tamaño a la concurrencia |
+| **MySQL** | `mysql-connector-python` / `mysql2` / HikariCP | Controlá `wait_timeout` y `max_connections` |
+| **Redis** | connection pool de `redis-py` / `ioredis` / Lettuce | Rápido, pero el pool importa en alta concurrencia |
+| **HTTP (Python)** | `requests.Session` + `HTTPAdapter` | `pool_maxsize` controla conexiones por host |
+| **HTTP (Node)** | `axios` + `http.Agent` | `maxSockets` controla conexiones paralelas |
+| **HTTP (Java)** | OkHttp `ConnectionPool` / Apache HttpClient | Managers integrados con límites por ruta |
 
-## Lo que funciona
+## Mejores Prácticas
 
-1. Ajusta `max pool size` aproximadamente al número de workers concurrentes (threads, procesos o concurrencia del event loop)
-2. Siempre usa `release()` o `putconn()` en un bloque `finally` para evitar fugas
-3. Configura `connectionTimeout` menor que el timeout total de la petición de tu aplicación
-4. Monitorea métricas del pool: activas, inactivas, en espera y totales
-5. Usa cache de prepared statements a nivel de pool cuando esté disponible (ej. HikariCP `cachePrepStmts`)
+Dimensioná el pool según tu concurrencia real, no la cantidad de núcleos. Empezá con la cantidad de
+workers concurrentes más un pequeño margen y ajustá desde ahí. Siempre liberá conexiones en un bloque
+`finally` para que vuelvan al pool incluso si hay una excepción. Mantené `connectionTimeout` menor que el
+timeout total de la petición de tu aplicación para fallar rápido en lugar de quedarse colgado. Monitoreá
+conexiones activas, inactivas, en espera y totales; si se encolan, el pool es chico o la base de datos
+está saturada. Activá el cache de prepared statements a nivel de pool cuando esté disponible, como
+`cachePrepStmts` de HikariCP. Usá TLS para conexiones de base de datos y HTTP entre servicios, pero
+mantené un idle timeout razonable para cerrar sockets viejos. Para una estrategia general de rendimiento,
+consultá la [guía de optimización de
+performance](/es/guides/performance-optimization-guide/).
 
 ## Errores Comunes
 
-1. **No liberar conexiones** — siempre devuélvelas al pool, incluso ante excepciones
-2. **Pool size = 1** — serializa todo el acceso a base de datos y mata el throughput
-3. **Pool demasiado grande** — puede saturar la base de datos con límites de `max_connections`
-4. **Ignorar idle timeouts** — conexiones stale causan fallos silenciosos o sockets semiabiertos
-5. **Sin HTTP keep-alive** — reabrir TLS en cada petición externa desperdicia milisegundos
-
-## Manejo de Errores y Recuperacion
-
-- **Fallos de compression**: cuando Brotli compression falla, sirve uncompressed content como fallback.   Setea compression quality basado en CPU availability.
-- **Fallos de CDN origin**: cuando CDN no puede alcanzar origin, sirve stale content.   Setea appropriate TTLs.
-- **Connection pool exhaustion**: cuando todas las connections estan in use, requests queuean o fallan.   Setea max pool size basado en database capacity.
-- **Fallos de lazy loading intersection observer**: cuando Intersection Observer falla, content nunca loads.
-- **Fallos de load test scripts**: cuando k6 scripts fallan, test results son invalid.   Valida test scripts antes de execution.   Usa version control para test scripts.
-- **Fallos de code splitting**: cuando dynamic imports fallan, components no loadean.   Usa prefetch para critical chunks.
-
-## Performance y Escalabilidad
-
-- **Tuning de compression level**: Brotli level 4 para dynamic content.   Brotli level 11 para static assets.   Gzip level 6 como fallback.
-- **Optimizacion de CDN cache hit ratio**: maximiza cache hit ratio para reducir origin load.   Setea appropriate Cache-Control headers.   Purga cache en content updates.
-- **Sizing de connection pool**: dimensiona pools basado en concurrent request volume.   Empieza con 10 connections por pool.   Incrementa pool size si wait time excede 100ms.   Decrementa si connections estan idle.
-- **Tuning de lazy loading threshold**: setea root margin para early loading.   Usa 400px para heavy components.   Ajusta threshold basado en device performance.
-- **Patrones de load test ramp**: Empieza con 10 users.   Rampea a 100 over 2 minutes.   Hold por 5 minutes.   Rampea a peak.   Hold por 10 minutes.   Ramp down.
-- **Optimizacion de bundle size**: Splitea vendor y app code.   Analiza bundle con webpack-bundle-analyzer.   Setea performance budgets.
-## Consideraciones de Seguridad
-
-- **HTTPS y compression**: habilita compression solo sobre HTTPS para prevenir BREACH attacks.   No comprimas sensitive responses con user-controlled input.
-o-transform header para content ya compressed. Monitorea compression-related vulnerabilities. Documenta security configuration. Testea con security scanners. Revisa security trimestralmente
-- **Seguridad de CDN**: secura CDN con proper access controls.   Habilita DDoS protection.
-- **Seguridad de connection pool**: Setea connection timeout para prevenir slow-loris attacks.   Rota database credentials.
-- **Content Security Policy para lazy loading**: setea CSP headers para permitir lazy-loaded resources.
-
-## Deployment y CI/CD
-
-- **Performance testing en CI**: corre performance tests en cada PR.   Usa k6 para load testing.   Setea performance budgets.   Failea builds en budget violations.
-- **Deployment progresivo para performance changes**: deploya performance changes gradualmente.   Roll back en regression.
-- **Bundle analysis en CI**: analiza bundle size en cada build.   Setea size budgets por chunk.
-
-## Testing y Quality Assurance
-
-- **Performance regression testing**: corre performance tests en cada release.
-- **Best practices de load testing**: Rampea up gradualmente.   Usa production-like data volumes.
-- **CDN cache testing**: verifica que cache headers esten seteados correctamente.   Verifica stale content serving.   Testea con query parameters.
-## Herramientas y Plataformas
-
-- **WebPageTest**: herramienta detailed de web performance testing.   Waterfall view de resource loading.   Filmstrip view de visual progress.   Setea custom connectivity profiles.
-- **Lighthouse**: herramienta de Google para web performance auditing.   Scorea performance, accessibility, SEO y best practices.   Setea performance budget basado en Lighthouse scores.
-- **k6**: herramienta modern de load testing por Grafana.   Soporte para HTTP, gRPC, WebSocket.   Thresholds para pass/fail.   Cloud execution option.   Integration con Grafana.   Crea reusable test scenarios.
-- **webpack-bundle-analyzer**: visualiza bundle composition.   Encuentra duplicate modules.   Setea size alerts.
-- **Cloudflare CDN**: CDN global con edge caching.   Workers para edge compute.   Cache rules y page rules.   Real-time analytics.   DDoS protection incluido.
-- **Fastly CDN**: CDN con instant purge.   VCL para edge configuration.   Real-time logging.   Image optimization.
-
-## Pitfalls Comunes y Anti-Patrones
-
-- **Over-compression**: comprimir content ya compressed wastea CPU.   No comprimas images, videos o pre-compressed assets.   Setea gzip_types y rotli_types cuidadosamente.
-- **Miconfiguracion de CDN**: incorrect cache headers causan poor hit ratio.   No cachees personalized content.   Setea appropriate TTLs.
-- **Connection pool over-sizing**: demasiadas connections wastean database resources.   Setea max pool size basado en database capacity.
-- **Lazy loading everything**: lazy loading above-the-fold content perjudica LCP.   Loadea critical content eagerly.   Usa etchpriority="high" para LCP elements.
-- **Load testing sin think time**: load testing sin think time crea unrealistic load.   Agrega think time entre requests.   Simula real user behavior.
-- **Code splitting demasiado granular**: demasiados small chunks causan excessive network requests.   Groupa related components en chunks.   Setea minimum chunk size.
-
-## Resumen de Best Practices
-
-- **Setea performance budgets**: define budgets para key metrics.   LCP under 2.  5 segundos.   FID under 100ms.   CLS under 0.  1.   Bundle size under 200KB.   Failea builds en violations.
-- **Monitorea Core Web Vitals**: Usa synthetic monitoring para lab data.   Setea alerts en metric degradation.
-- **Optimiza critical rendering path**: Inlinea critical CSS.   Deferea non-critical JavaScript.
-- **Usa progressive enhancement**: builda core functionality primero.   Enhancea con JavaScript.   Usa server-side rendering.
-## Optimizacion de Costos
-
-- **Gestion de costos de CDN**: Setea appropriate TTLs para maximizar cache hits.   Usa compression para reducir bandwidth.
-- **Costos de CPU de compression**: Pre-comprime static assets en build time.
-- **Costos de resources de connection pool**: Cierra unused connections.
-- **Costos de load testing infrastructure**: Programa tests durante off-peak.   Usa cloud-native load testing.
-
-## Guia de Troubleshooting
-
-- **Slow page load**: diagnostica con WebPageTest.   Minifica CSS y JavaScript.
-- **High CDN origin requests**: Verifica cache key configuration.
-- **Connection pool timeouts**: chequea pool size.   Incrementa pool size si needed.
-- **Poor load test results**: Verifica test environment.   Scalea infrastructure.
-## Monitoring y Alerting
-
-- **Estrategia de performance monitoring**: Setea thresholds para alerts.   Usa synthetic monitoring para lab data.
-- **Configuracion de alerts para performance**: setea alerts en metric degradation.   LCP above 2.  5 segundos.   Error rate above 1%.   Response time above 500ms.   Reduce alert noise.
-- **Diseno de dashboards para performance**: crea dashboards para diferentes audiences.   Executive dashboard para high-level metrics.   Engineering dashboard para detailed metrics.   Operations dashboard para real-time monitoring.
-- **Deteccion de performance regression**: automatiza regression detection.
-
-## Patrones Avanzados
-
-- **Edge computing para performance**: mueve computation al edge.   Reduce latency para global users.   Cachea dynamic content en edge.
-- **Optimizacion de resource hints**: Usa preload para key resources.   Usa dns-prefetch para external domains.
-- **Pipeline de image optimization**: Usa modern formats como WebP y AVIF.
-## Estrategias de Migracion
-
-- **Migracion de gzip a Brotli**: habilita Brotli junto a gzip para gradual migration.   Roll out progresivamente.
-- **Migracion a un nuevo CDN**: corre ambos CDNs en paralelo durante migration.   Verifica SSL certificates.   Switchea DNS gradualmente.
-- **Migracion de connection pools**: migra pool configuration gradualmente.   Roll out a un service a la vez.   Completa migration despues de validation.
-
-## Compliance y Governance
-
-- **Performance SLAs**: define performance SLAs para critical endpoints.   API response time under 200ms.   Page load time under 3 segundos.
-- **Performance reporting**: genera weekly performance reports.
-
-
-
-
-## Referencia Rápida
-
-- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
-- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
-- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
-
-## Lectura Adicional
-
-- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
-- **Guías relacionadas**: explora las guías de performance y database para profundizar.
-- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
-- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
-
-## Notas de Producción
-
-- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
-- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
-- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
-- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
-
-## Puntos Clave
-
-- **Aplica configurar connection pooling para bases de datos y** cuando necesites una solución práctica para tu caso de uso.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+El más grande es no liberar conexiones: una que no se devuelve eventualmente vacía el pool y bloquea
+todas las peticiones. Un pool size de 1 serializa todo el acceso a base de datos y mata el throughput. Un
+pool demasiado grande puede saturar el límite `max_connections` de la base de datos y gastar memoria.
+Ignorar idle timeouts produce conexiones stale y fallos silenciosos. Desactivar HTTP keep-alive desperdicia
+milisegundos y CPU reabriendo TLS en cada petición externa. Compartir un mismo pool entre bases de datos
+no relacionadas acopla tráfico y hace imposible ajustarlo; usá un pool por base de datos y por instancia
+de aplicación.
 
 ## Preguntas Frecuentes
 
 ### ¿Cuál es el tamaño óptimo del pool?
 
-Un buen punto de partida es `(núcleos * 2) + discos_efectivos` para cargas OLTP. Para bases de datos en la nube, iguala el tamaño del pool a la concurrencia de la aplicación, no a los núcleos de CPU. Monitorea métricas de `waiting` y aumenta solo si las conexiones se encolan.
+Para cargas OLTP, empezá con `(núcleos * 2) + discos_efectivos`. En entornos cloud o contenerizados, igualá
+el tamaño del pool a la concurrencia de la aplicación, no a los núcleos de CPU. Monitoreá métricas de
+`waiting` y aumentá solo si las conexiones empiezan a encolarse.
 
 ### ¿Debo usar un pool o varios?
 
-Un pool por base de datos por instancia de aplicación es el estándar. Crear múltiples pools a la misma base de datos fragmenta recursos y reduce eficiencia. Para microservicios, cada servicio gestiona su propio pool.
+Un pool por base de datos por instancia de aplicación es lo usual. Varios pools a la misma base de datos
+fragmentan recursos y reducen eficiencia. En microservicios, cada servicio gestiona su propio pool.
 
 ### ¿Cómo manejo el agotamiento del pool?
 
-Configura un `connectionTimeout` razonable para que las peticiones fallen rápido en lugar de colgarse indefinidamente. Agrega circuit breakers o reintentos con backoff. Monitorea la saturación del pool y escala la base de datos o los workers antes de que el agotamiento sea crítico.
+Mantené `connectionTimeout` corto para que las peticiones fallen rápido en lugar de colgarse
+indefinidamente. Agregá circuit breakers o reintentos con backoff. Monitoreá la saturación del pool y
+escalá la base de datos o los workers antes de que el agotamiento sea crítico.
 
-## Errores Comunes en Producción
+### ¿Y el pooling de conexiones HTTP?
 
-- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
-- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
-- Codificar valores fijos que deberían ser configurables por entorno.
-- Olvidar agregar logging y monitoreo en cada paso.
-- Desplegar sin plan de rollback ni estrategia de backup probada.
-- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
-- No documentar la versión y configuración usadas en producción.
-- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.
+HTTP keep-alive y pools acotados permiten reutilizar conexiones TLS con el mismo host. Paga cuando tu
+servicio llama repetidamente a las mismas pocas APIs de bajada. Configurá `pool_maxsize` o `maxSockets`
+suficiente para tu concurrencia, pero no tanto que agotes los puertos efímeros.

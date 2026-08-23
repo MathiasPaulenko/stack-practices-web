@@ -1,19 +1,18 @@
 ---
 contentType: patterns
 slug: flyweight-pattern
-title: "Patrón Flyweight"
-description: "Comparte objetos para soportar eficientemente grandes cantidades de objetos de grano fino. Un patrón estructural para optimización de memoria."
-metaDescription: "Aprende el Patrón Flyweight en Python, Java y JavaScript. Patrón estructural para optimización de memoria mediante compartición de objetos."
+title: "Patrón Flyweight: Objetos Compartidos para Eficiencia de Memoria"
+description: "Usá el patrón Flyweight para compartir estado de objetos y reducir memoria. Ejemplos en Python, JavaScript y Java, cache de fábrica y trade-offs reales."
+metaDescription: "Usá el patrón Flyweight para compartir estado de objetos y reducir memoria. Ejemplos en Python, JavaScript y Java, cache de fábrica y trade-offs reales."
 difficulty: intermediate
 topics:
   - design
 tags:
+  - patron-de-diseno
   - flyweight
-  - pattern
-  - design-pattern
-  - structural
-  - optimization
-  - caching
+  - estructural
+  - optimizacion
+  - cache
   - python
   - javascript
   - java
@@ -22,11 +21,13 @@ relatedResources:
   - /patterns/singleton-pattern
   - /patterns/composite-pattern
   - /patterns/type-object-pattern
-lastUpdated: "2026-06-12"
+  - /patterns/object-pool-pattern
+  - /patterns/factory-pattern
+lastUpdated: "2026-08-23"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Aprende el Patrón Flyweight en Python, Java y JavaScript. Patrón estructural para optimización de memoria mediante compartición de objetos."
+  metaDescription: "Usá el patrón Flyweight para compartir estado de objetos y reducir memoria. Ejemplos en Python, JavaScript y Java, cache de fábrica y trade-offs reales."
   keywords:
     - patron flyweight
     - patron de diseno
@@ -36,23 +37,32 @@ seo:
     - python flyweight
     - java flyweight
     - javascript flyweight
-
-
 ---
+
 ## Visión General
 
-El Patrón Flyweight es un patrón de diseño estructural que minimiza el uso de memoria compartiendo la mayor cantidad de datos posible entre objetos similares. En lugar de almacenar estado redundante en cada instancia, separas el estado intrínseco (compartido) del estado extrínseco (único por contexto) y reutilizas objetos flyweight a través de múltiples contextos.
+Flyweight es un patrón estructural que reduce el uso de memoria compartiendo datos entre objetos similares. En
+lugar de almacenar estado redundante en cada instancia, separás el estado en *intrínseco* (compartido, dentro del
+flyweight) y *extrínseco* (único por contexto, pasado al usarlo). Unos pocos objetos flyweight alcanzan para una
+gran cantidad de contextos.
 
 ## Cuándo Usarlo
 
-Usa el Patrón Flyweight cuando:
-- Tu aplicación usa un gran número de objetos que comparten estado común. Consulta [Object Pool](/patterns/abstract-factory-pattern/) para gestión de instancias reutilizables.
-- Los costos de almacenamiento de objetos son altos debido a duplicación masiva. Consulta [Caching Strategies](/recipes/caching-strategies/) para reducir duplicación de datos.
-- La mayor parte del estado de un objeto puede hacerse extrínseco (computado o pasado)
-- Necesitas soportar muchos objetos granulares sin agotar la memoria. Consulta [Database Indexing](/recipes/database-indexing/) para técnicas de optimización de almacenamiento.
-- Ejemplos: caracteres en un documento, baldosas en un mapa de juego, íconos en una UI
+Usá el patrón Flyweight cuando tu aplicación crea una gran cantidad de objetos que comparten el mismo estado
+interno. También sirve cuando la presión de memoria es real y la podés medir, no solo suponer, y cuando la mayor
+parte del estado se puede mover afuera y pasarlo al momento de uso. Ejemplos típicos: caracteres en un
+documento, baldosas en un mapa de juego, íconos en una UI o SKUs de productos en un catálogo.
+
+## Cuándo Evitarlo
+
+Evitalo cuando los objetos sean pocos o mayoritariamente únicos. El overhead de la fábrica y la búsqueda se
+come el ahorro. También evitalo cuando los objetos deban ser mutables por contexto; los flyweights están
+pensados para compartirse, así que deberían mantenerse inmutables. Y no lo uses si los ahorros de memoria no
+justifican la complejidad agregada. Medir primero.
 
 ## Solución
+
+La implementación clásica usa una fábrica que cachea flyweights según su estado intrínseco.
 
 ### Python
 
@@ -130,7 +140,6 @@ class Tree {
   }
 }
 
-// Uso
 for (let i = 0; i < 1000; i++) {
   const t = new Tree(i, i, TreeType.get("Oak", "green", "bark.png"));
   t.render();
@@ -183,7 +192,6 @@ public class Tree {
     }
 }
 
-// Uso
 for (int i = 0; i < 1000; i++) {
     new Tree(i, i, TreeType.get("Oak", "green", "bark.png")).render();
 }
@@ -192,163 +200,67 @@ System.out.println("Tipos de árbol únicos: " + TreeType.cache.size());
 
 ## Explicación
 
-El Patrón Flyweight separa el estado en dos categorías:
+Flyweight separa el estado del objeto en dos grupos. El estado intrínseco — valores como `species`, `color` y
+`texture` — es compartido y se almacena dentro del flyweight; también hace las veces de clave del cache. El
+estado extrínseco, como `x` e `y`, es específico del contexto y se pasa al usar el flyweight.
 
-- **Estado intrínseco** (`species`, `color`, `texture`): Compartido entre muchos objetos, almacenado dentro del flyweight
-- **Estado extrínseco** (`x`, `y`): Único para cada contexto, pasado cuando se usa el flyweight
-
-La **Fábrica Flyweight** (`TreeType.get()`) gestiona un cache de instancias flyweight compartidas. En lugar de crear un nuevo objeto por cada árbol, recuperas (o creas) un tipo compartido y lo usas a través de muchas instancias de árbol.
+La **Fábrica Flyweight** (`TreeType.get()`) tiene un cache de instancias compartidas. En lugar de crear un
+objeto nuevo por cada árbol, le pedís a la fábrica el tipo adecuado y lo reutilizás en muchos objetos `Tree`. Eso
+hace que el uso de memoria quede más o menos proporcional a la cantidad de estados intrínsecos únicos, no a la
+cantidad de objetos.
 
 ## Variantes
 
-| Variante | Descripción | Caso de Uso |
-|----------|-------------|-------------|
-| **Flyweight Simple** | Un solo objeto compartido por estado intrínseco único | Glifos de caracteres, íconos |
-| **Flyweight No Compartido** | Algunas instancias no se cachean | Raramente usado, pero permite flexibilidad |
-| **Flyweight Compuesto** | Flyweights compuestos de otros flyweights | Elementos UI complejos |
-| **Internamiento de Strings** | Característica incorporada del lenguaje | `String.intern()` de Java, internamiento de Python |
+La forma más común es el flyweight simple: un objeto compartido por estado intrínseco único. Sirve para glifos
+de caracteres, íconos de UI y entradas de catálogo de productos. El no compartido se saltea el cache para
+instancias específicas, lo que deja lugar para casos borde. El compuesto agrupa otros flyweights en uno más
+grande, útil para componentes UI complejos. El internamiento de strings es un ejemplo incorporado: `String.intern()`
+de Java y el internamiento automático de Python aplican la misma idea al texto.
 
-## Lo que funciona
+## Mejores Prácticas
 
-- **Aplica solo cuando la presión de memoria sea real** — la optimización prematura agrega complejidad
-- **Haz los flyweights inmutables** para prevenir corrupción de estado compartido
-- **Usa referencias débiles** para caches si los flyweights son grandes y pueden ser recolectados
-- **Perfila antes y después** para verificar que los ahorros de memoria justifiquen la complejidad
-- **Considera la fábrica como un cache** con políticas de evicción opcionales (LRU, TTL)
+Aplicá el patrón solo después de medir presión de memoria real. La optimización prematura agrega complejidad
+sin beneficio. Mantené los flyweights inmutables para que un contexto no arruine el estado compartido para todos.
+Si los flyweights son grandes y querés que el cache libere memoria, usá referencias débiles o agregá una política
+de evicción como LRU o TTL. Corré el profiler antes y después para confirmar que el ahorro justifica el código
+extra. Tratá
+la fábrica como un cache, no como un service locator, y mantené su API enfocada en crear o recuperar
+flyweights.
 
 ## Errores Comunes
 
-- Usar flyweights cuando la división intrínseca/extrínseca no está clara, llevando a código frágil
-- Hacer flyweights mutables, causando corrupción de estado compartido entre contextos
-- Olvidar la seguridad de hilos en el cache de la fábrica cuando se accede concurrentemente
-- Sobre-ingeniería de la fábrica con lógica de evicción compleja para conjuntos pequeños
-- Almacenar estado extrínseco dentro del flyweight, derrotando el propósito
-
-
-## Puntos Clave
-
-- **Aplica patrón flyweight** cuando necesites una solución práctica para tu caso de uso.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+Usar flyweights cuando la división intrínseca/extrínseca no está clara produce código frágil. Los flyweights
+mutables causan corrupción de estado compartido entre contextos. Olvidar la seguridad de hilos en el cache de
+la fábrica rompe el acceso concurrente. Sobre-ingeniería de la fábrica con lógica de evicción compleja para
+conjuntos pequeños raramente vale la pena. Meter estado extrínseco adentro del flyweight arruina todo el
+propósito.
 
 ## Preguntas Frecuentes
 
-**P: ¿Es Flyweight lo mismo que Singleton?**
-R: No. [Singleton](/patterns/singleton-pattern/) fuerza exactamente una instancia de una clase. Flyweight crea una instancia por combinación única de estado intrínseco. Un singleton es un caso especial donde todo el estado es compartido.
+### ¿Es Flyweight lo mismo que Singleton?
 
-**P: ¿Cuándo no debería usar Flyweight?**
-R: Evítalo cuando los objetos sean pocos, el estado sea mayoritariamente único, o los ahorros de memoria no justifiquen la complejidad añadida. Para renderizado de texto, consulta [Flyweight para Texto](/patterns/flyweight-pattern-text/). Mide primero, optimiza después.
+No. [Singleton](/patterns/singleton-pattern/) fuerza a una clase a tener una sola instancia. Flyweight genera
+una instancia por cada combinación particular de estado intrínseco. Singleton es el extremo donde todo el estado
+es compartido.
 
-**P: ¿Cómo se diferencia Flyweight del Pool de Objetos?**
-R: El Pool de Objetos reutiliza objetos para evitar overhead de asignación. Flyweight comparte objetos para reducir el uso de memoria. Los objetos del pool son típicamente mutables y devueltos al pool; los flyweights se comparten simultáneamente entre contextos.
+### ¿Cuándo no debería usar Flyweight?
 
-### ¿Es este patrón adecuado para proyectos pequeños?
+Evitalo cuando los objetos sean pocos, el estado sea mayoritariamente único o los ahorros de memoria no
+justifiquen la complejidad agregada. Medir primero, optimizar después. Para renderizado de texto, consultá
+[Flyweight para Texto](/patterns/flyweight-pattern-text/).
 
-Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+### ¿Cómo se diferencia Flyweight de un Object Pool?
 
-### ¿Cómo se compara este patrón con alternativas?
+Un [Object Pool](/patterns/object-pool-pattern/) reutiliza instancias para evitar el costo de asignación.
+Flyweight busca reducir la huella de memoria compartiendo objetos. Los objetos del pool suelen ser mutables y
+vuelven al pool; los flyweights se comparten simultáneamente entre contextos.
 
-Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+### ¿Puedo usar Flyweight con objetos mutables?
 
-### ¿Puedo aplicar este patrón parcialmente?
+Solo si la parte mutable es extrínseca y se mantiene fuera del flyweight. Si el objeto compartido cambia,
+podés corromper todos los contextos que lo usan. Mantené el flyweight inmutable.
 
-Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+### ¿Vale la pena Flyweight en proyectos pequeños?
 
-
-## Temas Avanzados
-
-### Escenario: Flyweight para Renderizado de Tiles de Juego
-
-```typescript
-// Flyweight: compartir datos de tiles en el mapa
-interface TileFlyweight {
-  terrain: string;
-  color: string;
-  movementCost: number;
-  isWalkable: boolean;
-}
-
-class Tile implements TileFlyweight {
-  constructor(
-    public terrain: string,
-    public color: string,
-    public movementCost: number,
-    public isWalkable: boolean
-  ) {}
-}
-
-class TileFactory {
-  private cache = new Map<string, TileFlyweight>();
-  getTile(terrain: string): TileFlyweight {
-    if (!this.cache.has(terrain)) {
-      const configs: Record<string, [string, number, boolean]> = {
-        grass: ["#4ade80", 1, true],
-        water: ["#3b82f6", 5, false],
-        mountain: ["#78716c", 3, true],
-        forest: ["#166534", 2, true],
-        desert: ["#fbbf24", 2, true],
-      };
-      const [color, cost, walkable] = configs[terrain];
-      this.cache.set(terrain, new Tile(terrain, color, cost, walkable));
-    }
-    return this.cache.get(terrain)!;
-  }
-  getCacheSize(): number { return this.cache.size; }
-}
-
-// Estado extrinseco: posicion (no se comparte)
-class MapGrid {
-  private tiles: { flyweight: TileFlyweight; x: number; y: number }[] = [];
-  constructor(private factory: TileFactory, private width: number, private height: number) {
-    for (let x = 0; x < width; x++) {
-      for (let y = 0; y < height; y++) {
-        const terrain = this.randomTerrain();
-        const flyweight = factory.getTile(terrain);
-        this.tiles.push({ flyweight, x, y });
-      }
-    }
-  }
-  private randomTerrain(): string {
-    const terrains = ["grass", "water", "mountain", "forest", "desert"];
-    return terrains[Math.floor(Math.random() * terrains.length)];
-  }
-}
-
-// Uso: 10000 tiles, solo 5 objetos flyweight
-const factory = new TileFactory();
-const map = new MapGrid(factory, 100, 100);
-console.log(`Cache: ${factory.getCacheSize()}`); // 5
-console.log(`Tiles: ${map.tiles.length}`); // 10000
-```
-
-Lecciones:
-  - Flyweight comparte estado intrinseco (terrain, color, cost)
-  - Estado extrinseco (x, y) se guarda por-tile, no se comparte
-  - 10000 tiles con 5 flyweights: 99.95% ahorro de memoria
-  - La factory cachea flyweights: O(1) lookup
-  - Ideal para juegos, mapas, sistemas de particulas, editores de texto
-```
-
-### Cuando NO tiene sentido flyweight?
-
-No uses flyweight cuando hay pocos objetos (el overhead supera el ahorro), cuando cada objeto tiene estado unico (no hay sharing posible), o cuando los objetos son mutables (flyweight requiere inmutabilidad). Si tienes 100 tiles con 90 terrains unicos, el overhead de la factory no vale la pena. Flyweight vale la pena cuando el ratio de objetos a estados intrinsecos unicos es alto (ej: 10000 tiles, 5 terrains).
-
-## Troubleshooting
-
-- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling).   A pattern is only appropriate when its trade-offs match your constraints.
-- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify.   Not every module needs a factory, decorator, or strategy.
-- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward.
-- **Tests break when the design changes**: favor stable contracts over internal structure.
-- **Performance regression from indirection**: measure before and after.   Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
-
-## Errores Comunes en Producción
-
-- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
-- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
-- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
-- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
-- Ignorar modos de fallo que el patrón no cubre.
-- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
-- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
-- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.
+Generalmente no. Con pocos objetos, el overhead de la fábrica puede superar el ahorro. Empezá simple e
+introducí Flyweight cuando realmente sientas presión de memoria.

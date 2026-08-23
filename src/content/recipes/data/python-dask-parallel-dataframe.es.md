@@ -1,85 +1,90 @@
 ---
-
-
 contentType: recipes
 slug: python-dask-parallel-dataframe
 title: "Operaciones Paralelas de DataFrame con Dask"
-description: "Cómo usar Dask para operaciones paralelas de DataFrame en datasets más grandes que la memoria, cubriendo lazy evaluation, particiones, computations custom y scheduling distribuido."
-metaDescription: "Usa Dask para operaciones paralelas de DataFrame en datasets mas grandes que la memoria. Lazy evaluation, particiones, computations custom y scheduling distribuido."
+description: "Escalá workflows de pandas con Dask. Procesá DataFrames que no caben en memoria usando lazy evaluation, particiones y el scheduler distribuido en datasets de 1 GB a 1 TB."
+metaDescription: "Escalá workflows de pandas con Dask. Procesá DataFrames que no caben en memoria usando lazy evaluation, particiones y el scheduler distribuido en datasets de 1 GB a 1 TB."
 difficulty: advanced
 topics:
   - data
 tags:
-  - data
   - python
+  - dask
   - dataframe
+  - pandas
   - parallel
   - big-data
-  - recipe
 relatedResources:
   - /recipes/python-polars-fast-dataframe
   - /recipes/python-pandas-etl-pipeline
   - /recipes/python-spark-groupby-aggregation
-lastUpdated: "2026-07-05"
+  - /recipes/python-data-validation-pandera
+  - /recipes/python-airflow-dag-scheduling
+  - /recipes/python-excel-read-write
+lastUpdated: "2026-08-23"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Usa Dask para operaciones paralelas de DataFrame en datasets mas grandes que la memoria. Lazy evaluation, particiones, computations custom y scheduling distribuido."
+  metaDescription: "Escalá workflows de pandas con Dask. Procesá DataFrames que no caben en memoria usando lazy evaluation, particiones y el scheduler distribuido en datasets de 1 GB a 1 TB."
   keywords:
-    - data
     - python
     - dask
     - dataframe
+    - pandas
     - parallel
     - big-data
-    - recipe
-
-
+    - out-of-core
 ---
 
-## Overview
+## Visión General
 
-Dask extiende pandas/NumPy para trabajar en datasets más grandes que la memoria splitteando DataFrames en particiones y procesándolas en paralelo. Un Dask DataFrame es una colección de pandas DataFrames — cada partición es un pandas DataFrame regular que cabe en memoria. Dask construye un task graph de operaciones y las ejecuta lazymente, paralelizando a través de cores (local scheduler) o máquinas (distributed scheduler). La API espeja pandas, así que la mayoría del código de pandas funciona con cambios mínimos.
+Dask se apoya en pandas y NumPy para trabajar con datasets más grandes que la memoria. Corta un DataFrame
+en particiones, y cada partición es un pandas DataFrame normal. Dask construye un task graph de operaciones y
+las ejecuta de forma lazy, paralelizando entre cores con el scheduler local o
+entre máquinas con el scheduler distribuido. Como la API refleja la de pandas, la mayoría del código
+existente funciona con cambios mínimos.
 
-## When to Use
+## Cuándo Usar
 
-- Datasets de 1GB a 1TB que no caben en memoria pero caben en disco
-- Código de pandas que necesita escalar — Dask espeja la API de pandas
-- Cuando quieres paralelismo sin settear un Spark cluster
-- Pipelines ETL que leen/escriben Parquet, CSV o HDF5
-- Cuando necesitas computations paralelas custom más allá de group-by/join
+Dask rinde cuando los datasets van de unos pocos gigabytes a aproximadamente un terabyte, demasiado grandes
+para la memoria pero manejables en disco. Si ya tenés código de pandas que necesita escalar sin una
+reescritura grande, la API familiar de Dask es una victoria rápida. También sirve cuando querés paralelismo
+sin el overhead de un cluster de Spark, o cuando tus pipelines ETL mueven archivos Parquet, CSV o HDF5. Por
+último, usá Dask cuando necesitás lógica paralela custom que va más allá de group-by y join.
 
-## When NOT to Use
+## Cuándo Evitar
 
-- Datasets bajo 1GB — pandas es más rápido (no hay overhead de task graph)
-- Cuando necesitas el ecosistema completo de pandas — Dask no soporta todos los métodos de pandas
-- Real-time/streaming — usa Structured Streaming o Flink
-- Cuando Polars es suficiente — Polars es más rápido para la mayoría de operaciones de DataFrame
+Evitá Dask cuando los datasets sean menores a 1 GB. pandas suele ser más rápido porque evita el overhead del
+task graph de Dask. También evitalo si necesitás el ecosistema completo de pandas, porque Dask no implementa
+todos los métodos de pandas. Para streams o procesamiento en tiempo real, Flink o Structured Streaming son
+un mejor ajuste. Y si [Polars](/es/recipes/python-polars-fast-dataframe/) es suficiente, usalo: suele ser más
+rápido y ligero para
+la mayoría del trabajo con DataFrames.
 
-## Solution
+## Solución
 
-### Dask DataFrame básico
+### Dask DataFrame Básico
 
 ```python
 import dask.dataframe as dd
 
-# Leer CSV (lazy — no carga hasta compute)
+# Leer CSV lazy — no carga hasta compute()
 ddf = dd.read_csv("data/orders_*.csv")
 
 # Leer Parquet
 ddf = dd.read_parquet("data/orders/")
 
-# Desde pandas
+# Desde un pandas DataFrame
 import pandas as pd
 pdf = pd.read_csv("data.csv")
 ddf = dd.from_pandas(pdf, npartitions=4)
 
-# Inspeccionar
-print(ddf.npartitions)  # Número de particiones
-print(ddf.divisions)    # Boundaries de particiones (conocidas si está sorteado)
+# Inspeccionar particiones
+print(ddf.npartitions)  # número de particiones
+print(ddf.divisions)    # límites de particiones, conocidos si están ordenados
 ```
 
-### Operaciones lazy
+### Operaciones Lazy
 
 ```python
 # Construir task graph — sin ejecución todavía
@@ -92,35 +97,38 @@ result = (
     .sort_values("amount", ascending=False)
 )
 
-# Ejecutar — triggerea computation
-df = result.compute()  # Retorna un pandas DataFrame
+# Ejecutar el graph y obtener un pandas DataFrame
+df = result.compute()
 print(df.head(10))
 ```
 
-### Leer y escribir
+### Lectura y Escritura
 
 ```python
-# Leer múltiples CSV files
+# Leer múltiples archivos CSV
 ddf = dd.read_csv("data/2025-*.csv", parse_dates=["order_date"])
 
-# Leer con dtypes
-ddf = dd.read_csv("data/orders.csv", dtype={
-    "order_id": "int64",
-    "amount": "float64",
-    "customer_id": "object",
-})
+# Leer con dtypes explícitos
+ddf = dd.read_csv(
+    "data/orders.csv",
+    dtype={
+        "order_id": "int64",
+        "amount": "float64",
+        "customer_id": "object",
+    },
+)
 
-# Escribir a Parquet (partitioned)
+# Escribir Parquet (un archivo por partición por defecto)
 ddf.to_parquet("data/output/", write_index=False)
 
-# Escribir a un solo CSV
-ddf.to_csv("data/output_*.csv", index=False)  # Un file por partición
+# Escribir CSV con un archivo por partición
+ddf.to_csv("data/output_*.csv", index=False)
 ```
 
-### Group-by y agregación
+### Group-by y Agregación
 
 ```python
-# Agregación group-by (paralela a través de particiones)
+# Agregación group-by en paralelo
 result = (
     ddf
     .groupby("customer_id")
@@ -131,7 +139,7 @@ result = (
     .compute()
 )
 
-# Agregación custom
+# Agregaciones con nombres custom
 result = (
     ddf
     .groupby("category")
@@ -150,10 +158,10 @@ result = (
 orders = dd.read_parquet("data/orders/")
 customers = dd.read_parquet("data/customers/")
 
-# Join (requiere shuffle si no está sorteado por join key)
+# Merge estándar; puede requerir un shuffle si no está ordenado por la join key
 joined = orders.merge(customers, on="customer_id", how="left")
 
-# Broadcast join para right DataFrame pequeño
+# Broadcast join cuando el lado derecho es chico
 small_customers = customers.head(1000)  # pandas DataFrame
 joined = orders.merge(
     dd.from_pandas(small_customers, npartitions=1),
@@ -165,23 +173,20 @@ joined = orders.merge(
 result = joined.compute()
 ```
 
-### Computation paralela custom con map_partitions
+### Cómputo Custom con `map_partitions`
 
 ```python
 def process_partition(pdf: pd.DataFrame) -> pd.DataFrame:
-    """Procesar una sola partición (pandas DataFrame)."""
     pdf["amount_with_tax"] = pdf["amount"] * 1.1
     pdf["order_date"] = pd.to_datetime(pdf["order_date"])
     pdf["month"] = pdf["order_date"].dt.month
     return pdf
 
-# Aplicar función a cada partición
 ddf_processed = ddf.map_partitions(process_partition)
-
 result = ddf_processed.compute()
 ```
 
-### Computation custom con delayed
+### Task Graphs Custom con `delayed`
 
 ```python
 import dask
@@ -191,21 +196,18 @@ def load_file(path):
     return pd.read_csv(path)
 
 @dask.delayed
-def process(df):
+def clean(df):
     df["amount"] = pd.to_numeric(df["amount"], errors="coerce")
     return df.dropna(subset=["amount"])
 
 @dask.delayed
-def aggregate(dfs):
-    combined = pd.concat(dfs)
-    return combined.groupby("customer_id")["amount"].sum()
+def combine(dfs):
+    return pd.concat(dfs).groupby("customer_id")["amount"].sum()
 
-# Construir task graph
 files = ["data/jan.csv", "data/feb.csv", "data/mar.csv"]
-processed = [process(load_file(f)) for f in files]
-result = aggregate(processed)
+processed = [clean(load_file(f)) for f in files]
+result = combine(processed)
 
-# Ejecutar
 df = result.compute()
 ```
 
@@ -215,12 +217,12 @@ df = result.compute()
 # Setear número de particiones
 ddf = ddf.repartition(npartitions=10)
 
-# Setear tamaño de partición (e.g., 100MB por partición)
+# O setear tamaño de partición
 ddf = ddf.repartition(partition_size="100MB")
 
-# Resetear index para hacer divisions conocidas
+# Setear un índice ordenado para que divisions sean conocidas
 ddf = ddf.reset_index(drop=True)
-ddf = ddf.set_index("customer_id")  # Shuffles data
+ddf = ddf.set_index("customer_id")  # dispara un shuffle
 ```
 
 ### Usar Dask Distributed
@@ -228,45 +230,41 @@ ddf = ddf.set_index("customer_id")  # Shuffles data
 ```python
 from dask.distributed import Client
 
-# Local cluster (usa todos los cores)
+# Cluster local usando todos los cores
 client = Client(n_workers=4, threads_per_worker=2, memory_limit="4GB")
 
-# Ahora todos los .compute() usan el distributed scheduler
+# Todos los .compute() usan el distributed scheduler
 ddf = dd.read_parquet("data/orders/")
 result = ddf.groupby("customer_id")["amount"].sum().compute()
 
-# Conectar a cluster existente
-# client = Client("scheduler-address:8786")
-
-# Cerrar cuando termines
+# Cerrar el client al terminar
 client.close()
 ```
 
-### Persistir data en memoria
+### Persistir Data en Memoria
 
 ```python
-# Persist — cargar a distributed memory a través de workers
+# Cargar a memoria distribuida entre workers
 ddf_persisted = ddf.persist()
 
-# Ahora las operaciones en ddf_persisted son rápidas (data está en memoria)
+# Reusar el objeto persistido para operaciones repetidas más rápidas
 result = ddf_persisted.groupby("customer_id")["amount"].sum().compute()
 ```
 
-### Monitoreo de progreso
+### Monitoreo de Progreso
 
 ```python
 from dask.distributed import progress
 
-# Compute con progress bar
 result = ddf.groupby("customer_id")["amount"].sum()
 future = client.compute(result)
 progress(future)
 df = future.result()
 ```
 
-## Variants
+## Variantes
 
-### Usar Dask con S3
+### Dask con S3
 
 ```python
 ddf = dd.read_parquet(
@@ -280,15 +278,13 @@ ddf.to_parquet(
 )
 ```
 
-### Dask Bag para data no estructurada
+### Dask Bag para Data No Estructurada
 
 ```python
 import dask.bag as db
 
-# Leer JSON lines
 bag = db.read_text("data/events_*.jsonl").map(json.loads)
 
-# Procesar en paralelo
 result = (
     bag
     .filter(lambda x: x["event_type"] == "purchase")
@@ -298,59 +294,70 @@ result = (
 )
 ```
 
-### Dask Array para operaciones de NumPy
+### Dask Array para Cargas de NumPy
 
 ```python
 import dask.array as da
 
-# Crear un array grande
 x = da.random.random((10000, 10000), chunks=(1000, 1000))
-
-# Computation lazy
 mean = x.mean(axis=0)
 result = mean.compute()
 ```
 
-## Best Practices
+## Mejores Prácticas
 
+Para trabajo local, yo empiezo con `npartitions` alrededor de dos o cuatro veces el número de cores. Eso da
+suficiente paralelismo sin generar demasiado overhead de scheduling. Apuntá a particiones de 50 MB a 200 MB.
+Las chicas agregan overhead; las grandes dejan cores ociosos.
 
-- For a deeper guide, see [High-Performance DataFrame Operations with Polars](/es/recipes/python-polars-fast-dataframe/).
+Llamá a `.compute()` solo al final de una cadena para que Dask optimice el task graph completo. Usá
+`.persist()` cuando vayas a tocar un DataFrame más de una vez; así se mantiene en memoria de los workers.
 
-- Usa `npartitions` igual a 2-4x el número de cores — suficiente paralelismo sin overhead
-- El tamaño de partición debería ser 50-200MB — muy chico agrega overhead, muy grande reduce paralelismo
-- Llama `.compute()` solo al final — deja que Dask optimice el task graph
-- Usa `.persist()` para DataFrames usados múltiples veces — mantiene data en memoria
-- Lee Parquet en lugar de CSV — Parquet preserva tipos y es más rápido de leer
-- Usa `map_partitions` para operaciones no soportadas por la API de Dask
-- Evita `.set_index()` en DataFrames grandes — triggerea un full shuffle
-- Usa Dask Distributed incluso para trabajo local — mejores diagnostics y dashboard
+Prefiero Parquet sobre CSV porque conserva tipos, soporta column pruning y se lee más rápido. Para
+operaciones que la API de Dask no expone directamente, bajá a `map_partitions` y escribí código normal de
+pandas en cada chunk. Evitá `.set_index()` en DataFrames grandes porque dispara un shuffle completo. Para
+desarrollo local, usá el Dask Distributed scheduler; agrega un dashboard y mejores diagnósticos que el
+scheduler síncrono por defecto.
 
-## Common Mistakes
+## Errores Comunes
 
-- **Llamar `.compute()` muy temprano**: materializa resultados intermedios. Encadena operaciones y computea una sola vez al final.
-- **Demasiadas particiones**: 1000 particiones de 1MB cada una agrega huge scheduling overhead. Repartitiona a chunks de 50-200MB.
-- **No usar `.persist()` para data reusada**: Dask recomputa el task graph cada vez. Persiste para mantener en memoria.
-- **Usar CSV en lugar de Parquet**: CSV requiere parsing en cada read. Parquet es columnar, tipado y comprimido.
-- **No setear `dtype` al leer CSV**: Dask lee un sample para inferir tipos, que puede ser incorrecto. Especifica dtypes explícitamente.
+Llamar a `.compute()` muy temprano materializa resultados intermedios y rompe la optimización del graph.
+Encadená operaciones y llamá `.compute()` una sola vez al final. Demasiadas particiones, como 1.000
+particiones chicas de 1 MB, generan un overhead de scheduling enorme. Llamá a `.repartition()` para caer en
+el rango de 50–200 MB.
 
-## FAQ
+No usar `.persist()` para datos reusados significa que Dask recomputa el task graph cada vez. Dejá los
+objetos que vas a reusar en memoria con `.persist()`. CSV es más lento que Parquet porque debe parsear tipos
+en cada
+lectura y no soporta column pruning. Además, Dask lee una muestra para inferir el `dtype` del CSV, lo cual
+puede ser incorrecto. Declará los dtypes para evitar errores de tipo.
+
+## Preguntas Frecuentes
 
 ### ¿En qué se diferencia Dask de pandas?
 
-Dask splittea data en particiones y las procesa en paralelo. pandas carga todo en un solo DataFrame. Dask espeja la API de pandas pero evalúa lazymente — las operaciones construyen un task graph que se ejecuta en `.compute()`.
+Dask parte los datos en particiones y las procesa en paralelo. pandas pone todo en un solo DataFrame. Dask
+refleja la API de pandas pero evalúa lazy, así que las operaciones construyen un task graph que se ejecuta en
+`.compute()`.
 
 ### ¿En qué se diferencia Dask de Spark?
 
-Dask es Python-native y usa pandas DataFrames como particiones. Spark usa su propio formato interno y convierte a/desde pandas. Dask es más ligero y más fácil de settear, pero Spark tiene mejor soporte del ecosistema para herramientas de big data.
+Dask es nativo de Python y usa pandas DataFrames como particiones. Spark usa su propio formato interno y
+convierte a y desde pandas. Dask es más ligero y fácil de levantar, pero Spark tiene un ecosistema de big data
+más amplio.
 
 ### ¿Cuántas particiones debería usar?
 
-Apunta a particiones de 50-200MB cada una. Para un dataset de 10GB, usa 50-200 particiones. Para ejecución local, usa 2-4x el número de CPU cores. Usa `ddf.npartitions` para chequear.
+Apuntá a 50–200 MB por partición. Un archivo de 10 GB se parte en 50–200 chunks de ese tamaño. Para
+ejecución local, yo empiezo con dos a cuatro veces el número de cores, y después verifico `ddf.npartitions`.
 
 ### ¿Puedo usar Dask en un cluster?
 
-Sí. Usa `dask.distributed.Client("scheduler-address:8786")` para conectarte a un Dask cluster remoto. Settea un scheduler con `dask-scheduler` y workers con `dask-worker`.
+Sí. Creá un `dask.distributed.Client("scheduler-address:8786")` para conectarte a un scheduler remoto.
+Levantá el scheduler con `dask-scheduler` y los workers con `dask-worker`.
 
 ### ¿Dask soporta todas las operaciones de pandas?
 
-La mayoría de operaciones comunes están soportadas (groupby, merge, join, filter, map_partitions). Algunos métodos menos comunes no están implementados. Chequea los docs de la API de Dask para la lista completa de métodos soportados.
+La mayoría de las operaciones comunes están soportadas, incluyendo groupby, merge, join, filter,
+`map_partitions` y varias operaciones de ventana. Algunos menos comunes no están implementados, así que
+consultá la documentación de la API de Dask para la lista más actualizada.

@@ -1,15 +1,9 @@
 ---
-
-
-
-
-
-
 contentType: patterns
 slug: priority-queue-pattern
-title: "Priority Queue Pattern"
-description: "Process tasks based on priority rather than arrival order, ensuring high-priority work gets resources before lower-priority tasks even if it arrived later."
-metaDescription: "Learn the Priority Queue Pattern for task scheduling by priority. Examples in Python, Java, and JavaScript with heaps, Redis sorted sets, and weighted fair queuing."
+title: "Priority Queue Pattern: Schedule Tasks by Urgency"
+description: "Use the Priority Queue pattern to process high-priority work first. See Python, Java, and JavaScript examples with heaps and Redis."
+metaDescription: "Master the Priority Queue pattern: schedule tasks by urgency with Python, Java, and JavaScript examples using heaps and Redis."
 difficulty: intermediate
 topics:
   - design
@@ -26,14 +20,13 @@ relatedResources:
   - /patterns/scheduler-agent-supervisor-pattern
   - /patterns/throttling-pattern
   - /patterns/lock-free-queue-pattern
-  - /patterns/leader-election-pattern
   - /patterns/message-queue-load-leveling-pattern
   - /patterns/serverless-throttling-pattern
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-08-23"
 publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Learn the Priority Queue Pattern for task scheduling by priority. Examples in Python, Java, and JavaScript with heaps, Redis sorted sets, and weighted fair queuing."
+  metaDescription: "Master the Priority Queue pattern: schedule tasks by urgency with Python, Java, and JavaScript examples using heaps and Redis."
   keywords:
     - priority queue
     - design pattern
@@ -42,26 +35,21 @@ seo:
     - heap
     - task priority
     - fair queuing
-
-
-
-
-
-
 ---
-
 ## Overview
 
-The Priority Queue Pattern arranges tasks or messages so that higher-priority items are processed before lower-priority ones, regardless of arrival order. Instead of the traditional FIFO (first-in, first-out) queue where tasks are handled in submission order, a priority queue orders tasks by importance, urgency, or business value.
+A priority queue puts tasks or messages in an order where higher-priority items are handled before
+lower-priority ones, no matter when they arrived. Instead of the traditional FIFO (first-in, first-out) queue where tasks
+are handled in submission order, a priority queue orders tasks by importance, urgency, or business value.
 
-This pattern is essential when resources are constrained and not all tasks can be processed immediately. It ensures critical operations — fraud detection, VIP customer requests, system alerts — receive immediate attention while routine background work waits.
+You reach for a priority queue when resources are tight and you can't process everything at once. It routes
+critical operations — fraud detection, VIP customer requests, system alerts — to the front of the line, while routine
+background work waits.
 
-Priority queues are typically implemented as binary heaps, balanced trees, or sorted sets where insertion is O(log n) and extraction of the highest-priority element is O(log n) or O(1).
+Priority queues usually use binary heaps, balanced trees, or sorted sets: insertion is O(log n),
+and pulling the highest-priority item is O(log n) or O(1).
 
 ## When to Use
-
-
-- For alternatives, see [Distributed Lock Pattern](/patterns/distributed-lock-pattern/).
 
 - Limited processing capacity with heterogeneous task importance
 - VIP or tiered customer experiences where premium users get faster service
@@ -70,13 +58,16 @@ Priority queues are typically implemented as binary heaps, balanced trees, or so
 - Background task processors with mixed workloads (email, reports, exports)
 - Multi-tenant systems where higher-paying tenants get priority
 
+For related strategies, see the [Queue-Based Load Leveling pattern](/patterns/queue-based-load-leveling-pattern/) and
+the [Throttling pattern](/patterns/throttling-pattern/).
+
 ## When to Avoid
 
 - All tasks have equal importance — a regular FIFO queue is simpler and fairer
 - Starvation of low-priority tasks is unacceptable — consider aging or fair scheduling
 - The cost of determining priority exceeds the cost of processing the task
 - Strict FIFO ordering is a business requirement (e.g., financial transaction logs)
-- Very small task volumes where ordering provides no benefit
+- Very small task volumes where ordering gives no benefit
 
 ## Solution
 
@@ -396,81 +387,160 @@ async function submitTasks() {
 submitTasks().then(() => worker.start());
 ```
 
+### TypeScript (Generic Heap Priority Queue)
+
+```typescript
+// Priority Queue: highest-priority items are processed first
+class PriorityQueue<T> {
+  private heap: { priority: number; data: T }[] = [];
+
+  enqueue(data: T, priority: number): void {
+    this.heap.push({ priority, data });
+    this.bubbleUp(this.heap.length - 1);
+  }
+
+  dequeue(): T | null {
+    if (this.heap.length === 0) return null;
+    const top = this.heap[0];
+    const last = this.heap.pop()!;
+    if (this.heap.length > 0) {
+      this.heap[0] = last;
+      this.bubbleDown(0);
+    }
+    return top.data;
+  }
+
+  peek(): T | null { return this.heap.length > 0 ? this.heap[0].data : null; }
+  size(): number { return this.heap.length; }
+  isEmpty(): boolean { return this.heap.length === 0; }
+
+  private bubbleUp(idx: number): void {
+    while (idx > 0) {
+      const parent = Math.floor((idx - 1) / 2);
+      if (this.heap[idx].priority <= this.heap[parent].priority) break;
+      [this.heap[idx], this.heap[parent]] = [this.heap[parent], this.heap[idx]];
+      idx = parent;
+    }
+  }
+
+  private bubbleDown(idx: number): void {
+    while (true) {
+      const left = 2 * idx + 1;
+      const right = 2 * idx + 2;
+      let largest = idx;
+      if (left < this.heap.length && this.heap[left].priority > this.heap[largest].priority) largest = left;
+      if (right < this.heap.length && this.heap[right].priority > this.heap[largest].priority) largest = right;
+      if (largest === idx) break;
+      [this.heap[idx], this.heap[largest]] = [this.heap[largest], this.heap[idx]];
+      idx = largest;
+    }
+  }
+}
+
+// Usage: support ticket system
+interface Ticket { id: string; subject: string; }
+
+const ticketQueue = new PriorityQueue<Ticket>();
+ticketQueue.enqueue({ id: "T1", subject: "Question" }, 1);   // Low
+ticketQueue.enqueue({ id: "T2", subject: "Bug" }, 3);         // High
+ticketQueue.enqueue({ id: "T3", subject: "Feature" }, 2);     // Medium
+ticketQueue.enqueue({ id: "T4", subject: "Outage" }, 5);      // Critical
+
+console.log(ticketQueue.dequeue()?.id); // T4 (Outage, priority 5)
+console.log(ticketQueue.dequeue()?.id); // T2 (Bug, priority 3)
+console.log(ticketQueue.dequeue()?.id); // T3 (Feature, priority 2)
+console.log(ticketQueue.dequeue()?.id); // T1 (Question, priority 1)
+```
+
 ## Explanation
 
-Priority queues use a **heap data structure** (or sorted set) to maintain ordering:
+Priority queues use a **heap data structure** (or sorted set) to keep things ordered. When a task arrives, it goes into
+the heap by priority, not by arrival time. The worker pulls the top element — the highest-priority item. If several items
+share the same priority, the timestamp keeps things fair and stops newer same-priority tasks from starving.
 
-- **Insertion:** Tasks arrive with an assigned priority value. They are placed in the heap according to priority, not arrival time.
-- **Extraction:** The worker always takes the element at the top of the heap — the highest priority item. If multiple items share the same priority, secondary ordering (timestamp) ensures fairness.
-- **Fairness within priority:** Tasks with the same priority are processed in FIFO order, preventing starvation of newer same-priority tasks.
-
-The priority assignment itself is domain-specific: it can be based on customer tier, SLA deadlines, severity levels, or live load calculations.
+How you assign priority is up to you: customer tier, SLA deadlines, severity levels, or live load.
 
 ## Variants
 
 | Variant | Mechanism | Best For |
-|---------|-----------|----------|
+| --------- | ----------- | ---------- |
 | **Binary heap** | In-memory array heap | Single-process, high-throughput task scheduling |
 | **Redis sorted sets** | External sorted structure | Distributed workers, persistent queue |
 | **Weighted fair queuing** | Proportional bandwidth allocation | Network traffic shaping, API rate limiting |
 | **Multi-level feedback queue** | Live priority adjustment | Operating system process scheduling |
 | **Deadline-based** | Earliest deadline first | Real-time systems, SLA-driven processing |
 
-## What Works
+## Best Practices
 
-- **Prevent starvation.** Low-priority tasks should eventually run — implement aging (increasing priority over time) or a minimum quota.
-- **Keep priority levels limited.** Too many levels (20+) make the system hard to reason about and don't improve throughput. 3-5 levels suffice.
-- **Document priority assignments.** Make it clear what gets CRITICAL vs HIGH priority so teams don't default everything to maximum.
-- **Monitor queue depth by priority.** A growing backlog of HIGH priority tasks signals a capacity problem, not just LOW priority neglect.
+- **Prevent starvation.** Low-priority tasks should eventually run — implement aging (increasing priority over time) or
+  a minimum quota.
+- **Keep priority levels small.** Too many levels (20+) make the system hard to reason about and don't improve
+  throughput. Three to five levels are usually enough.
+- **Document priority assignments.** Make it clear what gets CRITICAL vs HIGH priority so teams don't default everything
+  to maximum.
+- **Monitor queue depth by priority.** A growing backlog of HIGH priority tasks signals a capacity problem, not just LOW
+  priority neglect.
 - **Consider preemption.** If a CRITICAL task arrives while a LOW task is running, should the LOW task be paused?
 
 ## Common Mistakes
 
-- **Everything is HIGH priority.** When everything is high priority, the queue degenerates to FIFO and the system loses its value.
-- **Ignoring starvation.** A queue full of HIGH and CRITICAL tasks may never process BACKGROUND tasks. Use aging or time quotas.
-- **Complex priority calculations.** If computing priority takes longer than the task itself, you've introduced more overhead than benefit.
-- **No visibility.** Without metrics showing queue depth by priority, operators can't tell if the system is behaving as intended.
+- **Everything is HIGH priority.** When every task is marked high priority, the queue becomes FIFO
+  and the whole point is lost.
+- **Ignoring starvation.** A queue full of HIGH and CRITICAL tasks may never process BACKGROUND tasks. Use aging or time
+  quotas.
+- **Complex priority calculations.** If computing priority takes longer than the task itself, the overhead
+  outweighs the value.
+- **No metrics.** Without queue depth metrics by priority, you can't tell whether the system is behaving as expected.
 - **Hardcoded priorities.** Business priorities change — make the priority assignment configurable.
 
 ## Real-World Examples
 
 ### Kubernetes
 
-Kubernetes uses priority queues for pod scheduling. Pods with higher `priorityClassName` are scheduled before lower-priority pods. If a higher-priority pod cannot be scheduled, the scheduler may preempt (evict) lower-priority pods to make room.
+When Kubernetes schedules pods, it uses a priority queue: pods with a higher `priorityClassName` go first. If a
+higher-priority pod can't be scheduled, the scheduler may preempt (evict) lower-priority pods to make room.
 
 ### RabbitMQ Priority Queue
 
-RabbitMQ supports priority queues via the `x-max-priority` argument. Messages with higher priority are delivered before lower-priority messages within the same queue, up to the configured maximum priority level.
+RabbitMQ uses the `x-max-priority` argument so messages can skip ahead. Higher-priority messages are delivered before
+lower-priority ones within the same queue, up to the configured maximum level.
 
 ### AWS Lambda
 
-Lambda's event source mappings from SQS queues respect priority through separate queues. Organizations use multiple queues (critical, normal, background) with different Lambda concurrency allocations to achieve priority-based processing.
+Lambda's event source mappings from SQS queues respect priority through separate queues. Organizations use several
+queues (critical, normal, background) with different Lambda concurrency allocations to achieve priority-based
+processing.
 
 ## FAQ
 
-**Q: What's the difference between a priority queue and weighted fair queuing?**
-A: A priority queue always processes the highest-priority item first. Weighted fair queuing allocates a proportional share of resources to each priority class, preventing starvation by guaranteeing minimum throughput to lower priorities.
+### What's the difference between a priority queue and weighted fair queuing?
 
-**Q: How do I prevent low-priority tasks from starving?**
-A: Use task aging (increase priority over time), allocate fixed time slices per priority level, or switch to weighted fair queuing instead of strict priority.
+A priority queue always grabs the highest-priority item first. Weighted fair queuing, on the other hand, gives each
+priority class a proportional slice of resources, so lower priorities still get a guaranteed minimum and don't starve.
 
-**Q: Can I change a task's priority after submission?**
-A: Yes — remove the task from the queue, update its priority, and re-insert. In Redis sorted sets, this is a `zrem` followed by `zadd`. In Java's PriorityBlockingQueue, you must remove and re-offer since the queue doesn't auto-reorder.
+### How do I prevent low-priority tasks from starving?
 
-**Q: Are priority queues fair?**
-A: Strict priority queues are not fair to lower-priority tasks. Fairness requires either aging, preemption limits, or switching to a proportional allocation model.
+Use task aging: bump the priority up as a task waits. You can also allocate fixed time slices to each level, or switch to
+weighted fair queuing instead of strict priority.
 
-**Q: Should I use one priority queue or multiple queues?**
-A: One priority queue is simpler but may have contention. Multiple queues (one per priority) with separate worker pools allow independent scaling and isolation, but add operational complexity.
+### Can I change a task's priority after submission?
 
-### Is this pattern suitable for small projects?
+Yes, but remove it first. Then update the priority and put it back. In Redis that's a `zrem` followed by a `zadd`. In
+Java's `PriorityBlockingQueue`, remove and re-offer; the queue won't reorder on its own.
 
-For small projects with few components, this pattern may add unnecessary complexity. Start simple and introduce the pattern when you feel the pain it solves.
+### Are priority queues fair?
 
-### How does this pattern compare to alternatives?
+Strict priority queues aren't fair to lower-priority tasks. If fairness matters, add aging, limit preemption, or move to
+a proportional allocation model.
 
-Each pattern makes different trade-offs. Review the variants table above and consider your specific constraints: team size, performance requirements, and future scaling plans.
+### Should I use one priority queue or several?
 
-### Can I partially apply this pattern?
+One queue is simpler, but it can become a bottleneck. Several queues — one per priority with separate worker pools —
+scale and isolate better, but add operational complexity.
 
-Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+### When should I choose a priority queue over a FIFO queue?
+
+Use a priority queue when items have different urgency: critical tickets before questions, high-value jobs before batch
+work. Use FIFO when arrival order matters: orders, messages, transaction logs. A priority queue reorders by urgency; FIFO
+preserves arrival order. Support systems usually call for a priority queue. Transaction processing usually goes with FIFO.
+OS scheduling uses a priority queue ordered by process priority.

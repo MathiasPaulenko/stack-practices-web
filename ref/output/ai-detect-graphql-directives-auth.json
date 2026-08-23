@@ -1,0 +1,349 @@
+[
+  {
+    "label": "graphql-directives-auth-en",
+    "model": "desklib",
+    "model_ai_pct": 43.6,
+    "ai_count": 18,
+    "human_count": 33,
+    "skipped_count": 2,
+    "total": 53,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.0,
+      "stddev": 4.8,
+      "cv": 0.34,
+      "verdict": "somewhat uniform",
+      "sentence_count": 51,
+      "lengths": [
+        9,
+        24,
+        24,
+        14,
+        17,
+        19,
+        19,
+        18,
+        19,
+        19,
+        5,
+        12,
+        15,
+        15,
+        17,
+        8,
+        10,
+        13,
+        10,
+        17,
+        15,
+        14,
+        19,
+        20,
+        13,
+        12,
+        10,
+        15,
+        16,
+        14,
+        13,
+        10,
+        7,
+        16,
+        14,
+        11,
+        22,
+        17,
+        16,
+        7,
+        22,
+        9,
+        8,
+        13,
+        6,
+        19,
+        15,
+        6,
+        7,
+        10,
+        15
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Resolver-level auth is the better choice when the\nlogic gets complex, like allowing an edit only for the owner or org members.",
+        0.8807
+      ],
+      [
+        "If you need finer control, use\n@hasPermission to check specific actions like post:delete instead of broad roles.",
+        0.8358
+      ],
+      [
+        "They're\nalso useful when a field should be visible only to the object owner, regardless of the viewer's role.",
+        0.7716
+      ],
+      [
+        "Use custom auth directives when fields inside the same type need different access levels.",
+        0.7324
+      ],
+      [
+        "If either check fails, the field returns an error or\nnull, depending on your config.",
+        0.7107
+      ],
+      [
+        "Admins still get through; that's intentional so support\nstaff can pull user data.",
+        0.6931
+      ],
+      [
+        "They work, but each subgraph has to implement the directive on its own.",
+        0.6449
+      ],
+      [
+        "For example, a user reads their own email but not\nsomeone else's, an admin sees every field, and a public field needs no auth.",
+        0.6154
+      ],
+      [
+        "Every GraphQL field can have its own authorization rule.",
+        0.602
+      ],
+      [
+        "The original resolve function is preserved, or defaultFieldResolver is used when\nthe field has no custom resolver.",
+        0.568
+      ],
+      [
+        "Public fields should still work without a token, or your landing page\nand public queries will break.",
+        0.558
+      ],
+      [
+        "@owner checks the parent object's authorId against context.user.id.",
+        0.5546
+      ],
+      [
+        "Send queries with different user tokens and check that protected fields return errors or null based on the\nrole.",
+        0.5471
+      ],
+      [
+        "They also aren't the best choice if your rules are too complex to express declaratively, like multi-tenant\norg membership.",
+        0.5343
+      ],
+      [
+        "Directives work well for straightforward field-level rules.",
+        0.5304
+      ],
+      [
+        "Test different roles by sending queries with different context.user values and asserting who can see what.",
+        0.5248
+      ],
+      [
+        "You can also use a directive to limit query cost:\n\n\n\nThis gives you a basic cost guard without touching resolvers.",
+        0.5209
+      ],
+      [
+        "The gateway won't re-run subgraph\ndirectives.",
+        0.5202
+      ],
+      [
+        "Stack the directives: @auth(requires: EDITOR) @owner.",
+        0.4611
+      ],
+      [
+        "When stacking directives, document the evaluation order so your team doesn't\nget surprised by a short-circuit.",
+        0.4339
+      ],
+      [
+        "If that\npasses, @owner verifies the user owns the resource.",
+        0.4297
+      ],
+      [
+        "Checking auth in both resolvers and directives creates duplicated logic, so pick one approach.",
+        0.4176
+      ],
+      [
+        "Declare auth in the schema so rules stay visible and easy to audit.",
+        0.4166
+      ],
+      [
+        "If your app has roles like\nadmin, editor, and viewer, and you need field-level granularity, directives handle that cleanly.",
+        0.4128
+      ],
+      [
+        "Role-based auth with @auth is the most common starting point.",
+        0.4097
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "graphql-directives-auth-es",
+    "model": "desklib",
+    "model_ai_pct": 39.6,
+    "ai_count": 15,
+    "human_count": 37,
+    "skipped_count": 1,
+    "total": 53,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.7,
+      "stddev": 5.7,
+      "cv": 0.36,
+      "verdict": "somewhat uniform",
+      "sentence_count": 52,
+      "lengths": [
+        11,
+        26,
+        29,
+        21,
+        21,
+        21,
+        21,
+        21,
+        17,
+        22,
+        6,
+        14,
+        20,
+        16,
+        17,
+        9,
+        15,
+        17,
+        14,
+        18,
+        17,
+        13,
+        21,
+        23,
+        15,
+        9,
+        13,
+        22,
+        16,
+        15,
+        13,
+        11,
+        7,
+        16,
+        17,
+        10,
+        24,
+        7,
+        16,
+        20,
+        10,
+        29,
+        11,
+        10,
+        12,
+        9,
+        20,
+        16,
+        6,
+        7,
+        12,
+        15
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Apil\u00e1 las directivas: @auth(requires: EDITOR) @owner.",
+        0.9752
+      ],
+      [
+        "El gateway no re-ejecuta\nlas directivas de los subgrafos.",
+        0.8223
+      ],
+      [
+        "Cache\u00e1 las b\u00fasquedas de permisos para evitar consultar la base de datos en cada resolver.",
+        0.7891
+      ],
+      [
+        "@auth envuelve el resolver del campo.",
+        0.7881
+      ],
+      [
+        "Las directivas andan bien para reglas simples a nivel campo.",
+        0.7491
+      ],
+      [
+        "La auth a nivel resolver es la mejor opci\u00f3n\ncuando la l\u00f3gica se pone compleja, como permitir una edici\u00f3n solo para el due\u00f1o o miembros de la misma\norganizaci\u00f3n.",
+        0.7352
+      ],
+      [
+        "Campos anidados como user.email tambi\u00e9n\nnecesitan directivas.",
+        0.7193
+      ],
+      [
+        "La\ndirectiva @owner agrega verificaci\u00f3n de propiedad, y las directivas apiladas como\n@auth(requires: EDITOR) @owner requieren ambas.",
+        0.6121
+      ],
+      [
+        "Si falla cualquiera de las dos, el campo\nretorna error o null, seg\u00fan tu configuraci\u00f3n.",
+        0.5836
+      ],
+      [
+        "Un helper chico que cambie context.user por cada rol y permiso hace esto mucho m\u00e1s r\u00e1pido.",
+        0.574
+      ],
+      [
+        "Cada campo de GraphQL puede tener su propia regla de autorizaci\u00f3n.",
+        0.5686
+      ],
+      [
+        "En lugar de roles, verific\u00e1 permisos espec\u00edficos:\n\n\n\n\n\nApil\u00e1 directivas para checks en capas:\n\n\n\nEl campo requiere al menos EDITOR y propiedad.",
+        0.5587
+      ],
+      [
+        "La directiva @auth verifica el rol primero.",
+        0.5569
+      ],
+      [
+        "Tambi\u00e9n sirven cuando un campo\ndebiera ser visible solo para el due\u00f1o del objeto, sin importar el rol del que consulta.",
+        0.5536
+      ],
+      [
+        "Si tu app tiene roles como admin, editor y viewer y\nnecesit\u00e1s granularidad a nivel campo, las directivas lo manejan limpio.",
+        0.5007
+      ],
+      [
+        "Declar\u00e1 auth en el schema para que las reglas sean visibles y f\u00e1ciles de auditar.",
+        0.49
+      ],
+      [
+        "Los admins todav\u00eda pasan; eso es intencional\npara que el soporte t\u00e9cnico acceda a datos de usuario.",
+        0.4626
+      ],
+      [
+        "En\nproducci\u00f3n, retorn\u00e1 mensajes gen\u00e9ricos FORBIDDEN; mensajes detallados pueden filtrar informaci\u00f3n del\nschema.",
+        0.3906
+      ],
+      [
+        "Si necesit\u00e1s control m\u00e1s fino, us\u00e1\n@hasPermission para verificar acciones espec\u00edficas como post:delete en lugar de roles anchos.",
+        0.3815
+      ],
+      [
+        "Tampoco son la mejor opci\u00f3n si tus reglas son demasiado complejas para expresarlas declarativamente,\ncomo membres\u00eda multi-tenant.",
+        0.3769
+      ],
+      [
+        "Tambi\u00e9n pod\u00e9s usar una directiva para limitar el costo de la query:\n\n\n\nEso te da un guard de costo b\u00e1sico sin tocar resolvers.",
+        0.3668
+      ],
+      [
+        "La jerarqu\u00eda de roles usa un mapeo num\u00e9rico para que ADMIN (2)\nsatisfaga requisitos de EDITOR (1) y VIEWER (0).",
+        0.3537
+      ],
+      [
+        "Verificar auth en resolvers y directivas al mismo tiempo genera l\u00f3gica duplicada, as\u00ed que eleg\u00ed un enfoque.",
+        0.349
+      ],
+      [
+        "El orden importa, porque las\ndirectivas externas se ejecutan primero.",
+        0.3386
+      ],
+      [
+        "Funcionan, pero cada subgrafo tiene que implementar la directiva por su cuenta.",
+        0.3359
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

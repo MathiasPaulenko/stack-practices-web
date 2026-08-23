@@ -1,0 +1,341 @@
+[
+  {
+    "label": "queue-based-load-leveling-pattern-en",
+    "model": "desklib",
+    "model_ai_pct": 41.6,
+    "ai_count": 12,
+    "human_count": 35,
+    "skipped_count": 4,
+    "total": 51,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.4,
+      "stddev": 5.8,
+      "cv": 0.41,
+      "verdict": "somewhat uniform",
+      "sentence_count": 47,
+      "lengths": [
+        14,
+        20,
+        10,
+        21,
+        12,
+        13,
+        24,
+        35,
+        13,
+        23,
+        22,
+        11,
+        18,
+        18,
+        10,
+        17,
+        17,
+        12,
+        14,
+        14,
+        14,
+        15,
+        21,
+        16,
+        14,
+        18,
+        12,
+        9,
+        16,
+        8,
+        10,
+        8,
+        6,
+        8,
+        14,
+        30,
+        8,
+        8,
+        9,
+        14,
+        11,
+        12,
+        9,
+        8,
+        14,
+        10,
+        17
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "When 10,000 requests hit in one second,\nconsumers keep processing at a steady rate while messages pile up.",
+        0.9877
+      ],
+      [
+        "For small projects with few components, it can add complexity that isn't worth it.",
+        0.9209
+      ],
+      [
+        "Use this pattern when producers generate work faster than consumers can handle during peaks, or when downstream\nservices have rate limits or capacity constraints.",
+        0.917
+      ],
+      [
+        "This is the go-to pattern for long-running operations.",
+        0.8939
+      ],
+      [
+        "Tasks spend time in the queue before they're processed.",
+        0.7374
+      ],
+      [
+        "Start simple and add it once the\npain becomes obvious.",
+        0.7278
+      ],
+      [
+        "It also fits when work can be deferred, when producers and\nconsumers must stay independent, when traffic is highly variable, and when you build serverless or\nauto-scaling\nsystems t",
+        0.7128
+      ],
+      [
+        "This pattern lives behind background job processors, event-driven microservices, and serverless trigger systems.",
+        0.6632
+      ],
+      [
+        "The trade-off is predictable latency under load instead\nof unpredictable failures without a queue.",
+        0.6469
+      ],
+      [
+        "Producers don't wait because they just enqueue and move on.",
+        0.6334
+      ],
+      [
+        "SQS, Azure Queue, and\nPub/Sub are cloud queues that fit serverless and managed infrastructure.",
+        0.5397
+      ],
+      [
+        "For single-process, low-latency communication, use in-memory queues such as BlockingQueue or channels.",
+        0.5179
+      ],
+      [
+        "For latency-sensitive paths, keep a separate fast path or reserve capacity.",
+        0.4907
+      ],
+      [
+        "Message\nbrokers such as RabbitMQ and ActiveMQ fit distributed systems that need guaranteed delivery.",
+        0.4279
+      ],
+      [
+        "Kafka or Kinesis fall under the stream\ncategory and support event sourcing and replay.",
+        0.4235
+      ],
+      [
+        "When traffic drops, the queue\ndrains and the system can scale down.",
+        0.4126
+      ],
+      [
+        "If a consumer fails, messages stay in the queue and\nprocessing picks up once it comes back.",
+        0.4043
+      ],
+      [
+        "Use dead-letter queues to quarantine failed messages instead of letting them block the\nline.",
+        0.4035
+      ],
+      [
+        "When queue depth crosses a threshold,\nauto-scaling adds more consumers; when the queue drains, it scales back down.",
+        0.3844
+      ],
+      [
+        "Implement backpressure so that when the queue is full, upstream gets a 503 Service Unavailable and can throttle.",
+        0.3668
+      ],
+      [
+        "One bad message can block the queue if you don't\nmove it to a dead-letter queue.",
+        0.3584
+      ],
+      [
+        "Avoid it when the user expects a synchronous response, because queuing adds latency.",
+        0.3564
+      ],
+      [
+        "Use in-memory queues for single-process apps, Redis for simplicity, RabbitMQ for complex routing, Kafka for event\nsourcing and replay, and cloud-native queues such as SQS or Pub/Su",
+        0.3518
+      ],
+      [
+        "Ignoring queue\ndepth alarms lets the backlog become an outage.",
+        0.3316
+      ],
+      [
+        "Instead of\nproducers calling consumers directly, producers place tasks in a queue and consumers pull them at a steady rate.",
+        0.3312
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "queue-based-load-leveling-pattern-es",
+    "model": "desklib",
+    "model_ai_pct": 35.0,
+    "ai_count": 9,
+    "human_count": 39,
+    "skipped_count": 3,
+    "total": 51,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 16.0,
+      "stddev": 6.8,
+      "cv": 0.43,
+      "verdict": "somewhat uniform",
+      "sentence_count": 48,
+      "lengths": [
+        14,
+        28,
+        14,
+        19,
+        14,
+        22,
+        31,
+        37,
+        12,
+        26,
+        25,
+        12,
+        19,
+        21,
+        9,
+        17,
+        14,
+        17,
+        13,
+        16,
+        11,
+        17,
+        9,
+        25,
+        18,
+        13,
+        21,
+        13,
+        12,
+        16,
+        9,
+        11,
+        10,
+        10,
+        13,
+        12,
+        36,
+        8,
+        11,
+        10,
+        14,
+        14,
+        14,
+        11,
+        11,
+        10,
+        10,
+        21
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Este es el patr\u00f3n de uso para operaciones de larga duraci\u00f3n.",
+        0.9148
+      ],
+      [
+        "Cuando llegan 10,000 solicitudes en un\nsegundo, los consumidores siguen procesando a su ritmo mientras los mensajes se acumulan.",
+        0.7655
+      ],
+      [
+        "Los productores no esperan porque solo encolan y siguen.",
+        0.6485
+      ],
+      [
+        "El cliente consulta estado o\nusa webhooks para ver cu\u00e1ndo termin\u00f3.",
+        0.6225
+      ],
+      [
+        "Queue-Based Load Leveling mete una cola de mensajes entre productores y consumidores de trabajo.",
+        0.5831
+      ],
+      [
+        "Las tareas pasan tiempo en la cola antes de procesarse.",
+        0.575
+      ],
+      [
+        "Para comunicaci\u00f3n de un solo proceso con baja latencia, us\u00e1 colas en memoria como BlockingQueue o canales.",
+        0.5564
+      ],
+      [
+        "La cola se mete entre productores y consumidores y absorbe las r\u00e1fagas.",
+        0.5348
+      ],
+      [
+        "Pon\u00e9 un l\u00edmite a la profundidad de la cola.",
+        0.513
+      ],
+      [
+        "Encolar sincr\u00f3nicamente desde los productores mata el\nbeneficio del desacoplamiento.",
+        0.4899
+      ],
+      [
+        "Ignorar las\nalarmas de profundidad convierte al backlog en una ca\u00edda.",
+        0.4763
+      ],
+      [
+        "En vez de que los\nproductores llamen a los consumidores directamente, los productores ponen las tareas en una cola\ny los consumidores las extraen a un ritmo constante.",
+        0.4631
+      ],
+      [
+        "Acept\u00e1 la solicitud de forma sincr\u00f3nica, encol\u00e1 el trabajo y devolv\u00e9 un job ID.",
+        0.4605
+      ],
+      [
+        "Cuando baja el tr\u00e1fico, la cola se vac\u00eda y el sistema puede reducir recursos.",
+        0.4599
+      ],
+      [
+        "SQS, Azure Queue y\nPub/Sub son colas en la nube ideales para serverless e infraestructura gestionada.",
+        0.4509
+      ],
+      [
+        "La cola act\u00faa como\namortiguador: cuando el tr\u00e1fico pica, los mensajes se acumulan en lugar de colapsar al consumidor.",
+        0.4386
+      ],
+      [
+        "RabbitMQ o ActiveMQ son brokers de mensajes para sistemas distribuidos con entrega garantizada.",
+        0.3869
+      ],
+      [
+        "El trade-off es latencia predecible bajo carga en vez de\nfallos impredecibles sin cola.",
+        0.3588
+      ],
+      [
+        "Asumir FIFO sin verificar rompe las garant\u00edas de orden.",
+        0.3438
+      ],
+      [
+        "El back-pressure le avisa aguas arriba que reduzca la velocidad.",
+        0.3272
+      ],
+      [
+        "Establec\u00e9 un TTL para que el trabajo viejo expire en lugar de procesarse.",
+        0.318
+      ],
+      [
+        "Celery, BullMQ y Hangfire son colas de tareas: agregan programaci\u00f3n de\ntrabajos, reintentos y seguimiento de resultados.",
+        0.3179
+      ],
+      [
+        "Kafka o Kinesis son streams que\nsoportan event sourcing y reproducci\u00f3n.",
+        0.3073
+      ],
+      [
+        "La nivelaci\u00f3n de carga recibe todo el trabajo y lo\ndeja en buffer.",
+        0.2991
+      ],
+      [
+        "Expon\u00e9 m\u00e9tricas de profundidad de cola y alert\u00e1 antes\ndel desbordamiento.",
+        0.2945
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

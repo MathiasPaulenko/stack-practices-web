@@ -1,22 +1,22 @@
 ---
 contentType: patterns
 slug: queue-based-load-leveling-pattern
-title: "Patron de Nivelacion de Carga Basada en Colas"
-description: "Introduce una cola entre productores y consumidores de tareas para suavizar picos de trafico, desacoplar componentes y evitar que servicios aguas abajo sean abrumados."
-metaDescription: "Aprende el Patron de Nivelacion de Carga Basada en Colas para suavizar picos de trafico. Ejemplos en Python, Java y JavaScript con colas de mensajes y backpressure."
+title: "Patrón de Nivelación de Carga Basada en Colas: Suaviza Picos con Colas"
+description: "Usá Queue-Based Load Leveling para desacoplar productores y consumidores, absorber picos y procesar trabajo constante. Ejemplos en Python, Java y JavaScript."
+metaDescription: "Usá Queue-Based Load Leveling para desacoplar productores y consumidores, absorber picos y procesar trabajo constante. Ejemplos en Python, Java y JavaScript."
 difficulty: intermediate
 topics:
   - design
   - architecture
   - messaging
 tags:
-  - pattern
   - design-pattern
   - messaging
   - queue
-  - load-balancing
+  - load-leveling
   - backpressure
   - decoupling
+  - architecture
 relatedResources:
   - /patterns/priority-queue-pattern
   - /patterns/throttling-pattern
@@ -24,11 +24,11 @@ relatedResources:
   - /patterns/sequential-convoy-pattern
   - /patterns/claim-check-pattern
   - /patterns/scheduler-agent-supervisor-pattern
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-08-23"
 publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Aprende el Patron de Nivelacion de Carga Basada en Colas para suavizar picos de trafico. Ejemplos en Python, Java y JavaScript con colas de mensajes y backpressure."
+  metaDescription: "Usá Queue-Based Load Leveling para desacoplar productores y consumidores, absorber picos y procesar trabajo constante. Ejemplos en Python, Java y JavaScript."
   keywords:
     - nivelacion de carga basada en colas
     - patron de diseno
@@ -37,41 +37,39 @@ seo:
     - nivelacion de carga
     - backpressure
     - desacoplamiento
-
-
-
-
-
 ---
-## Resumen
 
-El Patron de Nivelacion de Carga Basada en Colas introduce una cola de mensajes intermedia entre componentes que producen trabajo y componentes que lo consumen. En lugar de que los productores llamen a los consumidores directamente (lo que arriesga abrumar al consumidor durante picos de trafico), los productores encolan tareas y los consumidores las procesan a una tasa constante y controlada.
+## Descripción General
 
-Este desacoplamiento transforma cargas de trabajo impredecibles y con rafagas en flujos de procesamiento suaves y manejables. La cola actua como amortiguador: cuando hay un pico de trafico, los mensajes se acumulan en la cola en lugar de colapsar al consumidor. Cuando el trafico es bajo, la cola se vacia y los recursos pueden reducirse.
+Queue-Based Load Leveling mete una cola de mensajes entre productores y consumidores de trabajo. En vez de que los
+productores llamen a los consumidores directamente, los productores ponen las tareas en una cola
+y los consumidores las extraen a un ritmo constante.
 
-## Cuando Usar
+Este desacoplamiento convierte cargas de trabajo impredecibles y con ráfagas en un flujo suave. La cola actúa como
+amortiguador: cuando el tráfico pica, los mensajes se acumulan en lugar de colapsar al consumidor.
+Cuando baja el tráfico, la cola se vacía y el sistema puede reducir recursos.
 
+Vas a encontrar este patrón detrás de procesadores de trabajos en segundo plano, microservicios orientados a eventos
+y sistemas de triggers serverless.
 
-- For alternatives, see [Sequential Convoy Pattern](/es/patterns/sequential-convoy-pattern/).
+## Cuándo Usarlo
 
-- Los productores generan trabajo mas rapido de lo que los consumidores pueden procesar durante picos
-- Los servicios aguas abajo tienen limites estrictos de tasa o restricciones de capacidad
-- El trabajo puede diferirse sin violar requisitos de negocio
-- Necesidad de desacoplar disponibilidad de productor y consumidor
-- Los patrones de trafico son altamente variables o estacionales
-- Construir arquitecturas serverless o auto-escalables
+Usalo cuando los productores generen trabajo más rápido de lo que los consumidores pueden procesar durante picos, o
+cuando los servicios aguas abajo tengan límites de tasa o restricciones de capacidad. También encaja cuando el
+trabajo puede diferirse, cuando necesitás que productores y consumidores sean independientes, cuando el tráfico es
+muy variable y cuando construís arquitecturas serverless o auto-escalables que ajustan capacidad según la
+profundidad de la cola.
 
-## Cuando Evitar
+## Cuándo Evitarlo
 
-- El trabajo debe procesarse sincronicamente con respuesta al usuario
-- La profundidad de la cola creceria indefinidamente sin limite
-- El ordenamiento de mensajes es critico y la cola no puede garantizar FIFO
-- El overhead de serializacion/deserializacion de la cola excede el costo de llamadas directas
-- Requisitos de latencia muy baja donde incluso milisegundos de latencia de cola son inaceptables
+Evitalo cuando el usuario espere una respuesta sincrónica, porque encolar agrega latencia. Saltéalo si la cola
+podría crecer sin límite y desbordarse, o si el orden de los mensajes es crítico y la cola no puede garantizar FIFO.
+Tampoco sirve cuando el costo de serialización de la cola supera las llamadas directas, o cuando incluso un
+milisegundo de latencia de cola es demasiado.
 
-## Solucion
+## Solución
 
-### Python (Celery con Broker Redis)
+### Python (Celery con Redis)
 
 ```python
 from celery import Celery
@@ -89,24 +87,49 @@ app.conf.update(
 @app.task(bind=True, max_retries=3, default_retry_delay=60)
 def process_image(self, image_url, filters):
     try:
-        print(f"Procesando {image_url}")
+        print(f"Processing {image_url} with filters: {filters}")
         time.sleep(2)
+        call_external_api(image_url)
         return {"status": "success", "url": image_url}
     except Exception as exc:
         raise self.retry(exc=exc, countdown=60 * (2 ** self.request.retries))
 
 @app.task(rate_limit='10/m')
 def generate_report(report_type, date_range):
-    print(f"Generando reporte {report_type}")
+    print(f"Generating {report_type} report for {date_range}")
     time.sleep(5)
-    return {"report_id": f"{report_type}-{date_range}", "status": "completado"}
+    return {"report_id": f"{report_type}-{date_range}", "status": "completed"}
+
+def call_external_api(image_url):
+    pass
+
+class ImageUploadService:
+    def handle_upload(self, image_urls, filters):
+        task_ids = []
+        for url in image_urls:
+            result = process_image.delay(url, filters)
+            task_ids.append(result.id)
+
+        return {
+            "message": f"Queued {len(image_urls)} images for processing",
+            "task_ids": task_ids,
+        }
 ```
 
 ### Java (Spring con RabbitMQ)
 
 ```java
+import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
+
 @Configuration
 class QueueConfig {
+
     @Bean
     Queue taskQueue() {
         return QueueBuilder.durable("task-queue")
@@ -127,17 +150,55 @@ class QueueConfig {
     }
 }
 
+@RestController
+class TaskController {
+
+    private final RabbitTemplate rabbitTemplate;
+
+    public TaskController(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
+
+    @PostMapping("/tasks")
+    public String enqueueTask(@RequestBody TaskRequest request) {
+        rabbitTemplate.convertAndSend(
+            "task-exchange",
+            "task.routing.key",
+            request
+        );
+        return "Task queued successfully";
+    }
+}
+
 @Service
 class TaskConsumer {
-    @RabbitListener(queues = "task-queue", concurrency = "4-8")
+
+    @RabbitListener(queues = "task-queue",
+                    concurrency = "4-8",
+                    containerFactory = "rabbitListenerContainerFactory")
     public void processTask(TaskRequest task) {
-        System.out.println("Procesando tarea: " + task.getId());
+        System.out.println("Processing task: " + task.getId());
+
+        try {
+            process(task);
+        } catch (Exception e) {
+            throw new AmqpRejectAndDontRequeueException("Failed: " + e.getMessage());
+        }
+    }
+
+    private void process(TaskRequest task) {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
     }
+}
+
+class TaskRequest {
+    private String id;
+    private String type;
+    private Object payload;
 }
 ```
 
@@ -148,205 +209,151 @@ const { Queue, Worker } = require('bullmq');
 const Redis = require('ioredis');
 
 const connection = new Redis({ maxRetriesPerRequest: null });
+
 const taskQueue = new Queue('tasks', { connection });
 
 const worker = new Worker('tasks', async (job) => {
-    console.log(`Procesando trabajo ${job.id}: ${job.name}`);
+    console.log(`Processing job ${job.id}: ${job.name}`);
+
     switch (job.name) {
-        case 'send-email': return await sendEmail(job.data);
-        case 'process-payment': return await processPayment(job.data);
-        case 'generate-report': return await generateReport(job.data);
-        default: throw new Error(`Tipo desconocido: ${job.name}`);
+        case 'send-email':
+            return await sendEmail(job.data);
+        case 'process-payment':
+            return await processPayment(job.data);
+        case 'generate-report':
+            return await generateReport(job.data);
+        default:
+            throw new Error(`Unknown job type: ${job.name}`);
     }
 }, {
     connection,
     concurrency: 5,
-    limiter: { max: 50, duration: 60000 }
+    limiter: {
+        max: 50,
+        duration: 60000,
+    },
+});
+
+worker.on('failed', (job, err) => {
+    console.error(`Job ${job.id} failed:`, err.message);
 });
 
 class TaskProducer {
     async enqueueEmail(emailData) {
         return await taskQueue.add('send-email', emailData, {
-            priority: 2, attempts: 3, backoff: { type: 'exponential', delay: 2000 }
+            priority: 2,
+            attempts: 3,
+            backoff: { type: 'exponential', delay: 2000 },
+            removeOnComplete: true,
+        });
+    }
+
+    async enqueuePayment(paymentData) {
+        return await taskQueue.add('process-payment', paymentData, {
+            priority: 1,
+            attempts: 5,
+            backoff: { type: 'fixed', delay: 5000 },
+        });
+    }
+
+    async enqueueReport(reportData) {
+        return await taskQueue.add('generate-report', reportData, {
+            priority: 3,
+            delay: 60000,
+            attempts: 2,
         });
     }
 
     async getQueueStatus() {
         const waiting = await taskQueue.getWaitingCount();
         const active = await taskQueue.getActiveCount();
-        return { waiting, active };
+        const completed = await taskQueue.getCompletedCount();
+        const failed = await taskQueue.getFailedCount();
+
+        return { waiting, active, completed, failed };
     }
 }
+
+process.on('SIGTERM', async () => {
+    await worker.close();
+    await taskQueue.close();
+    await connection.quit();
+});
+
+module.exports = { TaskProducer, taskQueue };
 ```
 
-## Explicacion
+## Explicación
 
-La cola actua como un **buffer** entre productores y consumidores:
+La cola se mete entre productores y consumidores y absorbe las ráfagas. Cuando llegan 10,000 solicitudes en un
+segundo, los consumidores siguen procesando a su ritmo mientras los mensajes se acumulan. Cuando la profundidad de
+la cola cruza un umbral, el auto-escalamiento agrega más consumidores; cuando la cola se vacía, se reduce.
 
-- **Pico de trafico:** 10,000 solicitudes llegan en 1 segundo. Sin cola, los consumidores fallan. Con cola, los mensajes se acumulan y los consumidores procesan a su capacidad constante.
-- **Escalamiento del consumidor:** Cuando la profundidad de la cola excede un umbral, el auto-escalamiento inicia mas consumidores.
-- **Proteccion del productor:** Los productores nunca esperan a los consumidores. Encolan y continuan.
-- **Falla desacoplada:** Si los consumidores fallan, los mensajes permanecen en la cola.
+Los productores no esperan porque solo encolan y siguen. Si un consumidor falla, los mensajes permanecen en la cola
+y el procesamiento se reanuda cuando vuelve.
+
+La idea clave es cambiar una pequeña latencia predecible por throughput predecible y resiliencia.
 
 ## Variantes
 
-| Variante | Tipo de Cola | Ideal Para |
-|----------|-------------|------------|
-| Cola en memoria | BlockingQueue, canales | Comunicacion de un solo proceso, baja latencia |
-| Broker de mensajes | RabbitMQ, ActiveMQ | Sistemas distribuidos, entrega garantizada |
-| Cola en la nube | SQS, Azure Queue, Pub/Sub | Serverless, auto-escalamiento, infraestructura gestionada |
-| Stream | Kafka, Kinesis | Event sourcing, reproduccion, persistencia basada en log |
-| Cola de tareas | Celery, BullMQ, Hangfire | Programacion de trabajos, reintentos, seguimiento de resultados |
+Para comunicación de un solo proceso con baja latencia, usá colas en memoria como `BlockingQueue` o canales.
+RabbitMQ o ActiveMQ son brokers de mensajes para sistemas distribuidos con entrega garantizada. SQS, Azure Queue y
+Pub/Sub son colas en la nube ideales para serverless e infraestructura gestionada. Kafka o Kinesis son streams que
+soportan event sourcing y reproducción. Celery, BullMQ y Hangfire son colas de tareas: agregan programación de
+trabajos, reintentos y seguimiento de resultados.
 
-## Lo que funciona
+## Mejores Prácticas
 
-- Establecer limites de profundidad de cola
-- Monitorear la profundidad de la cola
-- Usar colas de mensajes fallidos (dead letter queues)
-- Implementar backpressure
-- Establecer TTL de mensajes
+Poné un límite a la profundidad de la cola. Las colas sin límite esconden problemas y consumen memoria, así que
+definí una longitud máxima y un comportamiento de desbordamiento como rechazar, dead-letter o descartar. Monitoreá
+la
+profundidad continuamente; una cola en crecimiento es la señal más clara de que necesitás más consumidores. Usá
+dead-letter queues para aislar mensajes fallidos en lugar de bloquear la línea. Implementá
+backpressure para que, cuando la cola esté llena, el upstream reciba un `503 Service Unavailable` y pueda reducir la
+carga. Establecé un TTL para que el trabajo viejo expire en lugar de procesarse.
 
 ## Errores Comunes
 
-- Colas sin limites
-- Sin manejo de dead letter
-- Asumir FIFO sin verificacion
-- Ignorar alarmas de profundidad de cola
-- Encolar sincronicamente
-
-## Ejemplos del Mundo Real
-
-- **Amazon SQS**: La implementacion canonica de nivelacion de carga basada en colas.   Las funciones Lambda procesan a una concurrencia configurable.
-- **Stripe**: Acepta solicitudes sincronicamente pero procesa analisis de riesgo, verificaciones de fraude y liquidacion asincronicamente.
-- **Kubernetes HPA**: Puede escalar deployments basandose en metricas de profundidad de cola.
-
-
-## Puntos Clave
-
-- **Aplica patron de nivelacion de carga basada en colas** cuando necesites una solución práctica para tu caso de uso.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+Las colas sin límite eventualmente agotan la memoria y caen al broker. Un solo mensaje envenenado puede bloquear la
+cola si no lo movés a una dead-letter queue. Asumir FIFO sin verificar rompe las garantías de orden. Ignorar las
+alarmas de profundidad convierte al backlog en una caída. Encolar sincrónicamente desde los productores mata el
+beneficio del desacoplamiento.
 
 ## Preguntas Frecuentes
 
-**P: ¿Como difiere del Patron de Back-Pressure?**
-R: Back-pressure senala aguas arriba para ralentizarse. La nivelacion de carga acepta todo el trabajo y lo almacena en buffer.
+### ¿En qué se diferencia del patrón Back-Pressure?
 
-**P: ¿Que tecnologia de cola deberia usar?**
-R: Colas en memoria para aplicaciones de un solo proceso, Redis para simplicidad, RabbitMQ para enrutamiento complejo, Kafka para event sourcing, y colas nativas en la nube para infraestructura gestionada.
+El back-pressure le avisa aguas arriba que reduzca la velocidad. La nivelación de carga recibe todo el trabajo y lo
+deja en buffer. Podés combinarlos: una cola llena señala backpressure mientras sigue absorbiendo ráfagas
+aceptables.
 
-**P: ¿Como evito que la cola crezca para siempre?**
-R: Establecer limites de longitud maxima, implementar TTL, agregar consumidores o auto-escalamiento, y exponer metricas de profundidad.
+### ¿Qué tecnología de cola debería usar?
 
-**P: ¿La nivelacion de carga aumenta la latencia?**
-R: Si — las tareas esperan en la cola antes de ser procesadas. El compromiso es latencia predecible bajo carga versus fallos impredecibles sin cola.
+Usá colas en memoria para aplicaciones de un solo proceso, Redis para simplicidad, RabbitMQ para enrutamiento
+complejo, Kafka para event sourcing y reproducción, y colas nativas en la nube como SQS o Pub/Sub para
+infraestructura gestionada.
 
-**P: ¿Puedo usar nivelacion de carga con APIs sincronicas?**
-R: Si — aceptar la solicitud sincronicamente, encolar el trabajo, y devolver un ID de trabajo. El cliente sondea o usa webhooks para la finalizacion.
+### ¿Cómo evito que la cola crezca para siempre?
+
+Definí límites de longitud máxima, TTL y auto-escalamiento. Exponé métricas de profundidad de cola y alertá antes
+del desbordamiento.
+
+### ¿La nivelación de carga aumenta la latencia?
+
+Sí. Las tareas pasan tiempo en la cola antes de procesarse. El trade-off es latencia predecible bajo carga en vez de
+fallos impredecibles sin cola. Para caminos sensibles a la latencia, mantené un fast path separado o reservá capacidad.
+
+### ¿Puedo usar nivelación de carga con APIs sincrónicas?
+
+Sí. Aceptá la solicitud de forma sincrónica, encolá el trabajo y devolvé un job ID. El cliente consulta estado o
+usa webhooks para ver cuándo terminó. Este es el patrón de uso para operaciones de larga duración.
 
 ### ¿Es este patrón adecuado para proyectos pequeños?
 
-Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
-
-### ¿Cómo se compara este patrón con alternativas?
-
-Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+Para proyectos pequeños con pocos componentes puede agregar complejidad innecesaria. Empezá simple y agregalo
+cuando sientas el problema que resuelve.
 
 ### ¿Puedo aplicar este patrón parcialmente?
 
-Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
-
-
-## Temas Avanzados
-
-### Escenario: Queue-Based Load Leveling para Procesamiento de Pedidos
-
-```text
-Sistema: E-commerce con picos de trafico (Black Friday)
-Patron: Queue para nivelar carga entre API y worker
-
-Arquitectura:
-  API -> Message Queue (SQS/RabbitMQ) -> Worker Pool
-
-  API: acepta pedidos rapidamente (p99 < 100ms)
-  Queue: buffer de hasta 10000 pedidos
-  Worker: procesa 50 pedidos concurrentes
-  DLQ: pedidos fallidos tras 3 retries
-```typescript
-// API: encolar pedido
-app.post("/api/orders", async (req, res) => {
-  const order = req.body;
-  await sqs.sendMessage({
-    QueueUrl: ORDER_QUEUE_URL,
-    MessageBody: JSON.stringify(order),
-  }).promise();
-  res.status(202).json({ status: "queued", orderId: order.id });
-});
-
-// Worker: consumir pedidos
-async function processOrders() {
-  while (true) {
-    const messages = await sqs.receiveMessage({
-      QueueUrl: ORDER_QUEUE_URL,
-      MaxNumberOfMessages: 10,
-      WaitTimeSeconds: 20, // long polling
-    }).promise();
-
-    for (const msg of messages.Messages || []) {
-      try {
-        const order = JSON.parse(msg.Body);
-        await processOrder(order);
-        await sqs.deleteMessage({
-          QueueUrl: ORDER_QUEUE_URL,
-          ReceiptHandle: msg.ReceiptHandle,
-        }).promise();
-      } catch (err) {
-        // El mensaje vuelve a la queue tras visibility timeout
-        console.error("Order failed:", err);
-      }
-    }
-  }
-}
-
-// Metricas clave
-  | Metrica | Objetivo | Alerta |
-  |---------|----------|--------|
-  | Queue depth | < 1000 | > 5000 |
-  | Process latency | < 30s | > 120s |
-  | Error rate | < 1% | > 5% |
-  | Worker CPU | < 70% | > 90% |
-  | DLQ depth | 0 | > 10 |
-```
-
-Lecciones:
-  - Queue desacopla productor (API) de consumidor (worker)
-  - La API responde rapido: 202 Accepted, no procesa sincrono
-  - El worker procesa a su ritmo: no se satura en picos
-  - Long polling reduce costos en SQS: WaitTimeSeconds=20
-  - DLQ para mensajes que fallan tras N retries
-  - Auto-scaling del worker segun queue depth
-```
-
-### Como configuro el auto-scaling del worker?
-
-Usa CloudWatch alarm en QueueDepth: si > 1000, scale up 2 workers. Si < 100, scale down 1. Configura cooldown de 300s para evitar thrashing. En K8s, usa KEDA con SQS scaler: scale basado en ApproximateNumberOfMessages. Min replicas: 2 (HA), max: 20. Target: 100 mensajes por worker. El worker lee en batches de 10 para eficiencia.
-
-## Troubleshooting
-
-- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling).   A pattern is only appropriate when its trade-offs match your constraints.
-- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify.   Not every module needs a factory, decorator, or strategy.
-- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward.
-- **Tests break when the design changes**: favor stable contracts over internal structure.
-- **Performance regression from indirection**: measure before and after.   Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
-
-## Errores Comunes en Producción
-
-- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
-- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
-- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
-- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
-- Ignorar modos de fallo que el patrón no cubre.
-- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
-- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
-- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.
+Sí. Muchos equipos empiezan con la idea central y agregan límites de profundidad, dead-letter queues y
+auto-escalamiento a medida que los necesitan.

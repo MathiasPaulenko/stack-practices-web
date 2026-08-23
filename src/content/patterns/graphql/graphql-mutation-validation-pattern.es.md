@@ -1,14 +1,9 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: graphql-mutation-validation-pattern
-title: "Patron GraphQL Mutation Validation"
-description: "Centraliza la validacion de inputs para mutaciones GraphQL usando validadores personalizados, directivas de esquema y respuestas de error estructuradas."
-metaDescription: "Patron GraphQL mutation validation: centraliza validacion de inputs con validadores y codigos de error. Validacion a nivel de campo en Apollo Server."
+title: "Patrón GraphQL Mutation Validation: Validación de Inputs Centralizada"
+description: "Centralizá la validación de mutaciones GraphQL con reglas reutilizables, scalars y errores estructurados. Ejemplos en TypeScript y mejores prácticas."
+metaDescription: "Centralizá la validación de mutaciones GraphQL con reglas reutilizables, scalars y errores estructurados. Ejemplos en TypeScript y mejores prácticas."
 difficulty: intermediate
 topics:
   - graphql
@@ -17,7 +12,6 @@ tags:
   - graphql
   - mutation
   - validation
-  - pattern
   - input-validation
   - error-handling
   - typescript
@@ -29,11 +23,11 @@ relatedResources:
   - /patterns/graphql-federated-entity-pattern
   - /patterns/backend-for-frontend-pattern
   - /patterns/graphql-connection-pagination-pattern
-lastUpdated: "2026-07-03"
+lastUpdated: "2026-08-23"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Patron GraphQL mutation validation: centraliza validacion de inputs con validadores y codigos de error. Validacion a nivel de campo en Apollo Server."
+  metaDescription: "Centralizá la validación de mutaciones GraphQL con reglas reutilizables, scalars y errores estructurados. Ejemplos en TypeScript y mejores prácticas."
   keywords:
     - graphql mutation validation
     - graphql input validation
@@ -41,33 +35,38 @@ seo:
     - graphql error handling
     - centralized validation graphql
     - graphql custom scalars
-
-
-
-
-
 ---
 
-## Descripcion general
+## Descripción General
 
-Las mutaciones GraphQL aceptan input types que necesitan validacion antes de procesarse. Sin un enfoque centralizado, cada resolver repite logica de validacion: comprobar campos requeridos, validar formatos de email, exigir longitudes de string, verificar rangos numericos. Esto lleva a reglas y formatos de error inconsistentes entre mutaciones.
+Las mutaciones GraphQL te pasan inputs que tenés que validar antes de la lógica de negocio. Sin un enfoque
+centralizado, cada resolver termina rehaciendo las mismas comprobaciones: campos requeridos, formato de email,
+longitud de strings, rangos numéricos. Esa duplicación produce reglas y formatos de error inconsistentes en
+toda la API.
 
-El patron mutation validation centraliza la validacion en validadores reutilizables. Cada mutacion pasa su input por un pipeline de validacion que devuelve errores estructurados con rutas de campo y codigos legibles por maquina. Los resolvers se enfocan en logica de negocio, no en checking de input.
+El patrón GraphQL Mutation Validation canaliza la validación de inputs a través de un pipeline reutilizable. Cada
+mutación pasa
+su input por un conjunto de reglas y recibe una lista estructurada de errores a nivel de campo con códigos legibles
+por máquina. Así los resolvers pueden enfocarse en la lógica de negocio y dejar de preocuparse por los inputs.
 
-## Cuando usarlo
+## Cuándo Usarlo
 
+Usalo cuando tengas varias mutaciones que acepten input de usuario y las mismas reglas de validación aparezcan una
+y otra vez en distintos resolvers. También sirve cuando el cliente necesita detalles de error a nivel de campo para
+renderizar formularios, cuando querés códigos de error consistentes en toda la API y cuando querés separar la
+validación de la lógica de negocio.
 
-- For alternatives, see [GraphQL Connection Pagination Pattern](/es/patterns/graphql-connection-pagination-pattern/).
+## Cuándo Evitarlo
 
-- Tienes multiples mutaciones que aceptan input de usuario
-- Las reglas de validacion se repiten entre resolvers
-- Necesitas detalles de error a nivel de campo para renderizar formularios
-- Quieres separar la validacion de la logica de negocio
-- Necesitas codigos de error consistentes entre todas las mutaciones
+Evitalo para una sola mutación con uno o dos campos simples. Un pipeline de validación agrega overhead que puede
+no valer la pena. También evitalo si la base de datos o el esquema ya manejan toda la validación. Y no lo
+introduzcas
+a menos que el cliente pueda consumir errores estructurados a nivel de campo; para herramientas internas suele
+bastar con un `BAD_REQUEST` genérico.
 
-## Solucion
+## Solución
 
-### Framework de validacion
+### Framework de Validación
 
 ```typescript
 import { GraphQLError } from 'graphql';
@@ -106,7 +105,7 @@ function validateInput(input: Record<string, any>, rules: ValidationRule[]): voi
 }
 ```
 
-### Reglas de validacion reutilizables
+### Reglas de Validación Reutilizables
 
 ```typescript
 const rules = {
@@ -162,7 +161,7 @@ const rules = {
 };
 ```
 
-### Uso de validadores en resolvers
+### Uso de Validadores en Resolvers
 
 ```typescript
 const resolvers = {
@@ -225,7 +224,7 @@ const resolvers = {
 };
 ```
 
-### Validacion a nivel de esquema con custom scalars
+### Validación a Nivel de Esquema con Scalars Personalizados
 
 ```typescript
 import { GraphQLScalarType, GraphQLError } from 'graphql';
@@ -276,7 +275,7 @@ const typeDefs = `
 `;
 ```
 
-### Manejo de errores en el cliente
+### Manejo de Errores en el Cliente
 
 ```typescript
 async function createUser(input: CreateUserInput) {
@@ -307,58 +306,74 @@ async function createUser(input: CreateUserInput) {
 }
 ```
 
-## Explicacion
+## Explicación
 
-El patron separa la validacion en tres capas:
+El patrón organiza la validación en tres capas.
 
-1. **Validacion a nivel de esquema** — custom scalars (como `Email`) validan en la fase de parse. Los valores invalidos se rechazan antes de que el resolver se ejecute. Este es el punto de validacion mas temprano.
+La validación a nivel de esquema usa scalars personalizados como `Email` para rechazar valores inválidos durante
+el parseo, antes de que el resolver se ejecute. Esta es la primera barrera que frena inputs inválidos.
 
-2. **Validacion basada en reglas** — la funcion `validateInput` ejecuta una lista de reglas contra el objeto de input. Cada regla comprueba un campo y devuelve un error estructurado si la comprobacion falla. Todas las reglas se ejecutan, por lo que el cliente obtiene todos los errores a la vez.
+La validación basada en reglas invoca a `validateInput` sobre el objeto de input. Cada regla revisa un campo; si
+falla, agrega un error. Se ejecutan todas las reglas, así el cliente recibe todos los errores en un solo
+mensaje.
 
-3. **Validacion de negocio** — las comprobaciones que requieren acceso a base de datos (email duplicado, existencia de foreign key) se ejecutan en el resolver despues de que la validacion de reglas pase. Estas lanzan errores de un solo campo ya que son especificas a la logica de negocio.
+La validación de negocio cubre comprobaciones que necesitan la base de datos, como emails duplicados o la
+existencia de foreign keys. Estas corren en el resolver después de que pase la validación por reglas y suelen
+devolver un error de un solo campo ligado a una regla de negocio específica.
 
-El patron error extension se integra naturalmente: todos los errores de validacion llevan `code: 'VALIDATION_ERROR'` con un array `fields` y un array detallado `errors`. Los clientes hacen switch sobre el codigo y renderizan errores a nivel de campo.
+Todos los errores de validación comparten el mismo formato de extensiones con un `code`, un array `fields` y un
+array detallado `errors`. Los clientes pueden mirar el código y decidir qué mensaje mostrar a nivel de campo.
 
 ## Variantes
 
-| Enfoque | Capa | Ideal para |
-|---------|------|------------|
-| Custom scalars | Parse de esquema | Validacion de formato (email, URL, fecha) |
-| Validadores basados en reglas | Entrada del resolver | Reglas a nivel de campo (requerido, longitud, rango) |
-| Directivas de esquema | Validacion de esquema | Autorizacion y rate limiting |
-| Esquemas Zod | Entrada del resolver | Proyectos TypeScript con inferencia de tipos |
-| Esquemas Joi/Yup | Entrada del resolver | Validacion de objetos anidados complejos |
+Los scalars personalizados actúan en el parseo del esquema. Funcionan bien para controles estrictos de formato,
+como email, URL o fecha. Los validadores basados en reglas entran en juego cuando arranca el resolver y se encargan
+de reglas a nivel de campo como requerido, longitud y rango. Las directivas de esquema sirven para autorización y
+rate limiting. Zod encaja en proyectos TypeScript que quieren inferencia de tipos, mientras que Joi o Yup sirven
+para objetos anidados complejos.
 
-## Buenas practicas
+Un pipeline basado en reglas cubre la mayoría de los casos.
 
-- **Valida temprano, valida una vez** — usa custom scalars para checks de formato para que los valores invalidos nunca lleguen al resolver
-- **Devuelve todos los errores a la vez** — recolecta todos los fallos de validacion antes de lanzar. Los clientes pueden mostrar todos los errores de campo en un ciclo de render.
-- **Usa codigos de error consistentes** — `REQUIRED`, `MIN_LENGTH`, `INVALID_EMAIL` en todas las mutaciones para que los clientes los manejen genericamente
-- **Separa formato de validacion de negocio** — checks de formato (patron email) en validadores, checks de negocio (email duplicado) en resolvers
-- **Sanitiza despues de validar** — trimea strings, pasa a minusculas emails, normaliza URLs despues de que la validacion pase pero antes de la insercion en base de datos
+## Mejores Prácticas
 
-## Errores comunes
+Validá temprano con scalars personalizados para que los valores inválidos no lleguen al resolver. Devolvé todos los
+errores de validación juntos, así el cliente puede mostrar todos los problemas de campo a la vez. Usá
+códigos de error consistentes como `REQUIRED`, `MIN_LENGTH` e `INVALID_EMAIL` en todas las mutaciones. Dejá los
+cheques de formato en los validadores y los de negocio en los resolvers. Después de que la validación pase,
+sanitizá los inputs — trim, minúsculas en emails, normalizar URLs — pero antes de escribir a la base de datos.
 
-- **Lanzar en el primer error** — devolver un error por peticion fuerza a los clientes a enviar, corregir, reenviar repetidamente. Recolecta todos los errores primero.
-- **Validar en el cuerpo del resolver** — mezclar validacion con logica de negocio hace ambos mas dificiles de testear y mantener. Ejecuta validacion primero, luego logica de negocio.
-- **No usar custom scalars** — validar formato de email en cada resolver que acepta un email es repetitivo. Crea un scalar `Email` una vez.
-- **Formatos de error inconsistentes** — algunos resolvers devuelven `field: "email"`, otros `path: ["input", "email"]`. Estandariza el formato.
-- **Saltar validacion en updates** — las mutaciones `updatePost` necesitan validacion tambien, aunque algunos campos sean opcionales. Valida los campos presentes.
+## Errores Comunes
 
-## Preguntas frecuentes
+Lanzar un error en el primero obliga al cliente a un bucle de enviar-corregir-reenviar, así que recolectá todas las
+fallas primero. Mezclar validación con lógica de negocio en el resolver hace ambas más difíciles de testear;
+ejecutá la validación primero y la lógica de negocio después. Validar el formato de email en cada resolver es
+repetitivo, así que creá un scalar `Email` una vez. Cuando los resolvers devuelven distintas formas de error, el
+cliente no sabe a qué campo aplicar el error. Estandarizá en una sola forma para que no se pierda. Y no te saltes
+la validación en
+mutaciones de actualización; validá también los campos opcionales cuando están presentes.
 
-### Debo usar custom scalars o validadores basados en reglas?
+## Preguntas Frecuentes
 
-Ambos. Custom scalars manejan validacion de formato (patron email, formato URL) a nivel de esquema. Validadores basados en reglas manejan reglas de negocio (longitud minima, campos requeridos, rangos) a nivel de resolver. Se complementan.
+### ¿Debería usar scalars personalizados o validadores basados en reglas?
 
-### Puedo usar Zod para validacion GraphQL?
+Usá ambos. Los scalars personalizados se encargan de la validación de formato a nivel de esquema; los validadores
+basados en reglas se encargan de las reglas de negocio como longitud, campos requeridos y rangos a nivel de
+resolver. Se complementan.
 
-Si. Define un esquema Zod para cada input type y llama `schema.parse(input)` al inicio de cada resolver. Zod proporciona inferencia de tipos y rutas de error detalladas. El inconveniente es duplicar la definicion del esquema (una en tipos GraphQL, otra en Zod).
+### ¿Puedo usar Zod para validación GraphQL?
 
-### Como manejo validacion de inputs anidados?
+Sí. Definí un esquema Zod para cada input type y llamá `schema.parse(input)` al inicio de cada resolver. Zod te da
+inferencia de tipos y rutas de error detalladas. El costo es duplicar la definición del esquema, una en los tipos
+GraphQL y otra en Zod.
 
-Aplana los campos anidados en la respuesta de error: `address.street`, `address.city`. La propiedad `field` en el objeto de error soporta notacion de punto. Los clientes pueden mapear esto a estructuras de formulario anidadas.
+### ¿Cómo manejo validación de inputs anidados?
 
-### Que pasa con file uploads?
+Reportá los campos anidados como paths planos en el error. Por ejemplo, devolvé `address.street` y `address.city`
+para mantener el path legible. La propiedad `field` entiende notación de punto, así los clientes pueden mapear esos
+valores a campos de formulario anidados.
 
-Los file uploads de GraphQL usan el paquete `graphql-upload` o peticiones multipart. Valida tamano de archivo, tipo MIME y extension en el resolver antes de procesar. Los custom scalars no funcionan bien para inputs de archivo.
+### ¿Qué pasa con file uploads?
+
+Los file uploads de GraphQL usan el paquete `graphql-upload` o peticiones multipart. Revisá tamaño de archivo,
+tipo MIME y extensión en el resolver antes de procesar. Los scalars personalizados no manejan bien los inputs de
+archivo.

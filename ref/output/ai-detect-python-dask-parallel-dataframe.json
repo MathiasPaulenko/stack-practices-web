@@ -1,0 +1,337 @@
+[
+  {
+    "label": "python-dask-parallel-dataframe-en",
+    "model": "desklib",
+    "model_ai_pct": 38.4,
+    "ai_count": 5,
+    "human_count": 41,
+    "skipped_count": 1,
+    "total": 47,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.5,
+      "stddev": 4.8,
+      "cv": 0.36,
+      "verdict": "somewhat uniform",
+      "sentence_count": 46,
+      "lengths": [
+        13,
+        17,
+        25,
+        13,
+        22,
+        19,
+        26,
+        14,
+        8,
+        11,
+        17,
+        11,
+        18,
+        16,
+        12,
+        5,
+        11,
+        17,
+        16,
+        17,
+        20,
+        11,
+        20,
+        11,
+        9,
+        14,
+        9,
+        14,
+        7,
+        14,
+        13,
+        9,
+        10,
+        9,
+        18,
+        9,
+        12,
+        14,
+        8,
+        11,
+        21,
+        11,
+        9,
+        15,
+        6,
+        9
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "A good target is 50\u2013200 MB per partition.",
+        0.6591
+      ],
+      [
+        "A 10 GB file breaks into 50\u2013200 chunks at that size.",
+        0.5425
+      ],
+      [
+        "Some less common ones aren't implemented.",
+        0.5321
+      ],
+      [
+        "Check the Dask API docs for the latest list.",
+        0.5086
+      ],
+      [
+        "CSV is slower because it re-parses types on every read and skips column\npruning.",
+        0.5074
+      ],
+      [
+        "Dask builds on pandas and NumPy to work on datasets larger than memory.",
+        0.4865
+      ],
+      [
+        "Tiny partitions\nwaste time on scheduling; huge ones leave cores idle.",
+        0.4798
+      ],
+      [
+        "Dask shines when datasets range from a few gigabytes to roughly a terabyte, too big for memory but still\nmanageable on disk.",
+        0.4669
+      ],
+      [
+        "I reach for Parquet instead of CSV because it keeps types, supports column pruning, and reads faster.",
+        0.46
+      ],
+      [
+        "It's also handy when you want parallelism without the overhead of a Spark\ncluster, or when your ETL pipelines move Parquet, CSV, or HDF5 files around.",
+        0.4579
+      ],
+      [
+        "pandas puts the whole dataset into one\nin-memory DataFrame.",
+        0.4522
+      ],
+      [
+        "Most common operations are supported, including groupby, merge, join, filter, map_partitions, and many\nwindow operations.",
+        0.4479
+      ],
+      [
+        "Too many partitions, such as 1,000 tiny 1 MB chunks,\ncreate huge scheduling overhead.",
+        0.44
+      ],
+      [
+        "Shoot for 50\u2013200 MB chunks.",
+        0.4382
+      ],
+      [
+        "For local runs, I\nusually start with two to four times my CPU core count, then I check ddf.npartitions after repartitioning.",
+        0.4381
+      ],
+      [
+        "Chain\noperations and call .compute() once at the end.",
+        0.431
+      ],
+      [
+        "Start\nthe scheduler with dask-scheduler and workers with dask-worker.",
+        0.4294
+      ],
+      [
+        "Finally, choose Dask when your\nparallel logic is more than simple group-by and join.",
+        0.428
+      ],
+      [
+        "That balance gives\nyou parallelism without drowning the scheduler in tiny tasks.",
+        0.4274
+      ],
+      [
+        "And if\n[Polars](/recipes/python-polars-fast-dataframe/) is sufficient, go with it \u2014 it's often quicker and lighter\nfor most DataFrame work.",
+        0.4256
+      ],
+      [
+        "Also avoid it if you need the full pandas ecosystem, because Dask doesn't implement every pandas\nmethod.",
+        0.4206
+      ],
+      [
+        "Avoid .set_index() on large DataFrames because it triggers a full shuffle.",
+        0.4193
+      ],
+      [
+        "Keep reused objects\nin memory with .persist().",
+        0.4183
+      ],
+      [
+        "Use .persist() when\nyou'll touch a DataFrame more than once; that keeps it in worker memory.",
+        0.4177
+      ],
+      [
+        "Dask breaks data into partitions and processes them in parallel.",
+        0.3945
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "python-dask-parallel-dataframe-es",
+    "model": "desklib",
+    "model_ai_pct": 31.2,
+    "ai_count": 9,
+    "human_count": 36,
+    "skipped_count": 1,
+    "total": 46,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.1,
+      "stddev": 5.0,
+      "cv": 0.33,
+      "verdict": "somewhat uniform",
+      "sentence_count": 45,
+      "lengths": [
+        16,
+        13,
+        27,
+        16,
+        23,
+        22,
+        24,
+        17,
+        10,
+        14,
+        18,
+        15,
+        19,
+        17,
+        10,
+        9,
+        9,
+        17,
+        20,
+        15,
+        22,
+        10,
+        20,
+        14,
+        10,
+        15,
+        11,
+        15,
+        11,
+        18,
+        16,
+        8,
+        11,
+        7,
+        22,
+        11,
+        12,
+        18,
+        6,
+        13,
+        18,
+        9,
+        10,
+        19,
+        21
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Para trabajo local, yo empiezo con npartitions alrededor de dos o cuatro veces el n\u00famero de cores.",
+        0.6842
+      ],
+      [
+        "Apunt\u00e1 a 50\u2013200 MB por partici\u00f3n.",
+        0.6531
+      ],
+      [
+        "Para streams o procesamiento en tiempo real, Flink o Structured Streaming son\nun mejor ajuste.",
+        0.6342
+      ],
+      [
+        "Apunt\u00e1 a particiones de 50 MB a 200 MB.",
+        0.6161
+      ],
+      [
+        "Declar\u00e1 los dtypes para evitar errores de tipo.",
+        0.5912
+      ],
+      [
+        "Para\nejecuci\u00f3n local, yo empiezo con dos a cuatro veces el n\u00famero de cores, y despu\u00e9s verifico ddf.npartitions.",
+        0.5882
+      ],
+      [
+        "Y si [Polars](/es/recipes/python-polars-fast-dataframe/) es suficiente, usalo: suele ser m\u00e1s\nr\u00e1pido y ligero para\nla mayor\u00eda del trabajo con DataFrames.",
+        0.5612
+      ],
+      [
+        "Spark usa su propio formato interno y\nconvierte a y desde pandas.",
+        0.5452
+      ],
+      [
+        "Dask se apoya en pandas y NumPy para trabajar con datasets m\u00e1s grandes que la memoria.",
+        0.5192
+      ],
+      [
+        "Un archivo de 10 GB se parte en 50\u2013200 chunks de ese tama\u00f1o.",
+        0.4461
+      ],
+      [
+        "La mayor\u00eda de las operaciones comunes est\u00e1n soportadas, incluyendo groupby, merge, join, filter,\nmap_partitions y varias operaciones de ventana.",
+        0.4393
+      ],
+      [
+        "Llam\u00e1 a .repartition() para caer en\nel rango de 50\u2013200 MB.",
+        0.431
+      ],
+      [
+        "Evit\u00e1 Dask cuando los datasets sean menores a 1 GB.",
+        0.4165
+      ],
+      [
+        "Levant\u00e1 el scheduler con dask-scheduler y los workers con dask-worker.",
+        0.3871
+      ],
+      [
+        "pandas pone todo en un solo DataFrame.",
+        0.3502
+      ],
+      [
+        "Eso da\nsuficiente paralelismo sin generar demasiado overhead de scheduling.",
+        0.343
+      ],
+      [
+        "pandas suele ser m\u00e1s r\u00e1pido porque evita el overhead del\ntask graph de Dask.",
+        0.3372
+      ],
+      [
+        "Adem\u00e1s, Dask lee una muestra para inferir el dtype del CSV, lo cual\npuede ser incorrecto.",
+        0.3326
+      ],
+      [
+        "Dask es nativo de Python y usa pandas DataFrames como particiones.",
+        0.3201
+      ],
+      [
+        "Cre\u00e1 un dask.distributed.Client(\"scheduler-address:8786\") para conectarte a un scheduler remoto.",
+        0.2707
+      ],
+      [
+        "Llam\u00e1 a .compute() solo al final de una cadena para que Dask optimice el task graph completo.",
+        0.2689
+      ],
+      [
+        "CSV es m\u00e1s lento que Parquet porque debe parsear tipos\nen cada\nlectura y no soporta column pruning.",
+        0.2645
+      ],
+      [
+        "Algunos menos comunes no est\u00e1n implementados, as\u00ed que\nconsult\u00e1 la documentaci\u00f3n de la API de Dask para la lista m\u00e1s actualizada.",
+        0.2636
+      ],
+      [
+        "Como la API refleja la de pandas, la mayor\u00eda del c\u00f3digo\nexistente funciona con cambios m\u00ednimos.",
+        0.2591
+      ],
+      [
+        "Dask es m\u00e1s ligero y f\u00e1cil de levantar, pero Spark tiene un ecosistema de big data\nm\u00e1s amplio.",
+        0.2436
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

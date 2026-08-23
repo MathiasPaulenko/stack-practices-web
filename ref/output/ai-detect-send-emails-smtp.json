@@ -1,0 +1,362 @@
+[
+  {
+    "label": "send-emails-smtp-en",
+    "model": "desklib",
+    "model_ai_pct": 44.7,
+    "ai_count": 22,
+    "human_count": 36,
+    "skipped_count": 0,
+    "total": 58,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.5,
+      "stddev": 5.3,
+      "cv": 0.39,
+      "verdict": "somewhat uniform",
+      "sentence_count": 58,
+      "lengths": [
+        15,
+        17,
+        19,
+        20,
+        14,
+        18,
+        11,
+        18,
+        11,
+        9,
+        15,
+        16,
+        5,
+        8,
+        13,
+        31,
+        13,
+        21,
+        8,
+        16,
+        16,
+        15,
+        14,
+        14,
+        12,
+        7,
+        18,
+        17,
+        12,
+        12,
+        13,
+        10,
+        10,
+        15,
+        19,
+        10,
+        11,
+        21,
+        11,
+        5,
+        16,
+        6,
+        6,
+        13,
+        12,
+        7,
+        8,
+        6,
+        10,
+        13,
+        24,
+        12,
+        11,
+        24,
+        12,
+        12,
+        8,
+        24
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "The first step is to authenticate with SPF, DKIM, and DMARC.",
+        0.8911
+      ],
+      [
+        "Your messages land in spam.",
+        0.8507
+      ],
+      [
+        "Most providers give you both options, so\nthe choice isn't always forced.",
+        0.8484
+      ],
+      [
+        "Running without any logs or monitoring.",
+        0.817
+      ],
+      [
+        "A better design is to hand messages off to a queue\nand let workers handle delivery.",
+        0.7789
+      ],
+      [
+        "SMTP makes sense when you care about portability and might switch providers later.",
+        0.7763
+      ],
+      [
+        "Java\nprojects usually pick Jakarta Mail for enterprise or Spring Boot codebases.",
+        0.7388
+      ],
+      [
+        "No other change moves the needle on deliverability as much as these\nrecords.",
+        0.7049
+      ],
+      [
+        "SMTP (Simple Mail Transfer Protocol) is what moves those messages from your app to the\nrecipient's inbox.",
+        0.6996
+      ],
+      [
+        "Throttle your sends because most providers cap you at a few\nhundred emails per minute.",
+        0.6892
+      ],
+      [
+        "SMTP works like a short negotiation between your client and the mail server.",
+        0.6672
+      ],
+      [
+        "Go and C# are also solid choices.",
+        0.651
+      ],
+      [
+        "High-volume sending shouldn't happen inside an HTTP handler.",
+        0.6163
+      ],
+      [
+        "You're combining email with [rate limiting](/recipes/rate-limiting) and [secret\n  management](/recipes/secret-management) best practices.",
+        0.5502
+      ],
+      [
+        "Next, add SPF, DKIM, and DMARC DNS\nrecords to your sending domain.",
+        0.5477
+      ],
+      [
+        "Sending from localhost or a shared server without valid SPF/DKIM records.",
+        0.5432
+      ],
+      [
+        "You need to attach invoices, reports, or exports to outgoing messages.",
+        0.5423
+      ],
+      [
+        "Most apps still fall back on email for password resets, order confirmations, newsletters, and\nalerts.",
+        0.5324
+      ],
+      [
+        "Your volume is millions of marketing emails per month.",
+        0.5155
+      ],
+      [
+        "Read SMTP responses and\nwebhook events to keep your list clean.",
+        0.5129
+      ],
+      [
+        "Push notifications or WebSockets fit those cases better.",
+        0.5034
+      ],
+      [
+        "Your team can't keep up with DNS records (SPF, DKIM, DMARC), bounce handling, and sender\n  reputation.",
+        0.502
+      ],
+      [
+        "Sending mail synchronously inside HTTP handlers, where it can time out under load.",
+        0.4962
+      ],
+      [
+        "After that, the server replies with status codes; your job is to handle\nbounces, retries, and rate limits on the side.",
+        0.4871
+      ],
+      [
+        "In-app notifications need low latency.",
+        0.4868
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "send-emails-smtp-es",
+    "model": "desklib",
+    "model_ai_pct": 35.1,
+    "ai_count": 9,
+    "human_count": 49,
+    "skipped_count": 0,
+    "total": 58,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.0,
+      "stddev": 6.2,
+      "cv": 0.42,
+      "verdict": "somewhat uniform",
+      "sentence_count": 58,
+      "lengths": [
+        19,
+        19,
+        19,
+        24,
+        14,
+        19,
+        10,
+        20,
+        13,
+        10,
+        18,
+        17,
+        6,
+        9,
+        14,
+        35,
+        13,
+        23,
+        12,
+        15,
+        18,
+        17,
+        12,
+        13,
+        15,
+        7,
+        22,
+        20,
+        9,
+        14,
+        9,
+        12,
+        11,
+        20,
+        20,
+        11,
+        11,
+        27,
+        11,
+        5,
+        19,
+        10,
+        7,
+        15,
+        14,
+        7,
+        10,
+        5,
+        15,
+        15,
+        24,
+        15,
+        10,
+        29,
+        12,
+        13,
+        8,
+        27
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Tu volumen es millones de emails de marketing al mes.",
+        0.8568
+      ],
+      [
+        "SMTP funciona como una breve negociaci\u00f3n entre tu cliente y el servidor de correo.",
+        0.7295
+      ],
+      [
+        "Enviar correo de forma s\u00edncrona dentro de handlers HTTP, donde puede haber timeouts bajo carga.",
+        0.68
+      ],
+      [
+        "Las notificaciones in-app necesitan baja latencia.",
+        0.6053
+      ],
+      [
+        "Ning\u00fan otro cambio mueve la aguja de la\nentregabilidad.",
+        0.5966
+      ],
+      [
+        "A alto volumen, no llames a SMTP directamente desde un handler HTTP.",
+        0.5804
+      ],
+      [
+        "El primer paso es autenticar con SPF, DKIM y DMARC.",
+        0.5588
+      ],
+      [
+        "Node.js suele\nusar nodemailer para apps full-stack, SSR y soporte r\u00e1pido de adjuntos.",
+        0.5296
+      ],
+      [
+        "Omitir la validaci\u00f3n de direcciones de destinatario antes de encolar.",
+        0.5114
+      ],
+      [
+        "Tu equipo no puede hacerse cargo de registros DNS (SPF, DKIM, DMARC), rebotes y reputaci\u00f3n de\n  remitente.",
+        0.485
+      ],
+      [
+        "A partir de ah\u00ed, el servidor responde con c\u00f3digos de estado; tu\ntrabajo es manejar rebotes, reintentos y l\u00edmites de tasa por separado.",
+        0.484
+      ],
+      [
+        "La mayor\u00eda de las aplicaciones a\u00fan recurren al email para resets de contrase\u00f1a, confirmaciones de\norden, newsletters y alertas.",
+        0.4838
+      ],
+      [
+        "SMTP (Simple Mail Transfer Protocol) es lo que mueve esos mensajes\ndesde tu aplicaci\u00f3n hasta la bandeja del destinatario.",
+        0.4812
+      ],
+      [
+        "Limita la tasa de env\u00edos porque\nla mayor\u00eda de proveedores te limitan a unos pocos cientos de emails por minuto.",
+        0.451
+      ],
+      [
+        "Por el lado operativo, maneja rebotes y quejas de forma as\u00edncrona.",
+        0.4307
+      ],
+      [
+        "Tus mensajes\n  terminan en spam.",
+        0.4291
+      ],
+      [
+        "Funciona genial\npara email transaccional y lotes peque\u00f1os.",
+        0.4258
+      ],
+      [
+        "Go y C# tambi\u00e9n son opciones s\u00f3lidas.",
+        0.4082
+      ],
+      [
+        "Ignorar l\u00edmites de tasa y reintentos, lo que termina en bloqueos temporales o blacklist.",
+        0.4053
+      ],
+      [
+        "Necesitas plantillas que traigan datos en vivo, o simplemente prefieres mantener la l\u00f3gica de email\n  dentro de tu c\u00f3digo.",
+        0.399
+      ],
+      [
+        "En Java, Jakarta Mail es\nla opci\u00f3n habitual para enterprise, Spring Boot y APIs tipadas.",
+        0.3849
+      ],
+      [
+        "Eso acopla tu API a la\nvelocidad del servidor de correo y puede causar timeouts.",
+        0.3589
+      ],
+      [
+        "Un dise\u00f1o mejor es pasar los mensajes a\nuna cola y dejar que los workers hagan el env\u00edo.",
+        0.3475
+      ],
+      [
+        "Despu\u00e9s a\u00f1ade los\nregistros DNS SPF, DKIM y DMARC a tu dominio de env\u00edo.",
+        0.3469
+      ],
+      [
+        "Algunos clientes,\nespecialmente relojes y lectores de terminal, solo renderizan texto.",
+        0.3466
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

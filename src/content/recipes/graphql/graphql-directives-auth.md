@@ -1,15 +1,9 @@
 ---
-
-
-
-
-
-
 contentType: recipes
 slug: graphql-directives-auth
-title: "Field-Level Auth with Custom GraphQL Schema Directives"
-description: "Implement field-level authorization in GraphQL using custom schema directives that check user roles and permissions per field"
-metaDescription: "Add field-level auth to GraphQL with custom schema directives. Check roles and permissions per field using @auth and @requiresRole directives."
+title: "Field-Level Auth with Custom GraphQL Directives"
+description: "Add field-level authorization to GraphQL with custom schema directives. Check roles, permissions, and ownership per field in Apollo Server."
+metaDescription: "Add field-level authorization to GraphQL with custom schema directives. Check roles, permissions, and ownership per field in Apollo Server."
 difficulty: advanced
 topics:
   - graphql
@@ -28,55 +22,57 @@ relatedResources:
   - /recipes/serverless-api-gateway-lambda-authorizer
   - /recipes/graphql-input-validation
   - /guides/complete-guide-graphql-security
-  - /guides/complete-guide-authentication-patterns
-lastUpdated: "2026-07-09"
+lastUpdated: "2026-08-23"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Add field-level auth to GraphQL with custom schema directives. Check roles and permissions per field using @auth and @requiresRole directives."
+  metaDescription: "Add field-level authorization to GraphQL with custom schema directives. Check roles, permissions, and ownership per field in Apollo Server."
   keywords:
     - graphql directives auth
     - graphql field-level auth
     - graphql authorization
     - schema directives
     - graphql permissions
-
-
-
-
-
-
 ---
 
-GraphQL resolvers often need different authorization rules for different fields — a user can read their own email but not someone else's, an admin can see all fields, and a public field requires no auth. Custom schema directives let you declare these rules in the schema itself with `@auth` or `@requiresRole(role: "admin")`, keeping authorization logic out of individual resolvers.
+## Overview
 
-## When to Use This
+Every GraphQL field can have its own authorization rule. For example, a user reads their own email but not
+someone else's, an admin sees every field, and a public field needs no auth. Custom schema directives let
+you declare these rules in the schema itself with `@auth` or `@auth(requires: ADMIN)`,
+keeping authorization logic out of individual resolvers.
 
-- Fields within the same type have different access levels
-- You want authorization rules visible in the schema, not hidden in resolver code
-- Multiple roles (admin, editor, viewer) need field-level granularity
+## When to Use
 
-## Prquisites
+Use custom auth directives when fields inside the same type need different access levels. They also help
+when you want rules visible in the schema instead of buried in resolver code. If your app has roles like
+admin, editor, and viewer, and you need field-level granularity, directives handle that cleanly. They're
+also useful when a field should be visible only to the object owner, regardless of the viewer's role.
 
-- Apollo Server with `@graphql-tools/utils`
-- An authentication mechanism that populates `context.user`
+## When to Avoid
+
+Skip custom directives when your auth is coarse-grained and already lives at the API gateway or route level.
+They also aren't the best choice if your rules are too complex to express declaratively, like multi-tenant
+org membership. Older Apollo Server versions may not support `mapSchema`; in that case, use a custom Apollo
+plugin or resolver middleware.
 
 ## Solution
 
 ### 1. Install Dependencies
 
 ```bash
-npm install @apollo/server graphql @graphql-tools/utils
+npm install @apollo/server graphql @graphql-tools/schema @graphql-tools/utils
 ```
 
 ### 2. Define the Schema with Directives
 
 ```typescript
 // schema.ts
-import gql from 'graphql-tag';
+import { gql } from 'graphql-tag';
 
 export const typeDefs = gql`
   directive @auth(requires: Role = ADMIN) on FIELD_DEFINITION
+  directive @owner on FIELD_DEFINITION
 
   enum Role {
     ADMIN
@@ -98,6 +94,7 @@ export const typeDefs = gql`
     content: String!
     author: User!
     views: Int @auth(requires: EDITOR)
+    draftContent: String @auth(requires: EDITOR) @owner
   }
 
   type Query {
@@ -116,164 +113,160 @@ export const typeDefs = gql`
 
 ```typescript
 // directives/auth.ts
-import { SchemaDirectiveVisitor } from '@graphql-tools/utils';
-import { defaultFieldResolver, GraphQLField } from 'graphql';
-import { ForbiddenError } from '../errors/base';
-
-export class AuthDirective extends SchemaDirectiveVisitor {
-  visitFieldDefinition(field: GraphQLField<any, any>) {
-    const requiredRole = this.args.requires;
-    const originalResolve = field.resolve ?? defaultFieldResolver;
-
-    field.resolve = async (source, args, context, info) => {
-      if (!context.user) {
-        throw new ForbiddenError('Authentication required');
-      }
-
-      if (requiredRole && !hasRole(context.user.role, requiredRole)) {
-        throw new ForbiddenError(`Requires role: ${requiredRole}`);
-      }
-
-      return originalResolve(source, args, context, info);
-    };
-  }
-}
-
-function hasRole(userRole: string, requiredRole: string): boolean {
-  const roleHierarchy: Record<string, number> = {
-    VIEWER: 0,
-    EDITOR: 1,
-    ADMIN: 2,
-  };
-
-  return (roleHierarchy[userRole] ?? -1) >= (roleHierarchy[requiredRole] ?? 999);
-}
-```
-
-### 4. Register the Directive in Apollo Server
-
-```typescript
-// server.ts
-import { ApolloServer } from '@apollo/server';
-import { makeExecutableSchema } from '@graphql-tools/schema';
-import { AuthDirective } from './directives/auth';
-import { typeDefs, resolvers } from './schema';
-
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-  directiveResolvers: {
-    auth: AuthDirective,
-  },
-});
-
-const server = new ApolloServer({ schema });
-
-// For newer @graphql-tools/utils, use schema transforms:
+import { defaultFieldResolver, GraphQLError } from 'graphql';
 import { mapSchema, getDirective, MapperKind } from '@graphql-tools/utils';
 
-function authDirectiveTransformer(schema: any) {
+const roleHierarchy: Record<string, number> = {
+  VIEWER: 0,
+  EDITOR: 1,
+  ADMIN: 2,
+};
+
+function hasRole(userRole: string, requiredRole: string): boolean {
+  return (roleHierarchy[userRole] ?? -1) >= (roleHierarchy[requiredRole] ?? 999);
+}
+
+export function authDirectiveTransformer(schema: any) {
   return mapSchema(schema, {
     [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
       const authDirective = getDirective(schema, fieldConfig, 'auth')?.[0];
-      if (authDirective) {
-        const { requires } = authDirective;
-        const { resolve = defaultFieldResolver } = fieldConfig;
-        fieldConfig.resolve = async (source, args, context, info) => {
-          if (!context.user) throw new ForbiddenError('Authentication required');
-          if (requires && !hasRole(context.user.role, requires)) {
-            throw new ForbiddenError(`Requires role: ${requires}`);
-          }
-          return resolve(source, args, context, info);
-        };
-      }
+      if (!authDirective) return fieldConfig;
+
+      const { requires } = authDirective;
+      const { resolve = defaultFieldResolver } = fieldConfig;
+
+      fieldConfig.resolve = async (source, args, context, info) => {
+        if (!context.user) {
+          throw new GraphQLError('Authentication required', {
+            extensions: { code: 'FORBIDDEN' },
+          });
+        }
+
+        if (requires && !hasRole(context.user.role, requires)) {
+          throw new GraphQLError(`Requires role: ${requires}`, {
+            extensions: { code: 'FORBIDDEN' },
+          });
+        }
+
+        return resolve(source, args, context, info);
+      };
+
       return fieldConfig;
     },
   });
 }
-
-const schemaWithAuth = authDirectiveTransformer(
-  makeExecutableSchema({ typeDefs, resolvers })
-);
-
-const server = new ApolloServer({ schema: schemaWithAuth });
 ```
 
-### 5. Field-Level Ownership Check
-
-For fields that depend on the resolved object's owner, not just the user's role:
+### 4. Implement the Owner Directive
 
 ```typescript
 // directives/owner.ts
-import { defaultFieldResolver } from 'graphql';
+import { defaultFieldResolver, GraphQLError } from 'graphql';
 import { mapSchema, getDirective, MapperKind } from '@graphql-tools/utils';
-import { ForbiddenError } from '../errors/base';
 
 export function ownerDirectiveTransformer(schema: any) {
   return mapSchema(schema, {
     [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
       const ownerDirective = getDirective(schema, fieldConfig, 'owner')?.[0];
-      if (ownerDirective) {
-        const { resolve = defaultFieldResolver } = fieldConfig;
-        fieldConfig.resolve = async (source, args, context, info) => {
-          if (!context.user) throw new ForbiddenError('Authentication required');
+      if (!ownerDirective) return fieldConfig;
 
-          // source is the parent object — check if user owns it
-          if (source.authorId && source.authorId !== context.user.id) {
-            if (context.user.role !== 'ADMIN') {
-              throw new ForbiddenError('You can only access your own data');
-            }
+      const { resolve = defaultFieldResolver } = fieldConfig;
+
+      fieldConfig.resolve = async (source, args, context, info) => {
+        if (!context.user) {
+          throw new GraphQLError('Authentication required', {
+            extensions: { code: 'FORBIDDEN' },
+          });
+        }
+
+        if (source.authorId && source.authorId !== context.user.id) {
+          if (context.user.role !== 'ADMIN') {
+            throw new GraphQLError('You can only access your own data', {
+              extensions: { code: 'FORBIDDEN' },
+            });
           }
+        }
 
-          return resolve(source, args, context, info);
-        };
-      }
+        return resolve(source, args, context, info);
+      };
+
       return fieldConfig;
     },
   });
 }
 ```
 
-Add to schema:
+### 5. Register the Directives in Apollo Server
 
-```graphql
-directive @owner on FIELD_DEFINITION
+```typescript
+// server.ts
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
+import { makeExecutableSchema } from '@graphql-tools/schema';
+import { authDirectiveTransformer } from './directives/auth';
+import { ownerDirectiveTransformer } from './directives/owner';
+import { typeDefs, resolvers } from './schema';
 
-type Post {
-  id: ID!
-  title: String!
-  draftContent: String @owner
-}
+let schema = makeExecutableSchema({ typeDefs, resolvers });
+schema = authDirectiveTransformer(schema);
+schema = ownerDirectiveTransformer(schema);
+
+const server = new ApolloServer({ schema });
+
+startStandaloneServer(server, {
+  context: async ({ req }) => ({
+    user: req.headers.authorization ? { id: '1', role: 'EDITOR' } : null,
+  }),
+}).then(({ url }) => console.log(`Server ready at ${url}`));
 ```
 
-## How It Works
+## Explanation
 
-1. **`@auth`** wraps the field's resolver. Before the original resolver runs, the directive checks `context.user` and their role.
-2. **Role hierarchy** uses a numeric mapping so `ADMIN` (2) satisfies requirements for `EDITOR` (1) and `VIEWER` (0).
-3. **`mapSchema`** from `@graphql-tools/utils` walks every field definition and applies the transformer where the directive is present.
-4. **`@owner`** checks the parent object's `authorId` against `context.user.id`, adding ownership-based authorization that role checks alone cannot express.
+`@auth` wraps the field resolver. Before the original resolver runs, it checks `context.user` and the
+required role. Role hierarchy uses a numeric mapping so `ADMIN` (2) satisfies `EDITOR` (1) and `VIEWER` (0).
+
+`mapSchema` from `@graphql-tools/utils` walks every field definition and applies the transformer wherever
+the directive appears. The original `resolve` function is preserved, or `defaultFieldResolver` is used when
+the field has no custom resolver.
+
+`@owner` checks the parent object's `authorId` against `context.user.id`. That adds ownership-based
+authorization that role checks alone can't handle. Admins still get through; that's intentional so support
+staff can pull user data.
 
 ## Variants
+
+Role-based auth with `@auth` is the most common starting point. If you need finer control, use
+`@hasPermission` to check specific actions like `post:delete` instead of broad roles. The `@owner`
+directive adds ownership checks, and stacked directives like `@auth(requires: EDITOR) @owner` require both.
+You can also use directives for rate limiting or query depth guards with `@cost`.
 
 ### Permission-Based Directives
 
 Instead of roles, check specific permissions:
 
-```graphql
-directive @hasPermission(permission: String!) on FIELD_DEFINITION
-
-type Mutation {
-  deletePost(id: ID!): Boolean @hasPermission(permission: "post:delete")
-}
-```
-
 ```typescript
-fieldConfig.resolve = async (source, args, context, info) => {
-  if (!context.user?.permissions?.includes(permission)) {
-    throw new ForbiddenError(`Missing permission: ${permission}`);
-  }
-  return resolve(source, args, context, info);
-};
+export function permissionDirectiveTransformer(schema: any) {
+  return mapSchema(schema, {
+    [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
+      const directive = getDirective(schema, fieldConfig, 'hasPermission')?.[0];
+      if (!directive) return fieldConfig;
+
+      const { permission } = directive;
+      const { resolve = defaultFieldResolver } = fieldConfig;
+
+      fieldConfig.resolve = async (source, args, context, info) => {
+        if (!context.user?.permissions?.includes(permission)) {
+          throw new GraphQLError(`Missing permission: ${permission}`, {
+            extensions: { code: 'FORBIDDEN' },
+          });
+        }
+        return resolve(source, args, context, info);
+      };
+
+      return fieldConfig;
+    },
+  });
+}
 ```
 
 ### Combined Auth and Owner
@@ -288,11 +281,11 @@ type Post {
 }
 ```
 
-The field requires at least `EDITOR` role AND ownership.
+The field requires at least `EDITOR` and ownership.
 
 ### Query Complexity Guard
 
-Use a directive to limit query depth or cost:
+You can also use a directive to limit query cost:
 
 ```graphql
 directive @cost(complexity: Int!) on FIELD_DEFINITION
@@ -303,65 +296,58 @@ type Query {
 }
 ```
 
+This gives you a basic cost guard without touching resolvers.
+
 ## Best Practices
 
+Declare auth in the schema so rules stay visible and easy to audit. See the
+[complete guide to GraphQL security](/guides/complete-guide-graphql-security/) for more on GraphQL auth.
+Use role hierarchy so
+`ADMIN` satisfies `EDITOR` and `VIEWER` requirements. Combine role checks with ownership checks, because
+role-based auth alone isn't enough for user-specific data.
 
-- For a deeper guide, see [Complete Guide to GraphQL Security](/guides/complete-guide-graphql-security/).
-
-- **Declare auth in the schema** — directives make authorization rules visible and auditable
-- **Use role hierarchy** — `ADMIN` should satisfy `EDITOR` and `VIEWER` requirements
-- **Combine with ownership checks** — role-based auth is not enough for user-specific data
-- **Test with different roles** — write integration tests that query as each role and assert access
+Test different roles by sending queries with different `context.user` values and asserting who can see what.
+Cache permission lookups so repeated field checks don't hit the database on every resolver. In
+production, return generic `FORBIDDEN` messages; detailed error text can leak schema information.
 
 ## Common Mistakes
 
-- **Only protecting Query and Mutation fields** — nested fields like `user.email` also need directives
-- **Forgetting `defaultFieldResolver`** — if a field has no custom resolver, the directive must call `defaultFieldResolver`
-- **Checking auth in resolvers AND directives** — pick one approach to avoid duplicated logic
-- **Not handling null context.user** — the directive should throw before accessing `user.role`
+Only protecting `Query` and `Mutation` fields is a common miss. Nested fields like `user.email` need
+directives too. Don't forget `defaultFieldResolver`; if a field doesn't have a custom resolver, the directive
+must call it.
+
+Checking auth in both resolvers and directives creates duplicated logic, so pick one approach. Always handle
+`context.user` being null and throw before you touch `user.role`. Applying directives only on list fields is
+risky; individual list items can still expose sensitive data if the list isn't filtered server-side.
+
+Don't skip unauthenticated requests. Public fields should still work without a token, or your landing page
+and public queries will break. When stacking directives, document the evaluation order so your team doesn't
+get surprised by a short-circuit.
 
 ## FAQ
 
-**Q: Should I use directives or resolver-level auth?**
-A: Directives are cleaner for field-level rules. Resolver-level auth is better for complex logic like "user can edit if they are the owner or a member of the same org."
+### Should I use directives or resolver-level auth?
 
-**Q: Can I use multiple directives on one field?**
-A: Yes. Directives stack — each wraps the previous resolver. Order matters: outer directives run first.
+Directives work well for straightforward field-level rules. Resolver-level auth is the better choice when the
+logic gets complex, like allowing an edit only for the owner or org members.
 
-**Q: Do directives work with Apollo Federation?**
-A: Yes, but each subgraph must implement the directive independently. The gateway does not re-run directives.
+### Can I use multiple directives on one field?
 
-**Q: How do I test field-level auth?**
-A: Send queries with different user tokens and assert that protected fields return errors or null based on the role.
+Yes. Directives stack, and each one wraps the previous resolver. Order matters, because the outer directives
+run first.
+
+### Do directives work with Apollo Federation?
+
+They work, but each subgraph has to implement the directive on its own. The gateway won't re-run subgraph
+directives.
 
 ### How do I test field-level auth?
 
-Send queries with different user tokens and assert that protected fields return errors or null based on the role. Create a test helper that builds context with different roles and permissions to run queries against the schema.
-
-### Do directives affect performance?
-
-Directives add a wrapper layer to the resolver, but the overhead is minimal (one extra function call). The real impact is in the auth logic — if you check permissions against a database on every field, use caching (Redis, in-memory) to avoid repeated queries.
-
-### Can I use directives with Apollo Federation?
-
-Yes, but each subgraph must implement the directive independently. The gateway does not re-run subgraph directives. Define directives in each subgraph's schema and apply auth rules there.
-
-## Additional Common Mistakes
-
-- Applying auth directives only at the query level — mutations and subscriptions need protection too
-- Returning detailed error messages that leak schema information — use generic `FORBIDDEN` messages in production
-- Not caching permission checks — repeated database lookups per field create performance bottlenecks
-- Forgetting to test directives with unauthenticated requests — ensure public fields work without a token
-- Not applying `@auth` to interface fields — implementations can expose fields without auth checks, bypassing the directive
-- Using `@auth` on list fields only — individual items may still expose sensitive data if the list itself is not filtered server-side
-- Not versioning directive implementations — changing auth logic without versioning breaks existing clients that depend on specific error shapes
-- Relying on client-side auth checks only — the server must enforce directives, never trust the client to filter sensitive fields
-- Not testing directive composition — stacked directives like `@auth @owner` may short-circuit in unexpected orders depending on the GraphQL server implementation
+Send queries with different user tokens and check that protected fields return errors or null based on the
+role. A tiny helper that swaps `context.user` for each role and permission makes this much faster.
 
 ### How do I combine role-based auth with ownership checks?
 
-Use stacked directives: `@auth(requires: EDITOR) @owner`. The `@auth` directive checks the role first. If it passes, `@owner` verifies that the user owns the resource. If either fails, the field returns an error or null based on configuration.
-
-### Should I use schema directives or middleware for auth?
-
-Schema directives are declarative and visible in the schema, making it easier to audit permissions. Middleware is imperative and harder to audit but offers more flexibility. Use directives for simple role/permission checks. Use middleware for complex, context-dependent logic that cannot be expressed declaratively.
+Stack the directives: `@auth(requires: EDITOR) @owner`. The `@auth` directive checks the role first. If that
+passes, `@owner` verifies the user owns the resource. If either check fails, the field returns an error or
+null, depending on your config.

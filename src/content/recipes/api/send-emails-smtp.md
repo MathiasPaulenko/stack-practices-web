@@ -1,58 +1,80 @@
 ---
 contentType: recipes
 slug: send-emails-smtp
-title: "Send Emails with SMTP"
-description: "How to send transactional and bulk emails securely using SMTP with template support."
-metaDescription: "Learn to send emails with SMTP in Python, JavaScript, and Java. Includes templates, authentication, attachments, and error handling."
+title: "Send Transactional Emails with SMTP in Python, Node.js, Java"
+description: "Learn to send transactional and bulk emails via SMTP with Python, Node.js, and Java. Covers auth, templates, attachments, rate limiting, and deliverability."
+metaDescription: "Send transactional and bulk emails with SMTP in Python, Node.js, and Java. Use smtplib, nodemailer, and Jakarta Mail with TLS, templates, and attachments."
 difficulty: intermediate
 topics:
+  - messaging
   - api
 tags:
-  - api
   - email
+  - smtp
+  - python
+  - javascript
   - java
-  - rest
-  - http
+  - deliverability
 relatedResources:
   - /recipes/call-rest-api
-  - /recipes/handle-errors
   - /recipes/input-validation
+  - /recipes/secret-management
+  - /recipes/rate-limiting
+  - /recipes/handle-errors
   - /recipes/logging
-  - /recipes/middleware
-lastUpdated: "2026-06-11"
+lastUpdated: "2026-08-23"
 publishedAt: "2026-06-11"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Learn to send emails with SMTP in Python, JavaScript, and Java. Includes templates, authentication, attachments, and error handling."
+  metaDescription: "Send transactional and bulk emails with SMTP in Python, Node.js, and Java. Use smtplib, nodemailer, and Jakarta Mail with TLS, templates, and attachments."
   keywords:
     - smtp
     - email
-    - templates
-    - python
-    - javascript
-    - java
-    - notification
+    - transactional email
+    - nodemailer
+    - smtplib
+    - jakarta mail
+    - attachments
+    - deliverability
 ---
+
 ## Overview
 
-Email remains the backbone of user communication: password resets, order confirmations, newsletters, and alerts. Sending email via SMTP gives you full control over deliverability, templating, and tracking. The solution below covers sending plain text, HTML, and templated emails with attachments using Python, JavaScript, and Java.
+Most apps still fall back on email for password resets, order confirmations, newsletters, and
+alerts. SMTP (Simple Mail Transfer Protocol) is what moves those messages from your app to the
+recipient's inbox. Using it directly keeps you portable between providers and gives you full control
+over templates, attachments, and sender reputation. This recipe covers production-ready patterns in
+Python, Node.js, and Java, with TLS, plain + HTML bodies, attachments, and rate throttling.
 
 ## When to Use
 
-Use this resource when:
-- Your application needs to send transactional emails (sign-up, password reset, receipts). See [API Security Checklist](/guides/api-security-checklist-guide/) for email security.
-- You want to avoid vendor lock-in from email SaaS platforms
-- You need custom email templates with live data
-- You must send attachments (invoices, reports, exports)
+- Your app sends transactional email and you want to swap providers without a rewrite.
+- You want live data in your templates, or you prefer to keep email logic in your own code.
+- You need to attach invoices, reports, or exports to outgoing messages.
+- You already run a message queue or worker pool and want SMTP senders to pull jobs from it.
+- You're combining email with [rate limiting](/recipes/rate-limiting) and [secret
+  management](/recipes/secret-management) best practices.
+
+## When to Avoid
+
+- Your volume is millions of marketing emails per month. Dedicated platforms like Mailchimp, Brevo,
+  and Mailgun handle list hygiene and unsubscribe compliance far better.
+- Your team can't keep up with DNS records (SPF, DKIM, DMARC), bounce handling, and sender
+  reputation.
+- In-app notifications need low latency. Push notifications or WebSockets fit those cases better.
 
 ## Solution
 
 ### Python
 
 ```python
+import mimetypes
 import smtplib
-from email.mime.text import MIMEText
+from email import encoders
+from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from pathlib import Path
 from string import Template
 
 SMTP_HOST = "smtp.example.com"
@@ -60,293 +82,253 @@ SMTP_PORT = 587
 SMTP_USER = "user@example.com"
 SMTP_PASS = "app-password"
 
-def send_template_email(to, subject, template_path, context):
-    msg = MIMEMultipart("alternative")
+
+def build_message(from_addr, to, subject, text, html=None, attachments=None):
+    """Build a multipart email with plain text, optional HTML, and attachments."""
+    msg = MIMEMultipart("mixed")
     msg["Subject"] = subject
-    msg["From"] = SMTP_USER
+    msg["From"] = from_addr
     msg["To"] = to
 
-    with open(template_path) as f:
-        template = Template(f.read())
-    html = template.substitute(context)
+    alt = MIMEMultipart("alternative")
+    alt.attach(MIMEText(text, "plain"))
+    if html:
+        alt.attach(MIMEText(html, "html"))
+    msg.attach(alt)
 
-    msg.attach(MIMEText(html, "html"))
+    if attachments:
+        for path in attachments:
+            ctype, _ = mimetypes.guess_type(path)
+            if ctype is None:
+                ctype = "application/octet-stream"
+            maintype, subtype = ctype.split("/", 1)
+
+            with open(path, "rb") as f:
+                part = MIMEBase(maintype, subtype)
+                part.set_payload(f.read())
+            encoders.encode_base64(part)
+            part.add_header(
+                "Content-Disposition",
+                "attachment",
+                filename=Path(path).name,
+            )
+            msg.attach(part)
+
+    return msg
+
+
+def send_template_email(to, subject, template_text, template_html, context):
+    text = Template(template_text).substitute(context)
+    html = Template(template_html).substitute(context) if template_html else None
+    msg = build_message(SMTP_USER, to, subject, text, html)
 
     with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
         server.starttls()
         server.login(SMTP_USER, SMTP_PASS)
-        server.sendmail(SMTP_USER, to, msg.as_string())
+        server.send_message(msg)
+
 
 # Usage
+text_template = "Hi $name, your order $order_id is confirmed."
+html_template = "<p>Hi $name, your order <b>$order_id</b> is confirmed.</p>"
 send_template_email(
     to="user@example.com",
-    subject="Welcome to StackPractices",
-    template_path="welcome.html",
-    context={"name": "Alice", "login_url": "https://app.example.com/login"}
+    subject="Order #12345 confirmed",
+    template_text=text_template,
+    template_html=html_template,
+    context={"name": "Alice", "order_id": "12345"},
 )
 ```
 
 ### JavaScript (Node.js)
 
 ```javascript
-const nodemailer = require("nodemailer");
-const handlebars = require("handlebars");
-const fs = require("fs");
+const fs = require('fs');
+const nodemailer = require('nodemailer');
+const path = require('path');
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.example.com",
+  host: 'smtp.example.com',
   port: 587,
   secure: false,
-  auth: { user: "user@example.com", pass: "app-password" },
+  auth: { user: 'user@example.com', pass: 'app-password' },
+  tls: { rejectUnauthorized: true },
 });
 
-async function sendTemplateEmail(to, subject, templatePath, context) {
-  const source = fs.readFileSync(templatePath, "utf8");
-  const template = handlebars.compile(source);
-  const html = template(context);
-
+async function sendEmail(to, subject, text, html = null, attachments = []) {
   await transporter.sendMail({
-    from: "StackPractices <noreply@example.com>",
+    from: '"StackPractices" <noreply@example.com>',
     to,
     subject,
+    text,
     html,
+    attachments: attachments.map((file) => ({
+      path: file,
+      filename: path.basename(file),
+    })),
   });
 }
 
+async function sendOrderConfirmation(to, context) {
+  const text = `Hi ${context.name}, your order ${context.orderId} is confirmed.`;
+  const html = `<p>Hi ${context.name}, your order <b>${context.orderId}</b> is confirmed.</p>`;
+  await sendEmail(to, `Order #${context.orderId} confirmed`, text, html);
+}
+
 // Usage
-sendTemplateEmail(
-  "user@example.com",
-  "Order Confirmation #12345",
-  "order-confirmation.hbs",
-  { name: "Alice", orderId: "12345", total: "$99.00" }
-);
+sendOrderConfirmation('user@example.com', { name: 'Alice', orderId: '12345' });
 ```
 
-### Java (Spring Boot)
+### Java
 
 ```java
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Service;
-import jakarta.mail.internet.MimeMessage;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.activation.FileDataSource;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
+import java.io.File;
+import java.util.Properties;
 
-@Service
-public class EmailService {
-    private final JavaMailSender mailSender;
+public class SmtpSender {
 
-    public EmailService(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
+    public static void send(String host, int port, String user, String pass,
+                            String to, String subject, String text, String html,
+                            File[] attachments) throws Exception {
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", port);
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(user, pass);
+            }
+        });
+
+        Message msg = new MimeMessage(session);
+        msg.setFrom(new InternetAddress(user));
+        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+        msg.setSubject(subject);
+
+        Multipart mixed = new MimeMultipart("mixed");
+        Multipart alt = new MimeMultipart("alternative");
+
+        MimeBodyPart textPart = new MimeBodyPart();
+        textPart.setText(text);
+        alt.addBodyPart(textPart);
+
+        if (html != null) {
+            MimeBodyPart htmlPart = new MimeBodyPart();
+            htmlPart.setContent(html, "text/html; charset=utf-8");
+            alt.addBodyPart(htmlPart);
+        }
+
+        MimeBodyPart wrapper = new MimeBodyPart();
+        wrapper.setContent(alt);
+        mixed.addBodyPart(wrapper);
+
+        if (attachments != null) {
+            for (File f : attachments) {
+                MimeBodyPart att = new MimeBodyPart();
+                DataSource source = new FileDataSource(f);
+                att.setDataHandler(new DataHandler(source));
+                att.setFileName(f.getName());
+                mixed.addBodyPart(att);
+            }
+        }
+
+        msg.setContent(mixed);
+        Transport.send(msg);
     }
 
-    public void send(String to, String subject, String htmlBody) throws Exception {
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-        helper.setTo(to);
-        helper.setSubject(subject);
-        helper.setText(htmlBody, true);
-        helper.setFrom("noreply@example.com");
-        mailSender.send(message);
+    public static void main(String[] args) throws Exception {
+        send(
+            "smtp.example.com",
+            587,
+            "user@example.com",
+            "app-password",
+            "user@example.com",
+            "Order #12345 confirmed",
+            "Hi Alice, your order 12345 is confirmed.",
+            "<p>Hi Alice, your order <b>12345</b> is confirmed.</p>",
+            null
+        );
     }
 }
 ```
 
 ## Explanation
 
-SMTP (Simple Mail Transfer Protocol) is the standard protocol for sending email. The flow is:
+SMTP works like a short negotiation between your client and the mail server. The client opens a
+connection on port 587 (startTLS) or 465 (SSL/TLS), logs in with a username and app password or an
+OAuth2 token, then builds and sends a MIME message. The actual delivery uses the sequence `MAIL
+FROM` → `RCPT TO` → `DATA`. After that, the server replies with status codes; your job is to handle
+bounces, retries, and rate limits on the side.
 
-1. **Connect** to the SMTP server (port 25, 587, or 465 for TLS).
-2. **Authenticate** with username and password (or OAuth2).
-3. **Build** the MIME message (plain text, HTML, multipart).
-4. **Send** via `MAIL FROM` → `RCPT TO` → `DATA` commands.
-5. **Handle** bounces, retries, and rate limits asynchronously.
-
-For high volume, consider a **message queue** ([Kafka](/recipes/kafka-event-streaming/), RabbitMQ) that feeds into a worker pool of SMTP senders. This decouples your API from email latency and failures.
+High-volume sending shouldn't happen inside an HTTP handler. That path couples your API to the
+speed of the mail server and can cause timeouts. A better design is to hand messages off to a queue
+and let workers handle delivery. This keeps response times low and gives you a clean place to retry
+transient failures.
 
 ## Variants
 
-| Technology | Library | Template Engine | Best For |
-|------------|---------|-----------------|----------|
-| Python | smtplib + email | Jinja2 / string.Template | Simple scripts, microservices |
-| Node.js | nodemailer | Handlebars / EJS | Full-stack apps, SSR |
-| Java | Jakarta Mail | Thymeleaf / FreeMarker | Enterprise, Spring Boot |
-| Go | net/smtp | html/template | Microservices, low latency |
-| Ruby | Action Mailer | ERB | Rails apps |
+For Python, pair `smtplib` with the `email` package when you need custom MIME handling. Node.js
+tends to default to `nodemailer` for full-stack apps, SSR, and quick attachment support. Java
+projects usually pick `Jakarta Mail` for enterprise or Spring Boot codebases.
 
-## What Works
+Go and C# are also solid choices. Go's `net/smtp` and the `jordan-wright/email` package work well for
+low-latency services, while .NET developers usually reach for `MailKit`.
 
-- **Use app passwords or OAuth2**: Never hardcode your personal email password.
-- **Set SPF, DKIM, and DMARC**: These DNS records dramatically improve deliverability.
-- **Throttle sends**: Most SMTP providers limit to ~100 emails/minute.
-- **Use a dedicated sending domain**: Prevents your main domain reputation from suffering.
-- **Handle bounces asynchronously**: Parse SMTP replies and webhook events to clean your list.
+## Best Practices
+
+Start with the basics: use app passwords or OAuth2 tokens, and never commit them to version control.
+Store them in a secret manager and rotate them on a schedule. Next, add SPF, DKIM, and DMARC DNS
+records to your sending domain. No other change moves the needle on deliverability as much as these
+records.
+
+Always send a plain text fallback with your HTML messages. Some clients, especially watches and
+terminal readers, only render text. Throttle your sends because most providers cap you at a few
+hundred emails per minute. A dedicated sending domain is also worth it: if a campaign damages
+its reputation, your main domain stays clean.
+
+On the operational side, handle bounces and spam complaints asynchronously. Read SMTP responses and
+webhook events to keep your list clean. Finally, sanitize any user input that lands in a template or
+subject line; header injection and malicious links are real risks.
 
 ## Common Mistakes
 
-- **Sending from localhost without SPF**: Your emails will land in spam folders.
-- **No HTML + plain text fallback**: Some clients (watch, CLI) only render text.
-- **Embedding secrets in code**: See [Security Guide](/guides/security-best-practices-guide/) for secrets management.
-- **Ignoring SMTP rate limits**: You'll get temporarily blocked or blacklisted.
-- **Synchronous sending in requests**: Use a [background worker](/recipes/middleware/) to avoid HTTP timeouts.
-
-## When Not to Use This Approach
-
-- **Browser-facing APIs with no real-time need**: if your API only serves request-response patterns, adding WebSocket/SSE infrastructure is unnecessary overhead.  Stick with REST.
-- **Teams without real-time experience**: WebSocket connection management, reconnection logic, and backpressure handling require specialized knowledge.  If your team is small, REST polling may be more reliable.
-- **High-frequency polling is acceptable**: if your use case tolerates 5-10 second polling intervals, REST polling is simpler to implement, debug, and scale.  Real-time infrastructure is only justified when latency matters.
-- **Strict firewall environments**: some corporate firewalls block WebSocket upgrades or long-lived HTTP connections.  Verify your deployment environment supports your chosen real-time protocol before committing.
-- **Single-server deployments without sticky sessions**: WebSocket and SSE require sticky sessions or a shared pub/sub backend.  If you run a single server, this is not an issue, but scaling requires Redis or similar.
-
-## Performance Benchmarks
-
-| Metric | WebSocket | SSE | REST Polling (5s) |
-|--------|-----------|-----|--------------------|
-| Latency (message delivery) | 2ms | 5ms | 2500ms avg |
-| Connections per server | 10,000 | 8,000 | N/A |
-| Memory per connection | 4KB | 6KB | N/A |
-| Bandwidth (1000 msg/min) | 50KB/min | 80KB/min | 2.4MB/min |
-| Reconnection time | 100ms | 300ms | N/A |
-| CPU per 1000 connections | 2% | 3% | 0.5% |
-
-Benchmarks run on Node.js 20, single core, 1KB messages. Real-world results vary with message size, frequency, and network conditions.
-
-## Testing Strategy
-
-- **Test connection lifecycle**: verify connect, authenticate, message exchange, and disconnect work correctly.
-- **Test reconnection logic**: kill the connection mid-stream and verify the client reconnects with exponential backoff.  Verify no messages are lost during reconnection (use sequence numbers).
-- **Test backpressure handling**: send messages faster than the client can consume.  Verify the server applies backpressure instead of buffering unbounded messages in memory.
-- **Test authentication failure**: verify that unauthenticated connections are rejected before any message is processed.
-- **Test concurrent connection limits**: open more connections than the server limit and verify the server rejects excess connections gracefully with an appropriate error code.
-- **Test message ordering**: send 100 messages rapidly and verify they arrive in order on the client.  WebSocket guarantees order on a single connection; verify your implementation preserves this.
-
-## Cost Estimation
-
-- **Infrastructure cost**: real-time servers require more memory per connection (4-6KB vs 0KB for stateless REST).  For 10K concurrent connections, budget 40-60MB RAM just for connection state.
-- **Load balancer cost**: WebSocket requires sticky sessions or ALB with WebSocket support.  AWS ALB supports WebSocket natively at no extra cost, but NLB with sticky sessions costs ~/month extra.
-- **Redis pub/sub**: for multi-server deployments, Redis pub/sub is needed to broadcast messages.  A small Redis instance (~/month) handles up to 10K subscriptions.
-- **Monitoring tools**: real-time monitoring (connection count, message rate, latency) requires custom metrics.  Budget -50/month for Datadog or Grafana Cloud.
-- **Development cost**: +30% vs REST due to connection management, reconnection logic, testing complexity, and monitoring.  Amortized over the API lifetime.
-
-## Monitoring and Observability
-
-- **Track concurrent connection count**: monitor active WebSocket/SSE connections per server instance.  Set alerts for sudden drops (>20% in 5 minutes) which indicate network issues or server problems.
-- **Monitor message rate per connection**: track messages per second per connection.  A sudden spike from one connection may indicate a runaway client or abuse.
-- **Track reconnection rate**: monitor how often clients reconnect.  A high reconnection rate (>1/minute per client) indicates unstable connections or aggressive server-side disconnects.
-- **Monitor message delivery latency**: track time from message publish to client receipt.  Latency >100ms indicates server backlog or network issues.
-- **Track authentication failures**: monitor failed auth attempts per IP.  A spike may indicate credential stuffing or token replay attacks.
-
-## Deployment Checklist
-
-- [ ] Configure connection timeout (idle connections should be closed after 5 minutes)
-- [ ] Set max connections per server instance (prevent resource exhaustion)
-- [ ] Enable heartbeat/ping-pong to detect dead connections
-- [ ] Configure sticky sessions on load balancer (for WebSocket)
-- [ ] Set up Redis pub/sub for multi-server message broadcasting
-- [ ] Enable TLS/wss for all production connections
-- [ ] Configure reconnection logic on client with exponential backoff
-- [ ] Set up monitoring for connection count, message rate, and latency
-- [ ] Test failover: kill one server and verify clients reconnect to another
-- [ ] Document message format and protocol in API documentation
-
-## Security Considerations
-
-- **Origin validation**: WebSocket connections send an Origin header.  Validate it against an allowlist to prevent cross-site WebSocket hijacking (CSWSH).  Reject connections from unknown origins.
-- **Authentication token in URL**: passing auth tokens as query parameters (wss://server? token=abc) leaks tokens in server logs and proxy access logs.
-- **Connection flooding**: attackers can open thousands of WebSocket connections without sending messages, exhausting server resources.  Rate limit connection attempts per IP and require authentication immediately after connect.
-- **Message size limits**: set a max message size on the server.  Unbounded message sizes allow attackers to send huge payloads that exhaust memory.  A 1MB limit is reasonable for most use cases.
-- **Cross-site WebSocket hijacking (CSWSH)**: WebSocket connections are not subject to SOP.  Any web page can open a WebSocket to your server.  Validate the Origin header and use CSRF tokens for WebSocket handshakes.
-- **Token replay via WebSocket**: if auth tokens are sent only at connection time, a stolen token can be reused until it expires.
-- **WebSocket masking abuse**: WebSocket clients must mask frames, but a malicious client can use masking to bypass inspection by intermediary proxies.
-- **SSE event injection**: if SSE event data includes user input without escaping, attackers can inject event delimiters (\n\n) and forge events.  Always sanitize user input in SSE messages.
-- **Subscription hijacking**: if clients can subscribe to arbitrary channels, attackers can subscribe to other users' channels.  Validate that the client is authorized for each subscription.
-- **Resource exhaustion via slow consumers**: a slow client can cause the server to buffer many messages, exhausting memory.  Set a per-connection buffer limit and disconnect clients that exceed it.
-- **Denial of service via ping flooding**: if the server sends ping frames too frequently, a malicious client can flood with pong responses.  Rate limit ping frames and disconnect clients that send unsolicited pongs.
-- **WebSocket extension abuse**: WebSocket extensions (e. g. , permessage-deflate) can be abused to send highly compressed frames that decompress to huge payloads.  Set a max decompressed frame size.
-- **Connection draining on shutdown**: when shutting down a real-time server, drain connections gracefully.  Send a close frame with a "server shutting down" code and allow clients to reconnect to another instance.
-- **Credential leakage in error messages**: if connection errors include auth tokens or session IDs, attackers can capture them.  Never include sensitive data in error messages sent to clients.
-- **IP spoofing via X-Forwarded-For**: if you rate limit by IP using X-Forwarded-For, attackers can spoof this header.
-- **Message injection via shared channels**: if multiple users share a pub/sub channel, a compromised client can inject messages that other clients receive.
-- **Replay attacks on messages**: if messages are not timestamped or sequenced, attackers can replay old messages.
-- **TLS downgrade attacks**: if the server supports both ws:// and wss://, attackers can downgrade the connection.  Disable ws:// in production and redirect to wss://.
-- **Memory exhaustion via large headers**: WebSocket handshake headers can be very large.  Set a max header size on the server to prevent memory exhaustion via header flooding.
-- **Connection persistence after token expiry**: if a WebSocket connection stays open after the auth token expires, the client has unauthorized access.  Periodically re-validate tokens on existing connections and disconnect if expired.
-- **Broadcast amplification**: if a single client can trigger a broadcast to all connected clients, attackers can cause message amplification.  Rate limit broadcasts and require admin authentication for broadcast operations.
-- **SSE proxy buffering**: some proxies buffer SSE responses, delaying delivery to clients.  Set X-Accel-Buffering: no (nginx) or disable proxy buffering for SSE endpoints.
-- **WebSocket compression side-channel**: the permessage-deflate extension can leak information through compression ratios.  Disable compression for high-security environments or use Brotli with constant-time compression.
-- **Channel enumeration**: if channel names are guessable (e. g. , user-123), attackers can enumerate channels.
-- **Connection state leakage**: if connection state is shared between requests (e. g. , in a shared channel object), data from one user may leak to another.
-- **DoS via rapid subscribe/unsubscribe**: if clients can rapidly subscribe and unsubscribe from channels, this can cause high CPU usage on the server.  Rate limit subscription changes per connection.
-- **Message forgery via missing HMAC**: if messages are not signed, a compromised client can forge messages from other users.  Sign each message with an HMAC using a per-user secret.
-- **Token theft via XSS**: if auth tokens are stored in JavaScript variables, an XSS attack can steal them.
-- **WebSocket over CDN limitations**: many CDNs do not support WebSocket connections.
-- **SSE connection limit per browser**: browsers limit SSE connections per origin (6 in Chrome).  If your app opens multiple SSE connections, some will fail.
-- **Graceful degradation**: if WebSocket is blocked by a firewall, clients should fall back to SSE or REST polling.
-
-
-
-## Troubleshooting
-
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers.  Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths.  Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.  Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles.
-
-
-
-
-
-## Quick Reference
-
-- **Main command**: run the base solution from the article and verify the expected result.
-- **Validation**: confirm tests pass and key metrics did not degrade.
-- **Rollback**: if something fails, revert the change and consult the Troubleshooting section.
-
-## Further Reading
-
-- **Official documentation**: check the current reference for the framework or tool used.
-- **Related guides**: explore the api and email guides for deeper coverage.
-- **Complementary patterns**: review design patterns applicable to your technology stack.
-- **Public postmortems**: study real incidents from teams that faced similar production issues.
-
-## Production Notes
-
-- **Deploy gradually** using canary or blue-green to catch regressions early.
-- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
-- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
-- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
-
-## Key Takeaways
-
-- **Apply send emails with smtp** when you need a practical solution for your use case.
-- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
-- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
-- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+- Sending from localhost or a shared server without valid SPF/DKIM records. Your messages land in spam.
+- Embedding production credentials in source code or in environment files that get checked into
+  version control.
+- Skipping recipient address validation before queuing. See [input
+  validation](/recipes/input-validation) for safe patterns.
+- Sending mail synchronously inside HTTP handlers, where it can time out under load.
+- Ignoring rate limits and retries, which leads to temporary blocks or blacklisting.
+- Using `To` or `Cc` for bulk sends. Use `Bcc` or individual messages to protect recipients.
+- Running without any logs or monitoring. Without them, you only notice delivery problems when users
+  complain.
 
 ## FAQ
 
 ### Should I use SMTP or a transactional email API?
 
-Use SMTP when you need portability and control (switch providers easily). Use an API (SendGrid, Mailgun, Postmark) when you need analytics, templates managed via UI, and webhook events out of the box. Many APIs also offer SMTP endpoints for the best of both worlds.
+SMTP makes sense when you care about portability and might switch providers later. A transactional
+email API like SendGrid, Mailgun, or Postmark is better when you want managed
+templates, analytics, and bounce webhooks out of the box. Most providers give you both options, so
+the choice isn't always forced.
 
-### How do I prevent emails from going to spam?
+### How do I stop emails from landing in spam?
 
-Authenticate with SPF, DKIM, and DMARC. Use a consistent "From" address. Avoid spammy words in subject lines. Keep your HTML simple and mobile-friendly. Monitor your sender reputation with Google Postmaster Tools.
+The first step is to authenticate with SPF, DKIM, and DMARC. Send from a consistent address, keep the
+HTML clean and mobile-friendly, avoid spammy subject words, and watch your sender reputation with
+Google Postmaster Tools. Engagement also matters, so clean out inactive recipients from your list
+regularly.
 
 ### Can I send bulk newsletters via SMTP?
 
-Yes, but SMTP is not optimized for bulk. For newsletters (10k+ recipients), use a dedicated email marketing platform (Mailchimp, ConvertKit, Brevo). For transactional + small bulk, SMTP works fine with queue-based throttling.
-- **SMTP connection pooling**: reuse SMTP connections across email sends to avoid TCP+TLS handshake overhead.  Set max pool size to 10 and idle timeout to 30 seconds.
-- **Email template injection**: if email templates include user input without escaping, attackers can inject malicious content into emails.  Always escape user input in email templates, even in plain text emails.
-- **BCC leakage in bulk emails**: if bulk emails are sent with all recipients in To or Cc, recipients can see each other's addresses.  Always use Bcc or individual messages for bulk sends.
-- **SMTP timing attacks**: if email validation reveals whether an email was sent successfully, attackers can enumerate valid email addresses.  Return the same response regardless of whether the email was sent.
-
-## Common Production Pitfalls
-
-- Copying the example without adapting it to real data volumes and failure modes.
-- Skipping load and error-injection tests before the first production deployment.
-- Hard-coding values that should be configurable per environment.
-- Forgetting to add logging and monitoring at each step.
-- Deploying without a rollback plan or a tested backup strategy.
-- Assuming the minimal example will scale without adding caching or batching.
-- Not documenting the version and configuration used in production.
-- Letting the recipe sit unchanged when dependencies or scale evolve.
+Technically you can, but large newsletters aren't what SMTP is built for. It handles transactional
+email and small batches well. For tens of thousands of recipients, use a dedicated email
+marketing platform and connect it to your app through its API or list imports.

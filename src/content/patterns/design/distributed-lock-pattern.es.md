@@ -1,15 +1,9 @@
 ---
-
-
-
-
-
-
 contentType: patterns
 slug: distributed-lock-pattern
-title: "Patrón Distributed Lock"
-description: "Coordina el acceso mutuamente exclusivo a recursos compartidos a través de nodos distribuidos usando un servicio de lock basado en consenso, previniendo race conditions en sistemas escalados."
-metaDescription: "Aprende el Patrón Distributed Lock para coordinar nodos con Redis y ZooKeeper. Ejemplos en Python, Java y JavaScript con Redlock, leases y fencing tokens."
+title: "Patrón Distributed Lock con Redis, ZooKeeper y etcd"
+description: "Coordina acceso exclusivo a recursos compartidos entre nodos distribuidos con Redis, ZooKeeper o etcd. Incluye TTL, fencing tokens y ejemplos de Redlock."
+metaDescription: "Aprende el Patrón Distributed Lock con Redis y ZooKeeper. Ejemplos en Python, Java y JavaScript con Redlock, TTL y fencing tokens."
 difficulty: intermediate
 topics:
   - design
@@ -21,8 +15,9 @@ tags:
   - design-pattern
   - concurrency
   - redis
+  - zookeeper
+  - etcd
   - coordination
-  - consensus
 relatedResources:
   - /patterns/saga-pattern
   - /patterns/idempotent-consumer-pattern
@@ -30,54 +25,51 @@ relatedResources:
   - /patterns/lock-free-queue-pattern
   - /recipes/redis-distributed-lock
   - /patterns/sequential-convoy-pattern
-  - /guides/acid-vs-base-guide
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-08-23"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Aprende el Patrón Distributed Lock para coordinar nodos con Redis y ZooKeeper. Ejemplos en Python, Java y JavaScript con Redlock, leases y fencing tokens."
+  metaDescription: "Aprende el Patrón Distributed Lock con Redis y ZooKeeper. Ejemplos en Python, Java y JavaScript con Redlock, TTL y fencing tokens."
   keywords:
     - distributed lock
     - design pattern
     - concurrency
     - redis
     - zookeeper
-    - coordination
-
-
-
-
-
-
+    - etcd
+    - redlock
+    - fencing token
 ---
 
 ## Descripción General
 
-El Patrón Distributed Lock coordina el acceso mutuamente exclusivo a recursos compartidos a través de múltiples nodos en un sistema distribuido. Cuando múltiples procesos o servicios compiten por el mismo recurso — un archivo, una fila de base de datos, una entrada de cola de tareas, o un valor de configuración — un lock distribuido asegura que solo un nodo mantenga el lock en un momento dado, previniendo race conditions, procesamiento duplicado y corrupción de datos.
+El Patrón Distributed Lock otorga acceso mutuamente exclusivo a un recurso compartido cuando
+intervienen varios nodos. Sirve cuando un proceso, una fila de base de datos, una entrada de cola de
+tareas o un valor de configuración solo puede ser tocado por un nodo a la vez. Sin este patrón, las
+race conditions, el procesamiento duplicado y la corrupción de datos aparecen tan pronto como la carga
+escala más allá de un solo proceso.
 
-A diferencia de un mutex local (que funciona dentro de un único proceso), un lock distribuido debe funcionar a través de boundaries de red, caídas de procesos y desviación de relojes. Requiere un mecanismo de consenso o un store centralizado al que todos los nodos puedan acceder atómicamente. Las implementaciones comunes usan Redis, ZooKeeper, etcd, Consul o locks de asesoría de base de datos.
+Un mutex local funciona dentro de un proceso, pero un lock distribuido tiene que sobrevivir a
+particiones de red, caídas de procesos y desviación de relojes. Necesita un consenso o un store
+centralizado al que todos los nodos puedan acceder atómicamente. Los backends más usados son Redis,
+ZooKeeper, etcd, Consul y los advisory locks de base de datos.
 
 ## Cuándo Usar
 
-
-- For alternatives, see [Priority Queue Pattern](/es/patterns/priority-queue-pattern/).
-
-Usa el Patrón Distributed Lock cuando:
-- Múltiples nodos pueden modificar concurrentemente el mismo recurso compartido
-- Necesitas prevenir ejecución duplicada de tareas programadas a través de un cluster
-- Un recurso solo puede ser accedido de forma segura por un proceso a la vez
-- Se necesita leader election para servicios singleton en un cluster
+Usa este patrón cuando más de un nodo pueda modificar el mismo recurso a la vez, cuando una tarea
+programada deba ejecutarse solo una vez en el cluster, cuando un recurso solo pueda ser tocado por un
+proceso y el almacenamiento no tenga compare-and-swap, o cuando necesites una elección de líder de
+corta duración.
 
 ## Cuándo Evitar
 
-- El sistema corre en un único nodo (un mutex local es más simple y rápido)
-- El recurso compartido soporta operaciones compare-and-swap de forma nativa
-- La consistencia eventual es aceptable y la concurrencia optimista basta
-- El servicio de lock se convierte en un single point of failure o cuello de botella
+Evítalo cuando todo corra en una sola máquina, cuando el almacenamiento ya ofrezca compare-and-swap o
+escritura condicional, cuando la consistencia eventual con concurrencia optimista sea suficiente, o
+cuando el servicio de lock se convertiría en un punto único de falla.
 
 ## Solución
 
-### Python (Redis Redlock)
+### Python (Redis SET NX con token)
 
 ```python
 import time
@@ -85,8 +77,10 @@ import uuid
 import redis
 from typing import Optional
 
+
 class RedisDistributedLock:
-    """Lock distribuido usando Redis con renovación automática de lease y fencing token"""
+    """Lock distribuido usando Redis con TTL automático y fencing token."""
+
     def __init__(self, redis_client: redis.Redis, lock_key: str,
                  ttl_seconds: int = 30, retry_delay: float = 0.1):
         self.redis = redis_client
@@ -97,7 +91,7 @@ class RedisDistributedLock:
         self._acquired = False
 
     def acquire(self, blocking: bool = True, timeout: Optional[float] = None) -> bool:
-        """Adquiere el lock con un timeout de bloqueo opcional"""
+        """Adquiere el lock con un timeout de bloqueo opcional."""
         self.token = str(uuid.uuid4())
         start_time = time.time()
 
@@ -119,11 +113,10 @@ class RedisDistributedLock:
             time.sleep(self.retry_delay)
 
     def release(self) -> bool:
-        """Libera el lock solo si todavía lo poseemos (comparar token)"""
+        """Libera el lock solo si todavía lo poseemos (comparar token)."""
         if not self._acquired:
             return False
 
-        # Script Lua para check-and-delete atómico
         lua_script = """
         if redis.call("get", KEYS[1]) == ARGV[1] then
             return redis.call("del", KEYS[1])
@@ -136,7 +129,7 @@ class RedisDistributedLock:
         return result == 1
 
     def extend(self, additional_ttl: int) -> bool:
-        """Extiende el TTL del lock si todavía lo poseemos"""
+        """Extiende el TTL del lock si todavía lo poseemos."""
         if not self._acquired:
             return False
 
@@ -160,14 +153,12 @@ class RedisDistributedLock:
         self.release()
 
 
-# ============================================================================
-# USO: Deduplicación de tareas programadas a través de nodos del cluster
-# ============================================================================
-
+# Uso: deduplicación de tareas programadas entre nodos del cluster
 redis_client = redis.Redis(host='localhost', port=6379, decode_responses=True)
 
+
 def process_daily_report():
-    """Solo un nodo en el cluster debería ejecutar esto diariamente"""
+    """Solo un nodo en el cluster debería ejecutar esto diariamente."""
     lock = RedisDistributedLock(redis_client, "daily-report", ttl_seconds=60)
 
     if not lock.acquire(blocking=False):
@@ -176,17 +167,17 @@ def process_daily_report():
 
     try:
         print(f"Procesando reporte diario (token: {lock.token})")
-        # Simular trabajo de larga duración
         time.sleep(2)
         print("Reporte diario completo")
     finally:
         lock.release()
 
-# Uso seguro con context manager
+
 def process_with_context():
     with RedisDistributedLock(redis_client, "critical-section", ttl_seconds=30):
         print("Dentro de sección crítica")
         time.sleep(1)
+
 
 process_daily_report()
 process_with_context()
@@ -217,7 +208,6 @@ public class ZooKeeperDistributedLock {
     public void executeWithLock(Runnable task) throws Exception {
         InterProcessMutex mutex = new InterProcessMutex(client, lockPath);
 
-        // Adquirir lock con timeout
         if (mutex.acquire(10, TimeUnit.SECONDS)) {
             try {
                 System.out.println("Lock adquirido, ejecutando tarea");
@@ -252,13 +242,12 @@ public class ZooKeeperDistributedLock {
 }
 ```
 
-### JavaScript (Redlock + Redis)
+### JavaScript (Redlock con tres nodos Redis)
 
 ```javascript
 const Redis = require('ioredis');
 const Redlock = require('redlock');
 
-// Crear clientes Redis para Redlock (múltiples para quorum)
 const redisA = new Redis({ host: 'redis-a', port: 6379 });
 const redisB = new Redis({ host: 'redis-b', port: 6379 });
 const redisC = new Redis({ host: 'redis-c', port: 6379 });
@@ -274,14 +263,12 @@ class DistributedTaskScheduler {
   async executeExclusive(lockKey, ttl, task) {
     let lock = null;
     try {
-      // Adquirir lock con algoritmo Redlock (mayoría de nodos Redis)
       lock = await redlock.acquire(`locks:${lockKey}`, ttl);
       console.log(`Lock adquirido: ${lock.value}`);
 
-      // Ejecutar tarea protegida
       const result = await task(lock.value);
 
-      // Extender lock si la tarea sigue corriendo
+      // Extender el lock si la tarea sigue corriendo
       lock = await lock.extend(ttl);
 
       return result;
@@ -300,20 +287,18 @@ class DistributedTaskScheduler {
   }
 }
 
-// Uso
 const scheduler = new DistributedTaskScheduler();
 
 async function processDailyReport() {
   return scheduler.executeExclusive('daily-report', 30000, async (fencingToken) => {
     console.log(`Procesando reporte con fencing token: ${fencingToken}`);
-    // Escribir a base de datos con token para prevenir escrituras rezagadas
     await saveToDatabase({ report: 'daily', token: fencingToken });
     return { status: 'completed' };
   });
 }
 
 async function saveToDatabase(data) {
-  // En producción: almacenar token y verificar antes de escrituras para manejar skew de reloj
+  // En producción, almacenar el token y verificarlo antes de escrituras
   console.log('Guardando:', data);
 }
 
@@ -322,78 +307,74 @@ processDailyReport().catch(console.error);
 
 ## Explicación
 
-Un lock distribuido debe satisfacer cuatro propiedades:
+Un lock distribuido tiene que acertar en cuatro cosas: solo un nodo lo puede mantener a la vez; si un
+nodo se cae, el lock debe expirar y volver a estar disponible; el servicio debe seguir activo mediante
+replicación o un ensemble de consenso; y un token monotónico o UUID debe bloquear escrituras rezagadas
+de un ex-holder.
 
-1. **Exclusión mutua**: Solo un nodo puede mantener el lock a la vez
-2. **Sin deadlock**: Si un nodo se cae, el lock eventualmente expira y se vuelve disponible
-3. **Tolerancia a fallos**: El servicio de lock mismo debe permanecer disponible (Redis Cluster, ensemble ZooKeeper)
-4. **Fencing token**: Un token monotónico previene escrituras rezagadas de un ex-holdder del lock (insight de Martin Kleppmann)
+Redlock intenta adquirir el mismo lock en varias instancias Redis independientes y lo considera
+mantenido cuando consigue una mayoría antes de un timeout. ZooKeeper usa nodos secuenciales efímeros:
+el nodo con el número más bajo gana el lock, y ese nodo desaparece automáticamente cuando termina la
+sesión del holder. etcd hace algo similar con leases TTL.
 
-El **algoritmo Redlock** (Redis) adquiere locks en múltiples instancias Redis independientes y considera el lock mantenido si una mayoría es adquirida dentro de un timeout. **ZooKeeper** usa nodos secuenciales efímeros donde el número de secuencia más bajo mantiene el lock; si el holder muere, el nodo efímero se borra automáticamente.
+En la práctica, este patrón aparece en muchos lados. Kubernetes usa leases de etcd para la elección de
+líder entre controladores. Stripe usa locks basados en Redis para evitar reintentos de cargos
+duplicados claveados por cliente, monto y timestamp. Spinaltap de Airbnb usa ZooKeeper para garantizar
+que solo un lector de binlog MySQL maneje cada partición. Para un ejemplo concreto con Redis, consultá
+la [receta de distributed lock con Redis](/es/recipes/redis-distributed-lock/). Si lo que necesitás es un
+líder de larga duración, el [patrón leader election](/es/patterns/leader-election-pattern/) encaja mejor.
 
 ## Variantes
 
-| Variante | Backend | Características |
-|----------|---------|-----------------|
-| **Redis SET NX** | Redis único | Simple, rápido, single point of failure |
-| **Redlock** | Múltiples nodos Redis | Tolerante a fallos, más complejo, corrección debatida |
-| **ZooKeeper** | Ensemble ZK | Consistencia fuerte, watches para notificaciones |
+| Variante | Backend | Trade-offs |
+| ---------- | --------- | ------------ |
+| **Redis SET NX** | Redis único | Simple y rápido, pero punto único de falla |
+| **Redlock** | Varios nodos Redis | Más tolerante a fallos; corrección debatida |
+| **ZooKeeper** | Ensemble ZK | Consistencia fuerte y watches para notificaciones |
 | **etcd** | Cluster etcd | Liviano, nativo de Kubernetes, leases TTL |
-| **Database advisory lock** | PostgreSQL/MySQL | Sin infraestructura adicional, pero acoplado a BD |
-| **Consul** | Sesiones de Consul | Integración con service mesh, health-check integration |
+| **Database advisory lock** | PostgreSQL/MySQL | Sin infraestructura nueva, pero acoplado a la BD |
+| **Consul** | Sesiones de Consul | Encaja con service mesh y health-checks |
 
-## Lo que funciona
+## Mejores Prácticas
 
-- **Siempre usa un TTL/lease.** Un proceso caído no debe mantener un lock para siempre.
-- **Usa fencing tokens para escrituras.** Incluye el token en escrituras al storage para rechazar operaciones obsoletas.
-- **Mantén la duración del lock corta.** Adquiere el lock, haz el mínimo trabajo, libera inmediatamente.
-- **Implementa renovación de lock.** Para tareas largas, extiende el TTL periódicamente (como un heartbeat).
-- **Maneja fallas del servicio de lock.** Si el servicio de lock no está disponible, falla seguro (no procedas sin el lock).
+- Define un TTL o lease para que un proceso caído no bloquee el recurso para siempre.
+- Envía un fencing token con cada escritura y rechaza cualquier escritura con un token obsoleto.
+- Mantén el lock corto: adquiérelo, haz el mínimo trabajo y libéralo inmediatamente.
+- Para tareas largas, renueva el lock con un heartbeat o extensión periódica.
+- Falla seguro. Si el servicio de lock no está disponible, detente en lugar de correr sin protección.
 
 ## Errores Comunes
 
-- **Sin TTL en locks.** Un nodo caído crea un deadlock permanente.
-- **Liberar el lock de otro.** Un check-and-delete (comparar token) debe ser atómico.
-- **Ignorar skew de reloj.** En sistemas distribuidos, los relojes se desvían. Usa tokens monotónicos, no timestamps.
-- **Locks mantenidos por mucho tiempo.** Mientras más tiempo se mantiene un lock, mayor la probabilidad de falla y contención.
-- **No testear escenarios de falla.** Testear qué pasa cuando el holder del lock muere durante la operación.
-
-## Ejemplos del Mundo Real
-
-### Kubernetes
-
-Kubernetes usa etcd para toda la coordinación distribuida, incluyendo leader election para controladores. Los scheduler y controller-manager usan leases de etcd para asegurar que solo una instancia esté activa.
-
-### Stripe
-
-Stripe usa locks distribuidos basados en Redis para prevenir procesamiento de cargos duplicados. Un lock en `(customer_id, amount, timestamp)` previene doble-cobro durante reintentos de red.
-
-### Airbnb
-
-El sistema Spinaltap CDC de Airbnb usa locks distribuidos de ZooKeeper para coordinar lectores de binlog MySQL a través de un cluster, asegurando que exactamente un lector procesa cada partición.
+- Olvidar el TTL. Un nodo muerto deja un deadlock permanente detrás.
+- Liberar el lock de otro. El check-and-delete debe ser atómico, normalmente con un script Lua.
+- Ignorar el skew de reloj. Confía en tokens monotónicos en lugar de timestamps de reloj.
+- Mantener el lock demasiado tiempo. Cuanto más tiempo lo mantengas, más fallos, contención y
+  recuperación lenta.
+- No testear escenarios de falla. Simula un holder muerto o una partición de red antes de salir a
+  producción.
 
 ## Preguntas Frecuentes
 
-**Q: Es Redlock seguro?**
-A: Martin Kleppmann argumentó que Redlock no es estrictamente seguro bajo skew arbitrario de reloj. Para la mayoría de casos prácticos con fencing tokens apropiados y TTLs razonables, funciona bien. Para garantías fuertes de corrección, usa ZooKeeper o etcd.
+### ¿Es Redlock seguro?
 
-**Q: Qué es un fencing token?**
-A: Un número monotónicamente creciente o UUID asociado con cada adquisición de lock. Al escribir al storage compartido, el writer incluye su token; la capa de storage rechaza escrituras con tokens obsoletos.
+Martin Kleppmann argumentó que Redlock no es estrictamente seguro bajo skew arbitrario de reloj. Para
+la mayoría de sistemas en producción con fencing tokens y TTLs razonables, es suficiente. Para
+garantías fuertes, prefiere ZooKeeper o etcd.
 
-**Q: Cómo se diferencia esto de leader election?**
-A: Los locks distribuidos típicamente son de corta duración y liberados rápidamente. La elección de líder es un caso especial donde el "lock" se mantiene indefinidamente hasta que el líder falla o se retira.
+### ¿Qué es un fencing token?
 
-**Q: Puedo usar una base de datos en lugar de Redis/ZooKeeper?**
-A: Sí. Los advisory locks de PostgreSQL (`pg_advisory_lock`) y `GET_LOCK()` de MySQL funcionan pero acoplan tu locking a la disponibilidad de tu base de datos y pueden no escalar tan bien como servicios de lock dedicados.
+Un fencing token es un número monotónico o UUID asociado a cada adquisición de lock. El nodo envía
+su token con cada escritura al storage compartido. La capa de storage rechaza cualquier escritura con
+un token antiguo, evitando que un proceso rezagado sobrescriba un resultado más nuevo.
 
-### ¿Es este patrón adecuado para proyectos pequeños?
+### ¿Cómo se diferencia de la elección de líder?
 
-Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+Un lock distribuido es de corta duración y se libera tan pronto termina el trabajo. La elección de
+líder es básicamente un lock de larga duración: el mismo nodo se mantiene a cargo hasta que falla o
+se retira.
 
-### ¿Cómo se compara este patrón con alternativas?
+### ¿Puedo usar una base de datos en lugar de Redis o ZooKeeper?
 
-Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
-
-### ¿Puedo aplicar este patrón parcialmente?
-
-Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+Sí. Los advisory locks de PostgreSQL (`pg_advisory_lock`) y `GET_LOCK()` de MySQL funcionan y no
+requieren infraestructura extra, pero acoplan el locking a tu base de datos y pueden no escalar tan
+bien como un servicio de lock dedicado.

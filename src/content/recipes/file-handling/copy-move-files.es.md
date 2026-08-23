@@ -1,12 +1,9 @@
 ---
-
-
-
 contentType: recipes
 slug: copy-move-files
-title: "Copiar y Mover Archivos"
-description: "Cómo copiar y mover archivos de forma segura y eficiente entre plataformas."
-metaDescription: "Aprende operaciones de copia y movimiento de archivos multiplataforma en Python, JavaScript y Java con verificaciones de seguridad y manejo de errores."
+title: "Cómo Copiar y Mover Archivos con Python, JS, Java y Bash"
+description: "Aprende a copiar y mover archivos multiplataforma con Python, JavaScript, Java y Bash. Incluye movimientos atómicos, checksums, symlinks y patrones batch."
+metaDescription: "Copia y mueve archivos de forma segura en Python, JavaScript, Java y Bash. Usa shutil, fs, NIO y shell con checksums, movimientos atómicos y patrones batch."
 difficulty: beginner
 topics:
   - file-handling
@@ -16,43 +13,50 @@ tags:
   - python
   - javascript
   - java
-  - operations
+  - bash
 relatedResources:
   - /recipes/watch-file-changes
   - /recipes/read-large-files
   - /recipes/write-large-files
-  - /patterns/visitor-pattern
   - /recipes/file-upload-validation
-  - /recipes/python-image-resize-batch
   - /recipes/compress-decompress-files
-  - /recipes/python-zip-file-extraction
   - /recipes/rotate-log-files
-lastUpdated: "2026-06-20"
+lastUpdated: "2026-08-23"
 publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Aprende operaciones de copia y movimiento de archivos multiplataforma en Python, JavaScript y Java con verificaciones de seguridad y manejo de errores."
+  metaDescription: "Copia y mueve archivos de forma segura en Python, JavaScript, Java y Bash. Usa shutil, fs, NIO y shell con checksums, movimientos atómicos y patrones batch."
   keywords:
-    - file-handling
+    - copiar archivos
+    - mover archivos
+    - shutil
     - filesystem
-    - python
-    - javascript
-    - java
-    - operations
-
-
-
+    - batch copy
+    - checksum
+    - multiplataforma
 ---
+
 ## Visión General
 
-Copiar y mover archivos es una operación esencial en automatización, despliegue y pipelines de datos. Hacerlo de forma segura entre plataformas requiere atención a separadores de ruta, permisos y atomicidad. La solucion abajo muestra patrones confiables en Python, JavaScript y Java.
+Copiar y mover archivos parece simple hasta que una transferencia parcial, un error de permisos o un
+renombre entre dispositivos corrompe los datos. Esta receta trae patrones prácticos en Python,
+JavaScript, Java y Bash que cubren sobrescrituras, checksums, symlinks y movimientos atómicos.
 
 ## Cuándo Usar
 
-Usa este recurso cuando:
-- Duplicas archivos de configuración durante despliegues
-- Mueves archivos subidos desde directorios temporales a almacenamiento permanente
-- Archivas o rotas archivos de log programáticamente
+- Necesitas duplicar archivos de configuración durante [despliegues](/recipes/watch-file-changes).
+- Estás moviendo archivos subidos desde directorios temporales a almacenamiento permanente y quieres
+  validarlos primero (consulta la [validación de archivos subidos](/recipes/file-upload-validation)).
+- Quieres [rotar o archivar archivos de log](/recipes/rotate-log-files) automáticamente.
+- Estás copiando archivos en lote antes de [comprimirlos](/recipes/compress-decompress-files).
+
+## Cuándo Evitar
+
+- Si necesitas replicación en tiempo real entre servidores, usa `rsync` o una herramienta de
+  sincronización.
+- Estás moviendo objetos grandes a la nube: el SDK o CLI del proveedor maneja mejor las cargas
+  multipartes.
+- Los usuarios finales necesitan un gestor gráfico de archivos; esto es una receta de scripting.
 
 ## Solución
 
@@ -61,133 +65,33 @@ Usa este recurso cuando:
 ```python
 import shutil
 from pathlib import Path
-
-# Copiar archivo con metadatos
-shutil.copy2('source.txt', 'dest.txt')
-
-# Mover (renombrar) atómicamente dentro del mismo filesystem
-shutil.move('temp.txt', 'final.txt')
-
-# Copia recursiva de directorios
-shutil.copytree('src_dir', 'dst_dir')
-```
-
-### JavaScript
-
-```javascript
-const fs = require('fs').promises;
-const path = require('path');
-
-async function copyFile(src, dest) {
-    await fs.copyFile(src, dest, fs.constants.COPYFILE_EXCL);
-}
-
-async function moveFile(src, dest) {
-    // Renombrado atómico si mismo dispositivo; fallback a copiar+borrar
-    try {
-        await fs.rename(src, dest);
-    } catch {
-        await fs.copyFile(src, dest);
-        await fs.unlink(src);
-    }
-}
-```
-
-### Java
-
-```java
-import java.nio.file.*;
-
-public class FileMover {
-    public void copy(String src, String dest) throws Exception {
-        Files.copy(Path.of(src), Path.of(dest),
-                StandardCopyOption.COPY_ATTRIBUTES,
-                StandardCopyOption.REPLACE_EXISTING);
-    }
-
-    public void move(String src, String dest) throws Exception {
-        Files.move(Path.of(src), Path.of(dest),
-                StandardCopyOption.ATOMIC_MOVE,
-                StandardCopyOption.REPLACE_EXISTING);
-    }
-}
-```
-
-## Explicación
-
-**Copiar** duplica contenido y opcionalmente metadatos. **Mover** dentro del mismo filesystem es típicamente atómico (una actualización de metadatos). Los movimientos entre dispositivos requieren copiar-y-borrar, que no es atómico y puede dejar duplicados ante un fallo. El flag `ATOMIC_MOVE` en Java y `rename` en Node intentan atomicidad, con fallback gracefully.
-
-## Variantes
-
-| Tecnología | Enfoque | Notas |
-|------------|---------|-------|
-| Python | Métodos `pathlib.Path` | Moderno, manejo orientado a objetos de rutas |
-| JavaScript | `ncp` o `fs-extra` | Copia recursiva de directorios con filtros |
-| Java | Apache Commons IO `FileUtils` | Helpers de alto nivel para operaciones batch |
-
-## Lo que funciona
-
-1. Usa `COPYFILE_EXCL` / `COPY_ATTRIBUTES` para preservar permisos y timestamps
-2. Prefiere movimientos atómicos cuando sea posible para evitar archivos parciales
-3. Verifica que el origen existe y el destino es escribible antes de copiar
-4. Maneja errores `EACCES` / `EPERM` gracefulmente con mensajes informativos
-5. Para archivos grandes, verifica integridad con checksums después de copiar
-
-## Errores Comunes
-
-1. Sobrescribir archivos existentes sin confirmación o backups
-2. Ignorar semánticas de movimiento cross-filesystem, causando pérdida de datos ante interrupción
-3. Usar concatenación de strings para rutas en lugar de APIs de rutas, rompiendo en Windows
-4. No manejar symbolic links correctamente (seguir vs. copiar el link)
-5. Mover archivos abiertos, lo que puede causar corrupción o bloqueos
-
-## Soluciones Avanzadas
-
-### Python: Copia avanzada con validación
-
-```python
-import shutil
 import hashlib
-import os
-from pathlib import Path
-from typing import Optional
 
-def safe_copy(src: str | Path, dest: str | Path,
-              overwrite: bool = False,
-              verify: bool = True,
-              follow_symlinks: bool = False) -> Path:
-    """Copia un archivo con verificación opcional de checksum y protección contra sobrescritura."""
-    src = Path(src)
-    dest = Path(dest)
-
+def safe_copy(src, dest, *, overwrite=False, verify=True, follow_symlinks=False):
+    """Copia un archivo, preservando metadatos y verificando integridad opcionalmente."""
+    src, dest = Path(src), Path(dest)
     if not src.exists():
         raise FileNotFoundError(f"Origen no encontrado: {src}")
     if dest.exists() and not overwrite:
         raise FileExistsError(f"Destino existe: {dest}")
     dest.parent.mkdir(parents=True, exist_ok=True)
 
-    # Copiar preservando metadatos
     if src.is_symlink() and not follow_symlinks:
-        dest.symlink_to(os.readlink(src))
+        dest.symlink_to(Path(src).readlink())
     else:
         shutil.copy2(src, dest)
 
-    # Verificar que los checksums coincidan
     if verify and not src.is_symlink():
         src_hash = hashlib.sha256(src.read_bytes()).hexdigest()
         dest_hash = hashlib.sha256(dest.read_bytes()).hexdigest()
         if src_hash != dest_hash:
             dest.unlink()
-            raise IOError(f"Checksum no coincide después de copiar: {src} -> {dest}")
-
+            raise IOError(f"Checksum no coincide: {src} -> {dest}")
     return dest
 
-def safe_move(src: str | Path, dest: str | Path,
-              overwrite: bool = False) -> Path:
-    """Mueve un archivo con renombrado atómico en mismo filesystem, copiar+borrar en caso contrario."""
-    src = Path(src)
-    dest = Path(dest)
-
+def safe_move(src, dest, *, overwrite=False):
+    """Mueve un archivo, usando copiar+borrar si está entre filesystems."""
+    src, dest = Path(src), Path(dest)
     if not src.exists():
         raise FileNotFoundError(f"Origen no encontrado: {src}")
     if dest.exists() and not overwrite:
@@ -197,162 +101,105 @@ def safe_move(src: str | Path, dest: str | Path,
     try:
         shutil.move(str(src), str(dest))
     except shutil.Error:
-        # Cross-filesystem: copiar y luego borrar
-        shutil.copy2(src, dest)
+        safe_copy(src, dest, overwrite=overwrite, verify=True)
         src.unlink()
     return dest
 
-def batch_copy(src_dir: str | Path, dest_dir: str | Path,
-               pattern: str = "*",
-               overwrite: bool = False) -> list[Path]:
+def batch_copy(src_dir, dest_dir, pattern="*", *, overwrite=False):
     """Copia todos los archivos que coinciden con un patrón de src_dir a dest_dir."""
-    src_dir = Path(src_dir)
-    dest_dir = Path(dest_dir)
+    src_dir, dest_dir = Path(src_dir), Path(dest_dir)
     dest_dir.mkdir(parents=True, exist_ok=True)
-
     copied = []
     for file in src_dir.glob(pattern):
         if file.is_file():
-            dest = safe_copy(file, dest_dir / file.name, overwrite=overwrite)
-            copied.append(dest)
+            copied.append(safe_copy(file, dest_dir / file.name, overwrite=overwrite))
     return copied
-
-# Uso
-# safe_copy('config.yaml', '/etc/app/config.yaml', overwrite=True)
-# batch_copy('/data/incoming', '/data/processed', '*.csv')
 ```
 
-### JavaScript: Copia recursiva con progreso
+### JavaScript
 
 ```javascript
 const fs = require('fs').promises;
 const path = require('path');
 const crypto = require('crypto');
 
-async function copyWithChecksum(src, dest) {
-    await fs.copyFile(src, dest);
-
-    const srcHash = crypto.createHash('sha256');
-    const destHash = crypto.createHash('sha256');
-
-    const srcData = await fs.readFile(src);
-    const destData = await fs.readFile(dest);
-
-    srcHash.update(srcData);
-    destHash.update(destData);
-
-    if (srcHash.digest('hex') !== destHash.digest('hex')) {
-        await fs.unlink(dest);
-        throw new Error(`Checksum no coincide: ${src} -> ${dest}`);
-    }
+async function sha256(file) {
+  const data = await fs.readFile(file);
+  return crypto.createHash('sha256').update(data).digest('hex');
 }
 
-async function copyDirectory(src, dest, { recursive = true, filter = null } = {}) {
-    const entries = await fs.readdir(src, { withFileTypes: true });
-    await fs.mkdir(dest, { recursive: true });
-
-    for (const entry of entries) {
-        const srcPath = path.join(src, entry.name);
-        const destPath = path.join(dest, entry.name);
-
-        if (filter && !filter(entry.name)) continue;
-
-        if (entry.isDirectory() && recursive) {
-            await copyDirectory(srcPath, destPath, { recursive, filter });
-        } else if (entry.isFile()) {
-            await fs.copyFile(srcPath, destPath);
-        } else if (entry.isSymbolicLink()) {
-            const linkTarget = await fs.readlink(srcPath);
-            await fs.symlink(linkTarget, destPath);
-        }
-    }
+async function copyWithChecksum(src, dest) {
+  // COPYFILE_FICLONE intenta un clon copy-on-write cuando se soporta
+  await fs.copyFile(src, dest, fs.constants.COPYFILE_FICLONE);
+  if (await sha256(src) !== await sha256(dest)) {
+    await fs.unlink(dest);
+    throw new Error(`Checksum no coincide: ${src} -> ${dest}`);
+  }
 }
 
 async function moveWithFallback(src, dest) {
-    try {
-        await fs.rename(src, dest);
-    } catch (err) {
-        if (err.code === 'EXDEV') {
-            // Cross-device: copiar y luego borrar
-            const stat = await fs.stat(src);
-            if (stat.isDirectory()) {
-                await copyDirectory(src, dest);
-                await fs.rm(src, { recursive: true });
-            } else {
-                await fs.copyFile(src, dest);
-                await fs.unlink(src);
-            }
-        } else {
-            throw err;
-        }
+  try {
+    await fs.rename(src, dest);  // atómico si es el mismo filesystem
+  } catch (err) {
+    if (err.code === 'EXDEV') {
+      const stat = await fs.stat(src);
+      if (stat.isDirectory()) {
+        await fs.cp(src, dest, { recursive: true });  // Node 16.7+
+        await fs.rm(src, { recursive: true });
+      } else {
+        await copyWithChecksum(src, dest);
+        await fs.unlink(src);
+      }
+    } else {
+      throw err;
     }
+  }
 }
-
-// Uso
-// copyWithChecksum('data.csv', '/backup/data.csv');
-// copyDirectory('./src', './dist', { filter: name => name.endsWith('.js') });
 ```
 
-### Java: Copia batch con NIO y callback de progreso
+### Java
 
 ```java
 import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileOperations {
+public class FileCopier {
 
-    public static List<Path> batchCopy(Path srcDir, Path destDir,
-                                        String glob, boolean overwrite) throws Exception {
-        List<Path> copied = new ArrayList<>();
-        PathMatcher matcher = srcDir.getFileSystem().getPathMatcher("glob:" + glob);
-
-        Files.walkFileTree(srcDir, new SimpleFileVisitor<>() {
-            @Override
-            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-                if (matcher.matches(file.getFileName())) {
-                    try {
-                        Path dest = destDir.resolve(srcDir.relativize(file));
-                        Files.createDirectories(dest.getParent());
-                        var options = new java.util.ArrayList<CopyOption>();
-                        options.add(StandardCopyOption.COPY_ATTRIBUTES);
-                        if (overwrite) options.add(StandardCopyOption.REPLACE_EXISTING);
-                        Files.copy(file, dest, options.toArray(new CopyOption[0]));
-                        copied.add(dest);
-                    } catch (Exception e) {
-                        throw new RuntimeException("Copia falló: " + file, e);
-                    }
-                }
-                return FileVisitResult.CONTINUE;
-            }
-        });
-        return copied;
+    public static void copyWithAttributes(Path src, Path dest, boolean overwrite) throws Exception {
+        List<CopyOption> options = new ArrayList<>();
+        options.add(StandardCopyOption.COPY_ATTRIBUTES);
+        if (overwrite) options.add(StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(src, dest, options.toArray(new CopyOption[0]));
     }
 
-    public static String checksum(Path file) throws Exception {
+    public static void moveWithFallback(Path src, Path dest, boolean overwrite) throws Exception {
+        List<CopyOption> options = new ArrayList<>();
+        if (overwrite) options.add(StandardCopyOption.REPLACE_EXISTING);
+
+        try {
+            // ATOMIC_MOVE solo funciona dentro del mismo filesystem
+            options.add(StandardCopyOption.ATOMIC_MOVE);
+            Files.move(src, dest, options.toArray(new CopyOption[0]));
+        } catch (AtomicMoveNotSupportedException e) {
+            options.remove(StandardCopyOption.ATOMIC_MOVE);
+            copyWithAttributes(src, dest, overwrite);
+            Files.deleteIfExists(src);
+        }
+    }
+
+    public static String sha256(Path file) throws Exception {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
-        byte[] data = Files.readAllBytes(file);
-        byte[] hash = md.digest(data);
+        byte[] hash = md.digest(Files.readAllBytes(file));
         StringBuilder sb = new StringBuilder();
         for (byte b : hash) sb.append(String.format("%02x", b));
         return sb.toString();
     }
-
-    public static void verifyCopy(Path src, Path dest) throws Exception {
-        if (!checksum(src).equals(checksum(dest))) {
-            Files.deleteIfExists(dest);
-            throw new IOException("Checksum no coincide: " + src + " -> " + dest);
-        }
-    }
 }
-
-// Uso
-// FileOperations.batchCopy(Path.of("./incoming"), Path.of("./processed"), "*.csv", true);
 ```
 
-### Bash: Copia segura con verificación de checksum
+### Bash
 
 ```bash
 #!/usr/bin/env bash
@@ -373,7 +220,6 @@ safe_copy() {
     mkdir -p "$(dirname "$dest")"
     cp -p "$src" "$dest"
 
-    # Verificar checksums
     local src_sum dest_sum
     src_sum=$(sha256sum "$src" | cut -d' ' -f1)
     dest_sum=$(sha256sum "$dest" | cut -d' ' -f1)
@@ -387,7 +233,6 @@ safe_copy() {
     echo "OK: $src -> $dest (verificado)"
 }
 
-# Copia batch con coincidencia de patrón
 batch_copy() {
     local src_dir="$1"
     local dest_dir="$2"
@@ -401,25 +246,79 @@ batch_copy() {
     done
     echo "Copiados $count archivos"
 }
-
-# Uso
-# safe_copy config.yaml /etc/app/config.yaml true
-# batch_copy /data/incoming /data/processed "*.csv"
 ```
 
+## Explicación
 
+Copiar duplica contenido y, opcionalmente, metadatos. Mover dentro del mismo filesystem suele ser un
+renombre rápido y atómico del inode. Los movimientos entre dispositivos tienen que copiar los bytes
+primero y luego borrar el origen; si algo falla a mitad de camino, puedes terminar con un archivo
+parcial o un duplicado.
+
+El flag `ATOMIC_MOVE` de Java y `fs.rename` de Node solo garantizan atomicidad cuando origen y
+destino están en el mismo filesystem. Para escrituras críticas, un patrón común es escribir a un
+archivo temporal en el directorio destino y luego renombrarlo sobre el objetivo.
+
+## Variantes
+
+| Tecnología | Enfoque | Mejor para |
+| ------------ | --------- | ------------ |
+| **Python** | `shutil` + `pathlib` | Scripts multiplataforma y pipelines de datos |
+| **JavaScript** | `fs.promises` / `fs.cp` | Tooling de Node.js y scripts de CI |
+| **Java** | `java.nio.file.Files` | Servicios de producción que necesitan opciones tipadas |
+| **Bash** | `cp`, `mv`, `sha256sum` | Tareas rápidas de sysadmin y cron jobs |
+
+Otras variantes útiles incluyen `sendfile`/`copy_file_range` para copias a nivel de kernel en Linux,
+`fs-extra` para copias recursivas con filtros en Node.js, y Apache Commons IO `FileUtils` para
+helpers batch de más alto nivel en Java.
+
+## Mejores Prácticas
+
+- Verifica siempre las sobrescrituras con `COPYFILE_EXCL` o un flag explícito, para no reemplazar
+  datos sin darte cuenta.
+- Para archivos críticos, escribe en un archivo temporal del mismo directorio y luego muévelo al
+  nombre final.
+- Verifica checksums en archivos grandes, copias por red o cualquier operación donde perder datos te
+  costaría caro.
+- Crea los directorios padre antes de escribir, o la operación fallará con "No such file or
+  directory".
+- Decide la política de symlinks desde el inicio: síguelos para backups, copia el enlace para
+  preservar la estructura.
+- Maneja movimientos `EXDEV`/entre dispositivos con un fallback de copiar y borrar.
+
+## Errores Comunes
+
+- Sobrescribir archivos existentes antes de confirmar o sin backup.
+- Asumir que `move` es atómico cuando origen y destino están en distintos filesystems o particiones.
+- Construir rutas a mano concatenando strings en lugar de usar `pathlib`, `path.join` o `Path.resolve`.
+- Ignorar symlinks, de modo que un backup capture el enlace en lugar del contenido, o el contenido
+  en lugar del enlace.
+- Mover archivos que otro proceso aún sigue escribiendo.
+- Olvidarte de crear el directorio destino y recibir un error críptico de "No such file or
+  directory".
 
 ## Preguntas Frecuentes
 
 ### ¿Es `move` siempre atómico?
 
-Solo dentro del mismo filesystem. Los movimientos entre dispositivos requieren copiar-y-borrar y son inherentemente no atómicos. Usa transacciones o patrones de renombrado con archivo temp para operaciones críticas.
+Solo un `move` dentro del mismo filesystem es atómico. Los movimientos entre dispositivos son copiar
+y borrar, y pueden interrumpirse. Cuando los lectores necesiten una actualización todo-o-nada,
+escribe un archivo temporal y colócalo renombrándolo.
 
 ### ¿Cómo copio directorios recursivamente?
 
-Python: `shutil.copytree()`. JavaScript: `fs.cp()` (Node 16.7+) o `fs-extra.copy()`. Java: Apache Commons IO `FileUtils.copyDirectory()`.
+En Python, usa `shutil.copytree()`. En JavaScript, usa `fs.cp(src, dest, { recursive: true })`
+(Node 16.7+) o `fs-extra.copy()`. En Java, usa `Files.walkFileTree()` o Apache Commons IO
+`FileUtils.copyDirectory()`. En Bash, `cp -r` sirve para copias rápidas; `rsync -a` preserva
+permisos y puede reanudar transferencias interrumpidas.
 
 ### ¿Debo seguir symlinks al copiar?
 
-Depende. Para backups, sigue symlinks para capturar contenido. Para preservar estructura, copia el symlink mismo. Los tres lenguajes ofrecen flags para controlar este comportamiento.
+La respuesta depende del caso. Si haces backups, sigue symlinks para copiar el contenido real. Si
+quieres preservar la estructura exacta, copia el symlink mismo. Python, Java y Node exponen flags
+que te permiten decidir.
 
+### ¿Qué hago si falla un checksum?
+
+Borra la copia de destino, revisa que el origen no esté corrupto y reintenta. No conserves un
+archivo si su hash no coincide con el original.

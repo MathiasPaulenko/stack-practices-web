@@ -2,8 +2,8 @@
 contentType: recipes
 slug: event-sourcing-relational
 title: "Implement Event Sourcing in a Relational Database"
-description: "Build event sourcing systems using relational databases with event stores, projections, and snapshotting for audit and temporal querying."
-metaDescription: "Implement event sourcing in a relational database. Event stores, projections, and snapshotting patterns with PostgreSQL, MySQL, and SQL Server examples."
+description: "Build event sourcing in a relational database. Store immutable events, project read models, and use snapshots with PostgreSQL, MySQL, and SQL Server."
+metaDescription: "Build event sourcing in a relational database. Store immutable events, project read models, and use snapshots with PostgreSQL, MySQL, and SQL Server."
 difficulty: advanced
 topics:
   - databases
@@ -11,43 +11,53 @@ tags:
   - database
   - event-sourcing
   - event-store
+  - postgresql
+  - mysql
   - sql
+  - cqrs
 relatedResources:
   - /recipes/database-deadlocks-retries
   - /recipes/database-read-replicas
-  - /recipes/full-text-search
   - /patterns/event-sourcing-pattern
-  - /docs/database-migration-runbook-template
   - /recipes/caching-redis
   - /recipes/database-migrations-safely
-lastUpdated: "2026-06-12"
+  - /recipes/database-transactions
+lastUpdated: "2026-08-23"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Implement event sourcing in a relational database. Event stores, projections, and snapshotting patterns with PostgreSQL, MySQL, and SQL Server examples."
+  metaDescription: "Build event sourcing in a relational database. Store immutable events, project read models, and use snapshots with PostgreSQL, MySQL, and SQL Server."
   keywords:
-    - event-sourcing
-    - event-store
+    - event sourcing
+    - event store
+    - relational database
     - projections
     - snapshotting
     - postgresql
-    - relational
-
-
 ---
+
 ## Overview
 
-Event sourcing stores state changes as a sequence of immutable events rather than overwriting current state. Instead of saving `balance = 100`, you record `Deposited $50` and `Deposited $50`. The current state is derived by replaying all events. This provides a complete audit trail, temporal querying, and the ability to reconstruct state at any point in time.
+Event sourcing stores state changes as a sequence of immutable events instead of overwriting current
+state. Rather than saving `balance = 100`, you record `Deposited $50` and `Deposited $50`. You get the
+current state by replaying those events. That gives you a full audit trail, temporal queries, and the
+option to reconstruct state for any point in time.
 
-The code below implements an event store, projections (read models), and snapshotting using PostgreSQL, MySQL, and SQL Server.
+Below you'll find examples for PostgreSQL, MySQL, and SQL Server that build an event store, projections,
+and snapshotting.
 
 ## When to Use
 
-Use this resource when:
-- You need a complete [audit trail](/recipes/logging/) of all state changes (finance, compliance)
-- Temporal queries are required: "What was the inventory level 30 days ago?" See [Date Formatting](/recipes/date-formatting/) for time-based queries.
-- You want to decouple write and read models ([CQRS](/patterns/cqrs-pattern/))
-- Rebuilding read models from scratch is preferable to complex schema migrations
+Use event sourcing when you need a complete [audit trail](/recipes/logging/) of every state change, such as
+in finance or compliance. It also helps when temporal queries matter, like "What was the inventory level 30
+days ago?" It's a good fit if you want to decouple write and read models with [CQRS](/patterns/cqrs-pattern/),
+or if rebuilding read models from scratch is simpler than maintaining complex schema migrations.
+
+## When to Avoid
+
+Skip it when your domain has simple CRUD needs and no audit or replay requirements. Avoid it if storage
+cost is a hard constraint and you don't have an archiving or retention plan. It also isn't a great fit if
+your team isn't ready to handle event schema evolution and eventual consistency in projections.
 
 ## Solution
 
@@ -55,8 +65,11 @@ Use this resource when:
 
 ```python
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from uuid import uuid4
+
+class ConcurrencyException(Exception):
+    pass
 
 class EventStore:
     def __init__(self, conn):
@@ -64,7 +77,6 @@ class EventStore:
 
     def append(self, aggregate_id, event_type, payload, expected_version=None):
         with self.conn.cursor() as cur:
-            # Optimistic concurrency check
             cur.execute(
                 "SELECT COUNT(*) FROM events WHERE aggregate_id = %s",
                 (aggregate_id,)
@@ -72,13 +84,15 @@ class EventStore:
             current_version = cur.fetchone()[0]
 
             if expected_version is not None and current_version != expected_version:
-                raise ConcurrencyException(f"Expected {expected_version}, found {current_version}")
+                raise ConcurrencyException(
+                    f"Expected {expected_version}, found {current_version}"
+                )
 
             cur.execute("""
                 INSERT INTO events (id, aggregate_id, event_type, payload, version, occurred_at)
                 VALUES (%s, %s, %s, %s, %s, %s)
             """, (str(uuid4()), aggregate_id, event_type, json.dumps(payload),
-                  current_version + 1, datetime.utcnow()))
+                  current_version + 1, datetime.now(timezone.utc)))
             self.conn.commit()
 
     def get_events(self, aggregate_id):
@@ -92,7 +106,6 @@ class EventStore:
                 "version": row[2], "occurred_at": row[3]
             } for row in cur.fetchall()]
 
-# Projection (read model)
 def rebuild_account_balance(conn, account_id):
     store = EventStore(conn)
     events = store.get_events(account_id)
@@ -109,6 +122,8 @@ def rebuild_account_balance(conn, account_id):
 
 ```javascript
 const { v4: uuidv4 } = require('uuid');
+
+class ConcurrencyException extends Error {}
 
 class EventStore {
   constructor(pool) {
@@ -127,7 +142,9 @@ class EventStore {
       const currentVersion = rows[0].count;
 
       if (expectedVersion !== null && currentVersion !== expectedVersion) {
-        throw new Error(`Concurrency conflict: expected ${expectedVersion}`);
+        throw new ConcurrencyException(
+          `Expected ${expectedVersion}, found ${currentVersion}`
+        );
       }
 
       await conn.execute(
@@ -157,7 +174,6 @@ class EventStore {
   }
 }
 
-// Snapshot to avoid replaying all events
 async function getBalanceWithSnapshot(pool, accountId) {
   const [snapshots] = await pool.execute(
     'SELECT * FROM snapshots WHERE aggregate_id = ? ORDER BY version DESC LIMIT 1',
@@ -188,6 +204,19 @@ async function getBalanceWithSnapshot(pool, accountId) {
 ### Java (SQL Server with Spring)
 
 ```java
+import jakarta.persistence.*;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+class ConcurrencyException extends RuntimeException {
+    ConcurrencyException(String message) { super(message); }
+}
+
 @Entity
 @Table(name = "events")
 public class EventEntity {
@@ -198,11 +227,20 @@ public class EventEntity {
     private String payload;
     private int version;
     private Instant occurredAt;
+
+    // getters and setters omitted for brevity
+}
+
+interface EventRepository {
+    int countByAggregateId(UUID aggregateId);
+    List<EventEntity> findByAggregateIdOrderByVersionAsc(UUID aggregateId);
 }
 
 @Service
 public class EventStore {
-    @Autowired private EventRepository repo;
+    private final EventRepository repo;
+
+    public EventStore(EventRepository repo) { this.repo = repo; }
 
     @Transactional
     public void append(UUID aggregateId, String eventType, String payload, Integer expectedVersion) {
@@ -226,11 +264,34 @@ public class EventStore {
     }
 }
 
-// Snapshot service
+class AccountState {
+    private int balance;
+    AccountState(int balance) { this.balance = balance; }
+    public int getBalance() { return balance; }
+    public void setBalance(int balance) { this.balance = balance; }
+}
+
+interface SnapshotRepository {
+    Optional<Snapshot> findTopByAggregateIdOrderByVersionDesc(UUID aggregateId);
+}
+
+class Snapshot {
+    private UUID aggregateId;
+    private int version;
+    private AccountState state;
+    public int getVersion() { return version; }
+    public AccountState getState() { return state; }
+}
+
 @Service
 public class SnapshotService {
-    @Autowired private EventStore eventStore;
-    @Autowired private SnapshotRepository snapshotRepo;
+    private final EventStore eventStore;
+    private final SnapshotRepository snapshotRepo;
+
+    public SnapshotService(EventStore eventStore, SnapshotRepository snapshotRepo) {
+        this.eventStore = eventStore;
+        this.snapshotRepo = snapshotRepo;
+    }
 
     public AccountState rebuildState(UUID accountId) {
         Optional<Snapshot> snapshot = snapshotRepo
@@ -249,107 +310,79 @@ public class SnapshotService {
         }
         return state;
     }
+
+    private AccountState applyEvent(AccountState state, EventEntity event) {
+        // apply event payload to state
+        return state;
+    }
 }
 ```
 
 ## Explanation
 
-Event sourcing inverts traditional CRUD: instead of storing the current state, you store the history of changes. Key concepts:
-- **Event store**: An append-only log of domain events
-- **Aggregate**: The boundary of consistency; each aggregate has its own event stream
-- **Projection**: A derived read model built by replaying events
-- **Snapshot**: A periodic state capture to avoid replaying thousands of events
+Event sourcing flips the usual CRUD model on its head. Rather than storing the latest state, you store the
+history of changes. You get the current state by replaying that history.
 
-The relational database schema is simple: an `events` table with `aggregate_id`, `event_type`, `payload` (JSON), `version`, and `occurred_at`.
+The four core concepts are the **event store**, which is an append-only log of domain events; the
+**aggregate**, which marks the consistency boundary and owns its own stream of events; the **projection**,
+which is a read model built by replaying events; and the **snapshot**, which is a periodic state capture
+that prevents replaying thousands of events.
+
+The database schema stays intentionally simple. An `events` table holds `aggregate_id`, `event_type`, a JSON
+`payload`, `version`, and `occurred_at`. The version column is what makes optimistic concurrency possible.
+New events are appended, never updated or deleted. Projections read the stream and apply each event to
+build a read model.
+A snapshot captures state at a specific version, so the system only replays newer events.
 
 ## Variants
 
 | Storage | Schema Flexibility | Query Speed | Best For |
-|---------|-------------------|-------------|----------|
-| PostgreSQL + JSONB | High | Medium | General purpose, rich JSON support |
-| MySQL + JSON | High | Medium | Existing MySQL infrastructure |
-| SQL Server | Medium | Fast | Enterprise, T-SQL projections |
-| Dedicated (EventStoreDB) | Native | Very fast | Large-scale event sourcing |
+| --------- | ------------------- | ------------- | ---------- |
+| **PostgreSQL + JSONB** | High | Medium | General purpose, rich JSON support |
+| **MySQL + JSON** | High | Medium | Existing MySQL infrastructure |
+| **SQL Server** | Medium | Fast | Enterprise, T-SQL projections |
+| **EventStoreDB** | Native | Very fast | Large-scale event sourcing |
 
-## What Works
+## Best Practices
 
-- **Version every event**: Optimistic concurrency control prevents lost updates
-- **Use JSONB/JSON for payloads**: Schema flexibility without migrations; validate at the application layer.  See [Parse JSON](/recipes/parse-json/) for structured data.
-- **Create snapshots every N events**: Balance between storage and replay performance
-- **Keep events small**: Large payloads slow down replay and increase storage
-- **Separate projections from the event store**: Projections can be rebuilt; events are the source of truth.  See [Redis Caching](/recipes/caching-redis/) for read-model caching.
+Version every event and use optimistic concurrency checks to prevent lost updates. Store payloads as JSONB
+or JSON to keep schema flexibility and validate at the application layer. See
+[parse JSON](/recipes/parse-json/) for working with structured payloads. Take snapshots every N events, or
+when replay time starts to degrade, to balance storage and read performance. Keep each event small and
+focused on one thing, because large payloads slow down replay and increase storage. Separate projections
+from the event store and rebuild them when needed; events are the source of truth. Use
+[Redis caching](/recipes/caching-redis/) for read-model caching. Apply every event inside a transaction when
+you also write a projection, or keep projections asynchronous and eventual. See
+[database transactions](/recipes/database-transactions/) for atomic writes.
 
 ## Common Mistakes
 
-- **Not versioning events**: Without version numbers, you can't detect concurrent modifications
-- **Storing current state AND events**: This creates dual writes and consistency risks.  See [Database Transactions](/recipes/database-transactions/) for atomic writes.
-- **Replaying all events on every read**: Use snapshots or dedicated projection tables
-- **Mutable events**: Events must be immutable — never update or delete historical events
-- **Missing event schema evolution**: Old events need migration strategies as the domain model changes
-
-
-## Troubleshooting
-
-- **Query is slow after an index change**: check execution plans and cardinality estimates.  Rebuild statistics and verify the index is being used.
-- **Replication lag grows**: monitor network, disk I/O, and long transactions.  Split large writes and consider parallel replication.
-- **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections.
-- **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling.
-- **Deadlocks in high concurrency**: access tables and rows in a consistent order.
-
-
-
-
-## Further Reading
-
-- **Official documentation**: check the current reference for the framework or tool used.
-- **Related guides**: explore the database and event-sourcing guides for deeper coverage.
-- **Complementary patterns**: review design patterns applicable to your technology stack.
-- **Public postmortems**: study real incidents from teams that faced similar production issues.
-
-## Production Notes
-
-- **Deploy gradually** using canary or blue-green to catch regressions early.
-- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
-- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
-- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
-
-## Key Takeaways
-
-- **Apply implement event sourcing in a relational database** when you need a practical solution for your use case.
-- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
-- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
-- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+Not versioning events makes concurrent modifications impossible to detect. Storing current state alongside
+events creates dual writes and consistency risks. Replaying every event on every read, without snapshots or
+dedicated projection tables, kills read performance. Treating events as mutable is a mistake: historical
+events should never be changed or deleted. Ignoring event schema evolution also hurts; older events need a
+migration strategy as the domain model changes.
 
 ## FAQ
 
-**Q: Doesn't event sourcing use too much storage?**
-A: Events are typically small (hundreds of bytes). For a system with 1M transactions/day, that's ~100MB/day. With compression and archiving, storage costs are usually negligible compared to the audit value.
+### Doesn't event sourcing use too much storage?
 
-**Q: How do I handle schema changes in events?**
-A: Use event versioning (`Deposit_v1`, `Deposit_v2`) or upcasting — transform old events to new schema during replay. Never modify stored events.
+Individual events are usually small, often just a few hundred bytes. If you handle one million transactions
+per day, that's roughly 100 MB per day. With compression and archiving, storage costs tend to be tiny next
+to the audit value.
 
-**Q: Can I use event sourcing with CQRS?**
-A: Yes — CQRS and event sourcing pair naturally. Commands append events to the write model; projections create optimized read models. The read model can be in a completely different database (Elasticsearch, Redis, etc.).
+### How do I handle schema changes in events?
 
-### Is this solution production-ready?
+Use event versioning, such as `Deposit_v1` and `Deposit_v2`, or upcasting. Upcasting transforms old events
+to the new schema during replay. Never modify stored events.
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+### Can I use event sourcing with CQRS?
 
-### What are the performance characteristics?
+Yes. CQRS and event sourcing pair naturally. Commands append events to the write model, while projections
+build optimized read models. Those read models can live in a different database, such as Elasticsearch or
+Redis.
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+### How do I choose snapshot frequency?
 
-### How do I debug issues with this approach?
-
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
-
-## Common Production Pitfalls
-
-- Copying the example without adapting it to real data volumes and failure modes.
-- Skipping load and error-injection tests before the first production deployment.
-- Hard-coding values that should be configurable per environment.
-- Forgetting to add logging and monitoring at each step.
-- Deploying without a rollback plan or a tested backup strategy.
-- Assuming the minimal example will scale without adding caching or batching.
-- Not documenting the version and configuration used in production.
-- Letting the recipe sit unchanged when dependencies or scale evolve.
+Take a snapshot when replaying an aggregate takes longer than your read model can tolerate. A common
+starting point is every 100 or 1,000 events, tuned by measuring replay latency for your workload.

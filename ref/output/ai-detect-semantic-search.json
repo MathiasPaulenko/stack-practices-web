@@ -1,0 +1,357 @@
+[
+  {
+    "label": "semantic-search-en",
+    "model": "desklib",
+    "model_ai_pct": 39.9,
+    "ai_count": 13,
+    "human_count": 41,
+    "skipped_count": 4,
+    "total": 58,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.9,
+      "stddev": 13.1,
+      "cv": 0.88,
+      "verdict": "natural variation",
+      "sentence_count": 54,
+      "lengths": [
+        33,
+        23,
+        20,
+        12,
+        11,
+        11,
+        18,
+        9,
+        11,
+        11,
+        10,
+        5,
+        10,
+        16,
+        16,
+        10,
+        16,
+        20,
+        7,
+        10,
+        20,
+        9,
+        14,
+        16,
+        15,
+        12,
+        14,
+        104,
+        8,
+        16,
+        15,
+        9,
+        10,
+        10,
+        15,
+        12,
+        9,
+        10,
+        5,
+        14,
+        16,
+        10,
+        9,
+        7,
+        15,
+        11,
+        19,
+        14,
+        16,
+        12,
+        17,
+        12,
+        19,
+        13
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "A lightweight version that computes cosine similarity in plain JavaScript.",
+        0.7885
+      ],
+      [
+        "sentence-transformers includes open-source models such as all-MiniLM-L6-v2 that run on CPU.",
+        0.7461
+      ],
+      [
+        "**No relevance threshold.** Set a similarity floor so low-score results don't pollute the output.",
+        0.7014
+      ],
+      [
+        "Cosine similarity is just the angle between two vectors.",
+        0.654
+      ],
+      [
+        "You've got at least a few thousand documents, so a better ranking model is worth the extra infrastructure.",
+        0.6506
+      ],
+      [
+        "A score near 1.0 means the vectors point in a similar direction; near\n0.0, they're unrelated.",
+        0.6502
+      ],
+      [
+        "Don't translate the query first \u2014 translation adds latency and can introduce errors.",
+        0.6142
+      ],
+      [
+        "Those\nmodels are smaller and slightly less general than OpenAI's, but they're free and keep data on your machine.",
+        0.5905
+      ],
+      [
+        "For exact matches, keyword search is usually faster and more\naccurate.",
+        0.5775
+      ],
+      [
+        "A single vector for a 5,000-token document loses local detail.",
+        0.5772
+      ],
+      [
+        "**Cache frequent query embeddings** to reduce API cost and latency.",
+        0.535
+      ],
+      [
+        "**Brute-force search at scale.** Scanning millions of vectors linearly is too slow.",
+        0.511
+      ],
+      [
+        "Switch to an index such as\n  IVF or HNSW.",
+        0.5104
+      ],
+      [
+        "Network embedding calls and ANN indexes rarely hit that budget.",
+        0.4991
+      ],
+      [
+        "**Store metadata** such as category, source, and date so you can filter before the vector search.",
+        0.4915
+      ],
+      [
+        "Users are searching exact IDs, SKUs, or error codes.",
+        0.4538
+      ],
+      [
+        "Those vectors go into an index built for nearest-neighbor search.",
+        0.445
+      ],
+      [
+        "This is the cheapest way to start: the model runs locally and FAISS lives in memory.",
+        0.4437
+      ],
+      [
+        "**Ignoring token limits.** Every embedding model caps the input length.",
+        0.4275
+      ],
+      [
+        "L2 normalization lets you use fast inner-product indexes.",
+        0.4146
+      ],
+      [
+        "Keyword search matches exact terms, the way BM25 does.",
+        0.4138
+      ],
+      [
+        "**Chunk long documents** instead of embedding the whole text.",
+        0.4008
+      ],
+      [
+        "For a production service, store embeddings in PostgreSQL with pgvector and query them through Spring AI.",
+        0.3945
+      ],
+      [
+        "| Technology | Approach | Best For |\n| ------------ | ---------- | ---------- |\n| **sentence-transformers** | Local, free models | Prototyping and privacy-sensitive apps |\n| **Open",
+        0.3935
+      ],
+      [
+        "Partition by\ncategory or tenant, and use approximate nearest-neighbor (ANN) search for sub-second queries at scale.",
+        0.3812
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "semantic-search-es",
+    "model": "desklib",
+    "model_ai_pct": 38.8,
+    "ai_count": 14,
+    "human_count": 43,
+    "skipped_count": 2,
+    "total": 59,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 16.0,
+      "stddev": 14.3,
+      "cv": 0.89,
+      "verdict": "natural variation",
+      "sentence_count": 57,
+      "lengths": [
+        25,
+        16,
+        25,
+        17,
+        16,
+        15,
+        11,
+        15,
+        10,
+        13,
+        11,
+        8,
+        13,
+        6,
+        13,
+        17,
+        18,
+        10,
+        17,
+        20,
+        10,
+        12,
+        23,
+        8,
+        16,
+        18,
+        18,
+        14,
+        18,
+        117,
+        10,
+        15,
+        14,
+        10,
+        11,
+        12,
+        16,
+        15,
+        7,
+        11,
+        5,
+        16,
+        18,
+        11,
+        5,
+        11,
+        8,
+        18,
+        10,
+        21,
+        16,
+        21,
+        15,
+        21,
+        12,
+        21,
+        13
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Si tienes varios miles de documentos, un mejor modelo de ranking merece la infraestructura extra.",
+        0.9668
+      ],
+      [
+        "**B\u00fasqueda fuerza bruta a escala.** A escala, escanear millones de vectores linealmente es muy lento.",
+        0.8823
+      ],
+      [
+        "Un solo vector para un documento de\n  5.000 tokens pierde detalle.",
+        0.848
+      ],
+      [
+        "sentence-transformers incluye modelos abiertos como all-MiniLM-L6-v2 que corren en CPU.",
+        0.7608
+      ],
+      [
+        "Un score de similitud vectorial es m\u00e1s dif\u00edcil de\n  explicar que destacar t\u00e9rminos.",
+        0.6968
+      ],
+      [
+        "Una versi\u00f3n ligera que calcula similitud coseno con JavaScript puro.",
+        0.6539
+      ],
+      [
+        "Pasa a un \u00edndice\n  IVF o HNSW.",
+        0.6505
+      ],
+      [
+        "Tambi\u00e9n incluye ejemplos en JavaScript y Java para\nintegrarlos en un servicio web o una aplicaci\u00f3n Spring.",
+        0.6007
+      ],
+      [
+        "Con vectores L2-normalizados, los \u00edndices de\n  producto interno corren r\u00e1pido.",
+        0.5734
+      ],
+      [
+        "La b\u00fasqueda por palabras clave es r\u00e1pida y precisa con terminolog\u00eda\nconocida; la sem\u00e1ntica maneja sin\u00f3nimos y parafraseo.",
+        0.5521
+      ],
+      [
+        "Las consultas usan sin\u00f3nimos, parafraseo o lenguaje natural; una b\u00fasqueda por palabras clave no los empareja.",
+        0.5277
+      ],
+      [
+        "El modelo pone textos similares cerca en el espacio vectorial.",
+        0.5224
+      ],
+      [
+        "Las llamadas a embeddings y los \u00edndices ANN raramente entran en ese\n  l\u00edmite.",
+        0.5089
+      ],
+      [
+        "Los usuarios teclean IDs exactos, SKUs o c\u00f3digos de error.",
+        0.5002
+      ],
+      [
+        "**Ignorar l\u00edmites de tokens.** Cada modelo admite un m\u00e1ximo de tokens.",
+        0.4982
+      ],
+      [
+        "Coseno es simplemente el \u00e1ngulo entre dos vectores.",
+        0.4849
+      ],
+      [
+        "Este es el punto de partida m\u00e1s barato: el modelo corre local y FAISS vive en memoria.",
+        0.4833
+      ],
+      [
+        "**Sin umbral de relevancia.** Fija un m\u00ednimo de similitud y descarta los resultados con score bajo.",
+        0.4541
+      ],
+      [
+        "Necesitas poder explicar por qu\u00e9 sale cada resultado.",
+        0.454
+      ],
+      [
+        "Esos vectores se guardan en un \u00edndice pensado para buscar vecinos cercanos.",
+        0.4524
+      ],
+      [
+        "Para coincidencias exactas, la b\u00fasqueda por\n  palabras clave gana en velocidad y precisi\u00f3n.",
+        0.4488
+      ],
+      [
+        "Cuando el usuario busca \"laptop para programaci\u00f3n\" y tus documentos hablan de estaciones de trabajo para\ndesarrolladores, la b\u00fasqueda por palabras clave se queda corta.",
+        0.4299
+      ],
+      [
+        "Son m\u00e1s\npeque\u00f1os y ligeramente menos generales que los de OpenAI, pero son gratuitos y mantienen los datos en tu\nm\u00e1quina.",
+        0.4135
+      ],
+      [
+        "La latencia sub-10 ms es obligatoria.",
+        0.4056
+      ],
+      [
+        "**Almacena metadatos** como categor\u00eda, fuente y fecha para filtrar antes de buscar en el vector.",
+        0.3999
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

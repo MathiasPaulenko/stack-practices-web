@@ -671,104 +671,102 @@ Use this list to track progress as you audit and improve each resource.
 83. - [x] **complete-guide-sentry-error-tracking** (guides)
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.8% / ES 35.2% (0 patterns)
    - Words: 1,962 | Meta: 165 chars
-   - Status: ⏳ Pending
-   - Words: 1,752 | Meta: 161 chars
 
 84. - [ ] **priority-queue-pattern** (patterns)
    - Metrics: 21 imp | pos 22.1 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/patterns/priority-queue-pattern/
    - ES: https://stackpractices.com/es/patterns/priority-queue-pattern/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,904 | Meta: 164 chars
+   - Status: ⏳ Pending approval for commit/push
+   - Words: 2,153 EN / 1,797 ES | Meta: 126 chars
 
-85. - [ ] **semantic-search** (recipes)
+85. - [x] **semantic-search** (recipes)
    - Metrics: 37 imp | pos 36.4 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/semantic-search/
    - ES: https://stackpractices.com/es/recipes/semantic-search/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 2,474 | Meta: 150 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 39.9% / ES 38.8% (0 patterns)
+   - Words: 1,378 EN / 1,490 ES | Meta: 146 chars
 
-86. - [ ] **copy-move-files** (recipes)
+86. - [x] **copy-move-files** (recipes)
    - Metrics: 15 imp | pos 13.9 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/copy-move-files/
    - ES: https://stackpractices.com/es/recipes/copy-move-files/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,307 | Meta: 121 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 41.8% / ES 35.4% (0 patterns)
+   - Words: 1,258 EN / 1,292 ES | Meta: 146 chars
 
-87. - [ ] **send-emails-smtp** (recipes)
+87. - [x] **send-emails-smtp** (recipes)
    - Metrics: 15 imp | pos 18.4 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/send-emails-smtp/
    - ES: https://stackpractices.com/es/recipes/send-emails-smtp/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 2,819 | Meta: 132 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.7% / ES 35.1% (0 patterns)
+   - Words: 1,345 EN / 1,426 ES | Meta: 154 chars
 
-88. - [ ] **distributed-lock-pattern** (patterns)
+88. - [x] **distributed-lock-pattern** (patterns)
    - Metrics: 15 imp | pos 14.3 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/patterns/distributed-lock-pattern/
    - ES: https://stackpractices.com/es/patterns/distributed-lock-pattern/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,610 | Meta: 166 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 38.6% / ES 27.8% (0 patterns)
+   - Words: 1,477 EN / 1,534 ES | Meta: 143 chars
 
-89. - [ ] **connection-pooling** (recipes)
+89. - [x] **connection-pooling** (recipes)
    - Metrics: 20 imp | pos 28.4 | CTR 0.00% | Δ impr -3
    - EN: https://stackpractices.com/recipes/connection-pooling/
    - ES: https://stackpractices.com/es/recipes/connection-pooling/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 2,355 | Meta: 144 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.2% / ES 30.3% (0 patterns)
+   - Words: 1,200 EN / 1,281 ES | Meta: 153 chars
 
-90. - [ ] **event-sourcing-relational** (recipes)
+90. - [x] **event-sourcing-relational** (recipes)
    - Metrics: 20 imp | pos 25.9 | CTR 0.00% | Δ impr -5
    - EN: https://stackpractices.com/recipes/event-sourcing-relational/
    - ES: https://stackpractices.com/es/recipes/event-sourcing-relational/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,572 | Meta: 152 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 39.7% / ES 32.2% (0 patterns)
+   - Words: 1,485 EN / 1,553 ES | Meta: 149 chars
 
-91. - [ ] **graphql-directives-auth** (recipes)
+91. - [x] **graphql-directives-auth** (recipes)
    - Metrics: 35 imp | pos 33 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/graphql-directives-auth/
    - ES: https://stackpractices.com/es/recipes/graphql-directives-auth/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,485 | Meta: 142 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 43.6% / ES 39.6% (0 patterns)
+   - Words: 1,322 EN / 1,415 ES | Meta: 139 chars
 
-92. - [ ] **python-dask-parallel-dataframe** (recipes)
+92. - [x] **python-dask-parallel-dataframe** (recipes)
    - Metrics: 19 imp | pos 20.5 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/python-dask-parallel-dataframe/
    - ES: https://stackpractices.com/es/recipes/python-dask-parallel-dataframe/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,178 | Meta: 162 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 38.4% / ES 31.2% (0 patterns)
+   - Words: 1,313 EN / 1,373 ES | Meta: 160 chars
 
-93. - [ ] **flyweight-pattern** (patterns)
+93. - [x] **flyweight-pattern** (patterns)
    - Metrics: 14 imp | pos 13.7 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/patterns/flyweight-pattern/
    - ES: https://stackpractices.com/es/patterns/flyweight-pattern/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,620 | Meta: 130 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 39.8% / ES 35.1% (0 patterns)
+   - Words: 1,153 EN / 1,192 ES | Meta: 153 chars
 
-94. - [ ] **graphql-mutation-validation-pattern** (patterns)
+94. - [x] **graphql-mutation-validation-pattern** (patterns)
    - Metrics: 13 imp | pos 13.4 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/patterns/graphql-mutation-validation-pattern/
    - ES: https://stackpractices.com/es/patterns/graphql-mutation-validation-pattern/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,435 | Meta: 159 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 40.6% / ES 39.4% (0 patterns)
+   - Words: 1,403 EN / 1,531 ES | Meta: 147 chars
 
-95. - [ ] **queue-based-load-leveling-pattern** (patterns)
+95. - [x] **queue-based-load-leveling-pattern** (patterns)
    - Metrics: 13 imp | pos 15.8 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/patterns/queue-based-load-leveling-pattern/
    - ES: https://stackpractices.com/es/patterns/queue-based-load-leveling-pattern/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,796 | Meta: 167 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 41.6% / ES 35.0% (0 patterns)
+   - Words: 1,311 EN / 1,388 ES | Meta: 155 chars
 
 96. - [ ] **onion-architecture-guide** (guides)
    - Metrics: 13 imp | pos 13.2 | CTR 0.00% | Δ impr 0

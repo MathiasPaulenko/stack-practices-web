@@ -2,8 +2,8 @@
 contentType: recipes
 slug: event-sourcing-relational
 title: "Implementar event sourcing en una base de datos relacional"
-description: "Construye sistemas de event sourcing usando bases de datos relacionales con event stores, proyecciones y snapshotting para auditoría y consultas temporales."
-metaDescription: "Implementa event sourcing en una base de datos relacional. Event stores, proyecciones y patrones de snapshotting con ejemplos en PostgreSQL, MySQL y SQL Server."
+description: "Implementa event sourcing en una base de datos relacional. Almacena eventos inmutables, proyecta read models y usa snapshots con PostgreSQL, MySQL y SQL Server."
+metaDescription: "Implementa event sourcing en una base de datos relacional. Almacena eventos inmutables, proyecta read models y usa snapshots con PostgreSQL, MySQL y SQL Server."
 difficulty: advanced
 topics:
   - databases
@@ -11,43 +11,55 @@ tags:
   - database
   - event-sourcing
   - event-store
+  - postgresql
+  - mysql
   - sql
+  - cqrs
 relatedResources:
   - /recipes/database-deadlocks-retries
   - /recipes/database-read-replicas
-  - /recipes/full-text-search
   - /patterns/event-sourcing-pattern
-  - /docs/database-migration-runbook-template
   - /recipes/caching-redis
   - /recipes/database-migrations-safely
-lastUpdated: "2026-06-12"
+  - /recipes/database-transactions
+lastUpdated: "2026-08-23"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Implementa event sourcing en una base de datos relacional. Event stores, proyecciones y patrones de snapshotting con ejemplos en PostgreSQL, MySQL y SQL Server."
+  metaDescription: "Implementa event sourcing en una base de datos relacional. Almacena eventos inmutables, proyecta read models y usa snapshots con PostgreSQL, MySQL y SQL Server."
   keywords:
-    - event-sourcing
-    - event-store
+    - event sourcing
+    - event store
+    - base de datos relacional
     - proyecciones
     - snapshotting
     - postgresql
-    - relacional
-
-
 ---
+
 ## Visión General
 
-Event sourcing almacena cambios de estado como una secuencia de eventos inmutables en lugar de sobrescribir el estado actual. En lugar de guardar `balance = 100`, registras `Deposited $50` y `Deposited $50`. El estado actual se deriva reproduciendo todos los eventos. Esto provee un audit trail completo, consultas temporales y la capacidad de reconstruir el estado en cualquier punto del tiempo.
+Event sourcing almacena cambios de estado como una secuencia de eventos inmutables en lugar de sobrescribir
+el estado actual. En lugar de guardar `balance = 100`, registras `Deposited $50` y `Deposited $50`.
+Obtenés el estado actual reproduciendo esos eventos. Eso te da un audit trail completo, consultas
+temporales y la opción de reconstruir el estado en cualquier punto del tiempo.
 
-Aqui hay una implementacion de un event store, proyecciones (read models) y snapshotting usando PostgreSQL, MySQL y SQL Server.
+A continuación hay ejemplos para PostgreSQL, MySQL y SQL Server que implementan un event store,
+proyecciones y snapshotting.
 
 ## Cuándo Usar
 
-Usa este recurso cuando:
-- Necesitas un [audit trail](/recipes/logging/) completo de todos los cambios de estado (finanzas, cumplimiento)
-- Se requieren consultas temporales: "¿Cuál era el nivel de inventario hace 30 días?" Consulta [Date Formatting](/recipes/date-formatting/) para consultas basadas en tiempo.
-- Quieres desacoplar modelos de escritura y lectura ([CQRS](/patterns/cqrs-pattern/))
-- Reconstruir read models desde cero es preferible a migraciones de esquema complejas
+Usá event sourcing cuando necesitás un [audit trail](/es/recipes/logging/) completo de cada cambio de
+estado, como en finanzas o cumplimiento. También sirve cuando las consultas temporales importan, por
+ejemplo "¿Cuál era el nivel de inventario hace 30 días?". Es una buena opción si querés desacoplar modelos
+de escritura y lectura con [CQRS](/es/patterns/cqrs-pattern/), o si reconstruir read models desde cero es
+más simple que mantener migraciones de esquema complejas.
+
+## Cuándo Evitar
+
+Evitalo cuando tu dominio tenga necesidades simples de CRUD sin auditoría ni requerimientos de replay.
+Tampoco conviene si el almacenamiento es caro y no tenés un plan de archivo o retención. Tampoco es buena
+idea si tu equipo no está preparado para manejar la evolución de esquema de eventos y la consistencia
+eventual de las proyecciones.
 
 ## Solución
 
@@ -55,8 +67,11 @@ Usa este recurso cuando:
 
 ```python
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from uuid import uuid4
+
+class ConcurrencyException(Exception):
+    pass
 
 class EventStore:
     def __init__(self, conn):
@@ -64,7 +79,6 @@ class EventStore:
 
     def append(self, aggregate_id, event_type, payload, expected_version=None):
         with self.conn.cursor() as cur:
-            # Verificación de concurrencia optimista
             cur.execute(
                 "SELECT COUNT(*) FROM events WHERE aggregate_id = %s",
                 (aggregate_id,)
@@ -72,13 +86,15 @@ class EventStore:
             current_version = cur.fetchone()[0]
 
             if expected_version is not None and current_version != expected_version:
-                raise ConcurrencyException(f"Expected {expected_version}, found {current_version}")
+                raise ConcurrencyException(
+                    f"Expected {expected_version}, found {current_version}"
+                )
 
             cur.execute("""
                 INSERT INTO events (id, aggregate_id, event_type, payload, version, occurred_at)
                 VALUES (%s, %s, %s, %s, %s, %s)
             """, (str(uuid4()), aggregate_id, event_type, json.dumps(payload),
-                  current_version + 1, datetime.utcnow()))
+                  current_version + 1, datetime.now(timezone.utc)))
             self.conn.commit()
 
     def get_events(self, aggregate_id):
@@ -92,7 +108,6 @@ class EventStore:
                 "version": row[2], "occurred_at": row[3]
             } for row in cur.fetchall()]
 
-# Proyección (read model)
 def rebuild_account_balance(conn, account_id):
     store = EventStore(conn)
     events = store.get_events(account_id)
@@ -109,6 +124,8 @@ def rebuild_account_balance(conn, account_id):
 
 ```javascript
 const { v4: uuidv4 } = require('uuid');
+
+class ConcurrencyException extends Error {}
 
 class EventStore {
   constructor(pool) {
@@ -127,7 +144,9 @@ class EventStore {
       const currentVersion = rows[0].count;
 
       if (expectedVersion !== null && currentVersion !== expectedVersion) {
-        throw new Error(`Conflicto de concurrencia: expected ${expectedVersion}`);
+        throw new ConcurrencyException(
+          `Expected ${expectedVersion}, found ${currentVersion}`
+        );
       }
 
       await conn.execute(
@@ -157,7 +176,6 @@ class EventStore {
   }
 }
 
-// Snapshot para evitar reproducir todos los eventos
 async function getBalanceWithSnapshot(pool, accountId) {
   const [snapshots] = await pool.execute(
     'SELECT * FROM snapshots WHERE aggregate_id = ? ORDER BY version DESC LIMIT 1',
@@ -188,6 +206,19 @@ async function getBalanceWithSnapshot(pool, accountId) {
 ### Java (SQL Server con Spring)
 
 ```java
+import jakarta.persistence.*;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+class ConcurrencyException extends RuntimeException {
+    ConcurrencyException(String message) { super(message); }
+}
+
 @Entity
 @Table(name = "events")
 public class EventEntity {
@@ -198,11 +229,20 @@ public class EventEntity {
     private String payload;
     private int version;
     private Instant occurredAt;
+
+    // getters and setters omitted for brevity
+}
+
+interface EventRepository {
+    int countByAggregateId(UUID aggregateId);
+    List<EventEntity> findByAggregateIdOrderByVersionAsc(UUID aggregateId);
 }
 
 @Service
 public class EventStore {
-    @Autowired private EventRepository repo;
+    private final EventRepository repo;
+
+    public EventStore(EventRepository repo) { this.repo = repo; }
 
     @Transactional
     public void append(UUID aggregateId, String eventType, String payload, Integer expectedVersion) {
@@ -226,11 +266,34 @@ public class EventStore {
     }
 }
 
-// Servicio de snapshot
+class AccountState {
+    private int balance;
+    AccountState(int balance) { this.balance = balance; }
+    public int getBalance() { return balance; }
+    public void setBalance(int balance) { this.balance = balance; }
+}
+
+interface SnapshotRepository {
+    Optional<Snapshot> findTopByAggregateIdOrderByVersionDesc(UUID aggregateId);
+}
+
+class Snapshot {
+    private UUID aggregateId;
+    private int version;
+    private AccountState state;
+    public int getVersion() { return version; }
+    public AccountState getState() { return state; }
+}
+
 @Service
 public class SnapshotService {
-    @Autowired private EventStore eventStore;
-    @Autowired private SnapshotRepository snapshotRepo;
+    private final EventStore eventStore;
+    private final SnapshotRepository snapshotRepo;
+
+    public SnapshotService(EventStore eventStore, SnapshotRepository snapshotRepo) {
+        this.eventStore = eventStore;
+        this.snapshotRepo = snapshotRepo;
+    }
 
     public AccountState rebuildState(UUID accountId) {
         Optional<Snapshot> snapshot = snapshotRepo
@@ -249,106 +312,81 @@ public class SnapshotService {
         }
         return state;
     }
+
+    private AccountState applyEvent(AccountState state, EventEntity event) {
+        // apply event payload to state
+        return state;
+    }
 }
 ```
 
 ## Explicación
 
-Event sourcing invierte el CRUD tradicional: en lugar de almacenar el estado actual, almacenas el historial de cambios. Conceptos clave:
-- **Event store**: Un log solo de append de eventos de dominio
-- **Aggregate**: El límite de consistencia; cada aggregate tiene su propio stream de eventos
-- **Proyección**: Un read model derivado construido reproduciendo eventos
-- **Snapshot**: Una captura periódica de estado para evitar reproducir miles de eventos
+Event sourcing da vuelta el modelo CRUD habitual. En lugar de almacenar el último estado, almacenás el
+historial de cambios. Obtenés el estado actual reproduciendo ese historial.
 
-El esquema de base de datos relacional es simple: una tabla `events` con `aggregate_id`, `event_type`, `payload` (JSON), `version` y `occurred_at`.
+Los cuatro conceptos clave son el **event store**, que es un log solo de append de eventos de dominio; el
+**aggregate**, que marca el límite de consistencia y es dueño de su propio stream de eventos; la
+**proyección**, que es un read model construido reproduciendo eventos; y el **snapshot**, que es una captura
+periódica de estado que evita reproducir miles de eventos.
+
+El esquema de base de datos se mantiene deliberadamente simple. Una tabla `events` contiene
+`aggregate_id`, `event_type`, un `payload` JSON, `version` y `occurred_at`. La columna version es lo que
+permite aplicar concurrencia optimista. Los eventos nuevos se agregan, nunca se actualizan ni borran. Las
+proyecciones leen el stream y aplican cada evento para armar un read model. Un snapshot captura el estado
+en una versión específica para que el sistema solo reproduzca los eventos posteriores.
 
 ## Variantes
 
 | Almacenamiento | Flexibilidad de esquema | Velocidad de query | Ideal para |
-|----------------|-------------------------|--------------------|------------|
-| PostgreSQL + JSONB | Alta | Media | Propósito general, soporte JSON rico |
-| MySQL + JSON | Alta | Media | Infraestructura MySQL existente |
-| SQL Server | Media | Rápida | Empresarial, proyecciones T-SQL |
-| Dedicado (EventStoreDB) | Nativa | Muy rápida | Event sourcing a gran escala |
+| ---------------- | ------------------------- | -------------------- | ------------ |
+| **PostgreSQL + JSONB** | Alta | Media | Propósito general, soporte JSON rico |
+| **MySQL + JSON** | Alta | Media | Infraestructura MySQL existente |
+| **SQL Server** | Media | Rápida | Empresarial, proyecciones T-SQL |
+| **EventStoreDB** | Nativa | Muy rápida | Event sourcing a gran escala |
 
-## Lo que funciona
+## Mejores Prácticas
 
-- **Versiona cada evento**: El control de concurrencia optimista previene actualizaciones perdidas
-- **Usa JSONB/JSON para payloads**: Flexibilidad de esquema sin migraciones; valida en la capa de aplicación.   Consulta [Parse JSON](/recipes/parse-json/) para datos estructurados.
-- **Crea snapshots cada N eventos**: Balance entre almacenamiento y rendimiento de reproducción
-- **Mantén los eventos pequeños**: Payloads grandes ralentizan la reproducción y aumentan el almacenamiento
-- **Separa proyecciones del event store**: Las proyecciones pueden reconstruirse; los eventos son la fuente de verdad.   Consulta [Redis Caching](/recipes/caching-redis/) para cache de read models.
+Versioná cada evento y usá controles de concurrencia optimista para prevenir actualizaciones perdidas.
+Almacená los payloads como JSONB o JSON para mantener flexibilidad de esquema y validar en la capa de
+aplicación. Consultá [parse JSON](/es/recipes/parse-json/) para trabajar con payloads estructurados. Tomá
+snapshots cada N eventos, o cuando el tiempo de replay empiece a degradarse, para balancear almacenamiento
+y rendimiento de lectura. Mantené cada evento pequeño y enfocado en una sola cosa, porque payloads grandes
+ralentizan el replay y aumentan el almacenamiento. Separá las proyecciones del event store y reconstruilas
+cuando sea necesario; los eventos son la fuente de verdad. Usá [Redis caching](/es/recipes/caching-redis/)
+para cachear read models. Aplicá cada evento dentro de una transacción cuando también escribís una
+proyección, o mantené las proyecciones asíncronas y con consistencia eventual. Consultá [database
+transactions](/es/recipes/database-transactions/) para escrituras atómicas.
 
 ## Errores Comunes
 
-- **No versionar eventos**: Sin números de versión no puedes detectar modificaciones concurrentes
-- **Almacenar estado actual Y eventos**: Esto crea escrituras duales y riesgos de consistencia.   Consulta [Database Transactions](/recipes/database-transactions/) para escrituras atomicas.
-- **Reproducir todos los eventos en cada lectura**: Usa snapshots o tablas de proyección dedicadas
-- **Eventos mutables**: Los eventos deben ser inmutables — nunca actualices o borres eventos históricos
-- **Falta de evolución de esquema de eventos**: Eventos antiguos necesitan estrategias de migración a medida que el modelo de dominio cambia
-
-
-
-
-## Lectura Adicional
-
-- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
-- **Guías relacionadas**: explora las guías de database y event-sourcing para profundizar.
-- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
-- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
-
-## Notas de Producción
-
-- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
-- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
-- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
-- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
-
-## Puntos Clave
-
-- **Aplica implementar event sourcing en una base de datos relacional** cuando necesites una solución práctica para tu caso de uso.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+No versionar eventos hace imposible detectar modificaciones concurrentes. Almacenar el estado actual junto
+con los eventos crea escrituras duales y riesgos de consistencia. Reproducir todos los eventos en cada
+lectura, sin snapshots o tablas de proyección dedicadas, mata el rendimiento de lectura. Tratar los eventos
+como mutables es un error: los eventos históricos nunca deberían modificarse ni borrarse. Ignorar la
+evolución del esquema de eventos también es problemático; los eventos más antiguos necesitan una estrategia
+de migración a medida que el modelo de dominio cambia.
 
 ## Preguntas Frecuentes
 
-**P: ¿No consume event sourcing demasiado almacenamiento?**
-R: Los eventos son típicamente pequeños (cientos de bytes). Para un sistema con 1M transacciones/día, eso es ~100MB/día. Con compresión y archivado, los costos de almacenamiento son usualmente insignificantes comparados con el valor de auditoría.
+### ¿No consume event sourcing demasiado almacenamiento?
 
-**P: ¿Cómo manejo cambios de esquema en eventos?**
-R: Usa versionamiento de eventos (`Deposit_v1`, `Deposit_v2`) o upcasting — transforma eventos antiguos al nuevo esquema durante la reproducción. Nunca modifiques eventos almacenados.
+Cada evento suele ser pequeño, a menudo solo unos pocos cientos de bytes. Si manejás un millón de
+transacciones por día, eso es aproximadamente 100 MB por día. Con compresión y archivado, los costos de
+almacenamiento suelen ser bajos comparados con el valor de auditoría.
 
-**P: ¿Puedo usar event sourcing con CQRS?**
-R: Sí — CQRS y event sourcing se complementan naturalmente. Los comandos agregan eventos al modelo de escritura; las proyecciones crean read models optimizados. El read model puede estar en una base de datos completamente diferente (Elasticsearch, Redis, etc.).
+### ¿Cómo manejo cambios de esquema en eventos?
 
-### ¿Esta solución está lista para producción?
+Usá versionamiento de eventos, como `Deposit_v1` y `Deposit_v2`, o upcasting. El upcasting transforma
+eventos viejos al nuevo esquema durante la reproducción. Nunca modifiques eventos almacenados.
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+### ¿Puedo usar event sourcing con CQRS?
 
-### ¿Cuáles son las características de rendimiento?
+Sí. CQRS y event sourcing se complementan naturalmente. Los comandos agregan eventos al modelo de
+escritura, mientras que las proyecciones construyen read models optimizados. Esos read models pueden vivir
+en una base de datos diferente, como Elasticsearch o Redis.
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+### ¿Cómo elijo la frecuencia de snapshot?
 
-### ¿Cómo depuro problemas con este enfoque?
-
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
-
-## Troubleshooting
-
-- **Query is slow after an index change**: check execution plans and cardinality estimates.   Rebuild statistics and verify the index is being used.
-- **Replication lag grows**: Split large writes and consider parallel replication.
-- **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections.
-- **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling.
-- **Deadlocks in high concurrency**: access tables and rows in a consistent order.
-
-## Errores Comunes en Producción
-
-- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
-- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
-- Codificar valores fijos que deberían ser configurables por entorno.
-- Olvidar agregar logging y monitoreo en cada paso.
-- Desplegar sin plan de rollback ni estrategia de backup probada.
-- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
-- No documentar la versión y configuración usadas en producción.
-- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.
+Tomá un snapshot cuando reproducir un aggregate tarde más de lo que tu read model tolera. Un punto de
+partida común es cada 100 o 1.000 eventos, ajustado midiendo la latencia de replay para tu carga.
