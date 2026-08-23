@@ -2,8 +2,8 @@
 contentType: guides
 slug: complete-guide-sentry-error-tracking
 title: "Sentry: Error Tracking, Triage, and Resolution"
-description: "Master Sentry for production error tracking. Covers SDK integration in Python, Node.js, Java, release tracking, source maps, performance monitoring, and alerting."
-metaDescription: "Master Sentry for production error tracking: SDK integration in Python, Node.js, Java, release tracking, source maps, performance monitoring, and alerting rules."
+description: "Master Sentry for production error tracking. Covers SDK integration in Python, Node.js, and Java, release tracking, source maps, performance monitoring, and alerting."
+metaDescription: "Master Sentry for production error tracking: SDK integration in Python, Node.js, and Java, release tracking, source maps, performance monitoring, and alerting rules."
 difficulty: intermediate
 topics:
   - observability
@@ -27,7 +27,7 @@ publishedAt: "2026-07-06"
 author: Mathias Paulenko
 estimatedReadTime: 18
 seo:
-  metaDescription: "Master Sentry for production error tracking: SDK integration in Python, Node.js, Java, release tracking, source maps, performance monitoring, and alerting rules."
+  metaDescription: "Master Sentry for production error tracking: SDK integration in Python, Node.js, and Java, release tracking, source maps, performance monitoring, and alerting rules."
   keywords:
     - sentry
     - error tracking
