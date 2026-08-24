@@ -47,7 +47,7 @@ seo:
 ---
 ## Visión General
 
-Los backups no valen nada si no puedes restaurar desde ellos. Muchos equipos lo descubren demasiado tarde: después de un ataque de ransomware, una corrupción de base de datos o una eliminación accidental. Esta plantilla asegura que tus procedimientos de backup estén documentados, probados y verificables antes de que ocurra un desastre.
+Los backups no valen nada si no puedes restaurar desde ellos. Muchos equipos lo descubren demasiado tarde: después de un ataque de ransomware, una corrupción de base de datos o una eliminación accidental. Esta plantilla asegura que tus procedimientos de backup estén documentados, probados y verificables antes de que ocurra un desastre. Documentos relacionados: [REST API en Go con Gin y Middleware](/recipes/go-rest-api-gin), [Construye servicios gRPC en TypeScript con Protocol Buffers](/recipes/grpc-services-typescript) y [Programa Tareas Periódicas en Python con APScheduler](/recipes/python-schedule-periodic-tasks).
 
 ## Cuándo Usar
 

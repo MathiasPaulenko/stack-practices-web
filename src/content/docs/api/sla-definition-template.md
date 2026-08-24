@@ -49,7 +49,7 @@ seo:
 
 ## Overview
 
-An SLA without an error budget is just a promise you will eventually break. Engineering teams need concrete, measurable targets that balance reliability with velocity. This template defines uptime, latency, and error rate commitments — plus the error budgets that let teams ship changes while respecting those commitments.
+An SLA without an error budget is just a promise you will eventually break. Engineering teams need concrete, measurable targets that balance reliability with velocity. This template defines uptime, latency, and error rate commitments — plus the error budgets that let teams ship changes while respecting those commitments. Related resources: [Stream LLM Output with Server-Sent Events (SSE)](/recipes/python-llm-streaming-responses), [How to Document an API with OpenAPI, Swagger UI and Redoc](/recipes/api-documentation-openapi), and [Implement API Logging and Audit Trails](/recipes/api-logging-audit).
 
 ## When to Use
 

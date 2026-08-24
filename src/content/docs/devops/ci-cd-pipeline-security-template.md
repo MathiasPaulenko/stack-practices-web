@@ -37,7 +37,7 @@ seo:
 ---
 ## Overview
 
-CI/CD pipelines are a high-value target for attackers because they have access to source code, build secrets, and production deployment paths. A compromised pipeline can introduce malware, exfiltrate data, or deploy unauthorized changes. This template defines controls to protect code integrity, runner security, secrets, and deployment approvals.
+CI/CD pipelines are a high-value target for attackers because they have access to source code, build secrets, and production deployment paths. A compromised pipeline can introduce malware, exfiltrate data, or deploy unauthorized changes. This template defines controls to protect code integrity, runner security, secrets, and deployment approvals. Related resources: [Implement API Rate Limiting with Redis](/recipes/api-rate-limiting-redis), [WebSocket Authentication and Security Patterns](/recipes/websocket-authentication), and [How to Hash Passwords Securely (Python, JavaScript, Java)](/recipes/password-hashing).
 
 ## When to Use
 

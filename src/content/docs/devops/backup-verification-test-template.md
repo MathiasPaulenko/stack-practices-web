@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-A backup that cannot be restored is not a backup. This template helps teams schedule, execute, and document backup verification tests. It covers the systems under test, the restore procedure, validation criteria, and what to do when a test fails.
+A backup that cannot be restored is not a backup. This template helps teams schedule, execute, and document backup verification tests. It covers the systems under test, the restore procedure, validation criteria, and what to do when a test fails. Related resources: [Go REST API with Gin and Middleware](/recipes/go-rest-api-gin), [Build gRPC Services in TypeScript with Protocol Buffers](/recipes/grpc-services-typescript), and [Schedule Periodic Tasks in Python with APScheduler](/recipes/python-schedule-periodic-tasks).
 
 ## When to Use
 

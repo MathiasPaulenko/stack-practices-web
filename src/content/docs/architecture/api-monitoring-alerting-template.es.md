@@ -43,7 +43,7 @@ seo:
 ---
 ## Visión General
 
-Las APIs fallan en silencio. Un servicio que devuelve 200 OK puede estar roto para los consumidores si la latencia se dispara o las tasas de error aumentan gradualmente. Esta plantilla define SLIs (Indicadores de Nivel de Servicio), SLOs (Objetivos) y umbrales de alerta para que los equipos detecten la degradación antes de que los consumidores se den cuenta.
+Las APIs fallan en silencio. Un servicio que devuelve 200 OK puede estar roto para los consumidores si la latencia se dispara o las tasas de error aumentan gradualmente. Esta plantilla define SLIs (Indicadores de Nivel de Servicio), SLOs (Objetivos) y umbrales de alerta para que los equipos detecten la degradación antes de que los consumidores se den cuenta. Documentos relacionados: [Diseñar un API Gateway Escalable para Microservicios](/recipes/api-gateway), [Construir Sistemas Resilientes con el Circuit Breaker](/recipes/circuit-breaker-pattern-recipe) y [Inyección de Dependencias](/recipes/dependency-injection).
 
 ## Cuándo Usar
 

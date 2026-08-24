@@ -46,7 +46,7 @@ seo:
 ---
 ## Visión General
 
-Las facturas de nube crecen en silencio. Un entorno de staging olvidado, una instancia de base de datos sobre-dimensionada o un trabajo de CI descontrolado pueden duplicar tu gasto mensual sin que nadie lo note. Esta plantilla crea un modelo transparente de asignación de costos para que los equipos entiendan quién gasta qué, finanzas puedan pronosticar con precisión y los ingenieros optimicen con datos.
+Las facturas de nube crecen en silencio. Un entorno de staging olvidado, una instancia de base de datos sobre-dimensionada o un trabajo de CI descontrolado pueden duplicar tu gasto mensual sin que nadie lo note. Esta plantilla crea un modelo transparente de asignación de costos para que los equipos entiendan quién gasta qué, finanzas puedan pronosticar con precisión y los ingenieros optimicen con datos. Documentos relacionados: [REST API en Go con Gin y Middleware](/recipes/go-rest-api-gin), [Construye servicios gRPC en TypeScript con Protocol Buffers](/recipes/grpc-services-typescript) y [Programa Tareas Periódicas en Python con APScheduler](/recipes/python-schedule-periodic-tasks).
 
 ## Cuándo Usar
 

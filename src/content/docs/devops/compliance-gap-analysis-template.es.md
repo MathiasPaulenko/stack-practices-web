@@ -44,7 +44,7 @@ seo:
 
 ## Descripcion General
 
-Un Analisis de Brechas de Cumplimiento compara tus controles de seguridad actuales contra los requisitos de un marco objetivo, como SOC 2, ISO 27001, PCI-DSS o GDPR. Esta plantilla captura el requisito, el control que lo satisface, la evidencia disponible, cualquier pieza faltante y un plan para cerrar las brechas. Es un insumo estandar para la preparacion de auditorias y hojas de ruta de certificacion.
+Un Analisis de Brechas de Cumplimiento compara tus controles de seguridad actuales contra los requisitos de un marco objetivo, como SOC 2, ISO 27001, PCI-DSS o GDPR. Esta plantilla captura el requisito, el control que lo satisface, la evidencia disponible, cualquier pieza faltante y un plan para cerrar las brechas. Es un insumo estandar para la preparacion de auditorias y hojas de ruta de certificacion. Documentos relacionados: [Implementar Rate Limiting de APIs con Redis](/recipes/api-rate-limiting-redis), [Autenticacion y Patrones de Seguridad para WebSockets](/recipes/websocket-authentication) y [Cómo hashear contraseñas (Python, JavaScript, Java)](/recipes/password-hashing).
 
 ## Cuando Usar
 

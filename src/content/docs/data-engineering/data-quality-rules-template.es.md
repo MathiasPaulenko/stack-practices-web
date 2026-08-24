@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-Data quality rules definen qué significa "good data" para cada dataset y columna. Checkean completeness (no nulls), consistency (valid references), accuracy (values en expected ranges), timeliness (data es fresh) y uniqueness (no duplicates). Sin explicit rules, bad data fluye a consumers undetected.
+Data quality rules definen qué significa "good data" para cada dataset y columna. Checkean completeness (no nulls), consistency (valid references), accuracy (values en expected ranges), timeliness (data es fresh) y uniqueness (no duplicates). Sin explicit rules, bad data fluye a consumers undetected. Documentos relacionados: [Configura pre-commit hooks con husky y lint-staged](/recipes/pre-commit-hooks), [Mocks de resolvers GraphQL para desarrollo frontend](/recipes/graphql-mocking-apollo-server) y [Testing de Carga de APIs con k6 y Aserciones Basadas en](/recipes/load-testing-k6).
 
 ## When to Use
 

@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-Un ETL job runbook le da a operators los procedures para start, stop, monitorear y troubleshootear ETL jobs. Coverea health checks, common failure scenarios, diagnostic steps y recovery procedures. Sin un runbook, operators rely en tribal knowledge, leading a longer downtime y inconsistent responses.
+Un ETL job runbook le da a operators los procedures para start, stop, monitorear y troubleshootear ETL jobs. Coverea health checks, common failure scenarios, diagnostic steps y recovery procedures. Sin un runbook, operators rely en tribal knowledge, leading a longer downtime y inconsistent responses. Documentos relacionados: [Configura pre-commit hooks con husky y lint-staged](/recipes/pre-commit-hooks), [Mocks de resolvers GraphQL para desarrollo frontend](/recipes/graphql-mocking-apollo-server) y [Testing de Carga de APIs con k6 y Aserciones Basadas en](/recipes/load-testing-k6).
 
 ## When to Use
 

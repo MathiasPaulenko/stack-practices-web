@@ -47,7 +47,7 @@ seo:
 
 ## Resumen
 
-Los consumidores de API necesitan saber que cambio, cuando cambio, y si necesitan actuar. Un changelog no estructurado — o la ausencia de changelog — obliga a los consumidores a comparar tu API o descubrir cambios breaking en produccion. Esta plantilla proporciona un formato estandarizado para documentar cada cambio de API con version, fecha, severidad y guia de migracion.
+Los consumidores de API necesitan saber que cambio, cuando cambio, y si necesitan actuar. Un changelog no estructurado — o la ausencia de changelog — obliga a los consumidores a comparar tu API o descubrir cambios breaking en produccion. Esta plantilla proporciona un formato estandarizado para documentar cada cambio de API con version, fecha, severidad y guia de migracion. Documentos relacionados: [Stream de salida LLM con Server-Sent Events (SSE)](/recipes/python-llm-streaming-responses), [Cómo documentar una API con OpenAPI, Swagger UI y Redoc](/recipes/api-documentation-openapi) y [Implementar logging y audit trails de API](/recipes/api-logging-audit).
 
 ## Cuando Usar
 

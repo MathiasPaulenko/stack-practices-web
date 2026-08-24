@@ -44,7 +44,7 @@ seo:
 
 ## Overview
 
-A Compliance Gap Analysis compares your current security controls against the requirements of a target framework, such as SOC 2, ISO 27001, PCI-DSS, or GDPR. This template captures the requirement, the control that satisfies it, the evidence you have, any missing pieces, and a plan to close the gaps. It is a standard input for audit readiness and certification roadmaps.
+A Compliance Gap Analysis compares your current security controls against the requirements of a target framework, such as SOC 2, ISO 27001, PCI-DSS, or GDPR. This template captures the requirement, the control that satisfies it, the evidence you have, any missing pieces, and a plan to close the gaps. It is a standard input for audit readiness and certification roadmaps. Related resources: [Implement API Rate Limiting with Redis](/recipes/api-rate-limiting-redis), [WebSocket Authentication and Security Patterns](/recipes/websocket-authentication), and [How to Hash Passwords Securely (Python, JavaScript, Java)](/recipes/password-hashing).
 
 ## When to Use
 

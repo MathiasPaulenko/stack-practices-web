@@ -41,7 +41,7 @@ seo:
 ---
 ## Overview
 
-Architecture diagrams communicate system structure to technical and non-technical stakeholders. Without consistent standards, teams produce diagrams at inconsistent abstraction levels that confuse more than clarify. This template uses the C4 model to create diagrams at four well-defined levels of detail.
+Architecture diagrams communicate system structure to technical and non-technical stakeholders. Without consistent standards, teams produce diagrams at inconsistent abstraction levels that confuse more than clarify. This template uses the C4 model to create diagrams at four well-defined levels of detail. Related resources: [Design a Scalable API Gateway for Microservices](/recipes/api-gateway), [Build Resilient Systems with the Circuit Breaker Pattern](/recipes/circuit-breaker-pattern-recipe), and [Dependency Injection](/recipes/dependency-injection).
 
 ## When to Use
 

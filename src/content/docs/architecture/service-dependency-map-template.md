@@ -44,7 +44,7 @@ seo:
 ---
 ## Overview
 
-In distributed systems, a failure in one service can cascade unpredictably. A dependency map documents which services call which, the nature of those calls, and the blast radius if a dependency fails. This template provides both a textual registry and guidance for creating visual diagrams.
+In distributed systems, a failure in one service can cascade unpredictably. A dependency map documents which services call which, the nature of those calls, and the blast radius if a dependency fails. This template provides both a textual registry and guidance for creating visual diagrams. Related resources: [Design a Scalable API Gateway for Microservices](/recipes/api-gateway), [Build Resilient Systems with the Circuit Breaker Pattern](/recipes/circuit-breaker-pattern-recipe), and [Dependency Injection](/recipes/dependency-injection).
 
 ## When to Use
 

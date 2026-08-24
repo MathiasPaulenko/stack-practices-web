@@ -43,7 +43,7 @@ seo:
 
 ## Overview
 
-Cloud Resource Tagging is the practice of applying metadata labels to cloud resources such as virtual machines, storage buckets, databases, and network components. Consistent tags enable cost allocation, access control, automated operations, and security auditing. This policy template defines required tags, naming conventions, enforcement mechanisms, and governance checks.
+Cloud Resource Tagging is the practice of applying metadata labels to cloud resources such as virtual machines, storage buckets, databases, and network components. Consistent tags enable cost allocation, access control, automated operations, and security auditing. This policy template defines required tags, naming conventions, enforcement mechanisms, and governance checks. Related resources: [Configure Nginx as a Reverse Proxy and API Gateway](/recipes/nginx-reverse-proxy), [Cache HTTP Responses with Nginx Reverse Proxy](/recipes/nginx-reverse-proxy-cache), and [Local Microservices Development with Docker Compose](/recipes/docker-compose-local-dev).
 
 ## When to Use
 

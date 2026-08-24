@@ -52,7 +52,7 @@ seo:
 
 ## Overview
 
-Unlimited API access is a recipe for abuse, accidental DDoS, and unpredictable costs. Rate limiting protects your infrastructure while giving consumers predictable access. Without a documented policy, consumers discover limits only when their requests start failing with `429 Too Many Requests`. This template defines rate limits per tier, communicates them transparently, and provides an escalation path for consumers who need more.
+Unlimited API access is a recipe for abuse, accidental DDoS, and unpredictable costs. Rate limiting protects your infrastructure while giving consumers predictable access. Without a documented policy, consumers discover limits only when their requests start failing with `429 Too Many Requests`. This template defines rate limits per tier, communicates them transparently, and provides an escalation path for consumers who need more. Related resources: [Stream LLM Output with Server-Sent Events (SSE)](/recipes/python-llm-streaming-responses), [How to Document an API with OpenAPI, Swagger UI and Redoc](/recipes/api-documentation-openapi), and [Implement API Logging and Audit Trails](/recipes/api-logging-audit).
 
 ## When to Use
 

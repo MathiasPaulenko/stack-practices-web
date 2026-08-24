@@ -49,7 +49,7 @@ seo:
 ---
 ## Visión General
 
-No todos los bugs son iguales. Un problema cosmético en un interruptor de modo oscuro no es lo mismo que un bug de pérdida de datos en un flujo de pago. Sin un sistema de triaje, los problemas críticos se acumulan en backlogs mientras los ingenieros persiguen ruido de baja prioridad. Esta plantilla crea un sistema de clasificación y enrutamiento repetible para que los bugs correctos lleguen a los equipos correctos con la prioridad adecuada.
+No todos los bugs son iguales. Un problema cosmético en un interruptor de modo oscuro no es lo mismo que un bug de pérdida de datos en un flujo de pago. Sin un sistema de triaje, los problemas críticos se acumulan en backlogs mientras los ingenieros persiguen ruido de baja prioridad. Esta plantilla crea un sistema de clasificación y enrutamiento repetible para que los bugs correctos lleguen a los equipos correctos con la prioridad adecuada. Documentos relacionados: [REST API en Go con Gin y Middleware](/recipes/go-rest-api-gin), [Construye servicios gRPC en TypeScript con Protocol Buffers](/recipes/grpc-services-typescript) y [Programa Tareas Periódicas en Python con APScheduler](/recipes/python-schedule-periodic-tasks).
 
 ## Cuándo Usar
 

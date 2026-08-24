@@ -47,7 +47,7 @@ seo:
 
 ## Overview
 
-API consumers need to know what changed, when it changed, and whether they need to act. An unstructured changelog — or no changelog at all — forces consumers to diff your API or discover breaking changes in production. This template provides a standardized format for documenting every API change with version, date, severity, and migration guidance.
+API consumers need to know what changed, when it changed, and whether they need to act. An unstructured changelog — or no changelog at all — forces consumers to diff your API or discover breaking changes in production. This template provides a standardized format for documenting every API change with version, date, severity, and migration guidance. Related resources: [Stream LLM Output with Server-Sent Events (SSE)](/recipes/python-llm-streaming-responses), [How to Document an API with OpenAPI, Swagger UI and Redoc](/recipes/api-documentation-openapi), and [Implement API Logging and Audit Trails](/recipes/api-logging-audit).
 
 ## When to Use
 

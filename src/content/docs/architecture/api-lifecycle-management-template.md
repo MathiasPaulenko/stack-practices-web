@@ -43,7 +43,7 @@ seo:
 ---
 ## Overview
 
-APIs are long-lived contracts between systems. Changing or removing an endpoint without a structured process breaks downstream consumers, causes outages, and damages trust. This template provides a checklist-driven approach for deprecating old versions, introducing new versions, and sunsetting APIs safely.
+APIs are long-lived contracts between systems. Changing or removing an endpoint without a structured process breaks downstream consumers, causes outages, and damages trust. This template provides a checklist-driven approach for deprecating old versions, introducing new versions, and sunsetting APIs safely. Related resources: [Design a Scalable API Gateway for Microservices](/recipes/api-gateway), [Build Resilient Systems with the Circuit Breaker Pattern](/recipes/circuit-breaker-pattern-recipe), and [Dependency Injection](/recipes/dependency-injection).
 
 ## When to Use
 

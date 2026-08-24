@@ -45,7 +45,7 @@ seo:
 ---
 ## Visión General
 
-Los cambios en producción son riesgosos. Una migración de base de datos, una actualización de configuración o un cambio de feature flag pueden desencadenar una interrupción. La gestión de cambios no es burocracia: es una forma estructurada de reducir sorpresas. Esta plantilla documenta el flujo de revisión, aprobación y reversión para cualquier cambio que toque producción, asegurando que las personas correctas hayan revisado el riesgo y que la ruta de reversión esté lista antes de comenzar.
+Los cambios en producción son riesgosos. Una migración de base de datos, una actualización de configuración o un cambio de feature flag pueden desencadenar una interrupción. La gestión de cambios no es burocracia: es una forma estructurada de reducir sorpresas. Esta plantilla documenta el flujo de revisión, aprobación y reversión para cualquier cambio que toque producción, asegurando que las personas correctas hayan revisado el riesgo y que la ruta de reversión esté lista antes de comenzar. Documentos relacionados: [REST API en Go con Gin y Middleware](/recipes/go-rest-api-gin), [Construye servicios gRPC en TypeScript con Protocol Buffers](/recipes/grpc-services-typescript) y [Programa Tareas Periódicas en Python con APScheduler](/recipes/python-schedule-periodic-tasks).
 
 ## Cuándo Usar
 

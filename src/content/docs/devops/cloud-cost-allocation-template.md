@@ -46,7 +46,7 @@ seo:
 ---
 ## Overview
 
-Cloud bills grow silently. A forgotten staging environment, an oversized database instance, or a runaway CI job can double your monthly spend without anyone noticing. This template creates a transparent cost allocation model so teams understand who spends what, finance can forecast accurately, and engineers can optimize with data.
+Cloud bills grow silently. A forgotten staging environment, an oversized database instance, or a runaway CI job can double your monthly spend without anyone noticing. This template creates a transparent cost allocation model so teams understand who spends what, finance can forecast accurately, and engineers can optimize with data. Related resources: [Go REST API with Gin and Middleware](/recipes/go-rest-api-gin), [Build gRPC Services in TypeScript with Protocol Buffers](/recipes/grpc-services-typescript), and [Schedule Periodic Tasks in Python with APScheduler](/recipes/python-schedule-periodic-tasks).
 
 ## When to Use
 

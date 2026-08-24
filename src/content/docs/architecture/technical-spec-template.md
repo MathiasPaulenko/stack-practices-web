@@ -35,7 +35,7 @@ seo:
 ---
 ## Overview
 
-Technical specifications translate product requirements into an implementable plan. Without a spec, engineers make assumptions that lead to mismatched expectations, missed edge cases, and rework. This template provides a standard structure for documenting goals, constraints, design decisions, and implementation steps.
+Technical specifications translate product requirements into an implementable plan. Without a spec, engineers make assumptions that lead to mismatched expectations, missed edge cases, and rework. This template provides a standard structure for documenting goals, constraints, design decisions, and implementation steps. Related resources: [Design a Scalable API Gateway for Microservices](/recipes/api-gateway), [Build Resilient Systems with the Circuit Breaker Pattern](/recipes/circuit-breaker-pattern-recipe), and [Dependency Injection](/recipes/dependency-injection).
 
 ## When to Use
 

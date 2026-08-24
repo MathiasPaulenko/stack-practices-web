@@ -45,7 +45,7 @@ seo:
 ---
 ## Overview
 
-Production changes are risky. A database migration, a configuration update, or a feature flag flip can cascade into an outage. Change management is not bureaucracy—it is a structured way to reduce surprise. This template documents the review, approval, and rollback workflow for any change that touches production, ensuring the right people have reviewed the risk and the rollback path is ready before you start.
+Production changes are risky. A database migration, a configuration update, or a feature flag flip can cascade into an outage. Change management is not bureaucracy—it is a structured way to reduce surprise. This template documents the review, approval, and rollback workflow for any change that touches production, ensuring the right people have reviewed the risk and the rollback path is ready before you start. Related resources: [Go REST API with Gin and Middleware](/recipes/go-rest-api-gin), [Build gRPC Services in TypeScript with Protocol Buffers](/recipes/grpc-services-typescript), and [Schedule Periodic Tasks in Python with APScheduler](/recipes/python-schedule-periodic-tasks).
 
 ## When to Use
 

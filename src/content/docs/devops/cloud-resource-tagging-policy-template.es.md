@@ -43,7 +43,7 @@ seo:
 
 ## Descripcion General
 
-El Etiquetado de Recursos Cloud es la practica de aplicar etiquetas de metadatos a recursos cloud como maquinas virtuales, buckets de almacenamiento, bases de datos y componentes de red. Las etiquetas consistentes permiten la asignacion de costos, el control de acceso, las operaciones automatizadas y la auditoria de seguridad. Esta plantilla de politica define etiquetas requeridas, convenciones de nombres, mecanismos de cumplimiento y controles de gobernanza.
+El Etiquetado de Recursos Cloud es la practica de aplicar etiquetas de metadatos a recursos cloud como maquinas virtuales, buckets de almacenamiento, bases de datos y componentes de red. Las etiquetas consistentes permiten la asignacion de costos, el control de acceso, las operaciones automatizadas y la auditoria de seguridad. Esta plantilla de politica define etiquetas requeridas, convenciones de nombres, mecanismos de cumplimiento y controles de gobernanza. Documentos relacionados: [Configura Nginx como Reverse Proxy y API Gateway](/recipes/nginx-reverse-proxy), [Cachear Respuestas HTTP con Nginx Reverse Proxy](/recipes/nginx-reverse-proxy-cache) y [Desarrollo Local de Microservicios con Docker Compose](/recipes/docker-compose-local-dev).
 
 ## Cuando Usar
 

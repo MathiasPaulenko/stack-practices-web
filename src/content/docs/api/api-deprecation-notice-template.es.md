@@ -42,7 +42,7 @@ seo:
 ---
 ## Resumen
 
-Las APIs evolucionan. Los campos se renombran, los endpoints se reemplazan y las versiones antiguas se retiran. Sin un aviso de deprecacion claro, los consumidores descubren los cambios breaking solo despues de que sus integraciones fallan. Esta plantilla proporciona un formato estandar para anunciar deprecaciones, comunicar plazos y guiar a los consumidores a traves de las migraciones.
+Las APIs evolucionan. Los campos se renombran, los endpoints se reemplazan y las versiones antiguas se retiran. Sin un aviso de deprecacion claro, los consumidores descubren los cambios breaking solo despues de que sus integraciones fallan. Esta plantilla proporciona un formato estandar para anunciar deprecaciones, comunicar plazos y guiar a los consumidores a traves de las migraciones. Documentos relacionados: [Stream de salida LLM con Server-Sent Events (SSE)](/recipes/python-llm-streaming-responses), [Cómo documentar una API con OpenAPI, Swagger UI y Redoc](/recipes/api-documentation-openapi) y [Implementar logging y audit trails de API](/recipes/api-logging-audit).
 
 ## Cuando Usar
 

@@ -40,7 +40,7 @@ seo:
 ---
 ## Overview
 
-Every API endpoint consumes resources: CPU, memory, database connections, and network bandwidth. Without explicit budgets, teams add capabilities until the system collapses under load. This template defines performance budgets as a contract between product requirements and infrastructure capacity, making trade-offs explicit before they become outages.
+Every API endpoint consumes resources: CPU, memory, database connections, and network bandwidth. Without explicit budgets, teams add capabilities until the system collapses under load. This template defines performance budgets as a contract between product requirements and infrastructure capacity, making trade-offs explicit before they become outages. Related resources: [Design a Scalable API Gateway for Microservices](/recipes/api-gateway), [Build Resilient Systems with the Circuit Breaker Pattern](/recipes/circuit-breaker-pattern-recipe), and [Dependency Injection](/recipes/dependency-injection).
 
 ## When to Use
 

@@ -49,7 +49,7 @@ seo:
 ---
 ## Overview
 
-Not all bugs are equal. A cosmetic issue in a dark-mode toggle is not a data-loss bug in a payment flow. Without a triage system, critical issues sit in backlogs while engineers chase low-priority noise. This template creates a repeatable classification and routing system so the right bugs reach the right teams at the right priority.
+Not all bugs are equal. A cosmetic issue in a dark-mode toggle is not a data-loss bug in a payment flow. Without a triage system, critical issues sit in backlogs while engineers chase low-priority noise. This template creates a repeatable classification and routing system so the right bugs reach the right teams at the right priority. Related resources: [Go REST API with Gin and Middleware](/recipes/go-rest-api-gin), [Build gRPC Services in TypeScript with Protocol Buffers](/recipes/grpc-services-typescript), and [Schedule Periodic Tasks in Python with APScheduler](/recipes/python-schedule-periodic-tasks).
 
 ## When to Use
 
