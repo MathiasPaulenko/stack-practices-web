@@ -10,8 +10,18 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote
 import re
+import sys
 import xml.etree.ElementTree as ET
-import yaml
+
+try:
+    import yaml
+except ImportError:
+    print(
+        "Error: PyYAML is not installed.\n"
+        "Install it with: pip install pyyaml",
+        file=sys.stderr,
+    )
+    sys.exit(2)
 
 BASE_URL = "https://stackpractices.com"
 DIST_DIR = Path(__file__).resolve().parents[1] / "dist"

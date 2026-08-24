@@ -17,7 +17,17 @@ import json
 import os
 import sys
 import argparse
-import ai_detect
+
+try:
+    import ai_detect
+except ImportError:
+    print(
+        "Error: the 'ai_detect' module is not installed.\n"
+        "Install it with: pip install ai-detect\n"
+        "Or clone it from: https://github.com/your-org/ai-detect",
+        file=sys.stderr,
+    )
+    sys.exit(2)
 
 
 CONTENT_DIR = "src/content"

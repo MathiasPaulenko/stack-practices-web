@@ -13,8 +13,17 @@ Output:
 import glob
 import re
 import sys
-import yaml
 from pathlib import Path
+
+try:
+    import yaml
+except ImportError:
+    print(
+        "Error: PyYAML is not installed.\n"
+        "Install it with: pip install pyyaml",
+        file=sys.stderr,
+    )
+    sys.exit(2)
 
 
 FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
