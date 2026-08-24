@@ -303,7 +303,7 @@ This gives clients type-safe error handling without try/catch.
 ## Best Practices
 
 
-- For a deeper guide, see [Detect and Fix N+1 Queries in GraphQL Resolvers](/recipes/graphql-n-1-query-detection/).
+- For a deeper guide, see [Detect and Fix N+1 Queries in GraphQL Resolvers](/recipes/graphql-n+1-query-detection/).
 
 - **Always include `extensions.code`** — it is the contract between server and client for error handling
 - **Never leak stack traces** in production — `formatError` should strip them

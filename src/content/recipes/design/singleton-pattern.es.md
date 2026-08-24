@@ -47,7 +47,7 @@ La implementación ingenua — un campo estático inicializado al cargar la clas
 
 Usa esta receta cuando:
 
-- Una clase gestiona un recurso que debe ser único dentro de la aplicación (pool de conexiones, cache, config). Consulta [Factory Pattern](/recipes/factory-pattern-recipe/) para patrones de creación.
+- Una clase gestiona un recurso que debe ser único dentro de la aplicación (pool de conexiones, cache, config). Consulta [Factory Pattern](/recipes/factory-pattern/) para patrones de creación.
 - Múltiples instancias causarían conflictos o agotamiento de recursos. Consulta [Connection Pooling](/recipes/database-connection-pooling/) para recursos compartidos.
 - Necesitas inicialización perezosa para evitar setup costoso durante el arranque
 - El singleton es stateless o read-only después de la inicialización (evita estado global mutable). Consulta [Locks y Mutexes](/recipes/locks-and-mutexes/) para acceso thread-safe.

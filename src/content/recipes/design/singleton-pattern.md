@@ -47,7 +47,7 @@ The naive implementation — a static field initialized at class load — works 
 
 Use this recipe when:
 
-- A class manages a resource that must be unique within the application (connection pool, cache, config). See [Factory Pattern](/recipes/factory-pattern-recipe/) for creation patterns.
+- A class manages a resource that must be unique within the application (connection pool, cache, config). See [Factory Pattern](/recipes/factory-pattern/) for creation patterns.
 - Multiple instances would cause conflicts or resource exhaustion. See [Database Connection Pooling](/recipes/database-connection-pooling/) for shared resources.
 - You need lazy initialization to avoid expensive setup during application startup
 - The singleton is stateless or read-only after initialization (avoid mutable global state). See [Locks and Mutexes](/recipes/locks-and-mutexes/) for thread-safe access.

@@ -45,9 +45,9 @@ The adapter pattern solves this by introducing a wrapper class that implements y
 Use this recipe when:
 
 - Integrating a third-party library with an incompatible interface. See [Hexagonal Architecture](/recipes/hexagonal-architecture/) for port/adapter isolation.
-- Migrating from a legacy system without rewriting dependent code. See [Factory Pattern](/recipes/factory-pattern-recipe/) for creating adapter instances.
+- Migrating from a legacy system without rewriting dependent code. See [Factory Pattern](/recipes/factory-pattern/) for creating adapter instances.
 - Exposing a simplified facade over a complex subsystem
-- Supporting multiple implementations of the same capability (payments, storage, messaging). See [Strategy Pattern](/recipes/strategy-pattern-recipe/) for runtime algorithm selection.
+- Supporting multiple implementations of the same capability (payments, storage, messaging). See [Strategy Pattern](/recipes/strategy-pattern/) for runtime algorithm selection.
 - Testing code that depends on external services by adapting mocks
 
 ## Solution

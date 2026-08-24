@@ -186,7 +186,7 @@ def request_password_reset(email):
 ### Prevención
 
 ```bash
-# Escanear [dependencias](/docs/templates/dependency-audit-template) por CVEs conocidos
+# Escanear [dependencias](/docs/dependency-audit-template) por CVEs conocidos
 npm audit
 pip-audit
 snyk test

@@ -213,7 +213,7 @@ simple dentro de una red confiable.
 
 ## Buenas Prácticas
 
-- Implementá [circuit breakers](/recipes/circuit-breaker-pattern-recipe/) en el gateway para dejar
+- Implementá [circuit breakers](/recipes/circuit-breaker-pattern/) en el gateway para dejar
     de enviar tráfico a backends con fallos.
 - Usá versionado en el path, como `/api/v1/users`, en vez de headers. Mantiene el routing explícito
     y las claves de caché simples.

@@ -211,7 +211,7 @@ const loader = new DataLoader(batchFn, {
 ## Best Practices
 
 
-- For a deeper guide, see [Detect and Fix N+1 Queries in GraphQL Resolvers](/recipes/graphql-n-1-query-detection/).
+- For a deeper guide, see [Detect and Fix N+1 Queries in GraphQL Resolvers](/recipes/graphql-n+1-query-detection/).
 
 - **Create loaders per request** — never share DataLoader instances across requests; the cache leaks data between users
 - **Sort batch results to match input order** — DataLoader expects the return array to align with the input key order

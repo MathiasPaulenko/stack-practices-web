@@ -210,7 +210,7 @@ network.
 
 ## Best Practices
 
-- Put [circuit breakers](/recipes/circuit-breaker-pattern-recipe/) at the gateway to stop forwarding
+- Put [circuit breakers](/recipes/circuit-breaker-pattern/) at the gateway to stop forwarding
     traffic to failing backends.
 - Use path versioning such as `/api/v1/users` instead of header versioning. It keeps routing
     explicit and cache keys simple.

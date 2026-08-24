@@ -151,7 +151,7 @@ Mejor para: trabajo en background, alto throughput, desacoplamiento
 ## Lo que funciona
 
 - **Posee el ciclo de vida completo** — los equipos construyen, operan y soportan sus servicios
-- **Diseña para el fallo** — asume que cualquier dependencia puede fallar; usa [reintentos con backoff](/recipes/retry-backoff/), [circuit breakers](/recipes/circuit-breaker-pattern-recipe/) y degradación graceful
+- **Diseña para el fallo** — asume que cualquier dependencia puede fallar; usa [reintentos con backoff](/recipes/retry-backoff/), [circuit breakers](/recipes/circuit-breaker-pattern/) y degradación graceful
 - **Automatiza todo** — si un deploy o rollback requiere un runbook, automatízalo
 - **Estandariza observabilidad** — cada servicio debe emitir [logs](/recipes/log-aggregation/), [métricas](/recipes/metrics-collection/) y [trazas](/recipes/distributed-tracing/) consistentes
 - **Limita dependencias entre servicios** — evita cadenas profundas; prefiere fan-out sobre árboles profundos

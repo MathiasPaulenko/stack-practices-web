@@ -121,7 +121,7 @@ app.post('/users', async (req, res) => {
 
 // READ (with pagination)
 app.get('/users', async (req, res) => {
-  // See [Pagination](/recipes/api/pagination) for cursor-based approaches
+  // See [Pagination](/recipes/pagination) for cursor-based approaches
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
   const skip = (page - 1) * limit;
@@ -160,7 +160,7 @@ app.patch('/users/:id', async (req, res) => {
   res.json(user);
 });
 
-// DELETE (soft delete). See [Soft Deletes](/recipes/databases/soft-deletes) for patterns.
+// DELETE (soft delete). See [Soft Deletes](/recipes/soft-deletes) for patterns.
 app.delete('/users/:id', async (req, res) => {
   const user = await User.findByIdAndUpdate(
     req.params.id,
@@ -177,7 +177,7 @@ app.listen(3000, () => console.log('Server running on port 3000'));
 ### 4. Transactions
 
 ```javascript
-// Atomic operations across collections. See [Database Transactions](/recipes/databases/database-transactions) for ACID patterns.
+// Atomic operations across collections. See [Database Transactions](/recipes/database-transactions) for ACID patterns.
 app.post('/orders', async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();

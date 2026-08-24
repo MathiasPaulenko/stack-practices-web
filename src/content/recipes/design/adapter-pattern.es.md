@@ -45,9 +45,9 @@ El adapter pattern resuelve esto introduciendo una clase wrapper que implementa 
 Usa esta receta cuando:
 
 - Integrando una librería de terceros con una interfaz incompatible. Consulta [Arquitectura Hexagonal](/recipes/hexagonal-architecture/) para aislamiento de ports/adapters.
-- Migrando desde un sistema legacy sin reescribir código dependiente. Consulta [Factory Pattern](/recipes/factory-pattern-recipe/) para crear instancias de adapters.
+- Migrando desde un sistema legacy sin reescribir código dependiente. Consulta [Factory Pattern](/recipes/factory-pattern/) para crear instancias de adapters.
 - Exponiendo una fachada simplificada sobre un subsistema complejo
-- Soportando múltiples implementaciones de la misma capacidad (pagos, storage, mensajería). Consulta [Strategy Pattern](/recipes/strategy-pattern-recipe/) para selección de algoritmos en runtime.
+- Soportando múltiples implementaciones de la misma capacidad (pagos, storage, mensajería). Consulta [Strategy Pattern](/recipes/strategy-pattern/) para selección de algoritmos en runtime.
 - Testeando código que depende de servicios externos adaptando mocks
 
 ## Solución

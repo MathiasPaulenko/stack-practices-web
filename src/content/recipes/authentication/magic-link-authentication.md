@@ -117,7 +117,7 @@ def verify_magic_link(token: str) -> dict:
     )
     db.commit()
 
-    # Create user [session](/recipes/authentication/session-management) or [JWT](/recipes/authentication/jwt-authentication)
+    # Create user [session](/recipes/session-management) or [JWT](/recipes/jwt-authentication)
     user = get_or_create_user(email)
     session = create_session(user.id)
 
@@ -261,7 +261,8 @@ Benchmarks run on Node.js 20, single core, Redis cache. Real-world results vary 
 - **Session token in URL**: if session tokens are passed as URL parameters, they leak in logs and history.
 - **Insecure deserialization of session data**: if session data is serialized with JSON. parse without validation, attackers can inject unexpected types.  Validate session data schema after deserialization.
 - **CSRF on state-changing endpoints**: if cookies are used for auth and CSRF tokens are not validated, attackers can forge requests.  Require CSRF tokens for all state-changing operations.
-- **Privilege escalation via mass assignment**: if user input is directly assigned to user objects, attackers can set ole: admin. Use allowlists for updatable fields.
+- **Privilege escalation via mass assignment**: if user input is directly assigned to user objects, attackers can set 
+ole: admin. Use allowlists for updatable fields.
 - **Password reset token reuse**: if password reset tokens are not invalidated after use, attackers can reuse them.
 - **MFA bypass via replay**: if MFA codes are not single-use, attackers who intercept a code can reuse it.  Mark MFA codes as used immediately after verification.
 - **OAuth2 scope escalation**: if OAuth2 scopes are not validated on each request, attackers can use tokens with fewer scopes to access higher-scope endpoints.  Validate scopes per endpoint.

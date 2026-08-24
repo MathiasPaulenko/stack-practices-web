@@ -81,7 +81,7 @@ def receive_webhook():
     event = json.loads(payload)
     event_type = event.get("type")
 
-    # [Idempotency](/recipes/api/idempotent-api-endpoints): check event_id before processing
+    # [Idempotency](/recipes/idempotent-api-endpoints): check event_id before processing
     if is_duplicate(event["id"]):
         return {"status": "duplicate"}, 200
 

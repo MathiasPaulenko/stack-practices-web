@@ -91,7 +91,7 @@ What actually happened. Include screenshots or error messages.
 - [ ] Low — cosmetic issue, minor inconvenience
 
 ## Additional Context
-- Link to related issue, PR, or [feature request](/docs/templates/feature-request-template). See [Test-Driven Development](/guides/testing/test-driven-development-guide) for writing tests that reproduce bugs.
+- Link to related issue, PR, or [feature request](/docs/feature-request-template). See [Test-Driven Development](/guides/test-driven-development-guide) for writing tests that reproduce bugs.
 - Frequency of occurrence
 - Recent changes that may be related
 ```

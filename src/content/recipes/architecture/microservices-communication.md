@@ -48,8 +48,8 @@ This recipe compares the main communication patterns used in production microser
 
 Use this resource when:
 - Choosing between synchronous ([REST](/recipes/call-rest-api/), [gRPC](/recipes/grpc-api/)) and asynchronous ([messaging](/recipes/kafka-event-streaming/), [event-driven](/recipes/event-driven-architecture/)) communication.
-- Designing resilient communication with [circuit breakers](/recipes/circuit-breaker-pattern-recipe/) and [retries](/recipes/retry-backoff/).
-- Coordinating distributed transactions with [sagas](/recipes/saga-pattern-recipe/).
+- Designing resilient communication with [circuit breakers](/recipes/circuit-breaker-pattern/) and [retries](/recipes/retry-backoff/).
+- Coordinating distributed transactions with [sagas](/recipes/saga-pattern/).
 
 ## Solution
 

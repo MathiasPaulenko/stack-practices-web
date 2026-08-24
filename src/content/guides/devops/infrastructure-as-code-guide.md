@@ -196,7 +196,7 @@ terraform validate
 # TFLint: catch provider-specific mistakes
 tflint --deep
 
-# Checkov / Terraform-compliance: [security policies](/guides/security/security-best-practices-guide)
+# Checkov / Terraform-compliance: [security policies](/guides/security-best-practices-guide)
 checkov -d .
 ```
 

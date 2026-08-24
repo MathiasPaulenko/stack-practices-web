@@ -107,7 +107,7 @@ Fixed a bug where date ranges crossing month boundaries produced empty exports.
 - **Migration:** Update response parsing to read from `metadata` object. See migration guide.
 
 ## New Capabilities
-- **CSV Export** — Export any dashboard chart as CSV. See [docs](/docs/csv-export).
+- **CSV Export** — Export any dashboard chart as CSV. See [docs](/recipes/export-csv-excel).
 - **Saved Filters** — Save and name dashboard filter presets for reuse.
 
 ## Improvements
@@ -123,7 +123,7 @@ Fixed a bug where date ranges crossing month boundaries produced empty exports.
 - **CVE-2026-1234** — XSS vulnerability in chart tooltip rendering (High). Fixed by escaping user input in tooltip templates.
 
 ## Deprecations
-- **`/api/v1/reports` flat response format** — will be removed in v3.0.0. Use `metadata` object format. See [API Deprecation Notice](/docs/api/api-deprecation-notice-template).
+- **`/api/v1/reports` flat response format** — will be removed in v3.0.0. Use `metadata` object format. See [API Deprecation Notice](/docs/api-deprecation-notice-template).
 
 ## Upgrade Instructions
 1. Update the SDK to v2.5.0: `npm install @stackpractices/sdk@2.5.0`

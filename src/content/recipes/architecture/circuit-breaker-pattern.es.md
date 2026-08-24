@@ -227,7 +227,7 @@ R: No — es una máquina de estados con memoria (ventanas de falla), recuperaci
 R: Reintenta dentro. El circuit breaker envuelve la lógica de retry. Si el retry se agota y la llamada aún falla, el circuit breaker lo cuenta como falla. Reintentar fuera de un circuito abierto desperdicia recursos — ya sabes que el servicio no está saludable.
 
 **P: ¿Pueden los circuit breakers causar inconsistencia de datos?**
-R: Sí, si el fallback no está cuidadosamente diseñado. Si el circuito se abre durante un pago y el fallback es "asumir que tuvo éxito," puedes marcar órdenes no pagadas como pagadas. Diseña fallbacks seguros: marca como pendiente, encola para procesamiento posterior, o notifica al usuario. Consulta [Saga Pattern](/recipes/saga-pattern-recipe/) para coordinación de transacciones distribuidas.
+R: Sí, si el fallback no está cuidadosamente diseñado. Si el circuito se abre durante un pago y el fallback es "asumir que tuvo éxito," puedes marcar órdenes no pagadas como pagadas. Diseña fallbacks seguros: marca como pendiente, encola para procesamiento posterior, o notifica al usuario. Consulta [Saga Pattern](/recipes/saga-pattern/) para coordinación de transacciones distribuidas.
 
 **P: ¿Cómo funcionan los circuit breakers con async/await?**
 R: La mayoría de las librerías modernas (Resilience4j, Opossum para JS) soportan ejecución async nativamente. La máquina de estados corre en el thread llamador (o event loop), y la función envuelta se espera. Los timeouts deben ser compatibles con el runtime async (Promise timeout en JS, CompletableFuture timeout en Java). Consulta [Async Patterns](/recipes/call-rest-api/) para estrategias de ejecución async.

@@ -16,11 +16,11 @@ tags:
   - nodemailer
   - css
 relatedResources:
-  - /recipes/security/xss-prevention
-  - /recipes/security/data-validation-zod
-  - /recipes/frontend/css-dark-mode-prefers-color-scheme
-  - /recipes/frontend/server-side-rendering
-  - /recipes/frontend/css-custom-properties-design-tokens
+  - /recipes/xss-prevention
+  - /recipes/data-validation-zod
+  - /recipes/css-dark-mode-prefers-color-scheme
+  - /recipes/server-side-rendering
+  - /recipes/css-custom-properties-design-tokens
   - /guides/complete-guide-mobile-responsive-design
 lastUpdated: "2026-08-18"
 publishedAt: "2026-06-19"
@@ -55,9 +55,9 @@ ESP.
 
 - Pair it with [Input Validation](/recipes/input-validation/) to clean the data
   you pass into the template.
-- See [XSS Prevention](/recipes/security/xss-prevention/) before including user
+- See [XSS Prevention](/recipes/xss-prevention/) before including user
   input in email HTML.
-- Look at [CSS Dark Mode](/recipes/frontend/css-dark-mode-prefers-color-scheme/)
+- Look at [CSS Dark Mode](/recipes/css-dark-mode-prefers-color-scheme/)
   if you want to support `prefers-color-scheme`.
 
 ## Solution

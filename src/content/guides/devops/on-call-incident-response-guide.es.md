@@ -111,7 +111,7 @@ kubectl scale deployment/api-service --replicas=20
 |----------|-----------------|
 | Deploy malo | Rollback a última versión buena |
 | Pico de tráfico | Escalar horizontalmente, activar [rate limiting](/recipes/rate-limiting/) |
-| Falla de dependencia | Activar [circuit breaker](/recipes/circuit-breaker-pattern-recipe/), servir cache viejo |
+| Falla de dependencia | Activar [circuit breaker](/recipes/circuit-breaker-pattern/), servir cache viejo |
 | Sobrecarga de base de datos | Matar queries lentas, agregar [réplicas de lectura](/guides/database-design-guide/) |
 | Error de configuración | [Revertir config](/guides/infrastructure-as-code-guide/), reiniciar con valores previos |
 
@@ -178,7 +178,7 @@ Problema: La API de pagos devolvió 500 por 20 minutos.
 ¿Por qué? → Los tests de carga no cubren el flujo de checkout.
 ¿Por qué? → Los escenarios de carga no se actualizaron en 6 meses.
 
-Acción: Agregar flujo de checkout a [tests de carga](/recipes/performance/load-testing-k6) semanales; requerir pase de carga en [CI](/guides/devops/cicd-pipeline-guide).
+Acción: Agregar flujo de checkout a [tests de carga](/recipes/load-testing-k6) semanales; requerir pase de carga en [CI](/guides/cicd-pipeline-guide).
 ```
 
 ### Plantilla de Postmortem

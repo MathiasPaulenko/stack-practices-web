@@ -111,7 +111,7 @@ kubectl scale deployment/api-service --replicas=20
 |---------|---------------|
 | Bad deployment | Rollback to last known good version |
 | Traffic spike | Scale horizontally, enable [rate limiting](/recipes/rate-limiting/) |
-| Dependency failure | Enable [circuit breaker](/recipes/circuit-breaker-pattern-recipe/), serve stale cache |
+| Dependency failure | Enable [circuit breaker](/recipes/circuit-breaker-pattern/), serve stale cache |
 | Database overload | Kill slow queries, add [read replicas](/guides/database-design-guide/) |
 | Configuration error | [Revert config](/guides/infrastructure-as-code-guide/), restart with previous values |
 
@@ -178,7 +178,7 @@ Why? → The change was not tested under load.
 Why? → Load tests do not cover the checkout flow.
 Why? → Load test scenarios were last updated 6 months ago.
 
-Action: Add checkout flow to weekly [load tests](/recipes/performance/load-testing-k6); require load test pass in [CI](/guides/devops/cicd-pipeline-guide).
+Action: Add checkout flow to weekly [load tests](/recipes/load-testing-k6); require load test pass in [CI](/guides/cicd-pipeline-guide).
 ```
 
 ### Postmortem Template

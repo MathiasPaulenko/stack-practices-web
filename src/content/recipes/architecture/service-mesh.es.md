@@ -169,7 +169,7 @@ spec:
 - **Empieza con mTLS permisivo, luego enforce estricto**: Después de validar flujos de tráfico, cambia a `STRICT` para rechazar conexiones no encriptadas.   El modo estricto repentino puede romper servicios que no tienen sidecars.
 - **Define service accounts por workload**: las cuentas de servicio de Kubernetes se mapean a identidades de Istio.   Esto habilita políticas de autorización granulares.
 - **Configura retry budgets, no solo retries**: retries ingenuos pueden amplificar fallos.   Retries ilimitados crean retry storms.
-- **Usa [circuit breakers](/recipes/circuit-breaker-pattern-recipe/) en cada llamada saliente**: Si un servicio downstream retorna 5xx en el 50% de requests durante 30 segundos, échalo durante 30 segundos.   Esto previene fallos en cascada.
+- **Usa [circuit breakers](/recipes/circuit-breaker-pattern/) en cada llamada saliente**: Si un servicio downstream retorna 5xx en el 50% de requests durante 30 segundos, échalo durante 30 segundos.   Esto previene fallos en cascada.
 - **Monitorea el uso de recursos del sidecar**: Envoy consume CPU y memoria.   Setea resource requests/limits en el sidecar.   En servicios de alto throughput, el sidecar puede convertirse en el bottleneck antes que la aplicación.   Profilea y tunea la concurrencia del proxy.
 
 ## Errores comunes

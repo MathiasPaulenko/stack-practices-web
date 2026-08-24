@@ -48,8 +48,8 @@ Esta receta compara los principales patrones de comunicación utilizados en micr
 
 Usa este recurso cuando:
 - Debas elegir entre comunicación síncrona ([REST](/recipes/call-rest-api/), [gRPC](/recipes/grpc-api/)) y asíncrona ([messaging](/recipes/kafka-event-streaming/), [event-driven](/recipes/event-driven-architecture/)).
-- Diseñes comunicación resiliente con [circuit breakers](/recipes/circuit-breaker-pattern-recipe/) y [reintentos](/recipes/retry-backoff/).
-- Coordines transacciones distribuidas con [sagas](/recipes/saga-pattern-recipe/).
+- Diseñes comunicación resiliente con [circuit breakers](/recipes/circuit-breaker-pattern/) y [reintentos](/recipes/retry-backoff/).
+- Coordines transacciones distribuidas con [sagas](/recipes/saga-pattern/).
 
 ## Solución
 

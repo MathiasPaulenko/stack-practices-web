@@ -250,7 +250,7 @@ A: Retry with exponential backoff. If retries exhaust, alert an operator and par
 A: Yes — maintain a saga state table in the orchestrator's database. Each row represents a saga instance with columns for current step, completed steps, and error details. Expose a read API for support teams and monitoring dashboards.
 
 **Q: Should every microservices interaction use a saga?**
-A: No. Sagas add complexity. Use them for multi-step business processes that must be all-or-nothing. For simple one-to-one calls that can fail independently, use direct API calls with [retries](/recipes/retry-backoff/) and [circuit breakers](/recipes/circuit-breaker-pattern-recipe/).
+A: No. Sagas add complexity. Use them for multi-step business processes that must be all-or-nothing. For simple one-to-one calls that can fail independently, use direct API calls with [retries](/recipes/retry-backoff/) and [circuit breakers](/recipes/circuit-breaker-pattern/).
 
 
 ### Java Spring Boot Orchestrator with Event Sourcing

@@ -177,7 +177,7 @@ resource "aws_cloudwatch_event_target" "billing_target" {
 R: Kafka para event streaming de alto throughput, event sourcing y replay. RabbitMQ para enrutamiento complejo, patrones request-reply y compatibilidad AMQP. Kafka escala horizontalmente mejor; RabbitMQ es más fácil de operar a pequeña escala.
 
 **P: ¿Cómo manejo ordenamiento de eventos entre servicios?**
-R: No puedes garantizar ordenamiento global entre servicios. Asegura ordenamiento dentro de un aggregate (ej. todos los eventos para `order-123` van a la misma partición). Usa [sagas](/recipes/saga-pattern-recipe/) para compensar cuando las asunciones de ordenamiento cross-service se violan.
+R: No puedes garantizar ordenamiento global entre servicios. Asegura ordenamiento dentro de un aggregate (ej. todos los eventos para `order-123` van a la misma partición). Usa [sagas](/recipes/saga-pattern/) para compensar cuando las asunciones de ordenamiento cross-service se violan.
 
 **P: ¿Cuál es la diferencia entre event-driven y message-driven?**
 R: Event-driven: los servicios reaccionan a eventos a los que se suscriben. Message-driven: los servicios envían mensajes a colas específicas. Los términos se superponen, pero event-driven implica pub/sub y acoplamiento débil, mientras que message-driven incluye patrones point-to-point.

@@ -142,7 +142,7 @@ A good alert answers three questions:
 - Current: 750ms (baseline: 200ms)
 - Duration: 8 minutes
 - Runbook: https://wiki/runbooks/payment-latency
-- Suggested action: Check payment processor status page. See [incident response](/guides/devops/on-call-incident-response-guide).
+- Suggested action: Check payment processor status page. See [incident response](/guides/on-call-incident-response-guide).
 ```
 
 ### Alert Severity

@@ -60,7 +60,7 @@ It is the foundation of event-driven architectures, reactive programming, and th
 
 Use the Observer Pattern when:
 - Changes to one object require updating an unknown number of dependent objects. See [Mediator Pattern](/patterns/mediator-pattern/) for centralized routing.
-- You need a publish-subscribe communication model. See [CQRS Pattern](/recipes/cqrs-pattern-recipe/) for event-driven architectures.
+- You need a publish-subscribe communication model. See [CQRS Pattern](/recipes/cqrs-pattern/) for event-driven architectures.
 - An object should notify others without knowing who they are
 - You want loose coupling between event producers and consumers
 - Building reactive UI components or real-time data feeds. See [API REST](/recipes/call-rest-api/) for real-time data fetching.

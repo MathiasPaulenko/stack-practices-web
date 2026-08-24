@@ -134,8 +134,8 @@ Adoptar Apache Kafka como la plataforma de event streaming.
 - Maneja backpressure vía consumer lag
 
 ### Negativas
-- Complejidad operativa (ZooKeeper, brokers, particiones). Consulta [arquitectura event-driven](/guides/architecture/event-driven-architecture-guide).
-- El equipo necesita aprender [patrones event-driven](/guides/architecture/event-driven-architecture-guide)
+- Complejidad operativa (ZooKeeper, brokers, particiones). Consulta [arquitectura event-driven](/guides/event-driven-architecture-guide).
+- El equipo necesita aprender [patrones event-driven](/guides/event-driven-architecture-guide)
 - La consistencia eventual requiere Saga pattern para algunos flujos
 ```
 
@@ -160,7 +160,7 @@ Un runbook es una guía paso a paso para responder a una alerta conocida o modo 
 3. Revisar logs de aplicación por leaks de conexión
 
 ## Resolución
-1. Si causado por query lento: matar query, [agregar índice](/recipes/performance/database-indexing), o escalar [réplicas de lectura](/guides/databases/database-design-guide)
+1. Si causado por query lento: matar query, [agregar índice](/recipes/database-indexing), o escalar [réplicas de lectura](/guides/database-design-guide)
 2. Si causado por leak de conexión: reiniciar pods de app (temporal), luego deployear fix
 3. Si persistente: aumentar tamaño del pool en config y redeployar
 

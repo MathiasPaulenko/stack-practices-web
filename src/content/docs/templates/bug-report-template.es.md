@@ -91,7 +91,7 @@ Lo que realmente sucedió. Incluye capturas de pantalla o mensajes de error.
 - [ ] Bajo — problema cosmético, inconveniente menor
 
 ## Contexto Adicional
-- Link a issue, PR, o [solicitud de feature](/docs/templates/feature-request-template) relacionado. Consulta [Test-Driven Development](/guides/testing/test-driven-development-guide) para escribir tests que reproduzcan bugs.
+- Link a issue, PR, o [solicitud de feature](/docs/feature-request-template) relacionado. Consulta [Test-Driven Development](/guides/test-driven-development-guide) para escribir tests que reproduzcan bugs.
 - Frecuencia de ocurrencia
 - Cambios recientes que puedan estar relacionados
 ```

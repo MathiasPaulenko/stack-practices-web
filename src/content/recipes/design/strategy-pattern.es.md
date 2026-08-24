@@ -41,10 +41,10 @@ El strategy pattern separa los algoritmos del contexto que los usa. Cada algorit
 
 Usa esta receta cuando:
 
-- Múltiples algoritmos o comportamientos existen para la misma tarea y solo uno se usa a la vez. Consulta [Factory Pattern](/recipes/factory-pattern-recipe/) para crear algoritmos.
+- Múltiples algoritmos o comportamientos existen para la misma tarea y solo uno se usa a la vez. Consulta [Factory Pattern](/recipes/factory-pattern/) para crear algoritmos.
 - El algoritmo debe seleccionarse en runtime basado en configuración o input del usuario. Consulta [Input Validation](/recipes/input-validation/) para configuración segura.
 - Quieres aislar la complejidad del algoritmo de la lógica de negocio principal
-- Agregar nuevas variantes no debería requerir modificar código existente. Consulta [Adapter Pattern](/recipes/adapter-pattern-recipe/) para extender interfaces.
+- Agregar nuevas variantes no debería requerir modificar código existente. Consulta [Adapter Pattern](/recipes/adapter-pattern/) para extender interfaces.
 - El estado o configuración específico del algoritmo necesita encapsulación separada del contexto
 
 ## Solución
