@@ -47,7 +47,7 @@ A single cache layer is rarely optimal. In-memory caches offer sub-millisecond r
 
 - High-traffic APIs where Redis round-trip latency is a bottleneck
 - Multiple server instances that need to share cached data
-- Read-heavy workloads where the same data is accessed repeatedly within a single instance
+- Read-heavy workloads where the same data is accessed repeatedly within a single instance See also [HTTP Cache-Control Headers for APIs and Static Assets](/recipes/http-cache-control-headers).
 
 ## Prerequisites
 

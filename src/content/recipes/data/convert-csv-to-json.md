@@ -45,7 +45,7 @@ the shape that most APIs and document stores actually want.
 
 The examples below run in Python, JavaScript, and Java. Use the quick
 standard-library version for small files, and the streaming version for anything
-that won't fit in RAM.
+that won't fit in RAM. See also [Deep Clone Objects in JavaScript: Beyond JSON.parse](/recipes/deep-clone-structured).
 
 ## When to Use
 

@@ -56,7 +56,7 @@ El streaming de salida LLM mejora la latencia percibida — los usuarios ven tok
 
 - Interfaces de chat donde los usuarios esperan respuestas en tiempo real
 - Generacion de texto largo donde esperar la salida completa se siente lento
-- Cualquier aplicacion LLM donde la latencia percibida importa
+- Cualquier aplicacion LLM donde la latencia percibida importa Ver también [Server-Sent Events con Node.js y Express](/recipes/server-sent-events-node).
 
 ## Requisitos Previos
 

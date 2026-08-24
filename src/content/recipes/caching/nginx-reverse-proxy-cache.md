@@ -44,7 +44,7 @@ seo:
 
 ## Overview
 
-Nginx can cache responses from upstream servers, reducing load on backend applications and cutting latency for repeated requests. The `proxy_cache` directive stores responses in a configurable cache zone on disk, with TTLs per response code, cache keys based on request attributes, and options to bypass cache for specific requests. Below: setting up a caching reverse proxy, tuning cache zones, handling cache invalidation, and conditional caching.
+Nginx can cache responses from upstream servers, reducing load on backend applications and cutting latency for repeated requests. The `proxy_cache` directive stores responses in a configurable cache zone on disk, with TTLs per response code, cache keys based on request attributes, and options to bypass cache for specific requests. Below: setting up a caching reverse proxy, tuning cache zones, handling cache invalidation, and conditional caching. See also [Debounce and Throttle](/recipes/debounce-throttle).
 
 ## When to Use This
 

@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-Spring Framework provides declarative caching through annotations: `@Cacheable`, `@CachePut`, `@CacheEvict`, and `@Caching`. These annotations intercept method calls, check the cache before execution, and store results after execution — all without modifying business logic. With a Redis backend, the cache is shared across all application instances. Below: configuring Spring Cache with Redis, using each annotation, conditional caching, multi-cache operations, and TTL management.
+Spring Framework provides declarative caching through annotations: `@Cacheable`, `@CachePut`, `@CacheEvict`, and `@Caching`. These annotations intercept method calls, check the cache before execution, and store results after execution — all without modifying business logic. With a Redis backend, the cache is shared across all application instances. Below: configuring Spring Cache with Redis, using each annotation, conditional caching, multi-cache operations, and TTL management. See also [HTTP Cache-Control Headers for APIs and Static Assets](/recipes/http-cache-control-headers).
 
 ## When to Use This
 

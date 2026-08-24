@@ -45,7 +45,7 @@ HTTP connections, and the browser's built-in `EventSource` API handles reconnect
 
 Reach for SSE when the server needs to push notifications, logs, or live metrics to browsers and the
 clients only receive. It's a good fit if you want to reuse existing HTTP infrastructure such as load
-balancers and CDNs, or if you need a simpler alternative to WebSockets for one-way streaming.
+balancers and CDNs, or if you need a simpler alternative to WebSockets for one-way streaming. See also [Debounce and Throttle](/recipes/debounce-throttle).
 
 ## When NOT to Use
 

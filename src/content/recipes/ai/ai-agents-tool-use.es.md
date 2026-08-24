@@ -34,7 +34,7 @@ seo:
 ---
 ## Visión General
 
-Los agentes de IA son sistemas autónomos que utilizan modelos de lenguaje para razonar, planificar y ejecutar tareas llamando herramientas externas. A diferencia de simples [chatbots](/recipes/chatbot-openai/), los agentes pueden buscar en la web, consultar bases de datos, ejecutar código e interactuar con APIs para cumplir objetivos complejos de múltiples pasos.
+Los agentes de IA son sistemas autónomos que utilizan modelos de lenguaje para razonar, planificar y ejecutar tareas llamando herramientas externas. A diferencia de simples [chatbots](/recipes/chatbot-openai/), los agentes pueden buscar en la web, consultar bases de datos, ejecutar código e interactuar con APIs para cumplir objetivos complejos de múltiples pasos. Ver también [Patrón LLM Fallback](/patterns/llm-fallback-pattern).
 
 ## Cuándo Usar
 

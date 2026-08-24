@@ -53,7 +53,7 @@ seo:
 ---
 ## Overview
 
-Converting JSON to CSV bridges structured API responses with spreadsheet-friendly formats. This transformation is essential for data exports, business intelligence pipelines, and interoperability with Excel-based workflows. JSON's nested structure must be flattened into rows and columns, handling arrays and nested objects carefully.
+Converting JSON to CSV bridges structured API responses with spreadsheet-friendly formats. This transformation is essential for data exports, business intelligence pipelines, and interoperability with Excel-based workflows. JSON's nested structure must be flattened into rows and columns, handling arrays and nested objects carefully. See also [Deep Clone Objects in JavaScript: Beyond JSON.parse](/recipes/deep-clone-structured).
 
 ## When to Use
 

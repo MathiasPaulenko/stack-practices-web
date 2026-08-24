@@ -46,7 +46,7 @@ seo:
 ---
 ## Overview
 
-Backing up data is only half the job; keeping those backups organized and pruning old ones is the other half. A backup rotation script creates snapshots on a schedule, renames them with timestamps, and deletes archives that exceed your retention window. This prevents the backup directory from growing forever while still giving you enough historical copies to recover from accidental deletion, corruption, or ransomware.
+Backing up data is only half the job; keeping those backups organized and pruning old ones is the other half. A backup rotation script creates snapshots on a schedule, renames them with timestamps, and deletes archives that exceed your retention window. This prevents the backup directory from growing forever while still giving you enough historical copies to recover from accidental deletion, corruption, or ransomware. See also [Node.js File Upload Validation: Type, Size, and Content](/recipes/nodejs-file-upload-validation).
 
 ## When to Use
 

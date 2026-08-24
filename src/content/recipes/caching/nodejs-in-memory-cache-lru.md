@@ -47,7 +47,7 @@ An LRU (Least Recently Used) cache evicts the oldest accessed entry when it reac
 
 - Caching expensive computations or database lookups within a single process
 - Rate limiting or deduplication where old entries should expire first
-- Scenarios where Redis is overkill but `Map` alone lacks eviction
+- Scenarios where Redis is overkill but `Map` alone lacks eviction See also [Debounce and Throttle](/recipes/debounce-throttle).
 
 ## Prerequisites
 

@@ -45,7 +45,7 @@ seo:
 ---
 ## Visión General
 
-Hacer backups es solo la mitad del trabajo; mantener esos backups organizados y podar los antiguos es la otra mitad. Un script de rotación de backups crea snapshots de forma programada, los renombra con timestamps y elimina archivos que excedan la ventana de retención. Esto evita que el directorio de backups crezca para siempre mientras conserva suficientes copias históricas para recuperarse de borrados accidentales, corrupción o ransomware.
+Hacer backups es solo la mitad del trabajo; mantener esos backups organizados y podar los antiguos es la otra mitad. Un script de rotación de backups crea snapshots de forma programada, los renombra con timestamps y elimina archivos que excedan la ventana de retención. Esto evita que el directorio de backups crezca para siempre mientras conserva suficientes copias históricas para recuperarse de borrados accidentales, corrupción o ransomware. Ver también [Validación de Subida de Archivos en Node.js](/recipes/nodejs-file-upload-validation).
 
 ## Cuándo Usar
 

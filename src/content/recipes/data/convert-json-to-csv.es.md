@@ -53,7 +53,7 @@ seo:
 ---
 ## Visión General
 
-Convertir JSON a CSV conecta respuestas estructuradas de API con formatos compatibles con hojas de cálculo. Esta transformación es esencial para exports de datos, pipelines de business intelligence e interoperabilidad con flujos de trabajo basados en Excel. La estructura anidada de JSON debe aplanarse en filas y columnas, manejando arrays y objetos anidados cuidadosamente.
+Convertir JSON a CSV conecta respuestas estructuradas de API con formatos compatibles con hojas de cálculo. Esta transformación es esencial para exports de datos, pipelines de business intelligence e interoperabilidad con flujos de trabajo basados en Excel. La estructura anidada de JSON debe aplanarse en filas y columnas, manejando arrays y objetos anidados cuidadosamente. Ver también [Deep Clone de Objetos en JavaScript: Mas alla de JSON.parse](/recipes/deep-clone-structured).
 
 ## Cuándo Usar
 

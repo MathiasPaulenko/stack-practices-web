@@ -45,7 +45,7 @@ seo:
 
 ## Descripcion general
 
-El caching de resultados de consultas de base de datos almacena el resultado de consultas costosas en Redis para que peticiones subsecuentes salten la base de datos completamente. El patron cache-aside — verificar cache, obtener de DB en miss, poblar cache — es el enfoque mas comun. A continuacion: implementar cache-aside en Python con Redis, manejar serializacion, invalidacion en writes, prevencion de cache stampede y caching multi-query.
+El caching de resultados de consultas de base de datos almacena el resultado de consultas costosas en Redis para que peticiones subsecuentes salten la base de datos completamente. El patron cache-aside — verificar cache, obtener de DB en miss, poblar cache — es el enfoque mas comun. A continuacion: implementar cache-aside en Python con Redis, manejar serializacion, invalidacion en writes, prevencion de cache stampede y caching multi-query. Ver también [Caché en Node.js con Redis: Cache-Aside, TTL e Invalidation](/recipes/nodejs-caching-redis).
 
 ## Cuando Usar Esto
 

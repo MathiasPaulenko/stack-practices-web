@@ -48,7 +48,7 @@ Usá SSE cuando el servidor necesita enviar notificaciones, logs o métricas en 
 los
 clientes solo reciben. Es una buena opción si querés reusar infraestructura HTTP existente como load
 balancers y CDNs, o si necesitás una alternativa más simple a WebSockets para streaming
-unidireccional.
+unidireccional. Ver también [Debounce y Throttle](/recipes/debounce-throttle).
 
 ## Cuándo NO Usarlo
 

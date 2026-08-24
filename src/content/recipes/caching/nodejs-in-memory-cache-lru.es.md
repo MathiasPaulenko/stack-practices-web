@@ -50,7 +50,7 @@ Una cache LRU (Least Recently Used) evicta la entrada accedida mas antigua cuand
 
 - Cachear computaciones costosas o consultas a base de datos dentro de un solo proceso
 - Rate limiting o deduplicacion donde entradas viejas deben expirar primero
-- Escenarios donde Redis es excesivo pero `Map` solo carece de eviccion
+- Escenarios donde Redis es excesivo pero `Map` solo carece de eviccion Ver también [Debounce y Throttle](/recipes/debounce-throttle).
 
 ## Requisitos Previos
 

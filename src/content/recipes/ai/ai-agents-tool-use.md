@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-AI agents are autonomous systems that use large language models to reason, plan, and execute tasks by calling external tools. Unlike simple [chatbots](/recipes/chatbot-openai/), agents can search the web, query databases, run code, and interact with APIs to accomplish complex, multi-step objectives.
+AI agents are autonomous systems that use large language models to reason, plan, and execute tasks by calling external tools. Unlike simple [chatbots](/recipes/chatbot-openai/), agents can search the web, query databases, run code, and interact with APIs to accomplish complex, multi-step objectives. See also [LLM Fallback Pattern](/patterns/llm-fallback-pattern).
 
 ## When to Use
 

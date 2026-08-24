@@ -47,7 +47,7 @@ El caching CDN reduce latencia y carga del origen, pero el contenido cacheado pu
 
 - Actualizaciones de contenido que deben aparecer inmediatamente (noticias, precios, inventario)
 - Despliegues donde assets viejos no deben persistir en el edge
-- Sitios multi-pagina donde actualizar una pagina debe invalidar paginas relacionadas
+- Sitios multi-pagina donde actualizar una pagina debe invalidar paginas relacionadas Ver también [Caché en Node.js con Redis: Cache-Aside, TTL e Invalidation](/recipes/nodejs-caching-redis).
 
 ## Requisitos Previos
 

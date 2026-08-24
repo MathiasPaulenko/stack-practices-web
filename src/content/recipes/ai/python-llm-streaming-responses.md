@@ -53,7 +53,7 @@ Streaming LLM output improves perceived latency — users see tokens as they are
 
 - Chat interfaces where users expect real-time responses
 - Long-form generation where waiting for the full output feels slow
-- Any LLM application where perceived latency matters
+- Any LLM application where perceived latency matters See also [Server-Sent Events with Node.js and Express](/recipes/server-sent-events-node).
 
 ## Prerequisites
 

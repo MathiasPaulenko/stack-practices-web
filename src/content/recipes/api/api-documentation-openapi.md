@@ -35,7 +35,7 @@ seo:
 
 Most API docs rot in READMEs, Confluence pages or Slack threads. The moment you ship a change, those pages are already out of date. OpenAPI — the spec that grew out of Swagger — lets you describe your endpoints, schemas and errors in a single YAML or JSON file. That same file can drive interactive docs, client SDKs and test scaffolding.
 
-This guide shows examples in Python with FastAPI, JavaScript with Express and Java with SpringDoc, and it walks through the trade-offs of each. It also compares Swagger UI and Redoc, and explains how to keep the spec from rotting once it's in production. Related recipes: [Implement API Logging and Audit Trails](/recipes/api-logging-audit), [Implement API Rate Limiting with Redis](/recipes/api-rate-limiting-redis), [Cursor-Based Pagination with PostgreSQL](/recipes/cursor-pagination-postgresql), and [Build Real-Time Notifications with WebSockets](/recipes/real-time-notifications).
+This guide shows examples in Python with FastAPI, JavaScript with Express and Java with SpringDoc, and it walks through the trade-offs of each. It also compares Swagger UI and Redoc, and explains how to keep the spec from rotting once it's in production. Related recipes: [Implement API Logging and Audit Trails](/recipes/api-logging-audit), [Implement API Rate Limiting with Redis](/recipes/api-rate-limiting-redis), [Cursor-Based Pagination with PostgreSQL](/recipes/cursor-pagination-postgresql), and [Build Real-Time Notifications with WebSockets](/recipes/real-time-notifications). See also [Server-Sent Events with Node.js and Express](/recipes/server-sent-events-node).
 
 ## When to Use
 
