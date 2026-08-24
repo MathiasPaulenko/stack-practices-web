@@ -1,13 +1,8 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: python-prometheus-metrics-exporter
 title: "Expose Custom Application Metrics with Python and Prometheus"
-description: "Build a custom Prometheus metrics exporter in Python using prometheus_client for counters, gauges, histograms, and summaries."
+description: "Build a custom Prometheus metrics exporter in Python using prometheus_client. Covers counters, gauges, histograms, summaries, and Flask/FastAPI integration."
 metaDescription: "Build a custom Prometheus exporter in Python with prometheus_client. Expose counters, gauges, histograms, summaries, and custom metrics endpoints."
 difficulty: intermediate
 topics:
@@ -24,10 +19,9 @@ relatedResources:
   - /recipes/docker-health-check-configuration
   - /guides/observability-guide
   - /guides/complete-guide-structured-logging
-  - /patterns/claim-check-pattern
   - /recipes/prometheus-monitoring-alerts
   - /guides/complete-guide-observability-grafana-stack
-lastUpdated: "2026-07-02"
+lastUpdated: "2026-08-24"
 publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
@@ -39,26 +33,28 @@ seo:
     - python monitoring metrics
     - prometheus counter gauge histogram
     - application metrics python
-
-
-
-
-
 ---
 
 ## Overview
 
-Prometheus is a pull-based monitoring system. Your application exposes a `/metrics` endpoint, and Prometheus scrapes it at regular intervals. The `prometheus_client` Python library provides built-in metric types (counter, gauge, histogram, summary) and an HTTP server to expose them. Here is how to how to instrument a Python app with custom metrics.
+Prometheus pulls metrics from your app over HTTP. You expose a `/metrics`
+endpoint, and Prometheus scrapes it on a schedule. The `prometheus_client`
+library gives you four metric types and a quick HTTP server, so instrumenting a
+Python app is straightforward.
 
 ## When to Use
 
+Reach for this recipe when you need app-level numbers like request count,
+latency, or queue depth. It also fits if you already use Prometheus or Grafana
+for monitoring, or if you want to publish custom business metrics such as active
+users or orders processed from a Python service.
 
-- For alternatives, see [Complete Guide to Observability with the Grafana Stack](/guides/complete-guide-observability-grafana-stack/).
+It's not the best fit if you only need temporary debug output, or if your
+monitoring stack already uses a push-based collector with a non-Prometheus
+backend.
 
-- You need application-level metrics (request count, latency, queue depth)
-- You use Prometheus or Grafana for monitoring and alerting
-- You want to track custom business metrics (active users, orders processed)
-- You need to expose metrics from a Python service for scraping
+For alternatives, see [Complete Guide to Observability with the Grafana
+Stack](/guides/complete-guide-observability-grafana-stack/).
 
 ## Solution
 
@@ -336,63 +332,90 @@ services:
 
 ## Explanation
 
-Prometheus metric types:
+Start by figuring out what the metric is supposed to measure.
 
-- **Counter**: Monotonically increasing value. Use for request counts, error counts, bytes sent. Never decreases. Use `.inc()` to add 1 or `.inc(value)` to add a specific amount.
-- **Gauge**: Value that goes up and down. Use for active connections, queue depth, memory usage. Use `.set(value)` to set, `.inc()` / `.dec()` to change.
-- **Histogram**: Groups observations into buckets. Use for latency distributions. Provides `_bucket`, `_sum`, and `_count` time series. Define custom buckets based on your SLOs.
-- **Summary**: Similar to histogram but computes quantiles on the client side. Use when you need exact percentiles and have few instances.
+If the question is "how many" and the answer can only go up, use a `Counter`.
+Requests served, errors raised, bytes written — these all go in this bucket.
+Increment it with `.inc()` for one event, or pass a batch count to `.inc(value)`.
 
-Labels add dimensions to metrics. Each label combination creates a separate time series. Avoid high-cardinality labels (user IDs, request IDs) — they explode the number of time series.
+If the value moves in both directions — active connections, queue depth, free
+memory — a `Gauge` is the tool. Set it with `.set(value)` or bump it up and down
+with `.inc()` and `.dec()`.
 
-The `prometheus_client` library exposes metrics in the Prometheus text exposition format at `/metrics`. Prometheus scrapes this endpoint at the configured `scrape_interval`.
+For timing or payload size, the choice is between a histogram and a summary. A
+`Histogram` bins every observation into buckets and exposes `_bucket`, `_sum`, and
+`_count`. Latency is the classic case, and you pick the bin edges yourself. A
+`Summary` is the pickier cousin: it computes percentiles inside your app, so you
+get exact numbers per instance, but you can't roll those percentiles across
+replicas. Keep it for small, fixed deployments.
 
-## Variants
+Labels are how you slice a metric by extra details. The catch is that every
+unique combination of label values becomes its own time series, so
+high-cardinality labels like user IDs or request IDs will blow up the series
+count.
 
-| Metric Type | Use Case | Example |
-|------------|----------|---------|
-| Counter | Cumulative counts | Total requests, errors sent |
-| Gauge | Current state | Active connections, queue depth |
-| Histogram | Distributions | Request latency, response size |
-| Summary | Client-side quantiles | p99 latency per instance |
+Under the hood, `prometheus_client` renders metrics in Prometheus text exposition
+format at `/metrics`. Prometheus then scrapes that endpoint based on the
+`scrape_interval` you configured.
 
-## Guidelines
+## Best Practices
 
-- Use counters for monotonically increasing values (requests, errors, bytes).
-- Use gauges for values that go up and down (connections, queue depth, memory).
-- Use histograms for latency distributions. Define buckets that match your SLOs.
-- Keep label cardinality low. Avoid user IDs, session IDs, or request IDs as labels.
-- Use the default buckets or define custom ones. Default buckets are optimized for ~0.005s to ~10s.
-- Expose metrics on a separate port or path from your application.
-- Set `scrape_interval` to 15-60s. Higher intervals reduce storage but miss short spikes.
-- Use middleware to instrument all requests automatically (Flask `before_request`, FastAPI middleware).
-- Track business metrics alongside technical ones (orders processed, active users).
-- Monitor your metrics endpoint health — if it goes down, Prometheus has no data.
+Counters are for anything that only grows: requests, errors, bytes. Gauges work
+for values that fluctuate, like active connections or queue depth. Histograms are
+for latency, and you should define buckets that match your SLOs.
+
+Keep label cardinality low. Never use user IDs, session IDs, or request IDs as
+labels. Decide whether the default histogram buckets make sense for your traffic
+or define your own; the defaults span roughly 0.005s to 10s. Try to keep the
+metrics endpoint on a separate port or path from your main application.
+
+Set `scrape_interval` between 15 and 60 seconds. Longer intervals save storage
+but can miss short spikes. Use middleware in Flask or FastAPI to instrument every
+request automatically. Once the metrics are flowing, set up alerts with
+[Prometheus Monitoring and Alerts](/recipes/prometheus-monitoring-alerts/). Don't
+forget business metrics: orders processed, active users, completed checkouts.
+They often tell you more than the technical ones. And monitor the health of your
+metrics endpoint: if it fails, Prometheus stops getting data.
 
 ## Common Mistakes
 
-- Using high-cardinality labels. Each unique label combination creates a new time series. A label with 10K user IDs creates 10K series per metric.
-- Using a gauge for counters. Counters should never decrease. Using a gauge loses the rate calculation capability.
-- Not defining custom histogram buckets. Default buckets may not match your latency profile.
-- Exposing metrics on the same port as the app without authentication. In production, protect the metrics endpoint.
-- Forgetting to call `.inc()` or `.observe()`. Metrics that are never updated are useless.
-- Using summaries instead of histograms. Summaries cannot be aggregated across instances. Use histograms for distributed systems.
-- Not instrumenting error paths. If you only track successful requests, your error rate appears as zero.
+The biggest trap is high-cardinality labels. Every unique combination creates a
+new time series, so a label with 10,000 user IDs produces 10,000 series per
+metric. Using a gauge when you need a counter is another mistake — counters should
+never decrease, and a gauge can't be used for rate calculations.
+
+Not defining custom histogram buckets is also frequent; the defaults may not
+match your latency profile. Exposing `/metrics` on the same port as your app
+without authentication is risky in production, so protect it. Forgetting to call
+`.inc()` or `.observe()` leaves you with stale metrics. Summaries fall apart in
+distributed systems because they don't aggregate across instances, so don't use
+one where you need fleet-wide percentiles. And only instrumenting the happy path
+hides errors — your error rate will look like zero.
 
 ## FAQ
 
 ### What is the difference between a histogram and a summary?
 
-Histograms group observations into configurable buckets and let Prometheus compute quantiles server-side (aggregatable across instances). Summaries compute quantiles client-side (not aggregatable). Use histograms for latency in distributed systems. Use summaries only when you need exact per-instance percentiles.
+Both deal with distributions, but the math happens in different places. With a
+histogram, Prometheus receives the raw buckets and calculates quantiles on the
+server. That makes histograms aggregatable across instances. A summary calculates
+quantiles inside your app, so each process reports its own percentile and you
+can't roll them up. Use histograms for latency in distributed systems; reserve
+summaries for exact per-instance percentiles.
 
 ### How do I choose histogram buckets?
 
-Set buckets based on your SLOs. If your SLO is 99 percent of requests under 200ms, use buckets like `[0.01, 0.05, 0.1, 0.2, 0.5, 1.0]`. The `+Inf` bucket is added automatically.
+Base them on your SLOs. If 99% of requests should finish under 200ms, use buckets
+like `[0.01, 0.05, 0.1, 0.2, 0.5, 1.0]`. Prometheus adds the `+Inf` bucket
+automatically.
 
 ### Can I use prometheus_client with Django?
 
-Yes. Use `django-prometheus` package for Django-specific integration, or mount `make_wsgi_app()` in your URL configuration.
+Yes. Use `django-prometheus` for Django-specific helpers, or mount
+`make_wsgi_app()` in your URL configuration.
 
 ### How do I test my metrics locally?
 
-Run `prometheus_client.start_http_server(8000)` and open `http://localhost:8000/metrics` in a browser. You should see the text exposition format with all your metrics.
+Run `prometheus_client.start_http_server(8000)` and open
+`http://localhost:8000/metrics` in a browser. You'll see the text exposition
+format listing all your metrics.

@@ -1,65 +1,60 @@
 ---
-
-
-
-
-
-
 contentType: recipes
 slug: grafana-dashboards-observability
-title: "Dashboards de Observabilidad con Grafana y Prometheus"
-description: "Construye dashboards interactivos en Grafana que visualizan metricas Prometheus con paneles, variables y alerts para observabilidad completa de servicios"
-metaDescription: "Construye dashboards Grafana para metricas Prometheus. Crea visualizaciones interactivas con paneles, variables y alerts para observabilidad completa."
+title: "Dashboards de Grafana para Observabilidad con Prometheus"
+description: "Construye dashboards de Grafana que visualizan métricas de Prometheus. Usá paneles, variables de template, provisioning y alertas para observabilidad del equipo."
+metaDescription: "Construye dashboards Grafana para métricas Prometheus. Crea visualizaciones interactivas con paneles, variables y alertas para observabilidad completa del servicio."
 difficulty: beginner
 topics:
   - devops
   - observability
 tags:
+  - grafana
+  - prometheus
+  - dashboards
   - monitoring
   - observability
   - devops
-  - ci-cd
-  - automation
 relatedResources:
   - /recipes/prometheus-monitoring-alerts
-  - /recipes/helm-chart-deployment
-  - /docs/service-level-objective-slo-template
-  - /recipes/distributed-tracing
-  - /recipes/log-aggregation
   - /recipes/metrics-collection
   - /recipes/prometheus-api-monitoring
-  - /recipes/real-user-monitoring
+  - /recipes/log-aggregation
   - /recipes/structured-logging
-lastUpdated: "2026-06-18"
+  - /recipes/distributed-tracing
+lastUpdated: "2026-08-23"
 publishedAt: "2026-06-18"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Construye dashboards Grafana para metricas Prometheus. Crea visualizaciones interactivas con paneles, variables y alerts para observabilidad completa."
+  metaDescription: "Construye dashboards Grafana para métricas Prometheus. Crea visualizaciones interactivas con paneles, variables y alertas para observabilidad completa del servicio."
   keywords:
     - grafana
     - dashboards
-    - observability
+    - observabilidad
     - prometheus
-    - visualization
-
-
-
-
-
-
+    - monitoreo
 ---
 
-Crea dashboards ricos e interactivos en Grafana para visualizar metricas Prometheus y entender el comportamiento de servicios de un vistazo. Esta recipe cubre tipos de paneles, variables de template, organizacion en rows y practicas dashboard-as-code para observabilidad consistente entre equipos.
+## Descripción General
 
-## Cuando Usar Esto
+Los dashboards de Grafana transforman métricas crudas de Prometheus en una vista
+en vivo de la salud de los servicios. Esta receta muestra cómo conectar un data
+source, construir un dashboard con paneles y variables, provisionarlo desde
+disco y agregar alertas. Los ejemplos usan snippets de YAML, JSON, PromQL y
+Terraform que podés adaptar a tu propio stack.
 
-- Los equipos necesitan una vista centralizada de salud y rendimiento de servicios. Consulta [Health Check Endpoint](/recipes/health-check-endpoint/) para probes de readiness.
-- Ingenieros on-call deben identificar rapidamente que servicio esta fallando. Consulta [Prometheus API Monitoring](/recipes/prometheus-api-monitoring/) para recolección de métricas.
-- Stakeholders de negocio quieren visibilidad de uptime y latencia sin queryar metricas directamente. Consulta [API Status Page Template](/docs/api-status-page-template/) para reportes de estado externos.
+## Cuándo Usar Esto
 
-## Solucion
+Usá este enfoque cuando tu equipo necesite un único lugar para ver request rate,
+latencia y error rate a través de los servicios. Ayuda a los ingenieros on-call a
+identificar rápido servicios que fallan y da visibilidad de uptime a
+stakeholders sin técnicos sin que escriban PromQL. También sirve cuando querés
+que los dashboards estén versionados como código para poder revisarlos en Git y
+desplegarlos automáticamente.
 
-### 1. Provisionar Data Sources
+## Solución
+
+### 1. Provisionar el data source de Prometheus
 
 ```yaml
 # provisioning/datasources/prometheus.yml
@@ -73,7 +68,7 @@ datasources:
     editable: false
 ```
 
-### 2. Modelo JSON de Dashboard
+### 2. Construir el JSON del dashboard
 
 ```json
 {
@@ -124,18 +119,18 @@ datasources:
         "type": "stat",
         "targets": [
           {
-            "expr": "sum(rate(http_requests_total{status_code=~\"5..\"}[5m])) / sum(rate(http_requests_total[5m]))",
+            "expr": "sum(rate(http_requests_total{status=~\"5..\"}[5m])) / sum(rate(http_requests_total[5m])) * 100",
             "legendFormat": "Error %"
           }
         ],
         "fieldConfig": {
           "defaults": {
-            "unit": "percentunit",
+            "unit": "percent",
             "thresholds": {
               "steps": [
                 { "color": "green", "value": 0 },
-                { "color": "yellow", "value": 0.01 },
-                { "color": "red", "value": 0.05 }
+                { "color": "yellow", "value": 1 },
+                { "color": "red", "value": 5 }
               ]
             }
           }
@@ -147,7 +142,7 @@ datasources:
 }
 ```
 
-### 3. Variables de Template para Filtrado en Vivo
+### 3. Agregar variables de template
 
 ```json
 {
@@ -166,27 +161,41 @@ datasources:
         "query": "label_values(http_requests_total{job=~\"$service\"}, route)",
         "multi": true,
         "includeAll": true
+      },
+      {
+        "name": "interval",
+        "type": "interval",
+        "options": [
+          { "text": "1m", "value": "1m" },
+          { "text": "5m", "value": "5m" },
+          { "text": "1h", "value": "1h" }
+        ],
+        "current": { "text": "5m", "value": "5m" }
       }
     ]
   }
 }
 ```
 
-### 4. Dashboard Provisioning
+### 4. Provisionar dashboards desde disco
 
 ```yaml
 # provisioning/dashboards/dashboards.yml
 apiVersion: 1
 providers:
   - name: default
+    orgId: 1
     folder: Services
     type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
     options:
       path: /var/lib/grafana/dashboards
       foldersFromFilesStructure: true
 ```
 
-### 5. Dashboard as Code con Terraform
+### 5. Manejar dashboards como código con Terraform
 
 ```hcl
 # terraform/grafana.tf
@@ -206,130 +215,7 @@ resource "grafana_dashboard" "api" {
 }
 ```
 
-## Como Funciona
-
-- **Panels** despliegan queries en formatos de tabla, graficos, gauges y stat
-- **Variables** permiten filtrar por servicio, region o ruta en vivo
-- **Rows** organizan paneles en secciones colapsables para vistas enfocadas
-- **Alerts** pueden configurarse directamente en Grafana o via Prometheus Alertmanager
-
-## Variacion: Dashboard de Sistema Node Exporter
-
-```promql
-# CPU usage
-100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
-
-# Memory usage
-(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes
-
-# Disk I/O
-rate(node_disk_io_time_seconds_total[5m])
-```
-
-## Consideraciones de Produccion
-
-- Usa dashboard provisioning para version control de dashboards en Git
-- Setea intervalos de refresh apropiados; 5s para real-time, 30s-1m para overview
-- Limita variables de dashboard para prevenir queries caras en labels grandes
-
-## Errores Comunes
-
-- Sobrecargar un solo dashboard con 50+ paneles, haciendolo lento de cargar
-- No usar variables, llevando a dashboards duplicados por servicio
-- Olvidar setear thresholds min/max en paneles stat para evaluacion rapida de salud
-
-## FAQ
-
-**P: Como se compara Grafana con la UI built-in de Prometheus?**
-R: Grafana es una plataforma dedicada de visualizacion con ricos tipos de paneles, variables y opciones de layout. La UI de Prometheus es util para queries ad-hoc pero carece de capacidades de composicion de dashboards.
-
-**P: Puedo usar Grafana con otros data sources?**
-R: Si. Grafana soporta Elasticsearch, InfluxDB, CloudWatch, Loki, Jaeger y muchos otros nativamente.
-
-### ¿Esta solución está lista para producción?
-
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
-
-### ¿Cuáles son las características de rendimiento?
-
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
-
-### ¿Cómo depuro problemas con este enfoque?
-
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
-
-### Dashboard Provisioning (GitOps)
-
-```yaml
-# provisioning/dashboards/dashboards.yml
-apiVersion: 1
-providers:
-  - name: 'Default'
-    orgId: 1
-    folder: 'Services'
-    type: file
-    disableDeletion: false
-    updateIntervalSeconds: 30
-    allowUiUpdates: true
-    options:
-      path: /var/lib/grafana/dashboards
-```
-
-```json
-// provisioning/dashboards/api-overview.json
-{
-  "dashboard": {
-    "title": "API Overview",
-    "tags": ["api", "production"],
-    "timezone": "browser",
-    "schemaVersion": 39,
-    "panels": [
-      {
-        "title": "Request Rate",
-        "type": "stat",
-        "datasource": "Prometheus",
-        "targets": [
-          { "expr": "sum(rate(http_requests_total[5m]))", "refId": "A" }
-        ],
-        "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 }
-      },
-      {
-        "title": "Error Rate",
-        "type": "gauge",
-        "datasource": "Prometheus",
-        "targets": [
-          { "expr": "sum(rate(http_requests_total{status=~\"5..\"}[5m])) / sum(rate(http_requests_total[5m])) * 100", "refId": "A" }
-        ],
-        "fieldConfig": {
-          "defaults": {
-            "thresholds": {
-              "steps": [
-                { "color": "green", "value": null },
-                { "color": "yellow", "value": 1 },
-                { "color": "red", "value": 5 }
-              ]
-            }
-          }
-        },
-        "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 }
-      }
-    ],
-    "templating": {
-      "list": [
-        {
-          "name": "service",
-          "type": "query",
-          "datasource": "Prometheus",
-          "query": "label_values(http_requests_total, job)",
-          "refresh": 1
-        }
-      ]
-    }
-  }
-}
-```
-
-### Grafana Alerting
+### 6. Agregar alertas de Grafana
 
 ```yaml
 # provisioning/alerting/alerts.yml
@@ -362,7 +248,7 @@ groups:
           group_wait: 10s
 ```
 
-### Integración de Logs con Loki
+### 7. Incluir paneles de logs con Loki
 
 ```yaml
 # provisioning/datasources/loki.yml
@@ -374,89 +260,103 @@ datasources:
     url: http://loki:3100
     isDefault: false
     jsonData:
-      maxLines: 1000
+      maxLines: 500
 ```
 
 ```logql
-# Queries de logs para paneles de dashboard
-# Logs de error para servicio específico
+# Logs de error para un servicio específico
 {service="api"} |= "error" | json | line_format "{{.msg}}"
 
 # Requests lentos (>1s)
 {service="api"} |= "duration" | json | duration > 1000
-
-# Contar errores por servicio a lo largo del tiempo
-sum by (service) (count_over_time({service="api"} |= "error" [5m]))
 ```
 
-### Variables de Dashboard para Filtrado Dinámico
+## Explicación
 
-```json
-{
-  "templating": {
-    "list": [
-      {
-        "name": "environment",
-        "type": "query",
-        "datasource": "Prometheus",
-        "query": "label_values(kube_pod_info, namespace)",
-        "refresh": 1
-      },
-      {
-        "name": "service",
-        "type": "query",
-        "datasource": "Prometheus",
-        "query": "label_values(http_requests_total{namespace=\"$environment\"}, job)",
-        "refresh": 1
-      },
-      {
-        "name": "interval",
-        "type": "interval",
-        "options": [
-          { "text": "1m", "value": "1m" },
-          { "text": "5m", "value": "5m" },
-          { "text": "1h", "value": "1h" }
-        ],
-        "current": { "text": "5m", "value": "5m" }
-      }
-    ]
-  }
-}
+- Los **paneles** renderizan queries de PromQL como tablas, gráficos, gauges o
+  tiles de stat.
+- Las **variables** permiten filtrar por servicio, ruta o intervalo sin editar el
+  query.
+- Las **rows** agrupan paneles en secciones colapsables.
+- El **provisioning** carga dashboards desde disco cuando Grafana arranca, así
+  viven en Git.
+- **Terraform** convierte al dashboard en infraestructura real, como el resto del
+  stack.
+- Las **alertas** evalúan expresiones de PromQL y enrutan notificaciones a través
+  de Grafana o Alertmanager.
+- **Loki** agrega contexto de logs junto a las métricas, así podés saltar de un
+  pico a las líneas que lo causaron.
+
+## Variantes
+
+### Dashboard de sistema con Node Exporter
+
+```promql
+# CPU usage
+100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+
+# Memory usage
+(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes
+
+# Disk I/O
+rate(node_disk_io_time_seconds_total[5m])
 ```
 
-
-
-
-## Tips de Rendimiento
-
-1. **Usa recording rules para queries de dashboard.** Precomputa PromQL caro:
+### Recording rules para queries caros
 
 ```yaml
-# En lugar de computar en Grafana, precomputa en Prometheus
 - record: job:http_p99:5m
   expr: histogram_quantile(0.99, sum by(job, le)(rate(http_request_duration_seconds_bucket[5m])))
 ```
 
-1. **Setea time ranges de dashboard.** No consultes 30 días de datos para un check rápido:
+## Mejores Prácticas
 
-```json
-{
-  "time": { "from": "now-6h", "to": "now" }
-}
-```
+- Guardá los dashboards en Git y provisionarlos al inicio. Esto te da revisiones
+  por pull request y rollback.
+- Seteá intervalos de refresh según el caso de uso: 5s para troubleshooting en
+  vivo, 30s–1m para dashboards de overview.
+- Limitá variables y cardinalidad de labels. Una variable que lista cada pod en
+  un cluster grande puede volver lentas las queries.
+- Usá recording rules para PromQL caro que aparece en muchos dashboards.
+- Preferí `$__rate_interval` en lugar de un rango hardcodeado para que el query
+  se adapte cuando el usuario hace zoom.
+- Limitá `maxLines` de Loki a unos pocos cientos para evitar traer grandes
+  volúmenes de logs al navegador.
 
-1. **Usa `$__rate_interval` en lugar de ventanas hardcodeadas.** Se adapta al zoom del dashboard:
+## Errores Comunes
 
-```promql
-# Se adapta al time range
-rate(http_requests_total[$__rate_interval])
-```
+- Sobrecargar un solo dashboard con 50+ paneles. Se vuelve lento y difícil de
+  leer.
+- Copiar un dashboard por servicio en lugar de usar variables. La mantenibilidad
+  explota.
+- Olvidar thresholds en paneles stat y gauge. Sin ellos, valores sanos y fallidos
+  se ven iguales.
+- Consultar meses de datos en un dashboard de overview. Seteá un rango de tiempo
+  razonable por defecto.
+- Dejar dashboards editables en la UI después de provisionarlos. Los cambios se
+  pierden en el próximo reinicio.
 
-1. **Limita queries de Loki.** Usa `max_lines` para prevenir fetches enormes de logs:
+## Preguntas Frecuentes
 
-```yaml
-datasources:
-  - name: Loki
-    jsonData:
-      maxLines: 500  # Default 1000
-```
+### ¿Cómo se compara Grafana con la UI built-in de Prometheus?
+
+Grafana es una plataforma dedicada de visualización con ricos tipos de paneles,
+variables y layouts. La UI de Prometheus sirve para queries ad-hoc, pero no
+compone dashboards.
+
+### ¿Puedo usar Grafana con otros data sources?
+
+Sí. Grafana soporta nativamente Elasticsearch, InfluxDB, CloudWatch, Loki,
+Jaeger y muchos otros.
+
+### ¿Debería usar alertas de Grafana o Prometheus Alertmanager?
+
+Ambas funcionan. Las alertas de Grafana mantienen la configuración de
+notificaciones junto al dashboard. Alertmanager la mantiene junto al pipeline de
+métricas. Elegí según dónde tu equipo ya gestione el enrutamiento de alertas.
+
+### ¿Cómo mantengo los dashboards rápidos?
+
+Usá recording rules, seteá rangos de tiempo por defecto, limitá variables y
+limitá `maxLines` de Loki. Evitá agrupar por labels de alta cardinalidad en
+paneles de overview.

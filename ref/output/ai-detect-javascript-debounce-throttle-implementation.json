@@ -1,0 +1,337 @@
+[
+  {
+    "label": "javascript-debounce-throttle-implementation-en",
+    "model": "desklib",
+    "model_ai_pct": 45.8,
+    "ai_count": 15,
+    "human_count": 30,
+    "skipped_count": 3,
+    "total": 48,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 17.2,
+      "stddev": 18.9,
+      "cv": 1.1,
+      "verdict": "natural variation",
+      "sentence_count": 45,
+      "lengths": [
+        10,
+        10,
+        16,
+        10,
+        12,
+        13,
+        15,
+        9,
+        9,
+        16,
+        16,
+        17,
+        13,
+        13,
+        15,
+        140,
+        19,
+        13,
+        16,
+        18,
+        17,
+        12,
+        21,
+        24,
+        14,
+        15,
+        11,
+        16,
+        20,
+        13,
+        13,
+        21,
+        16,
+        7,
+        10,
+        19,
+        8,
+        12,
+        8,
+        19,
+        16,
+        19,
+        10,
+        18,
+        14
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "That's\nwhen you'd reach for it \u2014 while the user is still typing, scrolling, or resizing.",
+        0.9127
+      ],
+      [
+        "**Debounce** kicks off a fresh timer on every event.",
+        0.7145
+      ],
+      [
+        "| Technique | Fires When | Use Case |\n| ----------- | ------------ | ---------- |\n| Debounce (trailing) | After activity stops | Search, autosave |\n| Debounce (leading) | Immediate",
+        0.6886
+      ],
+      [
+        "**Throttle** runs the function on the first call and then skips the rest until\ninterval milliseconds pass.",
+        0.6681
+      ],
+      [
+        "It works well for steady, periodic updates rather\nthan waiting for a pause.",
+        0.6633
+      ],
+      [
+        "**Leading edge** fires on the first call; later ones are ignored or rescheduled.",
+        0.6603
+      ],
+      [
+        "Test with rapid input to confirm the function doesn't\nfire too often.",
+        0.6352
+      ],
+      [
+        "Throttle\nruns at most once per interval, even if the event keeps firing.",
+        0.6239
+      ],
+      [
+        "For button\nclicks, leading edge gives instant feedback; for search inputs, trailing edge\ncaptures the latest query.",
+        0.5879
+      ],
+      [
+        "You may have an event that fires many times per second and triggers expensive work.",
+        0.5806
+      ],
+      [
+        "Skipping { passive: true\n} on scroll listeners can block scrolling.",
+        0.5778
+      ],
+      [
+        "Throttle is the better choice for regular\nupdates, such as a scroll progress bar or a mouse position tracker.",
+        0.5756
+      ],
+      [
+        "A common scroll mistake is using debounce: the handler won't fire while the\nuser keeps scrolling, so the UI feels frozen.",
+        0.5225
+      ],
+      [
+        "**Throttle**: scroll position, mouse move, repeated clicks \u2014 run at a fixed rate.",
+        0.5187
+      ],
+      [
+        "Keep throttle for non-visual work, like API calls.",
+        0.5069
+      ],
+      [
+        "This avoids memory leaks and React\nwarnings about setting state on an unmounted component.",
+        0.4974
+      ],
+      [
+        "Trailing-edge debounce, the\ndefault, fires after the wait period when no new calls have come in.",
+        0.4968
+      ],
+      [
+        "Both are\nuseful for scroll, resize, input, and mousemove handlers.",
+        0.4941
+      ],
+      [
+        "Debounce waits for the user to stop triggering the event, then runs once.",
+        0.4915
+      ],
+      [
+        "**Trailing edge** runs a final call after the quiet period, using the most recent\narguments.",
+        0.4777
+      ],
+      [
+        "A custom hook with useRef stores the timeout across renders.",
+        0.4709
+      ],
+      [
+        "Pick debounce when\nyou want to wait until the user is done, and throttle when you want to limit the\nrate.",
+        0.4649
+      ],
+      [
+        "**Debounce**: search inputs, autosave, window resize \u2014 wait until the user\n  stops.",
+        0.4633
+      ],
+      [
+        "Always clear the timeout in a cleanup function (useEffect return) to prevent\nstate updates after the component unmounts.",
+        0.4594
+      ],
+      [
+        "For alternatives, see [Complete Guide to Bundle Size\nOptimization](/guides/complete-guide-bundle-size-optimization/).",
+        0.4349
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "javascript-debounce-throttle-implementation-es",
+    "model": "desklib",
+    "model_ai_pct": 39.5,
+    "ai_count": 13,
+    "human_count": 33,
+    "skipped_count": 3,
+    "total": 49,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 19.3,
+      "stddev": 20.6,
+      "cv": 1.07,
+      "verdict": "natural variation",
+      "sentence_count": 46,
+      "lengths": [
+        10,
+        13,
+        16,
+        11,
+        16,
+        15,
+        14,
+        12,
+        11,
+        18,
+        20,
+        18,
+        13,
+        16,
+        19,
+        154,
+        20,
+        15,
+        23,
+        21,
+        23,
+        16,
+        26,
+        25,
+        16,
+        16,
+        13,
+        16,
+        21,
+        10,
+        16,
+        18,
+        17,
+        18,
+        6,
+        10,
+        21,
+        11,
+        13,
+        10,
+        24,
+        16,
+        20,
+        10,
+        24,
+        15
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Ambos\nson \u00fatiles para manejadores de scroll, resize, input y mousemove.",
+        0.8626
+      ],
+      [
+        "Ten\u00e9s un evento que se dispara muchas veces por segundo y provoca trabajo costoso.",
+        0.7613
+      ],
+      [
+        "**Throttle** ejecuta la funci\u00f3n en la primera llamada y luego saltea las dem\u00e1s\nhasta que pasen interval milisegundos.",
+        0.7216
+      ],
+      [
+        "**Throttle**: posici\u00f3n de scroll, movimiento del mouse, clics repetidos \u2014\n  ejecutar a una tasa fija.",
+        0.6872
+      ],
+      [
+        "Un debounce de 150-200ms funciona bien.",
+        0.6756
+      ],
+      [
+        "Usalo cuando quer\u00e9s actualizaciones\nperi\u00f3dicas y estables en lugar de esperar una pausa.",
+        0.6679
+      ],
+      [
+        "Esa es la herramienta que busc\u00e1s cuando quer\u00e9s esperar a que\nel usuario termine de escribir, hacer scroll o redimensionar.",
+        0.6528
+      ],
+      [
+        "Throttle se ejecuta a lo sumo una vez por intervalo sin importar cu\u00e1ntas\nveces se dispare el evento.",
+        0.6479
+      ],
+      [
+        "Dej\u00e1 throttle para\ntrabajo no visual como llamadas a API.",
+        0.6243
+      ],
+      [
+        "**Debounce** resetea un timer cada vez que el evento se dispara.",
+        0.5855
+      ],
+      [
+        "Manten\u00e9 los delays de feedback de UI bajo un\nsegundo.",
+        0.5614
+      ],
+      [
+        "**Trailing edge** significa que una llamada\nfinal se ejecuta despu\u00e9s del periodo de silencio, usando los argumentos m\u00e1s\nrecientes.",
+        0.5363
+      ],
+      [
+        "Debounce espera a que el usuario deje de disparar el evento, luego se ejecuta una\nvez.",
+        0.5341
+      ],
+      [
+        "**Leading edge** significa que la primera llamada se ejecuta inmediatamente; las\nsiguientes se ignoran o reprograman.",
+        0.4966
+      ],
+      [
+        "Quer\u00e9s recalcular el layout despu\u00e9s de que el usuario termina de\nredimensionar, no en cada cambio de p\u00edxel.",
+        0.496
+      ],
+      [
+        "| T\u00e9cnica | Se Dispara Cuando | Caso de Uso |\n| -------------------- | ------------------------------------ | ---------------------- |\n| Debounce (trailing) | Despu\u00e9s de que la act",
+        0.4872
+      ],
+      [
+        "Debounce espera\na que la actividad se detenga antes de ejecutar la funci\u00f3n.",
+        0.4031
+      ],
+      [
+        "Lodash soporta ambos con { leading: true, trailing: false }.",
+        0.3863
+      ],
+      [
+        "Throttle ejecuta la\nfunci\u00f3n a lo sumo una vez por intervalo, aunque el evento siga dispar\u00e1ndose.",
+        0.3795
+      ],
+      [
+        "El debounce con trailing edge (el default) dispara despu\u00e9s del periodo de espera\nsin nuevas llamadas.",
+        0.3747
+      ],
+      [
+        "Teste\u00e1 con input r\u00e1pido para asegurarte de que la funci\u00f3n no se dispare\n demasiado a menudo.",
+        0.3627
+      ],
+      [
+        "Para actualizaciones visuales sincronizadas con\nel repaint del navegador, us\u00e1 requestAnimationFrame en lugar de throttle.",
+        0.3555
+      ],
+      [
+        "Guard\u00e1 la referencia de\nla funci\u00f3n en otro useRef y limpi\u00e1 el timeout en el cleanup effect:\n\n\n\n\n\nS\u00ed, para actualizaciones visuales.",
+        0.3546
+      ],
+      [
+        "Es m\u00e1s suave que throttle para\nanimaciones y actualizaciones visuales basadas en scroll.",
+        0.3366
+      ],
+      [
+        "requestAnimationFrame se sincroniza con el\nciclo de repaint del navegador (~60fps).",
+        0.3356
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

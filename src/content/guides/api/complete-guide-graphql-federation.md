@@ -1,10 +1,4 @@
 ---
-
-
-
-
-
-
 contentType: guides
 slug: complete-guide-graphql-federation
 title: "Complete Guide to GraphQL Federation"
@@ -31,29 +25,7 @@ relatedResources:
   - /patterns/graphql-federated-entity-pattern
   - /guides/complete-guide-graphql-federation-production
   - /guides/complete-guide-graphql-testing
-  - /recipes/graphql-mocking-apollo-server
-  - /recipes/python-memcached-session-storage
-  - /recipes/go-goroutines-channels-patterns
-  - /recipes/java-completable-future-composition
-  - /recipes/event-sourcing-cqrs-pattern
-  - /recipes/kafka-python-consumer-groups
-  - /recipes/kafka-spring-boot-stream-listener
-  - /recipes/outbox-pattern-transactional-events
-  - /recipes/python-celery-task-queue
-  - /recipes/rabbitmq-dead-letter-queue
-  - /recipes/rabbitmq-python-pika-consumer
-  - /recipes/redis-pub-sub-python
-  - /recipes/serverless-step-functions-workflow
-  - /patterns/graphql-batched-resolver-pattern
-  - /patterns/graphql-dataloader-pattern
-  - /patterns/graphql-error-extension-pattern
-  - /patterns/graphql-interface-polymorphism-pattern
-  - /patterns/graphql-schema-stitching-pattern
-  - /docs/graphql-api-design-guideline
-  - /docs/graphql-deprecation-policy-template
-  - /docs/graphql-schema-review-checklist
-  - /guides/complete-guide-graphql-schema-design
-lastUpdated: "2026-07-02"
+lastUpdated: "2026-08-24"
 publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
@@ -66,30 +38,30 @@ seo:
     - graphql gateway
     - entity resolution
     - graphql microservices
-
-
-
-
-
-
 ---
 
 ## Introduction
 
-GraphQL Federation lets you split a large GraphQL API across multiple services (subgraphs) while exposing a single unified API through a gateway. Each team owns their subgraph, defines their types, and the federation layer composes them into a supergraph. Here is a hands-on guide to subgraph setup, supergraph composition, entity resolution, and gateway deployment using Apollo Federation.
+Building a single GraphQL schema for a whole company quickly becomes a
+bottleneck. Teams block each other on schema changes, deployments get coupled,
+and the monolithic graph becomes fragile. GraphQL Federation solves this by
+splitting the schema into subgraphs that each team owns and composing them back
+into one supergraph. This guide shows how to set up subgraphs, compose the
+supergraph, resolve entities, and deploy a gateway with Apollo Federation.
 
 ## Federation Architecture
 
-```
+```text
 Client → Gateway (Supergraph) → Subgraph A (Users)
                               → Subgraph B (Orders)
                               → Subgraph C (Products)
 ```
 
-- **Subgraph**: A GraphQL service owned by a team, defining part of the schema
-- **Supergraph**: The composed schema from all subgraphs
-- **Gateway**: The entry point that routes queries to the appropriate subgraphs
-- **Entity**: A shared type with a key field that multiple subgraphs can reference and extend
+A **subgraph** is a GraphQL service owned by a team that defines part of the
+schema. The **supergraph** is the composed schema built from all subgraphs. The
+**gateway** is the entry point that routes each part of a query to the right
+subgraph. An **entity** is a shared type with a key field that several
+subgraphs can reference and extend.
 
 ## Subgraph Setup
 
@@ -97,7 +69,7 @@ Client → Gateway (Supergraph) → Subgraph A (Users)
 
 ```javascript
 const { buildSubgraphSchema } = require("@apollo/subgraph");
-const { gql, ApolloServer } = require("apollo-server-express");
+const { gql, ApolloServer } = require("apollo-server");
 
 const typeDefs = gql`
   type User @key(fields: "id") {
@@ -110,6 +82,10 @@ const typeDefs = gql`
   extend type Order @key(fields: "id") {
     id: ID! @external
     user: User! @provides(fields: "name")
+  }
+
+  extend type Product @key(fields: "id") {
+    id: ID! @external
   }
 
   type Query {
@@ -143,6 +119,9 @@ server.listen({ port: 4001 }).then(({ url }) => {
 ### Orders subgraph (Node.js)
 
 ```javascript
+const { buildSubgraphSchema } = require("@apollo/subgraph");
+const { gql, ApolloServer } = require("apollo-server");
+
 const typeDefs = gql`
   type Order @key(fields: "id") {
     id: ID!
@@ -213,6 +192,14 @@ const resolvers = {
     },
   },
 };
+
+const server = new ApolloServer({
+  schema: buildSubgraphSchema([{ typeDefs, resolvers }]),
+});
+
+server.listen({ port: 4002 }).then(({ url }) => {
+  console.log(`Orders subgraph ready at ${url}`);
+});
 ```
 
 ### Products subgraph (Python)
@@ -228,11 +215,6 @@ type_defs = """
         name: String!
         price: Float!
         description: String
-    }
-
-    extend type OrderItem @key(fields: "productId") {
-        productId: ID! @external
-        product: Product
     }
 
     type Query {
@@ -270,7 +252,7 @@ app = GraphQL(schema, debug=True)
 
 ```javascript
 const { ApolloGateway } = require("@apollo/gateway");
-const { ApolloServer } = require("apollo-server-express");
+const { ApolloServer } = require("apollo-server");
 
 const gateway = new ApolloGateway({
   serviceList: [
@@ -293,9 +275,11 @@ server.listen({ port: 4000 }).then(({ url }) => {
 
 ## Supergraph Composition
 
+Use the Rover CLI to compose the supergraph schema from the running subgraphs:
+
 ```bash
-# Install Rover CLI
-curl -sSL https://rover.apollo.dev/nix/latest | sh
+# Install Rover
+brew install apollo-tooling/tap/rover
 
 # Compose supergraph from subgraph schemas
 rover supergraph compose --config supergraph.yaml > supergraph.graphql
@@ -321,7 +305,8 @@ subgraphs:
 
 ## Entity Resolution
 
-Entities are the core of federation. They let subgraphs reference types owned by other subgraphs.
+Entities are the core of federation. They let one subgraph reference a type
+owned by another subgraph without duplicating its definition.
 
 ### `@key` — define an entity
 
@@ -360,7 +345,7 @@ extend type Order @key(fields: "id") {
 }
 ```
 
-### `@shareable` — allow a field to be resolved by multiple subgraphs
+### `@shareable` — allow a field to be resolved by several subgraphs
 
 ```graphql
 type Product @key(fields: "id") {
@@ -371,12 +356,11 @@ type Product @key(fields: "id") {
 
 ## Querying the Federated Graph
 
-```graphql
-# This query spans all three subgraphs:
-# 1. Gateway sends user query to Users subgraph
-# 2. Gateway sends orders query to Orders subgraph (using user.id as entity key)
-# 3. Gateway sends product query to Products subgraph (using orderItem.productId as entity key)
+This query spans all three subgraphs. The gateway sends the user portion to the
+Users subgraph, uses the `id` to fetch orders from the Orders subgraph, and
+resolves each product from the Products subgraph.
 
+```graphql
 query GetUserWithOrders {
   user(id: "1") {
     id
@@ -400,45 +384,68 @@ query GetUserWithOrders {
 
 ## Best Practices
 
+Keep one subgraph per team so ownership boundaries match organizational
+boundaries. Use `@key` on any type that more than one subgraph needs to
+reference. Keep each subgraph self-contained enough to run and test on its own.
 
-- For a deeper guide, see [GraphQL Federation in Production](/guides/complete-guide-graphql-federation-production/).
+Mark foreign fields with `@external` instead of redefining them. Avoid circular
+extensions where two subgraphs keep referencing each other. Compose the
+supergraph with Rover before deploying so schema conflicts surface in CI, not in
+production.
 
-- **One subgraph per team** — ownership boundaries match team boundaries
-- **Use entities for shared types** — `@key` on types referenced across subgraphs
-- **Keep subgraphs independent** — each subgraph should work standalone
-- **Use `@external` for foreign fields** — never duplicate field definitions
-- **Avoid circular dependencies** — subgraph A extends User, subgraph B extends Order, not both extending each other
-- **Use Rover for composition** — validate schema changes before deploying
-- **Cache entity resolution** — gateway calls `__resolveReference` frequently
-- **Monitor query plans** — understand how the gateway splits queries across subgraphs
-- **Use managed federation (Apollo Studio)** — track schema changes and composition errors
-- **Version subgraphs independently** — the gateway handles composition, not individual subgraphs
-- **Handle subgraph failures gracefully** — use partial results and error extensions
-- **Set timeouts on subgraph calls** — one slow subgraph should not block the entire query
+Cache entity resolution in the gateway, because `__resolveReference` runs
+frequently. Monitor query plans to understand how a single client query turns
+into several subgraph calls. If you use Apollo Studio, managed federation helps
+track schema changes and composition errors across environments.
+
+Version subgraphs independently; the gateway handles composition. When a
+subgraph fails, design the gateway to return partial data and error extensions
+instead of failing the whole request. Set timeouts on every subgraph call so one
+slow service doesn't block the entire query.
 
 ## Common Mistakes
 
-- Defining the same field in multiple subgraphs without `@shareable` — composition fails
-- Not implementing `__resolveReference` — entity lookups return null
-- Creating tight coupling between subgraphs — defeats the purpose of federation
-- Not handling subgraph downtime — gateway errors instead of returning partial data
-- Using `@requires` with non-external fields — composition validation fails
-- Not testing composition locally — schema conflicts surface only in production
-- Overusing `@shareable` — defeats ownership boundaries
-- Not monitoring query plan performance — N+1 entity resolution kills latency
-- Exposing internal IDs across subgraph boundaries — leak implementation details
-- Not using DataLoader for entity batching — one query triggers hundreds of subgraph calls
+Defining the same field in several subgraphs without `@shareable` will fail
+composition. Forgetting to implement `__resolveReference` leaves entity lookups
+returning null. Tight coupling between subgraphs defeats the purpose of
+federation, because teams start depending on each other's internals again.
+
+Not handling subgraph downtime means the gateway returns an error instead of
+partial data. Using `@requires` on a field that isn't marked `@external` fails
+validation. Skipping local composition testing lets schema conflicts reach
+production.
+
+Overusing `@shareable` blurs ownership boundaries. Ignoring query plan
+performance can turn one query into an N+1 sequence of entity resolutions.
+Exposing internal IDs across subgraph boundaries leaks implementation details.
+Finally, not using DataLoader for entity batching can make a single client query
+trigger hundreds of subgraph calls.
 
 ## FAQ
 
 ### What is the difference between schema stitching and federation?
 
-Schema stitching manually combines schemas with custom resolvers. Federation uses a standardized protocol (`@key`, `@extends`, `__resolveReference`) so subgraphs declare their relationships declaratively. Federation is the recommended approach for new projects — it is more maintainable and has better tooling.
+Schema stitching manually combines schemas with custom resolvers. Federation
+uses a standardized protocol — `@key`, `@extends`, and `__resolveReference` — so
+subgraphs declare their relationships declaratively. For new projects, federation
+is the better choice because it's more maintainable and has better tooling.
 
 ### How does the gateway handle a query that spans multiple subgraphs?
 
-The gateway builds a query plan. For a query fetching a user and their orders, it first calls the Users subgraph for the user, then uses the user's `id` as an entity key to call the Orders subgraph. The gateway joins the results and returns a single response to the client.
+The gateway builds a query plan. For a query fetching a user and their orders,
+it first calls the Users subgraph, then uses the user's `id` as an entity key to
+call the Orders subgraph. It joins the results and returns one response to the
+client.
 
 ### Can I use federation without Apollo?
 
-Yes. Federation is an open specification. Alternatives include Apollo Gateway (Node.js), Apollo Router (Rust), and custom gateways. The subgraph protocol is language-agnostic — you can build subgraphs in Python (Ariadne, Strawberry), Java (DGS), Go (gqlgen), and Ruby (graphql-ruby).
+Yes. Federation is an open specification. You can use Apollo Gateway (Node.js),
+Apollo Router (Rust), or a custom gateway. The subgraph protocol is
+language-agnostic, so subgraphs can be built in Python (Ariadne, Strawberry),
+Java (DGS), Go (gqlgen), and Ruby (graphql-ruby).
+
+### When should I prefer a monolithic GraphQL API over federation?
+
+Federation pays off when several teams own different parts of the schema and
+need to deploy independently. If your API is small, has one owner, and few
+coupling points, a monolithic schema is simpler and has less overhead.

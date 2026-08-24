@@ -1,0 +1,336 @@
+[
+  {
+    "label": "complete-guide-graphql-federation-en",
+    "model": "desklib",
+    "model_ai_pct": 38.9,
+    "ai_count": 12,
+    "human_count": 33,
+    "skipped_count": 1,
+    "total": 46,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.1,
+      "stddev": 5.4,
+      "cv": 0.38,
+      "verdict": "somewhat uniform",
+      "sentence_count": 45,
+      "lengths": [
+        13,
+        16,
+        21,
+        20,
+        16,
+        10,
+        17,
+        17,
+        19,
+        15,
+        6,
+        28,
+        11,
+        13,
+        12,
+        9,
+        10,
+        16,
+        10,
+        15,
+        16,
+        7,
+        20,
+        15,
+        12,
+        9,
+        18,
+        14,
+        11,
+        9,
+        5,
+        15,
+        9,
+        18,
+        8,
+        17,
+        16,
+        6,
+        29,
+        11,
+        5,
+        13,
+        21,
+        17,
+        21
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "For new projects, federation\nis the better choice because it's more maintainable and has better tooling.",
+        0.8828
+      ],
+      [
+        "Federation is an open specification.",
+        0.8752
+      ],
+      [
+        "You can use Apollo Gateway (Node.js),\nApollo Router (Rust), or a custom gateway.",
+        0.7938
+      ],
+      [
+        "Federation pays off when several teams own different parts of the schema and\nneed to deploy independently.",
+        0.7675
+      ],
+      [
+        "This query spans all three subgraphs.",
+        0.7403
+      ],
+      [
+        "Set timeouts on every subgraph call so one\nslow service doesn't block the entire query.",
+        0.6119
+      ],
+      [
+        "Avoid circular\nextensions where two subgraphs keep referencing each other.",
+        0.5833
+      ],
+      [
+        "Using @requires on a field that isn't marked @external fails\nvalidation.",
+        0.5689
+      ],
+      [
+        "This guide shows how to set up subgraphs, compose the\nsupergraph, resolve entities, and deploy a gateway with Apollo Federation.",
+        0.5388
+      ],
+      [
+        "For a query fetching a user and their orders,\nit first calls the Users subgraph, then uses the user's id as an entity key to\ncall the Orders subgraph.",
+        0.5311
+      ],
+      [
+        "The gateway builds a query plan.",
+        0.53
+      ],
+      [
+        "The\n**gateway** is the entry point that routes each part of a query to the right\nsubgraph.",
+        0.516
+      ],
+      [
+        "Keep each subgraph self-contained enough to run and test on its own.",
+        0.4941
+      ],
+      [
+        "Building a single GraphQL schema for a whole company quickly becomes a\nbottleneck.",
+        0.494
+      ],
+      [
+        "If you use Apollo Studio, managed federation helps\ntrack schema changes and composition errors across environments.",
+        0.4797
+      ],
+      [
+        "Federation\nuses a standardized protocol \u2014 @key, @extends, and __resolveReference \u2014 so\nsubgraphs declare their relationships declaratively.",
+        0.4792
+      ],
+      [
+        "The subgraph protocol is\nlanguage-agnostic, so subgraphs can be built in Python (Ariadne, Strawberry),\nJava (DGS), Go (gqlgen), and Ruby (graphql-ruby).",
+        0.4569
+      ],
+      [
+        "If your API is small, has one owner, and few\ncoupling points, a monolithic schema is simpler and has less overhead.",
+        0.4409
+      ],
+      [
+        "Monitor query plans to understand how a single client query turns\ninto several subgraph calls.",
+        0.4266
+      ],
+      [
+        "An **entity** is a shared type with a key field that several\nsubgraphs can reference and extend.",
+        0.3783
+      ],
+      [
+        "It joins the results and returns one response to the\nclient.",
+        0.347
+      ],
+      [
+        "Use @key on any type that more than one subgraph needs to\nreference.",
+        0.3457
+      ],
+      [
+        "When a\nsubgraph fails, design the gateway to return partial data and error extensions\ninstead of failing the whole request.",
+        0.3422
+      ],
+      [
+        "Tight coupling between subgraphs defeats the purpose of\nfederation, because teams start depending on each other's internals again.",
+        0.3392
+      ],
+      [
+        "They let one subgraph reference a type\nowned by another subgraph without duplicating its definition.",
+        0.3222
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "complete-guide-graphql-federation-es",
+    "model": "desklib",
+    "model_ai_pct": 31.5,
+    "ai_count": 8,
+    "human_count": 37,
+    "skipped_count": 1,
+    "total": 46,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 16.1,
+      "stddev": 5.8,
+      "cv": 0.36,
+      "verdict": "somewhat uniform",
+      "sentence_count": 45,
+      "lengths": [
+        17,
+        20,
+        20,
+        18,
+        15,
+        12,
+        17,
+        17,
+        24,
+        15,
+        6,
+        30,
+        16,
+        12,
+        13,
+        10,
+        9,
+        19,
+        14,
+        18,
+        19,
+        13,
+        22,
+        16,
+        13,
+        10,
+        21,
+        19,
+        14,
+        15,
+        8,
+        19,
+        15,
+        24,
+        8,
+        21,
+        16,
+        6,
+        31,
+        10,
+        5,
+        12,
+        22,
+        18,
+        24
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Federation\nusa un protocolo estandarizado \u2014 @key, @extends y __resolveReference \u2014 as\u00ed\nque los subgraphs declaran sus relaciones de forma declarativa.",
+        0.778
+      ],
+      [
+        "Exponer IDs internos a trav\u00e9s de los l\u00edmites de los subgraphs filtra\ndetalles de implementaci\u00f3n.",
+        0.7371
+      ],
+      [
+        "Cache\u00e1 la resoluci\u00f3n de entidades en el gateway, porque __resolveReference se\nejecuta con frecuencia.",
+        0.6673
+      ],
+      [
+        "Schema stitching combina schemas manualmente con resolvers custom.",
+        0.5627
+      ],
+      [
+        "Federation vale la pena cuando m\u00faltiples equipos poseen distintas partes del\nschema y necesitan desplegar de forma independiente.",
+        0.5561
+      ],
+      [
+        "Si us\u00e1s Apollo\nStudio, la federaci\u00f3n administrada ayuda a rastrear cambios de schema y errores\nde composici\u00f3n entre entornos.",
+        0.5516
+      ],
+      [
+        "Esta query abarca los tres subgraphs.",
+        0.546
+      ],
+      [
+        "Une los resultados y retorna una\nsola response al cliente.",
+        0.5047
+      ],
+      [
+        "Federation es una especificaci\u00f3n abierta.",
+        0.4808
+      ],
+      [
+        "Ignorar el rendimiento\nde los query plans puede convertir una query en una secuencia N+1 de resoluciones\nde entidades.",
+        0.4404
+      ],
+      [
+        "Para proyectos\nnuevos, federation es la mejor opci\u00f3n porque es m\u00e1s mantenible y tiene mejor\ntooling.",
+        0.4271
+      ],
+      [
+        "Version\u00e1 los subgraphs de forma independiente; el gateway se encarga de la\ncomposici\u00f3n.",
+        0.4213
+      ],
+      [
+        "Pod\u00e9s usar Apollo Gateway\n(Node.js), Apollo Router (Rust) o un gateway custom.",
+        0.3967
+      ],
+      [
+        "Monitore\u00e1 los query plans para entender c\u00f3mo una query\ndel cliente se convierte en m\u00faltiples llamadas a subgraphs.",
+        0.3962
+      ],
+      [
+        "Acoplar demasiado los subgraphs anula el prop\u00f3sito de\nfederation, porque los equipos vuelven a depender de los internos de cada uno.",
+        0.3725
+      ],
+      [
+        "Los equipos se bloquean mutuamente con cambios de\nschema, los despliegues quedan acoplados y el grafo monol\u00edtico se vuelve\nfr\u00e1gil.",
+        0.358
+      ],
+      [
+        "Definir el mismo campo en m\u00faltiples subgraphs sin @shareable hace fallar la\ncomposici\u00f3n.",
+        0.3443
+      ],
+      [
+        "Evit\u00e1\nextensiones circulares donde dos subgraphs se referencien mutuamente.",
+        0.3343
+      ],
+      [
+        "El gateway construye un query plan.",
+        0.3318
+      ],
+      [
+        "Us\u00e1 el Rover CLI para componer el schema del supergraph a partir de los\nsubgraphs en ejecuci\u00f3n:\n\n\n\n\n\n\n\nLas entidades son el n\u00facleo de federation.",
+        0.2949
+      ],
+      [
+        "Construir un \u00fanico schema GraphQL para toda la empresa se convierte r\u00e1pidamente\nen un cuello de botella.",
+        0.2922
+      ],
+      [
+        "El protocolo de subgraph es\nlanguage-agnostic, as\u00ed que pod\u00e9s construir subgraphs en Python (Ariadne,\nStrawberry), Java (DGS), Go (gqlgen) y Ruby (graphql-ruby).",
+        0.2828
+      ],
+      [
+        "Cuando un subgraph falla, dise\u00f1\u00e1 el gateway para devolver datos\nparciales y extensiones de error en lugar de fallar toda la request.",
+        0.2735
+      ],
+      [
+        "No manejar el downtime de un subgraph hace que el gateway devuelva un error en\nlugar de datos parciales.",
+        0.2722
+      ],
+      [
+        "El **gateway** es el punto de entrada que enruta cada parte de una\nquery al subgraph correspondiente.",
+        0.2464
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

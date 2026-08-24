@@ -672,12 +672,12 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.8% / ES 35.2% (0 patterns)
    - Words: 1,962 | Meta: 165 chars
 
-84. - [ ] **priority-queue-pattern** (patterns)
+84. - [x] **priority-queue-pattern** (patterns)
    - Metrics: 21 imp | pos 22.1 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/patterns/priority-queue-pattern/
    - ES: https://stackpractices.com/es/patterns/priority-queue-pattern/
    - Focus: low CTR
-   - Status: ⏳ Pending approval for commit/push
+   - Status: ✅ Already committed
    - Words: 2,153 EN / 1,797 ES | Meta: 126 chars
 
 85. - [x] **semantic-search** (recipes)
@@ -768,42 +768,42 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 41.6% / ES 35.0% (0 patterns)
    - Words: 1,311 EN / 1,388 ES | Meta: 155 chars
 
-96. - [ ] **onion-architecture-guide** (guides)
+96. - [x] **onion-architecture-guide** (guides)
    - Metrics: 13 imp | pos 13.2 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/guides/onion-architecture-guide/
    - ES: https://stackpractices.com/es/guides/onion-architecture-guide/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,498 | Meta: 162 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 38.1% / ES 38.5% (0 patterns)
+   - Words: 1,196 EN / 1,323 ES | Meta: 152 chars
 
-97. - [ ] **grafana-dashboards-observability** (recipes)
+97. - [x] **grafana-dashboards-observability** (recipes)
    - Metrics: 14 imp | pos 24.1 | CTR 0.00% | Δ impr 8
    - EN: https://stackpractices.com/recipes/grafana-dashboards-observability/
    - ES: https://stackpractices.com/es/recipes/grafana-dashboards-observability/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,193 | Meta: 153 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 39.0% / ES 38.3% (0 patterns)
+   - Words: 998 EN / 1,011 ES | Meta: 153 EN / 164 ES chars
 
-98. - [ ] **javascript-debounce-throttle-implementation** (recipes)
+98. - [x] **javascript-debounce-throttle-implementation** (recipes)
    - Metrics: 17 imp | pos 21.5 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/javascript-debounce-throttle-implementation/
    - ES: https://stackpractices.com/es/recipes/javascript-debounce-throttle-implementation/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,385 | Meta: 145 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.8% / ES 39.5% (0 patterns)
+   - Words: 1,475 EN / 1,602 ES | Meta: 145 chars
 
-99. - [ ] **python-prometheus-metrics-exporter** (recipes)
+99. - [x] **python-prometheus-metrics-exporter** (recipes)
    - Metrics: 17 imp | pos 27.2 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/python-prometheus-metrics-exporter/
    - ES: https://stackpractices.com/es/recipes/python-prometheus-metrics-exporter/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,246 | Meta: 146 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 43.2% / ES 35.4% (0 patterns)
+   - Words: 1,348 EN / 1,412 ES | Meta: 146 chars
 
-100. - [ ] **complete-guide-graphql-federation** (guides)
+100. - [x] **complete-guide-graphql-federation** (guides)
    - Metrics: 30 imp | pos 34.3 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/guides/complete-guide-graphql-federation/
    - ES: https://stackpractices.com/es/guides/complete-guide-graphql-federation/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,322 | Meta: 153 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 38.9% / ES 31.5% (0 patterns)
+   - Words: 1,436 EN / 1,532 ES | Meta: 153 chars

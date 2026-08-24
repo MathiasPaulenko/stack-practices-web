@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: onion-architecture-guide
-title: "Arquitectura Onion"
-description: "Guía práctica de Arquitectura Onion: organizar código alrededor del modelo de dominio, forzar dirección de dependencias hacia adentro y aislar infraestructura de la lógica de negocio."
-metaDescription: "Aprende Arquitectura Onion: organiza código alrededor del dominio, fuerza dependencias hacia adentro, aisla infraestructura. Guía práctica con ejemplos."
+title: "Guía de Arquitectura Onion: Diseño Centrado en el Dominio"
+description: "Guía práctica de Arquitectura Onion: organiza código alrededor del dominio, fuerza dependencias hacia adentro y aísla infraestructura. Incluye ejemplos en C#."
+metaDescription: "Guía práctica de Arquitectura Onion: organiza código alrededor del dominio, fuerza dependencias hacia adentro y aísla infraestructura. Incluye ejemplos en C#."
 difficulty: intermediate
 topics:
   - architecture
@@ -24,11 +24,11 @@ relatedResources:
   - /guides/clean-architecture-guide
   - /guides/cqrs-event-sourcing-combined-guide
   - /guides/hexagonal-architecture-guide
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-08-23"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Aprende Arquitectura Onion: organiza código alrededor del dominio, fuerza dependencias hacia adentro, aisla infraestructura. Guía práctica con ejemplos."
+  metaDescription: "Guía práctica de Arquitectura Onion: organiza código alrededor del dominio, fuerza dependencias hacia adentro y aísla infraestructura. Incluye ejemplos en C#."
   keywords:
     - onion-architecture
     - dependency-inversion
@@ -36,43 +36,79 @@ seo:
     - clean-architecture
     - ports-and-adapters
     - guia
-
-
-
-
-
 ---
-## Overview
 
-La Arquitectura Onion, popularizada por Jeffrey Palermo, estructura aplicaciones como capas concéntricas con el modelo de dominio en el centro. A diferencia de la arquitectura tradicional por capas donde las dependencias apuntan hacia abajo (UI → Negocio → Datos), Onion invierte esto: todas las dependencias apuntan hacia adentro hacia el núcleo del dominio. La infraestructura, UI y servicios externos viven en los bordes exteriores y dependen de abstracciones internas, nunca al revés. Esto hace que el modelo de dominio quede completamente aislado de frameworks, bases de datos y mecanismos de entrega.
+## Descripción General
 
-## Cuándo Usar
+La Arquitectura Onion, introducida por Jeffrey Palermo, organiza una aplicación
+como capas concéntricas con el modelo de dominio en el centro. En un diseño
+por capas tradicional, las dependencias apuntan hacia abajo: la UI depende de la
+lógica de negocio, que depende de la base de datos. Onion invierte esa
+dirección. Cada capa depende de las más cercanas al centro, nunca al revés. La
+infraestructura, la UI y los servicios externos están en el borde exterior y
+dependen de abstracciones definidas en el núcleo del dominio. Esto mantiene el
+modelo de dominio libre de frameworks, bases de datos y mecanismos de entrega.
 
+## Cuándo Usarla
 
-- For alternatives, see [Hexagonal Architecture — Ports, Adapters, and Testability](/es/guides/hexagonal-architecture-guide/).
+Usala cuando el modelo de dominio deba sobrevivir a las decisiones de
+framework, cuando las reglas de negocio sean complejas y cambien frecuentemente,
+y cuando quieras retrasar decisiones sobre la base de datos, el framework web o
+la UI. También ayuda cuando necesitás tests rápidos y determinísticos de reglas
+de negocio sin levantar una base de datos o servidor web, y cuando ya estás
+aplicando Domain-Driven Design.
 
-- Necesitas un modelo de dominio que sobreviva cambios de framework
-- Tu lógica de negocio es compleja y cambia frecuentemente
-- Quieres diferir decisiones tecnológicas (base de datos, framework, UI)
-- Probar reglas de negocio sin base de datos ni servidor web es prioridad
-- Estás aplicando principios de Domain-Driven Design (DDD)
+## Cuándo Evitarla
 
-## Las Capas
+Evitala para CRUD simples o prototipos descartables donde la capa extra cueste
+más de lo que aporta. Si el equipo no está cómodo con la inversión de
+dependencias o el testeo a través de interfaces, la estructura puede pesar.
+También es una mala elección cuando los plazos importan más que la
+mantenibilidad a largo plazo y el dominio no vaya a cambiar.
 
-| Capa | Responsabilidad | Dependencias |
-|------|---------------|--------------|
-| **Núcleo de Dominio** | Entidades, objetos de valor, eventos de dominio, reglas de negocio | Ninguna (pura) |
-| **Servicios de Dominio** | Operaciones que no pertenecen a una entidad | Núcleo de Dominio |
-| **Servicios de Aplicación** | Casos de uso, orquestación, DTOs | Núcleo de Dominio, Servicios de Dominio |
-| **Infraestructura** | Acceso a BD, APIs externas, mensajería, sistema de archivos | Servicios de Aplicación (vía interfaces) |
-| **Presentación** | Controladores, manejadores CLI, vistas | Servicios de Aplicación |
+## Conceptos Clave
 
-## Regla de Dependencia
+### Las Capas
 
-Todas las dependencias apuntan hacia adentro. Las capas exteriores dependen de las capas interiores vía interfaces definidas en las capas internas.
+La arquitectura divide al sistema en cuatro capas, cada una con una
+responsabilidad clara. El **Núcleo de Dominio** está en el centro y contiene
+entidades, objetos de valor, eventos de dominio y reglas de negocio, y se mantiene
+libre de dependencias externas. Los **Servicios de Dominio** contienen
+operaciones que no caben naturalmente dentro de una entidad, y solo dependen del
+Núcleo de Dominio. Los **Servicios de Aplicación** coordinan casos de uso, mapean
+DTOs y manejan objetos de dominio, apoyándose en el Núcleo de Dominio y en los
+Servicios de Dominio. La **Infraestructura** llena las interfaces definidas por
+las capas interiores, como repositorios, buses de mensajes, almacenamiento de
+archivos y APIs externas, y se conecta con la capa de Aplicación a través de esas
+interfaces. La **Presentación** contiene controladores, manejadores CLI o vistas,
+y depende de los Servicios de Aplicación. Este orden deja al dominio como la
+parte más estable del sistema.
+
+### La Regla de Dependencia
+
+Todas las dependencias apuntan hacia adentro. Las capas exteriores dependen de
+las interiores a través de interfaces que viven en las capas interiores. El
+dominio se mantiene alejado de Entity Framework, ASP.NET, RabbitMQ y cualquier
+otro framework. En cambio, la capa de infraestructura referencia el dominio y
+llena interfaces como `IOrderRepository` o `IEventBus`.
+
+### Puertos y Adaptadores
+
+Las interfaces definidas por las capas interiores son puertos. Las
+implementaciones concretas en las capas exteriores son adaptadores. La
+aplicación declara lo que necesita, y la infraestructura lo satisface. Este
+desacoplamiento permite cambiar SQL Server por PostgreSQL, REST por gRPC, o un
+bus real por un fake en memoria sin tocar el dominio.
+
+## Ejemplo de Implementación
+
+Los snippets de C# más abajo muestran un pequeño sistema de pedidos: el dominio
+define una entidad `Order` y un puerto `IOrderRepository`, la capa de aplicación
+realiza un pedido, y la capa de infraestructura construye el repositorio con
+Entity Framework Core.
 
 ```csharp
-// Núcleo de Dominio — capa más interna
+// Núcleo de Dominio — sin dependencias externas
 public interface IOrderRepository
 {
     Task<Order> GetByIdAsync(OrderId id);
@@ -151,199 +187,99 @@ public class SqlOrderRepository : IOrderRepository
 }
 ```
 
-## Puertos y Adaptadores
+Una solución .NET típica se ve así:
 
-Las capas exteriores implementan interfaces (puertos) definidas por las capas internas. Este es el patrón Puertos y Adaptadores.
+```text
+src/
+  Domain/
+    Entities/Order.cs
+    ValueObjects/Money.cs
+    Events/OrderPlacedEvent.cs
+    Interfaces/IOrderRepository.cs
+  Application/
+    Orders/PlaceOrder/PlaceOrderHandler.cs
+    DTOs/OrderDto.cs
+  Infrastructure/
+    Persistence/Repositories/SqlOrderRepository.cs
+    Messaging/RabbitMqEventBus.cs
+  Presentation/
+    Controllers/OrdersController.cs
+```
 
+Las reglas de dependencia se pueden forzar en CI con un test como este usando
+NetArchTest o ArchUnit:
+
+```csharp
+var result = Types.InAssembly(typeof(Order).Assembly)
+    .Should().NotHaveDependencyOn("Infrastructure")
+    .And().NotHaveDependencyOn("Presentation")
+    .And().NotHaveDependencyOn("Microsoft.EntityFrameworkCore")
+    .GetResult();
+
+result.IsSuccessful.Should().BeTrue();
 ```
-┌─────────────────────────────────────┐
-│  Presentación (Controladores, CLI) │
-│         ↓ usa interfaces           │
-├─────────────────────────────────────┤
-│  Servicios de Aplicación (casos)   │
-│         ↓ usa interfaces           │
-├─────────────────────────────────────┤
-│  Servicios de Dominio (operaciones)│
-│         ↓ usa                     │
-├─────────────────────────────────────┤
-│  Núcleo de Dominio (entidades)    │
-└─────────────────────────────────────┘
-         ↑
-   Infraestructura implementa interfaces definidas arriba
-```
+
+## Mejores Prácticas
+
+Mantené el Núcleo de Dominio puro asegurándote de que nunca referencie un
+framework, ORM ni librería externa. Definí interfaces de repositorio, bus y
+unit-of-work en el dominio o en la capa de aplicación, no en infraestructura.
+Cableá adaptadores concretos a través de inyección de dependencias en la raíz de
+composición, normalmente en `Program.cs` o un módulo de inicio. Forzá los límites
+de capa con tests de arquitectura en CI, porque un build que pasa no alcanza si
+una referencia nueva se cuela hacia adentro. Mapeá explícitamente entre entidades
+y DTOs, y nunca expongas objetos de dominio directamente desde los controladores.
+Mantené las reglas de negocio dentro de entidades y servicios de dominio, y
+deja que los servicios de aplicación solo coordinen.
 
 ## Errores Comunes
 
-- **Filtrar detalles del ORM al dominio** — la configuración de mapeo pertenece a infraestructura, no a clases de entidad
-- **Servicios de aplicación con lógica de negocio** — las reglas de negocio pertenecen al dominio, la orquestación a aplicación
-- **Dependencias circulares** — usa herramientas como ArchUnit o NetArchTest para forzar límites de capa
-- **Modelo de dominio anémico** — las entidades deben encapsular comportamiento, no solo datos
-- **Demasiadas capas** — para CRUD simple, Onion puede ser exceso; úsala cuando la complejidad del dominio lo justifica
+Filtrar detalles del ORM al dominio es un error común; la configuración de mapeo
+y los atributos del framework pertenecen a infraestructura. Poner lógica de
+negocio en servicios de aplicación también rompe el modelo, porque las reglas
+van en el dominio mientras el código de aplicación coordina. Las dependencias
+circulares entre capas se pueden detectar temprano con tests de arquitectura.
+Construir un modelo de dominio anémico, donde las entidades sean solo bolsas de
+datos con getters y setters, pierde el punto. Agregar todas las capas a una app
+CRUD pequeña es exceso; el patrón solo rinde cuando la complejidad del dominio
+es genuina.
 
+## Preguntas Frecuentes
 
-## Troubleshooting
+### ¿Cuál es la diferencia entre Onion y Clean Architecture?
 
-- **High latency between services**: trace the request path.   Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
-- **Single point of failure**: identify components without redundancy.   Add replicas, failover, or circuit breakers before scaling traffic.
-- **Unexpected coupling between services**: review shared databases, libraries, and schemas.   Bound contexts should own their data and expose stable interfaces.
-- **Cost spikes after scaling**: Reserved capacity or spot instances can reduce steady-state spend.
-- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps.
+Ambas usan la misma regla de dependencia hacia adentro. Onion nombra
+explícitamente las capas: Dominio, Aplicación, Infraestructura, Presentación.
+Clean Architecture dibuja la misma idea como anillos concéntricos genéricos. Son
+funcionalmente iguales.
 
-## FAQ
+### ¿Puedo usar Arquitectura Onion en un monolito?
 
-**Onion vs Clean Architecture?**
-Ambas comparten el mismo principio de inversión de dependencias. Onion nombra explícitamente las capas (Dominio, Aplicación, Infraestructura, Presentación), mientras que Clean Architecture usa un modelo de anillos concéntricos más genérico. Son funcionalmente equivalentes.
+Sí. Funciona a nivel de módulo o aplicación. Un monolito puede contener varios
+módulos con estructura Onion, cada uno con su propio núcleo de dominio.
 
-**Puedo usar Onion en una aplicación monolítica?**
-Sí. La Arquitectura Onion funciona a nivel de módulo o aplicación. Un monolito puede tener múltiples módulos estructurados con Onion.
+### ¿Qué ORM funciona mejor?
 
-**Qué ORM funciona mejor con Onion?**
-Cualquier ORM que soporte entidades POCO/POJO sin requerir clases base o atributos. EF Core con Fluent API, Dapper, Hibernate con mapeos XML, o SQLAlchemy con base declarativa funcionan bien.
+Cualquiera que permita usar entidades POCO o POJO sin clases base o atributos.
+EF Core con Fluent API, Dapper, Hibernate con mapeos XML y SQLAlchemy con base
+declarativa funcionan bien.
 
-### ¿Cómo empiezo con esto en un proyecto existente?
+### ¿Cómo empiezo en un proyecto existente?
 
-Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+Elegí un bounded context o servicio y aplicá el layering ahí. Mové el código de
+framework hacia afuera, definí puertos en el dominio y agregá un adaptador.
+Medí antes de expandirte.
 
-### ¿Qué herramientas necesito?
+### ¿Cómo manejo transacciones?
 
-Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+Definí `IUnitOfWork` en el dominio o en la capa de aplicación. La
+infraestructura lo resuelve con EF Core o Dapper. El handler de aplicación abre
+la unidad de trabajo, ejecuta operaciones de dominio y hace commit. El dominio
+no sabe nada de transacciones.
 
-### ¿Cómo mido el éxito después de implementar esto?
+### ¿Cómo testeo cada capa?
 
-Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
-
-
-## Temas Avanzados
-
-### Escenario Detallado: App de Pedidos con Arquitectura Onion
-
-```text
-Proyecto: Sistema de pedidos .NET 8
-Estructura de proyectos:
-  src/
-    Domain/                    # Nucleo — sin dependencias externas
-      ├── Entities/
-      │   ├── Order.cs          # Entidad con logica de negocio
-      │   ├── OrderLine.cs      # Value object
-      │   └── Product.cs
-      ├── ValueObjects/
-      │   ├── Money.cs          # Value object inmutable
-      │   └── OrderId.cs
-      ├── Events/
-      │   ├── OrderPlacedEvent.cs
-      │   └── OrderCancelledEvent.cs
-      ├── Interfaces/
-      │   ├── IOrderRepository.cs   # Puerto definido en dominio
-      │   ├── IProductRepository.cs
-      │   └── IEventBus.cs
-      └── Exceptions/
-          └── DomainException.cs
-    Application/               # Casos de uso — depende de Domain
-      ├── Orders/
-      │   ├── PlaceOrder/
-      │   │   ├── PlaceOrderCommand.cs
-      │   │   ├── PlaceOrderHandler.cs
-      │   │   └── PlaceOrderValidator.cs
-      │   ├── CancelOrder/
-      │   │   ├── CancelOrderCommand.cs
-      │   │   └── CancelOrderHandler.cs
-      │   └── GetOrderById/
-      │       ├── GetOrderByIdQuery.cs
-      │       └── GetOrderByIdHandler.cs
-      └── DTOs/
-          └── OrderDto.cs
-    Infrastructure/           # Implementaciones — depende de Application
-      ├── Persistence/
-      │   ├── AppDbContext.cs
-      │   ├── Configurations/
-      │   │   └── OrderConfiguration.cs   # Mapeo EF Core
-      │   └── Repositories/
-      │       ├── SqlOrderRepository.cs    # Implementa IOrderRepository
-      │       └── SqlProductRepository.cs
-      ├── Messaging/
-      │   └── RabbitMqEventBus.cs          # Implementa IEventBus
-      └── DependencyInjection.cs
-    Presentation/             # API — depende de Application
-      ├── Controllers/
-      │   └── OrdersController.cs
-      └── Program.cs
-
-Reglas de dependencia (verificadas con NetArchTest):
-  Domain no referencia ningun proyecto
-  Application referencia solo Domain
-  Infrastructure referencia Application y Domain
-  Presentation referencia Application y Domain
-  Ningun proyecto referencia Infrastructure (inversion de dependencias)
-
-Testeo por capa:
-  | Capa | Tipo | Herramienta |
-  |------|------|------------|
-  | Domain | Unit puro, sin mocks | xUnit |
-  | Application | Unit con mocks de repos | xUnit + NSubstitute |
-  | Infrastructure | Integration con Testcontainers | xUnit + Testcontainers |
-  | Presentation | Integration con WebApplicationFactory | xUnit |
-
-Verificacion arquitectura en CI:
-  // ArchUnitTest.cs
-  var result = Types.InAssembly(typeof(Order).Assembly)
-      .Should().NotHaveDependencyOn("Infrastructure")
-      .And().NotHaveDependencyOn("Presentation")
-      .And().NotHaveDependencyOn("Microsoft.EntityFrameworkCore")
-      .GetResult();
-  result.IsSuccessful.Should().BeTrue();
-```
-
-### Como manejo transacciones en Arquitectura Onion?
-
-Define una interfaz IUnitOfWork en el dominio. La infraestructura la implementa con EF Core o Dapper. El handler de aplicacion usa IUnitOfWork para coordinar transacciones: abre la unidad de trabajo, ejecuta operaciones de dominio, y hace commit o rollback. El dominio no sabe nada sobre transacciones; solo expone metodos que cambian su estado. La capa de aplicacion decide cuando persistir.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-End of document. Review and update quarterly.
-
-
-
-## Notas de Producción
-
-- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
-- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
-- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
-- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
-
-## Puntos Clave
-
-- **Aplica arquitectura onion** cuando necesites una solución práctica para tu caso de uso.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
-
-## Errores Comunes en Producción
-
-- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
-- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
-- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
-- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
-- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
-- No asignar un responsable que revise decisiones trimestralmente.
-- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
-- Olvidar medir resultados antes de agregar la siguiente mejora.
+Los tests del Núcleo de Dominio son unitarios puros y sin mocks. Los tests de
+los Servicios de Aplicación usan puertos mockeados. Los tests de Infraestructura
+corren contra una base de datos real o un contenedor de prueba. Los tests de
+Presentación corren contra el host completo de la API.

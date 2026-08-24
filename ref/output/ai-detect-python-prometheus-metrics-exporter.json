@@ -1,0 +1,350 @@
+[
+  {
+    "label": "python-prometheus-metrics-exporter-en",
+    "model": "desklib",
+    "model_ai_pct": 43.2,
+    "ai_count": 18,
+    "human_count": 34,
+    "skipped_count": 2,
+    "total": 54,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.9,
+      "stddev": 5.9,
+      "cv": 0.43,
+      "verdict": "somewhat uniform",
+      "sentence_count": 52,
+      "lengths": [
+        8,
+        12,
+        20,
+        16,
+        32,
+        11,
+        11,
+        16,
+        13,
+        14,
+        20,
+        14,
+        14,
+        13,
+        12,
+        27,
+        6,
+        10,
+        30,
+        13,
+        11,
+        10,
+        12,
+        13,
+        11,
+        22,
+        16,
+        7,
+        9,
+        11,
+        10,
+        9,
+        15,
+        6,
+        20,
+        25,
+        16,
+        18,
+        11,
+        21,
+        16,
+        11,
+        14,
+        6,
+        20,
+        13,
+        5,
+        17,
+        6,
+        12,
+        8,
+        10
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "If 99% of requests should finish under 200ms, use buckets\nlike [0.01, 0.05, 0.1, 0.2, 0.5, 1.0].",
+        0.7951
+      ],
+      [
+        "If the question is \"how many\" and the answer can only go up, use a Counter.",
+        0.7061
+      ],
+      [
+        "With a\nhistogram, Prometheus receives the raw buckets and calculates quantiles on the\nserver.",
+        0.6881
+      ],
+      [
+        "Don't forget business metrics: orders processed, active\nusers, completed checkouts.",
+        0.6327
+      ],
+      [
+        "Start by figuring out what the metric is supposed to measure.",
+        0.5981
+      ],
+      [
+        "You'll see the text exposition\nformat listing all your metrics.",
+        0.5965
+      ],
+      [
+        "Latency is the classic case, and you pick the bin edges yourself.",
+        0.5778
+      ],
+      [
+        "The biggest trap is high-cardinality labels.",
+        0.5759
+      ],
+      [
+        "Prometheus pulls metrics from your app over HTTP.",
+        0.5726
+      ],
+      [
+        "Never use user IDs, session IDs, or request IDs as\nlabels.",
+        0.5702
+      ],
+      [
+        "Set scrape_interval between 15 and 60 seconds.",
+        0.5403
+      ],
+      [
+        "It also fits if you already use Prometheus or Grafana\nfor monitoring, or if you want to publish custom business metrics such as active\nusers or orders processed from a Python servi",
+        0.5379
+      ],
+      [
+        "Gauges work\nfor values that fluctuate, like active connections or queue depth.",
+        0.5369
+      ],
+      [
+        "Try to keep the\nmetrics endpoint on a separate port or path from your main application.",
+        0.5298
+      ],
+      [
+        "That makes histograms aggregatable across instances.",
+        0.5234
+      ],
+      [
+        "Set it with .set(value) or bump it up and down\nwith .inc() and .dec().",
+        0.5169
+      ],
+      [
+        "Base them on your SLOs.",
+        0.5148
+      ],
+      [
+        "Reach for this recipe when you need app-level numbers like request count,\nlatency, or queue depth.",
+        0.5146
+      ],
+      [
+        "Forgetting to call\n.inc() or .observe() leaves you with stale metrics.",
+        0.482
+      ],
+      [
+        "Both deal with distributions, but the math happens in different places.",
+        0.4739
+      ],
+      [
+        "Run prometheus_client.start_http_server(8000) and open\nhttp://localhost:8000/metrics in a browser.",
+        0.4676
+      ],
+      [
+        "Under the hood, prometheus_client renders metrics in Prometheus text exposition\nformat at /metrics.",
+        0.4579
+      ],
+      [
+        "For timing or payload size, the choice is between a histogram and a summary.",
+        0.4574
+      ],
+      [
+        "Exposing /metrics on the same port as your app\nwithout authentication is risky in production, so protect it.",
+        0.4431
+      ],
+      [
+        "Not defining custom histogram buckets is also frequent; the defaults may not\nmatch your latency profile.",
+        0.4414
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "python-prometheus-metrics-exporter-es",
+    "model": "desklib",
+    "model_ai_pct": 35.4,
+    "ai_count": 12,
+    "human_count": 40,
+    "skipped_count": 2,
+    "total": 54,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.8,
+      "stddev": 6.3,
+      "cv": 0.42,
+      "verdict": "somewhat uniform",
+      "sentence_count": 52,
+      "lengths": [
+        8,
+        11,
+        22,
+        19,
+        28,
+        13,
+        12,
+        14,
+        11,
+        17,
+        20,
+        11,
+        13,
+        15,
+        13,
+        26,
+        6,
+        10,
+        35,
+        16,
+        10,
+        12,
+        14,
+        14,
+        6,
+        11,
+        26,
+        16,
+        7,
+        10,
+        12,
+        14,
+        7,
+        16,
+        10,
+        21,
+        24,
+        19,
+        20,
+        11,
+        26,
+        16,
+        10,
+        15,
+        6,
+        21,
+        15,
+        19,
+        6,
+        17,
+        8,
+        13
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Muchas veces dicen m\u00e1s que las t\u00e9cnicas.",
+        0.9001
+      ],
+      [
+        "Vas a ver el formato de\nexposici\u00f3n de texto listando todas tus m\u00e9tricas.",
+        0.8302
+      ],
+      [
+        "Los labels te permiten cortar una m\u00e9trica por detalles extra.",
+        0.7742
+      ],
+      [
+        "Reservalo para despliegues chicos y estables.",
+        0.7543
+      ],
+      [
+        "Incrementalo con .inc() para un evento, o pasale un valor a .inc() si ya\ncontaste un lote.",
+        0.6297
+      ],
+      [
+        "Para tiempos o tama\u00f1o, la elecci\u00f3n es entre un histogram y un summary.",
+        0.6196
+      ],
+      [
+        "La trampa m\u00e1s grande es usar labels de alta cardinalidad.",
+        0.592
+      ],
+      [
+        "Si el 99% de los requests deber\u00eda terminar bajo 200ms, us\u00e1\nbuckets como [0.01, 0.05, 0.1, 0.2, 0.5, 1.0].",
+        0.5742
+      ],
+      [
+        "Asignale un valor con .set(value) o ajustalo\ncon .inc() y .dec().",
+        0.5541
+      ],
+      [
+        "Si la pregunta es \"cu\u00e1ntos\" y la respuesta solo puede subir, us\u00e1 un Counter.",
+        0.5304
+      ],
+      [
+        "Eso lo hace agregable entre instancias.",
+        0.5264
+      ],
+      [
+        "La latencia es el caso cl\u00e1sico, y vos eleg\u00eds d\u00f3nde cortan los\nbuckets.",
+        0.5223
+      ],
+      [
+        "Tambi\u00e9n sirve si ya us\u00e1s Prometheus o\nGrafana para monitoreo, o si quer\u00e9s publicar m\u00e9tricas de negocio personalizadas\ncomo usuarios activos u \u00f3rdenes procesadas desde un servicio P",
+        0.434
+      ],
+      [
+        "Con un\nhistogram, Prometheus recibe los buckets crudos y calcula los quantiles en el\nservidor.",
+        0.4324
+      ],
+      [
+        "Prometheus extrae m\u00e9tricas de tu app por HTTP.",
+        0.4029
+      ],
+      [
+        "Por debajo, prometheus_client renderiza las m\u00e9tricas en formato de exposici\u00f3n\nde texto de Prometheus en /metrics.",
+        0.3919
+      ],
+      [
+        "Empez\u00e1 por averiguar qu\u00e9 es lo que la m\u00e9trica tiene que medir.",
+        0.3868
+      ],
+      [
+        "Configur\u00e1 scrape_interval entre 15 y 60 segundos.",
+        0.3755
+      ],
+      [
+        "Us\u00e1 el paquete django-prometheus para ayudantes espec\u00edficos de Django, o\nmont\u00e1 make_wsgi_app() en tu configuraci\u00f3n de URLs.",
+        0.3751
+      ],
+      [
+        "Los histograms son para latencia, y deber\u00edas definir buckets\nque coincidan con tus SLOs.",
+        0.3641
+      ],
+      [
+        "Manten\u00e9 la cardinalidad de labels baja.",
+        0.3601
+      ],
+      [
+        "Si el valor sube y baja \u2014 conexiones activas, profundidad de cola, memoria libre\n\u2014 un Gauge es la herramienta.",
+        0.3472
+      ],
+      [
+        "Ambos tratan distribuciones, pero la cuenta corre en distintos lugares.",
+        0.3429
+      ],
+      [
+        "Los gauges funcionan para valores que fluct\u00faan, como conexiones activas o\nprofundidad de cola.",
+        0.3351
+      ],
+      [
+        "Us\u00e1 esta receta cuando necesit\u00e1s n\u00fameros a nivel de aplicaci\u00f3n como cantidad de\nrequests, latencia o profundidad de cola.",
+        0.322
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

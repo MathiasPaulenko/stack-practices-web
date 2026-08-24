@@ -1,36 +1,28 @@
 ---
-
-
-
-
-
-
 contentType: recipes
 slug: grafana-dashboards-observability
-title: "Observability Dashboards with Grafana and Prometheus"
-description: "Build interactive Grafana dashboards that visualize Prometheus metrics with panels, variables, and alerts for thorough service observability"
+title: "Grafana Dashboards for Observability with Prometheus"
+description: "Build Grafana dashboards that visualize Prometheus metrics. Use panels, template variables, provisioning, and alerts for team-wide observability."
 metaDescription: "Build Grafana dashboards for Prometheus metrics. Create interactive visualizations with panels, variables, and alerts for thorough service observability."
 difficulty: beginner
 topics:
   - devops
   - observability
 tags:
+  - grafana
+  - prometheus
+  - dashboards
   - monitoring
   - observability
   - devops
-  - ci-cd
-  - automation
 relatedResources:
   - /recipes/prometheus-monitoring-alerts
-  - /recipes/helm-chart-deployment
-  - /docs/service-level-objective-slo-template
-  - /recipes/distributed-tracing
-  - /recipes/log-aggregation
   - /recipes/metrics-collection
   - /recipes/prometheus-api-monitoring
-  - /recipes/real-user-monitoring
+  - /recipes/log-aggregation
   - /recipes/structured-logging
-lastUpdated: "2026-06-18"
+  - /recipes/distributed-tracing
+lastUpdated: "2026-08-23"
 publishedAt: "2026-06-18"
 author: Mathias Paulenko
 seo:
@@ -40,26 +32,28 @@ seo:
     - dashboards
     - observability
     - prometheus
-    - visualization
-
-
-
-
-
-
+    - monitoring
 ---
 
-Create rich, interactive dashboards in Grafana to visualize Prometheus metrics and understand service behavior at a glance. Below is a practical approach to panel types, template variables, row organization, and dashboard-as-code practices for consistent observability across teams.
+## Overview
 
-## When to Use This
+A Grafana dashboard turns a heap of Prometheus metrics into a live, readable view
+of your services. This recipe walks through wiring a data source, building a
+dashboard with panels and variables, provisioning it from disk, and adding alerts.
+Examples mix YAML, JSON, PromQL, and Terraform snippets you can drop into your own
+stack.
 
-- Teams need a centralized view of service health and performance. See [Health Check Endpoint](/recipes/health-check-endpoint/) for readiness probes.
-- On-call engineers must quickly identify which service is failing. See [Prometheus API Monitoring](/recipes/prometheus-api-monitoring/) for metrics collection.
-- Business stakeholders want uptime and latency visibility without querying metrics directly. See [API Status Page Template](/docs/api-status-page-template/) for external status reporting.
+## When to Use
+
+This is useful when your team wants one screen for request rate, latency, and
+error rate across the fleet, with on-call engineers spotting failing services
+quickly and non-technical stakeholders getting uptime visibility without writing
+PromQL. It also works when you want dashboards stored as code and rolled out
+through Git.
 
 ## Solution
 
-### 1. Provision Data Sources
+### 1. Provision the Prometheus data source
 
 ```yaml
 # provisioning/datasources/prometheus.yml
@@ -73,7 +67,7 @@ datasources:
     editable: false
 ```
 
-### 2. Dashboard JSON Model
+### 2. Build the dashboard JSON
 
 ```json
 {
@@ -124,18 +118,18 @@ datasources:
         "type": "stat",
         "targets": [
           {
-            "expr": "sum(rate(http_requests_total{status_code=~\"5..\"}[5m])) / sum(rate(http_requests_total[5m]))",
+            "expr": "sum(rate(http_requests_total{status=~\"5..\"}[5m])) / sum(rate(http_requests_total[5m])) * 100",
             "legendFormat": "Error %"
           }
         ],
         "fieldConfig": {
           "defaults": {
-            "unit": "percentunit",
+            "unit": "percent",
             "thresholds": {
               "steps": [
                 { "color": "green", "value": 0 },
-                { "color": "yellow", "value": 0.01 },
-                { "color": "red", "value": 0.05 }
+                { "color": "yellow", "value": 1 },
+                { "color": "red", "value": 5 }
               ]
             }
           }
@@ -147,7 +141,7 @@ datasources:
 }
 ```
 
-### 3. Template Variables for Live Filtering
+### 3. Add template variables
 
 ```json
 {
@@ -166,27 +160,41 @@ datasources:
         "query": "label_values(http_requests_total{job=~\"$service\"}, route)",
         "multi": true,
         "includeAll": true
+      },
+      {
+        "name": "interval",
+        "type": "interval",
+        "options": [
+          { "text": "1m", "value": "1m" },
+          { "text": "5m", "value": "5m" },
+          { "text": "1h", "value": "1h" }
+        ],
+        "current": { "text": "5m", "value": "5m" }
       }
     ]
   }
 }
 ```
 
-### 4. Dashboard Provisioning
+### 4. Provision dashboards from disk
 
 ```yaml
 # provisioning/dashboards/dashboards.yml
 apiVersion: 1
 providers:
   - name: default
+    orgId: 1
     folder: Services
     type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: true
     options:
       path: /var/lib/grafana/dashboards
       foldersFromFilesStructure: true
 ```
 
-### 5. Dashboard as Code with Terraform
+### 5. Manage dashboards as code with Terraform
 
 ```hcl
 # terraform/grafana.tf
@@ -206,130 +214,7 @@ resource "grafana_dashboard" "api" {
 }
 ```
 
-## How It Works
-
-- **Panels** display queries in tables, graphs, gauges, and stat formats
-- **Variables** allow filtering by service, region, or route live
-- **Rows** organize panels into collapsible sections for focused views
-- **Alerts** can be configured directly in Grafana or via Prometheus Alertmanager
-
-## Variation: Node Exporter System Dashboard
-
-```promql
-# CPU usage
-100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
-
-# Memory usage
-(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes
-
-# Disk I/O
-rate(node_disk_io_time_seconds_total[5m])
-```
-
-## Production Considerations
-
-- Use dashboard provisioning to version control dashboards in Git
-- Set appropriate refresh intervals; 5s for real-time, 30s-1m for overview
-- Limit dashboard variables to prevent expensive queries on large labels
-
-## Common Mistakes
-
-- Overloading a single dashboard with 50+ panels, making it slow to load
-- Not using variables, leading to duplicated dashboards per service
-- Forgetting to set min/max thresholds on stat panels for quick health assessment
-
-## FAQ
-
-**Q: How does Grafana compare to Prometheus built-in UI?**
-A: Grafana is a dedicated visualization platform with rich panel types, variables, and layout options. The Prometheus UI is useful for ad-hoc queries but lacks dashboard composition capabilities.
-
-**Q: Can I use Grafana with other data sources?**
-A: Yes. Grafana supports Elasticsearch, InfluxDB, CloudWatch, Loki, Jaeger, and many others natively.
-
-### Is this solution production-ready?
-
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
-
-### What are the performance characteristics?
-
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
-
-### How do I debug issues with this approach?
-
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
-
-### Dashboard Provisioning (GitOps)
-
-```yaml
-# provisioning/dashboards/dashboards.yml
-apiVersion: 1
-providers:
-  - name: 'Default'
-    orgId: 1
-    folder: 'Services'
-    type: file
-    disableDeletion: false
-    updateIntervalSeconds: 30
-    allowUiUpdates: true
-    options:
-      path: /var/lib/grafana/dashboards
-```
-
-```json
-// provisioning/dashboards/api-overview.json
-{
-  "dashboard": {
-    "title": "API Overview",
-    "tags": ["api", "production"],
-    "timezone": "browser",
-    "schemaVersion": 39,
-    "panels": [
-      {
-        "title": "Request Rate",
-        "type": "stat",
-        "datasource": "Prometheus",
-        "targets": [
-          { "expr": "sum(rate(http_requests_total[5m]))", "refId": "A" }
-        ],
-        "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 }
-      },
-      {
-        "title": "Error Rate",
-        "type": "gauge",
-        "datasource": "Prometheus",
-        "targets": [
-          { "expr": "sum(rate(http_requests_total{status=~\"5..\"}[5m])) / sum(rate(http_requests_total[5m])) * 100", "refId": "A" }
-        ],
-        "fieldConfig": {
-          "defaults": {
-            "thresholds": {
-              "steps": [
-                { "color": "green", "value": null },
-                { "color": "yellow", "value": 1 },
-                { "color": "red", "value": 5 }
-              ]
-            }
-          }
-        },
-        "gridPos": { "h": 4, "w": 6, "x": 6, "y": 0 }
-      }
-    ],
-    "templating": {
-      "list": [
-        {
-          "name": "service",
-          "type": "query",
-          "datasource": "Prometheus",
-          "query": "label_values(http_requests_total, job)",
-          "refresh": 1
-        }
-      ]
-    }
-  }
-}
-```
-
-### Grafana Alerting
+### 6. Add Grafana alerts
 
 ```yaml
 # provisioning/alerting/alerts.yml
@@ -362,7 +247,7 @@ groups:
           group_wait: 10s
 ```
 
-### Loki Log Integration
+### 7. Include Loki log panels
 
 ```yaml
 # provisioning/datasources/loki.yml
@@ -374,89 +259,97 @@ datasources:
     url: http://loki:3100
     isDefault: false
     jsonData:
-      maxLines: 1000
+      maxLines: 500
 ```
 
 ```logql
-# Log queries for dashboard panels
-# Error logs for specific service
+# Error logs for a specific service
 {service="api"} |= "error" | json | line_format "{{.msg}}"
 
 # Slow requests (>1s)
 {service="api"} |= "duration" | json | duration > 1000
-
-# Count errors by service over time
-sum by (service) (count_over_time({service="api"} |= "error" [5m]))
 ```
 
-### Dashboard Variables for Dynamic Filtering
+## Explanation
 
-```json
-{
-  "templating": {
-    "list": [
-      {
-        "name": "environment",
-        "type": "query",
-        "datasource": "Prometheus",
-        "query": "label_values(kube_pod_info, namespace)",
-        "refresh": 1
-      },
-      {
-        "name": "service",
-        "type": "query",
-        "datasource": "Prometheus",
-        "query": "label_values(http_requests_total{namespace=\"$environment\"}, job)",
-        "refresh": 1
-      },
-      {
-        "name": "interval",
-        "type": "interval",
-        "options": [
-          { "text": "1m", "value": "1m" },
-          { "text": "5m", "value": "5m" },
-          { "text": "1h", "value": "1h" }
-        ],
-        "current": { "text": "5m", "value": "5m" }
-      }
-    ]
-  }
-}
+Each piece of the dashboard has a specific job. **Panels** turn PromQL queries
+into tables, graphs, gauges, or stat tiles. **Variables** let people filter by
+service, route, or interval without touching the query text. **Rows** group
+related panels into collapsible sections and keep the layout tidy.
+
+**Provisioning** pulls dashboards from disk whenever Grafana starts, so they live
+in Git and rollbacks stay simple. **Terraform** manages the dashboard as real
+infrastructure, just like the rest of your stack. **Alerts** run PromQL
+expressions and send notifications through Grafana or Alertmanager. **Loki** adds
+log context next to the metrics, so a spike on a graph leads straight to the lines
+that caused it.
+
+## Variants
+
+### Node Exporter system dashboard
+
+```promql
+# CPU usage
+100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+
+# Memory usage
+(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes
+
+# Disk I/O
+rate(node_disk_io_time_seconds_total[5m])
 ```
 
-
-
-
-## Performance Tips
-
-1. **Use recording rules for dashboard queries.** Precompute expensive PromQL:
+### Recording rules for expensive queries
 
 ```yaml
-# Instead of computing in Grafana, precompute in Prometheus
 - record: job:http_p99:5m
   expr: histogram_quantile(0.99, sum by(job, le)(rate(http_request_duration_seconds_bucket[5m])))
 ```
 
-1. **Set dashboard time ranges.** Don't query 30 days of data for a quick check:
+## Best Practices
 
-```json
-{
-  "time": { "from": "now-6h", "to": "now" }
-}
-```
+Store dashboards in Git and provision them at startup, so you get pull-request
+reviews and an easy rollback path. Match the refresh interval to the use case:
+five seconds when you're live-debugging, thirty seconds to one minute for
+overviews.
 
-1. **Use `$__rate_interval` instead of hardcoded windows.** Adapts to dashboard zoom:
+Limit variables and label cardinality. A variable that lists every pod in a large
+cluster can drag query performance down. Recording rules pay for themselves when
+the same expensive PromQL shows up on several dashboards. Use `$__rate_interval`
+rather than a fixed window so the query tracks the zoom. Cap Loki `maxLines`
+at a few hundred to avoid dumping huge result sets into the browser.
 
-```promql
-# Adapts to time range
-rate(http_requests_total[$__rate_interval])
-```
+## Common Mistakes
 
-1. **Limit Loki queries.** Use `max_lines` to prevent huge log fetches:
+Fifty panels on one dashboard is too many, and the page gets sluggish and
+unreadable. Copying a dashboard per service instead of using variables makes
+maintenance explode. Forgetting thresholds on stat and gauge panels leaves healthy
+and failing values looking the same. Querying months of data on an overview
+dashboard is wasteful, so set a sensible default range. If you leave dashboards
+editable in the UI after they're provisioned, any change disappears on the next
+restart.
 
-```yaml
-datasources:
-  - name: Loki
-    jsonData:
-      maxLines: 500  # Default 1000
-```
+## FAQ
+
+### How does Grafana compare to the Prometheus built-in UI?
+
+Grafana is purpose-built for visualization, with dozens of panel types, variables,
+and layouts. The Prometheus UI is good for ad-hoc queries, but it doesn't build
+full dashboards.
+
+### Can I use Grafana with other data sources?
+
+Yes. Grafana connects natively to Elasticsearch, InfluxDB, CloudWatch, Loki,
+Jaeger, and plenty of others.
+
+### Should I use Grafana alerts or Prometheus Alertmanager?
+
+Both work. Grafana alerts keep the notification config with the dashboard, while
+Alertmanager keeps the routing with the metric pipeline. Pick the one that matches
+where your team already handles alert routing.
+
+### How do I keep dashboards fast?
+
+Keep them fast with recording rules, a sensible default range, limited variables,
+and a low `maxLines` cap for Loki. Avoid grouping by high-cardinality labels in
+overview panels.

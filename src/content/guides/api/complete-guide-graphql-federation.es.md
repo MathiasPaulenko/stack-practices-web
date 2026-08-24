@@ -1,15 +1,9 @@
 ---
-
-
-
-
-
-
 contentType: guides
 slug: complete-guide-graphql-federation
-title: "GraphQL Federation"
-description: "Construye APIs GraphQL unificadas across múltiples servicios con Apollo Federation. Cubre subgraphs, supergraph composition, entity resolution y gateway deployment."
-metaDescription: "Referencia Detallada de GraphQL Federation. Construye APIs unificadas con Apollo Federation, subgraphs, supergraph composition, entities y gateway deployment."
+title: "Guía Completa de GraphQL Federation"
+description: "Construye APIs GraphQL unificadas con Apollo Federation. Cubre subgraphs, supergraph, resolución de entidades y despliegue de gateway."
+metaDescription: "Guía completa de GraphQL Federation. Construye APIs unificadas con Apollo Federation, subgraphs, composición de supergraph, entidades y gateway."
 difficulty: advanced
 topics:
   - graphql
@@ -31,33 +25,11 @@ relatedResources:
   - /patterns/graphql-federated-entity-pattern
   - /guides/complete-guide-graphql-federation-production
   - /guides/complete-guide-graphql-testing
-  - /recipes/graphql-mocking-apollo-server
-  - /recipes/python-memcached-session-storage
-  - /recipes/go-goroutines-channels-patterns
-  - /recipes/java-completable-future-composition
-  - /recipes/event-sourcing-cqrs-pattern
-  - /recipes/kafka-python-consumer-groups
-  - /recipes/kafka-spring-boot-stream-listener
-  - /recipes/outbox-pattern-transactional-events
-  - /recipes/python-celery-task-queue
-  - /recipes/rabbitmq-dead-letter-queue
-  - /recipes/rabbitmq-python-pika-consumer
-  - /recipes/redis-pub-sub-python
-  - /recipes/serverless-step-functions-workflow
-  - /patterns/graphql-batched-resolver-pattern
-  - /patterns/graphql-dataloader-pattern
-  - /patterns/graphql-error-extension-pattern
-  - /patterns/graphql-interface-polymorphism-pattern
-  - /patterns/graphql-schema-stitching-pattern
-  - /docs/graphql-api-design-guideline
-  - /docs/graphql-deprecation-policy-template
-  - /docs/graphql-schema-review-checklist
-  - /guides/complete-guide-graphql-schema-design
-lastUpdated: "2026-07-02"
+lastUpdated: "2026-08-24"
 publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Referencia Detallada de GraphQL Federation. Construye APIs unificadas con Apollo Federation, subgraphs, supergraph composition, entities y gateway deployment."
+  metaDescription: "Guía completa de GraphQL Federation. Construye APIs unificadas con Apollo Federation, subgraphs, composición de supergraph, entidades y gateway."
   keywords:
     - graphql federation
     - apollo federation
@@ -66,17 +38,17 @@ seo:
     - graphql gateway
     - entity resolution
     - graphql microservices
-
-
-
-
-
-
 ---
 
 ## Introducción
 
-GraphQL Federation te permite splitir una API GraphQL grande across múltiples servicios (subgraphs) mientras expones una API unificada a través de un gateway. Cada equipo posee su subgraph, define sus types, y la capa de federation los compone en un supergraph. A continuación: setup de subgraph, supergraph composition, entity resolution y gateway deployment usando Apollo Federation.
+Construir un único schema GraphQL para toda la empresa se convierte rápidamente
+en un cuello de botella. Los equipos se bloquean mutuamente con cambios de
+schema, los despliegues quedan acoplados y el grafo monolítico se vuelve
+frágil. GraphQL Federation resuelve esto dividiendo el schema en subgraphs que
+cada equipo posee y componiéndolos de vuelta en un supergraph. Esta guía muestra
+cómo configurar subgraphs, componer el supergraph, resolver entidades y
+desplegar un gateway con Apollo Federation.
 
 ## Arquitectura de Federation
 
@@ -86,18 +58,19 @@ Client → Gateway (Supergraph) → Subgraph A (Users)
                               → Subgraph C (Products)
 ```
 
-- **Subgraph**: Un servicio GraphQL poseído por un equipo, que define parte del schema
-- **Supergraph**: El schema compuesto de todos los subgraphs
-- **Gateway**: El entry point que rutear queries a los subgraphs apropiados
-- **Entity**: Un type compartido con un key field que múltiples subgraphs pueden referenciar y extender
+Un **subgraph** es un servicio GraphQL poseído por un equipo que define parte
+del schema. El **supergraph** es el schema compuesto a partir de todos los
+subgraphs. El **gateway** es el punto de entrada que enruta cada parte de una
+query al subgraph correspondiente. Una **entidad** es un type compartido con un
+key field que múltiples subgraphs pueden referenciar y extender.
 
-## Setup de Subgraph
+## Configuración de Subgraphs
 
 ### Subgraph de Users (Node.js)
 
 ```javascript
 const { buildSubgraphSchema } = require("@apollo/subgraph");
-const { gql, ApolloServer } = require("apollo-server-express");
+const { gql, ApolloServer } = require("apollo-server");
 
 const typeDefs = gql`
   type User @key(fields: "id") {
@@ -110,6 +83,10 @@ const typeDefs = gql`
   extend type Order @key(fields: "id") {
     id: ID! @external
     user: User! @provides(fields: "name")
+  }
+
+  extend type Product @key(fields: "id") {
+    id: ID! @external
   }
 
   type Query {
@@ -143,6 +120,9 @@ server.listen({ port: 4001 }).then(({ url }) => {
 ### Subgraph de Orders (Node.js)
 
 ```javascript
+const { buildSubgraphSchema } = require("@apollo/subgraph");
+const { gql, ApolloServer } = require("apollo-server");
+
 const typeDefs = gql`
   type Order @key(fields: "id") {
     id: ID!
@@ -213,6 +193,14 @@ const resolvers = {
     },
   },
 };
+
+const server = new ApolloServer({
+  schema: buildSubgraphSchema([{ typeDefs, resolvers }]),
+});
+
+server.listen({ port: 4002 }).then(({ url }) => {
+  console.log(`Orders subgraph ready at ${url}`);
+});
 ```
 
 ### Subgraph de Products (Python)
@@ -228,11 +216,6 @@ type_defs = """
         name: String!
         price: Float!
         description: String
-    }
-
-    extend type OrderItem @key(fields: "productId") {
-        productId: ID! @external
-        product: Product
     }
 
     type Query {
@@ -266,11 +249,11 @@ schema = make_federated_schema(type_defs, [query, product_obj])
 app = GraphQL(schema, debug=True)
 ```
 
-## Setup de Gateway
+## Configuración del Gateway
 
 ```javascript
 const { ApolloGateway } = require("@apollo/gateway");
-const { ApolloServer } = require("apollo-server-express");
+const { ApolloServer } = require("apollo-server");
 
 const gateway = new ApolloGateway({
   serviceList: [
@@ -291,13 +274,16 @@ server.listen({ port: 4000 }).then(({ url }) => {
 });
 ```
 
-## Supergraph Composition
+## Composición del Supergraph
+
+Usá el Rover CLI para componer el schema del supergraph a partir de los
+subgraphs en ejecución:
 
 ```bash
-# Instalar Rover CLI
-curl -sSL https://rover.apollo.dev/nix/latest | sh
+# Instalar Rover
+brew install apollo-tooling/tap/rover
 
-# Componer supergraph desde schemas de subgraphs
+# Componer supergraph desde los schemas de los subgraphs
 rover supergraph compose --config supergraph.yaml > supergraph.graphql
 ```
 
@@ -319,11 +305,12 @@ subgraphs:
       subgraph_url: http://localhost:4003/graphql
 ```
 
-## Entity Resolution
+## Resolución de Entidades
 
-Las entities son el core de federation. Permiten a los subgraphs referenciar types poseídos por otros subgraphs.
+Las entidades son el núcleo de federation. Permiten que un subgraph referencie
+un type poseído por otro subgraph sin duplicar su definición.
 
-### `@key` — definir una entity
+### `@key` — definir una entidad
 
 ```graphql
 type User @key(fields: "id") {
@@ -332,7 +319,7 @@ type User @key(fields: "id") {
 }
 ```
 
-### `@extends` — extender una entity de otro subgraph
+### `@extends` — extender una entidad de otro subgraph
 
 ```graphql
 extend type User @key(fields: "id") {
@@ -341,7 +328,7 @@ extend type User @key(fields: "id") {
 }
 ```
 
-### `@requires` — computar fields basados en fields externos
+### `@requires` — computar fields basados en campos externos
 
 ```graphql
 extend type Product @key(fields: "id") {
@@ -351,7 +338,7 @@ extend type Product @key(fields: "id") {
 }
 ```
 
-### `@provides` — indicar que un subgraph puede proveer fields de otro type
+### `@provides` — indicar que un subgraph puede proveer campos de otro type
 
 ```graphql
 extend type Order @key(fields: "id") {
@@ -360,7 +347,7 @@ extend type Order @key(fields: "id") {
 }
 ```
 
-### `@shareable` — permitir que un field sea resuelto por múltiples subgraphs
+### `@shareable` — permitir que un campo sea resuelto por múltiples subgraphs
 
 ```graphql
 type Product @key(fields: "id") {
@@ -369,14 +356,13 @@ type Product @key(fields: "id") {
 }
 ```
 
-## Querying el Federated Graph
+## Consultando el Grafo Federado
+
+Esta query abarca los tres subgraphs. El gateway envía la parte de usuario al
+subgraph de Users, usa el `id` para traer las órdenes del subgraph de Orders y
+resuelve cada producto del subgraph de Products.
 
 ```graphql
-# Esta query spanea los tres subgraphs:
-# 1. Gateway envía user query al subgraph de Users
-# 2. Gateway envía orders query al subgraph de Orders (usando user.id como entity key)
-# 3. Gateway envía product query al subgraph de Products (usando orderItem.productId como entity key)
-
 query GetUserWithOrders {
   user(id: "1") {
     id
@@ -398,53 +384,76 @@ query GetUserWithOrders {
 }
 ```
 
-## Pautas
+## Mejores Prácticas
 
-- **Un subgraph por equipo** — los boundaries de ownership matchean los boundaries de equipo
-- **Usar entities para types compartidos** — `@key` en types referenciados across subgraphs
-- **Mantener subgraphs independientes** — cada subgraph debería funcionar standalone
-- **Usar `@external` para fields externos** — nunca duplicar definiciones de fields
-- **Evitar dependencias circulares** — subgraph A extiende User, subgraph B extiende Order, no ambos extendiéndose mutuamente
-- **Usar Rover para composition** — validar cambios de schema antes de deployar
-- **Cachear entity resolution** — el gateway llama `__resolveReference` frecuentemente
-- **Monitorear query plans** — entender cómo el gateway split queries across subgraphs
-- **Usar managed federation (Apollo Studio)** — trackear cambios de schema y errores de composition
-- **Versionar subgraphs independientemente** — el gateway maneja composition, no subgraphs individuales
-- **Manejar fallos de subgraph gracefulmente** — usar partial results y error extensions
-- **Setear timeouts en calls a subgraphs** — un subgraph lento no debería bloquear toda la query
+Mantené un subgraph por equipo, así los límites de ownership coinciden con los
+límites del equipo. Usá `@key` en cualquier type que más de un subgraph necesite
+referenciar. Cada subgraph debería ser lo suficientemente autocontenido como para
+ejecutarse y probarse solo.
+
+Marcá los campos foráneos con `@external` en lugar de redefinirlos. Evitá
+extensiones circulares donde dos subgraphs se referencien mutuamente. Componé el
+supergraph con Rover antes de desplegar, así los conflictos de schema aparecen
+en CI, no en producción.
+
+Cacheá la resolución de entidades en el gateway, porque `__resolveReference` se
+ejecuta con frecuencia. Monitoreá los query plans para entender cómo una query
+del cliente se convierte en múltiples llamadas a subgraphs. Si usás Apollo
+Studio, la federación administrada ayuda a rastrear cambios de schema y errores
+de composición entre entornos.
+
+Versioná los subgraphs de forma independiente; el gateway se encarga de la
+composición. Cuando un subgraph falla, diseñá el gateway para devolver datos
+parciales y extensiones de error en lugar de fallar toda la request. Configurá
+timeouts en cada llamada a subgraph, así un servicio lento no bloquea toda la
+query.
 
 ## Errores Comunes
 
-- Definir el mismo field en múltiples subgraphs sin `@shareable` — composition falla
-- No implementar `__resolveReference` — entity lookups retornan null
-- Crear acoplamiento tight entre subgraphs — derrota el propósito de federation
-- No manejar downtime de subgraph — el gateway errorea en lugar de retornar partial data
-- Usar `@requires` con fields no externos — la validación de composition falla
-- No testear composition localmente — conflictos de schema aparecen solo en producción
-- Overusar `@shareable` — derrota boundaries de ownership
-- No monitorear performance de query plans — N+1 entity resolution mata latencia
-- Exponer IDs internos across boundaries de subgraph — leakea detalles de implementación
-- No usar DataLoader para batching de entities — una query triggera cientos de calls a subgraphs
+Definir el mismo campo en múltiples subgraphs sin `@shareable` hace fallar la
+composición. Olvidar implementar `__resolve_reference` deja las búsquedas de
+entidades retornando null. Acoplar demasiado los subgraphs anula el propósito de
+federation, porque los equipos vuelven a depender de los internos de cada uno.
+
+No manejar el downtime de un subgraph hace que el gateway devuelva un error en
+lugar de datos parciales. Usar `@requires` sobre un campo que no está marcado
+como `@external` falla la validación. Saltearse los tests locales de composición
+deja que los conflictos de schema lleguen a producción.
+
+Abusar de `@shareable` difumina los límites de ownership. Ignorar el rendimiento
+de los query plans puede convertir una query en una secuencia N+1 de resoluciones
+de entidades. Exponer IDs internos a través de los límites de los subgraphs filtra
+detalles de implementación. Por último, no usar DataLoader para el batching de
+entidades puede hacer que una sola query del cliente dispare cientos de llamadas
+a subgraphs.
 
 ## Preguntas Frecuentes
 
 ### ¿Cuál es la diferencia entre schema stitching y federation?
 
-Schema stitching combina schemas manualmente con custom resolvers. Federation usa un protocolo estandarizado (`@key`, `@extends`, `__resolveReference`) para que los subgraphs declaren sus relaciones declarativamente. Federation es el enfoque recomendado para proyectos nuevos — es más mantenible y tiene mejor tooling.
+Schema stitching combina schemas manualmente con resolvers custom. Federation
+usa un protocolo estandarizado — `@key`, `@extends` y `__resolveReference` — así
+que los subgraphs declaran sus relaciones de forma declarativa. Para proyectos
+nuevos, federation es la mejor opción porque es más mantenible y tiene mejor
+tooling.
 
-### ¿Cómo maneja el gateway una query que spanea múltiples subgraphs?
+### ¿Cómo maneja el gateway una query que abarca múltiples subgraphs?
 
-El gateway construye un query plan. Para una query que fetchea un user y sus orders, primero llama al subgraph de Users para el user, luego usa el `id` del user como entity key para llamar al subgraph de Orders. El gateway joinea los resultados y retorna una sola response al client.
+El gateway construye un query plan. Para una query que trae un usuario y sus
+órdenes, primero llama al subgraph de Users, luego usa el `id` del usuario como
+entity key para llamar al subgraph de Orders. Une los resultados y retorna una
+sola response al cliente.
 
 ### ¿Puedo usar federation sin Apollo?
 
-Sí. Federation es una spec abierta. Las alternativas incluyen Apollo Gateway (Node.js), Apollo Router (Rust) y gateways custom. El protocolo de subgraph es language-agnostic — puedes construir subgraphs en Python (Ariadne, Strawberry), Java (DGS), Go (gqlgen) y Ruby (graphql-ruby).
+Sí. Federation es una especificación abierta. Podés usar Apollo Gateway
+(Node.js), Apollo Router (Rust) o un gateway custom. El protocolo de subgraph es
+language-agnostic, así que podés construir subgraphs en Python (Ariadne,
+Strawberry), Java (DGS), Go (gqlgen) y Ruby (graphql-ruby).
 
-## See Also
+### ¿Cuándo prefiero una API GraphQL monolítica sobre federation?
 
-- [GraphQL Federation in Production](/es/guides/complete-guide-graphql-federation-production/)
-- [Set Up a GraphQL Federation Gateway with Apollo](/es/recipes/graphql-federation-gateway-setup/)
-- [Complete Guide to GraphQL Schema Design](/es/guides/complete-guide-graphql-schema-design/)
-- [GraphQL vs REST — When to Choose and How to Migrate](/es/guides/graphql-vs-rest-guide/)
-- [GraphQL Error Extension Pattern](/es/patterns/graphql-error-extension-pattern/)
-
+Federation vale la pena cuando múltiples equipos poseen distintas partes del
+schema y necesitan desplegar de forma independiente. Si tu API es chica, tiene
+un único dueño y pocos puntos de acoplamiento, un schema monolítico es más
+simple y tiene menos overhead.

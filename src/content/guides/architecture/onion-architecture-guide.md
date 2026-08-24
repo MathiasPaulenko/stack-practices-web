@@ -1,9 +1,9 @@
 ---
 contentType: guides
 slug: onion-architecture-guide
-title: "Onion Architecture — Dependency Inversion in Practice"
-description: "A practical guide to Onion Architecture: organizing code around the domain model, enforcing dependency direction inward, and isolating infrastructure from business logic."
-metaDescription: "Learn Onion Architecture: organize code around the domain, enforce inward dependencies, isolate infrastructure from business logic. Practical guide with examples."
+title: "Onion Architecture Guide: Domain-Centric Design with Dependency Inversion"
+description: "A practical guide to Onion Architecture: organize code around the domain, enforce inward dependencies, and isolate infrastructure. Includes C# examples."
+metaDescription: "A practical guide to Onion Architecture: organize code around the domain, enforce inward dependencies, and isolate infrastructure. Includes C# examples."
 difficulty: intermediate
 topics:
   - architecture
@@ -24,11 +24,11 @@ relatedResources:
   - /guides/clean-architecture-guide
   - /guides/cqrs-event-sourcing-combined-guide
   - /guides/hexagonal-architecture-guide
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-08-23"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Learn Onion Architecture: organize code around the domain, enforce inward dependencies, isolate infrastructure from business logic. Practical guide with examples."
+  metaDescription: "A practical guide to Onion Architecture: organize code around the domain, enforce inward dependencies, and isolate infrastructure. Includes C# examples."
   keywords:
     - onion-architecture
     - dependency-inversion
@@ -36,43 +36,76 @@ seo:
     - clean-architecture
     - ports-and-adapters
     - guide
-
-
-
-
-
 ---
+
 ## Overview
 
-Onion Architecture, popularized by Jeffrey Palermo, structures applications as concentric layers with the domain model at the center. Unlike traditional layered architecture where dependencies point downward (UI → Business → Data), Onion inverts this: all dependencies point inward toward the domain core. Infrastructure, UI, and external services live at the outer edges and depend on inner abstractions, never the other way around. This makes the domain model completely isolated from frameworks, databases, and delivery mechanisms.
+Onion Architecture, introduced by Jeffrey Palermo, organizes an application as
+concentric layers with the domain model at the center. In a traditional layered
+design, dependencies point downward: UI depends on business logic, which depends
+on the database. Onion inverts that direction. Every layer depends on the layers
+closer to the center, never the other way around. Infrastructure, UI, and
+external services sit at the outer edge and depend on abstractions defined in the
+domain core. This keeps the domain model free of frameworks, databases, and
+delivery mechanisms.
 
 ## When to Use
 
+Use Onion Architecture when the domain model must outlive framework choices, when
+business rules are complex and change often, and when you want to delay decisions
+about the database, web framework, or UI. It also helps when you need fast,
+deterministic tests for business rules without spinning up a database or web
+server, and when you're already applying Domain-Driven Design.
 
-- For alternatives, see [Hexagonal Architecture — Ports, Adapters, and Testability](/guides/hexagonal-architecture-guide/).
+## When to Avoid
 
-- You need a domain model that survives framework changes
-- Your business logic is complex and changes frequently
-- You want to defer technology decisions (database, framework, UI)
-- Testing business rules without database or web server is a priority
-- You are applying Domain-Driven Design (DDD) principles
+Avoid it for simple CRUD or throwaway prototypes where the extra layering costs
+more than it gives back. If the team isn't comfortable with dependency inversion
+or testing through interfaces, the structure can feel heavy. It's also a poor
+fit when deadlines matter more than long-term maintainability and the domain is
+unlikely to change.
 
-## The Layers
+## Core Concepts
 
-| Layer | Responsibility | Dependencies |
-|-------|---------------|--------------|
-| **Domain Core** | Entities, value objects, domain events, business rules | None (pure) |
-| **Domain Services** | Operations that don't belong to an entity | Domain Core |
-| **Application Services** | Use cases, orchestration, DTOs | Domain Core, Domain Services |
-| **Infrastructure** | DB access, external APIs, messaging, file system | Application Services (via interfaces) |
-| **Presentation** | Controllers, CLI handlers, views | Application Services |
+### The Layers
 
-## Dependency Rule
+The architecture splits the system into four layers, each one with a clear
+responsibility. The **Domain Core** sits at the center and contains entities,
+value objects, domain events, and business rules, and it stays free of outside
+dependencies. **Domain Services** hold operations that don't fit naturally inside
+an entity, and they rely only on the Domain Core. **Application Services**
+coordinate use cases, map DTOs, and drive domain objects, relying on the Domain
+Core and Domain Services. **Infrastructure** fills in the interfaces defined by
+inner layers, such as repositories, message buses, file storage, and external
+APIs, and it connects to the Application layer through those interfaces.
+**Presentation** contains controllers, CLI handlers, or views and depends on the
+Application Services. This arrangement leaves the domain as the most stable part
+of the system.
 
-All dependencies point inward. Outer layers depend on inner layers via interfaces defined in the inner layers.
+### The Dependency Rule
+
+All dependencies point inward. Outer layers depend on inner layers through
+interfaces that live in the inner layers. The domain stays clear of Entity
+Framework, ASP.NET, RabbitMQ, and any other framework. Instead, the
+infrastructure layer references the domain and fills in interfaces such as
+`IOrderRepository` or `IEventBus`.
+
+### Ports and Adapters
+
+The interfaces defined by the inner layers are ports. The concrete
+implementations in the outer layers are adapters. The application states its
+needs, and the infrastructure satisfies them. This decoupling lets you swap SQL
+Server for PostgreSQL, REST for gRPC, or a real bus for an in-memory fake without
+touching the domain.
+
+## Implementation Example
+
+The C# snippets below show a small order system: the domain defines an `Order`
+entity and an `IOrderRepository` port, the application layer places an order, and
+the infrastructure layer builds the repository with Entity Framework Core.
 
 ```csharp
-// Domain Core — innermost layer
+// Domain Core — no external dependencies
 public interface IOrderRepository
 {
     Task<Order> GetByIdAsync(OrderId id);
@@ -151,199 +184,95 @@ public class SqlOrderRepository : IOrderRepository
 }
 ```
 
-## Ports and Adapters
+A typical .NET solution looks like this:
 
-The outer layers implement interfaces (ports) defined by inner layers. This is the Ports and Adapters pattern.
+```text
+src/
+  Domain/
+    Entities/Order.cs
+    ValueObjects/Money.cs
+    Events/OrderPlacedEvent.cs
+    Interfaces/IOrderRepository.cs
+  Application/
+    Orders/PlaceOrder/PlaceOrderHandler.cs
+    DTOs/OrderDto.cs
+  Infrastructure/
+    Persistence/Repositories/SqlOrderRepository.cs
+    Messaging/RabbitMqEventBus.cs
+  Presentation/
+    Controllers/OrdersController.cs
+```
 
+Dependency rules can be enforced in CI with a test such as this one using
+NetArchTest or ArchUnit:
+
+```csharp
+var result = Types.InAssembly(typeof(Order).Assembly)
+    .Should().NotHaveDependencyOn("Infrastructure")
+    .And().NotHaveDependencyOn("Presentation")
+    .And().NotHaveDependencyOn("Microsoft.EntityFrameworkCore")
+    .GetResult();
+
+result.IsSuccessful.Should().BeTrue();
 ```
-┌─────────────────────────────────────┐
-│  Presentation (Controllers, CLI)   │
-│         ↓ uses interfaces          │
-├─────────────────────────────────────┤
-│  Application Services (use cases)  │
-│         ↓ uses interfaces          │
-├─────────────────────────────────────┤
-│  Domain Services (operations)      │
-│         ↓ uses                     │
-├─────────────────────────────────────┤
-│  Domain Core (entities, rules)     │
-└─────────────────────────────────────┘
-         ↑
-   Infrastructure implements interfaces defined above
-```
+
+## Best Practices
+
+Keep the Domain Core pure by making sure it never references a framework, ORM, or
+external library. Define repository, bus, and unit-of-work interfaces in the
+domain or application layer, not in infrastructure. Wire concrete adapters through
+dependency injection at the composition root, usually in `Program.cs` or a startup
+module. Enforce layer boundaries with architecture tests in CI, because a passing
+build isn't enough when a new reference creeps inward. Map between entities and
+DTOs explicitly, and never expose domain objects straight from controllers. Keep
+business rules inside entities and domain services, and let application services
+only coordinate.
 
 ## Common Mistakes
 
-- **Leaking ORM details into the domain** — mapping configuration belongs in infrastructure, not entity classes
-- **Application services with business logic** — business rules belong in the domain, orchestration in application
-- **Circular dependencies** — using a tool like ArchUnit or NetArchTest to enforce layer boundaries
-- **Anemic domain model** — entities should encapsulate behavior, not just data
-- **Too many layers** — for simple CRUD apps, Onion can be overkill; use it when domain complexity justifies it
-
-
-## Troubleshooting
-
-- **High latency between services**: trace the request path.  Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
-- **Single point of failure**: identify components without redundancy.  Add replicas, failover, or circuit breakers before scaling traffic.
-- **Unexpected coupling between services**: review shared databases, libraries, and schemas.  Bound contexts should own their data and expose stable interfaces.
-- **Cost spikes after scaling**: right-size instances and use autoscaling with limits.  Reserved capacity or spot instances can reduce steady-state spend.
-- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps.
-
-
-
-## Production Notes
-
-- **Deploy gradually** using canary or blue-green to catch regressions early.
-- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
-- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
-- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
-
-## Key Takeaways
-
-- **Apply onion architecture — dependency inversion in practice** when you need a practical solution for your use case.
-- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
-- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
-- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+Leaking ORM details into the domain is a common mistake; mapping configuration and
+framework attributes belong in infrastructure. Putting business logic in
+application services also breaks the model, because rules belong in the domain
+while application code coordinates. Circular dependencies between layers can be
+caught early with architecture tests. Building an anemic domain model, where
+entities are just data bags with getters and setters, misses the point. Adding
+every layer to a small CRUD app is overkill; the pattern only pays off when domain
+complexity is genuine.
 
 ## FAQ
 
-**Onion vs Clean Architecture?**
-Both share the same dependency inversion principle. Onion explicitly names the layers (Domain, Application, Infrastructure, Presentation), while Clean Architecture uses a more generic concentric ring model. They are functionally equivalent.
+### What is the difference between Onion and Clean Architecture?
 
-**Can I use Onion with a monolithic application?**
-Yes. Onion Architecture works at the module or application level. A monolith can have multiple onion-structured modules.
+Both use the same inward dependency rule. Onion gives explicit names to the
+layers — Domain, Application, Infrastructure, Presentation. Clean Architecture
+draws the same idea as generic concentric rings. They're functionally the same.
 
-**What ORM works best with Onion?**
-Any ORM that supports POCO/POJO entities without requiring base classes or attributes. EF Core with Fluent API, Dapper, Hibernate with XML mappings, or SQLAlchemy with declarative base all work.
+### Can I use Onion Architecture in a monolith?
 
-### How do I get started with this in an existing project?
+Yes. It works at module or application level. A monolith can contain several
+onion-structured modules, each with its own domain core.
 
-Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+### Which ORM works best?
 
-### What tools do I need?
+Any ORM that lets you use plain POCO or POJO entities without base classes or
+attributes. EF Core with Fluent API, Dapper, Hibernate with XML mappings, and
+SQLAlchemy with declarative bases all work.
 
-The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+### How do I start with an existing codebase?
 
-### How do I measure success after implementing this?
+Pick one bounded context or service and apply the layering there. Move framework
+code outward, define ports in the domain, and add an adapter. Measure before
+expanding.
 
-Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+### How do I handle transactions?
 
+Define `IUnitOfWork` in the domain or application layer. Infrastructure
+handles it with EF Core or Dapper. The application handler opens the unit of
+work, runs domain operations, and commits. The domain knows nothing about
+transactions.
 
-## Advanced Topics
+### How do I test each layer?
 
-### Detailed Scenario: Order System with Onion Architecture
-
-```text
-Project: Order system .NET 8
-Project structure:
-  src/
-    Domain/                    # Core — no external dependencies
-      ├── Entities/
-      │   ├── Order.cs          # Entity with business logic
-      │   ├── OrderLine.cs      # Value object
-      │   └── Product.cs
-      ├── ValueObjects/
-      │   ├── Money.cs          # Immutable value object
-      │   └── OrderId.cs
-      ├── Events/
-      │   ├── OrderPlacedEvent.cs
-      │   └── OrderCancelledEvent.cs
-      ├── Interfaces/
-      │   ├── IOrderRepository.cs   # Port defined in domain
-      │   ├── IProductRepository.cs
-      │   └── IEventBus.cs
-      └── Exceptions/
-          └── DomainException.cs
-    Application/               # Use cases — depends on Domain
-      ├── Orders/
-      │   ├── PlaceOrder/
-      │   │   ├── PlaceOrderCommand.cs
-      │   │   ├── PlaceOrderHandler.cs
-      │   │   └── PlaceOrderValidator.cs
-      │   ├── CancelOrder/
-      │   │   ├── CancelOrderCommand.cs
-      │   │   └── CancelOrderHandler.cs
-      │   └── GetOrderById/
-      │       ├── GetOrderByIdQuery.cs
-      │       └── GetOrderByIdHandler.cs
-      └── DTOs/
-          └── OrderDto.cs
-    Infrastructure/           # Implementations — depends on Application
-      ├── Persistence/
-      │   ├── AppDbContext.cs
-      │   ├── Configurations/
-      │   │   └── OrderConfiguration.cs   # EF Core mapping
-      │   └── Repositories/
-      │       ├── SqlOrderRepository.cs    # Implements IOrderRepository
-      │       └── SqlProductRepository.cs
-      ├── Messaging/
-      │   └── RabbitMqEventBus.cs          # Implements IEventBus
-      └── DependencyInjection.cs
-    Presentation/             # API — depends on Application
-      ├── Controllers/
-      │   └── OrdersController.cs
-      └── Program.cs
-
-Dependency rules (verified with NetArchTest):
-  Domain references no project
-  Application references only Domain
-  Infrastructure references Application and Domain
-  Presentation references Application and Domain
-  No project references Infrastructure (dependency inversion)
-
-Testing per layer:
-  | Layer | Type | Tool |
-  |-------|------|------|
-  | Domain | Pure unit, no mocks | xUnit |
-  | Application | Unit with repo mocks | xUnit + NSubstitute |
-  | Infrastructure | Integration with Testcontainers | xUnit + Testcontainers |
-  | Presentation | Integration with WebApplicationFactory | xUnit |
-
-Architecture verification in CI:
-  // ArchUnitTest.cs
-  var result = Types.InAssembly(typeof(Order).Assembly)
-      .Should().NotHaveDependencyOn("Infrastructure")
-      .And().NotHaveDependencyOn("Presentation")
-      .And().NotHaveDependencyOn("Microsoft.EntityFrameworkCore")
-      .GetResult();
-  result.IsSuccessful.Should().BeTrue();
-```
-
-### How do I handle transactions in Onion Architecture?
-
-Define an IUnitOfWork interface in the domain. Infrastructure implements it with EF Core or Dapper. The application handler uses IUnitOfWork to coordinate transactions: open the unit of work, execute domain operations, and commit or rollback. The domain knows nothing about transactions; it only exposes methods that change its state. The application layer decides when to persist.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-End of document. Review and update quarterly.
-
-## Common Production Pitfalls
-
-- Treating the guide as a checklist to complete once rather than a practice to evolve.
-- Adopting every recommendation at once instead of starting with one measured change.
-- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
-- Not updating runbooks and on-call expectations as new practices are introduced.
-- Ignoring real incident data when prioritizing which parts of the guide to apply first.
-- Failing to assign an owner who reviews decisions quarterly.
-- Copying examples without adapting them to the team's actual tooling and constraints.
-- Forgetting to measure outcomes before adding the next improvement.
+Domain Core tests are pure unit tests with no mocks. Application Service tests
+use mocked ports. Infrastructure tests run against a real database or a test
+container. Presentation tests run against the full API host.

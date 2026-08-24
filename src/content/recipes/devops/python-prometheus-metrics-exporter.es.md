@@ -1,14 +1,9 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: python-prometheus-metrics-exporter
-title: "Expón Métricas Personalizadas de Aplicación con Python y"
-description: "Construye un exporter personalizado de métricas Prometheus en Python usando prometheus_client para counters, gauges, histograms y summaries."
-metaDescription: "Construye un exporter personalizado de Prometheus en Python con prometheus_client. Expón counters, gauges, histograms, summaries y endpoints de métricas."
+title: "Expón métricas de aplicación con Python y Prometheus"
+description: "Construye un exporter de métricas Prometheus en Python con prometheus_client. Cubre counters, gauges, histograms, summaries e integración con Flask y FastAPI."
+metaDescription: "Construye un exporter de Prometheus en Python con prometheus_client. Expón counters, gauges, histograms, summaries y endpoints de métricas personalizadas."
 difficulty: intermediate
 topics:
   - devops
@@ -24,14 +19,13 @@ relatedResources:
   - /recipes/docker-health-check-configuration
   - /guides/observability-guide
   - /guides/complete-guide-structured-logging
-  - /patterns/claim-check-pattern
   - /recipes/prometheus-monitoring-alerts
   - /guides/complete-guide-observability-grafana-stack
-lastUpdated: "2026-07-02"
+lastUpdated: "2026-08-24"
 publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Construye un exporter personalizado de Prometheus en Python con prometheus_client. Expón counters, gauges, histograms, summaries y endpoints de métricas."
+  metaDescription: "Construye un exporter de Prometheus en Python con prometheus_client. Expón counters, gauges, histograms, summaries y endpoints de métricas personalizadas."
   keywords:
     - python prometheus exporter
     - prometheus_client python
@@ -39,26 +33,27 @@ seo:
     - python monitoring metrics
     - prometheus counter gauge histogram
     - application metrics python
-
-
-
-
-
 ---
 
-## Visión General
+## Descripción General
 
-Prometheus es un sistema de monitoring basado en pull. Tu aplicación expone un endpoint `/metrics`, y Prometheus lo scrapea a intervalos regulares. La librería `prometheus_client` de Python proporciona tipos de métricas integrados (counter, gauge, histogram, summary) y un servidor HTTP para exponerlos. Esta recipe muestra cómo instrumentar una app Python con métricas personalizadas.
+Prometheus extrae métricas de tu app por HTTP. Exponés un endpoint `/metrics` y
+Prometheus lo scrapea según un intervalo. La librería `prometheus_client` te da
+cuatro tipos de métricas y un servidor HTTP rápido, así que instrumentar una app
+Python es directo.
 
 ## Cuándo Usar
 
+Usá esta receta cuando necesitás números a nivel de aplicación como cantidad de
+requests, latencia o profundidad de cola. También sirve si ya usás Prometheus o
+Grafana para monitoreo, o si querés publicar métricas de negocio personalizadas
+como usuarios activos u órdenes procesadas desde un servicio Python.
 
-- For alternatives, see [Complete Guide to Observability with the Grafana Stack](/es/guides/complete-guide-observability-grafana-stack/).
+No es la mejor opción si solo necesitás salida de debug temporal, o si tu stack
+de monitoreo ya usa un recolector push con un backend que no es Prometheus.
 
-- Necesitas métricas a nivel de aplicación (conteo de requests, latencia, profundidad de cola)
-- Usas Prometheus o Grafana para monitoring y alerting
-- Quieres trackear métricas de negocio personalizadas (usuarios activos, órdenes procesadas)
-- Necesitas exponer métricas desde un servicio Python para scraping
+Para alternativas, consultá la [Guía Completa de Observabilidad con el Stack de
+Grafana](/es/guides/complete-guide-observability-grafana-stack/).
 
 ## Solución
 
@@ -336,63 +331,95 @@ services:
 
 ## Explicación
 
-Tipos de métricas de Prometheus:
+Empezá por averiguar qué es lo que la métrica tiene que medir.
 
-- **Counter**: Valor monótonamente creciente. Usar para conteo de requests, conteo de errores, bytes enviados. Nunca decrece. Usar `.inc()` para añadir 1 o `.inc(value)` para añadir una cantidad específica.
-- **Gauge**: Valor que sube y baja. Usar para conexiones activas, profundidad de cola, uso de memoria. Usar `.set(value)` para establecer, `.inc()` / `.dec()` para cambiar.
-- **Histogram**: Agrupa observaciones en buckets. Usar para distribuciones de latencia. Proporciona time series `_bucket`, `_sum`, y `_count`. Definir buckets personalizados basados en tus SLOs.
-- **Summary**: Similar a histogram pero calcula quantiles en el lado del cliente. Usar cuando necesitas percentiles exactos y tienes pocas instancias.
+Si la pregunta es "cuántos" y la respuesta solo puede subir, usá un `Counter`.
+Requests atendidos, errores levantados, bytes escritos — todo eso entra acá.
+Incrementalo con `.inc()` para un evento, o pasale un valor a `.inc()` si ya
+contaste un lote.
 
-Los labels añaden dimensiones a las métricas. Cada combinación de labels crea una time series separada. Evitar labels de alta cardinalidad (user IDs, request IDs) — explotan el número de time series.
+Si el valor sube y baja — conexiones activas, profundidad de cola, memoria libre
+— un `Gauge` es la herramienta. Asignale un valor con `.set(value)` o ajustalo
+con `.inc()` y `.dec()`.
 
-La librería `prometheus_client` expone métricas en el formato de exposición de texto de Prometheus en `/metrics`. Prometheus scrapea este endpoint en el `scrape_interval` configurado.
+Para tiempos o tamaño, la elección es entre un histogram y un summary. Un
+`Histogram` mete cada observación en buckets y expone las series `_bucket`,
+`_sum` y `_count`. La latencia es el caso clásico, y vos elegís dónde cortan los
+buckets. Un `Summary` es el primo más exigente: calcula percentiles dentro de tu
+app, así que tenés números exactos por instancia, pero no podés agregarlos entre
+réplicas. Reservalo para despliegues chicos y estables.
 
-## Variantes
+Los labels te permiten cortar una métrica por detalles extra. El detalle es que
+cada combinación única de valores de labels se convierte en su propia time
+series, así que labels de alta cardinalidad como user IDs o request IDs explotan
+la cantidad de series.
 
-| Tipo de Métrica | Caso de Uso | Ejemplo |
-|------------|----------|---------|
-| Counter | Conteos acumulativos | Total requests, errors enviados |
-| Gauge | Estado actual | Conexiones activas, profundidad de cola |
-| Histogram | Distribuciones | Latencia de request, tamaño de respuesta |
-| Summary | Quantiles en cliente | Latencia p99 por instancia |
+Por debajo, `prometheus_client` renderiza las métricas en formato de exposición
+de texto de Prometheus en `/metrics`. Luego Prometheus scrapea ese endpoint según
+el `scrape_interval` que configures.
 
-## Pautas
+## Mejores Prácticas
 
-- Usar counters para valores monótonamente crecientes (requests, errors, bytes).
-- Usar gauges para valores que suben y bajan (conexiones, profundidad de cola, memoria).
-- Usar histograms para distribuciones de latencia. Definir buckets que coincidan con tus SLOs.
-- Mantener cardinalidad de labels baja. Evitar user IDs, session IDs, o request IDs como labels.
-- Usar los buckets por defecto o definir personalizados. Los buckets por defecto están optimizados para ~0.005s a ~10s.
-- Exponer métricas en un puerto o path separado de tu aplicación.
-- Configurar `scrape_interval` a 15-60s. Intervalos más altos reducen storage pero pierden spikes cortos.
-- Usar middleware para instrumentar todos los requests automáticamente (Flask `before_request`, FastAPI middleware).
-- Trackear métricas de negocio junto con técnicas (órdenes procesadas, usuarios activos).
-- Monitorear la salud de tu endpoint de métricas — si cae, Prometheus no tiene datos.
+Los counters sirven para cualquier cosa que solo crezca: requests, errores,
+bytes. Los gauges funcionan para valores que fluctúan, como conexiones activas o
+profundidad de cola. Los histograms son para latencia, y deberías definir buckets
+que coincidan con tus SLOs.
+
+Mantené la cardinalidad de labels baja. Nunca uses user IDs, session IDs o
+request IDs como labels. Decidí si los buckets por defecto del histogram tienen
+sentido para tu tráfico o si definís los tuyos; los defaults cubren
+aproximadamente de 0.005s a 10s. Intentá mantener el endpoint de métricas en un
+puerto o path separado de tu aplicación principal.
+
+Configurá `scrape_interval` entre 15 y 60 segundos. Intervalos más altos ahorran
+almacenamiento pero pueden perder spikes cortos. Usá middleware en Flask o
+FastAPI para instrumentar todos los requests automáticamente. Una vez que las
+métricas fluyan, configurá alertas con [Monitoreo y Alertas con
+Prometheus](/es/recipes/prometheus-monitoring-alerts/). No te olvides de las
+métricas de negocio: órdenes procesadas, usuarios activos, checkouts
+completados. Muchas veces dicen más que las técnicas. Y monitoreá la salud de tu
+endpoint de métricas: si falla, Prometheus deja de recibir datos.
 
 ## Errores Comunes
 
-- Usar labels de alta cardinalidad. Cada combinación única de labels crea una nueva time series. Un label con 10K user IDs crea 10K series por métrica.
-- Usar un gauge para counters. Los counters nunca deben decrecer. Usar un gauge pierde la capacidad de cálculo de rate.
-- No definir buckets personalizados de histogram. Los buckets por defecto pueden no coincidir con tu perfil de latencia.
-- Exponer métricas en el mismo puerto que la app sin autenticación. En producción, proteger el endpoint de métricas.
-- Olvidar llamar `.inc()` o `.observe()`. Métricas que nunca se actualizan son inútiles.
-- Usar summaries en lugar de histograms. Los summaries no se pueden agregar entre instancias. Usar histograms para sistemas distribuidos.
-- No instrumentar paths de error. Si solo trackeas requests exitosos, tu error rate aparece como cero.
+La trampa más grande es usar labels de alta cardinalidad. Cada combinación única
+crea una time series nueva, así que un label con 10.000 user IDs produce 10.000
+series por métrica. Usar un gauge cuando necesitás un counter es otro error — los
+counters nunca deben decrecer, y un gauge no sirve para calcular rates.
+
+No definir buckets personalizados del histogram también es frecuente; los defaults
+pueden no coincidir con tu perfil de latencia. Exponer `/metrics` en el mismo
+puerto que la app sin autenticación es riesgoso en producción, así que protegé el
+endpoint. Olvidarte de llamar `.inc()` o `.observe()` te deja con métricas
+estancadas. Los summaries se rompen en sistemas distribuidos porque no se pueden
+agregar entre instancias, así que no los uses si necesitás percentiles de todo el
+cluster. Y solo instrumentar el camino feliz esconde errores — tu error rate va a
+parecer cero.
 
 ## Preguntas Frecuentes
 
 ### ¿Cuál es la diferencia entre un histogram y un summary?
 
-Los histograms agrupan observaciones en buckets configurables y dejan que Prometheus calcule quantiles en el servidor (agregables entre instancias). Los summaries calculan quantiles en el cliente (no agregables). Usar histograms para latencia en sistemas distribuidos. Usar summaries solo cuando necesitas percentiles exactos por instancia.
+Ambos tratan distribuciones, pero la cuenta corre en distintos lugares. Con un
+histogram, Prometheus recibe los buckets crudos y calcula los quantiles en el
+servidor. Eso lo hace agregable entre instancias. Un summary calcula los quantiles
+dentro de tu app, así que cada proceso reporta su propio percentile y no podés
+sumarlos. Usá histograms para latencia en sistemas distribuidos; reservá los
+summaries para percentiles exactos por instancia.
 
 ### ¿Cómo elijo los buckets del histogram?
 
-Establece buckets basados en tus SLOs. Si tu SLO es 99 por ciento de requests bajo 200ms, usa buckets como `[0.01, 0.05, 0.1, 0.2, 0.5, 1.0]`. El bucket `+Inf` se añade automáticamente.
+Basalos en tus SLOs. Si el 99% de los requests debería terminar bajo 200ms, usá
+buckets como `[0.01, 0.05, 0.1, 0.2, 0.5, 1.0]`. Prometheus añade el bucket
+`+Inf` automáticamente.
 
 ### ¿Puedo usar prometheus_client con Django?
 
-Sí. Usa el paquete `django-prometheus` para integración específica de Django, o monta `make_wsgi_app()` en tu configuración de URLs.
+Sí. Usá el paquete `django-prometheus` para ayudantes específicos de Django, o
+montá `make_wsgi_app()` en tu configuración de URLs.
 
 ### ¿Cómo testeo mis métricas localmente?
 
-Ejecuta `prometheus_client.start_http_server(8000)` y abre `http://localhost:8000/metrics` en un navegador. Deberías ver el formato de exposición de texto con todas tus métricas.
+Ejecutá `prometheus_client.start_http_server(8000)` y abrí
+`http://localhost:8000/metrics` en un navegador. Vas a ver el formato de
+exposición de texto listando todas tus métricas.

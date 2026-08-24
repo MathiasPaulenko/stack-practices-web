@@ -1,14 +1,9 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: javascript-debounce-throttle-implementation
 title: "Funciones Debounce y Throttle en JavaScript"
-description: "Controla la tasa de ejecución de funciones con debounce y throttle. Cubre leading/trailing edge, timers cancelables y casos de uso reales."
-metaDescription: "Implementa debounce y throttle en JavaScript. Leading y trailing edge, timers cancelables, search input, scroll handlers y resize listeners."
+description: "Controla la tasa de ejecución de funciones con debounce y throttle. Cubre leading y trailing edge, timers cancelables y casos de uso reales."
+metaDescription: "Implementa debounce y throttle en JavaScript. Leading y trailing edge, timers cancelables, búsquedas, scroll y redimensionado de ventana."
 difficulty: intermediate
 topics:
   - frontend
@@ -24,15 +19,14 @@ relatedResources:
   - /recipes/javascript-infinite-scroll-pagination
   - /recipes/javascript-localstorage-expiration
   - /guides/performance-optimization-guide
-  - /patterns/circuit-breaker-pattern
   - /guides/complete-guide-bundle-size-optimization
   - /guides/complete-guide-react-performance-optimization
   - /guides/complete-guide-web-performance-core-web-vitals
-lastUpdated: "2026-07-02"
+lastUpdated: "2026-08-23"
 publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Implementa debounce y throttle en JavaScript. Leading y trailing edge, timers cancelables, search input, scroll handlers y resize listeners."
+  metaDescription: "Implementa debounce y throttle en JavaScript. Leading y trailing edge, timers cancelables, búsquedas, scroll y redimensionado de ventana."
   keywords:
     - javascript debounce
     - javascript throttle
@@ -40,25 +34,25 @@ seo:
     - rate limiting javascript
     - search input debounce
     - scroll throttle javascript
-
-
-
-
-
 ---
 
-## Visión General
+## Descripción General
 
-Debounce y throttle son técnicas para controlar la frecuencia con la que se ejecuta una función. Debounce retrasa la ejecución hasta que la actividad se detiene. Throttle limita la ejecución a máximo una vez por intervalo. Ambas previenen problemas de rendimiento por eventos que se disparan muchas veces por segundo como scroll, resize, typing y clicks.
+Debounce y throttle evitan que eventos rápidos saturen tu código. Debounce espera
+a que la actividad se detenga antes de ejecutar la función. Throttle ejecuta la
+función a lo sumo una vez por intervalo, aunque el evento siga disparándose. Ambos
+son útiles para manejadores de scroll, resize, input y mousemove.
 
 ## Cuándo Usar
 
+- **Debounce**: campos de búsqueda, autoguardado, redimensionado de ventana —
+  esperar hasta que el usuario se detenga.
+- **Throttle**: posición de scroll, movimiento del mouse, clics repetidos —
+  ejecutar a una tasa fija.
+- Tenés un evento que se dispara muchas veces por segundo y provoca trabajo costoso.
 
-- For alternatives, see [Complete Guide to Bundle Size Optimization](/es/guides/complete-guide-bundle-size-optimization/).
-
-- **Debounce**: Search input, autosave, window resize — esperar hasta que el usuario se detenga
-- **Throttle**: Scroll position, mouse move, button spam — limitar a una tasa fija
-- Tienes un evento que se dispara muchas veces por segundo y triggera trabajo costoso
+Para alternativas, consultá la [Guía Completa de Optimización del Tamaño del
+Bundle](/es/guides/complete-guide-bundle-size-optimization/).
 
 ## Solución
 
@@ -76,7 +70,7 @@ function debounce(fn, delay) {
     };
 }
 
-// Uso — search input
+// Uso — campo de búsqueda
 const handleSearch = debounce((query) => {
     console.log("Searching for:", query);
     fetchResults(query);
@@ -100,7 +94,7 @@ function throttle(fn, interval) {
     };
 }
 
-// Uso — scroll handler
+// Uso — manejador de scroll
 const handleScroll = throttle(() => {
     console.log("Scroll position:", window.scrollY);
 }, 100);
@@ -160,13 +154,13 @@ function debounceAdvanced(fn, delay, { leading = false, trailing = true } = {}) 
     };
 }
 
-// Leading only — disparar inmediatamente, luego ignorar
+// Solo leading — disparar inmediatamente, luego ignorar
 const onClick = debounceAdvanced(saveData, 1000, { leading: true, trailing: false });
 
-// Trailing only — disparar después del periodo de silencio (default)
+// Solo trailing — disparar después del periodo de silencio (default)
 const onInput = debounceAdvanced(searchApi, 300, { leading: false, trailing: true });
 
-// Both — disparar inmediatamente y otra vez después del silencio
+// Ambos — disparar inmediatamente y otra vez después del silencio
 const onResize = debounceAdvanced(layoutCalc, 200, { leading: true, trailing: true });
 ```
 
@@ -265,7 +259,7 @@ editor.addEventListener("input", () => autosave.onChange(editor.value));
 window.addEventListener("beforeunload", () => autosave.forceSave(editor.value));
 ```
 
-### Práctico: scroll progress con throttle
+### Práctico: progreso de scroll con throttle
 
 ```javascript
 const updateScrollProgress = throttle(() => {
@@ -280,64 +274,84 @@ window.addEventListener("scroll", updateScrollProgress, { passive: true });
 
 ## Explicación
 
-**Debounce**: Resetea un timer en cada llamada. La función solo se ejecuta después de que el caller se detiene por `delay` milisegundos. Piensa en ello como "esperar hasta que el usuario termine."
+**Debounce** resetea un timer cada vez que el evento se dispara. La función
+envuelta solo se ejecuta después de que el flujo de llamadas esté quieto por
+`delay` milisegundos. Esa es la herramienta que buscás cuando querés esperar a que
+el usuario termine de escribir, hacer scroll o redimensionar.
 
-**Throttle**: Ejecuta la función inmediatamente, luego ignora llamadas por `interval` milisegundos. Piensa en ello como "ejecutar máximo una vez por intervalo."
+**Throttle** ejecuta la función en la primera llamada y luego saltea las demás
+hasta que pasen `interval` milisegundos. Usalo cuando querés actualizaciones
+periódicas y estables en lugar de esperar una pausa.
 
-**Leading edge**: La función se ejecuta en la primera llamada, luego las llamadas subsecuentes se debounced/throttled.
-
-**Trailing edge**: Después del periodo de silencio o intervalo, una llamada final se ejecuta con los últimos argumentos.
+**Leading edge** significa que la primera llamada se ejecuta inmediatamente; las
+siguientes se ignoran o reprograman. **Trailing edge** significa que una llamada
+final se ejecuta después del periodo de silencio, usando los argumentos más
+recientes.
 
 | Técnica | Se Dispara Cuando | Caso de Uso |
-|-----------|-----------|----------|
-| Debounce (trailing) | Después de que la actividad se detiene | Search, autosave |
-| Debounce (leading) | Inmediatamente, luego espera | Protección de button click |
-| Throttle | Máximo una vez por intervalo | Scroll, mousemove |
+| -------------------- | ------------------------------------ | ---------------------- |
+| Debounce (trailing) | Después de que la actividad se detiene | Búsqueda, autoguardado |
+| Debounce (leading) | Inmediatamente, luego espera | Proteger clics de botón |
+| Throttle | A lo sumo una vez por intervalo | Scroll, mousemove |
 | Throttle (trailing) | Una vez por intervalo + final | Scroll con última posición |
 
 ## Variantes
 
 | Patrón | Comportamiento | Ejemplo |
-|---------|----------|---------|
-| Debounce | Retrasar hasta silencio | Search input |
-| Throttle | Rate limit a intervalo | Scroll handler |
+| -------- | ---------------- | --------- |
+| Debounce | Retrasar hasta silencio | Campo de búsqueda |
+| Throttle | Rate limit a intervalo | Manejador de scroll |
 | RequestAnimationFrame | Sync con repaint | Animaciones |
 | IntersectionObserver | Callback en visibilidad | Lazy loading |
 
-## Pautas
+## Mejores Prácticas
 
-- Usar debounce para eventos donde quieres el valor final (search, autosave, resize).
-- Usar throttle para eventos donde quieres actualizaciones periódicas (scroll, mousemove).
-- Usar `requestAnimationFrame` en lugar de throttle para actualizaciones visuales (animaciones, transforms).
-- Siempre limpiar timers en unmount (cleanup de React `useEffect`, Vue `onUnmounted`).
-- Usar `{ passive: true }` en listeners de scroll y touch para mejorar performance de scroll.
-- Usar leading edge para button clicks para dar feedback inmediato.
-- Usar trailing edge para search inputs para capturar el query final.
-- Testear con input rápido para verificar que la función no se dispara demasiado a menudo.
+Usá debounce cuando necesites el valor final, como en un campo de búsqueda, una
+rutina de autoguardado o un manejador de redimensionado. Usá throttle cuando
+quieras actualizaciones regulares, como una barra de progreso de scroll o un
+rastreador de posición del mouse. Para actualizaciones visuales sincronizadas con
+el repaint del navegador, usá `requestAnimationFrame` en lugar de throttle.
+Siempre limpiá los timers cuando un componente se desmonte — el cleanup de
+`useEffect` en React y `onUnmounted` en Vue son buenos lugares. Agregá
+`{ passive: true }` a los listeners de scroll y touch para que el navegador no
+bloquee el main thread. Usá leading edge para clics de botón, así das feedback
+inmediato, y trailing edge para campos de búsqueda, así capturás el último query.
+Testeá con input rápido para asegurarte de que la función no se dispare
+ demasiado a menudo.
 
 ## Errores Comunes
 
-- Usar debounce para eventos de scroll. El handler nunca se dispara mientras se hace scroll continuo. Usar throttle en su lugar.
-- Usar throttle para search inputs. La API se llama mientras el usuario sigue escribiendo. Usar debounce en su lugar.
-- No limpiar timers. Timeouts pendientes se disparan después del unmount del componente, causando errores.
-- Usar `Date.now()` en throttle sin verificar `remaining`. La función se dispara tarde si el intervalo ya pasó.
-- No usar `passive: true` en listeners de scroll. Esto bloquea el main thread durante el scroll.
-- Olvidar pasar `this` y `args`. La función debounced pierde contexto y argumentos.
-- Hacer debounce con un delay muy largo. El usuario piensa que la app está rota. Mantener delays bajo 1 segundo para feedback de UI.
+Usar debounce para scroll es un error común: el handler no se disparará mientras
+el usuario siga haciendo scroll, así que la UI se siente congelada. Throttle es
+mejor ahí. Usar throttle para un campo de búsqueda también está mal porque la API
+se llama mientras el usuario sigue escribiendo; debounce es el caso adecuado.
+Siempre limpiá los timers, porque los timeouts pendientes pueden dispararse
+ después del unmount y generar errores. En throttle, no te olvides de verificar
+`remaining`, o la función puede dispararse en momentos raros. Saltearse
+`{ passive: true }` en listeners de scroll puede bloquear el scroll. Y si te
+olvidás de pasar `this` y `args`, la función envuelta pierde contexto y
+argumentos. Por último, no elijas un delay de debounce muy largo — el usuario va
+a pensar que la app se rompió. Mantené los delays de feedback de UI bajo un
+segundo.
 
 ## Preguntas Frecuentes
 
 ### ¿Cuál es la diferencia entre debounce y throttle?
 
-Debounce espera hasta que el usuario deja de disparar el evento, luego se ejecuta una vez. Throttle se ejecuta máximo una vez por intervalo sin importar cuántas veces se dispare el evento. Usar debounce para escenarios de "esperar hasta terminar". Usar throttle para escenarios de "limitar la tasa".
+Debounce espera a que el usuario deje de disparar el evento, luego se ejecuta una
+vez. Throttle se ejecuta a lo sumo una vez por intervalo sin importar cuántas
+veces se dispare el evento. Usá debounce cuando querés esperar a que el usuario
+termine, y throttle cuando querés limitar la tasa.
 
-### ¿Debo usar debounce o throttle para window resize?
+### ¿Debería usar debounce o throttle para window resize?
 
-Debounce. Quieres recalcular layout después de que el usuario termina de resize, no en cada cambio de pixel. Un debounce de 150-200ms funciona bien.
+Usá debounce. Querés recalcular el layout después de que el usuario termina de
+redimensionar, no en cada cambio de píxel. Un debounce de 150-200ms funciona bien.
 
 ### ¿Cómo implemento debounce en React?
 
-Usar un custom hook con `useRef` para almacenar el timeout:
+Usá un custom hook con `useRef` para almacenar el timeout. Guardá la referencia de
+la función en otro `useRef` y limpiá el timeout en el cleanup effect:
 
 ```javascript
 function useDebounce(fn, delay) {
@@ -358,12 +372,23 @@ function useDebounce(fn, delay) {
 
 ### ¿Puedo usar requestAnimationFrame en lugar de throttle?
 
-Sí, para actualizaciones visuales. `requestAnimationFrame` se sincroniza con el ciclo de repaint del navegador (~60fps). Es más suave que throttle para animaciones y actualizaciones visuales basadas en scroll. Usar throttle para trabajo no visual como API calls.
+Sí, para actualizaciones visuales. `requestAnimationFrame` se sincroniza con el
+ciclo de repaint del navegador (~60fps). Es más suave que throttle para
+animaciones y actualizaciones visuales basadas en scroll. Dejá throttle para
+trabajo no visual como llamadas a API.
 
 ### ¿Cuál es la diferencia entre debounce con leading y trailing edge?
 
-Leading-edge debounce dispara la función inmediatamente en la primera llamada, luego ignora llamadas subsiguientes hasta que expire el periodo de espera. Trailing-edge debounce (el default) dispara después del periodo de espera sin nuevas llamadas. Usa leading para eventos de click donde quieres feedback inmediato, trailing para search-as-you-type donde quieres el último valor. Lodash soporta ambos via `{ leading: true, trailing: false }`.
+El debounce con leading edge dispara la función inmediatamente en la primera
+llamada, luego ignora llamadas subsecuentes hasta que expire el periodo de espera.
+El debounce con trailing edge (el default) dispara después del periodo de espera
+sin nuevas llamadas. Usá leading para eventos de click donde querés feedback
+inmediato, trailing para búsquedas mientras escribís donde querés el último valor.
+Lodash soporta ambos con `{ leading: true, trailing: false }`.
 
-### ¿Debo cancelar llamadas debounce pendientes en unmount?
+### ¿Debería cancelar llamadas debounce pendientes en el unmount?
 
-Sí. Siempre limpia el timeout en una función de cleanup (return de `useEffect`) para prevenir actualizaciones de estado después de que el componente se desmonte. Esto evita memory leaks y warnings de React sobre setear estado en un componente desmontado.
+Sí. Siempre limpiá el timeout en una función de cleanup (return de `useEffect`)
+para prevenir actualizaciones de estado después de que el componente se desmonte.
+Esto evita memory leaks y warnings de React sobre setear estado en un componente
+desmontado.
