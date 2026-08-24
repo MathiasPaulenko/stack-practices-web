@@ -2,3 +2,5 @@ ref/output/
 ref/prompts/
 ref/audit/
 ref/ALL_PROBLEMS_CHECKLIST.md
+AGENTS.md
+src/content/**/AGENTS.md
