@@ -20,7 +20,8 @@ Si alguno falla, corregir antes de continuar.
 ## Estructura y calidad del body
 
 - [ ] Jerarquía de encabezados lógica (H2 → H3), sin saltos.
-- [ ] Body por encima del mínimo del tipo (`recipes` 1.000+, `patterns` 1.200+, `guides` 1.500+, `docs` 800+ caracteres).
+- [ ] Body por encima del mínimo del tipo (`recipes` 1.000+, `patterns` 1.200+, `guides` 1.500+, `docs` 800+ palabras).
+- [ ] Sin thin content: el cuerpo aporta valor, no solo listas genéricas, repeticiones o relleno para llegar al mínimo.
 - [ ] `Overview` empieza con un problema real, no con `This guide covers...` o `X is the process of...`.
 - [ ] `When to Use` con situaciones concretas y al menos un caso donde NO aplica.
 - [ ] `Solution` con código/commands/configuración funcional y con lenguaje de bloque explícito.

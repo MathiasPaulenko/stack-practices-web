@@ -153,12 +153,13 @@ Si quieres una validación global del sitio antes de un release grande, ejecuta
 
 Validar manualmente (con `content:quality` se cubre gran parte):
 
+- [ ] Sin thin content: el body no solo cumple el mínimo de palabras, sino que aporta ejemplos, trade-offs y valor real.
 - [ ] `title` < 80 caracteres.
 - [ ] `description` 80-160 caracteres.
 - [ ] `metaDescription` 120-170 caracteres y coincide con `seo.metaDescription`.
 - [ ] `contentType`, `slug`, `difficulty`, `topics` y `tags` válidos.
-- [ ] Body por encima del mínimo por tipo (`recipes` 300, `patterns` 400,
-      `guides` 500, `docs` 200 palabras).
+- [ ] Body por encima del mínimo por tipo (`recipes` 1.000, `patterns` 1.200,
+      `guides` 1.500, `docs` 800 palabras).
 - [ ] `relatedResources` apuntan a slugs existentes (sin barra final).
 - [ ] Código con lenguaje especificado y versiones reales.
 - [ ] FAQ con 4+ preguntas reales.

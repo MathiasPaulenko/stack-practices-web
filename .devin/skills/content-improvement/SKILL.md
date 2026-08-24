@@ -57,6 +57,31 @@ Invocar estas skills cuando estén disponibles para que el recurso quede lo más
 
 Si una skill no está disponible, aplicar manualmente las reglas equivalentes de este documento.
 
+### Thin content y longitud mínima
+
+Un recurso es **thin content** cuando el cuerpo queda por debajo del mínimo útil
+para su tipo **o** cuando la longitud es suficiente pero aporta poco valor: listas
+genéricas, ejemplos inventados, secciones copiadas, FAQ de relleno o explicaciones
+que repiten el título sin detalle.
+
+**Mínimos de palabras del cuerpo (body, sin contar frontmatter) para el repaso de contenido:**
+
+| `contentType` | Mínimo de palabras |
+| --- | --- |
+| `recipes` | 1.000 |
+| `patterns` | 1.200 |
+| `guides` | 1.500 |
+| `docs` | 800 |
+
+- Estos mínimos son **objetivos de profundidad**, no relleno. Si un recurso los
+  supera con tablas densas, código útil y explicación de trade-offs, es válido.
+- Si un recurso los supera con secciones de relleno, listas genéricas o repeticiones, sigue siendo thin y debe reescribirse.
+- En la Fase 0 se mide el conteo base; en la Fase 2 se expande el contenido thin antes de ejecutar Desklib.
+- El `content-quality-validator` usa mínimos más conservadores (`recipes` 300,
+  `patterns` 400, `guides` 500, `docs` 200) como paso automático del build. El skill
+  `content-improvement` exige los mínimos superiores anteriores para contenido
+  auditado y listo para publicar.
+
 ## Modos de invocación
 
 |Petición del usuario|Modo|Fases activas|
@@ -78,6 +103,8 @@ Si el modo no es claro, preguntar antes de empezar.
   una traducción completa sin aprobación explícita.
 - Leer ambos archivos: frontmatter, cuerpo y secciones principales.
 - Anotar el estado base: palabras, longitud de `metaDescription`, `lastUpdated`, `relatedResources`, estructura de secciones.
+- Medir si el recurso es **thin content**: comparar el conteo de palabras del body con el mínimo del tipo
+  (`recipes` 1.000, `patterns` 1.200, `guides` 1.500, `docs` 800). Anotar el gap.
 - Opcional: ejecutar `ai-detect-patterns.py` en EN y ES para tener una línea base de patrones.
 
 **Salida esperada:** un resumen de una o dos líneas con el slug, tipo, palabras y estado base.
@@ -96,15 +123,24 @@ Si el modo no es claro, preguntar antes de empezar.
   - Estructura de secciones: asegurar que sean `Overview`, `When to Use`, `Solution`,
     `Explanation`, `Variants`, `Best Practices`, `Common Mistakes`, `FAQ` y que no haya
     secciones resumen extra.
+- Si el recurso es **thin content**, no gastar más de 1-2 correcciones de
+  frontmatter en esta fase; marcarlo para expansión en la Fase 2.
 - **Corte de esfuerzo**: si no hay hallazgos accionables, saltar a la siguiente fase.
-- **Salida esperada:** lista numerada de los cambios realizados (máximo 5).
+- **Salida esperada:** lista numerada de los cambios realizados (máximo 5) y, si aplica, gap de palabras.
 
 ### Fase 2 — Calidad + IA (máximo 4 rondas)
 
 - Antes de detectar IA, aplicar
   `.devin/skills/content-improvement/reference/prompt-19-first-pass-perfect.md` para
-  corregir estructura, `relatedResources` coherentes, anglicismos, tokens de código y prosa
-  genérica.
+  corregir estructura, `relatedResources` coherentes, anglicismos, tokens de código, prosa
+  genérica **y thin content**.
+- Si el recurso es thin o queda por debajo del mínimo de palabras del tipo, expandirlo **antes**
+  de ejecutar Desklib:
+  - Añadir 1-2 ejemplos de código con datos/versiones reales.
+  - Desarrollar `Explanation` con trade-offs, limitaciones y casos de borde.
+  - Convertir listas genéricas en prosa con contexto o en tablas comparativas con análisis.
+  - Añadir o completar `FAQ` con 3-5 preguntas reales.
+  - Replicar la expansión en ES; no resumir.
 - Aplicar `.devin/skills/content-improvement/reference/prompt-18-content-quality-auditor.md`
   a EN y ES.
 - Corregir solo los **3-5 hallazgos de mayor impacto** en cada idioma. Una reescritura
@@ -195,6 +231,8 @@ Si el modo no es claro, preguntar antes de empezar.
   - Resultado de validación.
 - **Aplicar el Checklist PERFECTO** (`reference/perfect-close-checklist.md`) antes de pedir
   aprobación. Si algún ítem falla, corregirlo antes de continuar.
+  - Verificar específicamente el mínimo de palabras del body y que no se haya rellenado con
+    contenido genérico.
 - Si el usuario dio un número de `ref/top-100-checklist.md`, usar `reference/prompt-master.md`
   para estructurar el resumen y la pregunta de aprobación.
 - Preguntar de forma explícita si se aprueba `git commit` y `git push`.
@@ -204,6 +242,9 @@ Si el modo no es claro, preguntar antes de empezar.
 
 - **Aplicar el pre-check** de `prompt-19-first-pass-perfect.md` antes de ejecutar Desklib.
 - **No eliminar contenido técnico** solo para bajar la puntuación IA.
+- **No reducir el contenido para bajar IA** si eso deja el recurso por debajo del mínimo de palabras.
+- **No aumentar palabras con relleno**: la expansión de thin content debe aportar ejemplos,
+  casos reales y profundidad técnica.
 - **Usar siempre Desklib**, nunca el detector `light`.
 - **No reescribir el recurso completo** si no es necesario. Reescribir frases aisladas.
 - **Máximo 4 rondas de detección/corrección IA**.
@@ -218,6 +259,7 @@ Si el modo no es claro, preguntar antes de empezar.
 ## Output esperado
 
 - Archivos `src/content/{tipo}/{slug}.md` y `.es.md` mejorados.
+- Body por encima del mínimo de palabras del tipo y sin secciones de relleno.
 - Informes opcionales en `ref/output/`: `seo-audit-{slug}.md`,
   `content-quality-audit-{slug}.md`, `ai-detect-{slug}.json`,
   `ai-detect-patterns-{slug}.json`, `ai-detect-analysis-{slug}.md`.

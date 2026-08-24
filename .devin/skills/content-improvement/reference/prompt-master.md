@@ -30,7 +30,7 @@ Sigue estos pasos sin preguntar salvo que falte información crítica.
 - Ejecutar todas las fases:
   - Fase 0: diagnóstico.
   - Fase 1: quick wins SEO/frontmatter.
-  - Fase 2: calidad + humanización + IA.
+  - Fase 2: calidad + humanización + IA + thin content.
   - Fase 3: paridad EN/ES.
   - Fase 4: validación técnica.
   - Fase 5: resumen y aprobación.
@@ -62,8 +62,10 @@ Antes de pedir aprobación, mostrar un resumen estructurado.
 |Métrica|Valor inicial|Valor final|Cambio|
 |---|---|---|---|
 |Recurso|`{tipo}/{slug}`|—|—|
-|Longitud body EN|`{chars inicial}`|`{chars final}`|`+/- X`|
-|Longitud body ES|`{chars inicial}`|`{chars final}`|`+/- X`|
+|Palabras body EN|`{words inicial}`|`{words final}`|`+/- X`|
+|Palabras body ES|`{words inicial}`|`{words final}`|`+/- X`|
+|Caracteres body EN|`{chars inicial}`|`{chars final}`|`+/- X`|
+|Caracteres body ES|`{chars inicial}`|`{chars final}`|`+/- X`|
 |Desklib EN|`{model_ai_pct inicial} %`|`{model_ai_pct final} %`|`± X`|
 |Desklib ES|`{model_ai_pct inicial} %`|`{model_ai_pct final} %`|`± X`|
 |`title` (EN)|`{chars}`|—|—|

@@ -1,3 +1,5 @@
+<!-- markdownlint-disable-file -->
+
 # STACKPRACTICES — CONTENT QUALITY AUDITOR
 
 ## ROLE
@@ -66,7 +68,7 @@ Evaluate actual informational value.
 # CORE PRINCIPLE
 --------------------------------------------------
 
-Do NOT judge content quality by word count.
+Do NOT judge content quality by word count alone.
 
 A 700-word article can be excellent.
 

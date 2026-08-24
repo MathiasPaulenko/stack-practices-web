@@ -1,3 +1,5 @@
+<!-- markdownlint-disable-file -->
+
 # Prompt 19: First-Pass Perfect — pre-check estructural + humanización
 
 Aplica este prompt **antes** de ejecutar Desklib en la Fase 2 del flujo `content-improvement`. El objetivo es corregir de una sola pasada los problemas estructurales y de estilo que habitualmente hacen que un recurso necesite rondas extras.
@@ -15,6 +17,27 @@ Aplica este prompt **antes** de ejecutar Desklib en la Fase 2 del flujo `content
   8. `FAQ` / `Preguntas Frecuentes`
 - Si aparecen secciones como `What Works`, `Lo que funciona`, `Key Takeaways`, `Puntos Clave`, `Resumen`, `Conclusión` o `Final Notes`, renombrarlas o fusionarlas con `Best Practices` / `Mejores Prácticas`.
 - No añadir una sección manual de "Related Resources" en el cuerpo.
+
+## 1.5. Thin content y longitud mínima
+
+Antes de revisar estilo o IA, medir si el recurso es thin. El body (sin frontmatter) debe superar:
+
+| Tipo | Mínimo de palabras |
+|---|---|
+| `recipes` | 1.000 |
+| `patterns` | 1.200 |
+| `guides` | 1.500 |
+| `docs` | 800 |
+
+Si está por debajo del mínimo o es denso en listas genéricas:
+
+- Añadir 1-2 ejemplos de código con datos/versiones reales.
+- Desarrollar `Explanation` con trade-offs, limitaciones y casos de borde.
+- Convertir bullets genéricos (`Define clear goals`, `Document everything`) en prosa con contexto o en tablas con análisis.
+- Añadir 3-5 FAQs reales si aplica.
+- Aplicar la misma expansión en ES; no resumir.
+
+No rellenar con frases vacías solo para subir el conteo.
 
 ## 2. `relatedResources` coherentes
 
