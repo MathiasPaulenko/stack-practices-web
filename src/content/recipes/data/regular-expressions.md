@@ -48,7 +48,7 @@ seo:
 
 Regular expressions (regex) are sequences of characters that define search patterns. They are the standard tool for text validation, extraction, substitution, and parsing across virtually every programming language and text editor.
 
-Despite their cryptic syntax, regex is indispensable for working with unstructured text, form validation, log parsing, and data cleaning.
+Despite their cryptic syntax, regex is indispensable for working with unstructured text, form validation, log parsing, and data cleaning. Related recipes: [Parse Log Files](/recipes/parse-log-files).
 
 ## When to Use
 

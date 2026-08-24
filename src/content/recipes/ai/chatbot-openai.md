@@ -38,7 +38,7 @@ seo:
 
 The OpenAI Assistants API lets you build stateful chatbots without writing the conversation memory, file retrieval, and tool-execution loop yourself. You define an assistant once, then create threads for each conversation and let the API handle message ordering, built-in tool calls, and function dispatch.
 
-> **Deprecation notice:** OpenAI deprecated the Assistants API in August 2025. It will shut down on **26 August 2026**. OpenAI recommends the [Responses API](https://platform.openai.com/docs/api-reference/responses) or the [Agents SDK](https://platform.openai.com/docs/guides/agents-sdk) for new projects. Use this recipe to maintain existing integrations or to compare approaches; do not start new production chatbots on the Assistants API without a migration plan.
+> **Deprecation notice:** OpenAI deprecated the Assistants API in August 2025. It will shut down on **26 August 2026**. OpenAI recommends the [Responses API](https://platform.openai.com/docs/api-reference/responses) or the [Agents SDK](https://platform.openai.com/docs/guides/agents-sdk) for new projects. Use this recipe to maintain existing integrations or to compare approaches; do not start new production chatbots on the Assistants API without a migration plan. Related recipes: [Generate Images Programmatically with AI Models](/recipes/image-generation) and [Sentiment Analysis with Python and NLTK](/recipes/python-sentiment-analysis-nltk).
 
 ## When to Use
 

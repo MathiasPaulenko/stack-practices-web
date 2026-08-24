@@ -43,7 +43,7 @@ seo:
 
 ## Overview
 
-Server logs capture what happens on a machine: requests, errors and events. Parsing them turns messy text into data you can search and group, then chart. This recipe shows regex, JSON Lines and syslog parsing with Python, Java and JavaScript.
+Server logs capture what happens on a machine: requests, errors and events. Parsing them turns messy text into data you can search and group, then chart. This recipe shows regex, JSON Lines and syslog parsing with Python, Java and JavaScript. Related recipes: [Parse Excel Files](/recipes/parse-excel-files), [Parse XML Files](/recipes/parse-xml-files), and [Validate JSON Schema](/recipes/validate-json-schema).
 
 ## When to Use
 

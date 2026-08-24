@@ -43,7 +43,7 @@ seo:
 
 ## Visión General
 
-Los logs de servidor capturan lo que ocurre en una máquina: requests, errores y eventos. Analizarlos convierte texto crudo en datos que puedes buscar y agrupar, y luego graficar. Esta receta muestra cómo parsear con regex, JSON Lines y syslog usando Python, Java y JavaScript.
+Los logs de servidor capturan lo que ocurre en una máquina: requests, errores y eventos. Analizarlos convierte texto crudo en datos que puedes buscar y agrupar, y luego graficar. Esta receta muestra cómo parsear con regex, JSON Lines y syslog usando Python, Java y JavaScript. Recursos relacionados: [Analizar Archivos Excel](/recipes/parse-excel-files), [Analizar Archivos XML](/recipes/parse-xml-files) y [Validar JSON Schema](/recipes/validate-json-schema).
 
 ## Cuándo Usar
 

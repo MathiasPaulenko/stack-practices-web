@@ -38,7 +38,7 @@ seo:
 
 La OpenAI Assistants API permite crear chatbots con estado sin que tú escribas el historial de la conversación, la recuperación de archivos ni el bucle de ejecución de herramientas. Definas un asistente una vez, luego creas un `thread` para cada conversación y dejas que la API maneje el orden de mensajes, las llamadas a herramientas integradas y el `function calling`.
 
-> **Aviso de deprecación:** OpenAI deprecó la Assistants API en agosto de 2025. Cerrará el **26 de agosto de 2026**. OpenAI recomienda la [Responses API](https://platform.openai.com/docs/api-reference/responses) o el [Agents SDK](https://platform.openai.com/docs/guides/agents-sdk) para proyectos nuevos. Usa esta receta para mantener integraciones existentes o comparar enfoques; no inicies chatbots nuevos en producción con la Assistants API sin un plan de migración.
+> **Aviso de deprecación:** OpenAI deprecó la Assistants API en agosto de 2025. Cerrará el **26 de agosto de 2026**. OpenAI recomienda la [Responses API](https://platform.openai.com/docs/api-reference/responses) o el [Agents SDK](https://platform.openai.com/docs/guides/agents-sdk) para proyectos nuevos. Usa esta receta para mantener integraciones existentes o comparar enfoques; no inicies chatbots nuevos en producción con la Assistants API sin un plan de migración. Recursos relacionados: [Generar Imágenes Programáticamente con Modelos de IA](/recipes/image-generation) y [Análisis de Sentimiento con Python y NLTK](/recipes/python-sentiment-analysis-nltk).
 
 ## Cuándo Usar
 

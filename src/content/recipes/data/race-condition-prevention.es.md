@@ -19,6 +19,7 @@ relatedResources:
   - /recipes/python-asyncio-gather-task-groups
   - /patterns/idempotent-consumer-pattern
   - /recipes/javascript-event-loop
+  - /recipes/concurrent-data-structures
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
 author: Mathias Paulenko

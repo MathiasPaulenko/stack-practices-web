@@ -43,7 +43,7 @@ seo:
 
 ## Descripcion general
 
-`ThreadPoolExecutor` de `concurrent.futures` proporciona una API simple para ejecutar funciones en threads paralelos. Es ideal para trabajo I/O-bound (peticiones HTTP, operaciones de archivos, queries a base de datos) donde el GIL se libera. A continuacion: ejecucion paralela basica, `map` vs `submit`, callbacks de Future, manejo de errores, uso de context manager y mezcla de threads con asyncio.
+`ThreadPoolExecutor` de `concurrent.futures` proporciona una API simple para ejecutar funciones en threads paralelos. Es ideal para trabajo I/O-bound (peticiones HTTP, operaciones de archivos, queries a base de datos) donde el GIL se libera. A continuacion: ejecucion paralela basica, `map` vs `submit`, callbacks de Future, manejo de errores, uso de context manager y mezcla de threads con asyncio. Recursos relacionados: [Estructuras Concurrentes para Colecciones Seguras](/recipes/concurrent-data-structures).
 
 ## Cuando Usar Esto
 

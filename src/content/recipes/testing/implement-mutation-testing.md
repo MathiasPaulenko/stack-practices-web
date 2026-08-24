@@ -15,6 +15,7 @@ relatedResources:
   - /recipes/measure-test-coverage
   - /recipes/implement-property-based-testing
   - /recipes/setup-test-fixtures
+  - /recipes/python-coverage-pytest-cov
 lastUpdated: "2026-07-09"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko

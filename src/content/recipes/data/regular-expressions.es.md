@@ -48,7 +48,7 @@ seo:
 
 Las expresiones regulares (regex) son secuencias de caracteres que definen patrones de búsqueda. Son la herramienta estándar para validación de texto, extracción, sustitución y parsing en prácticamente todos los lenguajes de programación y editores de texto.
 
-A pesar de su sintaxis críptica, regex es indispensable para trabajar con texto no estructurado, validación de formularios, parsing de logs y limpieza de datos.
+A pesar de su sintaxis críptica, regex es indispensable para trabajar con texto no estructurado, validación de formularios, parsing de logs y limpieza de datos. Recursos relacionados: [Analizar Archivos de Log](/recipes/parse-log-files).
 
 ## Cuándo usarlo
 

@@ -59,7 +59,7 @@ seo:
 
 JSON is the de-facto data interchange format for modern APIs, configuration files, and inter-service communication. Parsing JSON means converting a JSON-formatted string into a native data structure your language can work with (objects, dictionaries, arrays).
 
-Every mainstream language ships with first-class JSON support, either built in or through a well-established library. The idiomatic way to parse JSON in Python, JavaScript, and Java, plus error handling, streaming for large payloads, and schema validation.
+Every mainstream language ships with first-class JSON support, either built in or through a well-established library. The idiomatic way to parse JSON in Python, JavaScript, and Java, plus error handling, streaming for large payloads, and schema validation. Related recipes: [Parse Log Files](/recipes/parse-log-files).
 
 ## When to Use
 

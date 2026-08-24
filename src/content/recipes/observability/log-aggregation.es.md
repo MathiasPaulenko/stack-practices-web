@@ -34,7 +34,7 @@ seo:
 ---
 ## Visión General
 
-La agregación de logs centraliza registros de docenas o cientos de servicios en un único sistema searchable. En lugar de hacer SSH a servidores individuales, los equipos consultan un índice unificado para tracear requests a través de [microservicios](/guides/microservices-architecture-guide/), investigar errores y detectar anomalías. Herramientas como el stack ELK, Fluentd y Grafana Loki han hecho el logging centralizado accesible para cualquier tamaño de equipo.
+La agregación de logs centraliza registros de docenas o cientos de servicios en un único sistema searchable. En lugar de hacer SSH a servidores individuales, los equipos consultan un índice unificado para tracear requests a través de [microservicios](/guides/microservices-architecture-guide/), investigar errores y detectar anomalías. Herramientas como el stack ELK, Fluentd y Grafana Loki han hecho el logging centralizado accesible para cualquier tamaño de equipo. Recursos relacionados: [Analizar Archivos de Log](/recipes/parse-log-files).
 
 ## Cuándo Usar
 
