@@ -104,10 +104,10 @@ Pero también aplica las **longitudes mínimas del body (sin frontmatter)**:
 
 | Tipo | Body mínimo (palabras, sin frontmatter) |
 |---|---|
-| `recipes` | >= 1000 |
-| `patterns` | >= 1200 |
-| `guides` | >= 1500 |
-| `docs` | >= 800 |
+| `recipes` | >= 1300 |
+| `patterns` | >= 1500 |
+| `guides` | >= 3000 |
+| `docs` | >= 3000 |
 
 Detecta secciones de relleno genéricas:
 

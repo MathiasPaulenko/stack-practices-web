@@ -51,10 +51,10 @@ Si está disponible, invocar `content-improvement` para reforzar el análisis.
 
 | Tipo | Mínimo (palabras, sin frontmatter) |
 |---|---|
-| `recipes` | >= 1000 |
-| `patterns` | >= 1200 |
-| `guides` | >= 1500 |
-| `docs` | >= 800 |
+| `recipes` | >= 1300 |
+| `patterns` | >= 1500 |
+| `guides` | >= 3000 |
+| `docs` | >= 3000 |
 
 ### 6. Anglicismos en ES
 

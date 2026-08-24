@@ -1,14 +1,14 @@
 # ALL_PROBLEMS_CHECKLIST.md
 
-Checklist consolidada de problemas detectados en `ref/`. Generado el 2026-08-22.
+Checklist consolidada de problemas detectados en `ref/`. Actualizada el 2026-08-22.
 
 ## 1. Métricas globales del sitio
 
 | Métrica | Valor | Fuente |
 | --- | --- | --- |
-| Páginas en dist | 3242 | ref/audit-summary.md |
-| Markdown files | 2043 | ref/audit-summary.md |
-| URLs en sitemap | 3238 | ref/audit-summary.md |
+| Páginas en dist | 3258 | build reciente |
+| Markdown files | 2042 | conteo reciente |
+| URLs en sitemap | 3254 | sitemap reciente |
 | Build HTML total | 131.8 MB | ref/audit-summary.md |
 | Build JS size | 449.8 KB | ref/audit-summary.md |
 | Build CSS size | 179.3 KB | ref/audit-summary.md |
@@ -17,123 +17,22 @@ Checklist consolidada de problemas detectados en `ref/`. Generado el 2026-08-22.
 
 ## 2. Problemas técnicos / SEO
 
-### 2.1 Issue counts (ref/audit-summary.md)
+### 2.1 Issues resueltos
 
-| Issue | Count |
-| --- | --- |
-| inDistNotSitemap | 4 |
-| canonicalMismatch | 1 |
-| thinPages | 36 |
-| pagesWithLowIncomingLinks | 8 |
-| bidirectional link gaps | 24 |
-| low body links | 30+ |
+| Issue | Count | Estado |
+| --- | --- | --- |
+| inDistNotSitemap | 4 | ✅ Resuelto — son páginas `noindex` (404, search) correctamente excluidas |
+| canonicalMismatch | 1 | ✅ Resuelto — hreflang eliminados de las páginas 404 |
+| bidirectional link gaps | 24 | ✅ Resuelto — 42 body links añadidos en 26 archivos |
+| pagesWithLowIncomingLinks | 8 | ✅ Resuelto — 48 incoming links añadidos desde same-topic resources |
+| low body links (docs) | 30+ | ✅ Resuelto — 180 body links añadidos en 60 archivos (30 docs EN+ES) |
+| broken body links | 118 | ✅ Resuelto — 60 links patrón `/tipo/topic/slug` + 58 links con slugs renombrados |
 
-### 2.2 Checklist técnica
+### 2.2 Pendiente
 
-- [ ] **Canonical mismatch en `/404/`**: canonical apunta a `https://stackpractices.com/404.html` mientras la URL es `/404/`.
-- [ ] **4 URLs en `dist` que no están en el sitemap**: `/404/`, `/es/404/`, `/es/search/`, `/search/`. Verificar que tengan `noindex` o agregar/ignorar correctamente.
-- [ ] **36 thin pages** según `audit-summary.md`; lista concreta en `thin-content-report.txt` (17 archivos) y conteo en `MASTER_CHECKLIST.md` (687 archivos WARN con 300-349 líneas). Reconciliar y priorizar.
-- [ ] **Revisar 2.263 enlaces rotos en el cuerpo del markdown** (`MASTER_CHECKLIST.md`): patrón `/contentType/categoria/slug` que debería ser `/contentType/slug` y placeholders `[texto](link)` en templates.
+- [ ] **Thin content**: 1.784 archivos por debajo de los nuevos targets (recipes 1.300, patterns 1.500, guides 3.000, docs 3.000). Se abordará recurso por recurso en el workflow de mejora de contenido, no en batch.
 
-## 3. Thin content / contenido ligero
-
-### 3.1 FAIL (< 300 líneas)
-
-- [ ] `src/content/recipes/AGENTS.md` (96 líneas)
-- [ ] `src/content/recipes/data/parse-log-files.es.md` (230 líneas)
-- [ ] `src/content/recipes/data/parse-log-files.md` (230 líneas)
-
-### 3.2 WARN (300–349 líneas)
-
-- [ ] `src/content/recipes/data/parse-toml-files.es.md` (324 líneas)
-- [ ] `src/content/recipes/data/parse-toml-files.md` (324 líneas)
-- [ ] `src/content/patterns/design/partial-class-pattern.es.md` (341 líneas)
-- [ ] `src/content/patterns/design/partial-class-pattern.md` (341 líneas)
-- [ ] `src/content/recipes/api/grpc-api.md` (345 líneas)
-- [ ] `src/content/patterns/design/context-object-pattern.es.md` (345 líneas)
-- [ ] `src/content/docs/testing/test-strategy-document-template.es.md` (346 líneas)
-- [ ] `src/content/docs/testing/test-strategy-document-template.md` (346 líneas)
-- [ ] `src/content/docs/templates/penetration-test-template.es.md` (347 líneas)
-- [ ] `src/content/docs/architecture/technical-spec-template.es.md` (348 líneas)
-- [ ] `src/content/docs/templates/penetration-test-template.md` (348 líneas)
-- [ ] `src/content/recipes/api/grpc-api.es.md` (349 líneas)
-- [ ] `src/content/recipes/performance/web-performance.md` (349 líneas)
-- [ ] `src/content/docs/architecture/technical-spec-template.md` (349 líneas)
-
-## 4. Enlaces internos
-
-### 4.1 Bidirectional link gaps (24)
-
-- [ ] `/recipes/image-generation` ↔ `/recipes/chatbot-openai` (ai)
-- [ ] `/recipes/python-sentiment-analysis-nltk` ↔ `/recipes/chatbot-openai` (ai)
-- [ ] `/recipes/api-logging-audit` ↔ `/recipes/api-documentation-openapi` (api)
-- [ ] `/recipes/api-rate-limiting-redis` ↔ `/recipes/api-documentation-openapi` (api)
-- [ ] `/recipes/call-rest-api` ↔ `/recipes/api-documentation-openapi` (api)
-- [ ] `/recipes/cursor-pagination-postgresql` ↔ `/recipes/api-documentation-openapi` (api)
-- [ ] `/recipes/graphql-api` ↔ `/recipes/api-documentation-openapi` (api)
-- [ ] `/recipes/real-time-notifications` ↔ `/recipes/api-documentation-openapi` (api)
-- [ ] `/recipes/concurrent-data-structures` ↔ `/recipes/python-thread-pool-executor` (concurrency)
-- [ ] `/recipes/concurrent-data-structures` ↔ `/recipes/race-condition-prevention` (concurrency)
-- [ ] `/recipes/date-formatting` ↔ `/recipes/flatten-unflatten-objects` (data)
-- [ ] `/recipes/flatten-unflatten-objects` ↔ `/recipes/deep-clone-javascript` (data)
-- [ ] `/recipes/money-currency` ↔ `/recipes/flatten-unflatten-objects` (data)
-- [ ] `/recipes/parse-excel-files` ↔ `/recipes/parse-log-files` (data)
-- [ ] `/recipes/parse-log-files` ↔ `/recipes/log-aggregation` (observability)
-- [ ] `/recipes/parse-log-files` ↔ `/recipes/parse-json` (data)
-- [ ] `/recipes/parse-log-files` ↔ `/recipes/regular-expressions` (data)
-- [ ] `/recipes/parse-xml-files` ↔ `/recipes/parse-log-files` (data)
-- [ ] `/recipes/validate-json-schema` ↔ `/recipes/parse-log-files` (data)
-- [ ] `/recipes/database-migrations-safely` ↔ `/recipes/optimistic-locking` (databases)
-- [ ] `/recipes/database-migrations` ↔ `/recipes/optimistic-locking` (databases)
-- [ ] `/recipes/database-views-materialized` ↔ `/recipes/optimistic-locking` (databases)
-- [ ] `/recipes/python-coverage-pytest-cov` ↔ `/recipes/implement-mutation-testing` (testing)
-- [ ] `/recipes/python-coverage-pytest-cov` ↔ `/recipes/setup-test-fixtures` (testing)
-
-### 4.2 Páginas con pocos incoming links
-
-- [ ] `/recipes/nodejs-caching-redis` (2 enlaces entrantes)
-- [ ] `/recipes/server-sent-events-node` (2 enlaces entrantes)
-- [ ] `/recipes/http-cache-control-headers` (2 enlaces entrantes)
-- [ ] `/recipes/deep-clone-structured` (2 enlaces entrantes)
-- [ ] `/recipes/nodejs-file-upload-validation` (2 enlaces entrantes)
-- [ ] `/recipes/debounce-throttle` (2 enlaces entrantes)
-- [ ] `/patterns/llm-fallback-pattern` (2 enlaces entrantes)
-- [ ] `/patterns/specification-pattern` (2 enlaces entrantes)
-
-### 4.3 Docs con 0–1 links en el cuerpo
-
-- [ ] `src/content/docs/api/api-changelog-template.md` (1 link)
-- [ ] `src/content/docs/api/api-deprecation-notice-template.md` (1 link)
-- [ ] `src/content/docs/api/api-error-handling-guideline.md` (1 link)
-- [ ] `src/content/docs/api/api-rate-limiting-policy-template.md` (1 link)
-- [ ] `src/content/docs/api/sla-definition-template.md` (1 link)
-- [ ] `src/content/docs/architecture/api-lifecycle-management-template.md` (1 link)
-- [ ] `src/content/docs/architecture/api-monitoring-alerting-template.md` (1 link)
-- [ ] `src/content/docs/architecture/api-performance-budget-template.md` (1 link)
-- [ ] `src/content/docs/architecture/microservice-contract-template.md` (1 link)
-- [ ] `src/content/docs/architecture/service-dependency-map-template.md` (1 link)
-- [ ] `src/content/docs/architecture/system-diagram-template.md` (1 link)
-- [ ] `src/content/docs/architecture/technical-spec-template.md` (1 link)
-- [ ] `src/content/docs/data-engineering/data-governance-policy-template.md` (1 link)
-- [ ] `src/content/docs/data-engineering/data-pipeline-design-document-template.md` (1 link)
-- [ ] `src/content/docs/data-engineering/data-quality-rules-template.md` (1 link)
-- [ ] `src/content/docs/data-engineering/etl-job-runbook-template.md` (1 link)
-- [ ] `src/content/docs/devops/access-control-review-template.md` (1 link)
-- [ ] `src/content/docs/devops/architecture-decision-record-adr-template.md` (1 link)
-- [ ] `src/content/docs/devops/auto-scaling-policy-template.md` (1 link)
-- [ ] `src/content/docs/devops/backup-and-restore-template.md` (1 link)
-- [ ] `src/content/docs/devops/backup-verification-test-template.md` (1 link)
-- [ ] `src/content/docs/devops/bug-triage-template.md` (0 links)
-- [ ] `src/content/docs/devops/capacity-planning-forecast-template.md` (1 link)
-- [ ] `src/content/docs/devops/change-management-template.md` (1 link)
-- [ ] `src/content/docs/devops/ci-cd-pipeline-design-template.md` (1 link)
-- [ ] `src/content/docs/devops/ci-cd-pipeline-security-template.md` (1 link)
-- [ ] `src/content/docs/devops/cloud-cost-allocation-template.md` (1 link)
-- [ ] `src/content/docs/devops/cloud-resource-tagging-policy-template.md` (1 link)
-- [ ] `src/content/docs/devops/code-review-checklist-template.md` (0 links)
-- [ ] `src/content/docs/devops/compliance-gap-analysis-template.md` (1 link)
-
-## 5. Top-100 checklist — recursos pendientes
+## 3. Top-100 checklist — recursos pendientes
 
 Total pendientes: **26**.
 
@@ -294,7 +193,7 @@ Total pendientes: **26**.
   - EN: https://stackpractices.com/guides/complete-guide-graphql-federation/
   - ES: https://stackpractices.com/es/guides/complete-guide-graphql-federation/
 
-## 6. Roadmap de contenido pendiente
+## 4. Roadmap de contenido pendiente
 
 - [ ] Batch 3 pending recipes: 50
 - [ ] Batch 3 pending patterns: 40
@@ -302,13 +201,13 @@ Total pendientes: **26**.
 - [ ] Batch 3 pending docs: 25
   - Fuente: `ref/content-roadmap.md`
 
-## 7. Artefactos de auditoría por recurso (ref/output)
+## 5. Artefactos de auditoría por recurso (ref/output)
 
 - [ ] Revisar/clean 211 archivos en `ref/output/` (37 .md, 174 .json).
 - [ ] Priorizar los reports de `api-documentation-openapi` (12 reports en `ref/output/`) dado que tiene la mayor impresión en GSC pero CTR bajo.
 - [ ] Revisar periódicamente `content-quality-audit-*.md`, `seo-audit-*.md` e `improvement-pipeline-*.md` y convertir hallazgos en acciones.
 
-## 8. Observaciones GA4 / GSC recientes
+## 6. Observaciones GA4 / GSC recientes
 
 - [ ] GSC: CTR bajó del 0,50 % al 0,31 % a pesar de +253 % impresiones; posición media empeoró de 27,2 a 32,7.
 - [ ] `/recipes/api-documentation-openapi/` tiene 1.166 impresiones y solo 2 clics (CTR 0,17 %); posición cayó a ~55-65 en agosto.

@@ -158,8 +158,8 @@ Validar manualmente (con `content:quality` se cubre gran parte):
 - [ ] `description` 80-160 caracteres.
 - [ ] `metaDescription` 120-170 caracteres y coincide con `seo.metaDescription`.
 - [ ] `contentType`, `slug`, `difficulty`, `topics` y `tags` válidos.
-- [ ] Body por encima del mínimo por tipo (`recipes` 1.000, `patterns` 1.200,
-      `guides` 1.500, `docs` 800 palabras).
+- [ ] Body por encima del mínimo por tipo (`recipes` 1.300, `patterns` 1.500,
+      `guides` 3.000, `docs` 3.000 palabras).
 - [ ] `relatedResources` apuntan a slugs existentes (sin barra final).
 - [ ] Código con lenguaje especificado y versiones reales.
 - [ ] FAQ con 4+ preguntas reales.

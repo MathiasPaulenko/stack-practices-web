@@ -24,10 +24,10 @@ Antes de revisar estilo o IA, medir si el recurso es thin. El body (sin frontmat
 
 | Tipo | Mínimo de palabras |
 |---|---|
-| `recipes` | 1.000 |
-| `patterns` | 1.200 |
-| `guides` | 1.500 |
-| `docs` | 800 |
+| `recipes` | 1.300 |
+| `patterns` | 1.500 |
+| `guides` | 3.000 |
+| `docs` | 3.000 |
 
 Si está por debajo del mínimo o es denso en listas genéricas:
 

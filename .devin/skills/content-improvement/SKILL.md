@@ -68,10 +68,10 @@ que repiten el título sin detalle.
 
 | `contentType` | Mínimo de palabras |
 | --- | --- |
-| `recipes` | 1.000 |
-| `patterns` | 1.200 |
-| `guides` | 1.500 |
-| `docs` | 800 |
+| `recipes` | 1.300 |
+| `patterns` | 1.500 |
+| `guides` | 3.000 |
+| `docs` | 3.000 |
 
 - Estos mínimos son **objetivos de profundidad**, no relleno. Si un recurso los
   supera con tablas densas, código útil y explicación de trade-offs, es válido.
@@ -104,7 +104,7 @@ Si el modo no es claro, preguntar antes de empezar.
 - Leer ambos archivos: frontmatter, cuerpo y secciones principales.
 - Anotar el estado base: palabras, longitud de `metaDescription`, `lastUpdated`, `relatedResources`, estructura de secciones.
 - Medir si el recurso es **thin content**: comparar el conteo de palabras del body con el mínimo del tipo
-  (`recipes` 1.000, `patterns` 1.200, `guides` 1.500, `docs` 800). Anotar el gap.
+  (`recipes` 1.300, `patterns` 1.500, `guides` 3.000, `docs` 3.000). Anotar el gap.
 - Opcional: ejecutar `ai-detect-patterns.py` en EN y ES para tener una línea base de patrones.
 
 **Salida esperada:** un resumen de una o dos líneas con el slug, tipo, palabras y estado base.
