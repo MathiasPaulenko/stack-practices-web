@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-StackPractices is a static, SEO-first developer knowledge base for software engineers. It provides practical code recipes, design patterns, reusable documentation templates, and long-form guides. The project follows the roadmap defined in `ref/roadmap.md` and evolves through the strategy: **Content → Traffic → Authority → Monetization**.
+StackPractices is a static, SEO-first developer knowledge base for software engineers. It provides practical code recipes, design patterns, reusable documentation templates, and long-form guides. The project follows the roadmap defined in `ref/docs/roadmap.md` and evolves through the strategy: **Content → Traffic → Authority → Monetization**.
 
 ## Core Principles
 
@@ -59,13 +59,13 @@ src/
 │   ├── patterns/         # Design patterns
 │   ├── docs/             # Documentation templates
 │   └── guides/           # Long-form guides
-├── content/config.ts     # Content collection schemas (Zod)
+├── content.config.ts     # Content collection schemas (Zod)
 ├── styles/               # Global CSS and Tailwind theme
 └── assets/               # Static assets (images, fonts)
 public/
 ├── sitemap.xml           # Auto-generated multilingual sitemap
 ├── robots.txt            # Crawler directives
-├── ads.txt               # AdSense verification (future)
+├── ads.txt               # AdSense verification (pub-9762280383707953)
 └── assets/content/       # Auto-generated content indices (JSON)
 ```
 
@@ -92,9 +92,9 @@ The `ref/docs/` folder contains detailed project reference documents. **Do not r
 ### 3. Content Architecture
 
 - **Markdown files** in `src/content/` with YAML frontmatter
-- **Type-safe schemas** defined in `src/content/config.ts` using Zod
+- **Type-safe schemas** defined in `src/content.config.ts` using Zod
 - **File-based routing** via Astro's `src/pages/` with `getStaticPaths()`
-- **SEO-friendly URLs**: `/recipes/data/parse-json`, `/patterns/design/factory-pattern`
+- **SEO-friendly URLs**: `/{type}/{slug}/` (e.g., `/recipes/parse-json/`, `/patterns/factory-pattern/`). Source files may live under topic directories (`src/content/recipes/data/parse-json.md`) but the published URL omits the topic.
 - **Hierarchical organization**: Content type → Topic → Individual resource
 - **Bilingual by default**: Every `.md` has a matching `.es.md`
 
@@ -144,7 +144,7 @@ When working on this project, always use the available Skills:
 - **Practical Value**: Focus on reusable, actionable content (code that works, patterns that solve real problems)
 - **Multi-Language**: Show implementations across languages (Python, Java, JavaScript, SQL, Bash, Docker, Git) where applicable
 - **Template Format**: Follow consistent content structure (Overview → When to Use → Solution → Explanation → Variants → Best Practices → Common Mistakes → FAQ)
-- **Internal Linking**: Use `relatedResources` frontmatter to link to at least 2-3 related resources
+- **Internal Linking**: Use `relatedResources` frontmatter to link to 3–6 related resources
 
 ## Phase-Based Development
 
@@ -155,14 +155,14 @@ When working on this project, always use the available Skills:
 #### Completed
 
 - Phase 0 — Foundation: Astro + Tailwind + CI/CD + SEO + Pagefind + Schemas
-- Phase 1 — Recipes Launch: ~241 recipes live across all major categories
-- Phase 2 — Patterns & Scale: ~56 patterns + tag system + filtering live
-- Phase 3 in progress: Guides section launched; **87 guides** live (Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing)
+- Phase 1 — Recipes Launch: 432 recipes live across all major categories
+- Phase 2 — Patterns & Scale: 203 patterns + tag system + filtering live
+- Phase 3 in progress: Guides section launched; **210 guides** live (Architecture, Databases, DevOps, Security, Frontend, Code Quality, Testing). 177 docs templates live.
 
 **Targets**:
 
-- Complete all roadmap guides (currently at 87/112 planned)
-- Expand documentation templates section
+- Complete all roadmap guides (currently at 210 guides live)
+- Expand documentation templates section (currently 177 docs)
 - Begin monetization setup (AdSense, affiliate) — Phase 4+
 - Continue SEO long-tail coverage for guides
 - Maintain bilingual parity (EN + ES) for every resource
@@ -242,7 +242,7 @@ When working on this project, always use the available Skills:
 ### 1. Always Check Roadmap First
 
 Before implementing any feature:
-1. Check `ref/roadmap.md` for current phase
+1. Check `ref/docs/roadmap.md` for current phase
 2. Verify feature aligns with current objectives
 3. Ensure feature doesn't add unnecessary complexity
 4. Confirm feature supports traffic, revenue, or user value
@@ -383,7 +383,7 @@ The ONLY valid `topics` values are: `data`, `api`, `authentication`, `file-handl
 
 ### Technical Metrics
 
-- **Build time**: 3–4 minutes for 3242 pages (Astro build ~3m, Pagefind indexing ~75s); monitor for degradation
+- **Build time**: 3–4 minutes for 3258 pages (Astro build ~3m, Pagefind indexing ~75s); monitor for degradation
 - **JavaScript shipped**: Minimal (Astro ships zero JS by default)
 - **Lighthouse score**: 95+ across all metrics
 - **SEO score**: 95+ on SEO tools
@@ -391,7 +391,7 @@ The ONLY valid `topics` values are: `data`, `api`, `authentication`, `file-handl
 
 ### Content Metrics
 
-- **Page count**: 3242 pages built (2042 Markdown files, EN + ES)
+- **Page count**: 3258 pages built (2042 Markdown files, EN + ES)
 - **SEO ranking**: Target first page for key long-tail terms
 - **Organic traffic**: Steady growth month over month
 - **User engagement**: Low bounce rate, high time on page
@@ -416,7 +416,7 @@ npm run content:quality    # 2042 files, expects 0 errors / 0 warnings
 npm run content:links      # relatedResources integrity
 npm run content:validate   # structural content warnings
 npm run check              # Astro check, 0 errors / 0 warnings
-npm run build              # full static build; 3242 pages expected
+npm run build              # full static build; 3258 pages expected
 npm run sitemap            # regenerate public/sitemap.xml from dist/
 ```
 

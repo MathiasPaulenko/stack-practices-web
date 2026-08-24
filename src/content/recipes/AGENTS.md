@@ -27,7 +27,7 @@ Always invoke the appropriate skills before creating or editing a recipe:
 - `difficulty`: one of `beginner`, `intermediate`, `advanced`.
 - `topics`: one or more values from the topics enum in `src/content.config.ts` (e.g., `api`, `data`, `security`).
 - `tags`: relevant technology and concept tags (e.g., `python`, `rest`, `authentication`).
-- `relatedResources`: 6 coherent resources from the same topic cluster when possible. Keep EN and ES lists identical in number, order, and target slugs. The detail page renders only the first 6 entries, so any extras are ignored.
+- `relatedResources`: 3–6 coherent resources from the same topic cluster when possible. Keep EN and ES lists identical in number, order, and target slugs. The detail page renders only the first 6 entries, so any extras are ignored.
 - `lastUpdated`, `publishedAt`: ISO-8601 dates. Stagger `publishedAt` values across recipes so the entire collection does not look like it was bulk-created on a single day. Update `lastUpdated` whenever you edit the recipe.
 - `author`: `Mathias Paulenko` or `StackPractices`.
 - `seo.keywords`: 3–8 relevant keywords.
@@ -78,7 +78,7 @@ npm run content:quality    # 0 errors, 0 warnings
 npm run content:links      # 0 broken relatedResources
 npm run content:validate   # review warnings
 npm run check              # 0 errors, 0 warnings
-npm run build              # 3242 pages expected
+npm run build              # 3258 pages expected
 npm run sitemap            # regenerate public/sitemap.xml
 ```
 
