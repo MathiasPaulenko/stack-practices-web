@@ -424,11 +424,9 @@ npm run sitemap            # regenerate public/sitemap.xml from dist/
 
 ```bash
 node scripts/internal-linking-audit.cjs   # ref/internal-linking-data.json
-node scripts/forensic-data-generator.cjs  # ref/audit-data.json
-node scripts/generate-audit-summary.cjs   # ref/audit-summary.json
+python scripts/find-broken-body-links.py  # audit broken body links
+python scripts/audit-thin-content.py      # audit thin content vs targets
 ```
-
-Review `ref/audit-summary.json` for `duplicateTitles`, `duplicateDescs`, `canonicalMismatch`, `hreflangIssues`, and `thinPages`.
 
 ### Bilingual parity & SEO URL contract
 
