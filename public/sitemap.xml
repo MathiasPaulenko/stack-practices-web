@@ -14072,7 +14072,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/call-rest-api/</loc>
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/call-rest-api/" />
@@ -14132,7 +14132,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/chatbot-openai/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/chatbot-openai/" />
@@ -14237,7 +14237,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/concurrent-data-structures/</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/concurrent-data-structures/" />
@@ -14792,7 +14792,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/deep-clone-javascript/</loc>
-    <lastmod>2026-08-18</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/deep-clone-javascript/" />
@@ -15362,7 +15362,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/generate-pdf-report-python/</loc>
-    <lastmod>2026-08-18</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/generate-pdf-report-python/" />
@@ -17192,7 +17192,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/parse-command-line-arguments/</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-command-line-arguments/" />
@@ -17327,7 +17327,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/parse-toml-files/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-toml-files/" />
@@ -17567,7 +17567,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/python-asyncio-semaphore-rate-limiting/</loc>
-    <lastmod>2026-08-17</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/python-asyncio-semaphore-rate-limiting/" />
@@ -18092,7 +18092,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/python-schedule-periodic-tasks/</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/python-schedule-periodic-tasks/" />
@@ -19838,6 +19838,21 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/xss-prevention/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/xss-prevention/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/xss-prevention/" />
+    <image:image>
+      <image:loc>https://stackpractices.com/kofi3.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://stackpractices.com/og-image.png</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/search/</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/search/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/search/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/search/" />
     <image:image>
       <image:loc>https://stackpractices.com/kofi3.png</image:loc>
     </image:image>
@@ -35057,7 +35072,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/call-rest-api/</loc>
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/call-rest-api/" />
@@ -35117,7 +35132,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/chatbot-openai/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/chatbot-openai/" />
@@ -35222,7 +35237,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/concurrent-data-structures/</loc>
-    <lastmod>2026-08-16</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/concurrent-data-structures/" />
@@ -35777,7 +35792,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/deep-clone-javascript/</loc>
-    <lastmod>2026-08-18</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/deep-clone-javascript/" />
@@ -36347,7 +36362,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/generate-pdf-report-python/</loc>
-    <lastmod>2026-08-18</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/generate-pdf-report-python/" />
@@ -38177,7 +38192,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/parse-command-line-arguments/</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-command-line-arguments/" />
@@ -38312,7 +38327,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/parse-toml-files/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-toml-files/" />
@@ -38552,7 +38567,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/python-asyncio-semaphore-rate-limiting/</loc>
-    <lastmod>2026-08-17</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/python-asyncio-semaphore-rate-limiting/" />
@@ -39077,7 +39092,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/python-schedule-periodic-tasks/</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/python-schedule-periodic-tasks/" />
@@ -40823,6 +40838,21 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/xss-prevention/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/xss-prevention/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/xss-prevention/" />
+    <image:image>
+      <image:loc>https://stackpractices.com/kofi3.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://stackpractices.com/og-image.png</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/search/</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/search/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/search/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/search/" />
     <image:image>
       <image:loc>https://stackpractices.com/kofi3.png</image:loc>
     </image:image>
