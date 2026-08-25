@@ -81,7 +81,7 @@ Si una skill no está disponible, aplicar manualmente sus reglas equivalentes.
 6. Leer el `AGENTS.md` del tipo correspondiente:
    - `src/content/{tipo}/AGENTS.md`
    - `AGENTS.md` global del proyecto
-7. Leer `ref/docs/roadmap.md`, `ref/ALL_PROBLEMS_CHECKLIST.md` y `ref/checklist-top-recursos-mejoras.md` si existen.
+7. Leer `ref/docs/roadmap.md` y `ref/checklist-top-recursos-mejoras.md` si existen.
 
 ### Paso 2 — Ejecutar sub-auditorías según MODE
 

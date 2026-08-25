@@ -31,11 +31,15 @@
 ## Phase 3: Documentation & Guides (Content Complete)
 - [x] Documentation template system (README, API docs templates)
 - [x] Guide content type (testing strategy guide)
-- [x] Expand docs catalog (112 docs: ADRs, Runbooks, Checklists, Templates, Policies)
-- [x] Expand guides catalog (147 guides across 19 categories)
+- [x] Expand docs catalog (177 docs: ADRs, Runbooks, Checklists, Templates, Policies)
+- [x] Expand guides catalog (210 guides across 19 categories)
 - [x] Printable/exportable docs (CSS print styles + print button)
 - [x] Batch 2 content: 200 new items (60 recipes, 50 patterns, 50 guides, 40 docs)
-- [x] Total content: 748 unique items (1496 bilingual files)
+- [x] Batch 3 content: 273 new items (82 recipes, 63 patterns, 63 guides, 65 docs)
+- [x] Total content: 1.021 unique items (2.042 bilingual files)
+- [x] P0.1 — Fix 16 broken circuit-breaker body links
+- [x] P0.4 — Optimize snippet of `/recipes/api-documentation-openapi/` (title, meta, em-dashes)
+- [x] P0.5 — Fix em-dash overuse in top-20 priority resources (5 recursos, 34 em-dashes eliminados)
 - [ ] Monetization setup (AdSense, affiliate)
 - [ ] Donation integration
 
@@ -52,22 +56,29 @@
 ## Current Status Summary
 
 ### Content Count
-- **Recipes**: 349 (698 bilingual files) — 19 categories
-- **Patterns**: 140 (280 bilingual files) — 10 categories
-- **Guides**: 147 (294 bilingual files) — 19 categories
-- **Docs**: 112 (224 bilingual files) — ADRs, Runbooks, Checklists, Templates, Policies
-- **Total**: 748 unique items (1496 bilingual files)
+- **Recipes**: 431 (862 bilingual files) — 19 categories
+- **Patterns**: 203 (406 bilingual files) — 10 categories
+- **Guides**: 210 (420 bilingual files) — 19 categories
+- **Docs**: 177 (354 bilingual files) — ADRs, Runbooks, Checklists, Templates, Policies
+- **Total**: 1.021 unique items (2.042 bilingual files)
+- **Built pages**: 3.258
+- **Sitemap URLs**: 3.254
+- **Pagefind index**: 174.310 words across EN + ES
 
 ### Recently Completed
 - [x] Batch 2: 200 new content items (60 recipes, 50 patterns, 50 guides, 40 docs)
-- [x] All 197 roadmap items completed and validated
-- [x] Bilingual parity maintained (EN + ES) across all 748 items
+- [x] Batch 3: 273 new content items (82 recipes, 63 patterns, 63 guides, 65 docs)
+- [x] All roadmap items completed and validated
+- [x] Bilingual parity maintained (EN + ES) across all 1.021 items
 - [x] Content quality validation: 0 errors, 0 warnings
 - [x] Google Analytics 4 integrated (G-RBE12WJ5KZ)
 - [x] RSS feed: auto-generated EN + ES feeds with all content types
 - [x] Performance optimization: compressHTML, CSS code split, minify, dns-prefetch, deferred Pagefind
 - [x] Sitemap updated with all URLs
 - [x] Content cross-linking maintained (3+ relatedResources per item)
+- [x] P0.1 — Fix 16 broken circuit-breaker body links (EN + ES)
+- [x] P0.4 — Optimize `/recipes/api-documentation-openapi/` snippet (title, meta, em-dashes, trailing slash)
+- [x] P0.5 — Fix em-dash overuse in 5 top-priority resources (34 em-dashes eliminados, EN + ES)
 
 ### Next Priorities
 1. **Monetization** — AdSense integration, affiliate links

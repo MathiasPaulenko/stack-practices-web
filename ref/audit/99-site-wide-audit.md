@@ -6,7 +6,6 @@
 
 - Todos los archivos Markdown en `src/content/{tipo}/` (EN y ES).
 - `AGENTS.md` global y de cada tipo.
-- `ref/ALL_PROBLEMS_CHECKLIST.md`.
 - `ref/checklist-top-recursos-mejoras.md` si existe.
 - `ref/docs/roadmap.md`.
 - Salida de los comandos de validación del repo:
@@ -173,7 +172,7 @@ Criterios de prioridad:
 
 ## 7. Oportunidades de tráfico a nivel sitio
 
-A partir de `ref/ALL_PROBLEMS_CHECKLIST.md`, `ref/checklist-top-recursos-mejoras.md`, `ref/docs/roadmap.md` y datos por recurso:
+A partir de `ref/checklist-top-recursos-mejoras.md`, `ref/docs/roadmap.md` y datos por recurso:
 
 - Queries que generan clics y recursos que las cubren mal.
 - Queries con impresiones pero 0 clics (CTR bajo).
