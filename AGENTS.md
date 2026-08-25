@@ -123,7 +123,7 @@ When working on this project, always use the available Skills:
 **Every page MUST include:**
 
 - **Unique `<title>`** (60 chars max)
-- **Unique `<meta name="description">`** (150-160 chars)
+- **Unique `<meta name="description">`** (50–160 chars recommended; 170 chars hard max enforced by schema). The layout renders the `<h1>` from the frontmatter `title` — do NOT add a manual `# H1` in the Markdown body; that would produce duplicate H1 elements.
 - **Canonical URL** reflecting current language route
 - **Hreflang tags**: `<link rel="alternate" hreflang="en">`, `<link rel="alternate" hreflang="es">`, `<link rel="alternate" hreflang="x-default">`
 - **Open Graph tags**: `og:title`, `og:description`, `og:type`, `og:url`, `og:locale`
@@ -138,12 +138,12 @@ When working on this project, always use the available Skills:
 ### 6. Content Creation Rules
 
 - **Frontmatter Required**: Every content file must have complete frontmatter
-- **SEO-Optimized**: Include metaDescription (150-160 chars), keywords, descriptive title
+- **SEO-Optimized**: Include metaDescription (50–160 chars recommended; 170 hard max), keywords, descriptive title
 - **GEO-Friendly**: Include FAQ sections for AI answer engine optimization
 - **Bilingual Content**: Every new content file MUST be created in both English (`.md`) and Spanish (`.es.md`). The Spanish version must be a complete, accurate translation including all frontmatter fields (title, description, keywords, metaDescription). Never create a resource in only one language.
 - **Practical Value**: Focus on reusable, actionable content (code that works, patterns that solve real problems)
 - **Multi-Language**: Show implementations across languages (Python, Java, JavaScript, SQL, Bash, Docker, Git) where applicable
-- **Template Format**: Follow consistent content structure (Overview → When to Use → Solution → Explanation → Variants → Best Practices → Common Mistakes → FAQ)
+- **Template Format**: Follow consistent content structure (Overview → When to Use → Solution → Explanation → Variants → Best Practices → Common Mistakes → FAQ). Accepted alternative section names: `What Works` for `Best Practices`, `Troubleshooting` for `Common Mistakes`, and `See Also` / `Further Reading` for additional cross-references. These alternatives are valid and should not be flagged as violations. Varying section names across resources is encouraged to avoid template-like AI patterns.
 - **Internal Linking**: Use `relatedResources` frontmatter to link to 3–6 related resources
 
 ## Phase-Based Development
@@ -326,9 +326,10 @@ The ONLY valid `topics` values are: `data`, `api`, `authentication`, `file-handl
 ### metaDescription Length
 
 - **Minimum:** 50 characters
-- **Maximum:** 170 characters
+- **Recommended max:** 160 characters (Google truncates at ~155–160 on desktop)
+- **Hard max (schema-enforced):** 170 characters
 - Must appear in BOTH top-level frontmatter AND inside `seo:` block
-- Spanish translations must also fit within 170 characters
+- Spanish translations must also fit within the same limits; write concisely rather than extending the limit
 
 ### YAML Syntax
 
@@ -359,7 +360,7 @@ The ONLY valid `topics` values are: `data`, `api`, `authentication`, `file-handl
 - **Performance issues** — Always optimize for speed; Astro helps by shipping zero JS
 - **Hydrating unnecessarily** — Only hydrate interactive islands; keep the rest static
 - **Invalid content topics** — Always check `src/content.config.ts` topics enum before adding new content
-- **Meta descriptions too long** — Max 170 chars; build fails if exceeded
+- **Meta descriptions too long** — Recommended max 160 chars; schema hard max 170 chars; build fails if exceeded
 
 ### Content Pitfalls
 
