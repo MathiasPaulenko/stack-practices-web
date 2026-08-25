@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: parse-toml-files
-title: "Parse and Write TOML in Python, Java & JavaScript"
+title: "Parse and Write TOML Files: Python, Java & JS Examples"
 description: "How to parse and write TOML configuration files in Python, Java, and JavaScript."
-metaDescription: "Learn to parse TOML config files in Python, Java and JavaScript. Read, write and validate TOML with practical code examples for real-world configuration."
+metaDescription: "Parse TOML files in Python (tomli/tomllib), Java, and JavaScript. Read, write, validate configs, handle nesting limits, and avoid CVEs with code examples."
 difficulty: beginner
 topics:
   - data
@@ -23,11 +23,11 @@ relatedResources:
   - /recipes/serialize-deserialize-data
   - /recipes/parse-xml-files
   - /recipes/parse-command-line-arguments
-lastUpdated: "2026-08-13"
+lastUpdated: "2026-08-25"
 publishedAt: "2026-04-02"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Learn to parse TOML config files in Python, Java and JavaScript. Read, write and validate TOML with practical code examples for real-world configuration."
+  metaDescription: "Parse TOML files in Python (tomli/tomllib), Java, and JavaScript. Read, write, validate configs, handle nesting limits, and avoid CVEs with code examples."
   keywords:
     - toml
     - parse toml

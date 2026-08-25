@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: parse-toml-files
-title: "Analiza y escribe TOML en Python, Java y JavaScript"
+title: "Analizar TOML: Python, Java y JS con Ejemplos"
 description: "Cómo analizar y escribir archivos de configuración TOML en Python, Java y JavaScript."
-metaDescription: "Aprende a analizar archivos TOML en Python, Java y JavaScript. Lee, escribe y valida configuraciones TOML con ejemplos de código prácticos para tu proyecto."
+metaDescription: "Analiza archivos TOML en Python (tomli/tomllib), Java y JavaScript. Lee, escribe, valida configs, maneja límites de nesting y evita CVEs con ejemplos de código."
 difficulty: beginner
 topics:
   - data
@@ -23,11 +23,11 @@ relatedResources:
   - /recipes/serialize-deserialize-data
   - /recipes/parse-xml-files
   - /recipes/parse-command-line-arguments
-lastUpdated: "2026-08-13"
+lastUpdated: "2026-08-25"
 publishedAt: "2026-04-02"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Aprende a analizar archivos TOML en Python, Java y JavaScript. Lee, escribe y valida configuraciones TOML con ejemplos de código prácticos para tu proyecto."
+  metaDescription: "Analiza archivos TOML en Python (tomli/tomllib), Java y JavaScript. Lee, escribe, valida configs, maneja límites de nesting y evita CVEs con ejemplos de código."
   keywords:
     - toml
     - analizar toml

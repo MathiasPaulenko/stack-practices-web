@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: python-schedule-periodic-tasks
-title: "Programa Tareas Periódicas en Python con APScheduler"
+title: "APScheduler BackgroundScheduler: Evitar Jobs Superpuestos"
 description: "Ejecuta jobs tipo cron en Python usando APScheduler. Cubre triggers de intervalo, cron y fecha, job stores y scheduling en background."
-metaDescription: "Programa tareas periódicas en Python con APScheduler. Triggers de intervalo, cron y fecha, job stores persistentes, background schedulers y manejo de errores."
+metaDescription: "Fix APScheduler overlapping jobs con max_instances, config BackgroundScheduler, triggers de intervalo y cron, job stores persistentes y manejo de errores."
 difficulty: intermediate
 topics:
   - concurrency
@@ -22,11 +22,11 @@ relatedResources:
   - /recipes/cron-jobs
   - /guides/complete-guide-python-asyncio-production
   - /guides/complete-guide-python-asyncio
-lastUpdated: "2026-08-14"
+lastUpdated: "2026-08-25"
 publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Programa tareas periódicas en Python con APScheduler. Triggers de intervalo, cron y fecha, job stores persistentes, background schedulers y manejo de errores."
+  metaDescription: "Fix APScheduler overlapping jobs con max_instances, config BackgroundScheduler, triggers de intervalo y cron, job stores persistentes y manejo de errores."
   keywords:
     - python apscheduler
     - python schedule periodic tasks

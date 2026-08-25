@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: parse-command-line-arguments
-title: "Analizar Argumentos de Línea de Comandos"
+title: "Analizar Argumentos CLI: argparse, Commander y picocli"
 description: "Cómo analizar argumentos de línea de comandos en aplicaciones CLI de Python, Java y Node.js."
-metaDescription: "Aprende a analizar argumentos CLI en Python, Java y Node.js. Construye herramientas robustas con flags, opciones y subcomandos."
+metaDescription: "Analiza argumentos CLI en Python (argparse), Node.js (Commander) y Java (picocli). Flags, opciones, subcomandos, validación de tipos, help text y exit codes."
 difficulty: beginner
 topics:
   - data
@@ -21,11 +21,11 @@ relatedResources:
   - /recipes/parse-csv-files
   - /recipes/parse-json
   - /recipes/parse-log-files
-lastUpdated: "2026-08-22"
+lastUpdated: "2026-08-25"
 publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Aprende a analizar argumentos CLI en Python, Java y Node.js. Construye herramientas robustas con flags, opciones y subcomandos."
+  metaDescription: "Analiza argumentos CLI en Python (argparse), Node.js (Commander) y Java (picocli). Flags, opciones, subcomandos, validación de tipos, help text y exit codes."
   keywords:
     - cli
     - arguments

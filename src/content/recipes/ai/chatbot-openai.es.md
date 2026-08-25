@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: chatbot-openai
-title: "Crear un chatbot con la OpenAI Assistants API"
+title: "Chatbot con OpenAI Assistants API: Build, Coste y Deploy"
 description: "Cómo crear un chatbot de IA usando la OpenAI Assistants API con function calling y file search."
-metaDescription: "Crea un chatbot de IA con la OpenAI Assistants API. Maneja conversaciones, function calling, file search y gestión de threads con ejemplos."
+metaDescription: "Construye un chatbot con la OpenAI Assistants API. Function calling, file search, gestión de threads, desglose de coste por assistant por día y código de deploy."
 difficulty: beginner
 topics:
   - ai
@@ -20,11 +20,11 @@ relatedResources:
   - /recipes/prompt-engineering
   - /recipes/slack-bot-openai
   - /recipes/llm-fine-tuning
-lastUpdated: "2026-08-13"
+lastUpdated: "2026-08-25"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Crea un chatbot de IA con la OpenAI Assistants API. Maneja conversaciones, function calling, file search y gestión de threads con ejemplos."
+  metaDescription: "Construye un chatbot con la OpenAI Assistants API. Function calling, file search, gestión de threads, desglose de coste por assistant por día y código de deploy."
   keywords:
     - chatbot
     - openai

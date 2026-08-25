@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: concurrent-data-structures
-title: "Concurrent Data Structures for Thread-Safe Collections"
+title: "Thread-Safe Collections: Blocking Queues & Concurrent Maps"
 description: "How to safely share collections between threads using concurrent data structures—blocking queues, maps, lists, and atomic counters—in Java, Python, and C++."
-metaDescription: "Concurrent data structures for thread-safe collections in Java, Python, and C++: blocking queues, concurrent maps, and atomic counters—no hand-written locks."
+metaDescription: "Thread-safe collections in Java (ConcurrentHashMap, BlockingQueue), Python (queue.Queue), and C++ (atomic). No hand-written locks, with code examples."
 difficulty: intermediate
 topics:
   - concurrency
@@ -22,11 +22,11 @@ relatedResources:
   - /recipes/race-condition-prevention
   - /recipes/csp-communication
   - /recipes/async-patterns
-lastUpdated: "2026-08-16"
+lastUpdated: "2026-08-25"
 publishedAt: "2026-06-14"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Concurrent data structures for thread-safe collections in Java, Python, and C++: blocking queues, concurrent maps, and atomic counters—no hand-written locks."
+  metaDescription: "Thread-safe collections in Java (ConcurrentHashMap, BlockingQueue), Python (queue.Queue), and C++ (atomic). No hand-written locks, with code examples."
   keywords:
     - concurrent data structures
     - thread-safe collections

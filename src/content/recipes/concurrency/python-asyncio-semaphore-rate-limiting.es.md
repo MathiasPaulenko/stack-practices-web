@@ -4,9 +4,9 @@
 
 contentType: recipes
 slug: python-asyncio-semaphore-rate-limiting
-title: "Limitar operaciones asíncronas con asyncio.Semaphore"
+title: "asyncio.Semaphore: Limitar Llamadas API Concurrentes en Python"
 description: "Usa asyncio.Semaphore en Python para acotar llamadas a API, consultas a base de datos y acceso a recursos con patrones prácticos de limitación de tasa."
-metaDescription: "Limitación de tasa de operaciones async en Python con asyncio.Semaphore. Controla concurrencia para llamadas a API, conexiones a DB y recursos con paralelismo limitado."
+metaDescription: "Limita llamadas async concurrentes en Python con asyncio.Semaphore. Paralelismo limitado para requests a API, conexiones a DB y rate limiting con ejemplos de código."
 difficulty: intermediate
 topics:
   - concurrency
@@ -25,11 +25,11 @@ relatedResources:
   - /guides/concurrency-patterns-guide
   - /recipes/python-async-gather-concurrent-requests
   - /recipes/python-async-http-requests
-lastUpdated: "2026-08-17"
+lastUpdated: "2026-08-25"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Limitación de tasa de operaciones async en Python con asyncio.Semaphore. Controla concurrencia para llamadas a API, conexiones a DB y recursos con paralelismo limitado."
+  metaDescription: "Limita llamadas async concurrentes en Python con asyncio.Semaphore. Paralelismo limitado para requests a API, conexiones a DB y rate limiting con ejemplos de código."
   keywords:
     - asyncio semaphore
     - python rate limiting async

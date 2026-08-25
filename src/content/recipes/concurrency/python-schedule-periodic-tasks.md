@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: python-schedule-periodic-tasks
-title: "Schedule Periodic Tasks in Python with APScheduler"
+title: "APScheduler BackgroundScheduler: Prevent Overlapping Jobs"
 description: "Run cron-like jobs in Python using APScheduler. Covers interval, cron, and date triggers, job stores, and background scheduling."
-metaDescription: "Schedule periodic tasks in Python with APScheduler. Interval, cron and date triggers, persistent job stores, background schedulers and error handling."
+metaDescription: "Fix APScheduler overlapping jobs with max_instances, BackgroundScheduler config, interval and cron triggers, persistent job stores, and error handling."
 difficulty: intermediate
 topics:
   - concurrency
@@ -22,11 +22,11 @@ relatedResources:
   - /recipes/cron-jobs
   - /guides/complete-guide-python-asyncio-production
   - /guides/complete-guide-python-asyncio
-lastUpdated: "2026-08-14"
+lastUpdated: "2026-08-25"
 publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Schedule periodic tasks in Python with APScheduler. Interval, cron and date triggers, persistent job stores, background schedulers and error handling."
+  metaDescription: "Fix APScheduler overlapping jobs with max_instances, BackgroundScheduler config, interval and cron triggers, persistent job stores, and error handling."
   keywords:
     - python apscheduler
     - python schedule periodic tasks

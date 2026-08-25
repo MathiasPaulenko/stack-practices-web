@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: call-rest-api
-title: "Llamar a una API REST"
+title: "Llamar a una API REST: Ejemplos en Python, JavaScript, Java y Go"
 description: "Cómo hacer peticiones HTTP a una API REST y manejar la respuesta JSON en Python, JavaScript, Java y Go."
-metaDescription: "Aprende a llamar a una API REST en Python, JavaScript, Java y Go. Ejemplos prácticos de HTTP, manejo de errores, timeouts y parseo de JSON."
+metaDescription: "Llama a APIs REST en Python (requests), JavaScript (fetch), Java (HttpClient) y Go (net/http). GET, POST, auth headers, timeouts, manejo de errores y parseo de JSON."
 difficulty: beginner
 topics:
   - api
@@ -20,11 +20,11 @@ relatedResources:
   - /recipes/middleware
   - /recipes/rest-api-design
   - /patterns/adapter-pattern-api
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-25"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Aprende a llamar a una API REST en Python, JavaScript, Java y Go. Ejemplos prácticos de HTTP, manejo de errores, timeouts y parseo de JSON."
+  metaDescription: "Llama a APIs REST en Python (requests), JavaScript (fetch), Java (HttpClient) y Go (net/http). GET, POST, auth headers, timeouts, manejo de errores y parseo de JSON."
   keywords:
     - llamar api rest
     - peticiones http

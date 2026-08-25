@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: deep-clone-javascript
-title: "Deep Clone Objects in JavaScript"
+title: "Deep Clone in JavaScript: structuredClone vs lodash vs JSON"
 description: "Create fully independent copies of JavaScript objects and arrays, handling circular references, Dates, Maps, Sets, typed arrays, and custom classes."
-metaDescription: "Deep clone in JavaScript with structuredClone, lodash, manual recursion, and JSON.parse. Covers circular references, typed arrays, and when to pick each approach."
+metaDescription: "Deep clone JavaScript objects with structuredClone, lodash cloneDeep, JSON.parse, and custom recursion. Handle circular refs, Dates, Maps, Sets, and performance."
 difficulty: intermediate
 topics:
   - data
@@ -22,11 +22,11 @@ relatedResources:
   - /recipes/call-rest-api
   - /recipes/date-formatting
   - /recipes/money-currency
-lastUpdated: "2026-08-18"
+lastUpdated: "2026-08-25"
 publishedAt: "2026-06-11"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Deep clone in JavaScript with structuredClone, lodash, manual recursion, and JSON.parse. Covers circular references, typed arrays, and when to pick each approach."
+  metaDescription: "Deep clone JavaScript objects with structuredClone, lodash cloneDeep, JSON.parse, and custom recursion. Handle circular refs, Dates, Maps, Sets, and performance."
   keywords:
     - deep-clone
     - javascript

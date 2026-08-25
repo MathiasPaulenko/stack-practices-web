@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: generate-pdf-report-python
-title: "Generate PDF Reports with Python"
+title: "Generate PDF Reports in Python: ReportLab & fpdf2 Guide"
 description: "Create styled PDF documents from data using ReportLab and fpdf2 in Python."
-metaDescription: "Generate PDF reports in Python with ReportLab and fpdf2. Create styled documents, tables, and charts from data with practical code examples."
+metaDescription: "Generate PDF reports in Python with ReportLab and fpdf2. Tables, charts, styled documents from pandas DataFrames, headers, footers, and batch generation."
 difficulty: intermediate
 topics:
   - data
@@ -22,11 +22,11 @@ relatedResources:
   - /recipes/convert-json-to-csv
   - /recipes/python-generate-qr-code
   - /recipes/parse-csv-files
-lastUpdated: "2026-08-18"
+lastUpdated: "2026-08-25"
 publishedAt: "2026-07-01"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Generate PDF reports in Python with ReportLab and fpdf2. Create styled documents, tables, and charts from data with practical code examples."
+  metaDescription: "Generate PDF reports in Python with ReportLab and fpdf2. Tables, charts, styled documents from pandas DataFrames, headers, footers, and batch generation."
   keywords:
     - pdf
     - python

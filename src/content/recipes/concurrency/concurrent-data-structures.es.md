@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: concurrent-data-structures
-title: "Estructuras Concurrentes para Colecciones Seguras"
+title: "Colecciones Thread-Safe: Blocking Queues y Concurrent Maps"
 description: "Cómo compartir colecciones entre hilos de forma segura usando estructuras concurrentes: colas, mapas, listas y contadores atómicos en Java, Python y C++."
-metaDescription: "Estructuras concurrentes para colecciones seguras en Java, Python y C++: colas bloqueantes, mapas concurrentes y contadores atómicos—sin bloqueos manuales."
+metaDescription: "Colecciones thread-safe en Java (ConcurrentHashMap, BlockingQueue), Python (queue.Queue) y C++ (atomic). Sin bloqueos manuales, con ejemplos de código."
 difficulty: intermediate
 topics:
   - concurrency
@@ -22,11 +22,11 @@ relatedResources:
   - /recipes/race-condition-prevention
   - /recipes/csp-communication
   - /recipes/async-patterns
-lastUpdated: "2026-08-16"
+lastUpdated: "2026-08-25"
 publishedAt: "2026-06-14"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Estructuras concurrentes para colecciones seguras en Java, Python y C++: colas bloqueantes, mapas concurrentes y contadores atómicos—sin bloqueos manuales."
+  metaDescription: "Colecciones thread-safe en Java (ConcurrentHashMap, BlockingQueue), Python (queue.Queue) y C++ (atomic). Sin bloqueos manuales, con ejemplos de código."
   keywords:
     - estructuras de datos concurrentes
     - colecciones seguras entre hilos
