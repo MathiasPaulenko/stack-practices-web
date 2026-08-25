@@ -34,6 +34,11 @@ EXCLUDED_FILES = {"404.html", "sitemap.xml", "rss.xml"}
 CONTENT_DIR = Path(__file__).resolve().parents[1] / "src" / "content"
 COLLECTIONS = {"recipes", "patterns", "docs", "guides"}
 
+# Image extensions we consider for the image sitemap.
+IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".gif"}
+# Favicons and sprite sheets are not useful in image search results.
+IMAGE_EXCLUDE = {"favicon.svg", "icons.svg", "og-image.svg"}
+
 
 def parse_frontmatter_dates() -> dict[tuple[str, str, str], datetime]:
     """Build a lookup of (locale, content_type, slug) -> lastUpdated/publishedAt."""
@@ -117,6 +122,53 @@ def is_noindex(html_file: Path) -> bool:
     return 'name="robots"' in head and 'noindex' in head
 
 
+_IMG_RE = re.compile(
+    r'<img[^>]+src="([^"]+\.(?:png|jpg|jpeg|webp|gif))"',
+    re.IGNORECASE,
+)
+_OG_IMG_RE = re.compile(
+    r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"',
+    re.IGNORECASE,
+)
+
+
+def extract_images(html_file: Path) -> list[str]:
+    """Return absolute image URLs found in the page (src + og:image).
+
+    Filters out favicons, sprite sheets, and external URLs we don't control.
+    """
+    try:
+        text = html_file.read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        return []
+
+    seen: set[str] = set()
+    urls: list[str] = []
+
+    for m in _IMG_RE.finditer(text):
+        src = m.group(1).strip()
+        # Only index same-origin images (relative paths or our domain).
+        if src.startswith("http") and not src.startswith(BASE_URL):
+            continue
+        if any(src.endswith(ex) for ex in IMAGE_EXCLUDE):
+            continue
+        if src.startswith("/"):
+            src = f"{BASE_URL}{src}"
+        if src not in seen:
+            seen.add(src)
+            urls.append(src)
+
+    for m in _OG_IMG_RE.finditer(text):
+        src = m.group(1).strip()
+        if any(src.endswith(ex) for ex in IMAGE_EXCLUDE):
+            continue
+        if src not in seen:
+            seen.add(src)
+            urls.append(src)
+
+    return urls
+
+
 def lastmod_for(path: str, html_file: Path, content_dates: dict[tuple[str, str, str], datetime]) -> datetime:
     """Return the content lastUpdated/publishedAt for known content pages, else the build mtime."""
     key = content_key_from_path(path)
@@ -125,9 +177,10 @@ def lastmod_for(path: str, html_file: Path, content_dates: dict[tuple[str, str, 
     return datetime.fromtimestamp(html_file.stat().st_mtime, tz=timezone.utc)
 
 
-def collect_urls() -> list[tuple[str, datetime]]:
+def collect_urls() -> list[tuple[str, datetime, list[str]]]:
+    """Return (path, lastmod, image_urls) tuples for every indexable page."""
     content_dates = parse_frontmatter_dates()
-    urls: list[tuple[str, datetime]] = []
+    urls: list[tuple[str, datetime, list[str]]] = []
     for html_file in DIST_DIR.rglob("index.html"):
         rel = html_file.relative_to(DIST_DIR).as_posix()
         parts = rel.split("/")
@@ -151,7 +204,8 @@ def collect_urls() -> list[tuple[str, datetime]]:
         else:
             path = "/" + "/".join(dir_parts)
 
-        urls.append((url_encode_path(path), lastmod_for(path, html_file, content_dates)))
+        images = extract_images(html_file)
+        urls.append((url_encode_path(path), lastmod_for(path, html_file, content_dates), images))
 
     # Also include root-level HTML files if any (e.g. 404.html is excluded explicitly).
     for html_file in DIST_DIR.glob("*.html"):
@@ -161,24 +215,26 @@ def collect_urls() -> list[tuple[str, datetime]]:
             continue
         slug = html_file.stem
         path = f"/{slug}/"
-        urls.append((url_encode_path(path), lastmod_for(path, html_file, content_dates)))
+        images = extract_images(html_file)
+        urls.append((url_encode_path(path), lastmod_for(path, html_file, content_dates), images))
 
     # Sort deterministically.
     return sorted(urls, key=lambda x: x[0])
 
 
-def build_sitemap(urls: list[tuple[str, datetime]]) -> str:
+def build_sitemap(urls: list[tuple[str, datetime, list[str]]]) -> str:
     urlset = ET.Element(
         "urlset",
         {
             "xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
             "xmlns:xhtml": "http://www.w3.org/1999/xhtml",
+            "xmlns:image": "http://www.google.com/schemas/sitemap-image/1.1",
         },
     )
 
-    path_set = {u for u, _ in urls}
+    path_set = {u for u, _, _ in urls}
 
-    for path, mtime in urls:
+    for path, mtime, images in urls:
         en_path = path if not path.startswith("/es/") else path
         es_path = None
         if path.startswith("/es/"):
@@ -213,6 +269,11 @@ def build_sitemap(urls: list[tuple[str, datetime]]) -> str:
             alt2 = ET.SubElement(url_el, "xhtml:link", {"rel": "alternate", "hreflang": "es", "href": es_loc})
             alt3 = ET.SubElement(url_el, "xhtml:link", {"rel": "alternate", "hreflang": "x-default", "href": en_loc})
 
+        for img_url in images:
+            img_el = ET.SubElement(url_el, "image:image")
+            img_loc = ET.SubElement(img_el, "image:loc")
+            img_loc.text = img_url
+
     ET.indent(urlset, space="  ")
     xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + ET.tostring(urlset, encoding="unicode")
     return xml
@@ -225,7 +286,11 @@ def main() -> None:
     (PUBLIC_DIR / "sitemap.xml").write_text(sitemap, encoding="utf-8")
     (DIST_DIR / "sitemap.xml").write_text(sitemap, encoding="utf-8")
 
+    pages_with_images = sum(1 for _, _, imgs in urls if imgs)
+    total_image_entries = sum(len(imgs) for _, _, imgs in urls)
     print(f"Generated sitemap.xml with {len(urls)} URLs")
+    print(f"  Pages with image entries: {pages_with_images}")
+    print(f"  Total image entries: {total_image_entries}")
     print(f"  Written to: {PUBLIC_DIR / 'sitemap.xml'}")
     print(f"  Written to: {DIST_DIR / 'sitemap.xml'}")
 

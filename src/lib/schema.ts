@@ -157,15 +157,69 @@ export function organization(opts: {
   url: string;
   logo?: string;
   description?: string;
+  sameAs?: string[];
 }) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: opts.name,
     url: opts.url,
-    ...(opts.logo && { logo: opts.logo }),
+    ...(opts.logo && {
+      logo: {
+        '@type': 'ImageObject',
+        url: opts.logo,
+      },
+    }),
     ...(opts.description && { description: opts.description }),
+    ...(opts.sameAs && opts.sameAs.length > 0 && { sameAs: opts.sameAs }),
   };
+}
+
+/** Builds a WebSite schema with optional SearchAction. */
+export function webSite(opts: {
+  name: string;
+  url: string;
+  description?: string;
+  inLanguage?: string;
+  searchUrlTemplate?: string;
+  publisher?: {
+    name: string;
+    url: string;
+    logo?: string;
+  };
+}) {
+  const schema: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: opts.name,
+    url: opts.url,
+    ...(opts.description && { description: opts.description }),
+    ...(opts.inLanguage && { inLanguage: opts.inLanguage }),
+  };
+  if (opts.searchUrlTemplate) {
+    schema.potentialAction = {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: opts.searchUrlTemplate,
+      },
+      'query-input': 'required name=search_term_string',
+    };
+  }
+  if (opts.publisher) {
+    schema.publisher = {
+      '@type': 'Organization',
+      name: opts.publisher.name,
+      url: opts.publisher.url,
+      ...(opts.publisher.logo && {
+        logo: {
+          '@type': 'ImageObject',
+          url: opts.publisher.logo,
+        },
+      }),
+    };
+  }
+  return schema;
 }
 
 /** Builds a FAQPage schema from Q&A pairs. */

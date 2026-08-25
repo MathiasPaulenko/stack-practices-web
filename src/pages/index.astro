@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import { SITE, CONTENT_TYPES } from '../config/site';
-import { webPage } from '../lib/schema';
+import { webPage, webSite, organization } from '../lib/schema';
 import { getCollection } from 'astro:content';
 import { isSpanish, buildTagIndex } from '../lib/content';
 
@@ -39,20 +39,30 @@ const jsonLd = [
     url: '/',
     locale: 'en',
   }),
-  {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
+  webSite({
     name: SITE.name,
     url: SITE.url,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${SITE.url}/search?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
+    description: SITE.description,
+    inLanguage: 'en',
+    searchUrlTemplate: `${SITE.url}/search?q={search_term_string}`,
+    publisher: {
+      name: SITE.name,
+      url: SITE.url,
+      logo: `${SITE.url}/og-image.png`,
     },
-  },
+  }),
+  organization({
+    name: SITE.name,
+    url: SITE.url,
+    logo: `${SITE.url}/og-image.png`,
+    description: SITE.description,
+    sameAs: [
+      'https://github.com/MathiasPaulenko',
+      'https://www.linkedin.com/in/mathias-paulenko-echeverz',
+      'https://ko-fi.com/C6E4212B3X',
+      'https://mathiaspaulenko.com',
+    ],
+  }),
 ];
 
 const latestRecipes = [...recipes]
