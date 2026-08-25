@@ -313,13 +313,23 @@ content-improvement: humaniza <slug>
   - Effort: S
   - Report: `traffic-audit.md`
 
-- [ ] **P1.9** — Implementar outbound / linkable asset outreach
+- [x] **P1.9** — Implementar outbound / linkable asset outreach — ✅ PLAN LISTO 2026-08-25
   - Category: Authority
-  - Evidence: Backlinks NOT VERIFIED; 31 linkable assets identificados (≥3.000w + code + FAQ)
-  - Affected: 20-31 recursos
-  - Action: Crear lista de targets (Stack Overflow, GitHub, newsletters dev) y outreach básico.
-  - Effort: L
-  - Report: `traffic-audit.md`
+  - Evidence: Backlinks NOT VERIFIED; 87 linkable assets identificados (≥2000w + code + FAQ)
+  - Affected: `ref/docs/outreach-plan.md` (nuevo), `scripts/find-linkable-assets.py` (nuevo)
+  - Action: Plan de outreach completo creado con:
+    - **Tier 1**: 14 assets (≥3000w + code + FAQ) — todos con code blocks y FAQ
+    - **Tier 2**: 73 assets (2000-3000w + code + FAQ) — top 16 seleccionados por potencial
+    - **Tier 3**: 5 templates/runbooks citables en GitHub/wikis
+    - **Targets Tier A**: Stack Overflow, GitHub awesome-lists, Reddit, Hacker News, dev.to, Medium
+    - **Targets Tier B**: Python Discord, Rust forums, ASP.NET, FinOps, security, DevOps communities
+    - **Targets Tier C**: Dev newsletters (JS Weekly, Python Weekly, DevOps Weekly), tech bloggers, course creators, open source docs PRs
+    - **Execution plan**: 3 fases (Week 1-2 quick wins, Week 3-4 community, Week 5-8 direct outreach)
+    - **Tracking**: GA4 referral traffic + GSC links report. Target: 10+ backlinks in 3 months.
+    - **Constraints**: No spam, no paid links, no link exchanges, canonical first
+  - Estado: Plan listo para ejecución manual por el owner del sitio. El outreach no es automatizable desde el codebase.
+  - Effort: L (plan: S, ejecución: L)
+  - Report: `traffic-audit.md`, `ref/docs/outreach-plan.md`
 
 - [x] **P1.10** — Revisar consentimiento de cookies y GA4 Consent Mode — ✅ RESUELTO 2026-08-25
   - Category: Analytics
@@ -390,11 +400,16 @@ content-improvement: humaniza <slug>
 
 ### P2 — Mejoras que escalan
 
-- [ ] **P2.1** — Investigar reducción de build size / Pagefind split
+- [x] **P2.1** — Investigar reducción de build size / Pagefind split — ✅ INVESTIGADO 2026-08-25
   - Category: Performance
-  - Evidence: Total dist 162.2 MB; Pagefind index 12.2 MB, fragments 12.7 MB
-  - Affected: Todo el sitio
-  - Action: Evaluar split de índice por idioma, lazy loading de Pagefind, reducción de HTML redundante.
+  - Evidence: Total dist 163.49 MB (80% HTML, 16% Pagefind, 3% JSON, 1% sitemap)
+  - Findings:
+    - Pagefind YA está split por idioma (wasm.en, wasm.es, wasm.unknown) — no hay nada que splitear
+    - HTML es 80% del dist; Shiki syntax highlighting es 60-80% del body en páginas con code blocks
+    - Optimizaciones YA implementadas: shiki-short-code (>120 líneas → plain text), shiki-classify (CSS classes vs inline styles), rehype-trim-shiki-pre (redundant attrs), class minification, JSON minification, HTML attr trimming, compressHTML
+    - Opción A (excluir 20 páginas no-contenido de Pagefind): ~0.4 MB ahorro — pendiente implementar
+    - Opción B (bajar MAX_HIGHLIGHT_LINES de 120 a 60): ~5-10 MB pero pierde highlighting en bloques medianos — no recomendado
+  - Conclusión: El build ya está optimizado. El peso dominante es Shiki en code blocks, que es el valor principal del sitio. No hay wins significativos sin degradar la experiencia.
   - Effort: M
   - Report: `site-wide-audit.md`, `technical-audit.md`
 
