@@ -5,7 +5,7 @@
 ## Input esperado
 
 - `src/content/{tipo}/{slug}.md` y `.es.md` (ajustar si usa `src/content/{tipo}/{topic}/{slug}.md`).
-- `ref/checklist-top-recursos-mejoras.md` (priorización de recursos, si existe).
+- `ref/audit/reports/master-checklist.md` (priorización de recursos, si existe).
 - `ref/docs/roadmap.md` (roadmap del proyecto).
 - Datos de GSC/GA4 si están disponibles para el recurso (clics, impresiones, CTR, posición, queries, países, dispositivos).
 

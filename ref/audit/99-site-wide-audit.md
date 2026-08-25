@@ -6,7 +6,7 @@
 
 - Todos los archivos Markdown en `src/content/{tipo}/` (EN y ES).
 - `AGENTS.md` global y de cada tipo.
-- `ref/checklist-top-recursos-mejoras.md` si existe.
+- `ref/audit/reports/master-checklist.md` si existe.
 - `ref/docs/roadmap.md`.
 - Salida de los comandos de validación del repo:
 
@@ -92,7 +92,7 @@ Recopilar por recurso:
 Si no es posible auditar todos los recursos por capacidad, priorizar:
 
 1. Los que tienen tráfico en GSC.
-2. Los que están en `ref/checklist-top-recursos-mejoras.md`.
+2. Los que están en `ref/audit/reports/master-checklist.md`.
 3. Los tipos con más recursos (`docs`, `guides`).
 4. Los recursos publicados (`draft: false`) y los más visitados según GSC/GA4.
 5. Una muestra del resto.
@@ -172,7 +172,7 @@ Criterios de prioridad:
 
 ## 7. Oportunidades de tráfico a nivel sitio
 
-A partir de `ref/checklist-top-recursos-mejoras.md`, `ref/docs/roadmap.md` y datos por recurso:
+A partir de `ref/audit/reports/master-checklist.md`, `ref/docs/roadmap.md` y datos por recurso:
 
 - Queries que generan clics y recursos que las cubren mal.
 - Queries con impresiones pero 0 clics (CTR bajo).

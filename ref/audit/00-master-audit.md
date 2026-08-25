@@ -71,7 +71,7 @@ Si una skill no está disponible, aplicar manualmente sus reglas equivalentes.
 
 ### Paso 1 — Resolver el recurso
 
-1. Si el `RESOURCE` es un número, leer `ref/checklist-top-recursos-mejoras.md` y extraer la línea `- [ ] **N. [Título EN / Título ES](/tipo/slug)**`.
+1. Si el `RESOURCE` es un número, leer `ref/audit/reports/master-checklist.md` y extraer el recurso de la sección Top 20 o del checklist.
 2. Si es un slug o ruta, inferir `tipo` y `slug`.
 3. Si es una URL, dejarla como `live_url`.
 4. Resolver los archivos locales:
@@ -81,7 +81,7 @@ Si una skill no está disponible, aplicar manualmente sus reglas equivalentes.
 6. Leer el `AGENTS.md` del tipo correspondiente:
    - `src/content/{tipo}/AGENTS.md`
    - `AGENTS.md` global del proyecto
-7. Leer `ref/docs/roadmap.md` y `ref/checklist-top-recursos-mejoras.md` si existen.
+7. Leer `ref/docs/roadmap.md` y `ref/audit/reports/master-checklist.md` si existen.
 
 ### Paso 2 — Ejecutar sub-auditorías según MODE
 

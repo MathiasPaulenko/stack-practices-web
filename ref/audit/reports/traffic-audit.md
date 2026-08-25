@@ -15,7 +15,7 @@ GSC/GA4 direct access: NOT VERIFIED (no credentials conectadas)
 
 | Métrica | EN | ES | Total | Notas |
 |---|---|---|---|---|
-| Clicks | NOT VERIFIED | NOT VERIFIED | ~5 (histórico 28d) | Datos históricos de ref/checklist-top-recursos-mejoras.md |
+| Clicks | NOT VERIFIED | NOT VERIFIED | ~5 (histórico 28d) | Datos históricos de `ref/audit/reports/master-checklist.md` |
 | Impresiones | NOT VERIFIED | NOT VERIFIED | ~3.800 (histórico 28d) | +253% vs período anterior |
 | CTR | ~0.31% | NOT VERIFIED | ~0.31% | Bajó de 0.50% a 0.31% |
 | Posición media | ~32.7 | NOT VERIFIED | ~32.7 | Empeoró de 27.2 a 32.7 |
@@ -402,4 +402,4 @@ Total: 10/15 — HIGH potential but requires content depth and CTR work.
 
 **Para escalar tráfico**: thin content → CTR → internal links → backlinks → CWV/AEO measurement.
 
-**Datos no inventados**: Métricas de GSC/GA4 son históricas del `ref/checklist-top-recursos-mejoras.md`. CWV no pudo medirse por falta de acceso a herramientas en el entorno local.
+**Datos no inventados**: Métricas de GSC/GA4 son históricas del `ref/audit/reports/master-checklist.md`. CWV no pudo medirse por falta de acceso a herramientas en el entorno local.
