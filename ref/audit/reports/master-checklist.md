@@ -457,11 +457,19 @@ content-improvement: humaniza <slug>
   - Effort: S
   - Report: `traffic-audit.md`
 
-- [ ] **P2.10** — Refrescar `ref/docs/roadmap.md` con fases actuales
+- [x] **P2.10** — Refrescar `ref/docs/roadmap.md` con fases actuales — ✅ RESUELTO 2026-08-25
   - Category: Roadmap
-  - Evidence: Roadmap desactualizado (748 items vs 1.021 recursos)
+  - Evidence: Roadmap desactualizado (faltaban QW7-QW9, P1.10, P1.11, P1.12, P2.2, P2.3, P0.7, Consent Mode v2, GTM, AdSense prep, cookie banner)
   - Affected: `ref/docs/roadmap.md`
-  - Action: Actualizar milestones, conteos y próximas fases.
+  - Action: Reescritura completa del roadmap con:
+    - Phase 3 dividida en "Content Complete" + "SEO & Technical Audit (Done)" + "Pending"
+    - Phase 4 expandida con GTM, Consent Mode v2, cookie banner, AdSense prep, WebSite/Organization schema, image sitemap, SRI
+    - Sección "Analytics & Measurement" con GA4, GTM, GSC, Consent Mode v2, AdSense status
+    - Sección "Technical Health" con resultados de validación actuales
+    - Sección "Recently Completed" con los 12 items resueltos en 2026-08-24/25
+    - Sección "Next Priorities" reordenada por esfuerzo/impacto
+    - Sección "Content Quality (Deferred)" explicando que se trabaja por-recurso
+  - Validación: contenido del roadmap verificado contra estado real del repo
   - Effort: S
   - Report: `site-wide-audit.md`
 
