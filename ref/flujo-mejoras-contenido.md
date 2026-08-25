@@ -5,7 +5,7 @@
 
 ## Resumen del flujo
 
-```
+```text
 ref/checklist-top-recursos-mejoras.md
          │
          ▼
@@ -52,7 +52,9 @@ ref/checklist-top-recursos-mejoras.md
 - Escribe un checklist en `ref/audit/reports/{tipo}-{slug}-audit.md`.
 - **No edita archivos del recurso.**
 
-**Output:** `ref/audit/reports/{tipo}-{slug}-audit.md` con scorecard, checklist de arreglos por severidad (CRITICAL/HIGH/MEDIUM/LOW), Definition of Done y Top 5 acciones.
+**Output:** `ref/audit/reports/{tipo}-{slug}-audit.md` con scorecard,
+checklist de arreglos por severidad (CRITICAL/HIGH/MEDIUM/LOW),
+Definition of Done y Top 5 acciones.
 
 **Reglas clave:**
 
@@ -101,7 +103,9 @@ npm run sitemap
 - No elimines contenido técnico para bajar IA.
 - No inventes herramientas, versiones, normas o datos.
 - No hagas commit/push sin aprobación explícita.
-- Items que requieren trabajo manual fuera del skill (speakable schema, diagramas Mermaid, companion repo) se marcan como OUT OF SCOPE.
+- Items que requieren trabajo manual fuera del skill
+  (speakable schema, diagramas Mermaid, companion repo)
+  se marcan como OUT OF SCOPE.
 
 ## Paso 3 — Re-auditar
 
@@ -129,7 +133,9 @@ npm run sitemap
 **Qué hace:**
 
 - Muestra `git status` y `git diff --stat`.
-- Resume en tabla: cambios de frontmatter, hallazgos corregidos, IA antes/después, paridad, validación, imágenes/diagramas, companion repo.
+- Resume en tabla: cambios de frontmatter, hallazgos corregidos,
+  IA antes/después, paridad, validación, imágenes/diagramas,
+  companion repo.
 - Lista items OUT OF SCOPE.
 - Pide aprobación para commit.
 - Hace commit (sin push sin aprobación explícita).
@@ -146,7 +152,7 @@ Separar por naturaleza de cambios:
 
 ## Ejemplo práctico: api-documentation-openapi
 
-### Paso 1 — Auditar
+### Auditar (resultado inicial)
 
 - Score inicial: **89.2/100**
 - 2 CRITICAL (metaDescription ES 172 chars, metaDescription EN 162 chars)
@@ -154,7 +160,7 @@ Separar por naturaleza de cambios:
 - 4 MEDIUM (FAQ excesivo, FAQ sin variedad, rule-of-three, speakable schema)
 - 3 LOW (Key Takeaways redundante, Common Production Pitfalls solapado, comentarios en inglés en ES)
 
-### Paso 2 — Arreglar
+### Arreglar (cambios aplicados)
 
 | Cambio | Archivo | Severidad |
 |---|---|---|
@@ -170,7 +176,7 @@ IA Detection (Desklib): EN 40.6%, ES 38.0%, patterns vacío en ambos.
 
 Validación: los 6 comandos pasaron. Build: 3,258 páginas. Sitemap: 3,256 URLs.
 
-### Paso 3 — Re-auditar
+### Re-auditar (score comparativo)
 
 | Dimensión | Antes | Después | Cambio |
 |---|---|---|---|
@@ -186,7 +192,7 @@ Validación: los 6 comandos pasaron. Build: 3,258 páginas. Sitemap: 3,256 URLs.
 Issues resueltos: 2 CRITICAL + 3 HIGH.
 Issues pendientes: 5 MEDIUM + 5 LOW.
 
-### Paso 4 — Resumen
+### Resumen (commits)
 
 3 commits, sin push:
 
