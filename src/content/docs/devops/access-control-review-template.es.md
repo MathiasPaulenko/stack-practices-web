@@ -42,7 +42,7 @@ seo:
 ---
 ## Descripcion General
 
-Una Plantilla de Revision de Control de Acceso proporciona una forma estructurada de verificar que usuarios y cuentas de servicio tienen solo los permisos requeridos por su rol actual. Documenta quien tiene acceso, por que lo tiene y si todavia esta justificado, apoyando marcos de cumplimiento como SOC 2, ISO 27001 y PCI-DSS. Documentos relacionados: [Implementar Rate Limiting de APIs con Redis](/recipes/api-rate-limiting-redis), [Autenticacion y Patrones de Seguridad para WebSockets](/recipes/websocket-authentication) y [Cómo hashear contraseñas (Python, JavaScript, Java)](/recipes/password-hashing).
+Una Plantilla de Revision de Control de Acceso proporciona una forma estructurada de verificar que usuarios y cuentas de servicio tienen solo los permisos requeridos por su rol actual. Documenta quien tiene acceso, por que lo tiene y si todavia esta justificado, apoyando marcos de cumplimiento como SOC 2, ISO 27001 y PCI-DSS. Documentos relacionados: [Implementar Rate Limiting de APIs con Redis](/recipes/api-rate-limiting-redis/), [Autenticacion y Patrones de Seguridad para WebSockets](/recipes/websocket-authentication/) y [Cómo hashear contraseñas (Python, JavaScript, Java)](/recipes/password-hashing/).
 
 ## Cuando Usar
 

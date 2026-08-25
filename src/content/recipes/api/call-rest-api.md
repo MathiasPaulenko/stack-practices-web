@@ -42,7 +42,7 @@ HTTP request — usually `GET` or `POST` — to a URL, plus the JSON response. T
 that tends to break is the safety layer: status codes, timeouts, and parsing the body
 without crashing.
 
-This recipe covers Python, JavaScript, Java, and Go. Related recipes: [How to Document an API with OpenAPI, Swagger UI and Redoc](/recipes/api-documentation-openapi).
+This recipe covers Python, JavaScript, Java, and Go. Related recipes: [How to Document an API with OpenAPI, Swagger UI and Redoc](/recipes/api-documentation-openapi/).
 
 ## When to Use
 

@@ -50,7 +50,7 @@ Una sola capa de cache raramente es optima. Las caches en memoria ofrecen lectur
 
 - APIs de alto trafico donde la latencia de round-trip a Redis es un cuello de botella
 - Multiples instancias de servidor que necesitan compartir datos cacheados
-- Workloads de lectura intensiva donde los mismos datos se acceden repetidamente dentro de una sola instancia Ver también [Configurar headers HTTP Cache-Control para APIs y assets](/recipes/http-cache-control-headers).
+- Workloads de lectura intensiva donde los mismos datos se acceden repetidamente dentro de una sola instancia Ver también [Configurar headers HTTP Cache-Control para APIs y assets](/recipes/http-cache-control-headers/).
 
 ## Requisitos Previos
 

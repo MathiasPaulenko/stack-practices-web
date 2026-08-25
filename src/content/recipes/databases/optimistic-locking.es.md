@@ -37,7 +37,7 @@ seo:
 
 El optimistic locking previene actualizaciones perdidas en entornos concurrentes verificando si un registro ha sido modificado desde su última lectura. Cada fila lleva un número de versión o timestamp. Al actualizar, la aplicación incluye la versión original en la cláusula `WHERE`; si la versión cambió, la actualización falla y la aplicación reintenta o reporta un conflicto. Esto evita el costo de rendimiento de mantener bloqueos de base de datos durante el tiempo de pensamiento del usuario.
 
-Esta implementacion proporciona optimistic locking con versionado entero en PostgreSQL, MySQL y JPA/Hibernate. Recursos relacionados: [Migraciones de Base de Datos de Forma Segura](/recipes/database-migrations-safely), [Gestionar Migraciones de Base de Datos de Forma Segura](/recipes/database-migrations) y [Crear y usar vistas y vistas materializadas](/recipes/database-views-materialized).
+Esta implementacion proporciona optimistic locking con versionado entero en PostgreSQL, MySQL y JPA/Hibernate. Recursos relacionados: [Migraciones de Base de Datos de Forma Segura](/recipes/database-migrations-safely/), [Gestionar Migraciones de Base de Datos de Forma Segura](/recipes/database-migrations/) y [Crear y usar vistas y vistas materializadas](/recipes/database-views-materialized/).
 
 ## Cuándo Usar
 

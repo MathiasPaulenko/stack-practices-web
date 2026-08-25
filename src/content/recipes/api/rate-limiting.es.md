@@ -103,7 +103,7 @@ async function rateLimit(key, limit, windowSeconds) {
   return current <= limit;
 }
 
-// Uso en [middleware de Express](/recipes/middleware)
+// Uso en [middleware de Express](/recipes/middleware/)
 async function limiter(req, res, next) {
   const key = `ratelimit:${req.ip}`;
   const allowed = await rateLimit(key, 100, 60);

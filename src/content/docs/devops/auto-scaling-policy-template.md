@@ -53,7 +53,7 @@ seo:
 ---
 ## Overview
 
-Auto-scaling is the bridge between cost efficiency and availability. Scale too late and your service crashes under load; scale too early and you burn money on idle capacity. This template documents the exact rules, thresholds, and procedures your infrastructure team uses to scale workloads up and down automatically. Related resources: [Go REST API with Gin and Middleware](/recipes/go-rest-api-gin), [Build gRPC Services in TypeScript with Protocol Buffers](/recipes/grpc-services-typescript), and [Schedule Periodic Tasks in Python with APScheduler](/recipes/python-schedule-periodic-tasks).
+Auto-scaling is the bridge between cost efficiency and availability. Scale too late and your service crashes under load; scale too early and you burn money on idle capacity. This template documents the exact rules, thresholds, and procedures your infrastructure team uses to scale workloads up and down automatically. Related resources: [Go REST API with Gin and Middleware](/recipes/go-rest-api-gin/), [Build gRPC Services in TypeScript with Protocol Buffers](/recipes/grpc-services-typescript/), and [Schedule Periodic Tasks in Python with APScheduler](/recipes/python-schedule-periodic-tasks/).
 
 ## When to Use
 

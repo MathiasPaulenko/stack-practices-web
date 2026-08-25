@@ -38,7 +38,7 @@ seo:
 ---
 ## Descripcion General
 
-El trafico crece, pero la infraestructura no crece sola. La mayoria de las interrupciones no son causadas por codigo malo, sino por sistemas que chocan contra un limite que nadie midio. La planificacion de capacidad es la disciplina de mirar hacia adelante: cuanto trafico tendremos en seis meses, que recurso se agotara primero y cuanto costara mantenernos por delante de la demanda. Un pronostico de capacidad convierte el escalado impulsado por el panico en una operacion programada, presupuestada y probada. Documentos relacionados: [Configura Nginx como Reverse Proxy y API Gateway](/recipes/nginx-reverse-proxy), [Cachear Respuestas HTTP con Nginx Reverse Proxy](/recipes/nginx-reverse-proxy-cache) y [Desarrollo Local de Microservicios con Docker Compose](/recipes/docker-compose-local-dev).
+El trafico crece, pero la infraestructura no crece sola. La mayoria de las interrupciones no son causadas por codigo malo, sino por sistemas que chocan contra un limite que nadie midio. La planificacion de capacidad es la disciplina de mirar hacia adelante: cuanto trafico tendremos en seis meses, que recurso se agotara primero y cuanto costara mantenernos por delante de la demanda. Un pronostico de capacidad convierte el escalado impulsado por el panico en una operacion programada, presupuestada y probada. Documentos relacionados: [Configura Nginx como Reverse Proxy y API Gateway](/recipes/nginx-reverse-proxy/), [Cachear Respuestas HTTP con Nginx Reverse Proxy](/recipes/nginx-reverse-proxy-cache/) y [Desarrollo Local de Microservicios con Docker Compose](/recipes/docker-compose-local-dev/).
 
 ## Cuando Usar
 

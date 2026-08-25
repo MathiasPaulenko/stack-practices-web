@@ -56,8 +56,8 @@ cuerpos de texto y HTML, adjuntos y limitación de tasa.
 - Necesitas adjuntar facturas, reportes o exportaciones a los mensajes salientes.
 - Ya operas una cola de mensajes o un pool de workers y quieres que remitentes SMTP extraigan
   trabajos de ella.
-- Estás combinando email con buenas prácticas de [rate limiting](/recipes/rate-limiting) y [gestión
-  de secretos](/recipes/secret-management).
+- Estás combinando email con buenas prácticas de [rate limiting](/recipes/rate-limiting/) y [gestión
+  de secretos](/recipes/secret-management/).
 
 ## Cuándo Evitar
 
@@ -312,7 +312,7 @@ reales.
 - Meter credenciales de producción en el código o en archivos de entorno que se suben a control de
   versiones.
 - Omitir la validación de direcciones de destinatario antes de encolar. Consulta [validación de
-  entrada](/recipes/input-validation) para patrones seguros.
+  entrada](/recipes/input-validation/) para patrones seguros.
 - Enviar correo de forma síncrona dentro de handlers HTTP, donde puede haber timeouts bajo carga.
 - Ignorar límites de tasa y reintentos, lo que termina en bloqueos temporales o blacklist.
 - Usar `To` o `Cc` para envíos masivos. Usa `Bcc` o mensajes individuales para proteger a los

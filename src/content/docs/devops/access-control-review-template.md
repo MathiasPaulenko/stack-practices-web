@@ -42,7 +42,7 @@ seo:
 ---
 ## Overview
 
-An Access Control Review Template provides a structured way to verify that users and service accounts have only the permissions required for their current role. It supports compliance frameworks such as SOC 2, ISO 27001, and PCI-DSS by documenting who has access, why they have it, and whether it is still justified. Related resources: [Implement API Rate Limiting with Redis](/recipes/api-rate-limiting-redis), [WebSocket Authentication and Security Patterns](/recipes/websocket-authentication), and [How to Hash Passwords Securely (Python, JavaScript, Java)](/recipes/password-hashing).
+An Access Control Review Template provides a structured way to verify that users and service accounts have only the permissions required for their current role. It supports compliance frameworks such as SOC 2, ISO 27001, and PCI-DSS by documenting who has access, why they have it, and whether it is still justified. Related resources: [Implement API Rate Limiting with Redis](/recipes/api-rate-limiting-redis/), [WebSocket Authentication and Security Patterns](/recipes/websocket-authentication/), and [How to Hash Passwords Securely (Python, JavaScript, Java)](/recipes/password-hashing/).
 
 ## When to Use
 

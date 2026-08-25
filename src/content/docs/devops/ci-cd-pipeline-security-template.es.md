@@ -37,7 +37,7 @@ seo:
 ---
 ## Descripcion General
 
-Los pipelines CI/CD son un objetivo de alto valor para atacantes porque tienen acceso al codigo fuente, secretos de compilacion y rutas de despliegue a produccion. Un pipeline comprometido puede introducir malware, exfiltrar datos o desplegar cambios no autorizados. Esta plantilla define controles para proteger la integridad del codigo, la seguridad de los runners, los secretos y las aprobaciones de despliegue. Documentos relacionados: [Implementar Rate Limiting de APIs con Redis](/recipes/api-rate-limiting-redis), [Autenticacion y Patrones de Seguridad para WebSockets](/recipes/websocket-authentication) y [Cómo hashear contraseñas (Python, JavaScript, Java)](/recipes/password-hashing).
+Los pipelines CI/CD son un objetivo de alto valor para atacantes porque tienen acceso al codigo fuente, secretos de compilacion y rutas de despliegue a produccion. Un pipeline comprometido puede introducir malware, exfiltrar datos o desplegar cambios no autorizados. Esta plantilla define controles para proteger la integridad del codigo, la seguridad de los runners, los secretos y las aprobaciones de despliegue. Documentos relacionados: [Implementar Rate Limiting de APIs con Redis](/recipes/api-rate-limiting-redis/), [Autenticacion y Patrones de Seguridad para WebSockets](/recipes/websocket-authentication/) y [Cómo hashear contraseñas (Python, JavaScript, Java)](/recipes/password-hashing/).
 
 ## Cuando Usar
 

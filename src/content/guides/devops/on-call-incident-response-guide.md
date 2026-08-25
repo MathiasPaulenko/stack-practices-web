@@ -178,7 +178,7 @@ Why? → The change was not tested under load.
 Why? → Load tests do not cover the checkout flow.
 Why? → Load test scenarios were last updated 6 months ago.
 
-Action: Add checkout flow to weekly [load tests](/recipes/load-testing-k6); require load test pass in [CI](/guides/cicd-pipeline-guide).
+Action: Add checkout flow to weekly [load tests](/recipes/load-testing-k6/); require load test pass in [CI](/guides/cicd-pipeline-guide/).
 ```
 
 ### Postmortem Template

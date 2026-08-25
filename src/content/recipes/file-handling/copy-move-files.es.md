@@ -44,11 +44,11 @@ JavaScript, Java y Bash que cubren sobrescrituras, checksums, symlinks y movimie
 
 ## Cuándo Usar
 
-- Necesitas duplicar archivos de configuración durante [despliegues](/recipes/watch-file-changes).
+- Necesitas duplicar archivos de configuración durante [despliegues](/recipes/watch-file-changes/).
 - Estás moviendo archivos subidos desde directorios temporales a almacenamiento permanente y quieres
-  validarlos primero (consulta la [validación de archivos subidos](/recipes/file-upload-validation)).
-- Quieres [rotar o archivar archivos de log](/recipes/rotate-log-files) automáticamente.
-- Estás copiando archivos en lote antes de [comprimirlos](/recipes/compress-decompress-files).
+  validarlos primero (consulta la [validación de archivos subidos](/recipes/file-upload-validation/)).
+- Quieres [rotar o archivar archivos de log](/recipes/rotate-log-files/) automáticamente.
+- Estás copiando archivos en lote antes de [comprimirlos](/recipes/compress-decompress-files/).
 
 ## Cuándo Evitar
 

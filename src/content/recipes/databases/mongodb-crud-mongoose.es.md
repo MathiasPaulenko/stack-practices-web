@@ -119,7 +119,7 @@ app.post('/users', async (req, res) => {
   }
 });
 
-// LEER (con paginacion). Consulta [Pagination](/recipes/pagination) para enfoques basados en cursor.
+// LEER (con paginacion). Consulta [Pagination](/recipes/pagination/) para enfoques basados en cursor.
 app.get('/users', async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
@@ -159,7 +159,7 @@ app.patch('/users/:id', async (req, res) => {
   res.json(user);
 });
 
-// ELIMINAR (eliminacion suave). Consulta [Soft Deletes](/recipes/soft-deletes) para patrones.
+// ELIMINAR (eliminacion suave). Consulta [Soft Deletes](/recipes/soft-deletes/) para patrones.
 app.delete('/users/:id', async (req, res) => {
   const user = await User.findByIdAndUpdate(
     req.params.id,
@@ -176,7 +176,7 @@ app.listen(3000, () => console.log('Servidor ejecutandose en el puerto 3000'));
 ### 4. Transacciones
 
 ```javascript
-// Operaciones atomicas entre colecciones. Consulta [Database Transactions](/recipes/database-transactions) para patrones ACID.
+// Operaciones atomicas entre colecciones. Consulta [Database Transactions](/recipes/database-transactions/) para patrones ACID.
 app.post('/orders', async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();

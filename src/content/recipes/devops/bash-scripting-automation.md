@@ -58,7 +58,7 @@ Bash remains the lingua franca of system administration and DevOps automation. A
 
 - You need to automate repetitive system or deployment tasks. See [Docker Basics](/recipes/docker-basics/) for container deployment.
 - The environment is minimal (containers, CI runners, VMs) without Node/Python. See [CLI Tool Argument Parsing](/recipes/cli-tool-argument-parsing/) for typed CLI alternatives.
-- You want self-documenting automation that any sysadmin can read and modify. See [Git Workflow](/recipes/git-workflow/) for version-controlled automation. See also [Node.js File Upload Validation: Type, Size, and Content](/recipes/nodejs-file-upload-validation).
+- You want self-documenting automation that any sysadmin can read and modify. See [Git Workflow](/recipes/git-workflow/) for version-controlled automation. See also [Node.js File Upload Validation: Type, Size, and Content](/recipes/nodejs-file-upload-validation/).
 
 ## Prerequisites
 

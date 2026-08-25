@@ -44,7 +44,7 @@ seo:
 
 ## Descripcion general
 
-Nginx puede cachear respuestas de servidores upstream, reduciendo la carga en aplicaciones backend y cortando la latencia para peticiones repetidas. La directiva `proxy_cache` almacena respuestas en una zona de cache configurable en disco, con TTLs por codigo de respuesta, claves de cache basadas en atributos de la peticion, y opciones para bypass de cache para peticiones especificas. A continuacion: configurar un reverse proxy con cache, ajustar zonas de cache, manejar invalidacion de cache y caching condicional. Ver también [Debounce y Throttle](/recipes/debounce-throttle).
+Nginx puede cachear respuestas de servidores upstream, reduciendo la carga en aplicaciones backend y cortando la latencia para peticiones repetidas. La directiva `proxy_cache` almacena respuestas en una zona de cache configurable en disco, con TTLs por codigo de respuesta, claves de cache basadas en atributos de la peticion, y opciones para bypass de cache para peticiones especificas. A continuacion: configurar un reverse proxy con cache, ajustar zonas de cache, manejar invalidacion de cache y caching condicional. Ver también [Debounce y Throttle](/recipes/debounce-throttle/).
 
 ## Cuando Usar Esto
 

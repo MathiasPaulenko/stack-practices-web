@@ -52,8 +52,8 @@ Python, Node.js, and Java, with TLS, plain + HTML bodies, attachments, and rate 
 - You want live data in your templates, or you prefer to keep email logic in your own code.
 - You need to attach invoices, reports, or exports to outgoing messages.
 - You already run a message queue or worker pool and want SMTP senders to pull jobs from it.
-- You're combining email with [rate limiting](/recipes/rate-limiting) and [secret
-  management](/recipes/secret-management) best practices.
+- You're combining email with [rate limiting](/recipes/rate-limiting/) and [secret
+  management](/recipes/secret-management/) best practices.
 
 ## When to Avoid
 
@@ -304,7 +304,7 @@ subject line; header injection and malicious links are real risks.
 - Embedding production credentials in source code or in environment files that get checked into
   version control.
 - Skipping recipient address validation before queuing. See [input
-  validation](/recipes/input-validation) for safe patterns.
+  validation](/recipes/input-validation/) for safe patterns.
 - Sending mail synchronously inside HTTP handlers, where it can time out under load.
 - Ignoring rate limits and retries, which leads to temporary blocks or blacklisting.
 - Using `To` or `Cc` for bulk sends. Use `Bcc` or individual messages to protect recipients.

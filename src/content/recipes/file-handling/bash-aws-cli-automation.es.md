@@ -35,7 +35,7 @@ seo:
 ---
 ## Visión General
 
-El AWS CLI es potente pero verboso. Envolverlo en scripts de Bash te permite aprovisionar, etiquetar y limpiar recursos de forma consistente entre entornos. Ya sea que estés levantando un stack de prueba, aplicando políticas de tagging o eliminando recursos no utilizados, un script reduce errores de copiar y pegar y hace que las operaciones sean repetibles. Ver también [Validación de Subida de Archivos en Node.js](/recipes/nodejs-file-upload-validation).
+El AWS CLI es potente pero verboso. Envolverlo en scripts de Bash te permite aprovisionar, etiquetar y limpiar recursos de forma consistente entre entornos. Ya sea que estés levantando un stack de prueba, aplicando políticas de tagging o eliminando recursos no utilizados, un script reduce errores de copiar y pegar y hace que las operaciones sean repetibles. Ver también [Validación de Subida de Archivos en Node.js](/recipes/nodejs-file-upload-validation/).
 
 ## Cuándo Usar
 

@@ -43,7 +43,7 @@ seo:
 
 ## Descripcion General
 
-Las revisiones de codigo son la puerta de calidad mas util en la entrega de software, pero solo cuando son consistentes. Sin una checklist, los revisores se enfocan en lo que les importa personalmente: un ingeniero verifica inyeccion SQL, otro se obsesiona con nombres de variables, y un tercero solo mira cobertura de tests. Una checklist compartida asegura que cada revision cubra las dimensiones que importan al equipo, dejando espacio para el juicio humano en diseno y arquitectura. Documentos relacionados: [REST API en Go con Gin y Middleware](/recipes/go-rest-api-gin), [Construye servicios gRPC en TypeScript con Protocol Buffers](/recipes/grpc-services-typescript) y [Programa Tareas Periódicas en Python con APScheduler](/recipes/python-schedule-periodic-tasks).
+Las revisiones de codigo son la puerta de calidad mas util en la entrega de software, pero solo cuando son consistentes. Sin una checklist, los revisores se enfocan en lo que les importa personalmente: un ingeniero verifica inyeccion SQL, otro se obsesiona con nombres de variables, y un tercero solo mira cobertura de tests. Una checklist compartida asegura que cada revision cubra las dimensiones que importan al equipo, dejando espacio para el juicio humano en diseno y arquitectura. Documentos relacionados: [REST API en Go con Gin y Middleware](/recipes/go-rest-api-gin/), [Construye servicios gRPC en TypeScript con Protocol Buffers](/recipes/grpc-services-typescript/) y [Programa Tareas Periódicas en Python con APScheduler](/recipes/python-schedule-periodic-tasks/).
 
 ## Cuando Usar
 

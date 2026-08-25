@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-An ETL job runbook gives operators the procedures to start, stop, monitor, and troubleshoot ETL jobs. It covers health checks, common failure scenarios, diagnostic steps, and recovery procedures. Without a runbook, operators rely on tribal knowledge, leading to longer downtime and inconsistent responses. Related resources: [Set Up Pre-Commit Hooks with husky and lint-staged](/recipes/pre-commit-hooks), [Mock GraphQL Resolvers for Frontend Development](/recipes/graphql-mocking-apollo-server), and [Load Testing APIs with k6 and Threshold-Based Assertions](/recipes/load-testing-k6).
+An ETL job runbook gives operators the procedures to start, stop, monitor, and troubleshoot ETL jobs. It covers health checks, common failure scenarios, diagnostic steps, and recovery procedures. Without a runbook, operators rely on tribal knowledge, leading to longer downtime and inconsistent responses. Related resources: [Set Up Pre-Commit Hooks with husky and lint-staged](/recipes/pre-commit-hooks/), [Mock GraphQL Resolvers for Frontend Development](/recipes/graphql-mocking-apollo-server/), and [Load Testing APIs with k6 and Threshold-Based Assertions](/recipes/load-testing-k6/).
 
 ## When to Use
 

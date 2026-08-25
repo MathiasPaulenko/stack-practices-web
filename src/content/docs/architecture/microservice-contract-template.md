@@ -48,7 +48,7 @@ seo:
 ---
 ## Overview
 
-Microservices depend on explicit contracts to communicate reliably. Without a written agreement, teams make incompatible changes that break consumers at runtime. This template documents API boundaries, SLAs, versioning rules, and breaking change procedures between services. Related resources: [Design a Scalable API Gateway for Microservices](/recipes/api-gateway), [Build Resilient Systems with the Circuit Breaker Pattern](/patterns/circuit-breaker-pattern), and [Dependency Injection](/recipes/dependency-injection).
+Microservices depend on explicit contracts to communicate reliably. Without a written agreement, teams make incompatible changes that break consumers at runtime. This template documents API boundaries, SLAs, versioning rules, and breaking change procedures between services. Related resources: [Design a Scalable API Gateway for Microservices](/recipes/api-gateway/), [Build Resilient Systems with the Circuit Breaker Pattern](/patterns/circuit-breaker-pattern/), and [Dependency Injection](/recipes/dependency-injection/).
 
 ## When to Use
 

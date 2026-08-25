@@ -44,7 +44,7 @@ CDN caching reduces latency and origin load, but cached content can become stale
 
 - Content updates that must appear immediately (news, pricing, product inventory)
 - Deployments where old assets should not persist at the edge
-- Multi-page sites where updating one page should invalidate related pages See also [Node.js Caching with Redis: Cache-Aside and TTL Patterns](/recipes/nodejs-caching-redis).
+- Multi-page sites where updating one page should invalidate related pages See also [Node.js Caching with Redis: Cache-Aside and TTL Patterns](/recipes/nodejs-caching-redis/).
 
 ## Prerequisites
 

@@ -60,7 +60,7 @@ Una guía de onboarding acelera la productividad de nuevos miembros del equipo a
 
 ## Día 1-2: Configuración del Entorno
 
-Consulta la [Plantilla de Guía de Configuración de Entorno](/docs/environment-setup-guide-template) para instrucciones detalladas.
+Consulta la [Plantilla de Guía de Configuración de Entorno](/docs/environment-setup-guide-template/) para instrucciones detalladas.
 
 ### Herramientas Requeridas
 | Herramienta | Versión | Propósito | Link de Instalación |
@@ -115,7 +115,7 @@ Busca issues con labels:
 ## Semana 2+: Profundización
 
 - [ ] Asistir a sesión de overview de arquitectura
-- [ ] Leer [ADRs](/docs/adr-template) en `/docs/adr/`
+- [ ] Leer [ADRs](/docs/adr-template/) en `/docs/adr/`
 - [ ] Observar una rotación de on-call (solo observación)
 - [ ] Pair programming con un compañero
 

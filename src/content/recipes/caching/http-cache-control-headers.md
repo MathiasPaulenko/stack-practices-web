@@ -38,7 +38,7 @@ HTTP caching headers tell browsers and CDNs how long to cache a response, when t
 
 - Serving static assets (JS, CSS, images, fonts) that change infrequently
 - API responses that are the same for all users or change at predictable intervals
-- Any response that benefits from CDN edge caching See also [Node.js Caching with Redis: Cache-Aside and TTL Patterns](/recipes/nodejs-caching-redis).
+- Any response that benefits from CDN edge caching See also [Node.js Caching with Redis: Cache-Aside and TTL Patterns](/recipes/nodejs-caching-redis/).
 
 ## Prerequisites
 

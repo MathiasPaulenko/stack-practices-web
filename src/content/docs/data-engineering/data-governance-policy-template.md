@@ -44,7 +44,7 @@ seo:
 
 ## Overview
 
-A data governance policy defines how data is classified, stored, accessed, retained, and disposed of. It establishes roles, responsibilities, and procedures for managing data throughout its lifecycle. Without a governance policy, organizations face compliance violations, data breaches, and inconsistent data practices. Related resources: [Set Up Pre-Commit Hooks with husky and lint-staged](/recipes/pre-commit-hooks), [Mock GraphQL Resolvers for Frontend Development](/recipes/graphql-mocking-apollo-server), and [Load Testing APIs with k6 and Threshold-Based Assertions](/recipes/load-testing-k6).
+A data governance policy defines how data is classified, stored, accessed, retained, and disposed of. It establishes roles, responsibilities, and procedures for managing data throughout its lifecycle. Without a governance policy, organizations face compliance violations, data breaches, and inconsistent data practices. Related resources: [Set Up Pre-Commit Hooks with husky and lint-staged](/recipes/pre-commit-hooks/), [Mock GraphQL Resolvers for Frontend Development](/recipes/graphql-mocking-apollo-server/), and [Load Testing APIs with k6 and Threshold-Based Assertions](/recipes/load-testing-k6/).
 
 ## When to Use
 

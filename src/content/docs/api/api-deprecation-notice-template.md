@@ -42,7 +42,7 @@ seo:
 ---
 ## Overview
 
-APIs evolve. Fields are renamed, endpoints are replaced, and old versions are retired. Without a clear deprecation notice, consumers discover breaking changes only after their integrations fail. This template provides a standard format for announcing deprecations, communicating timelines, and guiding consumers through migrations. Related resources: [Stream LLM Output with Server-Sent Events (SSE)](/recipes/python-llm-streaming-responses), [How to Document an API with OpenAPI, Swagger UI and Redoc](/recipes/api-documentation-openapi), and [Implement API Logging and Audit Trails](/recipes/api-logging-audit).
+APIs evolve. Fields are renamed, endpoints are replaced, and old versions are retired. Without a clear deprecation notice, consumers discover breaking changes only after their integrations fail. This template provides a standard format for announcing deprecations, communicating timelines, and guiding consumers through migrations. Related resources: [Stream LLM Output with Server-Sent Events (SSE)](/recipes/python-llm-streaming-responses/), [How to Document an API with OpenAPI, Swagger UI and Redoc](/recipes/api-documentation-openapi/), and [Implement API Logging and Audit Trails](/recipes/api-logging-audit/).
 
 ## When to Use
 

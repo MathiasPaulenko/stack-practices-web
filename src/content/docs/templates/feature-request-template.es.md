@@ -100,7 +100,7 @@ por reporte. El proceso manual introduce errores de transcripción.
 Agregar un botón "Export CSV" a cada gráfico en el dashboard de analytics. La exportación
 debe incluir los datos crudos detrás del gráfico (no los valores agregados) con columnas
 para fecha, métrica y desglose por dimensión. Limitar exportaciones a 10,000 filas para
-prevenir abuso. Consulta [File Handling](/recipes/parse-csv-files) para
+prevenir abuso. Consulta [File Handling](/recipes/parse-csv-files/) para
 patrones de implementación.
 
 ## Criterios de Aceptación
@@ -124,7 +124,7 @@ patrones de implementación.
 - 3 cuentas de cliente han solicitado esto específicamente en el último trimestre
 - Competidor X ofrece export PDF; CSV es más flexible para nuestros usuarios
 - Esfuerzo estimado: M (2-3 sprints incluyendo QA)
-- Relacionado: [Data Export API](/recipes/python-llm-streaming-responses) para acceso via API
+- Relacionado: [Data Export API](/recipes/python-llm-streaming-responses/) para acceso via API
 ```
 
 ## Por Qué Funciona Esta Estructura

@@ -32,7 +32,7 @@ seo:
 ---
 ## Overview
 
-Every major architectural decision creates context that fades within months. Why did we choose PostgreSQL over MongoDB? Why is the service mesh Envoy and not Linkerd? Why do we shard by tenant ID? Without written records, new engineers re-litigate old decisions, teams repeat rejected approaches, and managers make plans that conflict with technical constraints. An Architecture Decision Record (ADR) is a single document that captures the context, options, trade-offs, and consequences of a major technical choice. Related resources: [Design a Scalable API Gateway for Microservices](/recipes/api-gateway), [Build Resilient Systems with the Circuit Breaker Pattern](/patterns/circuit-breaker-pattern), and [Dependency Injection](/recipes/dependency-injection).
+Every major architectural decision creates context that fades within months. Why did we choose PostgreSQL over MongoDB? Why is the service mesh Envoy and not Linkerd? Why do we shard by tenant ID? Without written records, new engineers re-litigate old decisions, teams repeat rejected approaches, and managers make plans that conflict with technical constraints. An Architecture Decision Record (ADR) is a single document that captures the context, options, trade-offs, and consequences of a major technical choice. Related resources: [Design a Scalable API Gateway for Microservices](/recipes/api-gateway/), [Build Resilient Systems with the Circuit Breaker Pattern](/patterns/circuit-breaker-pattern/), and [Dependency Injection](/recipes/dependency-injection/).
 
 ## When to Use
 

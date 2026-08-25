@@ -49,7 +49,7 @@ seo:
 
 ## Overview
 
-Inconsistent error responses confuse API consumers and increase integration time. One endpoint returns plain text, another returns nested JSON, and a third returns HTML. This guideline standardizes how your APIs communicate failure so consumers can handle errors programmatically without guessing formats. Related resources: [Stream LLM Output with Server-Sent Events (SSE)](/recipes/python-llm-streaming-responses), [How to Document an API with OpenAPI, Swagger UI and Redoc](/recipes/api-documentation-openapi), and [Implement API Logging and Audit Trails](/recipes/api-logging-audit).
+Inconsistent error responses confuse API consumers and increase integration time. One endpoint returns plain text, another returns nested JSON, and a third returns HTML. This guideline standardizes how your APIs communicate failure so consumers can handle errors programmatically without guessing formats. Related resources: [Stream LLM Output with Server-Sent Events (SSE)](/recipes/python-llm-streaming-responses/), [How to Document an API with OpenAPI, Swagger UI and Redoc](/recipes/api-documentation-openapi/), and [Implement API Logging and Audit Trails](/recipes/api-logging-audit/).
 
 ## When to Use
 

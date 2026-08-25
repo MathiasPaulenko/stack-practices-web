@@ -45,7 +45,7 @@ That's the job concurrent collections are built for. They use fine-grained locks
 
 ## When to Use
 
-Reach for a concurrent collection when more than one thread reads and writes the same data. That includes producer-consumer pipelines, shared caches, job queues, or [thread pool](/recipes/thread-pools)-bound connection pools. They're also a good drop-in replacement for synchronized maps or synchronized lists when you want less lock contention, and they give you the happens-before visibility you'd otherwise have to build by hand.
+Reach for a concurrent collection when more than one thread reads and writes the same data. That includes producer-consumer pipelines, shared caches, job queues, or [thread pool](/recipes/thread-pools/)-bound connection pools. They're also a good drop-in replacement for synchronized maps or synchronized lists when you want less lock contention, and they give you the happens-before visibility you'd otherwise have to build by hand.
 
 ## When NOT to Use
 
@@ -275,13 +275,13 @@ int main() {
 
 A blocking queue blocks producers when the queue's full and consumers when it's empty. That built-in backpressure stops a fast producer from overwhelming a slow consumer. An array-backed blocking queue uses a single lock; a linked one uses separate locks for head and tail. That separation reduces contention when producers and consumers run at the same time.
 
-A ConcurrentHashMap doesn't put a global lock on the whole map like a synchronized wrapper. It uses fine-grained bucket locking (per-bin lock striping), so reads are usually lock-free and writes hit only a small region. The map's computeIfAbsent method makes lazy cache loading atomic. If you're guarding a larger critical section, review [locks and mutexes](/recipes/locks-and-mutexes).
+A ConcurrentHashMap doesn't put a global lock on the whole map like a synchronized wrapper. It uses fine-grained bucket locking (per-bin lock striping), so reads are usually lock-free and writes hit only a small region. The map's computeIfAbsent method makes lazy cache loading atomic. If you're guarding a larger critical section, review [locks and mutexes](/recipes/locks-and-mutexes/).
 
 A copy-on-write list makes a fresh copy of its backing array on every write, so reads are lock-free and always see a stable snapshot. That's great when writes are rare, such as event listener lists or small configuration snapshots.
 
 Python's queue uses a reentrant lock and two semaphores, so put, get, and task_done are safe from any thread. In asyncio, use asyncio.Queue instead of queue.Queue; the latter is built for threads, not coroutines.
 
-An atomic counter in Python uses a single lock around the integer, while std::atomic in C++ uses hardware compare-and-swap. Both avoid explicit mutexes for simple counters. For larger state changes, review the [race condition prevention](/recipes/race-condition-prevention) recipe.
+An atomic counter in Python uses a single lock around the integer, while std::atomic in C++ uses hardware compare-and-swap. Both avoid explicit mutexes for simple counters. For larger state changes, review the [race condition prevention](/recipes/race-condition-prevention/) recipe.
 
 ## Variants
 
@@ -352,4 +352,4 @@ Atomic counters and thread-safe queues cover most of the locking, but they don't
 
 ## Further Reading
 
-For Java, the package summary and [ConcurrentHashMap](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html) docs explain the API. For Python, the [queue](https://docs.python.org/3/library/queue.html) and [threading](https://docs.python.org/3/library/threading.html) modules are the references. For C++, the [std::atomic](https://en.cppreference.com/w/cpp/atomic/atomic) page has the details. Worth reading next: [Thread pools](/recipes/thread-pools), [Locks and mutexes](/recipes/locks-and-mutexes), and [Race condition prevention](/recipes/race-condition-prevention).
+For Java, the package summary and [ConcurrentHashMap](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html) docs explain the API. For Python, the [queue](https://docs.python.org/3/library/queue.html) and [threading](https://docs.python.org/3/library/threading.html) modules are the references. For C++, the [std::atomic](https://en.cppreference.com/w/cpp/atomic/atomic) page has the details. Worth reading next: [Thread pools](/recipes/thread-pools/), [Locks and mutexes](/recipes/locks-and-mutexes/), and [Race condition prevention](/recipes/race-condition-prevention/).

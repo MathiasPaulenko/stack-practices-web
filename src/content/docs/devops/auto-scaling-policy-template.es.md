@@ -53,7 +53,7 @@ seo:
 ---
 ## Visión General
 
-El auto-scaling es el puente entre eficiencia de costos y disponibilidad. Escalar demasiado tarde y tu servicio se cae bajo carga; escalar demasiado temprano y quemas dinero en capacidad ociosa. Esta plantilla documenta las reglas exactas, umbrales y procedimientos que tu equipo de infraestructura usa para escalar cargas de trabajo automáticamente hacia arriba y hacia abajo. Documentos relacionados: [REST API en Go con Gin y Middleware](/recipes/go-rest-api-gin), [Construye servicios gRPC en TypeScript con Protocol Buffers](/recipes/grpc-services-typescript) y [Programa Tareas Periódicas en Python con APScheduler](/recipes/python-schedule-periodic-tasks).
+El auto-scaling es el puente entre eficiencia de costos y disponibilidad. Escalar demasiado tarde y tu servicio se cae bajo carga; escalar demasiado temprano y quemas dinero en capacidad ociosa. Esta plantilla documenta las reglas exactas, umbrales y procedimientos que tu equipo de infraestructura usa para escalar cargas de trabajo automáticamente hacia arriba y hacia abajo. Documentos relacionados: [REST API en Go con Gin y Middleware](/recipes/go-rest-api-gin/), [Construye servicios gRPC en TypeScript con Protocol Buffers](/recipes/grpc-services-typescript/) y [Programa Tareas Periódicas en Python con APScheduler](/recipes/python-schedule-periodic-tasks/).
 
 ## Cuándo Usar
 

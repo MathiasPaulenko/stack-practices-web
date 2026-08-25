@@ -37,7 +37,7 @@ seo:
 
 Optimistic locking stops lost updates when several clients work at once by checking whether the row changed since it was last read. You keep a version number or timestamp on each row. The update includes that original version in the `WHERE` clause; if someone else changed it, the update fails and the app retries or returns a conflict. That avoids the cost of holding database locks while the user thinks.
 
-Below you'll find an implementation of optimistic locking with integer versioning in PostgreSQL-compatible SQL, Node.js, Java/JPA and beyond. Related recipes: [Database Migrations Safely](/recipes/database-migrations-safely), [Manage Database Migrations Safely](/recipes/database-migrations), and [Create and Use Database Views and Materialized Views](/recipes/database-views-materialized).
+Below you'll find an implementation of optimistic locking with integer versioning in PostgreSQL-compatible SQL, Node.js, Java/JPA and beyond. Related recipes: [Database Migrations Safely](/recipes/database-migrations-safely/), [Manage Database Migrations Safely](/recipes/database-migrations/), and [Create and Use Database Views and Materialized Views](/recipes/database-views-materialized/).
 
 ## When to Use
 

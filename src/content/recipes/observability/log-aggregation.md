@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-Log aggregation centralizes logs from dozens or hundreds of services into a single searchable system. Instead of SSHing into individual servers, teams query a unified index to trace requests across [microservices](/guides/microservices-architecture-guide/), investigate errors, and detect anomalies. Tools like the ELK stack, Fluentd, and Grafana Loki have made centralized logging accessible to any team size. Related recipes: [Parse Log Files](/recipes/parse-log-files).
+Log aggregation centralizes logs from dozens or hundreds of services into a single searchable system. Instead of SSHing into individual servers, teams query a unified index to trace requests across [microservices](/guides/microservices-architecture-guide/), investigate errors, and detect anomalies. Tools like the ELK stack, Fluentd, and Grafana Loki have made centralized logging accessible to any team size. Related recipes: [Parse Log Files](/recipes/parse-log-files/).
 
 ## When to Use
 

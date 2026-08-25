@@ -105,7 +105,7 @@ class WriteThroughProductRepository {
   async updateProduct(id: string, data: Partial<Product>): Promise<void> {
     const cacheKey = `product:${id}`;
 
-    // Start database transaction. See [Database Transactions](/recipes/database-transactions) for ACID patterns.
+    // Start database transaction. See [Database Transactions](/recipes/database-transactions/) for ACID patterns.
     await this.db.query('BEGIN');
     try {
       await this.db.query('UPDATE products SET ... WHERE id = $1', [id]);
@@ -141,7 +141,7 @@ class WriteBehindProductRepository {
   }
 }
 
-// Background worker. See [Batch Processing](/recipes/batch-processing-patterns) for job patterns.
+// Background worker. See [Batch Processing](/recipes/batch-processing-patterns/) for job patterns.
 async function flushPendingWrites() {
   const batch = await redis.lpop('pending_writes', 100);
   if (!batch) return;

@@ -58,7 +58,7 @@ Bash sigue siendo la lingua franca de administracion de sistemas y automatizacio
 
 - Necesitas automatizar tareas repetitivas de sistema o despliegue. Consulta [Docker Basics](/recipes/docker-basics/) para despliegue de contenedores.
 - El ambiente es minimal (contenedores, runners de CI, VMs) sin Node/Python. Consulta [CLI Tool Argument Parsing](/recipes/cli-tool-argument-parsing/) para alternativas CLI tipadas.
-- Quieres automatizacion auto-documentada que cualquier sysadmin pueda leer y modificar. Consulta [Git Workflow](/recipes/git-workflow/) para automatización versionada. Ver también [Validación de Subida de Archivos en Node.js](/recipes/nodejs-file-upload-validation).
+- Quieres automatizacion auto-documentada que cualquier sysadmin pueda leer y modificar. Consulta [Git Workflow](/recipes/git-workflow/) para automatización versionada. Ver también [Validación de Subida de Archivos en Node.js](/recipes/nodejs-file-upload-validation/).
 
 ## Requisitos Previos
 

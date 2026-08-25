@@ -45,7 +45,7 @@ arrays — la forma que la mayoría de las APIs y document stores esperan.
 
 Los ejemplos de abajo corren en Python, JavaScript y Java. Usá la versión rápida
 con librería estándar para archivos chicos, y la versión con streaming para lo
-que no entra en RAM. Ver también [Deep Clone de Objetos en JavaScript: Mas alla de JSON.parse](/recipes/deep-clone-structured).
+que no entra en RAM. Ver también [Deep Clone de Objetos en JavaScript: Mas alla de JSON.parse](/recipes/deep-clone-structured/).
 
 ## Cuándo Usar
 

@@ -45,7 +45,7 @@ seo:
 
 ## Overview
 
-Database query result caching stores the result of expensive queries in Redis so subsequent requests skip the database entirely. The cache-aside pattern — check cache, fetch from DB on miss, populate cache — is the most common approach. Below: implementing cache-aside in Python with Redis, handling serialization, invalidation on writes, cache stampede prevention, and multi-query caching. See also [Node.js Caching with Redis: Cache-Aside and TTL Patterns](/recipes/nodejs-caching-redis).
+Database query result caching stores the result of expensive queries in Redis so subsequent requests skip the database entirely. The cache-aside pattern — check cache, fetch from DB on miss, populate cache — is the most common approach. Below: implementing cache-aside in Python with Redis, handling serialization, invalidation on writes, cache stampede prevention, and multi-query caching. See also [Node.js Caching with Redis: Cache-Aside and TTL Patterns](/recipes/nodejs-caching-redis/).
 
 ## When to Use This
 

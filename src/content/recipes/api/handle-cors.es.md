@@ -206,7 +206,7 @@ public class SecurityConfig {
           .requestMatchers("/api/**").authenticated()
           .anyRequest().permitAll()
         );
-    // Consulta [Checklist de Seguridad de APIs](/guides/api-security-checklist-guide) para patrones de autenticación.
+    // Consulta [Checklist de Seguridad de APIs](/guides/api-security-checklist-guide/) para patrones de autenticación.
     return http.build();
   }
 }

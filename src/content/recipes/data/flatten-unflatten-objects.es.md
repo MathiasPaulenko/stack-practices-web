@@ -39,7 +39,7 @@ seo:
 
 ## Visión General
 
-Aplanar convierte un objeto profundamente anidado en un diccionario de un solo nivel con claves como `user.address.city = "London"`. Reconstruir (unflatten) vuelve a armar la estructura original a partir de esas claves planas. Sirve para librerías de formularios, actualizaciones de documentos, query strings y convertir documentos NoSQL en columnas planas de tablas. Los ejemplos de abajo muestran implementaciones recursivas en Python, JavaScript y Java, con separadores personalizados, manejo de índices de arrays y fidelidad en el ciclo de ida y vuelta. Recursos relacionados: [Formateo de Fechas](/recipes/date-formatting) y [Manejo de Dinero y Moneda](/recipes/money-currency).
+Aplanar convierte un objeto profundamente anidado en un diccionario de un solo nivel con claves como `user.address.city = "London"`. Reconstruir (unflatten) vuelve a armar la estructura original a partir de esas claves planas. Sirve para librerías de formularios, actualizaciones de documentos, query strings y convertir documentos NoSQL en columnas planas de tablas. Los ejemplos de abajo muestran implementaciones recursivas en Python, JavaScript y Java, con separadores personalizados, manejo de índices de arrays y fidelidad en el ciclo de ida y vuelta. Recursos relacionados: [Formateo de Fechas](/recipes/date-formatting/) y [Manejo de Dinero y Moneda](/recipes/money-currency/).
 
 ## Cuándo Usar
 

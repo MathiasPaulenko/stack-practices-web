@@ -44,11 +44,11 @@ that cover overwrites, checksums, symlinks, and atomic moves.
 
 ## When to Use
 
-- You need to duplicate configuration files during [deployments](/recipes/watch-file-changes).
+- You need to duplicate configuration files during [deployments](/recipes/watch-file-changes/).
 - You're moving uploaded files from temp directories to permanent storage and want to validate them
-  first (see [file upload validation](/recipes/file-upload-validation)).
-- You want to [rotate or archive log files](/recipes/rotate-log-files) automatically.
-- You're batch-copying files before [compressing them](/recipes/compress-decompress-files).
+  first (see [file upload validation](/recipes/file-upload-validation/)).
+- You want to [rotate or archive log files](/recipes/rotate-log-files/) automatically.
+- You're batch-copying files before [compressing them](/recipes/compress-decompress-files/).
 
 ## When to Avoid
 

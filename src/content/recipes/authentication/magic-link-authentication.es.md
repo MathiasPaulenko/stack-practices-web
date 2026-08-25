@@ -111,7 +111,7 @@ def verify_magic_link(token: str) -> dict:
     )
     db.commit()
 
-    # Crear [sesión](/recipes/session-management) o [JWT](/recipes/jwt-authentication) de usuario
+    # Crear [sesión](/recipes/session-management/) o [JWT](/recipes/jwt-authentication/) de usuario
     user = get_or_create_user(email)
     session = create_session(user.id)
 

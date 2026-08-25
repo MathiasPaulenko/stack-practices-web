@@ -44,7 +44,7 @@ seo:
 
 ## Overview
 
-A CI/CD pipeline design document specifies how code moves from commit to production. It defines pipeline stages, quality gates, environments, deployment strategies, and rollback procedures. Without a design document, pipelines grow organically with inconsistent gates and unclear promotion criteria. Related resources: [Set Up Pre-Commit Hooks with husky and lint-staged](/recipes/pre-commit-hooks), [Mock GraphQL Resolvers for Frontend Development](/recipes/graphql-mocking-apollo-server), and [Load Testing APIs with k6 and Threshold-Based Assertions](/recipes/load-testing-k6).
+A CI/CD pipeline design document specifies how code moves from commit to production. It defines pipeline stages, quality gates, environments, deployment strategies, and rollback procedures. Without a design document, pipelines grow organically with inconsistent gates and unclear promotion criteria. Related resources: [Set Up Pre-Commit Hooks with husky and lint-staged](/recipes/pre-commit-hooks/), [Mock GraphQL Resolvers for Frontend Development](/recipes/graphql-mocking-apollo-server/), and [Load Testing APIs with k6 and Threshold-Based Assertions](/recipes/load-testing-k6/).
 
 ## When to Use
 

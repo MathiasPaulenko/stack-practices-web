@@ -42,7 +42,7 @@ sobre HTTP. Llamar a una API REST significa enviar una petición — normalmente
 de forma segura: verificar códigos de estado, setear timeouts y parsear el body sin
 que falle.
 
-Esta receta muestra cómo llamar a una API REST en Python, JavaScript, Java y Go. Recursos relacionados: [Cómo documentar una API con OpenAPI, Swagger UI y Redoc](/recipes/api-documentation-openapi).
+Esta receta muestra cómo llamar a una API REST en Python, JavaScript, Java y Go. Recursos relacionados: [Cómo documentar una API con OpenAPI, Swagger UI y Redoc](/recipes/api-documentation-openapi/).
 
 ## Cuándo Usar
 

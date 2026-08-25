@@ -52,7 +52,7 @@ seo:
 
 ## Resumen
 
-El acceso ilimitado a API es una receta para abuso, DDoS accidental y costos impredecibles. El rate limiting protege tu infraestructura mientras da a los consumidores acceso predecible. Sin una politica documentada, los consumidores descubren los limites solo cuando sus solicitudes comienzan a fallar con `429 Too Many Requests`. Esta plantilla define limites de tasa por tier, los comunica transparentemente y proporciona una ruta de escalamiento para quienes necesitan mas. Documentos relacionados: [Stream de salida LLM con Server-Sent Events (SSE)](/recipes/python-llm-streaming-responses), [Cómo documentar una API con OpenAPI, Swagger UI y Redoc](/recipes/api-documentation-openapi) y [Implementar logging y audit trails de API](/recipes/api-logging-audit).
+El acceso ilimitado a API es una receta para abuso, DDoS accidental y costos impredecibles. El rate limiting protege tu infraestructura mientras da a los consumidores acceso predecible. Sin una politica documentada, los consumidores descubren los limites solo cuando sus solicitudes comienzan a fallar con `429 Too Many Requests`. Esta plantilla define limites de tasa por tier, los comunica transparentemente y proporciona una ruta de escalamiento para quienes necesitan mas. Documentos relacionados: [Stream de salida LLM con Server-Sent Events (SSE)](/recipes/python-llm-streaming-responses/), [Cómo documentar una API con OpenAPI, Swagger UI y Redoc](/recipes/api-documentation-openapi/) y [Implementar logging y audit trails de API](/recipes/api-logging-audit/).
 
 ## Cuando Usar
 

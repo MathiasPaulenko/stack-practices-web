@@ -49,7 +49,7 @@ seo:
 
 ## Resumen
 
-Un SLA sin presupuesto de error es solo una promesa que eventualmente romperas. Los equipos de ingenieria necesitan objetivos medibles concretos que equilibren confiabilidad y velocidad. Esta plantilla define compromisos de uptime, latencia y tasa de error — mas los presupuestos de error que permiten a los equipos lanzar cambios mientras respetan esos compromisos. Documentos relacionados: [Stream de salida LLM con Server-Sent Events (SSE)](/recipes/python-llm-streaming-responses), [Cómo documentar una API con OpenAPI, Swagger UI y Redoc](/recipes/api-documentation-openapi) y [Implementar logging y audit trails de API](/recipes/api-logging-audit).
+Un SLA sin presupuesto de error es solo una promesa que eventualmente romperas. Los equipos de ingenieria necesitan objetivos medibles concretos que equilibren confiabilidad y velocidad. Esta plantilla define compromisos de uptime, latencia y tasa de error — mas los presupuestos de error que permiten a los equipos lanzar cambios mientras respetan esos compromisos. Documentos relacionados: [Stream de salida LLM con Server-Sent Events (SSE)](/recipes/python-llm-streaming-responses/), [Cómo documentar una API con OpenAPI, Swagger UI y Redoc](/recipes/api-documentation-openapi/) y [Implementar logging y audit trails de API](/recipes/api-logging-audit/).
 
 ## Cuando Usar
 

@@ -34,7 +34,7 @@ seo:
 ---
 ## Descripcion General
 
-Un backup que no se puede restaurar no es un backup. Esta plantilla ayuda a los equipos a programar, ejecutar y documentar pruebas de verificacion de backups. Cubre los sistemas en prueba, el procedimiento de restauracion, los criterios de validacion y que hacer cuando una prueba falla. Documentos relacionados: [REST API en Go con Gin y Middleware](/recipes/go-rest-api-gin), [Construye servicios gRPC en TypeScript con Protocol Buffers](/recipes/grpc-services-typescript) y [Programa Tareas Periódicas en Python con APScheduler](/recipes/python-schedule-periodic-tasks).
+Un backup que no se puede restaurar no es un backup. Esta plantilla ayuda a los equipos a programar, ejecutar y documentar pruebas de verificacion de backups. Cubre los sistemas en prueba, el procedimiento de restauracion, los criterios de validacion y que hacer cuando una prueba falla. Documentos relacionados: [REST API en Go con Gin y Middleware](/recipes/go-rest-api-gin/), [Construye servicios gRPC en TypeScript con Protocol Buffers](/recipes/grpc-services-typescript/) y [Programa Tareas Periódicas en Python con APScheduler](/recipes/python-schedule-periodic-tasks/).
 
 ## Cuando Usar
 

@@ -43,7 +43,7 @@ seo:
 ---
 ## Visión General
 
-Las APIs son contratos de larga duración entre sistemas. Cambiar o eliminar un endpoint sin un proceso estructurado rompe consumidores downstream, causa caídas y daña la confianza. Esta plantilla proporciona un enfoque basado en checklists para deprecar versiones antiguas, introducir nuevas versiones y cerrar APIs de forma segura. Documentos relacionados: [Diseñar un API Gateway Escalable para Microservicios](/recipes/api-gateway), [Construir Sistemas Resilientes con el Circuit Breaker](/patterns/circuit-breaker-pattern) y [Inyección de Dependencias](/recipes/dependency-injection).
+Las APIs son contratos de larga duración entre sistemas. Cambiar o eliminar un endpoint sin un proceso estructurado rompe consumidores downstream, causa caídas y daña la confianza. Esta plantilla proporciona un enfoque basado en checklists para deprecar versiones antiguas, introducir nuevas versiones y cerrar APIs de forma segura. Documentos relacionados: [Diseñar un API Gateway Escalable para Microservicios](/recipes/api-gateway/), [Construir Sistemas Resilientes con el Circuit Breaker](/patterns/circuit-breaker-pattern/) y [Inyección de Dependencias](/recipes/dependency-injection/).
 
 ## Cuándo Usar
 

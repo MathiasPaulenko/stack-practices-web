@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-Un data pipeline design document specifica cómo data fluye desde sources a través de transformations a destinations. Define schemas, scheduling, error handling, monitoring y operational procedures. Sin un design document, pipelines se vuelven opaque systems que solo el original author entiende. Documentos relacionados: [Configura pre-commit hooks con husky y lint-staged](/recipes/pre-commit-hooks), [Mocks de resolvers GraphQL para desarrollo frontend](/recipes/graphql-mocking-apollo-server) y [Testing de Carga de APIs con k6 y Aserciones Basadas en](/recipes/load-testing-k6).
+Un data pipeline design document specifica cómo data fluye desde sources a través de transformations a destinations. Define schemas, scheduling, error handling, monitoring y operational procedures. Sin un design document, pipelines se vuelven opaque systems que solo el original author entiende. Documentos relacionados: [Configura pre-commit hooks con husky y lint-staged](/recipes/pre-commit-hooks/), [Mocks de resolvers GraphQL para desarrollo frontend](/recipes/graphql-mocking-apollo-server/) y [Testing de Carga de APIs con k6 y Aserciones Basadas en](/recipes/load-testing-k6/).
 
 ## When to Use
 

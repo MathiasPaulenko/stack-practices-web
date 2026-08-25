@@ -54,7 +54,7 @@ consistencia, especialmente en sistemas distribuidos.
 - Una función realiza cálculos matemáticos o estadísticos pesados.
 - Los datos cambian poco, como configuración o datos de referencia.
 - La latencia importa en un sistema read-heavy y de alto tráfico.
-- Querés aliviar la carga de un servicio downstream. Ver también [Deep Clone de Objetos en JavaScript: Mas alla de JSON.parse](/recipes/deep-clone-structured).
+- Querés aliviar la carga de un servicio downstream. Ver también [Deep Clone de Objetos en JavaScript: Mas alla de JSON.parse](/recipes/deep-clone-structured/).
 
 ## Cuándo NO Usar
 

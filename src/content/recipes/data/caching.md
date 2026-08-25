@@ -53,7 +53,7 @@ stale data, invalidation, and consistency headaches, especially in distributed s
 - A function performs heavy mathematical or statistical computation.
 - The data changes slowly, such as configuration or reference data.
 - Latency matters in a read-heavy, high-traffic system.
-- You want to take load off a downstream service. See also [Deep Clone Objects in JavaScript: Beyond JSON.parse](/recipes/deep-clone-structured).
+- You want to take load off a downstream service. See also [Deep Clone Objects in JavaScript: Beyond JSON.parse](/recipes/deep-clone-structured/).
 
 ## When NOT to Use
 

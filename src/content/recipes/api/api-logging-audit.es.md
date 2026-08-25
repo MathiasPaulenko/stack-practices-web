@@ -41,7 +41,7 @@ seo:
 
 El logging de API captura detalles de petición y respuesta para debugging, análisis de rendimiento y forense de seguridad. Los audit trails van más allá — registran quién hizo qué, cuándo y desde dónde — esenciales para compliance (SOC 2, ISO 27001, GDPR) e investigación de incidentes.
 
-Lo siguiente implementa logging estructurado con correlation IDs, captura de petición/respuesta y almacenamiento de auditoría resistente a manipulaciones. Ver también [Server-Sent Events con Node.js y Express](/recipes/server-sent-events-node).
+Lo siguiente implementa logging estructurado con correlation IDs, captura de petición/respuesta y almacenamiento de auditoría resistente a manipulaciones. Ver también [Server-Sent Events con Node.js y Express](/recipes/server-sent-events-node/).
 
 ## Cuándo Usar
 

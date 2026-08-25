@@ -40,7 +40,7 @@ seo:
 
 ## Overview
 
-Caffeine is a high-performance Java caching library that outperforms Guava and ConcurrentHashMap by using an efficient eviction policy based on the Window TinyLfu algorithm. It supports size-based, time-based, and weighted eviction, reference-based eviction (weak keys/values), and async loading. Below: configuring Caffeine standalone and with Spring Boot, eviction strategies, cache statistics, and tuning. See also [HTTP Cache-Control Headers for APIs and Static Assets](/recipes/http-cache-control-headers).
+Caffeine is a high-performance Java caching library that outperforms Guava and ConcurrentHashMap by using an efficient eviction policy based on the Window TinyLfu algorithm. It supports size-based, time-based, and weighted eviction, reference-based eviction (weak keys/values), and async loading. Below: configuring Caffeine standalone and with Spring Boot, eviction strategies, cache statistics, and tuning. See also [HTTP Cache-Control Headers for APIs and Static Assets](/recipes/http-cache-control-headers/).
 
 ## When to Use This
 

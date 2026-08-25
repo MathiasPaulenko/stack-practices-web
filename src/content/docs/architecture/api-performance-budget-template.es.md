@@ -40,7 +40,7 @@ seo:
 ---
 ## Visión General
 
-Cada endpoint de API consume recursos: CPU, memoria, conexiones de base de datos y ancho de banda de red. Sin presupuestos explícitos, los equipos agregan capacidades hasta que el sistema colapsa bajo carga. Esta plantilla define presupuestos de rendimiento como un contrato entre requisitos de producto y capacidad de infraestructura, haciendo explícitos los trade-offs antes de que se conviertan en caídas. Documentos relacionados: [Diseñar un API Gateway Escalable para Microservicios](/recipes/api-gateway), [Construir Sistemas Resilientes con el Circuit Breaker](/patterns/circuit-breaker-pattern) y [Inyección de Dependencias](/recipes/dependency-injection).
+Cada endpoint de API consume recursos: CPU, memoria, conexiones de base de datos y ancho de banda de red. Sin presupuestos explícitos, los equipos agregan capacidades hasta que el sistema colapsa bajo carga. Esta plantilla define presupuestos de rendimiento como un contrato entre requisitos de producto y capacidad de infraestructura, haciendo explícitos los trade-offs antes de que se conviertan en caídas. Documentos relacionados: [Diseñar un API Gateway Escalable para Microservicios](/recipes/api-gateway/), [Construir Sistemas Resilientes con el Circuit Breaker](/patterns/circuit-breaker-pattern/) y [Inyección de Dependencias](/recipes/dependency-injection/).
 
 ## Cuándo Usar
 

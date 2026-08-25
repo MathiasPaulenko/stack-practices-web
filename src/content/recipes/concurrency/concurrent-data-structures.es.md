@@ -45,7 +45,7 @@ Para eso sirven las colecciones concurrentes. Usan bloqueos de grano fino, algor
 
 ## Cuándo usarlo
 
-Usa una colección concurrente cuando varios hilos lean y escriban los mismos datos. Eso incluye pipelines productor-consumidor, cachés compartidas, colas de tareas o pools de conexiones ligados a un [pool de hilos](/recipes/thread-pools). También son un buen reemplazo directo de mapas sincronizados o listas sincronizadas cuando quieres menos contención de bloqueos, y te dan la visibilidad happens-before que de otro modo tendrías que construir a mano.
+Usa una colección concurrente cuando varios hilos lean y escriban los mismos datos. Eso incluye pipelines productor-consumidor, cachés compartidas, colas de tareas o pools de conexiones ligados a un [pool de hilos](/recipes/thread-pools/). También son un buen reemplazo directo de mapas sincronizados o listas sincronizadas cuando quieres menos contención de bloqueos, y te dan la visibilidad happens-before que de otro modo tendrías que construir a mano.
 
 ## Cuándo NO usarlo
 
@@ -275,13 +275,13 @@ int main() {
 
 Una cola bloqueante frena a los productores si la cola está llena y a los consumidores si está vacía. Ese backpressure integrado evita que un productor rápido sature a uno lento. Una cola con array subyacente usa un solo bloqueo; una vinculada usa bloqueos separados para cabeza y cola. Esa separación mejora cuando productores y consumidores corren a la vez.
 
-Un mapa concurrente no pone un bloqueo global sobre el mapa entero como un wrapper sincronizado. Usa bloqueo de grano fino por cubeta (per-bin lock striping), así que las lecturas son en general sin bloqueos y las escrituras tocan solo una región pequeña. Con computeIfAbsent, la carga perezosa de una caché pasa a ser atómica. Si vas a proteger una sección crítica más amplia, revisa [locks y mutexes](/recipes/locks-and-mutexes).
+Un mapa concurrente no pone un bloqueo global sobre el mapa entero como un wrapper sincronizado. Usa bloqueo de grano fino por cubeta (per-bin lock striping), así que las lecturas son en general sin bloqueos y las escrituras tocan solo una región pequeña. Con computeIfAbsent, la carga perezosa de una caché pasa a ser atómica. Si vas a proteger una sección crítica más amplia, revisa [locks y mutexes](/recipes/locks-and-mutexes/).
 
 Una lista copy-on-write copia el array subyacente entero en cada escritura, así que las lecturas son sin bloqueos y siempre ven una instantánea estable. Resulta útil con escrituras raras, como en listas de listeners de eventos o pequeñas instantáneas de configuración.
 
 La cola de Python usa un bloqueo reentrante y dos semáforos, así que put, get y task_done son seguros desde cualquier hilo. En asyncio, usa asyncio.Queue en vez de queue.Queue; la segunda está hecha para hilos, no para corrutinas.
 
-El contador atómico de Python envuelve un entero bajo un único bloqueo, mientras que std::atomic en C++ usa compare-and-swap del hardware. Ambos se libran de mutexes explícitos para contadores simples. Para cambios de estado más complejos, consulta la receta de [prevención de condiciones de carrera](/recipes/race-condition-prevention).
+El contador atómico de Python envuelve un entero bajo un único bloqueo, mientras que std::atomic en C++ usa compare-and-swap del hardware. Ambos se libran de mutexes explícitos para contadores simples. Para cambios de estado más complejos, consulta la receta de [prevención de condiciones de carrera](/recipes/race-condition-prevention/).
 
 ## Variantes
 
@@ -352,4 +352,4 @@ Los contadores atómicos y las colas seguras entre hilos resuelven buena parte d
 
 ## Lecturas adicionales
 
-Para Java, el resumen del paquete y los documentos de [ConcurrentHashMap](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html) explican la API. Para Python, los módulos [queue](https://docs.python.org/3/library/queue.html) y [threading](https://docs.python.org/3/library/threading.html) son las referencias. Para C++, la página de [std::atomic](https://en.cppreference.com/w/cpp/atomic/atomic) tiene los detalles. Vale la pena leer después: [Pools de hilos](/recipes/thread-pools), [Locks y mutexes](/recipes/locks-and-mutexes) y [Prevención de condiciones de carrera](/recipes/race-condition-prevention).
+Para Java, el resumen del paquete y los documentos de [ConcurrentHashMap](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html) explican la API. Para Python, los módulos [queue](https://docs.python.org/3/library/queue.html) y [threading](https://docs.python.org/3/library/threading.html) son las referencias. Para C++, la página de [std::atomic](https://en.cppreference.com/w/cpp/atomic/atomic) tiene los detalles. Vale la pena leer después: [Pools de hilos](/recipes/thread-pools/), [Locks y mutexes](/recipes/locks-and-mutexes/) y [Prevención de condiciones de carrera](/recipes/race-condition-prevention/).

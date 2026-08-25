@@ -45,7 +45,7 @@ seo:
 
 ## Visión General
 
-En sistemas distribuidos, una falla en un servicio puede propagarse de forma impredecible. Un mapa de dependencias documenta qué servicios llaman a cuáles, la naturaleza de esas llamadas y el radio de impacto si una dependencia falla. Esta plantilla proporciona tanto un registro textual como guía para crear diagramas visuales. Documentos relacionados: [Diseñar un API Gateway Escalable para Microservicios](/recipes/api-gateway), [Construir Sistemas Resilientes con el Circuit Breaker](/patterns/circuit-breaker-pattern) y [Inyección de Dependencias](/recipes/dependency-injection).
+En sistemas distribuidos, una falla en un servicio puede propagarse de forma impredecible. Un mapa de dependencias documenta qué servicios llaman a cuáles, la naturaleza de esas llamadas y el radio de impacto si una dependencia falla. Esta plantilla proporciona tanto un registro textual como guía para crear diagramas visuales. Documentos relacionados: [Diseñar un API Gateway Escalable para Microservicios](/recipes/api-gateway/), [Construir Sistemas Resilientes con el Circuit Breaker](/patterns/circuit-breaker-pattern/) y [Inyección de Dependencias](/recipes/dependency-injection/).
 
 ## Cuándo Usar
 

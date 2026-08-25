@@ -100,7 +100,7 @@ minutes per report. The manual process introduces transcription errors.
 Add an "Export CSV" button to each chart on the analytics dashboard. The export
 should include the raw data behind the chart (not the aggregated values) with
 columns for date, metric, and dimension breakdowns. Limit exports to 10,000 rows
-to prevent abuse. See [File Handling](/recipes/parse-csv-files) for
+to prevent abuse. See [File Handling](/recipes/parse-csv-files/) for
 implementation patterns.
 
 ## Acceptance Criteria
@@ -124,7 +124,7 @@ implementation patterns.
 - 3 customer accounts have specifically requested this in the last quarter
 - Competitor X offers PDF export; CSV is more flexible for our users
 - Estimated effort: M (2-3 sprints including QA)
-- Related: [Data Export API](/recipes/python-llm-streaming-responses) for API-based access
+- Related: [Data Export API](/recipes/python-llm-streaming-responses/) for API-based access
 ```
 
 ## Why This Structure Works

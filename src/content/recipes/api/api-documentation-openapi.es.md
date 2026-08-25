@@ -36,7 +36,7 @@ seo:
 
 La mayoría de las documentaciones de API se pudren en READMEs, páginas de Confluence o hilos de Slack. Cada vez que publicas un cambio, esas páginas ya están desactualizadas. OpenAPI, la especificación que surgió de Swagger, te permite describir endpoints, esquemas y errores en un solo archivo YAML o JSON. Ese mismo archivo puede impulsar documentación interactiva, SDKs de cliente y tests de contrato.
 
-Esta guía usa ejemplos en Python con FastAPI, JavaScript con Express y Java con SpringDoc, y repasa los trade-offs de cada uno. También compara Swagger UI y Redoc, y explica cómo evitar que el spec se pudra una vez está en producción. Recursos relacionados: [Implementar logging y audit trails de API](/recipes/api-logging-audit), [Implementar Rate Limiting de APIs con Redis](/recipes/api-rate-limiting-redis), [Paginacion por Cursor con PostgreSQL](/recipes/cursor-pagination-postgresql) y [Construir notificaciones en tiempo real con WebSockets](/recipes/real-time-notifications). Ver también [Server-Sent Events con Node.js y Express](/recipes/server-sent-events-node).
+Esta guía usa ejemplos en Python con FastAPI, JavaScript con Express y Java con SpringDoc, y repasa los trade-offs de cada uno. También compara Swagger UI y Redoc, y explica cómo evitar que el spec se pudra una vez está en producción. Recursos relacionados: [Implementar logging y audit trails de API](/recipes/api-logging-audit/), [Implementar Rate Limiting de APIs con Redis](/recipes/api-rate-limiting-redis/), [Paginacion por Cursor con PostgreSQL](/recipes/cursor-pagination-postgresql/) y [Construir notificaciones en tiempo real con WebSockets](/recipes/real-time-notifications/). Ver también [Server-Sent Events con Node.js y Express](/recipes/server-sent-events-node/).
 
 ## Cuándo Usar
 
@@ -1354,11 +1354,11 @@ Documenta la política de rotación con `x-api-key-rotation: 90 days`. También 
 
 ## Ver También
 
-- [API Versioning](/recipes/api-versioning): estrategias para versionar APIs REST.
-- [Call REST API](/recipes/call-rest-api): consumir APIs REST desde código cliente.
-- [GraphQL API](/recipes/graphql-api): enfoque alternativo de API.
-- [Handle CORS](/recipes/handle-cors): configuración de cross-origin resource sharing.
-- [Handle Errors](/recipes/handle-errors): patrones estructurados de manejo de errores.
+- [API Versioning](/recipes/api-versioning/): estrategias para versionar APIs REST.
+- [Call REST API](/recipes/call-rest-api/): consumir APIs REST desde código cliente.
+- [GraphQL API](/recipes/graphql-api/): enfoque alternativo de API.
+- [Handle CORS](/recipes/handle-cors/): configuración de cross-origin resource sharing.
+- [Handle Errors](/recipes/handle-errors/): patrones estructurados de manejo de errores.
 
 ## Errores Comunes en Producción
 

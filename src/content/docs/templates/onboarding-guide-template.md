@@ -60,7 +60,7 @@ Welcome to the team! This guide will help you get up and running.
 
 ## Day 1-2: Environment Setup
 
-See [Environment Setup Guide Template](/docs/environment-setup-guide-template) for detailed instructions.
+See [Environment Setup Guide Template](/docs/environment-setup-guide-template/) for detailed instructions.
 
 ### Required Tools
 | Tool | Version | Purpose | Install Link |
@@ -115,7 +115,7 @@ Look for issues labeled:
 ## Week 2+: Deeper Dive
 
 - [ ] Attend architecture overview session
-- [ ] Read [ADRs](/docs/adr-template) in `/docs/adr/`
+- [ ] Read [ADRs](/docs/adr-template/) in `/docs/adr/`
 - [ ] Shadow an on-call rotation (observation only)
 - [ ] Pair program with a teammate
 

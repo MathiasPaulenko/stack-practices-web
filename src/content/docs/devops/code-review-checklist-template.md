@@ -43,7 +43,7 @@ seo:
 
 ## Overview
 
-Code reviews are the most useful quality gate in software delivery, but only when they are consistent. Without a checklist, reviewers focus on what they personally care about: one engineer checks for SQL injection, another obsesses over variable names, and a third only looks at test coverage. A shared checklist ensures every review covers the dimensions that matter to the team, while leaving room for human judgment on design and architecture. Related resources: [Go REST API with Gin and Middleware](/recipes/go-rest-api-gin), [Build gRPC Services in TypeScript with Protocol Buffers](/recipes/grpc-services-typescript), and [Schedule Periodic Tasks in Python with APScheduler](/recipes/python-schedule-periodic-tasks).
+Code reviews are the most useful quality gate in software delivery, but only when they are consistent. Without a checklist, reviewers focus on what they personally care about: one engineer checks for SQL injection, another obsesses over variable names, and a third only looks at test coverage. A shared checklist ensures every review covers the dimensions that matter to the team, while leaving room for human judgment on design and architecture. Related resources: [Go REST API with Gin and Middleware](/recipes/go-rest-api-gin/), [Build gRPC Services in TypeScript with Protocol Buffers](/recipes/grpc-services-typescript/), and [Schedule Periodic Tasks in Python with APScheduler](/recipes/python-schedule-periodic-tasks/).
 
 ## When to Use
 

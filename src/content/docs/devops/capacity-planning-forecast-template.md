@@ -38,7 +38,7 @@ seo:
 ---
 ## Overview
 
-Traffic grows, but infrastructure does not grow by itself. Most outages are not caused by bad code — they are caused by systems that hit a wall nobody measured. Capacity planning is the discipline of looking ahead: how much traffic will we have in six months, what resource will run out first, and what will it cost to stay ahead of demand? A capacity forecast turns panic-driven scaling into a scheduled, budgeted, and tested operation. Related resources: [Configure Nginx as a Reverse Proxy and API Gateway](/recipes/nginx-reverse-proxy), [Cache HTTP Responses with Nginx Reverse Proxy](/recipes/nginx-reverse-proxy-cache), and [Local Microservices Development with Docker Compose](/recipes/docker-compose-local-dev).
+Traffic grows, but infrastructure does not grow by itself. Most outages are not caused by bad code — they are caused by systems that hit a wall nobody measured. Capacity planning is the discipline of looking ahead: how much traffic will we have in six months, what resource will run out first, and what will it cost to stay ahead of demand? A capacity forecast turns panic-driven scaling into a scheduled, budgeted, and tested operation. Related resources: [Configure Nginx as a Reverse Proxy and API Gateway](/recipes/nginx-reverse-proxy/), [Cache HTTP Responses with Nginx Reverse Proxy](/recipes/nginx-reverse-proxy-cache/), and [Local Microservices Development with Docker Compose](/recipes/docker-compose-local-dev/).
 
 ## When to Use
 

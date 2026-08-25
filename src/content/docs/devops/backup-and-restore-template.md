@@ -47,7 +47,7 @@ seo:
 ---
 ## Overview
 
-Backups are worthless if you cannot restore from them. Many teams discover this too late: after a ransomware attack, database corruption, or accidental deletion. This template ensures your backup procedures are documented, tested, and verifiable before disaster strikes. Related resources: [Go REST API with Gin and Middleware](/recipes/go-rest-api-gin), [Build gRPC Services in TypeScript with Protocol Buffers](/recipes/grpc-services-typescript), and [Schedule Periodic Tasks in Python with APScheduler](/recipes/python-schedule-periodic-tasks).
+Backups are worthless if you cannot restore from them. Many teams discover this too late: after a ransomware attack, database corruption, or accidental deletion. This template ensures your backup procedures are documented, tested, and verifiable before disaster strikes. Related resources: [Go REST API with Gin and Middleware](/recipes/go-rest-api-gin/), [Build gRPC Services in TypeScript with Protocol Buffers](/recipes/grpc-services-typescript/), and [Schedule Periodic Tasks in Python with APScheduler](/recipes/python-schedule-periodic-tasks/).
 
 ## When to Use
 
