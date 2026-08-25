@@ -44,7 +44,7 @@ const initialItems = items.slice(0, PAGE_SIZE);
 const hasMore = items.length > PAGE_SIZE;
 ---
 
-<BaseLayout title={heading} description={metaDescription} path={`/tags/${tag}/`} locale="es" keywords={[tag, 'etiquetas', 'ingeniería de software']} jsonLd={jsonLd} hasAlternate={hasEnVersion} noindex={items.length < 3}>
+<BaseLayout title={heading} description={metaDescription} path={`/tags/${tag}/`} locale="es" keywords={[tag, 'etiquetas', 'ingeniería de software']} jsonLd={jsonLd} hasAlternate={hasEnVersion} noindex={items.length < 3} contentType="tag">
   <section class="border-b border-slate-800 bg-slate-900">
     <div class="listing-container">
       <nav aria-label="Breadcrumb" class="text-sm text-slate-400">

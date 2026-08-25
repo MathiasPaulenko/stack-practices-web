@@ -18,6 +18,7 @@ export interface Props {
   jsonLd?: Record<string, unknown>[];
   noindex?: boolean;
   trailingSlash?: boolean;
+  contentType?: string;
 }
 
 const {
@@ -31,6 +32,7 @@ const {
   jsonLd = [],
   noindex = false,
   trailingSlash = true,
+  contentType = 'page',
 } = Astro.props;
 ---
 
@@ -40,6 +42,9 @@ const {
     <!-- Google Consent Mode v2 + GTM + gtag — externalized for cacheability.
          Even when analytics cookies are denied, cookieless anonymous pings are still sent. -->
     <script is:inline async src="/analytics.js"></script>
+    <!-- GA4 custom dimension: content_type (recipe, pattern, guide, doc, page).
+         Pushed before analytics.js processes the pageview so GTM/GA4 can read it. -->
+    <script is:inline set:html={`window.dataLayer=window.dataLayer||[];window.dataLayer.push({content_type:${JSON.stringify(contentType)}});`}></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />

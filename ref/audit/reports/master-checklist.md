@@ -297,11 +297,42 @@ content-improvement: humaniza <slug>
   - Effort: S
   - Report: `site-wide-audit.md`
 
-- [ ] **P1.4** — Añadir custom dimension `contentType` en GA4
+- [x] **P1.4** — Añadir custom dimension `contentType` en GA4 — ✅ RESUELTO 2026-08-25
   - Category: Analytics
   - Evidence: GA4 OK pero sin custom dimensions; no se mide conversión/funnel por tipo
-  - Affected: `src/layouts/BaseLayout.astro` o `public/analytics.js`
-  - Action: Configurar GA4 custom dimension `content_type` y enviarla en pageview para recetas/patrones/guides/docs.
+  - Affected: `src/layouts/BaseLayout.astro`, `public/analytics.js`, `src/components/RecipeArticle.astro`, `src/components/ListingPage.astro`, `src/components/AuthorPage.astro`, 14 páginas
+  - Action: Implementado en código + documentación de configuración GA4 UI
+  - Implementación:
+    - **`src/layouts/BaseLayout.astro`**: Nueva prop `contentType` (default: `'page'`). Inline script hace `dataLayer.push({content_type: ...})` antes de que analytics.js procese el pageview.
+    - **`public/analytics.js`**: Lee `content_type` del dataLayer y lo envía con `gtag('config', 'G-RBE12WJ5KZ', { content_type: ... })`.
+    - **Componentes**: `RecipeArticle`, `ListingPage`, `AuthorPage` pasan `contentType` al `BaseLayout`.
+    - **Páginas especiales**: home (`'home'`), topics (`'topic'`), tags (`'tag'`), authors (`'author'`), search (`'search'`).
+    - **Páginas estáticas**: about, privacy, terms, cookies, etc. usan default `'page'`.
+  - Content types enviados a GA4:
+    - `recipes` — recipe detail pages
+    - `patterns` — pattern detail pages
+    - `guides` — guide detail pages
+    - `docs` — doc detail pages
+    - `home` — homepages (EN + ES)
+    - `topic` — topics index
+    - `tag` — tag pages (index + [tag])
+    - `author` — author pages
+    - `search` — search pages
+    - `page` — static pages (about, privacy, terms, cookies, etc.)
+  - Configuración GA4 UI pendiente (manual):
+    1. GA4 Admin > Custom definitions > Create custom dimension
+    2. Dimension name: `Content Type`
+    3. Scope: `Event`
+    4. Event parameter: `content_type`
+  - Validación:
+    - `npm run check` → 0 errors, 0 warnings, 0 hints ✅
+    - `npm run build` → 3.258 páginas OK ✅
+    - `content_type:"recipes"` verificado en `dist/recipes/api-documentation-openapi/index.html` ✅
+    - `content_type:"home"` verificado en `dist/index.html` ✅
+    - `content_type:"guides"` verificado en `dist/guides/domain-driven-design-guide/index.html` ✅
+    - `content_type:"page"` verificado en `dist/about/index.html` ✅
+    - `content_type:"topic"` verificado en `dist/topics/index.html` ✅
+    - SRI hash regenerado correctamente ✅
   - Effort: M
   - Report: `traffic-audit.md`
 

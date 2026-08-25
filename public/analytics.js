@@ -40,5 +40,25 @@
   // gtag config — signals off by default; consent update will enable them
   // if the user grants analytics cookies, while cookieless hits keep flowing.
   gtag('js', new Date());
-  gtag('config', 'G-RBE12WJ5KZ', { allow_google_signals: false, send_page_view: true });
+
+  // Read content_type from dataLayer (pushed by BaseLayout before this script loads)
+  // and attach it as a custom parameter to the pageview so GA4 can use it as a
+  // custom dimension. The corresponding dimension must be created in GA4 Admin:
+  // Custom definitions > Create custom dimension > Dimension name: content_type,
+  // Scope: Event, Event parameter: content_type.
+  var contentType = 'page';
+  if (window.dataLayer) {
+    for (var i = window.dataLayer.length - 1; i >= 0; i--) {
+      var entry = window.dataLayer[i];
+      if (entry && typeof entry === 'object' && entry.content_type) {
+        contentType = entry.content_type;
+        break;
+      }
+    }
+  }
+  gtag('config', 'G-RBE12WJ5KZ', {
+    allow_google_signals: false,
+    send_page_view: true,
+    content_type: contentType
+  });
 })();
