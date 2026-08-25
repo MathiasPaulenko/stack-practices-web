@@ -388,10 +388,9 @@
     }
 
     function updateGtagConsent(consent) {
-      if (typeof gtag !== 'function') return;
       var adGranted = consent.ad_storage === 'granted';
       var analyticsGranted = consent.analytics_storage === 'granted';
-      gtag('consent', 'update', {
+      var updateObj = {
         'analytics_storage': analyticsGranted ? 'granted' : 'denied',
         'ad_storage': adGranted ? 'granted' : 'denied',
         'ad_user_data': adGranted ? 'granted' : 'denied',
@@ -401,13 +400,24 @@
         'security_storage': 'granted',
         'ads_data_redaction': adGranted ? false : true,
         'url_passthrough': adGranted ? true : false
-      });
+      };
+      // Push directly to dataLayer so the update is queued even if gtag
+      // has not loaded yet (analytics.js is async). GTM processes the
+      // dataLayer queue when it loads, applying the consent update.
+      window.dataLayer = window.dataLayer || [];
+      if (typeof gtag === 'function') {
+        gtag('consent', 'update', updateObj);
+      } else {
+        dataLayer.push(['consent', 'update', updateObj]);
+      }
       // Keep Google Signals aligned with the actual consent state without
       // sending an extra page_view; cookieless hits continue to flow.
-      gtag('config', 'G-RBE12WJ5KZ', {
-        'allow_google_signals': analyticsGranted,
-        'send_page_view': false
-      });
+      if (typeof gtag === 'function') {
+        gtag('config', 'G-RBE12WJ5KZ', {
+          'allow_google_signals': analyticsGranted,
+          'send_page_view': false
+        });
+      }
     }
 
     var stored = getConsent();

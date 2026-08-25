@@ -8,11 +8,11 @@
 
 ## Cómo usar `content-improvement` con este checklist
 
-Cada item de este checklist que implique modificar un recurso de contenido (`src/content/{recipes,patterns,guides,docs}/...`) **debe ejecutarse a través de la skill `content-improvement`**. No editar los archivos de contenido directamente sin pasar por el flujo de la skill.
+> **Nota (2026-08-25):** Los items de content quality (expansión de thin content, body links, placeholders, CTAs en body, clusters, AEO/GEO en recursos) han sido retirados de este checklist. Se trabajarán más adelante, recurso por recurso, usando la skill `content-improvement`. Este checklist ahora contiene solo items técnicos que no tocan el cuerpo de los recursos.
+
+Cada item de contenido que implique modificar un recurso (`src/content/{recipes,patterns,guides,docs}/...`) **debe ejecutarse a través de la skill `content-improvement`**. No editar los archivos de contenido directamente sin pasar por el flujo de la skill.
 
 > **Regla de oro para thin content**: expandir un recurso **NO significa rellenar palabras**. Significa ejecutar el flujo completo de `content-improvement`: diagnóstico → SEO/frontmatter → expansión con valor técnico real → detección y corrección de patrones de IA (humanización) → paridad EN/ES → validación. Si un recurso thin solo se "rellena" con texto genérico, seguirá siendo thin y además será penalizable por Helpful Content Update.
-
-> **Aplicable a**: P0.2, P0.5, P1.7, P1.8, P1.1 (cuando implique reescribir cuerpo), P2.5, P2.6 y cualquier item del top-20.
 
 ### Cuándo invocar la skill
 
@@ -27,8 +27,8 @@ Cada item de este checklist que implique modificar un recurso de contenido (`src
 | Fase | Qué hace | Cuándo aplicarla |
 |---|---|---|
 | **Fase 0** — Diagnóstico | Lee EN y ES, cuenta palabras, detecta thin content, verifica paridad. | Siempre antes de cambiar un recurso. |
-| **Fase 1** — Quick wins SEO/frontmatter | Corrige title (≤60 chars), description/metaDescription (120-170 chars), `relatedResources`, body links, estructura de secciones. | Para QW2, QW3, QW4, P0.4, P1.2, P1.3, P1.1. |
-| **Fase 2** — Calidad + IA | Expande thin content, ejecuta `ai-detect-patterns.py` + Desklib, reescribe frases con alto `ai_prob` (máx. 4 rondas). | Para P0.2, P0.5, P1.7, P1.8, y todo thin content. |
+| **Fase 1** — Quick wins SEO/frontmatter | Corrige title (≤60 chars), description/metaDescription (120-170 chars), `relatedResources`, body links, estructura de secciones. | Para items de frontmatter y links. |
+| **Fase 2** — Calidad + IA | Expande thin content, ejecuta `ai-detect-patterns.py` + Desklib, reescribe frases con alto `ai_prob` (máx. 4 rondas). | Para thin content. |
 | **Fase 3** — Paridad EN/ES | Verifica que ambos archivos tengan título, meta, keywords, relatedResources, ejemplos y secciones equivalentes. | Siempre al final, antes de marcar `[x]`. |
 | **Fase 4** — Validación final | `npm run content:quality`, `content:links`, `content:validate`, `check`, `build`, `sitemap`. | Siempre al final. |
 
@@ -38,16 +38,6 @@ Cada item de este checklist que implique modificar un recurso de contenido (`src
 - **Mínimos de palabras del cuerpo**: recipes 1.300, patterns 1.500, guides 3.000, docs 3.000.
 - **Parada del bucle IA**: detener cuando `pattern_totals` esté vacío y `model_ai_pct` < 40 %, o después de 4 rondas.
 - **Skills complementarias**: invocar `humanizer`, `seo`, `content-research-writer`, `clean-code` cuando apliquen.
-
-### Qué NO hacer al expandir thin content
-
-- [ ] **NO** añadir párrafos genéricos que repitan el título o secciones de relleno.
-- [ ] **NO** copiar contenido de otros recursos sin adaptar.
-- [ ] **NO** aumentar el conteo de palabras solo con listas sin explicación.
-- [ ] **NO** dejar ejemplos de código inventados o sin versiones reales de herramientas.
-- [ ] **NO** saltarse la detección de patrones de IA (`ai-detect-patterns.py`, Desklib).
-- [ ] **NO** olvidar la versión ES: toda modificación de contenido debe replicarse bilingüemente.
-- [ ] **NO** marcar `[x]` sin pasar `npm run content:quality`, `content:links`, `content:validate`, `check`, `build`, `sitemap`.
 
 ### Modos
 
@@ -89,15 +79,16 @@ content-improvement: humaniza <slug>
 
 ## Progreso global
 
+> **Nota (2026-08-25):** Los items de content quality han sido movidos a trabajo por-recurso. Esta tabla refleja solo items técnicos.
+
 | Área | Items P0 | Items P1 | Items P2 | Total |
 |---|---:|---:|---:|---:|
-| Contenido / Thin | 3 | 4 | 2 | 9 |
-| Links internos | 2 | 2 | 1 | 5 |
-| Títulos / Meta | 1 | 2 | 0 | 3 |
-| Técnico / Performance | 1 | 2 | 4 | 7 |
-| Analytics / GEO | 0 | 2 | 3 | 5 |
-| Roadmap / Docs | 0 | 0 | 3 | 3 |
-| **Total** | **7** | **14** | **16** | **37** |
+| Links internos | 1 | 0 | 0 | 1 |
+| Títulos / Meta | 0 | 2 | 0 | 2 |
+| Técnico / Performance | 2 | 2 | 2 | 6 |
+| Analytics / GEO | 0 | 2 | 1 | 3 |
+| Roadmap / Docs | 1 | 0 | 1 | 2 |
+| **Total** | **4** | **6** | **4** | **14** |
 
 ---
 
@@ -120,22 +111,6 @@ content-improvement: humaniza <slug>
     - `npm run sitemap` → 3.254 URLs OK
   - Effort: XS
   - Report: `technical-audit.md`
-
-- [ ] **P0.2** — Expandir thin content del top-20 priorizados
-  - Category: Content
-  - Evidence: Top recursos con score < 60 y words < 35% del target (ej. `vertical-slice-architecture-guide` 33.2%, `sql-cte-guide` 35%)
-  - Affected: 20 recursos (ver sección Top 20 más abajo)
-  - Action: Invocar `content-improvement: mejora <slug>` para cada recurso. Flujo completo: diagnóstico → SEO/frontmatter → expansión con valor técnico real → detección/corrección IA (Desklib, humanización) → paridad EN/ES → validación.
-  - Effort: XL
-  - Report: `site-wide-audit.md`, `traffic-audit.md`
-
-- [ ] **P0.3** — Reducir orphan resources (348 sin incoming links)
-  - Category: Links / Architecture
-  - Evidence: 34% de recursos sin incoming links; 70.5% con < 3
-  - Affected: 348+ recursos
-  - Action: Script por topic que añada 2-3 body links contextuales desde recursos del mismo cluster hacia los orphans.
-  - Effort: L
-  - Report: `site-wide-audit.md`
 
 - [x] **P0.4** — Optimizar snippet de `/recipes/api-documentation-openapi/` — ✅ RESUELTO 2026-08-24
   - Category: CTR / SEO
@@ -262,14 +237,6 @@ content-improvement: humaniza <slug>
 
 ### P1 — Alto impacto
 
-- [ ] **P1.1** — Aumentar body links (< 2 a ≥ 2) en recursos deficientes
-  - Category: Links
-  - Evidence: 54.4% de muestra (92/169) con < 2 body links; patterns 1.7 avg
-  - Affected: ~60-70% del sitio
-  - Action: Si el recurso también es thin, invocar `content-improvement: mejora <slug>` (Fase 1 añade body links contextuales + Fase 2 expansión si aplica + paridad EN/ES). Si solo falta links, añadir manualmente y validar.
-  - Effort: L
-  - Report: `site-wide-audit.md`, `traffic-audit.md`
-
 - [x] **P1.2** — Traducir 17 titles ES que son idénticos al EN — ✅ RESUELTO 2026-08-25
   - Category: Bilingual / SEO
   - Evidence: `Chaos Engineering`, `Clean Architecture`, `Factory Pattern`, etc.
@@ -338,36 +305,12 @@ content-improvement: humaniza <slug>
   - Effort: M
   - Report: `traffic-audit.md`
 
-- [ ] **P1.5** — Revisar y documentar placeholders en 617 docs
-  - Category: Content / GEO
-  - Evidence: 617 archivos con `example.com`, `your-domain.com`, etc.
-  - Affected: 617 archivos (templates/runbooks)
-  - Action: Decidir si mantener placeholders con nota clara de reemplazo o usar dominio real cuando aplique. Documentar en template guidelines.
-  - Effort: M
-  - Report: `site-wide-audit.md`
-
 - [x] **P1.6** — Conectar GSC con GA4 — ✅ RESUELTO 2026-08-25
   - Category: Analytics
   - Evidence: GSC/GA4 link: VERIFIED por usuario (Admin > Property settings > Search Console links)
   - Affected: Cuentas de Google
   - Action: Enlazar Search Console property con GA4 property para informes combinados.
   - Effort: S
-  - Report: `traffic-audit.md`
-
-- [ ] **P1.7** — Expandir guías de arquitectura más críticas (28 guides, todos THIN)
-  - Category: Content
-  - Evidence: DDD, Vertical Slice, Onion, Modular Monolith, Clean Architecture están por debajo de 3.000 words
-  - Affected: 28 guides de architecture
-  - Action: Invocar `content-improvement: mejora <slug>` para cada guide. Flujo completo: expansión con ejemplos reales, humanización, paridad EN/ES, validación.
-  - Effort: L
-  - Report: `site-wide-audit.md`, `traffic-audit.md`
-
-- [ ] **P1.8** — Expandir guías de databases y AI (trending topics)
-  - Category: Content
-  - Evidence: 24 guides databases, 11 guides AI; todos THIN; queries trending
-  - Affected: 24 + 11 guides
-  - Action: Invocar `content-improvement: mejora <slug>` por cada guide. Añadir ejemplos reales (Postgres, Ollama, vLLM), humanizar, verificar paridad EN/ES.
-  - Effort: L
   - Report: `traffic-audit.md`
 
 - [ ] **P1.9** — Implementar outbound / linkable asset outreach
@@ -378,11 +321,29 @@ content-improvement: humaniza <slug>
   - Effort: L
   - Report: `traffic-audit.md`
 
-- [ ] **P1.10** — Revisar consentimiento de cookies y GA4 Consent Mode
+- [x] **P1.10** — Revisar consentimiento de cookies y GA4 Consent Mode — ✅ RESUELTO 2026-08-25
   - Category: Analytics
   - Evidence: Consent default denied; cookie banner no verificado interactivamente
-  - Affected: `public/analytics.js`, `src/components/CookieBanner`
-  - Action: Verificar que el banner actualiza `analytics_storage` y `ad_storage`. Testear en modo preview de GTM.
+  - Affected: `public/analytics.js`, `public/ui.js`, `src/components/ui/CookieBanner.astro`
+  - Análisis del Consent Mode v2:
+    - ✅ Default denied: `analytics.js` setea `ad_storage`, `analytics_storage`, `ad_user_data`, `ad_personalization` a `denied`
+    - ✅ Consent Mode v2 fields: incluye `ad_user_data` y `ad_personalization` (requeridos por EU DMA)
+    - ✅ `ads_data_redaction`: `true` cuando ads denied
+    - ✅ `url_passthrough`: `false` por defecto, `true` solo si ads granted
+    - ✅ Cookieless pings: GA4 recibe pings anónimos sin cookies cuando denied (advanced mode)
+    - ✅ Update on accept/reject: `ui.js` llama `gtag('consent', 'update', ...)` con valores correctos
+    - ✅ Manage modal: toggle individual para analytics y advertising
+    - ✅ Persistencia: `localStorage` con key `sp-cookie-consent`
+  - Bug encontrado y fixeado (race condition):
+    - `analytics.js` carga con `async` (no garantiza orden)
+    - `ui.js` carga con `defer` (ejecuta después del parseo del DOM)
+    - Si `ui.js` ejecutaba `updateGtagConsent(stored)` antes de que `analytics.js` definiera `gtag`, el guard `if (typeof gtag !== 'function') return;` abortaba silenciosamente
+    - Resultado: usuario que ya aceptó cookies, al recargar, se quedaba con consent `denied` hasta la siguiente interacción
+    - Fix: en vez de abortar, se hace `dataLayer.push(['consent', 'update', updateObj])` que GTM procesa cuando carga
+    - `gtag('config', ...)` para Google Signals solo se ejecuta si `gtag` está disponible (no es crítica para consent)
+  - Validación:
+    - `npm run check` → 0 errors, 0 warnings, 0 hints ✅
+    - `npm run build` → 3.258 páginas OK ✅
   - Effort: S
   - Report: `traffic-audit.md`
 
@@ -426,14 +387,6 @@ content-improvement: humaniza <slug>
   - Effort: XS
   - Report: `site-wide-audit.md`
   - Report: `site-wide-audit.md`
-
-- [ ] **P1.13** — Mejorar topic hubs y CTAs de navegación
-  - Category: User Flow
-  - Evidence: 348 orphans; dead-ends; CTAs limitados
-  - Affected: Listing pages y recursos
-  - Action: Añadir CTA contextual final: "Explora más recursos de [topic]" / "Ver guía relacionada".
-  - Effort: M
-  - Report: `traffic-audit.md`
 
 ### P2 — Mejoras que escalan
 
@@ -494,29 +447,7 @@ content-improvement: humaniza <slug>
   - Effort: XS
   - Report: `traffic-audit.md`
 
-- [ ] **P2.4** — Optimizar OG:image por tipo de contenido
-  - Category: Social / SEO
-  - Evidence: OG tags completos pero `og:image` usa `/og-image.png` genérico para todas las páginas
-  - Affected: `src/components/Seo.astro`
-  - Action: Generar OG images dinámicas por tipo/topic o al menos 4 plantillas (recipe/pattern/guide/doc).
-  - Effort: M
-  - Report: `traffic-audit.md`
-
-- [ ] **P2.5** — Diversificar patterns más allá de `design`
-  - Category: Cluster / Content
-  - Evidence: 68% de patterns son design (138/203); authentication solo 2
-  - Affected: `src/content/patterns/`
-  - Action: Crear nuevos patterns con `stackp-content-creator`; para patterns existentes thin, invocar `content-improvement: mejora <slug>` con flujo completo.
-  - Effort: L
-  - Report: `site-wide-audit.md`
-
-- [ ] **P2.6** — Fortalecer clusters `infrastructure` y `performance`
-  - Category: Cluster / Content
-  - Evidence: 1 recurso infrastructure en recipes/guides; 1 performance en guides
-  - Affected: `src/content/{recipes,guides}/{infrastructure,performance}/`
-  - Action: Crear nuevos recursos con `stackp-content-creator`; si se expanden existentes, usar `content-improvement: mejora <slug>` (flujo completo + paridad EN/ES).
-  - Effort: L
-  - Report: `site-wide-audit.md`
+- [~] ~~**P2.4** — Optimizar OG:image por tipo de contenido~~ — ELIMINADO 2026-08-25: el sitio no tiene imágenes por tipo de contenido, solo el hero genérico. Se retoma cuando haya assets visuales.
 
 - [ ] **P2.7** — Activar tracking de GA4 AI Assistant channel
   - Category: GEO / Analytics
@@ -524,22 +455,6 @@ content-improvement: humaniza <slug>
   - Affected: GA4 property, dashboards
   - Action: Añadir canal a reports/explores; crear contenido AEO/GEO (PAA, speakable).
   - Effort: S
-  - Report: `traffic-audit.md`
-
-- [ ] **P2.8** — Revisar external links (65 únicos / 143 ocurrencias)
-  - Category: Maintenance
-  - Evidence: External link scan; algunos placeholders como `grafana.example.com`
-  - Affected: 65 unique links
-  - Action: Verificar que todos apunten a destinos reales y actualizados; documentar placeholders.
-  - Effort: M
-  - Report: `site-wide-audit.md`
-
-- [ ] **P2.9** — Implementar AEO/GEO optimizations (speakable, PAA)
-  - Category: GEO
-  - Evidence: FAQ 100% presente; oportunidad de añadir speakable markup y PAA
-  - Affected: Top 100 recursos
-  - Action: Añadir `speakable` JSON-LD a preguntas clave; optimizar FAQ para snippets.
-  - Effort: M
   - Report: `traffic-audit.md`
 
 - [ ] **P2.10** — Refrescar `ref/docs/roadmap.md` con fases actuales
@@ -552,47 +467,18 @@ content-improvement: humaniza <slug>
 
 ---
 
-## Top 20 recursos a arreglar (ordenados por impacto)
-
-> **Cada recurso de esta tabla que implique reescribir o expandir cuerpo debe invocarse con `content-improvement: mejora <slug>` en modo `full`**. No rellenar: aplicar diagnóstico, SEO, expansión con valor, humanización, paridad EN/ES y validación.
-
-| # | Recurso | Tipo | Problema principal | Acción concreta | Prioridad |
-|---|---|---|---|---|---|
-| 1 | `/recipes/api-documentation-openapi/` | recipes | CTR 0.17%, 1.166 imp | Reescribir title/meta, reducir em-dashes | P0 |
-| 2 | `/guides/domain-driven-design-guide/` | guides | Thin 43.5%, 1.305w/3.000w | Expandir a 3.000+ words, ejemplos, FAQ | P0 |
-| 3 | `/guides/vertical-slice-architecture-guide/` | guides | Thin 33.2%, 995w/3.000w | Expandir con ejemplos .NET, comparativas | P0 |
-| 4 | `/guides/sql-cte-guide/` | guides | Thin 35%, 1.051w/3.000w | Recursive CTE, performance, ejemplos | P0 |
-| 5 | `/guides/onion-architecture-guide/` | guides | Thin 39.4%, 1.181w/3.000w | Expandir con diagramas, código | P0 |
-| 6 | `/guides/complete-guide-rabbitmq-architecture/` | guides | Thin 49.3%, 1.478w/3.000w | Exchanges, DLX, clustering | P1 |
-| 7 | `/guides/complete-guide-local-llm-deployment/` | guides | Thin 47.9%, 1.436w/3.000w | Ollama, vLLM, quantization | P1 |
-| 8 | `/guides/complete-guide-graphql-federation/` | guides | Thin 47.9%, 1.436w/3.000w | Supergraph, router, entity resolution | P1 |
-| 9 | `/guides/complete-guide-bundle-size-optimization/` | guides | Thin 43.5%, 1.304w/3.000w | Tree-shaking, code-splitting | P1 |
-| 10 | `/guides/terraform-best-practices-guide/` | guides | Thin 47.6%, 1.427w/3.000w | Modules, state, CI/CD | P1 |
-| 11 | `/recipes/parse-csv-python-pandas/` | recipes | Thin 69.5%, 904w/1.300w | dtypes, chunking, memory | P1 |
-| 12 | `/recipes/parse-log-files/` | recipes | Thin 83.8%, 1.089w/1.300w | Regex, structured logs | P1 |
-| 13 | `/recipes/password-hashing/` | recipes | Thin 88.4%, 1.149w/1.300w | Argon2, bcrypt, timing attacks | P1 |
-| 14 | `/recipes/server-sent-events-node/` | recipes | Thin 73.8%, 959w/1.300w | Reconnection, backpressure | P1 |
-| 15 | `/recipes/convert-csv-to-json/` | recipes | Thin 73.2%, 952w/1.300w | Streaming, large files | P1 |
-| 16 | `/patterns/repository-pattern/` | patterns | Thin 56.1%, 842w/1.500w | Unit testing, EF Core, Dapper | P1 |
-| 17 | `/patterns/repository-pattern-typescript/` | patterns | Thin 61.7%, 925w/1.500w | Generics, TypeORM, Prisma | P1 |
-| 18 | `/recipes/caching/` | recipes | Thin 69%, 897w/1.300w | Redis, invalidation | P1 |
-| 19 | `/recipes/handle-errors/` | recipes | Thin 78.8%, 1.025w/1.300w | Error hierarchies, logging | P1 |
-| 20 | `/recipes/prometheus-api-monitoring/` | recipes | Thin 61.8%, 804w/1.300w | Grafana, alerting | P1 |
-
----
-
 ## Quick wins (XS/S effort, alto impacto)
 
-- [ ] QW1 — Arreglar 16 broken body links (XS)
-- [ ] QW2 — Traducir 17 titles ES (S)
-- [ ] QW3 — Diferenciar 6 titles cross-type (S)
-- [ ] QW4 — Optimizar title/meta de `/recipes/api-documentation-openapi/` (S)
-- [ ] QW5 — Limpiar hints TypeScript (XS)
-- [ ] QW6 — Renombrar H2 duplicados en templates (S)
-- [x] QW7 — Crear image sitemap (XS)
-- [x] QW8 — Conectar GSC-GA4 (S)
-- [x] QW9 — Añadir WebSite/Organization schema (S)
-- [ ] QW10 — Medir CWV con PageSpeed Insights (S)
+- [x] QW1 — Arreglar 16 broken body links (XS) — via P0.1
+- [x] QW2 — Traducir 17 titles ES (S) — via P1.2
+- [x] QW3 — Diferenciar 6 titles cross-type (S) — via P1.3
+- [x] QW4 — Optimizar title/meta de `/recipes/api-documentation-openapi/` (S) — via P0.4
+- [x] QW5 — Limpiar hints TypeScript (XS) — via P1.11
+- [x] QW6 — Renombrar H2 duplicados en templates (S) — via P1.12
+- [x] QW7 — Crear image sitemap (XS) — via P2.3
+- [x] QW8 — Conectar GSC-GA4 (S) — via P1.6
+- [x] QW9 — Añadir WebSite/Organization schema (S) — via P2.2
+- [x] QW10 — Medir CWV con PageSpeed Insights (S) — via P0.7
 
 ---
 
@@ -616,13 +502,11 @@ Antes de marcar cualquier item como resuelto:
 |---|---|---|---|
 | CTR GSC | ~0.31% | > 0.8% | Search Console |
 | Posición media | ~32.7 | < 25 | Search Console |
-| Thin content files | 1.784 | < 500 | `audit-thin-content.py` |
-| Orphan resources | 348 | < 100 | Incoming link scan |
-| Broken body links | 16 | 0 | `find-broken-body-links.py` |
+| Broken body links | 0 | 0 | `find-broken-body-links.py` |
 | Pages >100 KB | 43 | < 20 | Dist size scan |
-| LCP | NOT VERIFIED | < 2.5s | PageSpeed Insights |
+| LCP | 4.2s mobile | < 2.5s | PageSpeed Insights |
 | INP | NOT VERIFIED | < 200ms | PageSpeed Insights |
-| CLS | NOT VERIFIED | < 0.1 | PageSpeed Insights |
+| CLS | 0 | < 0.1 | PageSpeed Insights |
 | GA4 AI Assistant sessions | NOT VERIFIED | > 0 | GA4 |
 | Backlinks | NOT VERIFIED | > 10 | Ahrefs / GSC |
 
