@@ -105,6 +105,14 @@ Si el modo no es claro, preguntar antes de empezar.
 - Anotar el estado base: palabras, longitud de `metaDescription`, `lastUpdated`, `relatedResources`, estructura de secciones.
 - Medir si el recurso es **thin content**: comparar el conteo de palabras del body con el mínimo del tipo
   (`recipes` 1.300, `patterns` 1.500, `guides` 3.000, `docs` 3.000). Anotar el gap.
+- **Verificar si el recurso tiene imágenes o diagramas**: buscar bloques `mermaid`, etiquetas
+  `![alt](...)`, o referencias a `public/assets/`. Anotar si el recurso se beneficiaría de un
+  diagrama (ej: flujos de arquitectura, comparaciones visuales, decision trees). No añadir
+  diagramas automáticamente — solo marcar como recomendación en el resumen final.
+- **Verificar si el recurso tiene código subido a `stack-practices-resources`**: comprobar si
+  existe `../stack-practices-resources/resources/{tipo}/{topic}/{slug}/meta.json`. Si no existe,
+  marcar como recomendación en el resumen final (OUT OF SCOPE para el skill, requiere trabajo
+  manual en el repo hermano).
 - Opcional: ejecutar `ai-detect-patterns.py` en EN y ES para tener una línea base de patrones.
 
 **Salida esperada:** un resumen de una o dos líneas con el slug, tipo, palabras y estado base.
@@ -229,6 +237,11 @@ Si el modo no es claro, preguntar antes de empezar.
   - Puntuación IA antes/después.
   - Estado de paridad.
   - Resultado de validación.
+  - **Estado de imágenes/diagramas**: ¿el recurso tiene bloques `mermaid`, imágenes o
+    diagramas? ¿se beneficiaría de uno? Marcar como recomendación si aplica.
+  - **Estado de `stack-practices-resources`**: ¿existe
+    `../stack-practices-resources/resources/{tipo}/{topic}/{slug}/meta.json`? Si no existe,
+    marcar como "OUT OF SCOPE — requiere trabajo manual en repo hermano".
 - **Aplicar el Checklist PERFECTO** (`reference/perfect-close-checklist.md`) antes de pedir
   aprobación. Si algún ítem falla, corregirlo antes de continuar.
   - Verificar específicamente el mínimo de palabras del body y que no se haya rellenado con
