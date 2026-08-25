@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: metrics-collection
-title: "Metrics Collection"
+title: "Recoleccion de metricas"
 description: "Recolecta, agrega y expone métricas de aplicación e infraestructura con Prometheus, StatsD y OpenTelemetry para monitoreo y alertado."
 metaDescription: "Recolección de métricas para aplicaciones e infraestructura: Prometheus, StatsD, OpenTelemetry, métricas custom, histograms, counters y dashboards de Grafana."
 difficulty: intermediate

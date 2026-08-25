@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: api-documentation-openapi
-title: Cómo documentar una API con OpenAPI, Swagger UI y Redoc
-description: Guía paso a paso para documentar APIs REST con OpenAPI. Genera documentación interactiva con Swagger UI y Redoc en Python, JavaScript y Java.
-metaDescription: Guía paso a paso para documentar APIs REST con OpenAPI. Aprende a generar documentación interactiva con Swagger UI y Redoc en Python, JavaScript y Java.
+title: "Documentación OpenAPI con Swagger UI y Redoc: guía práctica"
+description: Guía práctica para documentar APIs REST con OpenAPI. Genera docs interactivas con Swagger UI y Redoc en Python, JavaScript y Java con linting en CI.
+metaDescription: Guía práctica de documentación REST con OpenAPI. Genera docs interactivas con Swagger UI y Redoc en Python, JavaScript y Java, más linting en CI y generación de SDKs.
 difficulty: beginner
 topics:
   - api
@@ -20,11 +20,11 @@ relatedResources:
   - /recipes/handle-cors
   - /recipes/input-validation
   - /recipes/idempotent-api-endpoints
-lastUpdated: "2026-08-12"
+lastUpdated: "2026-08-24"
 publishedAt: "2026-02-18"
 author: Mathias Paulenko
 seo:
-  metaDescription: Guía paso a paso para documentar APIs REST con OpenAPI. Aprende a generar documentación interactiva con Swagger UI y Redoc en Python, JavaScript y Java.
+  metaDescription: Guía práctica de documentación REST con OpenAPI. Genera docs interactivas con Swagger UI y Redoc en Python, JavaScript y Java, más linting en CI y generación de SDKs.
   keywords:
     - openapi docs
     - documentacion swagger
@@ -1354,11 +1354,11 @@ Documenta la política de rotación con `x-api-key-rotation: 90 days`. También 
 
 ## Ver También
 
-- [API Versioning](/recipes/api-versioning/) — estrategias para versionar APIs REST.
-- [Call REST API](/recipes/call-rest-api/) — consumir APIs REST desde código cliente.
-- [GraphQL API](/recipes/graphql-api/) — enfoque alternativo de API.
-- [Handle CORS](/recipes/handle-cors/) — configuración de cross-origin resource sharing.
-- [Handle Errors](/recipes/handle-errors/) — patrones estructurados de manejo de errores.
+- [API Versioning](/recipes/api-versioning): estrategias para versionar APIs REST.
+- [Call REST API](/recipes/call-rest-api): consumir APIs REST desde código cliente.
+- [GraphQL API](/recipes/graphql-api): enfoque alternativo de API.
+- [Handle CORS](/recipes/handle-cors): configuración de cross-origin resource sharing.
+- [Handle Errors](/recipes/handle-errors): patrones estructurados de manejo de errores.
 
 ## Errores Comunes en Producción
 

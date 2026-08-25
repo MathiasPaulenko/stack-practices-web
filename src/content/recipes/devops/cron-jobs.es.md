@@ -6,7 +6,7 @@
 
 contentType: recipes
 slug: cron-jobs
-title: "Cron Jobs"
+title: "Tareas programadas con Cron"
 description: "Cómo programar y gestionar tareas recurrentes usando sintaxis cron en Linux, Python y Node.js."
 metaDescription: "Ejemplos prácticos de cron jobs en Linux, Python (librería schedule) y Node.js (node-cron). Aprende sintaxis cron, patrones de scheduling y lo que funciona."
 difficulty: beginner

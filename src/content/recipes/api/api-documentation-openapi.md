@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: api-documentation-openapi
-title: "How to Document an API with OpenAPI, Swagger UI and Redoc"
-description: A step-by-step guide to documenting REST APIs with OpenAPI. Generate interactive docs with Swagger UI and Redoc using Python, JavaScript and Java.
-metaDescription: Step-by-step guide to documenting REST APIs with OpenAPI. Learn how to generate interactive docs with Swagger UI and Redoc in Python, JavaScript and Java.
+title: "OpenAPI Docs with Swagger UI and Redoc: A Practical Guide"
+description: A practical guide to documenting REST APIs with OpenAPI. Generate interactive Swagger UI and Redoc docs in Python, JavaScript and Java with CI linting.
+metaDescription: Practical guide to REST API docs with OpenAPI. Generate interactive Swagger UI and Redoc docs in Python, JavaScript and Java, plus CI linting and SDK generation.
 difficulty: beginner
 topics:
   - api
@@ -20,11 +20,11 @@ relatedResources:
   - /recipes/handle-cors
   - /recipes/input-validation
   - /recipes/idempotent-api-endpoints
-lastUpdated: "2026-08-12"
+lastUpdated: "2026-08-24"
 publishedAt: "2026-02-18"
 author: Mathias Paulenko
 seo:
-  metaDescription: Step-by-step guide to documenting REST APIs with OpenAPI. Learn how to generate interactive docs with Swagger UI and Redoc in Python, JavaScript and Java.
+  metaDescription: Practical guide to REST API docs with OpenAPI. Generate interactive Swagger UI and Redoc docs in Python, JavaScript and Java, plus CI linting and SDK generation.
   keywords:
     - openapi docs
     - swagger documentation
@@ -33,7 +33,7 @@ seo:
 ---
 ## Overview
 
-Most API docs rot in READMEs, Confluence pages or Slack threads. The moment you ship a change, those pages are already out of date. OpenAPI — the spec that grew out of Swagger — lets you describe your endpoints, schemas and errors in a single YAML or JSON file. That same file can drive interactive docs, client SDKs and test scaffolding.
+Most API docs rot in READMEs, Confluence pages or Slack threads. The moment you ship a change, those pages are already out of date. OpenAPI, the spec that grew out of Swagger, lets you describe your endpoints, schemas and errors in a single YAML or JSON file. That same file can drive interactive docs, client SDKs and test scaffolding.
 
 This guide shows examples in Python with FastAPI, JavaScript with Express and Java with SpringDoc, and it walks through the trade-offs of each. It also compares Swagger UI and Redoc, and explains how to keep the spec from rotting once it's in production. Related recipes: [Implement API Logging and Audit Trails](/recipes/api-logging-audit), [Implement API Rate Limiting with Redis](/recipes/api-rate-limiting-redis), [Cursor-Based Pagination with PostgreSQL](/recipes/cursor-pagination-postgresql), and [Build Real-Time Notifications with WebSockets](/recipes/real-time-notifications). See also [Server-Sent Events with Node.js and Express](/recipes/server-sent-events-node).
 
@@ -41,7 +41,7 @@ This guide shows examples in Python with FastAPI, JavaScript with Express and Ja
 
 Use this recipe when the docs need to stay in sync with the code, when you want client SDKs in several languages, when the team is building contract-first, or when you want to validate incoming requests against a formal schema.
 
-Skip it if the API is only for internal use and you're the only consumer — a short README probably covers it. Once a second team depends on it, a written contract starts paying off.
+Skip it if the API is only for internal use and you're the only consumer; a short README probably covers it. Once a second team depends on it, a written contract starts paying off.
 
 ## Solution
 
@@ -408,7 +408,7 @@ For file uploads in OpenAPI 3.0, use the format binary on a string property insi
 
 In OpenAPI 3.1, `format: binary` becomes `contentEncoding: binary`. For downloads, the response should use the application/octet-stream content type, which means you should also declare a binary string schema for the response body. Images work the same way: declare the content type, such as image/png, and a binary schema.
 
-To cap upload size, add `maxLength` to the binary field and note the limit in the description — for example, 10485760 bytes for 10MB.
+To cap upload size, add `maxLength` to the binary field and note the limit in the description, for example 10485760 bytes for 10MB.
 
 ### How do I document webhooks in OpenAPI?
 
@@ -719,7 +719,7 @@ class Category:
     name: str
     subcategories: List[Category]
 ```
-For deeply nested structures, limit recursion depth with `x-max-depth: 5`. In JSON serialization, handle circular refs with `default=str` or custom encoders. In Swagger UI, circular refs may cause infinite expansion — use `x-stoplight:readonly` to prevent editing. For validation, use `jsonschema` with a `RefResolver` that handles circular refs, like this: `resolver = jsonschema.RefResolver.from_schema(schema); jsonschema.validate(instance, schema, resolver=resolver)`.
+For deeply nested structures, limit recursion depth with `x-max-depth: 5`. In JSON serialization, handle circular refs with `default=str` or custom encoders. In Swagger UI, circular refs may cause infinite expansion, so use `x-stoplight:readonly` to prevent editing. For validation, use `jsonschema` with a `RefResolver` that handles circular refs, like this: `resolver = jsonschema.RefResolver.from_schema(schema); jsonschema.validate(instance, schema, resolver=resolver)`.
 
 ### How do I document API observability and tracing in OpenAPI?
 
@@ -1330,11 +1330,11 @@ Document the key rotation policy with `x-api-key-rotation: 90 days`. Also docume
 
 ## See Also
 
-- [API Versioning](/recipes/api-versioning/) — strategies for versioning REST APIs
-- [Call REST API](/recipes/call-rest-api/) — consuming REST APIs from client code
-- [GraphQL API](/recipes/graphql-api/) — alternative API approach
-- [Handle CORS](/recipes/handle-cors/) — cross-origin resource sharing configuration
-- [Handle Errors](/recipes/handle-errors/) — structured error handling patterns
+- [API Versioning](/recipes/api-versioning): strategies for versioning REST APIs
+- [Call REST API](/recipes/call-rest-api): consuming REST APIs from client code
+- [GraphQL API](/recipes/graphql-api): alternative API approach
+- [Handle CORS](/recipes/handle-cors): cross-origin resource sharing configuration
+- [Handle Errors](/recipes/handle-errors): structured error handling patterns
 
 ## Common Production Pitfalls
 

@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: logging
-title: "Logging"
+title: "Registro de eventos (Logging)"
 description: "Cómo implementar logging estructurado basado en niveles en Python, JavaScript y Java con lo que funciona para observabilidad en producción."
 metaDescription: "Ejemplos prácticos de logging en Python, JavaScript y Java. Aprende structured logging, niveles de log, rotación y patrones de observabilidad en producción."
 difficulty: beginner

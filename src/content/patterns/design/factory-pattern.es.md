@@ -1,7 +1,7 @@
 ---
 contentType: patterns
 slug: factory-pattern
-title: "Factory Pattern"
+title: "Patron Factory"
 description: "Crea objetos sin especificar la clase exacta a instanciar. Un patrón de diseño creacional para la creación flexible de objetos."
 metaDescription: "Aprende el Factory Pattern con ejemplos prácticos en Python, Java y JavaScript. Patrón creacional para la creación flexible de objetos."
 difficulty: beginner

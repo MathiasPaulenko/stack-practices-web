@@ -310,7 +310,7 @@ subgraphs:
 Las entidades son el núcleo de federation. Permiten que un subgraph referencie
 un type poseído por otro subgraph sin duplicar su definición.
 
-### `@key` — definir una entidad
+### `@key`: definir una entidad
 
 ```graphql
 type User @key(fields: "id") {
@@ -319,7 +319,7 @@ type User @key(fields: "id") {
 }
 ```
 
-### `@extends` — extender una entidad de otro subgraph
+### `@extends`: extender una entidad de otro subgraph
 
 ```graphql
 extend type User @key(fields: "id") {
@@ -328,7 +328,7 @@ extend type User @key(fields: "id") {
 }
 ```
 
-### `@requires` — computar fields basados en campos externos
+### `@requires`: computar fields basados en campos externos
 
 ```graphql
 extend type Product @key(fields: "id") {
@@ -338,7 +338,7 @@ extend type Product @key(fields: "id") {
 }
 ```
 
-### `@provides` — indicar que un subgraph puede proveer campos de otro type
+### `@provides`: indicar que un subgraph puede proveer campos de otro type
 
 ```graphql
 extend type Order @key(fields: "id") {
@@ -347,7 +347,7 @@ extend type Order @key(fields: "id") {
 }
 ```
 
-### `@shareable` — permitir que un campo sea resuelto por múltiples subgraphs
+### `@shareable`: permitir que un campo sea resuelto por múltiples subgraphs
 
 ```graphql
 type Product @key(fields: "id") {
@@ -432,7 +432,7 @@ a subgraphs.
 ### ¿Cuál es la diferencia entre schema stitching y federation?
 
 Schema stitching combina schemas manualmente con resolvers custom. Federation
-usa un protocolo estandarizado — `@key`, `@extends` y `__resolveReference` — así
+usa un protocolo estandarizado (`@key`, `@extends` y `__resolveReference`) así
 que los subgraphs declaran sus relaciones de forma declarativa. Para proyectos
 nuevos, federation es la mejor opción porque es más mantenible y tiene mejor
 tooling.

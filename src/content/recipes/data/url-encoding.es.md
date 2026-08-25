@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: url-encoding
-title: "URL Encoding"
+title: "Codificacion de URLs"
 description: "Codifica y decodifica URLs, parámetros de query y segmentos de path de forma segura en Python, JavaScript y Java."
 metaDescription: "Ejemplos prácticos de URL encoding en Python, JavaScript y Java. Aprende percent-encoding, query strings y parsing de URIs."
 difficulty: beginner

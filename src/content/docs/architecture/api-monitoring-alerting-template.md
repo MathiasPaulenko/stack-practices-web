@@ -43,7 +43,7 @@ seo:
 ---
 ## Overview
 
-APIs fail silently. A service returning 200 OK can still be broken for consumers if latency spikes or error rates creep upward. This template defines SLIs (Service Level Indicators), SLOs (Objectives), and alert thresholds so teams detect degradation before consumers notice. Related resources: [Design a Scalable API Gateway for Microservices](/recipes/api-gateway), [Build Resilient Systems with the Circuit Breaker Pattern](/recipes/circuit-breaker-pattern-recipe), and [Dependency Injection](/recipes/dependency-injection).
+APIs fail silently. A service returning 200 OK can still be broken for consumers if latency spikes or error rates creep upward. This template defines SLIs (Service Level Indicators), SLOs (Objectives), and alert thresholds so teams detect degradation before consumers notice. Related resources: [Design a Scalable API Gateway for Microservices](/recipes/api-gateway), [Build Resilient Systems with the Circuit Breaker Pattern](/patterns/circuit-breaker-pattern), and [Dependency Injection](/recipes/dependency-injection).
 
 ## When to Use
 

@@ -2,7 +2,7 @@
 
 contentType: recipes
 slug: blue-green-deployment
-title: "Blue-Green Deployment"
+title: "Blue-Green Deployment Recipe"
 description: "Deploy with zero downtime using blue-green environments, instant traffic switching, and automated rollback capabilities."
 metaDescription: "Blue-green deployment strategy: zero-downtime releases, instant traffic switching, automated rollback, and environment management for production safety."
 difficulty: intermediate

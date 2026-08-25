@@ -176,12 +176,12 @@ Usa streaming porque los logs en producción pueden llegar a gigabytes rápido. 
 
 ## Tooling y Ecosistema
 
-- `jq` — procesador de JSON command-line para filtrar logs rápidamente.
-- `pygtail` / Node `tail` — hacer tail de archivos rotados en tiempo real.
-- `Vector`, `Fluentd`, `Filebeat` — recolectar y enviar logs.
-- `rsyslog`, `syslog-ng` — receptores y forwarders syslog.
-- `Elasticsearch`, `Grafana Loki`, `Splunk`, `Datadog` — almacenamiento y búsqueda de logs.
-- `pino` (Node), `structlog` (Python), `Logback JSON` (Java) — loggers estructurados.
+- `jq`: procesador de JSON command-line para filtrar logs rápidamente.
+- `pygtail` / Node `tail`: hacer tail de archivos rotados en tiempo real.
+- `Vector`, `Fluentd`, `Filebeat`: recolectar y enviar logs.
+- `rsyslog`, `syslog-ng`: receptores y forwarders syslog.
+- `Elasticsearch`, `Grafana Loki`, `Splunk`, `Datadog`: almacenamiento y búsqueda de logs.
+- `pino` (Node), `structlog` (Python), `Logback JSON` (Java): loggers estructurados.
 
 ## Monitoreo y Alertas
 

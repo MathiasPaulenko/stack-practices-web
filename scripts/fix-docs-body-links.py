@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Add body links to docs with 0-1 links in the body.
 
-For each doc template listed in ALL_PROBLEMS_CHECKLIST.md section 4.3,
+For each doc template with 0-1 body links,
 adds 2-3 contextual body links to related resources in the same topic cluster.
 """
 
@@ -13,7 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 CONTENT_DIR = ROOT / "src" / "content"
 
-# Docs with 0-1 body links from ALL_PROBLEMS_CHECKLIST.md section 4.3
+# Docs with 0-1 body links
 DOCS_TO_FIX = [
     "src/content/docs/api/api-changelog-template.md",
     "src/content/docs/api/api-deprecation-notice-template.md",

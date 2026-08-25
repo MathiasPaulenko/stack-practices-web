@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: dead-letter-queue
-title: "Dead Letter Queues"
+title: "Colas de mensajes muertos (Dead Letter Queues)"
 description: "Maneja mensajes fallidos gracefulmente con dead letter queues, políticas de retry y detección de poison pills en arquitecturas message-driven."
 metaDescription: "Dead letter queues: detección de poison pills, límites de retry, replay de mensajes y estrategias de recuperación para sistemas async."
 difficulty: intermediate

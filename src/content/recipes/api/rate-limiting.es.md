@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: rate-limiting
-title: "Rate Limiting"
+title: "Limitacion de tasa (Rate Limiting)"
 description: "Cómo implementar rate limiting en APIs usando token bucket, sliding window y fixed window en Python, JavaScript y Java."
 metaDescription: "Ejemplos prácticos de rate limiting en Python, JavaScript y Java. Aprende token bucket, sliding window y fixed window para throttling de APIs."
 difficulty: intermediate

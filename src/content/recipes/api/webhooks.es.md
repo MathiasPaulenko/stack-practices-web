@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: webhooks
-title: "Webhooks"
+title: "Webhooks: Notificaciones HTTP"
 description: "Cómo crear y consumir endpoints de webhook para integraciones event-driven en tiempo real."
 metaDescription: "Aprende a implementar webhooks en Python, JavaScript y Java. Incluye verificación de firma, reintentos, idempotencia y diseño de esquemas de eventos."
 difficulty: intermediate

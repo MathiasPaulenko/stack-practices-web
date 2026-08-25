@@ -3,7 +3,7 @@
 
 contentType: recipes
 slug: security-headers
-title: "Security Headers"
+title: "Cabeceras de seguridad HTTP"
 description: "Fortalece aplicaciones web con HTTP security headers: CSP, HSTS, X-Frame-Options y una lista de verificación completa de headers de seguridad."
 metaDescription: "HTTP security headers para aplicaciones web: CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy e implementación de headers de seguridad."
 difficulty: beginner

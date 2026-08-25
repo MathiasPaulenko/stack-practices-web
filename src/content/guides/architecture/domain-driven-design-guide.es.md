@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: domain-driven-design-guide
-title: "Domain-Driven Design (DDD) — Guía Práctica"
+title: "Domain-Driven Design (DDD): Guía Práctica"
 description: "Aprende los fundamentos de DDD: bounded contexts, entidades, value objects, aggregates, y cómo modelar dominios de negocio complejos en código."
 metaDescription: "Guía de Domain-Driven Design: aprendé bounded contexts, entidades, value objects, aggregates y repositorios para dominios complejos."
 difficulty: advanced
@@ -60,15 +60,15 @@ de complejidad.
 
 ### Lenguaje ubicuo
 
-El equipo — desarrolladores, expertos de dominio, product managers — acuerda un
+El equipo (desarrolladores, expertos de dominio, product managers) acuerda un
 vocabulario compartido que se usa en conversaciones, documentación y código.
 
 **Ejemplos:**
 
-- ❌ `createUser()` — genérico
-- ✅ `onboardCustomer()` — específico del dominio
-- ❌ `orderStatus = 1` — sin significado
-- ✅ `orderStatus = PaymentPending` — autodocumentado
+- ❌ `createUser()`: genérico
+- ✅ `onboardCustomer()`: específico del dominio
+- ❌ `orderStatus = 1`: sin significado
+- ✅ `orderStatus = PaymentPending`: autodocumentado
 
 ### Bounded context
 
@@ -136,7 +136,7 @@ class Address:
 
 **Rasgos clave:**
 
-- Inmutables — cambiar atributos crea un nuevo value object.
+- Inmutables; cambiar atributos crea un nuevo value object.
 - Intercambiables si los atributos coinciden (`$5 == $5`).
 - Sin lifecycle; pueden crearse y descartarse libremente.
 
@@ -216,11 +216,11 @@ la [guía de arquitectura event-driven](/guides/event-driven-architecture-guide/
 ## Mejores Prácticas
 
 - Empezar por el lenguaje ubicuo, no por el esquema de base de datos.
-- Mantener los aggregates pequeños — los aggregates grandes lastran concurrencia.
+- Mantener los aggregates pequeños; los aggregates grandes lastran concurrencia.
 - Preferir value objects sobre entidades donde sea posible.
 - Actualizar un solo aggregate por transacción.
 - Usar domain events para comunicación cross-aggregate.
-- No sobre-ingenieriar — no todo proyecto necesita DDD completo.
+- No sobre-ingenieriar; no todo proyecto necesita DDD completo.
 
 ## Errores Comunes
 

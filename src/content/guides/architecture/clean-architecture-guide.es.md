@@ -5,7 +5,7 @@
 
 contentType: guides
 slug: clean-architecture-guide
-title: "Clean Architecture"
+title: "Arquitectura limpia (Clean Architecture)"
 description: "Guía práctica de Clean Architecture de Uncle Bob: organiza el código en capas para que frameworks, UI y bases de datos sean detalles, no dependencias."
 metaDescription: "Aprende Clean Architecture con la Regla de Dependencia, límites entre capas y ejemplos prácticos. Construye aplicaciones mantenibles y testeables."
 difficulty: advanced

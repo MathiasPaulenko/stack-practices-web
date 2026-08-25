@@ -2,7 +2,7 @@
 
 contentType: recipes
 slug: blue-green-deployment
-title: "Despliegue Blue-Green"
+title: "Receta: Despliegue Blue-Green"
 description: "Despliega con zero downtime usando ambientes blue-green, conmutación instantánea de tráfico y capacidades de rollback automatizado."
 metaDescription: "Despliegue blue-green: releases sin downtime, conmutación instantánea de tráfico, rollback automatizado y gestión de ambientes para seguridad en producción."
 difficulty: intermediate

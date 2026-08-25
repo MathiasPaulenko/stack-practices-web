@@ -49,7 +49,7 @@ seo:
 
 ## Visión General
 
-Los microservicios dependen de contratos explícitos para comunicarse de forma confiable. Sin un acuerdo escrito, los equipos realizan cambios incompatibles que rompen consumidores en tiempo de ejecución. Esta plantilla documenta límites de API, SLAs, reglas de versionado y procedimientos de cambios incompatibles entre servicios. Documentos relacionados: [Diseñar un API Gateway Escalable para Microservicios](/recipes/api-gateway), [Construir Sistemas Resilientes con el Circuit Breaker](/recipes/circuit-breaker-pattern-recipe) y [Inyección de Dependencias](/recipes/dependency-injection).
+Los microservicios dependen de contratos explícitos para comunicarse de forma confiable. Sin un acuerdo escrito, los equipos realizan cambios incompatibles que rompen consumidores en tiempo de ejecución. Esta plantilla documenta límites de API, SLAs, reglas de versionado y procedimientos de cambios incompatibles entre servicios. Documentos relacionados: [Diseñar un API Gateway Escalable para Microservicios](/recipes/api-gateway), [Construir Sistemas Resilientes con el Circuit Breaker](/patterns/circuit-breaker-pattern) y [Inyección de Dependencias](/recipes/dependency-injection).
 
 ## Cuándo Usar
 

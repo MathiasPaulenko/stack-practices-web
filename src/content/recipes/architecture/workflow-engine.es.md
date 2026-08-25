@@ -2,7 +2,7 @@
 
 contentType: recipes
 slug: workflow-engine
-title: "Workflow Engines"
+title: "Motores de workflows"
 description: "Orquesta procesos de negocio complejos con workflow engines, state machines y coordinación de tareas de larga duración a través de servicios distribuidos."
 metaDescription: "Workflow engines y state machines: Temporal, Camunda, patrones de state machine, saga orchestration y coordinación de tareas de larga duración."
 difficulty: advanced

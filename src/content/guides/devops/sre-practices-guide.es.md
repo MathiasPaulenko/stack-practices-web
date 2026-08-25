@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: sre-practices-guide
-title: "Site Reliability Engineering"
+title: "Ingenieria de confiabilidad del sitio (SRE)"
 description: "Guia practica de SRE: definir SLIs, SLOs y SLAs, gestionar presupuestos de error, reducir toil, rotaciones de guardia y construir una cultura de confiabilidad."
 metaDescription: "Aprende practicas SRE: define SLIs, SLOs, SLAs, gestiona presupuestos de error, reduce toil y construye rotaciones on-call para confiabilidad en produccion."
 difficulty: intermediate

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: sql-cte-guide
-title: "SQL CTEs — Common Table Expressions Explained"
+title: "SQL CTEs: Common Table Expressions Explained"
 description: "A practical guide to SQL CTEs: non-recursive and recursive expressions, readability, performance, and when to use them over subqueries."
 metaDescription: "Learn SQL CTEs: non-recursive and recursive expressions, readability, performance tips. Complete guide with examples for PostgreSQL, SQL Server, and MySQL."
 difficulty: intermediate
@@ -210,12 +210,12 @@ expose the keyword.
 
 ## Common Mistakes
 
-- **Infinite recursion** — forgetting the termination guard or having a cycle in the hierarchy data.
-- **Treating CTEs as temp tables** — they live only for the query. For persistence, use `CREATE TEMP
+- **Infinite recursion**: forgetting the termination guard or having a cycle in the hierarchy data.
+- **Treating CTEs as temp tables**: they live only for the query. For persistence, use `CREATE TEMP
     TABLE` or a real table.
-- **Performance assumptions** — some engines inline CTEs, others materialize. Always measure.
-- **Over-nesting CTEs** — ten chained CTEs can be harder to read than the original subqueries.
-- **Mutual recursion** — two CTEs referencing each other isn't supported in most engines.
+- **Performance assumptions**: some engines inline CTEs, others materialize. Always measure.
+- **Over-nesting CTEs**: ten chained CTEs can be harder to read than the original subqueries.
+- **Mutual recursion**: two CTEs referencing each other isn't supported in most engines.
 
 ## FAQ
 

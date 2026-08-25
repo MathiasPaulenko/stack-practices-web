@@ -308,7 +308,7 @@ subgraphs:
 Entities are the core of federation. They let one subgraph reference a type
 owned by another subgraph without duplicating its definition.
 
-### `@key` — define an entity
+### `@key`: define an entity
 
 ```graphql
 type User @key(fields: "id") {
@@ -317,7 +317,7 @@ type User @key(fields: "id") {
 }
 ```
 
-### `@extends` — extend an entity from another subgraph
+### `@extends`: extend an entity from another subgraph
 
 ```graphql
 extend type User @key(fields: "id") {
@@ -326,7 +326,7 @@ extend type User @key(fields: "id") {
 }
 ```
 
-### `@requires` — compute fields based on external fields
+### `@requires`: compute fields based on external fields
 
 ```graphql
 extend type Product @key(fields: "id") {
@@ -336,7 +336,7 @@ extend type Product @key(fields: "id") {
 }
 ```
 
-### `@provides` — indicate a subgraph can provide fields of another type
+### `@provides`: indicate a subgraph can provide fields of another type
 
 ```graphql
 extend type Order @key(fields: "id") {
@@ -345,7 +345,7 @@ extend type Order @key(fields: "id") {
 }
 ```
 
-### `@shareable` — allow a field to be resolved by several subgraphs
+### `@shareable`: allow a field to be resolved by several subgraphs
 
 ```graphql
 type Product @key(fields: "id") {
@@ -426,7 +426,7 @@ trigger hundreds of subgraph calls.
 ### What is the difference between schema stitching and federation?
 
 Schema stitching manually combines schemas with custom resolvers. Federation
-uses a standardized protocol — `@key`, `@extends`, and `__resolveReference` — so
+uses a standardized protocol (`@key`, `@extends`, and `__resolveReference`) so
 subgraphs declare their relationships declaratively. For new projects, federation
 is the better choice because it's more maintainable and has better tooling.
 

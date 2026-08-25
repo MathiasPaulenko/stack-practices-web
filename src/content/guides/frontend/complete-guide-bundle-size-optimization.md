@@ -327,7 +327,7 @@ module.exports = {
 Use module federation to share dependencies across micro-frontends at runtime.
 
 ```javascript
-// webpack.config.js — host
+// webpack.config.js: host
 const { ModuleFederationPlugin } = require("webpack").container;
 
 module.exports = {
@@ -403,12 +403,12 @@ module.exports = {
 
 ## Common Mistakes
 
-- **Guessing the bottleneck** — always analyze before changing dependencies.
-- **Importing full libraries** — `import _ from "lodash"` brings the entire package.
-- **Splitting too granularly** — hundreds of tiny chunks hurt caching and add HTTP overhead.
-- **Ignoring compression** — serving uncompressed JS wastes bandwidth.
-- **Forgetting polyfill scope** — global polyfills bloat modern browsers.
-- **Over-engineering module federation** — it adds complexity that small teams rarely need.
+- **Guessing the bottleneck**: always analyze before changing dependencies.
+- **Importing full libraries**: `import _ from "lodash"` brings the entire package.
+- **Splitting too granularly**: hundreds of tiny chunks hurt caching and add HTTP overhead.
+- **Ignoring compression**: serving uncompressed JS wastes bandwidth.
+- **Forgetting polyfill scope**: global polyfills bloat modern browsers.
+- **Over-engineering module federation**: it adds complexity that small teams rarely need.
 
 ## FAQ
 

@@ -5,7 +5,7 @@
 
 contentType: recipes
 slug: github-actions
-title: "GitHub Actions CI/CD"
+title: "GitHub Actions: CI/CD"
 description: "Cómo construir y desplegar con GitHub Actions usando workflows, matrices, caching y secrets."
 metaDescription: "Ejemplos prácticos de GitHub Actions para CI/CD. Aprende sintaxis de workflows, matrices de build, caching, secrets y workflows reutilizables."
 difficulty: intermediate

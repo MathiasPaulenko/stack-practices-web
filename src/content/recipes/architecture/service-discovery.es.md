@@ -3,7 +3,7 @@
 
 contentType: recipes
 slug: service-discovery
-title: "Service Discovery"
+title: "Descubrimiento de servicios"
 description: "Implementa service discovery con health checks, resolución DNS-based y service registries para ambientes en vivo de microservicios."
 metaDescription: "Service discovery: Consul, etcd, Eureka, resolución DNS-based, health checks y registro dinámico de servicios para microservicios."
 difficulty: intermediate

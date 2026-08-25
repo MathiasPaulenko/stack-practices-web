@@ -2,7 +2,7 @@
 
 contentType: patterns
 slug: golden-master-testing-pattern
-title: "Golden Master Testing"
+title: "Testing con Golden Master"
 description: "Cómo usar golden master testing para caracterizar comportamiento de legacy code antes de refactorizar. Cubre captura de output, comparación de baselines, e incremental refactoring."
 metaDescription: "Caracteriza legacy code con golden master testing. Aprende a capturar baselines, comparar cambios y refactorizar con characterization tests."
 difficulty: advanced

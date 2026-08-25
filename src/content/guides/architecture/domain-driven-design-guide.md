@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: domain-driven-design-guide
-title: "Domain-Driven Design (DDD) — A Practical Guide"
+title: "Domain-Driven Design (DDD): A Practical Guide"
 description: "Learn DDD fundamentals: bounded contexts, entities, value objects, aggregates, and how to model complex business domains in code."
 metaDescription: "Domain-Driven Design guide: learn bounded contexts, entities, value objects, aggregates and repositories for complex business domains."
 difficulty: advanced
@@ -59,15 +59,15 @@ complexity.
 
 ### Ubiquitous language
 
-The team — developers, domain experts, product managers — agrees on a shared
+The team (developers, domain experts, product managers) agrees on a shared
 vocabulary used in conversations, documentation, and code.
 
 **Examples:**
 
-- ❌ `createUser()` — generic
-- ✅ `onboardCustomer()` — domain-specific
-- ❌ `orderStatus = 1` — meaningless
-- ✅ `orderStatus = PaymentPending` — self-documenting
+- ❌ `createUser()`: generic
+- ✅ `onboardCustomer()`: domain-specific
+- ❌ `orderStatus = 1`: meaningless
+- ✅ `orderStatus = PaymentPending`: self-documenting
 
 ### Bounded context
 
@@ -134,7 +134,7 @@ class Address:
 
 **Key traits:**
 
-- Immutable — changing attributes creates a new value object.
+- Immutable; changing attributes creates a new value object.
 - Interchangeable if attributes match (`$5 == $5`).
 - No lifecycle; can be freely created and discarded.
 
@@ -214,11 +214,11 @@ Domain events enable loose coupling between bounded contexts. See the
 ## Best Practices
 
 - Start with the ubiquitous language, not the database schema.
-- Keep aggregates small — large aggregates hurt concurrency.
+- Keep aggregates small; large aggregates hurt concurrency.
 - Prefer value objects over entities where possible.
 - Update only one aggregate per transaction.
 - Use domain events for cross-aggregate communication.
-- Don't over-engineer — not every project needs full DDD.
+- Don't over-engineer; not every project needs full DDD.
 
 ## Common Mistakes
 

@@ -1,7 +1,7 @@
 ---
 contentType: guides
 slug: sql-cte-guide
-title: "CTEs en SQL — Expresiones de Tablas Comunes Explicadas"
+title: "CTEs en SQL: Expresiones de Tablas Comunes Explicadas"
 description: "Guía práctica de CTEs en SQL: expresiones no recursivas y recursivas, legibilidad, rendimiento y cuándo usarlas sobre subconsultas."
 metaDescription: "Aprendé CTEs SQL: expresiones recursivas y no recursivas, legibilidad, tips de rendimiento. Guía completa con ejemplos para PostgreSQL, SQL Server y MySQL."
 difficulty: intermediate
@@ -213,14 +213,14 @@ normalmente no exponen la palabra clave.
 
 ## Errores Comunes
 
-- **Recursión infinita** — olvidar el guarda de terminación o tener un ciclo en los datos de la
+- **Recursión infinita**: olvidar el guarda de terminación o tener un ciclo en los datos de la
     jerarquía.
-- **Tratar CTEs como tablas temporales** — solo viven durante la consulta. Para persistencia usá
+- **Tratar CTEs como tablas temporales**: solo viven durante la consulta. Para persistencia usá
     `CREATE TEMP TABLE` o una tabla real.
-- **Suposiciones de rendimiento** — algunos motores inlinean CTEs, otros materializan. Siempre medí.
-- **Exceso de CTEs anidadas** — diez CTEs encadenadas pueden ser más difíciles de leer que las
+- **Suposiciones de rendimiento**: algunos motores inlinean CTEs, otros materializan. Siempre medí.
+- **Exceso de CTEs anidadas**: diez CTEs encadenadas pueden ser más difíciles de leer que las
     subconsultas originales.
-- **Recursión mutua** — dos CTEs que se referencian entre sí no está soportado en la mayoría de
+- **Recursión mutua**: dos CTEs que se referencian entre sí no está soportado en la mayoría de
     motores.
 
 ## Preguntas Frecuentes

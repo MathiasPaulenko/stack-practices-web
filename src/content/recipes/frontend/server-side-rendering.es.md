@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: server-side-rendering
-title: "Server-Side Rendering"
+title: "Renderizado en el servidor (SSR)"
 description: "Mejora performance y SEO con server-side rendering usando Next.js, Nuxt, Astro y otros frameworks con estrategias de hydration."
 metaDescription: "Guía de server-side rendering: Next.js, Nuxt, Astro, hydration, streaming SSR, edge rendering y optimización de performance para SEO y Core Web Vitals."
 difficulty: intermediate

@@ -3,7 +3,7 @@
 
 contentType: recipes
 slug: chaos-engineering
-title: "Chaos Engineering"
+title: "Ingenieria del caos"
 description: "Construye sistemas resilientes inyectando fallas intencionalmente y observando cómo responden y se recuperan tus servicios distribuidos."
 metaDescription: "Chaos engineering: inyección de fallas, game days, rollback automático y experimentos controlados para resiliencia en sistemas productivos."
 difficulty: advanced

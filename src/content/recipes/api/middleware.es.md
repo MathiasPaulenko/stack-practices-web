@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: middleware
-title: "Middleware"
+title: "Middleware: Interceptores HTTP"
 description: "Cómo implementar middleware de request/response para logging, auth y manejo de errores en Python, JavaScript y Java."
 metaDescription: "Ejemplos prácticos de middleware en Python, JavaScript y Java. Aprende interceptores de request, logging, auth y manejo de errores."
 difficulty: intermediate

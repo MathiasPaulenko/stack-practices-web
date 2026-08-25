@@ -41,7 +41,7 @@ seo:
 ---
 ## Visión General
 
-Los diagramas de arquitectura comunican la estructura del sistema a stakeholders técnicos y no técnicos. Sin estándares consistentes, los equipos producen diagramas con niveles de abstracción inconsistentes que confunden más que aclaran. Esta plantilla utiliza el modelo C4 para crear diagramas en cuatro niveles de detalle bien definidos. Documentos relacionados: [Diseñar un API Gateway Escalable para Microservicios](/recipes/api-gateway), [Construir Sistemas Resilientes con el Circuit Breaker](/recipes/circuit-breaker-pattern-recipe) y [Inyección de Dependencias](/recipes/dependency-injection).
+Los diagramas de arquitectura comunican la estructura del sistema a stakeholders técnicos y no técnicos. Sin estándares consistentes, los equipos producen diagramas con niveles de abstracción inconsistentes que confunden más que aclaran. Esta plantilla utiliza el modelo C4 para crear diagramas en cuatro niveles de detalle bien definidos. Documentos relacionados: [Diseñar un API Gateway Escalable para Microservicios](/recipes/api-gateway), [Construir Sistemas Resilientes con el Circuit Breaker](/patterns/circuit-breaker-pattern) y [Inyección de Dependencias](/recipes/dependency-injection).
 
 ## Cuándo Usar
 

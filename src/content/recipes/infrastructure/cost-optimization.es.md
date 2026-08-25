@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: cost-optimization
-title: "Optimización de Costos Cloud"
+title: "Receta: Optimización de Costos Cloud"
 description: "Reduce costos de infraestructura cloud con right-sizing, instancias reservadas, spot instances y scheduling automatizado en AWS, GCP y Azure."
 metaDescription: "Estrategias de optimización de costos cloud: right-sizing, reserved instances, spot instances, políticas de auto-scaling y scheduling automatizado."
 difficulty: intermediate
