@@ -1,9 +1,12 @@
 # Mini prompt — Mejorar recurso con content-improvement
 
+> StackPractices.com
 > Copia y pega este prompt para ejecutar el skill `content-improvement` en modo full
 > sobre un recurso, usando el checklist de auditoría como input.
 > El agente aplicará los arreglos del checklist, validará y pedirá aprobación
 > antes de commit.
+>
+> Flujo completo: `ref/flujo-mejoras-contenido.md`
 
 ---
 

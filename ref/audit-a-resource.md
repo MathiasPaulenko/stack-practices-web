@@ -1,8 +1,11 @@
 # Mini prompt — Auditar recurso del Top 100
 
+> StackPractices.com
 > Copia y pega este prompt para auditar un recurso de `ref/checklist-top-recursos-mejoras.md`.
 > El agente ejecutará las 7 sub-auditorías en paralelo, sintetizará los resultados
 > y escribirá un checklist en `ref/audit/reports/{tipo}-{slug}-audit.md`.
+>
+> Flujo completo: `ref/flujo-mejoras-contenido.md`
 
 ---
 
