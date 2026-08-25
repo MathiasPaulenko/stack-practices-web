@@ -99,11 +99,6 @@ const titleHasType = typeLower && (
 );
 const effectiveType = titleHasType ? null : pageType;
 
-// Build the brand suffix: type + brand, or just brand.
-const brandSuffix = effectiveType
-  ? ` | ${effectiveType} | ${SITE.name}`
-  : ` | ${SITE.name}`;
-
 const maxTitleLength = 60;
 
 // Generic leading phrases and word+connector pairs that can be stripped from
@@ -210,7 +205,7 @@ function buildShortBrandSuffix(): string {
   return ` | ${SITE.name}`;
 }
 
-function makeTitle(rawTitle: string, addBrand: boolean): string {
+function makeTitle(rawTitle: string): string {
   const extra = htmlEscapedExtra(rawTitle);
   // First, try the title without any brand suffix.
   if (rawTitle.length + extra <= maxTitleLength) {
@@ -223,7 +218,7 @@ function makeTitle(rawTitle: string, addBrand: boolean): string {
 
 function makeFullTitle(rawTitle: string, addBrand: boolean): string {
   if (!addBrand) {
-    return makeTitle(rawTitle, false);
+    return makeTitle(rawTitle);
   }
 
   const extra = htmlEscapedExtra(rawTitle);

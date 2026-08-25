@@ -198,7 +198,29 @@ allResources.forEach(res => {
   }
 
   // 13. Duplicate headings (MD024 prevention)
-  const headings = body.match(/^#{2,3}\s+.+$/gm) || [];
+  // Strip fenced code blocks (handling 3+ backtick fences) so headings inside
+  // template examples are not counted as real headings.
+  const bodyLines = body.split('\n');
+  const filteredLines = [];
+  let inFence = false;
+  let fenceLen = 0;
+  for (const line of bodyLines) {
+    const fenceMatch = line.match(/^(`{3,})/);
+    if (fenceMatch) {
+      if (!inFence) {
+        inFence = true;
+        fenceLen = fenceMatch[1].length;
+        continue;
+      } else if (fenceMatch[1].length >= fenceLen) {
+        inFence = false;
+        fenceLen = 0;
+        continue;
+      }
+    }
+    if (!inFence) filteredLines.push(line);
+  }
+  const bodyWithoutCodeBlocks = filteredLines.join('\n');
+  const headings = bodyWithoutCodeBlocks.match(/^#{2,3}\s+.+$/gm) || [];
   const seenH2 = new Set();
   const seenH3 = new Map(); // parent -> set
   let currentH2 = '';

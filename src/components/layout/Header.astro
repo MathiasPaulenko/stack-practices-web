@@ -8,7 +8,6 @@ export interface Props {
 
 const { locale = SITE.defaultLocale } = Astro.props;
 const prefix = locale === 'es' ? '/es' : '';
-const navPrefix = locale === 'es' ? '/es/' : '/';
 const currentPath = Astro.url.pathname;
 ---
 

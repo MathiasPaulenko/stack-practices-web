@@ -24,13 +24,13 @@ for (const f of htmlFiles) {
   const before = html.length;
 
   // Remove data-language="..." from <pre> tags.
-  html = html.replace(/<pre\b([^>]*)\sdata-language="[^"]*"([^>]*)>/g, (match, beforeAttrs, afterAttrs) => {
+  html = html.replace(/<pre\b([^>]*)\sdata-language="[^"]*"([^>]*)>/g, (_, beforeAttrs, afterAttrs) => {
     removedDataLanguage++;
     return `<pre${beforeAttrs}${afterAttrs}>`;
   });
 
   // Remove xmlns="..." from <svg> tags. Inline SVG in HTML5 does not need it.
-  html = html.replace(/<svg\b([^>]*)\sxmlns="[^"]*"([^>]*)>/g, (match, beforeAttrs, afterAttrs) => {
+  html = html.replace(/<svg\b([^>]*)\sxmlns="[^"]*"([^>]*)>/g, (_, beforeAttrs, afterAttrs) => {
     removedXmlns++;
     return `<svg${beforeAttrs}${afterAttrs}>`;
   });

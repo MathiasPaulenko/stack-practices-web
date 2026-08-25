@@ -270,7 +270,7 @@ function findBidirectionalGaps(allEntries, urlMap) {
   return gaps;
 }
 
-function suggestRelatedResources(entry, allEntries, urlMap) {
+function suggestRelatedResources(entry, allEntries) {
   if (entry.relatedResources.length >= 3) return null;
 
   const enEntries = allEntries.filter(e => !e.isEs && e.urlKey !== entry.urlKey);
@@ -404,7 +404,7 @@ function main() {
   const suggestions = [];
   for (const entry of enEntries) {
     if (entry.relatedResources.length < 3) {
-      const sugg = suggestRelatedResources(entry, allEntries, urlMap);
+      const sugg = suggestRelatedResources(entry, allEntries);
       if (sugg) {
         suggestions.push({ entry, suggestions: sugg });
       }

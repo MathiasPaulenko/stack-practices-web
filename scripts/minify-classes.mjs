@@ -54,7 +54,6 @@ function walk(dir, ext, out) {
 }
 
 // Valid class chars in HTML attributes. We keep the dot/escaped colon classes untouched.
-const CLASS_STOP_RE = /[^a-zA-Z0-9_\\-]/;
 
 function isMinifiable(c) {
   return (
@@ -178,7 +177,7 @@ for (const f of htmlFiles) {
   let html = readFile(f);
   const parts = html.split(/(<script[^>]*>[\s\S]*?<\/script>)/g);
   for (let i = 0; i < parts.length; i += 2) {
-    parts[i] = parts[i].replace(/class="([^"]*)"/g, (match, val) => {
+    parts[i] = parts[i].replace(/class="([^"]*)"/g, (_, val) => {
       const classes = val.split(/\s+/).filter(Boolean).map((c) => mapping.get(c) || c).join(' ');
       return `class="${classes}"`;
     });

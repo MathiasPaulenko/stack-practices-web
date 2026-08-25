@@ -38,7 +38,7 @@ function getHashMap() {
   return map;
 }
 
-function addSri(tag, src, integrity) {
+function addSri(tag, integrity) {
   // Skip if integrity already present.
   if (/\sintegrity=/.test(tag)) return tag;
   // Same-origin scripts do not require crossorigin for SRI to work.
@@ -58,7 +58,7 @@ for (const file of files) {
     const re = new RegExp(`<script\\b[^>]*\\ssrc=(['"])${escaped}\\1[^>]*>`, 'g');
     html = html.replace(re, (tag) => {
       changed = true;
-      return addSri(tag, src, integrity);
+      return addSri(tag, integrity);
     });
   }
 
