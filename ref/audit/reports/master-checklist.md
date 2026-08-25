@@ -495,11 +495,29 @@ content-improvement: humaniza <slug>
 
 - [~] ~~**P2.4** — Optimizar OG:image por tipo de contenido~~ — ELIMINADO 2026-08-25: el sitio no tiene imágenes por tipo de contenido, solo el hero genérico. Se retoma cuando haya assets visuales.
 
-- [ ] **P2.7** — Activar tracking de GA4 AI Assistant channel
+- [x] **P2.7** — Activar tracking de GA4 AI Assistant channel — ✅ RESUELTO 2026-08-25
   - Category: GEO / Analytics
-  - Evidence: GA4 añadió canal "AI Assistant" en Mayo 2026; sitio no optimizado para AEO
-  - Affected: GA4 property, dashboards
-  - Action: Añadir canal a reports/explores; crear contenido AEO/GEO (PAA, speakable).
+  - Evidence: GA4 añadió canal "AI Assistant" el 13 Mayo 2026 (nativo, automático)
+  - Affected: GA4 property (configuración UI, no codebase)
+  - Action: Documentar configuración GA4 UI. No requiere cambios de código.
+  - Findings:
+    - **Canal nativo**: GA4 clasifica automáticamente tráfico de ChatGPT, Gemini y Claude con medium `ai-assistant` y campaign `(ai-assistant)`. Sin configuración.
+    - **Gaps del canal nativo**:
+      - No retroactivo (solo desde 13 Mayo 2026)
+      - Atrapa 60-80% del tráfico AI (referrer headers); in-app browsers strip referrer → Direct
+      - Perplexity y Copilot NO están en la lista reconocida por Google
+    - **Solución**: Custom channel group con regex ampliado para capturar fuentes AI no reconocidas
+  - Configuración GA4 UI requerida (manual):
+    1. **Verificar canal nativo**: Reports > Acquisition > Traffic acquisition > group by Default channel group. Buscar fila "AI Assistant".
+    2. **Crear custom channel group** para fuentes no reconocidas:
+       - Admin > Data display > Channel groups > Copy default > "Channel group with AI"
+       - Add new channel: "AI Assistants (extended)"
+       - Condition: source matches regex:
+         `.*chatgpt\.com.*|.*perplexity.*|.*gemini\.google\.com.*|.*copilot\.microsoft\.com.*|.*openai\.com.*|.*claude\.ai.*|.*deepseek\.com.*|.*huggingface\.co.*|.*bard\.google\.com.*|.*you\.com.*|.*phind\.com.*|.*kagi\.com.*`
+       - Reorder: colocar "AI Assistants (extended)" ABOVE "Referral" para que tome prioridad
+    3. **Monitorear**: Acquisition > User acquisition / Traffic acquisition, usar custom channel group como dimensión primaria
+    4. **Baseline**: Anotar sesión count actual como benchmark
+  - Nota: La parte de "crear contenido AEO/GEO (PAA, speakable)" es content quality y está deferida a trabajo por-recurso.
   - Effort: S
   - Report: `traffic-audit.md`
 

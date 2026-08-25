@@ -3,6 +3,9 @@ dist/
 .output/
 output/
 
+# temp files
+.git-commit-msg.txt
+
 # allow ref/output audit reports to be tracked
 !ref/output/
 
