@@ -39,6 +39,12 @@ const {
 <!doctype html>
 <html lang={locale}>
   <head>
+    <!-- Trailing-slash enforcement: redirect /url to /url/ (301-equivalent).
+         GitHub Pages serves both versions identically; without this, Google
+         indexes both and splits link equity. This inline script runs before
+         anything else renders. Google's renderer treats window.location
+         redirects as 301s for indexing purposes. -->
+    <script is:inline>(()=>{const p=location.pathname;if(p==='/'||p.endsWith('/'))return;const q=location.search, h=location.hash;location.replace(p+'/'+q+h)})();</script>
     <!-- Google Consent Mode v2 + GTM + gtag — externalized for cacheability.
          Even when analytics cookies are denied, cookieless anonymous pings are still sent. -->
     <script is:inline async src="/analytics.js"></script>
