@@ -423,7 +423,7 @@ npm run sitemap            # regenerate public/sitemap.xml from dist/
 ### SEO/Content audit commands
 
 ```bash
-node scripts/internal-linking-audit.cjs   # generates ref/internal-linking-data.json (gitignored)
+node scripts/internal-linking-audit.cjs   # ref/internal-linking-data.json
 python scripts/find-broken-body-links.py  # audit broken body links
 python scripts/audit-thin-content.py      # audit thin content vs targets
 ```

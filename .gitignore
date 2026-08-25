@@ -6,12 +6,8 @@ output/
 # temp files
 .git-commit-msg.txt
 
-# script-generated audit outputs (regenerated on demand)
-ref/internal-linking-data.json
-ref/internal-linking-suggestions.json
-ref/audit/reports/dist-html-audit.json
-ref/audit/reports/sample-audit-details.json
-ref/output/
+# allow ref/output audit reports to be tracked
+!ref/output/
 
 # dependencies
 node_modules/

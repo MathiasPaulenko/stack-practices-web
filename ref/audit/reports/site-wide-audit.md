@@ -20,8 +20,8 @@
 | Total Markdown | 2.042 archivos (1.021 EN + 1.021 ES) |
 | URLs en sitemap | 3.254 |
 | Build time | 137s |
-| Fuentes de datos | `npm run content:quality/links/validate/check/build/sitemap`; scripts custom `audit-thin-content.py`, `find-broken-body-links.py`, `audit-sample-deep.py`, `audit-dist-html.py`; análisis de frontmatter; `ref/audit/reports/master-checklist.md`; `ref/docs/roadmap.md` |
-| GSC/GA4 | NOT VERIFIED en vivo; datos históricos extraídos de `ref/audit/reports/master-checklist.md` |
+| Fuentes de datos | `npm run content:quality/links/validate/check/build/sitemap`; scripts custom `audit-thin-content.py`, `find-broken-body-links.py`, `audit-sample-deep.py`, `audit-dist-html.py`; análisis de frontmatter; `ref/checklist-top-recursos-mejoras.md`; `ref/docs/roadmap.md` |
+| GSC/GA4 | NOT VERIFIED en vivo; datos históricos extraídos de `ref/checklist-top-recursos-mejoras.md` |
 
 ---
 
@@ -419,7 +419,7 @@ DUPLICATE OVERVIEW PARAGRAPHS (300 chars): 0
 
 ### Muestra auditada (169 recursos)
 
-- 100 top recursos (`ref/audit/reports/master-checklist.md`)
+- 100 top recursos (`ref/checklist-top-recursos-mejoras.md`)
 - 50 recursos aleatorios
 - 19 recursos THIN adicionales
 

@@ -16,6 +16,7 @@ Esta carpeta contiene los prompts de auditoría de recursos de StackPractices. S
 | `07-final-synthesis.md` | Convierte hallazgos en checklist de arreglos, scorecard, decisiones finales, DoD. |
 | `08-gsc-ga4-traffic-audit.md` | Tráfico, GSC/GA4, CTR, user flow, oportunidades de crecimiento. |
 | `99-site-wide-audit.md` | Auditoría global del sitio: recursos, validación por lotes, prioridades. |
+| `RESOURCE_FULL_AUDIT.md` | Prompt monolítico original (single-pass). Se conserva como referencia legacy. |
 | `reports/` | Directorio de salida para los informes consolidados. |
 
 ## Modos

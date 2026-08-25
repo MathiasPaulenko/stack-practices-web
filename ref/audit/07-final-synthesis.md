@@ -6,7 +6,7 @@
 
 - Outputs de `01` a `06` y `08` (según el `MODE`).
 - `src/content/{tipo}/{slug}.md` y `.es.md` para metadata básica (ajustar si usa `src/content/{tipo}/{topic}/{slug}.md`).
-- `ref/audit/reports/master-checklist.md` y `ref/docs/roadmap.md` si existen.
+- `ref/checklist-top-recursos-mejoras.md` y `ref/docs/roadmap.md` si existen.
 
 ## Skills complementarias
 
