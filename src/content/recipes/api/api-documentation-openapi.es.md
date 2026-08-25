@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: api-documentation-openapi
-title: "Documentación OpenAPI con Swagger UI y Redoc: guía práctica"
+title: "OpenAPI con Swagger UI y Redoc: guía práctica"
 description: Guía práctica para documentar APIs REST con OpenAPI. Genera docs interactivas con Swagger UI y Redoc en Python, JavaScript y Java con linting en CI.
-metaDescription: Guía práctica de documentación REST con OpenAPI. Genera docs interactivas con Swagger UI y Redoc en Python, JavaScript y Java, más linting en CI y generación de SDKs.
+metaDescription: Guía práctica de documentación REST con OpenAPI. Genera docs interactivas con Swagger UI y Redoc en Python, JavaScript y Java, más linting en CI.
 difficulty: beginner
 topics:
   - api
@@ -20,11 +20,11 @@ relatedResources:
   - /recipes/handle-cors
   - /recipes/input-validation
   - /recipes/idempotent-api-endpoints
-lastUpdated: "2026-08-24"
+lastUpdated: "2026-08-25"
 publishedAt: "2026-02-18"
 author: Mathias Paulenko
 seo:
-  metaDescription: Guía práctica de documentación REST con OpenAPI. Genera docs interactivas con Swagger UI y Redoc en Python, JavaScript y Java, más linting en CI y generación de SDKs.
+  metaDescription: Guía práctica de documentación REST con OpenAPI. Genera docs interactivas con Swagger UI y Redoc en Python, JavaScript y Java, más linting en CI.
   keywords:
     - openapi docs
     - documentacion swagger
@@ -105,7 +105,7 @@ Los equipos generan specs OpenAPI de dos maneras, y la elección correcta depend
 
 Con **code-first**, un único equipo construye la API y deja que FastAPI, SpringDoc o tsoa generen `openapi.json` a partir de anotaciones o decoradores. El spec se mantiene cerca del código, pero puede filtrar modelos internos si no usas DTOs.
 
-El design-first es la mejor opción cuando los equipos de frontend, backend y móvil necesitan ponerse de acuerdo en un contrato antes de escribir código. Entonces escribes el YAML o JSON a mano, lo publicas en SwaggerHub o Stoplight y generas stubs y clientes a partir de él. Ese contrato obliga a decidir de forma explícita campos, errores y versionado. El riesgo es que, sin tests, el spec puede convertirse en una lista de deseos mientras el código hace otra cosa.
+Suelo elegir design-first cuando los equipos de frontend, backend y móvil necesitan ponerse de acuerdo en un contrato antes de escribir código. Entonces escribimos el YAML o JSON a mano, lo publicamos en SwaggerHub o Stoplight y generamos stubs y clientes a partir de ese contrato. Ese contrato obliga a decidir de forma explícita campos, errores y versionado. El riesgo es que, sin tests, el spec puede convertirse en una lista de deseos mientras el código hace otra cosa.
 
 Una vez que existe el spec, impulsa documentación interactiva, un sitio de documentación limpio y generadores de clientes. **Swagger UI** permite a los desarrolladores llamar endpoints desde el navegador, **Redoc** renderiza un sitio de tres paneles y herramientas como `openapi-generator-cli` producen clientes tipados en TypeScript, Python, Java y otros lenguajes.
 
@@ -147,7 +147,7 @@ Si los clientes generados no compilan, busca valores `operationId` duplicados, p
 
 Si el spec no coincide con el comportamiento desplegado, añade tests de contrato con Schemathesis o Pact en CI para que el desfase del spec rompa el build antes de llegar a los usuarios.
 
-Si los ejemplos en Swagger UI se ven mal, asegúrate de que el campo `example` esté al nivel correcto del `schema` y de que los ejemplos de arrays usen `items.example`.
+Si los ejemplos en Swagger UI se ven mal, asegúrate de que el campo `example` esté al nivel correcto del `schema`, y de que los ejemplos de arrays usen `items.example` en su lugar.
 
 **Los specs grandes ralentizan la página de documentación**: divídelo con punteros `$ref` y empaquétalo con `redocly bundle` antes de mostrarlo.
 
@@ -313,7 +313,7 @@ paths:
       description: Use /v2/books/{id} instead
 ```
 
-Durante los períodos de migración, mantén ambas versiones del spec y deja que el cliente negocie la versión con el header `Accept`, por ejemplo `Accept: application/vnd.api+json;version=2`.
+Durante los períodos de migración, mantén ambas versiones del spec y deja que el cliente negocie la versión con el header `Accept`, por ejemplo enviando `Accept: application/vnd.api+json;version=2`.
 
 ### ¿Cómo genero SDKs de cliente desde specs OpenAPI?
 
@@ -395,7 +395,7 @@ parameters:
       default: 20
 ```
 
-También puedes incluir headers `Link` en las respuestas, como `Link: <https://api.example.com/books?cursor=abc>; rel="next"`, y documentar los headers de límite de frecuencia `X-RateLimit-Limit`, `X-RateLimit-Remaining` y `X-RateLimit-Reset`.
+También puedes incluir headers `Link` en las respuestas, como `Link: <https://api.example.com/books?cursor=abc>; rel="next"`, y documentar los headers de límite de frecuencia `X-RateLimit-Limit`, `X-RateLimit-Remaining` y `X-RateLimit-Reset` en tus respuestas.
 
 ### ¿Cómo manejo subidas y descargas de archivos en OpenAPI?
 
@@ -407,7 +407,7 @@ Para limitar el tamaño de subida, añade `maxLength` al campo binario e indica 
 
 ### ¿Cómo documento webhooks en OpenAPI?
 
-En OpenAPI 3.1, los webhooks pasan a un campo `webhooks` de nivel superior. Declara cada evento como una clave con una operación `post`, y apunta el cuerpo de la petición a un esquema reutilizable como `BookEvent`.
+En OpenAPI 3.1, los webhooks pasan a un campo `webhooks` de nivel superior. Declara cada evento como una clave con una operación `post`, y apunta el cuerpo de la petición a un esquema reutilizable como `BookEvent` en tus componentes.
 
 ```yaml
 webhooks:
@@ -445,7 +445,7 @@ Spectral funciona de forma similar: instálalo con `npm install -g @stoplight/sp
   run: npx @redocly/cli lint openapi.yaml
 ```
 
-Valida la estructura del spec: busca `operationId` faltante, destinos `$ref` no definidos, esquemas de respuesta faltantes y parámetros de path duplicados. Para corregir problemas comunes: `redocly lint --format=json openapi.yaml | jq '.problems[] | select(.ruleId == "operation-summary")'`.
+Valida la estructura del spec: busca `operationId` faltante, destinos `$ref` no definidos, esquemas de respuesta faltantes y parámetros de path duplicados. Para corregir problemas comunes ejecuta `redocly lint --format=json openapi.yaml | jq '.problems[] | select(.ruleId == "operation-summary")'` para filtrar reglas específicas.
 
 ### ¿Cómo documento respuestas de error con RFC 7807 Problem Details?
 
@@ -472,7 +472,7 @@ components:
           format: uri
 ```
 
-Después referencia ese schema en las respuestas de error mediante `$ref`.
+Después referencia ese schema en las respuestas de error mediante `$ref` en cada endpoint.
 
 ```yaml
 responses:
@@ -572,7 +572,7 @@ Dog:
   required: [type, breed]
 ```
 
-Para aceptar tipos mixtos, usa `anyOf`.
+Para aceptar tipos mixtos, usa `anyOf` en lugar de herencia.
 
 ```yaml
 PropertyValue:
@@ -585,7 +585,7 @@ PropertyValue:
         $ref: '#/components/schemas/PropertyValue'
 ```
 
-Cuando necesites heredar propiedades sin un discriminador, usa `allOf`.
+Cuando necesites heredar propiedades sin un discriminador, usa `allOf` para combinar los esquemas.
 
 ```yaml
 Animal:
@@ -619,7 +619,7 @@ Si prefieres datos aleatorios, añade el flag `--dynamic`. También puedes gener
 openapi-generator-cli generate -i openapi.yaml -g python-flask -o ./mock-server
 ```
 
-Luego úsalo en tests de integración apuntando los clientes a `http://localhost:4010`.
+Luego úsalo en tests de integración apuntando los clientes a `http://localhost:4010` como base URL.
 
 ### ¿Cómo documento la deprecación y los headers Sunset de una API?
 
@@ -667,7 +667,7 @@ paths:
         httpMethod: POST
 ```
 
-Para metadatos internos, puedes añadir campos como `x-internal`, `x-owner` o `x-sla`; en portales de documentación, campos como `x-display-name`, `x-sidebar-order` o `x-badge`; y para los generadores de código, pistas como `x-codegen-request-body-name`.
+Para metadatos internos, puedes añadir campos como `x-internal`, `x-owner` o `x-sla`; en portales de documentación, campos como `x-display-name`, `x-sidebar-order` o `x-badge` para personalizar la barra lateral; y para los generadores de código, pistas como `x-codegen-request-body-name`.
 
 ```yaml
 x-enum-descriptions:
@@ -723,7 +723,7 @@ class Category:
     subcategories: List[Category]
 ```
 
-Para estructuras profundamente anidadas, limita la profundidad de recursión con `x-max-depth: 5`. En serialización JSON, maneja las referencias circulares con `default=str` o codificadores personalizados. En Swagger UI, las referencias circulares pueden causar expansión infinita; usa `x-stoplight:readonly` para evitar la edición. Para validar, usa `jsonschema` con un `RefResolver` que maneje referencias circulares, como el siguiente fragmento: `resolver = jsonschema.RefResolver.from_schema(schema); jsonschema.validate(instance, schema, resolver=resolver)`.
+Para estructuras profundamente anidadas, limita la profundidad de recursión con `x-max-depth: 5`. En serialización JSON, maneja las referencias circulares con `default=str` o codificadores personalizados. En Swagger UI, las referencias circulares pueden causar expansión infinita; usa `x-stoplight:readonly` para evitar la edición. Para validar, usa `jsonschema` con un `RefResolver` que maneje referencias circulares, como se muestra aquí: `resolver = jsonschema.RefResolver.from_schema(schema); jsonschema.validate(instance, schema, resolver=resolver)`.
 
 ### ¿Cómo documento observabilidad y trazabilidad de API en OpenAPI?
 
@@ -838,7 +838,7 @@ Documenta el comportamiento de la negociación de contenido, por ejemplo: `descr
 
 ### ¿Cómo documento headers de caché de una API en OpenAPI?
 
-El comportamiento de caché se documenta con headers HTTP estándar en las respuestas, como `Cache-Control`, `ETag` y `Last-Modified`.
+El comportamiento de caché se documenta con headers HTTP estándar en las respuestas, como `Cache-Control`, `ETag` y `Last-Modified` según el caso.
 
 ```yaml
 responses:
@@ -1028,7 +1028,7 @@ paths:
                 description: Prometheus format metrics
 ```
 
-Las métricas personalizadas puedes guardarlas en una extensión como `x-metrics`.
+Las métricas personalizadas puedes guardarlas en una extensión como `x-metrics` para integrarlas con tu sistema de observabilidad.
 
 ```yaml
 x-metrics:
@@ -1061,7 +1061,7 @@ paths:
           description: Not ready
 ```
 
-También puedes documentar objetivos de SLA con una extensión `x-sla`.
+También puedes documentar objetivos de SLA con una extensión `x-sla` para que los consumidores conozcan los límites esperados.
 
 ```yaml
 x-sla:
@@ -1152,7 +1152,7 @@ Documenta el formato de las respuestas de error de validación para que los clie
                 code: {type: string}
 ```
 
-Para validadores personalizados, usa la extensión `x-validate`.
+Para validadores personalizados, usa la extensión `x-validate` con una referencia a tu función de validación.
 
 ```yaml
 x-validate:
@@ -1225,7 +1225,7 @@ Haz lo mismo con el contenedor de error.
                 source: {type: string}
 ```
 
-Si sigues JSON:API, usa las claves top-level `data`, `included`, `meta` y `errors`.
+Si sigues JSON:API, usa las claves top-level `data`, `included`, `meta` y `errors` en tu estructura de respuesta.
 
 ### ¿Cómo manejo diferencias entre OpenAPI 3.0 y 3.1?
 

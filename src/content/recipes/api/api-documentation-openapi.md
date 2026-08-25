@@ -3,7 +3,7 @@ contentType: recipes
 slug: api-documentation-openapi
 title: "OpenAPI Docs with Swagger UI and Redoc: A Practical Guide"
 description: A practical guide to documenting REST APIs with OpenAPI. Generate interactive Swagger UI and Redoc docs in Python, JavaScript and Java with CI linting.
-metaDescription: Practical guide to REST API docs with OpenAPI. Generate interactive Swagger UI and Redoc docs in Python, JavaScript and Java, plus CI linting and SDK generation.
+metaDescription: Practical guide to REST API docs with OpenAPI. Generate interactive Swagger UI and Redoc docs in Python, JavaScript and Java, plus CI linting.
 difficulty: beginner
 topics:
   - api
@@ -20,11 +20,11 @@ relatedResources:
   - /recipes/handle-cors
   - /recipes/input-validation
   - /recipes/idempotent-api-endpoints
-lastUpdated: "2026-08-24"
+lastUpdated: "2026-08-25"
 publishedAt: "2026-02-18"
 author: Mathias Paulenko
 seo:
-  metaDescription: Practical guide to REST API docs with OpenAPI. Generate interactive Swagger UI and Redoc docs in Python, JavaScript and Java, plus CI linting and SDK generation.
+  metaDescription: Practical guide to REST API docs with OpenAPI. Generate interactive Swagger UI and Redoc docs in Python, JavaScript and Java, plus CI linting.
   keywords:
     - openapi docs
     - swagger documentation
@@ -147,7 +147,7 @@ If generated clients don't compile, look for duplicate `operationId` values, res
 
 If the spec doesn't match deployed behavior, add contract tests with Schemathesis or Pact in CI so spec drift breaks the build before it reaches users.
 
-If examples in Swagger UI look wrong, make sure `example` sits next to the right `schema` level and that array examples use `items.example`.
+If examples in Swagger UI look wrong, make sure the `example` field sits next to the right `schema` level, and that array examples use `items.example` instead.
 
 **Large specs slow down the docs page**: split it with `$ref` pointers and bundle it with `redocly bundle` before rendering.
 
@@ -319,7 +319,7 @@ paths:
       deprecated: true
       description: Use /v2/books/{id} instead
 ```
-Maintain both spec versions during migration periods and use `Accept` header content negotiation: `Accept: application/vnd.api+json;version=2`.
+Maintain both spec versions during migration periods and use `Accept` header content negotiation, for example `Accept: application/vnd.api+json;version=2`.
 
 ### How do I generate client SDKs from OpenAPI specs?
 
@@ -400,7 +400,7 @@ parameters:
       default: 20
 ```
 
-You can also include `Link` headers in responses, for example `Link: <https://api.example.com/books?cursor=abc>; rel=next`, and document rate limiting headers such as `X-RateLimit-Limit`, `X-RateLimit-Remaining` and `X-RateLimit-Reset`.
+You can also include `Link` headers in responses, for example `Link: <https://api.example.com/books?cursor=abc>; rel=next`, and document rate limiting headers such as `X-RateLimit-Limit`, `X-RateLimit-Remaining` and `X-RateLimit-Reset` in your responses.
 
 ### How do I handle file uploads and downloads in OpenAPI?
 
@@ -412,7 +412,7 @@ To cap upload size, add `maxLength` to the binary field and note the limit in th
 
 ### How do I document webhooks in OpenAPI?
 
-In OpenAPI 3.1, webhooks get a top-level `webhooks` field. Declare each event as a key with a `post` operation, then point the request body to a reusable schema such as `BookEvent`.
+In OpenAPI 3.1, webhooks get a top-level `webhooks` field. Declare each event as a key with a `post` operation, then point the request body to a reusable schema such as `BookEvent` in your components.
 
 ```yaml
 webhooks:
@@ -450,7 +450,7 @@ In GitHub Actions:
 - name: Lint OpenAPI
   run: npx @redocly/cli lint openapi.yaml
 ```
-Validate spec structure: check for missing `operationId`, undefined `$ref` targets, missing response schemas, and duplicate path parameters. Auto-fix common issues: `redocly lint --format=json openapi.yaml | jq '.problems[] | select(.ruleId == "operation-summary")'`.
+Validate spec structure: check for missing `operationId`, undefined `$ref` targets, missing response schemas, and duplicate path parameters. Auto-fix common issues by running `redocly lint --format=json openapi.yaml | jq '.problems[] | select(.ruleId == "operation-summary")'` to filter specific rules.
 
 ### How do I document error responses with RFC 7807 Problem Details?
 
@@ -665,7 +665,7 @@ paths:
         httpMethod: POST
 ```
 
-For internal metadata, add fields like `x-internal`, `x-owner` or `x-sla`. For documentation portals, use `x-display-name`, `x-sidebar-order` or `x-badge`.
+For internal metadata, add fields like `x-internal`, `x-owner` or `x-sla`. For documentation portals, use fields like `x-display-name`, `x-sidebar-order` or `x-badge` to customize the sidebar.
 For code generation hints:
 
 ```yaml
@@ -719,7 +719,7 @@ class Category:
     name: str
     subcategories: List[Category]
 ```
-For deeply nested structures, limit recursion depth with `x-max-depth: 5`. In JSON serialization, handle circular refs with `default=str` or custom encoders. In Swagger UI, circular refs may cause infinite expansion, so use `x-stoplight:readonly` to prevent editing. For validation, use `jsonschema` with a `RefResolver` that handles circular refs, like this: `resolver = jsonschema.RefResolver.from_schema(schema); jsonschema.validate(instance, schema, resolver=resolver)`.
+For deeply nested structures, limit recursion depth with `x-max-depth: 5`. In JSON serialization, handle circular refs with `default=str` or custom encoders. In Swagger UI, circular refs may cause infinite expansion, so use `x-stoplight:readonly` to prevent editing. For validation, use `jsonschema` with a `RefResolver` that handles circular refs, as shown here: `resolver = jsonschema.RefResolver.from_schema(schema); jsonschema.validate(instance, schema, resolver=resolver)`.
 
 ### How do I document API observability and tracing in OpenAPI?
 
@@ -1202,7 +1202,7 @@ Do the same for the error envelope:
                 detail: {type: string}
                 source: {type: string}
 ```
-If you're following JSON:API, use the top-level keys `data`, `included`, `meta` and `errors`.
+If you're following JSON:API, use the top-level keys `data`, `included`, `meta` and `errors` in your response structure.
 
 ### How do I handle OpenAPI 3.0 vs 3.1 differences?
 
