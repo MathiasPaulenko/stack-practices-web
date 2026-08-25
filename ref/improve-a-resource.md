@@ -40,18 +40,30 @@ Instrucciones:
    - Aplica primero los items CRITICAL y HIGH del checklist.
    - Luego los MEDIUM que estén dentro del scope del skill.
    - Los items LOW y los que requieren trabajo manual fuera del skill
-     (ej: speakable schema, HTTP 301, assets descargables, diagramas Mermaid,
-     subir código a stack-practices-resources) márcalos como
+     (ej: speakable schema, HTTP 301, assets descargables) márcalos como
      "OUT OF SCOPE — requiere trabajo manual" en el resumen final.
    - En la Fase 0, verifica si el recurso tiene imágenes/diagramas (bloques
      `mermaid`, etiquetas `![alt](...)`, referencias a `public/assets/`).
      Si no tiene y se beneficiaría de uno (ej: flujos de arquitectura,
-     comparaciones visuales, decision trees), márcalo como recomendación
-     en el resumen final. No añadas diagramas automáticamente.
+     comparaciones visuales, decision trees), añade un diagrama Mermaid
+     directamente en el Markdown del recurso (EN y ES) en la sección más
+     adecuada (ej: Explanation, When to Use). El sitio renderiza Mermaid
+     client-side. Mantén el diagrama simple, etiquetado y equivalente EN/ES.
+     No inventes diagramas decorativos: solo añade uno si mejora la
+     comprensión del recurso.
    - En la Fase 0, verifica si existe
      `../stack-practices-resources/resources/{tipo}/{topic}/{slug}/meta.json`.
-     Si no existe, márcalo como recomendación en el resumen final
-     (OUT OF SCOPE, requiere trabajo manual en el repo hermano).
+     Si no existe y el recurso contiene ejemplos de código multi-archivo,
+     plantillas descargables o proyectos completos que pertenecerían al
+     repo hermano, crea la carpeta y los archivos necesarios:
+     - `../stack-practices-resources/resources/{tipo}/{topic}/{slug}/meta.json`
+       con los campos: title, title_es, description, description_es, type,
+       topic, slug, source_urls (URL EN del recurso), language, tags, files.
+     - Sube los archivos de ejemplo (código, YAML, plantillas) a esa carpeta.
+     - Crea `README.md` y `README.es.md` si es útil.
+     - No hagas commit ni push del repo hermano sin aprobación explícita.
+     Si el recurso solo contiene snippets inline cortos, no es necesario
+     crear companion repo — márcalo como "no aplica" en el resumen.
 7. Antes de editar, verifica el estado del working tree con git status
    para no sobrescribir cambios manuales del usuario.
 

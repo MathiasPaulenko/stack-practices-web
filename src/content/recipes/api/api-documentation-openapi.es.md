@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/handle-cors
   - /recipes/input-validation
   - /recipes/idempotent-api-endpoints
-lastUpdated: "2026-08-25"
+lastUpdated: "2026-08-26"
 publishedAt: "2026-02-18"
 author: Mathias Paulenko
 seo:
@@ -219,9 +219,9 @@ schemathesis run openapi.json --base-url http://localhost:8000
 
 Sí. Puedes usar la CLI `swagger2openapi` o el conversor integrado de Swagger Editor. La mayoría de herramientas modernas maneja 3.0 de forma nativa. Ejecuta `npx swagger2openapi swagger.json -o openapi.json` y espera algunos cambios mecánicos. `host`, `basePath` y `schemes` se combinan en un array `servers`; `definitions` y `responses` se mueven a `components/schemas` y `components/responses`; y `securityDefinitions` pasa a ser `components/securitySchemes`. Los campos globales `produces` y `consumes` desaparecen; ahora cada operación declara su negociación de contenido en su propio bloque `content`. Después, valida el resultado con `npx @redocly/cli lint openapi.json`. Algunos casos extremos, como `type: file` pasando a `format: binary` y `collectionFormat` convirtiéndose en parámetros `style` y `explode`, aún requieren ajustes manuales.
 
-### ¿Cómo documento autenticación y autorización en OpenAPI?
+### ¿Cuál es la mejor forma de documentar autenticación y autorización en OpenAPI?
 
-La autenticación se describe en `components/securitySchemes` y luego se aplica a cada operación. El ejemplo siguiente muestra un esquema Bearer JWT.
+Describe la autenticación en `components/securitySchemes` y luego aplícala a cada operación. El ejemplo siguiente muestra un esquema Bearer JWT.
 
 ```yaml
 components:
@@ -274,7 +274,7 @@ paths:
 
 Para tokens JWT en OpenAPI 3.1, sigue usando `type: http` y `scheme: bearer`. El tipo `apiKey` todavía es válido, pero no encaja con bearer tokens, porque describe una clave de API personalizada en lugar de un esquema HTTP bearer.
 
-### ¿Cómo manejo el versionado en specs OpenAPI?
+### ¿Por qué importa el versionado en specs OpenAPI?
 
 La versión del spec va en `info.version`; elige una estrategia de versionado que los clientes puedan descubrir fácilmente.
 
@@ -397,7 +397,7 @@ parameters:
 
 También puedes incluir headers `Link` en las respuestas, como `Link: <https://api.example.com/books?cursor=abc>; rel="next"`, y documentar los headers de límite de frecuencia `X-RateLimit-Limit`, `X-RateLimit-Remaining` y `X-RateLimit-Reset` en tus respuestas.
 
-### ¿Cómo manejo subidas y descargas de archivos en OpenAPI?
+### ¿Qué pasa con las subidas y descargas de archivos en OpenAPI?
 
 Para subidas de archivos en OpenAPI 3.0, usa `format: binary` en una propiedad de tipo string dentro del cuerpo de una petición `multipart/form-data`. Si necesitas varios archivos, cambia la propiedad a un array de cadenas binarias.
 
@@ -405,7 +405,7 @@ En OpenAPI 3.1, `format: binary` se convierte en `contentEncoding: binary`. Para
 
 Para limitar el tamaño de subida, añade `maxLength` al campo binario e indica el límite en la descripción, por ejemplo `10485760` bytes para 10 MB.
 
-### ¿Cómo documento webhooks en OpenAPI?
+### ¿Cuándo debo documentar webhooks en OpenAPI?
 
 En OpenAPI 3.1, los webhooks pasan a un campo `webhooks` de nivel superior. Declara cada evento como una clave con una operación `post`, y apunta el cuerpo de la petición a un esquema reutilizable como `BookEvent` en tus componentes.
 
@@ -425,7 +425,7 @@ webhooks:
 
 Define el esquema del payload una vez en `components/schemas` y reutilízalo en los webhooks. También puedes exponer un endpoint de suscripción; en su descripción incluye las reglas de reintentos y los códigos HTTP que tu lógica de entrega espera recibir.
 
-### ¿Cómo valido specs OpenAPI en CI?
+### ¿Qué herramientas validan specs OpenAPI en CI?
 
 Redocly y Spectral son los linters que más uso. Con Redocly puedes instalar el CLI globalmente (`npm install -g @redocly/cli`) y ejecutar `redocly lint openapi.yaml`. A continuación añade un archivo de reglas sencillo para reforzar tus convenciones.
 
@@ -447,7 +447,7 @@ Spectral funciona de forma similar: instálalo con `npm install -g @stoplight/sp
 
 Valida la estructura del spec: busca `operationId` faltante, destinos `$ref` no definidos, esquemas de respuesta faltantes y parámetros de path duplicados. Para corregir problemas comunes ejecuta `redocly lint --format=json openapi.yaml | jq '.problems[] | select(.ruleId == "operation-summary")'` para filtrar reglas específicas.
 
-### ¿Cómo documento respuestas de error con RFC 7807 Problem Details?
+### ¿Por qué usar RFC 7807 Problem Details para respuestas de error?
 
 Para los errores RFC 7807, usa el media type `application/problem+json` y un schema `Problem` reutilizable.
 
@@ -540,7 +540,7 @@ Describe el comportamiento de throttling en la descripción. Por ejemplo: `descr
 
 También puedes añadir extensiones `x-codegen` para que los SDKs de cliente generados sepan cómo manejar los límites de frecuencia.
 
-### ¿Cómo manejo esquemas polimórficos en OpenAPI?
+### ¿Qué son los esquemas polimórficos y cómo funcionan en OpenAPI?
 
 Los tipos polimórficos se modelan con las keywords `oneOf`, `anyOf` y `allOf`. El ejemplo siguiente es una unión discriminada.
 
@@ -621,7 +621,7 @@ openapi-generator-cli generate -i openapi.yaml -g python-flask -o ./mock-server
 
 Luego úsalo en tests de integración apuntando los clientes a `http://localhost:4010` como base URL.
 
-### ¿Cómo documento la deprecación y los headers Sunset de una API?
+### ¿Cuándo debo deprecar una API y usar headers Sunset?
 
 Marca las operaciones deprecadas con `deprecated: true` y añade el header `Sunset` con la fecha de eliminación.
 
@@ -697,7 +697,7 @@ x-test-coverage:
   /books/{id}: 88%
 ```
 
-### ¿Cómo manejo referencias circulares en esquemas OpenAPI?
+### ¿Qué causa referencias circulares en esquemas OpenAPI?
 
 Una referencia circular ocurre cuando un esquema apunta de vuelta a sí mismo. Basta con añadir una referencia al componente.
 
@@ -790,7 +790,7 @@ x-observability:
 ```
 
 
-### ¿Cómo manejo la negociación de contenido en OpenAPI?
+### ¿Es compatible la negociación de contenido en OpenAPI?
 
 Los clientes pueden pedir distintos formatos, así que declara cada variante dentro del bloque `content` de la respuesta; por ejemplo, junto a JSON añade XML si tu API también lo entrega.
 
@@ -1227,7 +1227,7 @@ Haz lo mismo con el contenedor de error.
 
 Si sigues JSON:API, usa las claves top-level `data`, `included`, `meta` y `errors` en tu estructura de respuesta.
 
-### ¿Cómo manejo diferencias entre OpenAPI 3.0 y 3.1?
+### ¿Qué cambió entre OpenAPI 3.0 y 3.1?
 
 OpenAPI 3.1 elimina el antiguo flag `nullable: true` y en su lugar usa `type: [string, null]`. Además, `exclusiveMinimum` y `exclusiveMaximum` pasan de ser booleanos a números que indican el límite excluido.
 
@@ -1240,7 +1240,7 @@ En 3.1, eso pasa a ser `exclusiveMinimum: 0`. Las subidas binarias cambian de `f
 
 Antes de migrar, valida el spec con `redocly lint` y convierte con `npx @redocly/cli@latest convert openapi.yaml --to 3.1`. La mayoría de herramientas soportan 3.1, pero verifica tu generador y parser primero.
 
-### ¿Cómo documento portales de documentación de API y experiencia del desarrollador?
+### ¿Qué herramientas ayudan a construir portales de documentación de API y mejorar la experiencia del desarrollador?
 
 Crea un portal de desarrolladores usando Redoc, Stoplight o Backstage. Con Redoc, `npx @redocly/cli build-docs openapi.yaml -o ./docs` genera un sitio HTML estático. Configura la marca.
 

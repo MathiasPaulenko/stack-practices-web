@@ -107,12 +107,15 @@ Si el modo no es claro, preguntar antes de empezar.
   (`recipes` 1.300, `patterns` 1.500, `guides` 3.000, `docs` 3.000). Anotar el gap.
 - **Verificar si el recurso tiene imágenes o diagramas**: buscar bloques `mermaid`, etiquetas
   `![alt](...)`, o referencias a `public/assets/`. Anotar si el recurso se beneficiaría de un
-  diagrama (ej: flujos de arquitectura, comparaciones visuales, decision trees). No añadir
-  diagramas automáticamente — solo marcar como recomendación en el resumen final.
+  diagrama (ej: flujos de arquitectura, comparaciones visuales, decision trees). Si el recurso
+  se beneficia de un diagrama, añadir un bloque `mermaid` directamente en el Markdown (EN y ES)
+  en la sección más adecuada. El sitio renderiza Mermaid client-side. Mantener el diagrama
+  simple, etiquetado y equivalente EN/ES. No inventar diagramas decorativos.
 - **Verificar si el recurso tiene código subido a `stack-practices-resources`**: comprobar si
-  existe `../stack-practices-resources/resources/{tipo}/{topic}/{slug}/meta.json`. Si no existe,
-  marcar como recomendación en el resumen final (OUT OF SCOPE para el skill, requiere trabajo
-  manual en el repo hermano).
+  existe `../stack-practices-resources/resources/{tipo}/{topic}/{slug}/meta.json`. Si no existe
+  y el recurso contiene ejemplos multi-archivo, plantillas o proyectos completos, crear la
+  carpeta con `meta.json` y los archivos de ejemplo. No hacer commit ni push del repo hermano
+  sin aprobación explícita. Si el recurso solo tiene snippets inline cortos, no es necesario.
 - Opcional: ejecutar `ai-detect-patterns.py` en EN y ES para tener una línea base de patrones.
 
 **Salida esperada:** un resumen de una o dos líneas con el slug, tipo, palabras y estado base.
@@ -238,10 +241,12 @@ Si el modo no es claro, preguntar antes de empezar.
   - Estado de paridad.
   - Resultado de validación.
   - **Estado de imágenes/diagramas**: ¿el recurso tiene bloques `mermaid`, imágenes o
-    diagramas? ¿se beneficiaría de uno? Marcar como recomendación si aplica.
+    diagramas? Si se añadió uno, reportar dónde y por qué. Si no tiene y no necesita
+    uno, marcar como "no aplica".
   - **Estado de `stack-practices-resources`**: ¿existe
-    `../stack-practices-resources/resources/{tipo}/{topic}/{slug}/meta.json`? Si no existe,
-    marcar como "OUT OF SCOPE — requiere trabajo manual en repo hermano".
+    `../stack-practices-resources/resources/{tipo}/{topic}/{slug}/meta.json`? Si se creó,
+    reportar los archivos subidos. Si no existe y no aplica, marcar como "no aplica".
+    Si no existe pero sería útil, marcar como pendiente y pedir aprobación.
 - **Aplicar el Checklist PERFECTO** (`reference/perfect-close-checklist.md`) antes de pedir
   aprobación. Si algún ítem falla, corregirlo antes de continuar.
   - Verificar específicamente el mínimo de palabras del body y que no se haya rellenado con

@@ -111,9 +111,16 @@ npm run sitemap
 - No elimines contenido técnico para bajar IA.
 - No inventes herramientas, versiones, normas o datos.
 - No hagas commit/push sin aprobación explícita.
-- Items que requieren trabajo manual fuera del skill
-  (speakable schema, diagramas Mermaid, companion repo)
-  se marcan como OUT OF SCOPE.
+- Diagramas Mermaid: si el recurso se beneficia de uno, añadirlo
+  directamente en el Markdown (EN y ES). El sitio renderiza Mermaid
+  client-side. Mantener simple, etiquetado y equivalente EN/ES.
+- Companion repo `stack-practices-resources`: si el recurso tiene
+  ejemplos multi-archivo o plantillas, crear la carpeta
+  `../stack-practices-resources/resources/{tipo}/{topic}/{slug}/`
+  con `meta.json` y los archivos. No hacer commit ni push del repo
+  hermano sin aprobación explícita.
+- Items que siguen OUT OF SCOPE: speakable schema (modifica
+  componentes Astro), HTTP 301, assets descargables externos.
 
 ## Paso 3 — Re-auditar
 
