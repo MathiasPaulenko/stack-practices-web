@@ -247,6 +247,13 @@ Si el modo no es claro, preguntar antes de empezar.
     `../stack-practices-resources/resources/{tipo}/{topic}/{slug}/meta.json`? Si se creó,
     reportar los archivos subidos. Si no existe y no aplica, marcar como "no aplica".
     Si no existe pero sería útil, marcar como pendiente y pedir aprobación.
+  - **Verificación post-build de Mermaid**: si se añadieron bloques `mermaid`,
+    después de `npm run build`, verificar que el HTML en `dist/` contiene
+    `<div class="mermaid">` y que `/mermaid-init.js` está presente. Verificar
+    paridad EN/ES (mismo número de bloques). Reportar en el resumen.
+  - **Verificación post-build de companion repo**: si se creó companion repo,
+    ejecutar `node scripts/build-catalog.js` en el repo hermano y verificar
+    que pasa sin errores. Reportar en el resumen.
 - **Aplicar el Checklist PERFECTO** (`reference/perfect-close-checklist.md`) antes de pedir
   aprobación. Si algún ítem falla, corregirlo antes de continuar.
   - Verificar específicamente el mínimo de palabras del body y que no se haya rellenado con

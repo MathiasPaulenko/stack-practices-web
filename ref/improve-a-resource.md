@@ -91,6 +91,16 @@ Reglas críticas:
 - Al final, muestra git status, git diff --stat, un resumen tabular de
   cambios, estado de imágenes/diagramas, estado de stack-practices-resources,
   items OUT OF SCOPE, y pide aprobación para commit/push.
+- Si se añadió un diagrama Mermaid, verifica después del build que:
+  1. El HTML del recurso en `dist/` contiene `<div class="mermaid">`.
+  2. El script `/mermaid-init.js` está presente en el HTML.
+  3. Hay paridad EN/ES (mismo número de bloques).
+  Reporta el resultado de esta verificación en el resumen final.
+- Si se creó companion repo, verifica que:
+  1. `meta.json` tiene todos los campos requeridos.
+  2. Los archivos listados en `files` existen.
+  3. `node scripts/build-catalog.js` en el repo hermano pasa sin errores.
+  Reporta el resultado de esta verificación en el resumen final.
 ```
 
 ---

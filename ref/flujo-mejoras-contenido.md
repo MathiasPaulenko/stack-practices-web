@@ -71,8 +71,13 @@ Definition of Done y Top 5 acciones.
   (GSC, GA4, CWV).
 - Verifica si el recurso tiene imágenes/diagramas
   (bloques `mermaid`, `![alt](...)`, `public/assets/`).
+- Si hay bloques `mermaid`, verifica que se renderizan como
+  `<div class="mermaid">` en el HTML del build, que el script
+  `/mermaid-init.js` está presente, y que hay paridad EN/ES.
 - Verifica si existe
   `../stack-practices-resources/resources/{tipo}/{topic}/{slug}/meta.json`.
+  Si existe, verifica que `meta.json` tiene los campos requeridos y que
+  los archivos listados en `files` existen.
 
 ## Paso 2 — Arreglar
 

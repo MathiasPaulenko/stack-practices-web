@@ -54,9 +54,26 @@ Reglas críticas:
   etiquetas `![alt](...)`, referencias a `public/assets/`). Si no tiene,
   marca como RECOMMENDATION si el recurso se beneficiaría de uno (ej: flujos
   de arquitectura, comparaciones visuales, decision trees).
+- Si el recurso tiene bloques `mermaid`, verifica que:
+  1. El bloque se renderiza como `<div class="mermaid">` en el HTML del build
+     (ejecuta `npm run build` y revisa `dist/{tipo}/{slug}/index.html`).
+  2. El script `/mermaid-init.js` está presente en el HTML.
+  3. El diagrama tiene paridad EN/ES (mismo número de bloques, contenido
+     equivalente traducido).
+  4. El diagrama no es decorativo: aporta información que el texto no cubre.
+  5. El tamaño del diagrama es razonable (no excede el ancho del contenedor
+     en móvil). `useMaxWidth: true` está activado en mermaid-init.js.
+  Si algún check falla, marca como WARNING con evidence.
 - Verifica si existe `../stack-practices-resources/resources/{tipo}/{topic}/{slug}/meta.json`.
-  Si no existe, marca como RECOMMENDATION: "Subir ejemplos y código a
-  stack-practices-resources (repo hermano)".
+  Si existe, verifica que:
+  1. `meta.json` tiene los campos requeridos: title, title_es, description,
+     description_es, type, topic, slug, source_urls, language, tags, files.
+  2. Los archivos listados en `files` existen en la carpeta.
+  3. `source_urls` apunta a la URL EN del recurso.
+  4. Hay README.md y README.es.md (opcional pero recomendado).
+  Si algún check falla, marca como WARNING.
+  Si no existe la carpeta, marca como RECOMMENDATION: "Subir ejemplos y
+  código a stack-practices-resources (repo hermano)".
 ```
 
 ---

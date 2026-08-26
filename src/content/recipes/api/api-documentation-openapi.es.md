@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/handle-cors
   - /recipes/input-validation
   - /recipes/idempotent-api-endpoints
-lastUpdated: "2026-08-26"
+lastUpdated: "2026-08-27"
 publishedAt: "2026-02-18"
 author: Mathias Paulenko
 seo:
@@ -102,6 +102,20 @@ public class BookController {
 ## Explicación
 
 Los equipos generan specs OpenAPI de dos maneras, y la elección correcta depende de quién sea el dueño del contrato.
+
+```mermaid
+flowchart TD
+    A["Inicio: necesitas docs de API"] --> B{"¿Varios equipos<br/>necesitan acordar?"}
+    B -->|Sí| C["Design-first:<br/>escribe el YAML OpenAPI a mano"]
+    B -->|No, un solo equipo| D["Code-first:<br/>deja que el framework genere el spec"]
+    C --> E["Publica en SwaggerHub<br/>o Stoplight"]
+    E --> F["Genera stubs de servidor<br/>y SDKs de cliente"]
+    D --> G["FastAPI, SpringDoc<br/>o tsoa auto-genera"]
+    G --> H["Añade DTOs para evitar<br/>filtrar modelos internos"]
+    F --> I["Docs interactivas:<br/>Swagger UI + Redoc"]
+    H --> I
+    I --> J["Lint en CI con<br/>Redocly o Spectral"]
+```
 
 Con **code-first**, un único equipo construye la API y deja que FastAPI, SpringDoc o tsoa generen `openapi.json` a partir de anotaciones o decoradores. El spec se mantiene cerca del código, pero puede filtrar modelos internos si no usas DTOs.
 
