@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/serialize-deserialize-data
   - /recipes/parse-xml-files
   - /recipes/parse-command-line-arguments
-lastUpdated: "2026-08-25"
+lastUpdated: "2026-08-27"
 publishedAt: "2026-04-02"
 author: Mathias Paulenko
 seo:
@@ -114,7 +114,7 @@ public class TomlParser {
 
 ## Explanation
 
-TOML is basically key-value pairs, arrays, and tables. One table gets a bracketed header. A list of tables uses double brackets. The code above shows it. It doesn't care about indentation, so one accidental tab won't blow up the file like in YAML. Dates and times follow ISO 8601, and strings can be single-quoted literals or double-quoted basics with different escaping rules. Different escaping rules for no reason. That's the spec.
+TOML is basically key-value pairs, arrays, and tables. One table gets a bracketed header. A list of tables uses double brackets. The code above shows it. It doesn't care about indentation, so one accidental tab won't blow up the file like in YAML. Dates and times follow ISO 8601, and strings can be single-quoted literals or double-quoted basics with different escaping rules. Different escaping rules for no reason. That's the spec for you.
 
 Python 3.11 ships with tomllib, so I don't need another package just to read TOML. For writing, I grab tomli-w. JavaScript and Java don't have TOML support out of the box, so I use @iarna/toml and tomlj. All three give me maps, lists, and scalars that look a lot like JSON, which means I can validate TOML with the same schemas I use for JSON.
 
@@ -280,7 +280,7 @@ I keep the [TOML specification](https://toml.io/en/v1.0.0) bookmarked. Too many 
 
 ## Production Notes
 
-I pin parser versions in requirements.txt or package.json. tomllib is tied to the Python version, but third-party libraries can ship breaking changes. I run taplo or toml-test in CI to catch duplicate keys and bad dates before they hit production. Not glamorous. It saves me from bad deploys. Environment-specific TOML with secrets stays out of the repo, or I inject sensitive values through environment variables. If I generate TOML from source data, I regenerate it. I don't edit by hand. Keeps comments and ordering consistent.
+I pin parser versions in requirements.txt or package.json. tomllib ships with the Python version, but third-party libraries can ship breaking changes. I run taplo or toml-test in CI to catch duplicate keys and bad dates before they hit production. Not glamorous. It saves me from bad deploys. Environment-specific TOML with secrets stays out of the repo, or I inject sensitive values through environment variables. If I generate TOML from source data, I regenerate it. I don't edit by hand. Keeps comments and ordering consistent.
 
 ## Key Takeaways
 
@@ -296,7 +296,7 @@ Flat config, edited by developers, and needs comments? TOML is a good fit. Deep 
 
 Yes. Parse the TOML file to a dictionary, then validate the result with any JSON Schema validator. TOML has no native schema language, so a schema after parsing is the usual approach. Not native, but it works.
 
-### How do I merge more than one TOML file?
+### What's the best way to merge more than one TOML file?
 
 Parse each file on its own, then deep-merge the maps. In Python, deepmerge does the job; in JavaScript, lodash.merge or a hand-rolled recursive function; in Java, merge Map instances. Decide override rules explicitly, such as local.toml winning over base.toml. Otherwise you'll have a bad time.
 
@@ -304,7 +304,7 @@ Parse each file on its own, then deep-merge the maps. In Python, deepmerge does 
 
 Yes. Comments start with # and can sit on their own line or at the end of a value line. That makes TOML more readable than JSON for hand-edited config. It doesn't do block comments, though. Annoying, but true.
 
-### How do I handle dates and times in TOML?
+### What about dates and times in TOML?
 
 TOML has native date, time, and datetime types, all in ISO 8601. That means real timestamps in a config file. No string wrapping needed.
 

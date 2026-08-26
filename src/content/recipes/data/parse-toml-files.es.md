@@ -3,7 +3,7 @@ contentType: recipes
 slug: parse-toml-files
 title: "Analizar TOML: Python, Java y JS con Ejemplos"
 description: "Cómo analizar y escribir archivos de configuración TOML en Python, Java y JavaScript."
-metaDescription: "Analiza archivos TOML en Python (tomli/tomllib), Java y JavaScript. Lee, escribe, valida configs, maneja límites de nesting y evita CVEs con ejemplos de código."
+metaDescription: "Analiza archivos TOML en Python, Java y JavaScript. Lee, escribe, valida configs, maneja nesting y evita CVEs con ejemplos de código."
 difficulty: beginner
 topics:
   - data
@@ -23,11 +23,11 @@ relatedResources:
   - /recipes/serialize-deserialize-data
   - /recipes/parse-xml-files
   - /recipes/parse-command-line-arguments
-lastUpdated: "2026-08-25"
+lastUpdated: "2026-08-27"
 publishedAt: "2026-04-02"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Analiza archivos TOML en Python (tomli/tomllib), Java y JavaScript. Lee, escribe, valida configs, maneja límites de nesting y evita CVEs con ejemplos de código."
+  metaDescription: "Analiza archivos TOML en Python, Java y JavaScript. Lee, escribe, valida configs, maneja nesting y evita CVEs con ejemplos de código."
   keywords:
     - toml
     - analizar toml
@@ -114,9 +114,9 @@ public class TomlParser {
 
 ## Explicación
 
-TOML en el fondo es pares clave-valor, arrays y tablas. Una tabla sola lleva una cabecera entre corchetes. Una lista de tablas usa corchetes dobles. El código de arriba lo muestra. No le importa la indentación, así que un tabulador accidental no rompe el archivo como en YAML. Las fechas y horas siguen ISO 8601, y los strings pueden ser literales con comillas simples o básicos con comillas dobles, con reglas de escape distintas. Reglas de escape distintas sin razón. Así está la especificación.
+TOML en el fondo es pares clave-valor, arrays y también tablas. Una tabla sola lleva una cabecera entre corchetes. Una lista de tablas usa corchetes dobles. El código de arriba lo muestra. No le importa la indentación, así que un tabulador accidental no rompe el archivo como en YAML. Las fechas y horas siguen ISO 8601, y los strings pueden ser literales con comillas simples o básicos con comillas dobles, con reglas de escape distintas. Reglas de escape distintas sin razón. Así está la especificación.
 
-Python 3.11 finalmente trae tomllib en la librería estándar, así que no necesito otro paquete solo para leer TOML. Cuando tengo que escribirlo, agarro tomli-w. JavaScript y Java no traen soporte TOML de fábrica, así que uso @iarna/toml y tomlj. Los tres terminan entregando mapas, listas y escalares muy parecidos a JSON, lo que significa que puedo validar TOML con los mismos esquemas que uso para JSON.
+Python 3.11 finalmente trae tomllib en la librería estándar, así que no necesito otro paquete solo para leer TOML. Cuando tengo que escribirlo, agarro tomli-w. JavaScript y Java no traen soporte TOML de fábrica, así que uso @iarna/toml y tomlj. Los tres terminan entregando mapas, listas, además de escalares muy parecidos a JSON, lo que significa que puedo validar TOML con los mismos esquemas que uso para JSON.
 
 ## Variantes
 
@@ -296,7 +296,7 @@ TOML es un formato de configuración que se puede leer sin sufrir demasiado. Pyt
 
 Sí. Parseá el archivo TOML a un diccionario y después validá el resultado con cualquier validador de JSON Schema. TOML no tiene un lenguaje de esquema nativo, así que un esquema después del parsing es el enfoque habitual. No es nativo, pero funciona.
 
-### ¿Cómo mergeo más de un archivo TOML?
+### ¿Cuál es la mejor forma de mergeear más de un archivo TOML?
 
 Parseá cada archivo por su cuenta y después hacé un merge recursivo de los mapas. En Python, deepmerge hace el trabajo; en JavaScript, lodash.merge o una función recursiva hecha a mano; en Java, fusioná instancias de Map. Decidí las reglas de override explícitas, como que local.toml gane sobre base.toml. Si no, te vas a arrepentir.
 
@@ -304,9 +304,9 @@ Parseá cada archivo por su cuenta y después hacé un merge recursivo de los ma
 
 Sí. Los comentarios empiezan con # y pueden estar solos en una línea o al final de una línea con un valor. Eso hace que TOML sea más legible que JSON para config editada a mano. No hace comentarios de bloque, eso sí. Molesto, pero cierto.
 
-### ¿Cómo manejo fechas y horas en TOML?
+### ¿Qué pasa con las fechas y horas en TOML?
 
-TOML tiene tipos nativos de fecha, hora y datetime, todos en ISO 8601. Eso significa timestamps reales en un archivo de config. Sin envolverlos en strings.
+TOML tiene tipos nativos de fecha, además de hora y datetime, todos en ISO 8601. Eso significa timestamps reales en un archivo de config. Sin envolverlos en strings.
 
 ```toml
 started = 2026-08-13T07:30:00Z
