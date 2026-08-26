@@ -1,6 +1,6 @@
 # Top 100 Content Resources — Checklist
 
-1. - [ ] **api-documentation-openapi** (recipes)
+1. - [x] **api-documentation-openapi** (recipes) — 97.1/100 ✅ PROMOTE
 2. - [ ] **parse-toml-files** (recipes)
 3. - [ ] **chatbot-openai** (recipes)
 4. - [ ] **optimistic-locking** (recipes)

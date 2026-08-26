@@ -298,7 +298,11 @@ Separar por naturaleza de cambios:
 10. El agente generará commits separados, pedirá aprobación para cada
     uno, y luego pedirá aprobación para push.
 11. Aprueba los commits y el push (o no).
-12. Verifica el deployment en producción.
+12. Marca el recurso como completado en
+    `ref/checklist-top-recursos-mejoras.md` cambiando `- [ ]` por
+    `- [x]` y añadiendo el score final y veredicto, por ejemplo:
+    `- [x] **slug** (tipo) — 97.1/100 ✅ PROMOTE`
+13. Verifica el deployment en producción.
 
 ## Mínimos de palabras por tipo
 
