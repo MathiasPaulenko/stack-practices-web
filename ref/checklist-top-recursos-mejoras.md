@@ -2,7 +2,7 @@
 
 1. - [x] **api-documentation-openapi** (recipes) — 97.1/100 ✅ PROMOTE
 2. - [x] **parse-toml-files** (recipes) — 86.4/100 ✅ PROMOTE
-3. - [ ] **chatbot-openai** (recipes)
+3. - [x] **chatbot-openai** (recipes) — 86.0/100 ✅ PROMOTE
 4. - [ ] **optimistic-locking** (recipes)
 5. - [ ] **python-coverage-pytest-cov** (recipes)
 6. - [ ] **python-schedule-periodic-tasks** (recipes)

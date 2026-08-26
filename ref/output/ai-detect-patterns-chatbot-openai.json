@@ -1,0 +1,21 @@
+[
+  {
+    "label": "chatbot-openai",
+    "total_sentences": 118,
+    "pattern_totals": {
+      "missing_contraction": 1
+    },
+    "findings": [
+      {
+        "sentence": "Use this recipe to maintain existing integrations or to compare approaches; do not start new production chatbots on the Assistants API without a migration plan.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "do not",
+            "suggestion": "use 'don't'"
+          }
+        ]
+      }
+    ]
+  }
+]
