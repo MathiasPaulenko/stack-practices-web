@@ -49,6 +49,17 @@ I reach for TOML when I'm dealing with pyproject.toml, Cargo.toml, or a config.t
 
 Machine-generated config? I stick with JSON. Deep trees with anchors? YAML is less awkward. TOML shines for human-edited config that needs types and comments. YAML person? I usually send them to [Parse YAML Files](/recipes/parse-yaml-files/).
 
+```mermaid
+flowchart LR
+    A[Need a config file] --> B{Machine-generated?}
+    B -- Yes --> C[JSON]
+    B -- No --> D{Deep nesting\n5+ levels?}
+    D -- Yes --> E[YAML]
+    D -- No --> F{Need comments\nand typed values?}
+    F -- Yes --> G[TOML]
+    F -- No --> H[JSON or YAML]
+```
+
 ## Solution
 
 ### Python

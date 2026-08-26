@@ -39,7 +39,7 @@ seo:
 
 ## Visión General
 
-TOML me parecía una mala idea. Un INI con corchetes. Después aparecieron pyproject.toml y Cargo.toml en todos lados, y hoy no me puedo escapar. Honestamente, me terminó gustando. JSON es demasiado rígido. YAML me vuelve paranoico con la indentación. TOML está justo en el medio: comentarios, tablas anidadas, valores tipados y nada de esos dolores de cabeza con los espacios. Acá te dejo cómo leo y escribo TOML en Python, JavaScript y Java. Más los errores que cometí. Para que vos no los repitas.
+TOML me parecía una mala idea. Un INI con corchetes. Después aparecieron pyproject.toml y Cargo.toml en todos lados, y hoy no me puedo escapar. Honestamente, me terminó gustando. JSON es demasiado rígido. YAML me vuelve paranoico con la indentación. TOML está justo en el medio: comentarios, tablas anidadas, valores tipados y nada de esos dolores de cabeza con los espacios. Acá te dejo cómo leo y escribo TOML en Python, JavaScript y también Java. Más los errores que cometí. Para que vos no los repitas.
 
 TOML significa Tom's Obvious, Minimal Language. Tom Preston-Werner escribió la especificación. Por eso es tan opinionado.
 
@@ -48,6 +48,17 @@ TOML significa Tom's Obvious, Minimal Language. Tom Preston-Werner escribió la 
 Yo recurro a TOML cuando estoy manejando pyproject.toml, Cargo.toml o algún config.toml dentro de build scripts o pipelines de CI/CD. También cuando armo una herramienta que analiza la configuración de un proyecto. O cuando migro desde INI o JSON y quiero comentarios y tablas anidadas en un solo archivo. ¿Validar la configuración antes de que arranque? Parsear TOML primero. Win fácil.
 
 ¿La config la genera una máquina? Me quedo con JSON. ¿Árboles profundos con anchors? YAML es menos incómodo. El fuerte de TOML es la config editada por humanos que necesita tipos y comentarios. ¿Más de tipo YAML? Yo usualmente mando a la gente a [Analizar archivos YAML](/es/recipes/parse-yaml-files/).
+
+```mermaid
+flowchart LR
+    A[Necesitas un archivo de config] --> B{¿Lo genera una máquina?}
+    B -- Sí --> C[JSON]
+    B -- No --> D{¿Anidación profunda\n5+ niveles?}
+    D -- Sí --> E[YAML]
+    D -- No --> F{¿Necesitás comentarios\ny valores tipados?}
+    F -- Sí --> G[TOML]
+    F -- No --> H[JSON o YAML]
+```
 
 ## Solución
 
@@ -284,7 +295,7 @@ Yo fijo las versiones de los parsers en requirements.txt o package.json. tomllib
 
 ## Puntos Clave
 
-TOML es un formato de configuración que se puede leer sin sufrir demasiado. Python, JavaScript y Java pueden parsearlo con librerías chicas y enfocadas. Yo lo leo con tomllib, @iarna/toml o tomlj; lo escribo con tomli-w o toml.stringify. Para atrapar errores temprano, le tiro Pydantic o JSON Schema a los datos parseados. Los dotted keys y los arrays de tablas mantienen los archivos legibles, y un merge recursivo se encarga de los overrides específicos por ambiente.
+TOML es un formato de configuración que se puede leer sin sufrir demasiado. Python, JavaScript y también Java pueden parsearlo con librerías chicas y enfocadas. Yo lo leo con tomllib, @iarna/toml o tomlj; lo escribo con tomli-w o toml.stringify. Para atrapar errores temprano, le tiro Pydantic o JSON Schema a los datos parseados. Los dotted keys y los arrays de tablas mantienen los archivos legibles, y un merge recursivo se encarga de los overrides específicos por ambiente.
 
 ## Preguntas Frecuentes
 
@@ -314,7 +325,7 @@ expires = 2026-08-13
 daily = 07:30:00
 ```
 
-El tomllib de Python los convierte en objetos datetime reales, así que los podés comparar o pasar a otro código sin parsearlos de nuevo. Los uso sobre todo para fechas de expiración, schedules y timestamps de versión. Práctico.
+El tomllib de Python los convierte en objetos datetime reales, así que los podés comparar o pasar a otro código sin parsearlos de nuevo. Los uso sobre todo para fechas de expiración, además de schedules y timestamps de versión. Práctico.
 
 ### ¿Cómo convierto entre TOML y JSON?
 
