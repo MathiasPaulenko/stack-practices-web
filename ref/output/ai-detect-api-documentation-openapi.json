@@ -2,23 +2,23 @@
   {
     "label": "api-documentation-openapi-en",
     "model": "desklib",
-    "model_ai_pct": 40.6,
-    "ai_count": 49,
-    "human_count": 116,
+    "model_ai_pct": 41.1,
+    "ai_count": 35,
+    "human_count": 77,
     "skipped_count": 1,
-    "total": 166,
+    "total": 113,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 19.4,
-      "stddev": 13.8,
-      "cv": 0.71,
+      "mean": 18.9,
+      "stddev": 12.9,
+      "cv": 0.68,
       "verdict": "natural variation",
-      "sentence_count": 165,
+      "sentence_count": 112,
       "lengths": [
         11,
         13,
         23,
-        12,
+        13,
         23,
         20,
         24,
@@ -34,7 +34,9 @@
         9,
         18,
         16,
-        29,
+        9,
+        6,
+        13,
         99,
         18,
         18,
@@ -69,18 +71,12 @@
         23,
         23,
         13,
-        62,
+        64,
         9,
         13,
         26,
         23,
         24,
-        9,
-        7,
-        32,
-        16,
-        10,
-        27,
         11,
         8,
         13,
@@ -90,89 +86,40 @@
         23,
         30,
         42,
-        10,
-        16,
-        30,
-        14,
-        6,
-        12,
+        9,
         7,
-        10,
-        11,
-        27,
-        19,
-        14,
-        8,
-        24,
-        16,
-        23,
-        9,
-        25,
-        12,
-        18,
-        10,
-        15,
-        33,
-        20,
-        20,
-        47,
-        9,
         32,
-        7,
-        6,
         16,
-        12,
-        40,
-        27,
-        13,
-        13,
-        37,
-        16,
-        19,
-        20,
-        14,
-        22,
-        23,
-        13,
-        51,
-        11,
-        11,
-        7,
-        18,
-        11,
-        15,
-        20,
         10,
-        88,
-        6,
-        6,
-        9,
-        68,
-        9,
-        41,
-        9,
-        16,
-        32,
-        13,
-        12,
-        50,
-        8,
-        14,
-        14,
-        63,
-        35,
+        27,
         14,
         18,
         20,
         14,
         17,
         12,
-        9,
-        22,
+        19,
+        14,
+        8,
+        24,
+        16,
+        23,
+        12,
+        75,
         10,
-        19,
+        15,
+        33,
         20,
-        19,
+        20,
+        37,
+        16,
+        23,
+        11,
+        7,
+        18,
+        11,
+        15,
+        20,
         51,
         11,
         12,
@@ -184,20 +131,8 @@
     },
     "top_ai_sentences": [
       [
-        "OpenAPI Generator can also produce a static mock server from the same tool.",
-        0.9863
-      ],
-      [
-        "Install it first with npm install @openapitools/openapi-generator-cli -g, then run the generator command for each language.",
-        0.954
-      ],
-      [
-        "I tend to choose design-first when the frontend, backend and mobile teams all need to agree on a contract before anyone writes code.",
-        0.93
-      ],
-      [
-        "In OpenAPI 3.1, webhooks get a top-level webhooks field.",
-        0.9002
+        "I tend to choose design-first when the frontend, backend, and mobile teams all need to agree on a contract before anyone writes code.",
+        0.9327
       ],
       [
         "Auto-fix common issues by running redocly lint --format=json openapi.yaml | jq '.problems[] | select(.ruleId == \"operation-summary\")' to filter specific rules.",
@@ -208,8 +143,8 @@
         0.8631
       ],
       [
-        "Send Accept: text/csv for CSV export.",
-        0.8391
+        "**Swagger UI** lets developers call endpoints from the browser.",
+        0.8541
       ],
       [
         "For API keys, use type: apiKey and tell clients which header to send.",
@@ -220,24 +155,16 @@
         0.7953
       ],
       [
-        "Send Accept: application/xml for XML response.",
-        0.7952
-      ],
-      [
         "The apiKey type still works, but it doesn't fit bearer tokens, because it describes a custom API key rather than a bearer scheme.",
         0.7807
       ],
       [
-        "The example below shows an offset-based approach.",
-        0.7684
+        "**Redoc** renders a three-pane doc site.",
+        0.7685
       ],
       [
         "Just add a $ref to the component, as the example shows.",
         0.765
-      ],
-      [
-        "Returns 429 with Retry-After header when exceeded..",
-        0.7187
       ],
       [
         "In GitHub Actions:\n\n\nLint the spec on every PR with npx @redocly/cli lint openapi.yaml to catch schema violations, missing responses and broken references.",
@@ -252,8 +179,8 @@
         0.7076
       ],
       [
-        "Use them for generator hints, internal ownership or portal metadata:\n\n\n\nFor internal metadata, add fields like x-internal, x-owner or x-sla.",
-        0.7036
+        "Use the Link header to point to the replacement:\nLink: </v2/books>; rel=\"successor-version\"\n\n\nA circular reference happens when a schema points back to itself.",
+        0.7046
       ],
       [
         "**Document real error responses**, not just a successful 200.",
@@ -282,6 +209,26 @@
       [
         "Include 400, 401, 404, 409 and 5xx with problem-detail bodies.",
         0.626
+      ],
+      [
+        "For a couple of edge cases, the file type becomes format binary and collectionFormat becomes style and explode parameters, so you may need to adjust them manually.",
+        0.6248
+      ],
+      [
+        "For JWT tokens in OpenAPI 3.1, stick with the HTTP bearer scheme.",
+        0.6225
+      ],
+      [
+        "The first block shows a Bearer JWT scheme.",
+        0.6198
+      ],
+      [
+        "Using apiKey security for bearer JWT tokens instead of http with scheme: bearer.",
+        0.6079
+      ],
+      [
+        "OpenAPI 3.1 drops the old nullable: true flag and instead uses type: [string, null].",
+        0.5843
       ]
     ],
     "diagnostics_sample": []
@@ -289,18 +236,18 @@
   {
     "label": "api-documentation-openapi-es",
     "model": "desklib",
-    "model_ai_pct": 38.0,
-    "ai_count": 60,
-    "human_count": 168,
-    "skipped_count": 4,
-    "total": 232,
+    "model_ai_pct": 33.7,
+    "ai_count": 26,
+    "human_count": 110,
+    "skipped_count": 2,
+    "total": 138,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 16.2,
-      "stddev": 9.5,
+      "mean": 17.7,
+      "stddev": 10.2,
       "cv": 0.58,
       "verdict": "natural variation",
-      "sentence_count": 228,
+      "sentence_count": 136,
       "lengths": [
         18,
         11,
@@ -321,7 +268,9 @@
         12,
         21,
         18,
-        32,
+        11,
+        7,
+        13,
         103,
         23,
         18,
@@ -356,22 +305,14 @@
         25,
         26,
         14,
-        20,
+        22,
         30,
         20,
         9,
         17,
         25,
         18,
-        25,
-        12,
-        10,
-        11,
-        25,
-        20,
-        9,
-        22,
-        13,
+        35,
         8,
         21,
         9,
@@ -384,26 +325,34 @@
         10,
         16,
         27,
-        9,
-        7,
-        40,
-        18,
-        8,
-        14,
-        7,
+        12,
         10,
+        11,
+        25,
+        20,
         9,
-        27,
+        22,
+        16,
+        15,
+        8,
+        26,
+        19,
+        18,
+        13,
         23,
         13,
         10,
         28,
         18,
         25,
+        12,
+        7,
+        6,
+        10,
         13,
-        26,
+        15,
         14,
-        26,
+        33,
         9,
         16,
         12,
@@ -411,40 +360,11 @@
         5,
         21,
         20,
-        15,
-        14,
-        33,
-        14,
-        15,
-        7,
-        8,
-        13,
-        7,
-        6,
-        19,
-        12,
-        7,
-        6,
-        10,
-        13,
-        13,
-        21,
-        8,
-        25,
         17,
         9,
         24,
         19,
         13,
-        8,
-        13,
-        35,
-        10,
-        9,
-        24,
-        14,
-        47,
-        8,
         13,
         7,
         9,
@@ -453,71 +373,6 @@
         12,
         16,
         21,
-        13,
-        10,
-        11,
-        8,
-        8,
-        9,
-        31,
-        11,
-        13,
-        15,
-        6,
-        6,
-        21,
-        7,
-        9,
-        9,
-        17,
-        8,
-        5,
-        16,
-        9,
-        21,
-        31,
-        7,
-        14,
-        19,
-        14,
-        14,
-        18,
-        17,
-        13,
-        18,
-        22,
-        10,
-        8,
-        15,
-        15,
-        8,
-        13,
-        20,
-        19,
-        15,
-        10,
-        5,
-        8,
-        17,
-        16,
-        15,
-        8,
-        26,
-        19,
-        18,
-        13,
-        10,
-        13,
-        12,
-        5,
-        8,
-        9,
-        11,
-        12,
-        10,
-        9,
-        9,
-        24,
         7,
         9,
         6,
@@ -546,76 +401,24 @@
         0.8929
       ],
       [
-        "A continuaci\u00f3n se define el contenedor de la respuesta paginada.",
-        0.8849
-      ],
-      [
-        "Documenta la pol\u00edtica de rotaci\u00f3n con x-api-key-rotation: 90 days.",
-        0.8666
-      ],
-      [
-        "Send Accept: text/csv for CSV export.",
-        0.8391
-      ],
-      [
-        "A\u00f1ade esos headers a las respuestas para que los clientes sepan cu\u00e1ntas peticiones les quedan.",
-        0.8379
+        "**Redoc** renderiza un sitio de tres paneles.",
+        0.8384
       ],
       [
         "Recursos relacionados: [Implementar logging y audit trails de API](/recipes/api-logging-audit/), [Implementar Rate Limiting de APIs con Redis](/recipes/api-rate-limiting-redis/), [",
         0.8243
       ],
       [
-        "No olvides la respuesta 304 para contenido no modificado.",
-        0.8169
-      ],
-      [
         "**Incluye respuestas de error reales**, no solo una respuesta 200 exitosa.",
         0.8058
-      ],
-      [
-        "Send Accept: application/xml for XML response.",
-        0.7952
-      ],
-      [
-        "Por ejemplo: description: Rate limited to 100 requests per hour for free tier.",
-        0.7894
       ],
       [
         "Una vez definidos los esquemas, a\u00f1ade la entrada security a nivel de operaci\u00f3n.",
         0.7818
       ],
       [
-        "La paginaci\u00f3n por cursor funciona con un par\u00e1metro opaco.",
-        0.7648
-      ],
-      [
-        "La extensi\u00f3n x-cache permite guardar la configuraci\u00f3n del CDN.",
-        0.7451
-      ],
-      [
-        "Una vez que existe el spec, impulsa documentaci\u00f3n interactiva, un sitio de documentaci\u00f3n limpio y generadores de clientes.",
-        0.745
-      ],
-      [
-        "Returns 429 with Retry-After header when exceeded..",
-        0.7187
-      ],
-      [
-        "Tambi\u00e9n puedes incluir gu\u00edas de incorporaci\u00f3n para nuevos consumidores.",
-        0.7083
-      ],
-      [
         "Tambi\u00e9n puedes usar el header Link para apuntar al reemplazo: Link: </v2/books>; rel=\"successor-version\".",
         0.6738
-      ],
-      [
-        "Tambi\u00e9n conviene documentar el prefijo de clave para identificar entornos, por ejemplo: description: API keys start with 'sk_live_' for production and 'sk_test_' for sandbox..",
-        0.6735
-      ],
-      [
-        "Puedes documentar los headers de trazabilidad y m\u00e9tricas con extensiones y headers est\u00e1ndar.",
-        0.6661
       ],
       [
         "En cuanto un segundo equipo dependa de ella, un contrato escrito empieza a dar frutos.",
@@ -626,12 +429,64 @@
         0.657
       ],
       [
-        "La seguridad cubre varios niveles: transporte, autenticaci\u00f3n y autorizaci\u00f3n.",
-        0.6568
+        "[GraphQL API](/recipes/graphql-api/): enfoque alternativo de API.",
+        0.6444
       ],
       [
-        "Para los callbacks de webhook.",
-        0.6564
+        "En la descripci\u00f3n de la operaci\u00f3n a\u00f1ade el path de migraci\u00f3n, por ejemplo: description: Migrate to /v2/books which supports cursor-based pagination and additional filters..",
+        0.6426
+      ],
+      [
+        "**Swagger UI** permite a los desarrolladores llamar endpoints desde el navegador.",
+        0.6417
+      ],
+      [
+        "Para descargas, la respuesta deber\u00eda usar el content type application/octet-stream, lo que significa que tambi\u00e9n debes declarar un esquema de cadena binaria para el cuerpo de la re",
+        0.5993
+      ],
+      [
+        "Para validar, usa jsonschema con un RefResolver que maneje referencias circulares, como se muestra aqu\u00ed: resolver = jsonschema.RefResolver.from_schema(schema); jsonschema.validate(",
+        0.5903
+      ],
+      [
+        "En OpenAPI 3.1, format: binary se convierte en contentEncoding: binary.",
+        0.5826
+      ],
+      [
+        "Ese mismo archivo puede impulsar documentaci\u00f3n interactiva, SDKs de cliente, y tests de contrato.",
+        0.5743
+      ],
+      [
+        "El ejemplo siguiente muestra un esquema Bearer JWT.",
+        0.5731
+      ],
+      [
+        "Usa DTOs dedicados para solicitud y respuesta.",
+        0.572
+      ],
+      [
+        "Para rastrear el uso de endpoints deprecados, registra las peticiones y notifica a los consumidores por email o webhook.",
+        0.5604
+      ],
+      [
+        "Ese contrato obliga a decidir de forma expl\u00edcita campos, errores, y versionado.",
+        0.5381
+      ],
+      [
+        "Para limitar el tama\u00f1o de subida, a\u00f1ade maxLength al campo binario e indica el l\u00edmite en la descripci\u00f3n, por ejemplo 10485760 bytes para 10 MB.",
+        0.5304
+      ],
+      [
+        "La [OpenAPI Specification (latest)](https://spec.openapis.org/oas/latest.html) es la referencia oficial para nombres de campos, tipos, y diferencias de versi\u00f3n.",
+        0.5275
+      ],
+      [
+        "Los campos nullable tambi\u00e9n sorprenden: OpenAPI 3.0 usa nullable: true, mientras que 3.1 usa type: [string, null].",
+        0.5262
+      ],
+      [
+        "Para estructuras profundamente anidadas, limita la profundidad de recursi\u00f3n con x-max-depth: 5.",
+        0.5222
       ]
     ],
     "diagnostics_sample": []
