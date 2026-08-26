@@ -19,7 +19,7 @@ relatedResources:
   - /guides/sql-performance-tuning-guide
   - /recipes/deadlock-prevention-sql
   - /recipes/concurrent-data-structures
-lastUpdated: "2026-08-13"
+lastUpdated: "2026-08-27"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
@@ -35,24 +35,36 @@ seo:
 ---
 ## Overview
 
-Optimistic locking stops lost updates when several clients work at once by checking whether the row changed since it was last read. You keep a version number or timestamp on each row. The update includes that original version in the `WHERE` clause; if someone else changed it, the update fails and the app retries or returns a conflict. That avoids the cost of holding database locks while the user thinks.
+I use optimistic locking to stop lost updates when several clients work at once.
+It checks whether the row changed since I last read it.
+I keep an integer version on each row and include that version in the `WHERE` clause.
+If another transaction changed it, the update returns zero rows and I either retry with fresh data or return a 409 conflict.
+That beats holding database locks while the user thinks.
 
-Below you'll find an implementation of optimistic locking with integer versioning in PostgreSQL-compatible SQL, Node.js, Java/JPA and beyond. Related recipes: [Database Migrations Safely](/recipes/database-migrations-safely/), [Manage Database Migrations Safely](/recipes/database-migrations/), and [Create and Use Database Views and Materialized Views](/recipes/database-views-materialized/).
+Below you'll find how I implement optimistic locking with integer versioning in
+PostgreSQL-compatible SQL, Node.js, Java/JPA and beyond.
+Related recipes:
+[Database Migrations Safely](/recipes/database-migrations-safely/),
+[Manage Database Migrations Safely](/recipes/database-migrations/),
+and [Create and Use Database Views and Materialized Views](/recipes/database-views-materialized/).
 
 ## When to Use
 
-Use this resource when:
-- Several users, background jobs or microservices often try to update the same row at the same time. See [Database Transactions](/recipes/database-transactions/) for ACID patterns.
-- You want to avoid pessimistic locks that hurt throughput and can deadlock
-- Your app follows a read-modify-write pattern and there's a gap between the read and the write
-- You need conflict detection in [REST APIs](/recipes/call-rest-api/), offline-first apps, or distributed systems
+I reach for optimistic locking when:
+- Several users, background jobs or microservices often try to update the same row
+  at the same time. See [Database Transactions](/recipes/database-transactions/) for ACID patterns.
+- I want to avoid pessimistic locks that hurt throughput and can deadlock.
+- My app follows a read-modify-write pattern and there's a gap between the read and the write.
+- I need conflict detection in [REST APIs](/recipes/call-rest-api/), offline-first apps, or distributed systems.
 
-Do **not** use it when:
+I don’t use it when:
 
-- Contention is so high that retries become expensive or impractical. For those cases, prefer [pessimistic locks](/recipes/locks-and-mutexes/) or atomic operations such as `SELECT FOR UPDATE`.
-- You can redesign the flow to skip the read-modify-write pattern entirely — append events or use CRDTs, for example.
-- The same row is being hit several times a second from different sources. A pessimistic lock or a queue is usually less painful.
-- Your database already supports serializable isolation (e.g., PostgreSQL `SERIALIZABLE`) and the workload tolerates its overhead.
+- Contention is so high that retries become expensive or impractical. For those cases,
+  I prefer [pessimistic locks](/recipes/locks-and-mutexes/) or atomic operations such as `SELECT FOR UPDATE`.
+- I can redesign the flow to skip the read-modify-write pattern entirely — append events or use CRDTs, for example.
+- The same row is being hit several times a second from different sources.
+  In my experience, a pessimistic lock or a queue is usually less painful.
+- My database already supports serializable isolation (e.g., PostgreSQL `SERIALIZABLE`) and the workload tolerates its overhead.
 
 ## Solution
 
@@ -170,16 +182,30 @@ public ResponseEntity<Map<String, String>> handleConflict(OptimisticLockingFailu
 
 ## Explanation
 
-Optimistic locking bets on conflicts being rare. The database doesn't lock the row while you read it. The actual update is conditional:
+I think of optimistic locking as a bet that conflicts will be rare.
+The database doesn’t lock the row while I read it. The actual update is conditional:
 
 ```sql
 UPDATE table SET ... WHERE id = ? AND version = ?
 ```
 
-If `rowsAffected == 0`, the version changed between the read and the write. The app then handles the conflict: retry with fresh data, return HTTP 409, or merge the changes.
+If `rowsAffected == 0`, the version changed between the read and the write.
+I then handle the conflict: retry with fresh data, return HTTP 409, or merge the changes.
+
+```mermaid
+flowchart TD
+    A[Read row with version] --> B[Modify in app]
+    B --> C{Update with version check}
+    C -- rows=1 --> D[Success]
+    C -- rows=0 --> E{Strategy}
+    E -- retry --> A
+    E -- 409 --> F[Return conflict]
+    E -- merge --> G[Resolve and retry]
+```
 
 **Trade-offs:**
-- **Optimistic**: reads stay lock-free and the system scales, but you'll need to handle conflicts and retry.
+- **Optimistic**: reads stay lock-free and the system scales,
+  but I need to handle conflicts and retry.
 - **Pessimistic**: `SELECT FOR UPDATE` locks the row right away; the logic is simpler, but it serializes access and can deadlock.
 
 For more concurrency patterns, see [Concurrent Data Structures](/recipes/concurrent-data-structures/).
@@ -190,32 +216,41 @@ For more concurrency patterns, see [Concurrent Data Structures](/recipes/concurr
 |------------|----------|-------|
 | Integer version | `version` column incremented on every update | Most common; works across all relational databases |
 | Timestamp | `updated_at` column compared at write time | Prone to clock skew issues; use database timestamps, not app clocks |
-| Checksum / hash | Hash of row contents stored and compared | Detects any change, even if version was bypassed |
+| Checksum / hash | Hash of row contents stored and compared | Detects any change, even if you bypass the version |
 | JPA `@Version` | Automatic integer version | Hibernate handles increment and conflict detection transparently |
 | DynamoDB | Conditional writes with `Expected` | No native versioning; use attribute_exists or value comparisons |
 | MongoDB | `findAndModify` with query criteria | Include version in filter; retry if document was modified |
 
 ## What Works
 
-1. Always return the current version to the client after every read so it can send it back on update
-2. Implement [exponential backoff retry](/recipes/retry-backoff/) (1–3 attempts) for transient conflicts in automated processes
-3. Use integer `version` over timestamps; clocks are unreliable across nodes and timezones
-4. Keep transactions short; the gap between read and write is your vulnerability window
-5. Log version conflicts at `INFO` level to monitor contention hotspots without alarming on every retry
+1. I always return the current version to the client after every read,
+   so it can send it back on update.
+2. I implement [exponential backoff retry](/recipes/retry-backoff/) (1–3 attempts)
+   for transient conflicts in automated processes.
+3. I use integer `version` over timestamps; in production, I’ve seen clocks drift
+   and cause false positives across nodes.
+4. I keep transactions short; the gap between read and write is the vulnerability
+   window.
+5. I log version conflicts at `INFO` level to monitor contention hotspots without
+   alarming on every retry.
 
 ## Common Mistakes
 
-1. **Not exposing version to API consumers** — clients can't send it back if they never received it
-2. **Infinite retry loops** — always cap retries and surface persistent conflicts to the user
-3. **Updating the version in application code** — let the database or ORM increment it atomically
-4. **Using pessimistic locking for everything** — kills throughput; reserve `FOR UPDATE` for true inventory or banking scenarios. See [Locks and Mutexes](/recipes/locks-and-mutexes/) for lock patterns.
-5. **Ignoring the conflict in UI** — users need clear feedback that their data is stale and must be refreshed
+1. **Not exposing version to API consumers** — clients can't send it back if they never received it. I’ve debugged this in an API where the frontend silently lost every second update.
+2. **Infinite retry loops** — I always cap retries and surface persistent conflicts to the user.
+3. **Updating the version in application code** — I let the database or ORM increment it atomically.
+4. **Using pessimistic locking for everything** — it kills throughput; I reserve
+   `FOR UPDATE` for true inventory or banking scenarios. See [Locks and Mutexes]
+   (/recipes/locks-and-mutexes/) for lock patterns.
+5. **Ignoring the conflict in UI** — users need clear feedback that their data is stale and must be refreshed.
 
 ## FAQ
 
 ### Should I use optimistic or pessimistic locking?
 
-Choose optimistic locking for read-heavy workloads with only occasional writes. Choose pessimistic locking when contention is high and retries are impractical — think seat reservations or inventory allocation.
+I choose optimistic locking for read-heavy workloads with only occasional writes.
+I choose pessimistic locking when contention is high and retries are impractical —
+think seat reservations or inventory allocation.
 
 ### What HTTP status should I return on a conflict?
 
@@ -223,7 +258,10 @@ Return `409 Conflict`. Put the current resource state in the body so the client 
 
 ### How do I handle optimistic locking in a microservices architecture?
 
-Use event sourcing or sagas where each service owns its aggregate. When you need consistency across services, prefer idempotent conditional updates over distributed locks. Compensating transactions (undo) are often safer than distributed locks. See [Circuit Breaker](/patterns/circuit-breaker-pattern/) for resilience patterns.
+I use event sourcing or sagas where each service owns its aggregate. When I need
+consistency across services, I prefer idempotent conditional updates over distributed
+locks. Compensating transactions (undo) are often safer than distributed locks. See
+[Circuit Breaker](/patterns/circuit-breaker-pattern/) for resilience patterns.
 
 ### How do I retry a failed update?
 
@@ -498,15 +536,17 @@ When fields overlap, the right call depends on the domain: show a diff to the us
 
 ## Production Notes
 
-1. **Index the version column.** The `WHERE id = ? AND version = ?` clause needs an index on both columns:
+1. **Index the version column.** The `WHERE id = ? AND version = ?` clause needs an index on both columns.
 
 ```sql
 CREATE INDEX idx_products_id_version ON products (id, version);
 ```
 
-2. **Keep the read-modify-write gap short.** The longer the gap, the more likely conflicts occur. Skip external API calls and heavy computation between reading and writing.
+2. **Keep the read-modify-write gap short.** The longer the gap, the more likely
+  conflicts occur. I skip external API calls and heavy computation between reading
+  and writing.
 
-3. **Use `RETURNING` to avoid a second query.** Get the updated version in the same statement:
+3. **Use `RETURNING` to avoid a second query.** I get the updated version in the same statement:
 
 ```sql
 UPDATE products SET price = $1, version = version + 1
@@ -514,7 +554,7 @@ WHERE id = $2 AND version = $3
 RETURNING id, version;
 ```
 
-4. **Monitor conflict rates with `pg_stat_database`.** Track deadlocks and conflicts at the database level:
+4. **Monitor conflict rates with `pg_stat_database`.** I track deadlocks and conflicts at the database level:
 
 ```sql
 SELECT datname, deadlocks, conflicts, temp_files
@@ -522,15 +562,18 @@ FROM pg_stat_database
 WHERE datname = current_database();
 ```
 
-5. **Consider `SERIALIZABLE` isolation instead of manual versioning.** PostgreSQL's `SERIALIZABLE` handles conflicts automatically using SSI (Serializable Snapshot Isolation). That's usually simpler than managing versions by hand for complex transactions.
+5. **Consider `SERIALIZABLE` isolation instead of manual versioning.**
+  PostgreSQL's `SERIALIZABLE` handles conflicts automatically using SSI (Serializable
+  Snapshot Isolation). I’ve found it simpler than managing versions by hand for
+  complex transactions.
 
 ## Key Takeaways
 
-- Optimistic locking avoids long-held database locks by making every update conditional on a version number.
-- Use an integer `version` column rather than timestamps; increment it atomically in the database or ORM.
-- Always return the current version on reads, and return a clear `409 Conflict` (or equivalent) when the version doesn't match.
-- Keep the read-modify-write window short and cap retries to prevent thundering herds.
-- When contention is high, pessimistic locks, `SELECT FOR UPDATE` and serializable isolation are all valid options.
+- Optimistic locking avoids long-held database locks by making every update conditional on a version number. That's why I prefer it for most read-heavy workflows.
+- I use an integer `version` column rather than timestamps; I increment it atomically in the database or ORM.
+- I always return the current version on reads, and return a clear `409 Conflict` (or equivalent) when the version doesn't match.
+- I keep the read-modify-write window short and cap retries to prevent thundering herds.
+- When contention is high, I fall back to pessimistic locks, `SELECT FOR UPDATE` or serializable isolation.
 
 ## Further Reading
 

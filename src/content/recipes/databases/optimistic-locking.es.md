@@ -19,7 +19,7 @@ relatedResources:
   - /guides/sql-performance-tuning-guide
   - /recipes/deadlock-prevention-sql
   - /recipes/concurrent-data-structures
-lastUpdated: "2026-08-13"
+lastUpdated: "2026-08-27"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
@@ -35,24 +35,24 @@ seo:
 ---
 ## Visión General
 
-El optimistic locking previene actualizaciones perdidas en entornos concurrentes verificando si un registro ha sido modificado desde su última lectura. Cada fila lleva un número de versión o timestamp. Al actualizar, la aplicación incluye la versión original en la cláusula `WHERE`; si la versión cambió, la actualización falla y la aplicación reintenta o reporta un conflicto. Esto evita el costo de rendimiento de mantener bloqueos de base de datos durante el tiempo de pensamiento del usuario.
+Yo uso optimistic locking para prevenir actualizaciones perdidas en entornos concurrentes. Verifico si un registro fue modificado desde su última lectura. Cada fila lleva un número de versión o timestamp. Al actualizar, incluyo la versión original en la cláusula `WHERE`; si la versión cambió, la actualización falla y reintento o reporto un conflicto. Esto evita el costo de mantener bloqueos de base de datos durante el tiempo de pensamiento del usuario.
 
-Esta implementacion proporciona optimistic locking con versionado entero en PostgreSQL, MySQL y JPA/Hibernate. Recursos relacionados: [Migraciones de Base de Datos de Forma Segura](/recipes/database-migrations-safely/), [Gestionar Migraciones de Base de Datos de Forma Segura](/recipes/database-migrations/) y [Crear y usar vistas y vistas materializadas](/recipes/database-views-materialized/).
+Esta implementación proporciona optimistic locking con versionado entero en PostgreSQL y MySQL, además de JPA/Hibernate. Recursos relacionados: [Migraciones de Base de Datos de Forma Segura](/recipes/database-migrations-safely/), [Gestionar Migraciones de Base de Datos de Forma Segura](/recipes/database-migrations/) y [Crear y usar vistas y vistas materializadas](/recipes/database-views-materialized/).
 
 ## Cuándo Usar
 
-Usa este recurso cuando:
+Uso este recurso cuando:
 - Varios usuarios, jobs en segundo plano o microservicios a menudo intentan actualizar la misma fila al mismo tiempo. Consulta [Database Transactions](/recipes/database-transactions/) para patrones ACID.
-- Quieres evitar bloqueos pesimistas que dañan throughput y pueden causar deadlocks
-- Tu aplicación tiene un patrón de lectura-modificación-escritura con gaps entre lectura y escritura
-- Necesitas detección de conflictos en [APIs REST](/recipes/call-rest-api/), apps offline-first o sistemas distribuidos
+- Quiero evitar bloqueos pesimistas que dañan throughput y pueden causar deadlocks
+- Mi aplicación tiene un patrón de lectura-modificación-escritura con gaps entre lectura y escritura
+- Necesito detección de conflictos en [APIs REST](/recipes/call-rest-api/), apps offline-first o sistemas distribuidos
 
-**No** lo uses cuando:
+**No** lo uso cuando:
 
-- La contención es tan alta que los reintentos se vuelven costosos o impracticables. Para esos casos, prefiere [bloqueos pesimistas](/recipes/locks-and-mutexes/) o operaciones atómicas como `SELECT FOR UPDATE`.
-- Puedes rediseñar el flujo para evitar el patrón lectura-modificación-escritura, por ejemplo apendizando eventos o usando CRDTs.
-- Esperas que el mismo registro se actualice muchas veces por segundo desde distintas fuentes. A veces un bloqueo pesimista o una cola son más simples.
-- Tu base de datos ya soporta aislamiento serializable (p. ej., PostgreSQL `SERIALIZABLE`) y la carga tolera su overhead.
+- La contención es tan alta que los reintentos se vuelven costosos o impracticables. Para esos casos, prefiero [bloqueos pesimistas](/recipes/locks-and-mutexes/) o operaciones atómicas como `SELECT FOR UPDATE`.
+- Puedo rediseñar el flujo para evitar el patrón lectura-modificación-escritura, por ejemplo apendizando eventos o usando CRDTs.
+- Espero que el mismo registro se actualice muchas veces por segundo desde distintas fuentes. A veces un bloqueo pesimista o una cola son más simples.
+- Mi base de datos ya soporta aislamiento serializable (p. ej., PostgreSQL `SERIALIZABLE`) y la carga tolera su overhead.
 
 ## Solución
 
@@ -170,16 +170,27 @@ public ResponseEntity<Map<String, String>> handleConflict(OptimisticLockingFailu
 
 ## Explicación
 
-El optimistic locking funciona bajo la premisa de que los conflictos son raros. La base de datos no bloquea la fila durante la lectura. En su lugar, la actualización es condicional:
+Yo pienso en optimistic locking como una apuesta a que los conflictos serán raros. La base de datos no bloquea la fila mientras leo. En su lugar, la actualización es condicional:
 
 ```sql
 UPDATE table SET ... WHERE id = ? AND version = ?
 ```
 
-Si `rowsAffected == 0`, la versión cambió entre lectura y escritura. La aplicación maneja el conflicto: reintenta con datos frescos, devuelve HTTP 409, o fusiona cambios.
+Si `rowsAffected == 0`, la versión cambió entre lectura y escritura. Yo manejo el conflicto: reintento con datos frescos, devuelvo HTTP 409, o fusiono cambios.
+
+```mermaid
+flowchart TD
+    A[Leer fila con versión] --> B[Modificar en la app]
+    B --> C{Actualizar con chequeo de versión}
+    C -- rows=1 --> D[Éxito]
+    C -- rows=0 --> E{Estrategia}
+    E -- reintentar --> A
+    E -- 409 --> F[Devolver conflicto]
+    E -- merge --> G[Resolver y reintentar]
+```
 
 **Compromisos:**
-- **Optimista**: las lecturas quedan libres de bloqueos y el sistema escala, pero hay que manejar conflictos y reintentar.
+- **Optimista**: las lecturas quedan libres de bloqueos y el sistema escala, pero tengo que manejar conflictos y reintentar.
 - **Pesimista**: `SELECT FOR UPDATE` bloquea la fila de inmediato; la lógica es más simple, pero serializa el acceso y puede generar deadlocks.
 
 Para más patrones de concurrencia, consulta [Concurrent Data Structures](/recipes/concurrent-data-structures/).
@@ -197,19 +208,19 @@ Para más patrones de concurrencia, consulta [Concurrent Data Structures](/recip
 
 ## Lo que funciona
 
-1. Siempre devuelve la versión actual al cliente después de cada lectura para que pueda enviarla en la actualización
-2. Implementa [reintento con backoff exponencial](/recipes/retry-backoff/) (1–3 intentos) para conflictos transitorios en procesos automatizados
-3. Usa `version` entero sobre timestamps; los relojes son poco confiables entre nodos y zonas horarias
-4. Mantén las transacciones cortas; el gap entre lectura y escritura es tu ventana de vulnerabilidad
-5. Registra conflictos de versión a nivel `INFO` para monitorear hotspots de contención sin alarmar en cada reintento
+1. Siempre devuelvo la versión actual al cliente después de cada lectura para que pueda enviarla en la actualización.
+2. Implemento [reintento con backoff exponencial](/recipes/retry-backoff/) (1–3 intentos) para conflictos transitorios en procesos automatizados.
+3. Uso `version` entero sobre timestamps; en producción he visto relojes desfasarse y causar falsos positivos entre nodos.
+4. Mantengo las transacciones cortas; el gap entre lectura y escritura es la ventana de vulnerabilidad.
+5. Registro conflictos de versión a nivel `INFO` para monitorear hotspots de contención sin alarmar en cada reintento.
 
 ## Errores Comunes
 
-1. **No exponer la versión a consumidores de API** — los clientes no pueden enviarla si nunca la recibieron
-2. **Bucles de reintento infinitos** — siempre limita reintentos y expone conflictos persistentes al usuario
-3. **Actualizar la versión en código de aplicación** — deja que la base de datos u ORM la incremente atómicamente
-4. **Usar bloqueo pesimista para todo** — mata el throughput; reserva `FOR UPDATE` para verdaderos escenarios de inventario o banca. Consulta [Locks and Mutexes](/recipes/locks-and-mutexes/) para patrones de bloqueo.
-5. **Ignorar el conflicto en UI** — los usuarios necesitan retroalimentación clara de que sus datos están obsoletos y deben refrescarse
+1. **No exponer la versión a consumidores de API** — los clientes no pueden enviarla si nunca la recibieron. He depurado esto en una API donde el frontend perdía silenciosamente cada segunda actualización.
+2. **Bucles de reintento infinitos** — siempre limito reintentos y expongo conflictos persistentes al usuario.
+3. **Actualizar la versión en código de aplicación** — dejo que la base de datos u ORM la incremente atómicamente.
+4. **Usar bloqueo pesimista para todo** — mata el throughput; reservo `FOR UPDATE` para verdaderos escenarios de inventario o banca. Consulta [Locks and Mutexes](/recipes/locks-and-mutexes/) para patrones de bloqueo.
+5. **Ignorar el conflicto en UI** — los usuarios necesitan retroalimentación clara de que sus datos están obsoletos y deben refrescarse.
 
 ## Preguntas Frecuentes
 
@@ -504,9 +515,9 @@ Si los campos se superponen, la decisión es específica del dominio: muestra un
 CREATE INDEX idx_products_id_version ON products (id, version);
 ```
 
-2. **Mantén corto el gap read-modify-write.** Cuanto más largo el gap, más probables los conflictos. Evita llamar APIs externas o hacer cómputo pesado entre read y write.
+2. **Mantén corto el gap read-modify-write.** Cuanto más largo el gap, más probables los conflictos. Yo evito llamar APIs externas o hacer cómputo pesado entre read y write.
 
-3. **Usa `RETURNING` para evitar una segunda consulta.** Obtén la versión actualizada en la misma sentencia:
+3. **Usa `RETURNING` para evitar una segunda consulta.** Obtengo la versión actualizada en la misma sentencia:
 
 ```sql
 UPDATE products SET price = $1, version = version + 1
@@ -514,7 +525,7 @@ WHERE id = $2 AND version = $3
 RETURNING id, version;
 ```
 
-4. **Monitorea tasas de conflicto con `pg_stat_database`.** Rastrea deadlocks y conflictos a nivel de base de datos:
+4. **Monitorea tasas de conflicto con `pg_stat_database`.** Yo rastreo deadlocks y conflictos a nivel de base de datos:
 
 ```sql
 SELECT datname, deadlocks, conflicts, temp_files
@@ -522,15 +533,15 @@ FROM pg_stat_database
 WHERE datname = current_database();
 ```
 
-5. **Considera `SERIALIZABLE` isolation en lugar de versionado manual.** PostgreSQL `SERIALIZABLE` maneja conflictos automáticamente usando SSI (Serializable Snapshot Isolation). Es frecuentemente más simple que versionar manualmente en transacciones complejas.
+5. **Considera `SERIALIZABLE` isolation en lugar de versionado manual.** PostgreSQL `SERIALIZABLE` maneja conflictos automáticamente usando SSI (Serializable Snapshot Isolation). Lo he encontrado más simple que versionar manualmente en transacciones complejas.
 
 ## Puntos Clave
 
-- El bloqueo optimista evita bloqueos largos haciendo que cada actualización sea condicional a un número de versión.
-- Usa una columna `version` entera en lugar de timestamps; incrementa atómicamente en la base de datos u ORM.
-- Siempre devuelve la versión actual en lecturas, y devuelve un `409 Conflict` claro cuando la versión no coincide.
-- Mantén corta la ventana de lectura-modificación-escritura y limita reintentos para evitar avalanchas.
-- Los bloqueos pesimistas, `SELECT FOR UPDATE` y el aislamiento serializable son alternativas válidas cuando la contención es alta.
+- El bloqueo optimista evita bloqueos largos haciendo que cada actualización sea condicional a un número de versión. Por eso lo prefiero para cargas de lectura intensiva.
+- Yo uso una columna `version` entera en lugar de timestamps; la incremento atómicamente en la base de datos u ORM.
+- Siempre devuelvo la versión actual en lecturas, y devuelvo un `409 Conflict` claro cuando la versión no coincide.
+- Mantengo corta la ventana de lectura-modificación-escritura y limito reintentos para evitar avalanchas.
+- Cuando la contención es alta, recurre a bloqueos pesimistas, `SELECT FOR UPDATE` o aislamiento serializable.
 
 ## Lectura Adicional
 
