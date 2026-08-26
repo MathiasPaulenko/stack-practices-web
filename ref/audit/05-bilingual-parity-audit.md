@@ -1,4 +1,4 @@
-# 05 — StackPractices Bilingual (EN/ES) Parity Audit
+# 05 — Auditoría de paridad bilingüe (EN/ES) de StackPractices
 
 > Audita que las versiones inglesa y española de un recurso estén alineadas. **No edita los archivos.**
 
@@ -27,7 +27,7 @@ Si está disponible, invocar `content-improvement` para reforzar el análisis.
 ### 3. Frontmatter
 
 | Campo | Paridad esperada |
-|---|---|
+| --- | --- |
 | `title` | Traducido, < 60 caracteres, igual sentido |
 | `description` | Traducido, 80-160 caracteres |
 | `metaDescription` | Traducido, 120-160 caracteres, coincide con `seo.metaDescription` |
@@ -50,7 +50,7 @@ Si está disponible, invocar `content-improvement` para reforzar el análisis.
 - La versión ES no debe ser inferior al mínimo del tipo:
 
 | Tipo | Mínimo (palabras, sin frontmatter) |
-|---|---|
+| --- | --- |
 | `recipes` | >= 1300 |
 | `patterns` | >= 1500 |
 | `guides` | >= 3000 |
@@ -82,38 +82,38 @@ Salvo que el término esté asentado técnicamente (`recipe`, `pattern`, `API`, 
 ## Output obligatorio
 
 ```text
-## Bilingual Parity Audit
+## Auditoría de paridad bilingüe
 
-### ES file exists
+### Existe archivo ES
 `YES / NO` (si NO, `CRITICAL`)
 
-### Structure parity
+### Paridad de estructura
 `PASS / WARNING / FAIL`
 
-### Frontmatter parity
+### Paridad de frontmatter
 | Campo | EN | ES | OK |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | title | ... | ... | Sí/No |
 | description | ... | ... | Sí/No |
 | metaDescription | ... | ... | Sí/No |
 | lastUpdated | ... | ... | Sí/No |
 | relatedResources | ... | ... | Sí/No |
 
-### Body length
+### Longitud del body
 - EN: X caracteres
 - ES: X caracteres
 `PASS / WARNING / FAIL`
 
-### Code examples parity
+### Paridad de ejemplos de código
 `PASS / WARNING / FAIL`
 
-### Anglicisms in ES
+### Anglicismos en ES
 - Lista de términos a revisar.
 
-### Bilingual Parity Score
-`BILINGUAL PARITY SCORE: X/10`
+### Puntaje paridad bilingüe
+`PUNTAJE PARIDAD BILINGÜE: X/10`
 
-### Top 5 parity fixes
+### Top 5 arreglos de paridad
 1. ...
 2. ...
 3. ...
@@ -125,3 +125,4 @@ Salvo que el término esté asentado técnicamente (`recipe`, `pattern`, `API`, 
 
 - No crees ni traduzcas la versión ES sin aprobación explícita del usuario.
 - Si falta ES, solo reporta; no continúes con el resto de esta auditoría.
+- Todo el output debe estar en español.

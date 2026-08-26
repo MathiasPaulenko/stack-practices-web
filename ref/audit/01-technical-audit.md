@@ -1,4 +1,4 @@
-# 01 — StackPractices Technical & Indexability Audit
+# 01 — Auditoría técnica e indexabilidad de StackPractices
 
 > Audita la parte técnica del recurso: indexabilidad, URL, canónicas, redirects, structured data, sitemap, performance y todo lo relacionado con el hecho de que Astro SSG genere una página estática.
 
@@ -94,7 +94,7 @@ Si se dispone de datos (Lighthouse, `measure-cwv`, logs de Vercel/Vercel Analyti
 
 Si no hay datos: `NOT VERIFIED`.
 
-### 1.11 Internal linking (técnico)
+### 1.11 Enlazado interno (técnico)
 
 - Enlaces internos usan `<a href="...">` en Astro; evita enlaces absolutos internos con `https://stackpractices.com` donde un relativo baste.
 - No hay enlaces a `/es/...` desde la versión EN ni a `/...` desde ES de forma incorrecta.
@@ -108,7 +108,7 @@ Si no hay datos: `NOT VERIFIED`.
 - `/search/` y `/es/search/` deben gestionarse correctamente (noindex o sitemap según decida el proyecto).
 - No `soft 404` (páginas sin contenido que devuelven 200).
 
-### 1.13 Bilingual technical parity
+### 1.13 Paridad técnica bilingüe
 
 - Ambas URLs (EN y ES) responden correctamente.
 - Ambas están en `sitemap.xml`.
@@ -119,14 +119,14 @@ Si no hay datos: `NOT VERIFIED`.
 ## Output obligatorio
 
 ```text
-## Technical Audit
+## Auditoría técnica
 
-### Indexability
-`INDEXABILITY: PASS / WARNING / FAIL`
+### Indexabilidad
+`INDEXABILIDAD: PASS / WARNING / FAIL`
 Justificación corta.
 
 ### Canonical
-`CANONICAL RISK: NONE / LOW / MEDIUM / HIGH / CRITICAL`
+`RIESGO CANONICAL: NONE / LOW / MEDIUM / HIGH / CRITICAL`
 Justificación.
 
 ### Sitemap
@@ -135,29 +135,29 @@ Justificación.
 ### Redirects
 `REDIRECTS: OK / WARNING / FAIL`
 
-### Structured Data
+### Structured data
 `STRUCTURED DATA: VALID + ELIGIBLE / VALID NOT ELIGIBLE / INVALID / MISSING`
 
 ### Performance
 `PERFORMANCE: NOT VERIFIED / GOOD / NEEDS IMPROVEMENT / POOR`
 Métricas si existen.
 
-### Internal Links
-`INTERNAL LINKS: OK / WARNING / FAIL`
-- Broken links: ...
-- Old pattern `/tipo/categoria/slug`: ...
-- Wrong language links: ...
+### Enlaces internos
+`ENLACES INTERNOS: OK / WARNING / FAIL`
+- Enlaces rotos: ...
+- Patrón antiguo `/tipo/categoria/slug`: ...
+- Enlaces de idioma incorrectos: ...
 
-### Special Pages (404 / search)
-`SPECIAL PAGES: OK / WARNING / FAIL`
+### Páginas especiales (404 / search)
+`PÁGINAS ESPECIALES: OK / WARNING / FAIL`
 
-### Bilingual Technical Parity
-`BILINGUAL TECHNICAL PARITY: PASS / WARNING / FAIL`
+### Paridad técnica bilingüe
+`PARIDAD TÉCNICA BILINGÜE: PASS / WARNING / FAIL`
 
-### Technical Score
-`TECHNICAL SCORE: X/10`
+### Puntaje técnico
+`PUNTAJE TÉCNICO: X/10`
 
-### Top 3 fixes técnicas
+### Top 3 arreglos técnicos
 1. ...
 2. ...
 3. ...
@@ -168,3 +168,4 @@ Métricas si existen.
 - No edites `public/sitemap.xml`, `dist/` ni componentes Astro.
 - Si algo no puede verificarse, marca `NOT VERIFIED`.
 - No recomiendes cambios en `.npmrc`, CI/CD o seguridad.
+- Todo el output debe estar en español.

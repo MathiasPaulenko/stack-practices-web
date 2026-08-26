@@ -1,4 +1,4 @@
-# 03 — StackPractices Content Quality Audit
+# 03 — Auditoría de calidad de contenido de StackPractices
 
 > Audita calidad del contenido: intención de búsqueda, alineación con SERP, information gain, thin content, estructura, ejemplos, FAQ, riesgo de contenido programático/IA y page-worthiness. **No edita los archivos.**
 
@@ -19,14 +19,14 @@ Si están disponibles, invocar `content-improvement`, `content-quality-auditor` 
 Reporta:
 
 ```text
-RESOURCE TYPE:
-PRIMARY TOPIC:
-PRIMARY SEARCH INTENT:
-PRIMARY QUERY:
-SECONDARY QUERIES:
-TARGET AUDIENCE:
-CONTENT FORMAT:
-TOPICAL CLUSTER:
+TIPO DE RECURSO:
+TOPIC PRINCIPAL:
+INTENCIÓN DE BÚSQUEDA PRINCIPAL:
+QUERY PRINCIPAL:
+QUERIES SECUNDARIAS:
+AUDIENCIA OBJETIVO:
+FORMATO DE CONTENIDO:
+CLUSTER TÓPICO:
 ```
 
 ## 2. Intención de búsqueda
@@ -52,7 +52,7 @@ Evalúa:
 - ¿El formato coincide con la intención?
 - ¿Es demasiado amplio o demasiado estrecho?
 
-Score: `INTENT SCORE: X/15`
+Puntaje: `PUNTAJE INTENCIÓN: X/15`
 
 ## 3. Alineación con SERP
 
@@ -77,7 +77,7 @@ Para cada sección relevante (`Overview`, `When to Use`, `How it Works`, `Practi
 ### Reglas específicas por tipo
 
 | Tipo | Estructura mínima esperada |
-|---|---|
+| --- | --- |
 | `recipes` | Overview, When to Use, Solution (código listo para copiar), Explanation, Variants, Best Practices, Common Mistakes, FAQ opcional |
 | `patterns` | Overview, When to Use, Problem, Solution/Implementation, Code Example, Consequences/Trade-offs, Related Patterns, FAQ opcional |
 | `guides` | Overview con problema real, When to Use, How it Works, Practical Example con código, Best Practices, Common Mistakes, FAQ, Related Resources |
@@ -103,7 +103,7 @@ No juzgues solo por longitud. Evalúa:
 Pero también aplica las **longitudes mínimas del body (sin frontmatter)**:
 
 | Tipo | Body mínimo (palabras, sin frontmatter) |
-|---|---|
+| --- | --- |
 | `recipes` | >= 1300 |
 | `patterns` | >= 1500 |
 | `guides` | >= 3000 |
@@ -124,7 +124,7 @@ Detecta secciones de relleno genéricas:
 Clasifica:
 
 ```text
-THIN CONTENT RISK: NONE / LOW / MEDIUM / HIGH / CRITICAL
+RIESGO THIN CONTENT: NONE / LOW / MEDIUM / HIGH / CRITICAL
 ```
 
 ## 6. Information gain
@@ -167,17 +167,17 @@ Busca en el repo:
 Clasifica:
 
 ```text
-DUPLICATION RISK: NONE / LOW / MEDIUM / HIGH / CRITICAL
-CANNIBALIZATION RISK: NONE / LOW / MEDIUM / HIGH / CRITICAL
+RIESGO DUPLICACIÓN: NONE / LOW / MEDIUM / HIGH / CRITICAL
+RIESGO CANIBALIZACIÓN: NONE / LOW / MEDIUM / HIGH / CRITICAL
 ```
 
 Para cada competidor interno:
 
 ```text
 URL:
-OVERLAP:
-PRIMARY INTENT:
-RECOMMENDED ACTION: Keep separate / Differentiate / Merge / Redirect / Change intent
+SOLAPAMIENTO:
+INTENCIÓN PRIMARIA:
+ACCIÓN RECOMENDADA: Mantener separado / Diferenciar / Fusionar / Redirigir / Cambiar intención
 ```
 
 ## 8. SEO semántico
@@ -196,7 +196,7 @@ Evalúa terminología, relaciones semánticas, cobertura tópica y relevancia co
 - ¿El recurso pertenece a un cluster coherente?
 - ¿Hay hub/padre, hermanos e hijos?
 - ¿Está enlazado desde el topic principal?
-- ¿Orphan risk?
+- ¿Riesgo de orphan?
 - ¿Sobresaturación del tema?
 
 ## 10. Riesgo programático / plantilla
@@ -213,7 +213,7 @@ Busca:
 Clasifica:
 
 ```text
-PROGRAMMATIC CONTENT RISK: NONE / LOW / MEDIUM / HIGH / CRITICAL
+RIESGO CONTENIDO PROGRAMÁTICO: NONE / LOW / MEDIUM / HIGH / CRITICAL
 ```
 
 ## 11. Riesgo de calidad IA
@@ -233,7 +233,7 @@ No intentes decidir si fue escrito por IA solo por el estilo. Evalúa riesgos:
 Clasifica:
 
 ```text
-AI QUALITY RISK: LOW / MEDIUM / HIGH / CRITICAL
+RIESGO CALIDAD IA: LOW / MEDIUM / HIGH / CRITICAL
 ```
 
 ## 12. Sobre-optimización
@@ -254,10 +254,10 @@ Busca:
 Clasifica:
 
 ```text
-OVER-OPTIMIZATION RISK: NONE / LOW / MEDIUM / HIGH / CRITICAL
+RIESGO SOBRE-OPTIMIZACIÓN: NONE / LOW / MEDIUM / HIGH / CRITICAL
 ```
 
-## 13. Bilingual content parity
+## 13. Paridad de contenido bilingüe
 
 Lee ambas versiones y compara:
 
@@ -272,7 +272,7 @@ Lee ambas versiones y compara:
 Clasifica:
 
 ```text
-BILINGUAL CONTENT PARITY: PASS / WARNING / FAIL
+PARIDAD CONTENIDO BILINGÜE: PASS / WARNING / FAIL
 ```
 
 ## 14. Page-worthiness
@@ -281,59 +281,59 @@ Responde:
 
 ```text
 PAGE-WORTHINESS: YES / PROBABLY YES / UNCERTAIN / PROBABLY NO / NO
-SHOULD BE INDEXED: YES / IMPROVE FIRST / NOINDEX / MERGE / DELETE
+DEBE INDEXARSE: YES / IMPROVE FIRST / NOINDEX / MERGE / DELETE
 ```
 
 ## Output obligatorio
 
 ```text
-## Content Quality Audit
+## Auditoría de calidad de contenido
 
-### Resource Identity
+### Identidad del recurso
 ...
 
-### Search Intent
-`INTENT SCORE: X/15`
+### Intención de búsqueda
+`PUNTAJE INTENCIÓN: X/15`
 
-### SERP Alignment
+### Alineación SERP
 ...
 
-### Section Quality
-- Strong sections:
-- Weak sections:
-- Missing sections:
-- Redundant sections:
+### Calidad por secciones
+- Secciones fuertes:
+- Secciones débiles:
+- Secciones ausentes:
+- Secciones redundantes:
 
-### Information Gain
+### Information gain
 `INFORMATION GAIN: ...`
 
-### Thin Content
-`THIN CONTENT RISK: ...`
+### Thin content
+`RIESGO THIN CONTENT: ...`
 Justificación.
 
-### Duplication & Cannibalization
-`DUPLICATION RISK: ...`
-`CANNIBALIZATION RISK: ...`
+### Duplicación y canibalización
+`RIESGO DUPLICACIÓN: ...`
+`RIESGO CANIBALIZACIÓN: ...`
 
-### Semantic SEO
+### SEO semántico
 ...
 
-### Topical Authority
+### Autoridad tópica
 ...
 
-### Programmatic / AI / Over-optimization Risk
+### Riesgo programático / IA / sobre-optimización
 ...
 
 ### Page-worthiness
 `PAGE-WORTHINESS: ...`
 
-### Bilingual Content Parity
-`BILINGUAL CONTENT PARITY: ...`
+### Paridad contenido bilingüe
+`PARIDAD CONTENIDO BILINGÜE: ...`
 
-### Content Quality Score
-`CONTENT QUALITY SCORE: X/25`
+### Puntaje calidad de contenido
+`PUNTAJE CALIDAD CONTENIDO: X/25`
 
-### Top 5 content fixes
+### Top 5 arreglos de contenido
 1. ...
 2. ...
 3. ...
@@ -346,3 +346,4 @@ Justificación.
 - No reescribas el recurso.
 - No borres contenido técnico para bajar riesgo IA.
 - Máxima objetividad: distingue evidencia de opinión.
+- Todo el output debe estar en español.

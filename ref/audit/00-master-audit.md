@@ -1,22 +1,22 @@
-# StackPractices — Master Resource Audit (orchestrator)
+# StackPractices — Auditoría maestra de recursos (orquestador)
 
 > Este prompt maestro orquesta sub-auditorías modulares para un recurso de StackPractices. **No edita archivos**: produce un **único checklist de arreglos** en `ref/audit/reports/{tipo}-{slug}-audit.md` para que luego el flujo `content-improvement` o una intervención manual lo arregle.
 
-## Role
+## Rol
 
 Actúas como un equipo senior de auditoría de contenido y SEO:
 
-- Technical SEO specialist
-- SEO content strategist
-- Search Quality analyst
-- Content quality auditor
-- Semantic SEO specialist
-- Information architect
-- GEO / AI Search optimization specialist
-- Web performance specialist
-- UX/accessibility reviewer
-- Software engineer
-- Content editor
+- Especialista en SEO técnico
+- Estratega de contenido SEO
+- Analista de calidad de búsqueda
+- Auditor de calidad de contenido
+- Especialista en SEO semántico
+- Arquitecto de información
+- Especialista en GEO / optimización para AI Search
+- Especialista en rendimiento web
+- Revisor de UX/accesibilidad
+- Ingeniero de software
+- Editor de contenido
 
 Tu trabajo es **descubrir todo lo que impide que un recurso sea excepcional**, no repararlo.
 
@@ -24,16 +24,17 @@ Tu trabajo es **descubrir todo lo que impide que un recurso sea excepcional**, n
 
 ```text
 RESOURCE: <número-de-checklist | /tipo/slug | src/content/tipo/slug.md | URL>
-MODE: <quick | seo | content | humanize | bilingual | geo | traffic | full>
+MODE: <quick | seo | content | humanize | bilingual | geo | traffic | media | full>
 ```
 
 - `quick`: diagnóstico rápido de frontmatter + indexabilidad + thin content.
-- `seo`: `01` (technical parcial) + `02` (seo completo).
-- `content`: `03` (content quality + thin content + SERP).
-- `humanize`: `04` (humanization / AI patterns).
+- `seo`: `01` (técnico parcial) + `02` (seo completo).
+- `content`: `03` (calidad de contenido + thin content + SERP).
+- `humanize`: `04` (humanización / patrones IA).
 - `bilingual`: `05` (paridad EN/ES).
 - `geo`: `06` (GEO / AI Search).
-- `traffic`: `08` (GSC/GA4, user flow, growth opportunities).
+- `traffic`: `08` (GSC/GA4, user flow, oportunidades de crecimiento).
+- `media`: `09` (companion repo + imágenes/diagramas).
 - `full`: todas las sub-auditorías + síntesis final.
 
 Si el usuario no indica `MODE`, usar `quick` por defecto.
@@ -55,7 +56,7 @@ Si el usuario no indica `MODE`, usar `quick` por defecto.
 Si el agente que ejecuta este prompt tiene acceso a skills, puede invocarlas para reforzar cada sub-auditoría:
 
 | Sub-auditoría | Skills recomendadas |
-|---|---|
+| --- | --- |
 | `01-technical-audit` | `technical-seo-checker`, `google-crawling-indexing`, `google-seo-monitoring` |
 | `02-seo-audit` | `seo`, `google-ranking-appearance`, `google-seo-fundamentals` |
 | `03-content-quality-audit` | `content-improvement`, `content-quality-auditor`, `content-research-writer` |
@@ -63,6 +64,7 @@ Si el agente que ejecuta este prompt tiene acceso a skills, puede invocarlas par
 | `05-bilingual-parity-audit` | `content-improvement` |
 | `06-geo-audit` | `ai-seo`, `seo-geo` |
 | `08-gsc-ga4-traffic-audit` | `analytics-insights`, `google-seo-monitoring`, `google-ranking-appearance` |
+| `09-companion-media-audit` | `web-design-guidelines`, `responsive-design`, `seo`, `structured-data` |
 | Fase de mejora posterior | `content-improvement`, `markdown-formatting`, `factcheck` |
 
 Si una skill no está disponible, aplicar manualmente sus reglas equivalentes.
@@ -88,7 +90,7 @@ Si una skill no está disponible, aplicar manualmente sus reglas equivalentes.
 Para cada modo, lanzar las sub-auditorías en este orden:
 
 | MODE | Sub-auditorías a ejecutar |
-|---|---|
+| --- | --- |
 | `quick` | `01-technical-audit.md` (solo indexabilidad/canonical) + `02-seo-audit.md` (solo frontmatter) + `03-content-quality-audit.md` (solo thin content + estructura) |
 | `seo` | `01-technical-audit.md` + `02-seo-audit.md` |
 | `content` | `03-content-quality-audit.md` |
@@ -96,7 +98,8 @@ Para cada modo, lanzar las sub-auditorías en este orden:
 | `bilingual` | `05-bilingual-parity-audit.md` |
 | `geo` | `06-geo-audit.md` |
 | `traffic` | `08-gsc-ga4-traffic-audit.md` |
-| `full` | `01`, `02`, `03`, `04`, `05`, `06`, `08`, luego `07-final-synthesis.md` |
+| `media` | `09-companion-media-audit.md` |
+| `full` | `01`, `02`, `03`, `04`, `05`, `06`, `08`, `09`, luego `07-final-synthesis.md` |
 
 **Cómo usar cada sub-prompt:** lee el archivo, sigue su rol, input, principios y estructura de salida. Ejecuta el análisis sobre el recurso. Recoge el resultado.
 
@@ -106,7 +109,7 @@ Usa `07-final-synthesis.md` para:
 
 1. Extraer cada hallazgo de las sub-auditorías.
 2. Asignar severidad (`CRITICAL`, `HIGH`, `MEDIUM`, `LOW`).
-3. Asignar categoría (`TECHNICAL`, `SEO`, `CONTENT`, `HUMANIZATION`, `BILINGUAL`, `GEO`, `TRAFFIC`, `LINKS`, `MEDIA`, `NEW CONTENT`).
+3. Asignar categoría (`TECHNICAL`, `SEO`, `CONTENT`, `HUMANIZATION`, `BILINGUAL`, `GEO`, `TRAFFIC`, `LINKS`, `MEDIA`, `COMPANION`, `MOBILE`, `NEW CONTENT`).
 4. Generar ítems con casilla `[ ]` y campos `Why`, `Evidence`, `How`, `Effort`, `Source`.
 5. Generar un `Definition of Done` con casillas `[ ]`.
 6. Escribir todo en un único fichero.
@@ -144,18 +147,19 @@ El fichero `ref/audit/reports/{tipo}-{slug}-audit.md` debe contener exactamente:
 ## 3. Definition of Done
 - [ ] ...
 ## 4. Top 5 acciones
-## 5. One-sentence verdict
+## 5. Veredicto de una frase
 ## 6. Anexos
-(sub-auditorías `01`-`06` y `08` ejecutadas)
+(sub-auditorías `01`-`09` ejecutadas)
 ```
 
 ## Reglas de salida
 
 - Todo en markdown limpio y linteable.
 - No uses bloques YAML plegados (`>`) para campos cortos.
-- Las tablas deben tener encabezado y separador (`|---|---|`).
+- Las tablas deben tener encabezado y separador (`| --- | --- |`).
 - Cada ítem del checklist debe poder marcarse `[x]` cuando se arregle.
 - No incluyas contenido promocional ni alabanzas no justificadas.
+- Todo el informe debe estar en español.
 
 ## Output esperado
 

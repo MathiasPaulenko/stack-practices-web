@@ -1,4 +1,4 @@
-# 06 — StackPractices GEO / AI Search Readiness Audit
+# 06 — Auditoría GEO / AI Search de StackPractices
 
 > Audita si el recurso es fácilmente recuperable, entendible y citable por motores de respuesta de IA. **No edita los archivos.**
 
@@ -68,7 +68,7 @@ Si están disponibles, invocar `ai-seo` o `seo-geo` para reforzar el análisis.
 - ¿La versión ES transmite los mismos hechos?
 - ¿Las entidades clave son consistentes en ambos idiomas?
 
-### 9. Bilingual GEO parity
+### 9. Paridad GEO bilingüe
 
 - ¿Ambas versiones definen las mismas entidades clave?
 - ¿Los hechos y cifras coinciden entre EN y ES?
@@ -86,37 +86,37 @@ Si están disponibles, invocar `ai-seo` o `seo-geo` para reforzar el análisis.
 ## Output obligatorio
 
 ```text
-## GEO / AI Search Audit
+## Auditoría GEO / AI Search
 
-### Entity Clarity
-`ENTITY CLARITY: HIGH / MEDIUM / LOW`
+### Claridad de entidades
+`CLARIDAD ENTIDADES: HIGH / MEDIUM / LOW`
 
-### Factual Statements
-`FACTUAL DENSITY: HIGH / MEDIUM / LOW`
+### Afirmaciones factuales
+`DENSIDAD FACTUAL: HIGH / MEDIUM / LOW`
 Listado de afirmaciones clave y si tienen soporte.
 
-### Citations
-`CITATIONS: SUFFICIENT / INSUFFICIENT / NOT VERIFIED`
+### Citas
+`CITAS: SUFFICIENT / INSUFFICIENT / NOT VERIFIED`
 
-### Extractable Passages
-`EXTRACTABLE PASSAGES: HIGH / MEDIUM / LOW`
+### Pasajes extraíbles
+`PASAJES EXTRAÍBLES: HIGH / MEDIUM / LOW`
 
-### Consistency
-`TERMINOLOGY CONSISTENCY: PASS / WARNING / FAIL`
+### Consistencia
+`CONSISTENCIA TERMINOLÓGICA: PASS / WARNING / FAIL`
 
-### AI Structured Data
-`AI STRUCTURED DATA: OK / MISSING / NOT VERIFIED`
+### Structured data para IA
+`STRUCTURED DATA IA: OK / MISSING / NOT VERIFIED`
 - `inLanguage`: ...
 - `educationalLevel`: ...
 - `speakable`: ...
 
-### Bilingual GEO Parity
-`BILINGUAL GEO PARITY: PASS / WARNING / FAIL`
+### Paridad GEO bilingüe
+`PARIDAD GEO BILINGÜE: PASS / WARNING / FAIL`
 
-### GEO Score
-`GEO SCORE: X/5`
+### Puntaje GEO
+`PUNTAJE GEO: X/5`
 
-### Top 5 GEO fixes
+### Top 5 arreglos GEO
 1. ...
 2. ...
 3. ...
@@ -129,3 +129,4 @@ Listado de afirmaciones clave y si tienen soporte.
 - No recomiendas manipulación de IA (`AI keyword stuffing`).
 - No inventes fuentes.
 - Si no puedes verificar datos, `NOT VERIFIED`.
+- Todo el output debe estar en español.

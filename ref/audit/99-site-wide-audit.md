@@ -1,4 +1,4 @@
-# 99 — StackPractices Site-Wide Audit
+# 99 — Auditoría global de StackPractices
 
 > Audita **todo el sitio** usando los prompts de `ref/audit/` y genera un **informe global con prioridades de tráfico y calidad**. **No edita recursos individuales**: produce un único checklist de acciones a nivel sitio.
 

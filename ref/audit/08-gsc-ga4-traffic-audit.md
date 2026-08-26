@@ -1,4 +1,4 @@
-# 08 — StackPractices Traffic & Growth Audit (GSC / GA4 / user flow)
+# 08 — Auditoría de tráfico y crecimiento de StackPractices (GSC / GA4 / user flow)
 
 > Audita el recurso desde la perspectiva de tráfico real: Search Console, Analytics, CTR, intención de usuario, flujo de navegación y potencial de crecimiento. **No edita los archivos.**
 
@@ -18,8 +18,8 @@ Si están disponibles, invocar `analytics-insights`, `google-seo-monitoring`, `g
 Si hay datos disponibles para `/{tipo}/{slug}/` y `/es/{tipo}/{slug}/`, recopilar:
 
 | Métrica | EN | ES | Total |
-|---|---|---|---|
-| Clicks | | | |
+| --- | --- | --- | --- |
+| Clics | | | |
 | Impresiones | | | |
 | CTR | | | |
 | Posición media | | | |
@@ -90,7 +90,7 @@ Si hay datos de GA4:
 Si no hay datos o GA4 está roto, reportar:
 
 ```text
-GA4 STATUS: NOT VERIFIED / BROKEN / LIMITED
+ESTADO GA4: NOT VERIFIED / BROKEN / LIMITED
 ```
 
 Y auditar los problemas técnicos de medición:
@@ -135,9 +135,9 @@ Si se dispone de datos (Ahrefs, Search Console links, etc.):
 
 Si no hay datos: `NOT VERIFIED`.
 
-## 11. Mobile UX y CWV
+## 11. UX móvil y CWV
 
-- ¿El recurso es legible y usable en mobile?
+- ¿El recurso es legible y usable en móvil?
 - ¿CTAs y enlaces son táctiles?
 - ¿No hay popups intrusivos?
 - ¿LCP, INP, CLS aceptables? (si hay datos).
@@ -161,16 +161,16 @@ Tipos de oportunidad:
 - Crear contenido complementario para query Y.
 - Reforzar enlaces internos desde recursos con tráfico.
 - Traducir/impulsar versión ES.
-- Mejorar UX mobile.
+- Mejorar UX móvil.
 - Arreglar medición GA4.
 - Conseguir backlinks outreach.
 
-## 13. Traffic priority
+## 13. Prioridad de tráfico
 
 Clasificar el recurso según su potencial de tráfico:
 
 ```text
-TRAFFIC POTENTIAL: VERY HIGH / HIGH / MEDIUM / LOW / NONE
+POTENCIAL TRÁFICO: VERY HIGH / HIGH / MEDIUM / LOW / NONE
 ```
 
 Justificación corta basada en GSC/GA4, posición, queries, intención y oportunidades.
@@ -178,74 +178,75 @@ Justificación corta basada en GSC/GA4, posición, queries, intención y oportun
 ## Output obligatorio
 
 ```text
-## Traffic & Growth Audit
+## Auditoría de tráfico y crecimiento
 
-### GSC Metrics
+### Métricas GSC
 | Métrica | EN | ES | Total |
-|---|---|---|---|
-| Clicks | ... | ... | ... |
-| Impressions | ... | ... | ... |
+| --- | --- | --- | --- |
+| Clics | ... | ... | ... |
+| Impresiones | ... | ... | ... |
 | CTR | ... | ... | ... |
-| Avg position | ... | ... | ... |
+| Posición media | ... | ... | ... |
 
-### Trend
-`TREND: GROWING / STABLE / DECLINING / NOT VERIFIED`
+### Tendencia
+`TENDENCIA: GROWING / STABLE / DECLINING / NOT VERIFIED`
 
-### CTR & Snippet
-`CTR POTENTIAL: LOW / MEDIUM / HIGH`
-`SNIPPET APPEAL: LOW / MEDIUM / HIGH`
+### CTR y snippet
+`POTENCIAL CTR: LOW / MEDIUM / HIGH`
+`ATRACTIVO SNIPPET: LOW / MEDIUM / HIGH`
 Mercados con CTR bajo: ...
 Open Graph: OK / MISSING / NEEDS IMPROVEMENT
 
-### Top Queries
-| Query | Imp | Clicks | CTR | Pos | Intent | Covered? |
-|---|---|---|---|---|---|---|
+### Queries principales
+| Query | Imp | Clics | CTR | Pos | Intención | ¿Cubierta? |
+| --- | --- | --- | --- | --- | --- | --- |
 | ... | ... | ... | ... | ... | ... | ... |
 
-### Countries & Languages
-- Best CTR: ...
-- Worst CTR: ...
-- Recommendation: ...
+### Países e idiomas
+- Mejor CTR: ...
+- Peor CTR: ...
+- Recomendación: ...
 
-### Devices
+### Dispositivos
 - Desktop: ...
-- Mobile: ...
+- Móvil: ...
 - Tablet: ...
 
-### GA4 Status
-`GA4 STATUS: OK / LIMITED / BROKEN / NOT VERIFIED`
+### Estado GA4
+`ESTADO GA4: OK / LIMITED / BROKEN / NOT VERIFIED`
 
-### User Flow
-`USER FLOW: GOOD / NEEDS IMPROVEMENT / POOR`
+### Flujo de usuario
+`FLUJO USUARIO: GOOD / NEEDS IMPROVEMENT / POOR`
 - Dead-ends: ...
-- Funnel opportunities: ...
+- Oportunidades de funnel: ...
 
-### Linkable Asset Potential
-`LINKABLE ASSET POTENTIAL: NONE / LOW / MEDIUM / HIGH`
+### Potencial linkable asset
+`POTENCIAL LINKABLE ASSET: NONE / LOW / MEDIUM / HIGH`
 
 ### Backlinks
 `BACKLINKS: STRONG / WEAK / NONE / NOT VERIFIED`
 
-### Mobile UX
-`MOBILE UX: OK / NEEDS IMPROVEMENT / POOR`
+### UX móvil
+`UX MÓVIL: OK / NEEDS IMPROVEMENT / POOR`
 
-### Traffic Potential
-`TRAFFIC POTENTIAL: VERY HIGH / HIGH / MEDIUM / LOW / NONE`
+### Potencial de tráfico
+`POTENCIAL TRÁFICO: VERY HIGH / HIGH / MEDIUM / LOW / NONE`
 
-### Top 5 Growth Opportunities
+### Top 5 oportunidades de crecimiento
 1. ...
 2. ...
 3. ...
 4. ...
 5. ...
 
-### Traffic Priority Score
-`TRAFFIC PRIORITY SCORE: X/15`
+### Puntaje prioridad tráfico
+`PUNTAJE PRIORIDAD TRÁFICO: X/15`
 ```
 
 ## Reglas
 
 - No edites los archivos de contenido ni de código.
 - No inventes datos de GSC/GA4; si no hay acceso, `NOT VERIFIED`.
-- Prioriza oportunidades por impacto/efort, no por cantidad.
+- Prioriza oportunidades por impacto/esfuerzo, no por cantidad.
 - Vincula cada recomendación a una métrica o hallazgo observable.
+- Todo el output debe estar en español.

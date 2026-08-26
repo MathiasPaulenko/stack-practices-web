@@ -1,4 +1,4 @@
-# 04 — StackPractices Humanization / AI Pattern Audit
+# 04 — Auditoría de humanización / patrones IA de StackPractices
 
 > Audita el tono, los patrones IA y la humanización del recurso. **No edita los archivos.**
 
@@ -115,7 +115,7 @@ Si el archivo real está anidado en una subcarpeta de tema, usa la ruta completa
 #### Métricas a reportar
 
 | Métrica | Significado |
-|---|---|
+| --- | --- |
 | `model_ai_pct` | Probabilidad estimada de contenido con patrón IA. |
 | `sentences` | Oraciones etiquetadas `AI` / `HUMAN`. |
 | `pattern_totals` | Resumen de patrones detectados. |
@@ -123,10 +123,10 @@ Si el archivo real está anidado en una subcarpeta de tema, usa la ruta completa
 
 #### Criterios de riesgo
 
-- `model_ai_pct` < 30 % y `pattern_totals` vacío o leve: `AI PATTERN RISK: LOW`.
-- `model_ai_pct` 30-40 %: `AI PATTERN RISK: MEDIUM`, revisar frases marcadas.
-- `model_ai_pct` > 40 %: `AI PATTERN RISK: HIGH`, reportar frases a reescribir.
-- Si no se puede ejecutar el detector: `AI PATTERN RISK` se basa en detección manual y se indica `NOT VERIFIED` para `model_ai_pct`.
+- `model_ai_pct` < 30 % y `pattern_totals` vacío o leve: `RIESGO PATRÓN IA: LOW`.
+- `model_ai_pct` 30-40 %: `RIESGO PATRÓN IA: MEDIUM`, revisar frases marcadas.
+- `model_ai_pct` > 40 %: `RIESGO PATRÓN IA: HIGH`, reportar frases a reescribir.
+- Si no se puede ejecutar el detector: `RIESGO PATRÓN IA` se basa en detección manual y se indica `NOT VERIFIED` para `model_ai_pct`.
 
 ### 9. Paridad EN/ES en humanización
 
@@ -148,12 +148,12 @@ Si el archivo real está anidado en una subcarpeta de tema, usa la ruta completa
 ## Output obligatorio
 
 ```text
-## Humanization / AI Pattern Audit
+## Auditoría de humanización / patrones IA
 
-### AI Pattern Risk
-`AI PATTERN RISK: NONE / LOW / MEDIUM / HIGH / CRITICAL`
+### Riesgo de patrón IA
+`RIESGO PATRÓN IA: NONE / LOW / MEDIUM / HIGH / CRITICAL`
 
-### AI Detection Metrics
+### Métricas de detección IA
 
 - EN:
   - `model_ai_pct`: X%
@@ -163,33 +163,33 @@ Si el archivo real está anidado en una subcarpeta de tema, usa la ruta completa
   - `model_ai_pct`: X%
   - `pattern_totals`: ...
   - `AI sentences` (máximo 10): ...
-- Tool status: `ai-detect-content.py + ai-detect-patterns.py executed / fallback used / NOT VERIFIED`
+- Estado de la herramienta: `ai-detect-content.py + ai-detect-patterns.py ejecutados / fallback usado / NOT VERIFIED`
 
-### Red words found
+### Palabras rojas encontradas
 | Palabra/frase | Ubicación | Recomendación |
-|---|---|---|
+| --- | --- | --- |
 | ... | ... | ... |
 
-### Generic phrases found
+### Frases genéricas encontradas
 | Frase | Ubicación | Recomendación |
-|---|---|---|
+| --- | --- | --- |
 | ... | ... | ... |
 
-### Sentence-ending tokens / tools
+### Tokens / herramientas al final de oraciones
 | Oración | Problema | Recomendación |
-|---|---|---|
+| --- | --- | --- |
 | ... | ... | ... |
 
-### Impersonal / filler sections
+### Secciones impersonales / de relleno
 ...
 
-### Bilingual Humanization Parity
-`BILINGUAL HUMANIZATION PARITY: PASS / WARNING / FAIL`
+### Paridad humanización bilingüe
+`PARIDAD HUMANIZACIÓN BILINGÜE: PASS / WARNING / FAIL`
 
-### Humanization Score
-`HUMANIZATION SCORE: X/15`
+### Puntaje humanización
+`PUNTAJE HUMANIZACIÓN: X/15`
 
-### Top 5 humanization fixes
+### Top 5 arreglos de humanización
 1. ...
 2. ...
 3. ...
@@ -203,3 +203,4 @@ Si el archivo real está anidado en una subcarpeta de tema, usa la ruta completa
 - No elimines contenido técnico solo para bajar el score IA.
 - Conserva ejemplos de código, versiones y herramientas reales.
 - Si un detector marca frases técnicas cortas como IA, prioriza patrones genéricos sobre forzar un score artificial.
+- Todo el output debe estar en español.

@@ -1,10 +1,10 @@
-# 07 — StackPractices Final Synthesis (checklist output)
+# 07 — Síntesis final de StackPractices (output checklist)
 
 > Convierte los outputs de las sub-auditorías en un **checklist de arreglos único** en `ref/audit/reports/{tipo}-{slug}-audit.md`. **No edita los archivos fuente.**
 
 ## Input esperado
 
-- Outputs de `01` a `06` y `08` (según el `MODE`).
+- Outputs de `01` a `09` (según el `MODE`).
 - `src/content/{tipo}/{slug}.md` y `.es.md` para metadata básica (ajustar si usa `src/content/{tipo}/{topic}/{slug}.md`).
 - `ref/checklist-top-recursos-mejoras.md` y `ref/docs/roadmap.md` si existen.
 
@@ -36,7 +36,7 @@ El fichero `ref/audit/reports/{tipo}-{slug}-audit.md` debe contener exactamente:
 - [ ] ...
 ## 3. Definition of Done
 ## 4. Top 5 acciones
-## 5. One-sentence verdict
+## 5. Veredicto de una frase
 ## 6. Anexos (outputs de cada sub-auditoría)
 ```
 
@@ -61,21 +61,21 @@ Incluye:
 ### Rúbrica (0-100)
 
 | Dimensión | Peso | Fuente |
-|---|---|---|
-| Search Intent & SERP Fit | 15 | `03` |
-| Content Quality & Helpfulness | 15 | `03` |
-| Information Gain & Originality | 10 | `03` |
-| Semantic / Topical Coverage | 10 | `03` |
-| Internal Linking & Site Architecture | 8 | `01` + `03` |
-| Technical SEO & Indexability | 10 | `01` |
-| E-E-A-T / Trust | 8 | `03` + `06` |
-| UX / Readability / Accessibility | 7 | `03` |
-| GEO / AI Search Readiness | 5 | `06` |
-| Traffic & Growth Potential | 10 | `08` |
-| Structured Data | 3 | `01` + `02` |
+| --- | --- | --- |
+| Intención de búsqueda y ajuste SERP | 15 | `03` |
+| Calidad de contenido y utilidad | 15 | `03` |
+| Information gain y originalidad | 10 | `03` |
+| Cobertura semántica / tópica | 10 | `03` |
+| Enlazado interno y arquitectura | 8 | `01` + `03` |
+| SEO técnico e indexabilidad | 10 | `01` |
+| E-E-A-T / Confianza | 8 | `03` + `06` |
+| UX / legibilidad / accesibilidad | 7 | `03` |
+| GEO / AI Search readiness | 5 | `06` |
+| Tráfico y potencial de crecimiento | 10 | `08` |
+| Structured data | 3 | `01` + `02` |
 | Performance | 5 | `01` |
-| Media / Images | 2 | `01` + `03` |
-| Freshness / Maintainability | 2 | `03` |
+| Medios / imágenes | 2 | `09` |
+| Frescura / mantenibilidad | 2 | `03` |
 
 **Interpretación:**
 
@@ -89,21 +89,21 @@ Incluye:
 ### Decisiones finales
 
 ```text
-OVERALL SCORE: XX/100
-PAGE STATUS: [EXCELLENT / VERY STRONG / GOOD / NEEDS IMPROVEMENT / WEAK / NOT COMPETITIVE]
-INDEXING DECISION: [INDEX / IMPROVE FIRST / MERGE / NOINDEX / DELETE]
+PUNTAJE TOTAL: XX/100
+ESTADO PÁGINA: [EXCELLENT / VERY STRONG / GOOD / NEEDS IMPROVEMENT / WEAK / NOT COMPETITIVE]
+DECISIÓN INDEXACIÓN: [INDEX / IMPROVE FIRST / MERGE / NOINDEX / DELETE]
 PAGE-WORTHINESS: [YES / PROBABLY YES / UNCERTAIN / PROBABLY NO / NO]
-THIN CONTENT RISK: [NONE / LOW / MEDIUM / HIGH / CRITICAL]
-DUPLICATION RISK: [NONE / LOW / MEDIUM / HIGH / CRITICAL]
-CANNIBALIZATION RISK: [NONE / LOW / MEDIUM / HIGH / CRITICAL]
-TECHNICAL SEO: [PASS / WARNING / FAIL]
-CONTENT QUALITY: [EXCELLENT / STRONG / MODERATE / WEAK / POOR]
+RIESGO THIN CONTENT: [NONE / LOW / MEDIUM / HIGH / CRITICAL]
+RIESGO DUPLICACIÓN: [NONE / LOW / MEDIUM / HIGH / CRITICAL]
+RIESGO CANIBALIZACIÓN: [NONE / LOW / MEDIUM / HIGH / CRITICAL]
+SEO TÉCNICO: [PASS / WARNING / FAIL]
+CALIDAD CONTENIDO: [EXCELLENT / STRONG / MODERATE / WEAK / POOR]
 GEO READINESS: [EXCELLENT / STRONG / MODERATE / WEAK / POOR]
-TRAFFIC POTENTIAL: [VERY HIGH / HIGH / MEDIUM / LOW / NONE]
-BILINGUAL PARITY: [PASS / WARNING / FAIL]
-AI PATTERN RISK: [NONE / LOW / MEDIUM / HIGH / CRITICAL]
-PROGRAMMATIC CONTENT RISK: [NONE / LOW / MEDIUM / HIGH / CRITICAL]
-OVER-OPTIMIZATION RISK: [NONE / LOW / MEDIUM / HIGH / CRITICAL]
+POTENCIAL TRÁFICO: [VERY HIGH / HIGH / MEDIUM / LOW / NONE]
+PARIDAD BILINGÜE: [PASS / WARNING / FAIL]
+RIESGO PATRÓN IA: [NONE / LOW / MEDIUM / HIGH / CRITICAL]
+RIESGO CONTENIDO PROGRAMÁTICO: [NONE / LOW / MEDIUM / HIGH / CRITICAL]
+RIESGO SOBRE-OPTIMIZACIÓN: [NONE / LOW / MEDIUM / HIGH / CRITICAL]
 ```
 
 ## 2. Checklist de arreglos
@@ -128,6 +128,8 @@ Convierte cada hallazgo de las sub-auditorías en un ítem con casilla. Agrupa p
 - `TRAFFIC`
 - `LINKS`
 - `MEDIA`
+- `COMPANION`
+- `MOBILE`
 - `NEW CONTENT` (solo si aplica)
 
 ### Formato de cada ítem
@@ -138,7 +140,7 @@ Convierte cada hallazgo de las sub-auditorías en un ítem con casilla. Agrupa p
   - Evidence: dónde se observa.
   - How: cómo hacerlo (sin editar archivos; es guía para la fase de mejora).
   - Effort: Very Low / Low / Medium / High / Very High.
-  - Source: 01-technical / 02-seo / 03-content / 04-humanization / 05-bilingual / 06-geo / 08-traffic.
+  - Source: 01-technical / 02-seo / 03-content / 04-humanization / 05-bilingual / 06-geo / 08-traffic / 09-companion-media.
 ```
 
 Ejemplo:
@@ -165,7 +167,7 @@ Si hay más, prioriza y menciona en anexo los menores.
 
 Checklist de cierre para la fase de mejora. Todos los ítems deberían poder marcarse cuando el recurso esté arreglado.
 
-### Frontmatter e SEO
+### Frontmatter y SEO
 
 - [ ] `title` < 60 caracteres, línea única, idéntico al H1.
 - [ ] `description` 80-160 caracteres, gancho claro.
@@ -201,6 +203,16 @@ Checklist de cierre para la fase de mejora. Todos los ítems deberían poder mar
 - [ ] Código y ejemplos equivalentes.
 - [ ] `relatedResources` y `lastUpdated` coincidentes.
 
+### Medios visuales y companion
+
+- [ ] Diagramas Mermaid renderizados como SVG estático.
+- [ ] SVGs presentes en `dist/assets/diagrams/`.
+- [ ] `/lightbox.js` presente en el HTML.
+- [ ] Click-to-zoom funcional (mouse + keyboard).
+- [ ] Diagramas con `alt` descriptivo, `loading="lazy"`, `tabindex="0"`.
+- [ ] Sin overflow horizontal en móvil (375px).
+- [ ] Companion repo existe y `meta.json` está completo (si aplica).
+
 ### Validación técnica
 
 - [ ] `npm run content:quality`
@@ -209,12 +221,12 @@ Checklist de cierre para la fase de mejora. Todos los ítems deberían poder mar
 - [ ] `npm run check`
 - [ ] `npm run build`
 - [ ] `npm run sitemap`
+- [ ] `npm run mermaid:render` (si hay diagramas)
 
 ### Enlaces y ecosistema
 
 - [ ] Enlaces internos con anclas descriptivas.
 - [ ] `relatedResources` cruzados con distintos tipos.
-- [ ] Enlaces externos autorizados y funcionales.
 - [ ] Enlaces externos autorizados y funcionales (sin placeholders ni `example.com`).
 
 ### Tráfico y crecimiento
@@ -237,13 +249,13 @@ Selecciona las 5 acciones de más impacto del checklist. Considera especialmente
 5. ...
 ```
 
-## 5. One-sentence verdict
+## 5. Veredicto de una frase
 
 Una sola frase concisa que diga qué necesita el recurso para ser significativamente más fuerte.
 
 ## 6. Anexos
 
-Incluye los outputs completos de cada sub-auditoría ejecutada (`01`-`06`, `08`) como referencia. Para modos parciales, incluye solo las secciones correspondientes y deja constancia del `MODE`.
+Incluye los outputs completos de cada sub-auditoría ejecutada (`01`-`09`) como referencia. Para modos parciales, incluye solo las secciones correspondientes y deja constancia del `MODE`.
 
 ## Reglas
 
@@ -252,3 +264,4 @@ Incluye los outputs completos de cada sub-auditoría ejecutada (`01`-`06`, `08`)
 - No propongas crear recursos complementarios sin justificación clara y, en su caso, aprobación del usuario.
 - Si alguna sub-auditoría no se ejecutó (por `MODE`), indícalo claramente.
 - El checklist es el producto principal; los anexos son soporte.
+- Todo el output debe estar en español.

@@ -1,4 +1,7 @@
-# StackPractices — Full Resource SEO, GEO & Quality Audit
+# StackPractices — Auditoría completa de recurso (legacy, single-pass)
+
+> **Obsoleto.** Este prompt monolítico se conserva como referencia histórica.
+> Usa `00-master-audit.md` o `ref/audit-a-resource.md` en su lugar.
 
 ## ROLE
 

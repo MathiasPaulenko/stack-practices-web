@@ -1,4 +1,4 @@
-# 02 — StackPractices SEO / Frontmatter Audit
+# 02 — Auditoría SEO / Frontmatter de StackPractices
 
 > Audita SEO on-page, frontmatter y metadatos de un recurso de StackPractices. Se enfoca en lo que el buscador ve primero y en las reglas duras del proyecto.
 
@@ -21,7 +21,7 @@ Si están disponibles, invocar `seo`, `google-ranking-appearance` o `google-seo-
 Revisa en EN y ES:
 
 | Campo | Regla | Estado |
-|---|---|---|
+| --- | --- | --- |
 | `title` | < 60 caracteres, línea única, sin `>`, idéntico al H1 | |
 | `description` | 80-160 caracteres, línea única, gancho claro | |
 | `metaDescription` | 120-160 caracteres, línea única, sin `>` | |
@@ -69,7 +69,7 @@ Revisa en EN y ES:
 - Mismo orden en EN y ES.
 - No enlaces a `/tipo/slug/` (con barra final) en `relatedResources`.
 
-#### Bidirectional link gaps
+#### Brechas de enlaces bidireccionales
 
 - Si el recurso A enlaza a B en el body o en `relatedResources`, ¿B enlaza de vuelta a A o lo incluye en sus `relatedResources`?
 - Detectar pares huérfanos: dos recursos del mismo cluster que deberían referenciarse mutuamente y no lo hacen.
@@ -92,7 +92,7 @@ Revisa en EN y ES:
 - Canonical self-referencing.
 - Versión ES con `/es` y canonical propia.
 
-### 2.7 SERP CTR
+### 2.7 CTR en SERP
 
 - `title` atractivo y exacto; palabra clave principal al inicio cuando sea natural.
 - `metaDescription` con beneficio concreto, no definición de diccionario.
@@ -137,11 +137,11 @@ Reporta si fallarían.
 ## Output obligatorio
 
 ```text
-## SEO Audit
+## Auditoría SEO
 
 ### Frontmatter (EN)
 | Campo | Valor actual | Cumple | Nota |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | title | ... | Sí/No | ... |
 | description | ... | Sí/No | ... |
 | metaDescription | ... | Sí/No | ... |
@@ -155,46 +155,46 @@ Reporta si fallarían.
 ### Headings
 `HEADINGS: OK / WARNING / FAIL`
 
-### Internal Links
-`INTERNAL LINKS: OK / WARNING / FAIL`
+### Enlaces internos
+`ENLACES INTERNOS: OK / WARNING / FAIL`
 
-#### Contextual body links
-- Count: N
-- Broken / placeholder: ...
-- Old pattern `/tipo/categoria/slug`: ...
+#### Enlaces contextuales en el body
+- Cantidad: N
+- Rotos / placeholder: ...
+- Patrón antiguo `/tipo/categoria/slug`: ...
 
 #### relatedResources
-- Count: N
-- Broken: ...
-- Wrong trailing slash: ...
-- Same order EN/ES: Sí/No
+- Cantidad: N
+- Rotos: ...
+- Barra final incorrecta: ...
+- Mismo orden EN/ES: Sí/No
 
-#### Bidirectional link gaps
-- Pairs missing: ...
+#### Brechas de enlaces bidireccionales
+- Pares faltantes: ...
 
-#### Incoming links
-- Resources linking to this: N
-- Low (< 3): Sí/No
+#### Enlaces entrantes
+- Recursos que enlazan a este: N
+- Bajo (< 3): Sí/No
 
-#### Docs with 0-1 body links
+#### Docs con 0-1 enlaces en el body
 - (si aplica) Sí/No — detalle
 
-### Duplicate Meta Risk
-`DUPLICATE META: NONE / LOW / HIGH`
+### Riesgo de metadatos duplicados
+`META DUPLICADA: NONE / LOW / HIGH`
 
-### SERP CTR
-`CTR POTENTIAL: LOW / MEDIUM / HIGH`
+### CTR en SERP
+`POTENCIAL CTR: LOW / MEDIUM / HIGH`
 
 ### Open Graph
 `OPEN GRAPH: OK / MISSING / NEEDS IMPROVEMENT / NOT VERIFIED`
 
-### Bilingual SEO Parity
-`BILINGUAL SEO PARITY: PASS / WARNING / FAIL`
+### Paridad SEO bilingüe
+`PARIDAD SEO BILINGÜE: PASS / WARNING / FAIL`
 
-### SEO Score
-`SEO SCORE: X/15`
+### Puntaje SEO
+`PUNTAJE SEO: X/15`
 
-### Top 5 fixes SEO
+### Top 5 arreglos SEO
 1. ...
 2. ...
 3. ...
@@ -207,3 +207,4 @@ Reporta si fallarían.
 - No reescribas el frontmatter. Solo audita y reporta.
 - Si un campo no existe, reporta `MISSING`.
 - Si no puedes verificar algo, `NOT VERIFIED`.
+- Todo el output debe estar en español.
