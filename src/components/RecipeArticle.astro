@@ -70,6 +70,7 @@ const jsonLd: Record<string, unknown>[] = [
     difficulty,
     section: topics[0],
     keywords,
+    speakableSelectors: ['#recipe-summary', '#faq-content'],
   }),
 
   breadcrumbList([
@@ -142,7 +143,7 @@ const dateLabel = `${locale === 'es' ? 'Última actualización' : 'Last updated'
       </div>
 
       <h1 class="recipe-title">{title}</h1>
-      <p class="recipe-description">{description}</p>
+      <p id="recipe-summary" class="recipe-description">{description}</p>
 
       {
         tags.length > 0 && (
@@ -208,7 +209,7 @@ const dateLabel = `${locale === 'es' ? 'Última actualización' : 'Last updated'
           <h2 id="faq" class="faq-section__title">
             {locale === 'es' ? 'Preguntas frecuentes' : 'Frequently Asked Questions'}
           </h2>
-          <div class="faq-list">
+          <div id="faq-content" class="faq-list">
             {faqs.slice(0, 10).map((faq: { question: string; answer: string; answerHtml: string }) => (
               <details class="faq-item">
                 <summary class="faq-item__question">{faq.question}</summary>

@@ -90,6 +90,7 @@ export function techArticle(opts: {
   difficulty: string;
   section?: string;
   keywords?: string[];
+  speakableSelectors?: string[];
 }) {
   return {
     '@context': 'https://schema.org',
@@ -103,6 +104,13 @@ export function techArticle(opts: {
     ...(opts.keywords && opts.keywords.length > 0 && { keywords: opts.keywords.join(', ') }),
     ...(opts.dateModified && { dateModified: opts.dateModified }),
     ...(opts.datePublished && { datePublished: opts.datePublished }),
+    ...(opts.speakableSelectors &&
+      opts.speakableSelectors.length > 0 && {
+        speakable: {
+          '@type': 'SpeakableSpecification',
+          cssSelector: opts.speakableSelectors,
+        },
+      }),
     author: {
       '@type': 'Person',
       name: PRIMARY_AUTHOR.name,
