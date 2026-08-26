@@ -1742,3 +1742,83 @@ pre.astro-code .copy-btn.copied {
     animation: none !important;
   }
 }
+
+/* ─── Lightbox (click-to-zoom for images and Mermaid SVGs) ──────────── */
+
+.mermaid-diagram,
+img[src*="/assets/diagrams/"] {
+  display: block;
+  margin: 1.5rem auto;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  padding: 0.75rem;
+  box-sizing: border-box;
+  border: 1px solid #e5e7eb;
+  transition: box-shadow 0.2s ease;
+}
+
+.mermaid-diagram:hover,
+img[src*="/assets/diagrams/"]:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(15, 23, 42, 0.92);
+  padding: 2rem;
+  animation: lightbox-fade-in 0.2s ease;
+}
+
+.lightbox-overlay[style*="flex"] {
+  display: flex !important;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  cursor: zoom-out;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: #f1f5f9;
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.lightbox-close:hover {
+  background: rgba(51, 65, 85, 0.9);
+}
+
+@keyframes lightbox-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

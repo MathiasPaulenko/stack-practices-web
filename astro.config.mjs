@@ -24,10 +24,8 @@ export default defineConfig({
       // shikiShortCode keeps very long blocks plain to avoid oversized HTML; see src/lib/shiki-short-code.mjs
       transformers: [shikiShortCode(), shikiClassify()],
     },
-    processor: unified({
-      remarkPlugins: [remarkMermaidBlocks, remarkTruncateFaq],
-      rehypePlugins: [rehypeTrimShikiPre],
-    }),
+    remarkPlugins: [remarkMermaidBlocks, remarkTruncateFaq],
+    rehypePlugins: [rehypeTrimShikiPre],
   },
   vite: {
     build: {
