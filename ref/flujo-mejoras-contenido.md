@@ -13,18 +13,25 @@ ref/checklist-top-recursos-mejoras.md
    ┌─────────────┐
    │  1. AUDITAR │  ref/audit-a-resource.md
    │  (7 sub)    │  → ref/audit/reports/{tipo}-{slug}-audit.md
+   │  + AI detect│  → ref/output/ai-detect-*.json
+   │  + build    │  → verificar que pasa
    └──────┬──────┘
           │  score inicial
           ▼
    ┌─────────────┐
    │  2. ARREGLAR│  ref/improve-a-resource.md
    │  (5 fases)  │  → content-improvement skill
+   │  + Mermaid  │  → diagrama si aplica
+   │  + companion│  → repo hermano si aplica
+   │  + AI detect│  → pre y post Desklib
    └──────┬──────┘
           │  edits EN/ES + validación
           ▼
    ┌─────────────┐
-   │  3. RE-AUDIT│  ref/audit-a-resource.md (de nuevo)
-   │  (7 sub)    │  → checklist actualizado
+   │  3. RE-AUDIT│  ref/reaudit-a-resource.md
+   │  (focalizado)│  → checklist actualizado
+   │  score antes│     vs después
+   │  vs después │
    └──────┬──────┘
           │  score comparativo
           ▼
@@ -129,16 +136,27 @@ npm run sitemap
 
 ## Paso 3 — Re-auditar
 
-**Prompt:** Misma auditoría (`ref/audit-a-resource.md`) sobre el
-recurso ya mejorado.
+**Prompt:** `ref/reaudit-a-resource.md` con el mismo número.
 
-**Qué hace:** Lanza las mismas 7 sub-auditorías en paralelo sobre
-los archivos modificados.
+**Qué hace:** Verificación focalizada de que las mejoras funcionaron.
+NO ejecuta las 7 sub-auditorías completas. Mide los puntos clave y
+compara con el score anterior.
+
+**Verifica:**
+
+- SEO on-page (title, metaDescription, frontmatter)
+- Technical SEO (sitemap, hreflang, structured data)
+- Content quality (body words, thin content, FAQ count)
+- Humanization (red words, passive voice, FAQ variety, AI patterns)
+- Bilingual parity (H2/H3, code blocks, frontmatter)
+- Mermaid + visual assets (render en build, paridad EN/ES)
+- Companion repo (meta.json, files, build-catalog)
+- Validación técnica (6 comandos en orden)
 
 **Output:** Checklist actualizado en
 `ref/audit/reports/{tipo}-{slug}-audit.md` con:
 
-- Score comparativo (antes vs después).
+- Score comparativo (antes vs después) en tabla.
 - Issues resueltos marcados como ✅.
 - Issues pendientes con estado
   (PENDIENTE / OUT OF SCOPE / Opcional).
@@ -185,8 +203,7 @@ Separar por naturaleza de cambios:
    número.
 5. El agente aplicará los arreglos, validará y pedirá aprobación.
 6. Aprueba el commit (o no).
-7. Ejecuta de nuevo el prompt de `ref/audit-a-resource.md` para
-   re-auditar.
+7. Ejecuta el prompt de `ref/reaudit-a-resource.md` para re-auditar.
 8. Revisa el score comparativo y los pendientes.
 9. Repite desde el paso 4 si quedan issues accionables.
 10. Cuando el recurso esté listo, haz push (con aprobación).
@@ -210,8 +227,9 @@ thin content.
 | Archivo | Propósito |
 |---|---|
 | `ref/checklist-top-recursos-mejoras.md` | Lista de recursos priorizados |
-| `ref/audit-a-resource.md` | Prompt reutilizable para auditar |
-| `ref/improve-a-resource.md` | Prompt reutilizable para mejorar |
+| `ref/audit-a-resource.md` | Prompt reutilizable para auditar (Paso 1) |
+| `ref/improve-a-resource.md` | Prompt reutilizable para mejorar (Paso 2) |
+| `ref/reaudit-a-resource.md` | Prompt reutilizable para re-auditar (Paso 3) |
 | `ref/audit/00-master-audit.md` | Prompt maestro de las 7 sub-auditorías |
 | `ref/audit/01-technical-audit.md` | Sub-auditoría technical SEO |
 | `ref/audit/02-seo-audit.md` | Sub-auditoría SEO on-page |
@@ -225,3 +243,9 @@ thin content.
 | `.devin/skills/content-improvement/SKILL.md` | Skill con las 5 fases |
 | `src/content/{tipo}/AGENTS.md` | Reglas por tipo de contenido |
 | `AGENTS.md` | Reglas generales del proyecto |
+| `scripts/ai-detect-patterns.py` | Detector de patrones AI por archivo |
+| `scripts/ai-detect-content.py` | Detector AI Desklib (EN+ES) |
+| `public/mermaid.min.js` | Mermaid.js self-hosted (CSP compliant) |
+| `public/mermaid-init.js` | Loader de Mermaid (solo si hay bloques) |
+| `src/lib/remark-mermaid-blocks.mjs` | Remark plugin: fenced mermaid → div |
+| `../stack-practices-resources/` | Repo hermano con ejemplos descargables |

@@ -30,9 +30,20 @@ Instrucciones:
    - AGENTS.md (raíz)
    - src/content/{tipo}/AGENTS.md
 5. Invoca el skill content-improvement en modo full y sigue sus 5 fases:
-   - Fase 0: Diagnóstico (estado base, thin content check, imágenes/diagramas, stack-practices-resources)
+   - Fase 0: Diagnóstico (estado base, thin content check, imágenes/diagramas,
+     stack-practices-resources, AI detection línea base)
    - Fase 1: Quick wins SEO/frontmatter (máximo 5 cambios)
    - Fase 2: Calidad + IA (máximo 4 rondas con Desklib)
+     - Antes de reescribir, ejecuta:
+       python scripts/ai-detect-patterns.py src/content/{tipo}/{topic}/{slug}.md
+       python scripts/ai-detect-patterns.py src/content/{tipo}/{topic}/{slug}.es.md
+     - Corrige los patrones detectados antes de reescribir oraciones.
+     - Después de las rondas, ejecuta:
+       python scripts/ai-detect-content.py src/content/{tipo}/{topic}/{slug}.md
+         --es src/content/{tipo}/{topic}/{slug}.es.md --model desklib
+     - Guarda los outputs en ref/output/.
+     - Si python no está disponible, marca AI detection como NOT VERIFIED
+       y continúa con las correcciones manuales.
    - Fase 3: Paridad EN/ES
    - Fase 4: Validación técnica (parar en el primer fallo)
    - Fase 5: Resumen y aprobación

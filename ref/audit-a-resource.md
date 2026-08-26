@@ -32,7 +32,15 @@ Instrucciones:
    - 05-bilingual-parity-audit.md
    - 06-geo-audit.md
    - 08-gsc-ga4-traffic-audit.md
-6. Sintetiza con 07-final-synthesis.md y escribe el checklist en:
+6. Ejecuta los scripts de AI detection para tener una línea base:
+   - python scripts/ai-detect-patterns.py src/content/{tipo}/{topic}/{slug}.md
+   - python scripts/ai-detect-patterns.py src/content/{tipo}/{topic}/{slug}.es.md
+   Guarda los outputs en ref/output/ai-detect-patterns-{slug}.json y
+   ref/output/ai-detect-patterns-{slug}-es.json.
+   Si python no está disponible, marca AI detection como NOT VERIFIED.
+7. Ejecuta `npm run build` y verifica que el build pasa sin errores.
+   Si hay errores, inclúyelos en el checklist como CRITICAL.
+8. Sintetiza con 07-final-synthesis.md y escribe el checklist en:
    ref/audit/reports/{tipo}-{slug}-audit.md
 
 Reglas críticas:
