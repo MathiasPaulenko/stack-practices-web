@@ -109,8 +109,9 @@ Si el modo no es claro, preguntar antes de empezar.
   `![alt](...)`, o referencias a `public/assets/`. Anotar si el recurso se beneficiaría de un
   diagrama (ej: flujos de arquitectura, comparaciones visuales, decision trees). Si el recurso
   se beneficia de un diagrama, añadir un bloque `mermaid` directamente en el Markdown (EN y ES)
-  en la sección más adecuada. El sitio renderiza Mermaid client-side. Mantener el diagrama
-  simple, etiquetado y equivalente EN/ES. No inventar diagramas decorativos.
+  en la sección más adecuada. El sitio renderiza Mermaid a SVG estático en build time
+  (`npm run mermaid:render`), y los SVGs se muestran con click-to-zoom via lightbox.
+  Mantener el diagrama simple, etiquetado y equivalente EN/ES. No inventar diagramas decorativos.
 - **Verificar si el recurso tiene código subido a `stack-practices-resources`**: comprobar si
   existe `../stack-practices-resources/resources/{tipo}/{topic}/{slug}/meta.json`. Si no existe
   y el recurso contiene ejemplos multi-archivo, plantillas o proyectos completos, crear la
@@ -247,10 +248,11 @@ Si el modo no es claro, preguntar antes de empezar.
     `../stack-practices-resources/resources/{tipo}/{topic}/{slug}/meta.json`? Si se creó,
     reportar los archivos subidos. Si no existe y no aplica, marcar como "no aplica".
     Si no existe pero sería útil, marcar como pendiente y pedir aprobación.
-  - **Verificación post-build de Mermaid**: si se añadieron bloques `mermaid`,
-    después de `npm run build`, verificar que el HTML en `dist/` contiene
-    `<div class="mermaid">` y que `/mermaid-init.js` está presente. Verificar
-    paridad EN/ES (mismo número de bloques). Reportar en el resumen.
+  - **Verificación post-build de Mermaid**: si se añadieron o modificaron bloques `mermaid`,
+    ejecutar `npm run mermaid:render` para generar los SVGs. Después de `npm run build`,
+    verificar que el HTML en `dist/` contiene `<img class="mermaid-diagram">`, que el SVG
+    referenciado existe en `dist/assets/diagrams/`, y que `/lightbox.js` está presente.
+    Verificar paridad EN/ES (mismo número de bloques, SVGs EN y ES generados). Reportar en el resumen.
   - **Verificación post-build de companion repo**: si se creó companion repo,
     ejecutar `node scripts/build-catalog.js` en el repo hermano y verificar
     que pasa sin errores. Reportar en el resumen.
