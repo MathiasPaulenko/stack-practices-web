@@ -3,7 +3,7 @@ contentType: recipes
 slug: chatbot-openai
 title: "Chatbot con OpenAI Assistants API: Build, Coste y Deploy"
 description: "Cómo crear un chatbot de IA usando la OpenAI Assistants API con function calling y file search."
-metaDescription: "Construye un chatbot con la OpenAI Assistants API. Function calling, file search, gestión de threads, desglose de coste por assistant por día y código de deploy."
+metaDescription: "Construye un chatbot con la OpenAI Assistants API. Function calling, file search, gestión de threads, coste por assistant y código de deploy."
 difficulty: beginner
 topics:
   - ai
@@ -20,11 +20,11 @@ relatedResources:
   - /recipes/prompt-engineering
   - /recipes/slack-bot-openai
   - /recipes/llm-fine-tuning
-lastUpdated: "2026-08-25"
+lastUpdated: "2026-08-27"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Construye un chatbot con la OpenAI Assistants API. Function calling, file search, gestión de threads, desglose de coste por assistant por día y código de deploy."
+  metaDescription: "Construye un chatbot con la OpenAI Assistants API. Function calling, file search, gestión de threads, coste por assistant y código de deploy."
   keywords:
     - chatbot
     - openai
@@ -266,11 +266,25 @@ public class SupportAssistant {
 
 La Assistants API abstrae tres piezas de complejidad:
 
-- **Asistente:** una configuración persistente de modelo, instrucciones y herramientas. Lo creas una vez y lo reutilizas para cada conversación.
+- **Asistente:** una configuración persistente de modelo, instrucciones, además de herramientas. Lo creas una vez y lo reutilizas para cada conversación.
 - **Thread:** un contenedor de conversación. OpenAI almacena el historial de mensajes, por lo que no necesitas una base de datos para el log de chat.
 - **Run:** una pasada de ejecución. El modelo decide si responde directamente, llama una función o invoca una herramienta integrada. Tu código ejecuta la función y envía el resultado.
 
 Cuando `run.status` es `requires_action`, el `run` se pausa hasta que se envíen los `tool outputs` solicitados. Después de llamar `submit_tool_outputs` (Python) o `submitToolOutputs` (Node), el `run` se reanuda y el asistente produce un mensaje final.
+
+```mermaid
+flowchart TD
+    A[Crear thread] --> B[Agregar mensaje del usuario]
+    B --> C[Crear run]
+    C --> D{run.status}
+    D -- queued/in_progress --> D
+    D -- requires_action --> E[Ejecutar función localmente]
+    E --> F[Enviar tool outputs]
+    F --> D
+    D -- completed --> G[Leer mensaje final]
+    D -- failed/expired/cancelled --> H[Manejar error]
+    H --> I[Devolver fallback]
+```
 
 ### Compromisos
 
@@ -313,7 +327,7 @@ Cuando `run.status` es `requires_action`, el `run` se pausa hasta que se envíen
 - **Las salidas del modelo son inconsistentes:** usa `temperature` 0 para tareas deterministas y fija una versión de modelo.
 - **Prompt injection filtra contexto:** mantén la entrada del usuario separada de las `instructions` y valida los argumentos de las herramientas.
 - **Costos altos de tokens:** cachea resultados de búsqueda, resume contexto largo y usa modelos más pequeños para tareas simples.
-- **File search devuelve chunks irrelevantes:** ajusta tamaño de chunk, overlap y filtros de metadata.
+- **File search devuelve chunks irrelevantes:** ajusta tamaño de chunk, además de overlap y filtros de metadata.
 
 ## Lectura Adicional
 
@@ -343,43 +357,43 @@ Cuando `run.status` es `requires_action`, el `run` se pausa hasta que se envíen
 
 ### ¿Cuál es la diferencia entre Assistants y Chat Completions?
 
-Assistants gestiona el estado del thread, herramientas integradas como `file_search` y `code_interpreter`, y el ciclo de `function calling`. Chat Completions es sin estado: envías el array completo de mensajes cada vez y tú gestionas historial, ejecución de herramientas y manejo de archivos.
+Assistants gestiona el estado del thread, herramientas integradas como `file_search` y `code_interpreter`, y el ciclo de `function calling`. Chat Completions es sin estado: enviás el array completo de mensajes cada vez y gestionás historial, ejecución de herramientas y manejo de archivos vos mismo.
 
 ### ¿Puedo usar mi propio LLM con la Assistants API?
 
-No. La Assistants API solo funciona con modelos de OpenAI. Si necesitas un modelo personalizado, usa [LangChain agents](/recipes/ai-agents-tool-use/) o construye una abstracción similar sobre Chat Completions con tu propio backend.
+No. La Assistants API solo funciona con modelos de OpenAI. Si necesitás un modelo personalizado, usá [LangChain agents](/recipes/ai-agents-tool-use/) o construí una abstracción similar sobre Chat Completions con tu propio backend.
 
-### ¿Cuánto cuesta?
+### ¿Qué cuesta correr esto?
 
-Pagas tokens de entrada y salida del modelo, más el uso de cualquier herramienta. `file_search` y `code_interpreter` añaden costo por consulta o sesión. Monitorea siempre el uso en el dashboard de OpenAI.
+Pagás tokens de entrada y salida del modelo, más el uso de cualquier herramienta. `file_search` y `code_interpreter` añaden costo por consulta o sesión. Monitoreá siempre el uso en el dashboard de OpenAI — es fácil quemar tokens con file search si no estás prestando atención.
 
-### ¿Cómo manejo errores de function call de forma graceful?
+### ¿Cuál es la mejor forma de manejar errores de function call?
 
-Captura la excepción en tu función y devuelve un objeto JSON con campos `error` y `message` a la Assistants API vía `submit_tool_outputs`. El asistente lee el error y puede reintentar, pedir aclaración al usuario o intentar otro enfoque. Sanitiza el mensaje para evitar filtrar detalles internos y establece un máximo de reintentos para prevenir bucles infinitos.
+Capturá la excepción en tu función y devolvé un objeto JSON con campos `error` y `message` a la Assistants API vía `submit_tool_outputs`. El asistente lee el error y puede reintentar, pedir aclaración al usuario o intentar otro enfoque. Sanitizá el mensaje para evitar filtrar detalles internos y establecé un máximo de reintentos para prevenir bucles infinitos.
 
-### ¿Cómo streameo respuestas desde la Assistants API?
+### ¿Cuándo debería streamear respuestas desde la Assistants API?
 
-Pasa `stream: true` al crear un `run`. La API retorna Server-Sent Events con eventos `thread.run.step.delta` que contienen texto incremental. Parsea el stream SSE y reenvía los chunks al cliente. Maneja `thread.run.completed` para señalar el final del stream.
+Pasá `stream: true` al crear un `run` si necesitás output incremental. La API retorna Server-Sent Events con eventos `thread.run.step.delta` que contienen texto incremental. Parseá el stream SSE y reenviá los chunks al cliente. Manejá `thread.run.completed` para señalar el final del stream.
 
-### ¿Cómo implemento rate limiting para mi chatbot?
+### ¿Qué pasa con el rate limiting para mi chatbot?
 
-Rastrea requests por usuario con una ventana deslizante en Redis. Define límites según tu plan, retorna HTTP 429 con header `Retry-After` cuando se alcance el límite e implementa backoff exponencial ante 429 de OpenAI. Encola picos de tráfico para procesarlos asincrónicamente.
+Rastreá requests por usuario con una ventana deslizante en Redis. Definí límites según tu plan, retorná HTTP 429 con header `Retry-After` cuando se alcance el límite e implementá backoff exponencial ante 429 de OpenAI. Encolá picos de tráfico para procesarlos asincrónicamente.
 
-### ¿Cómo testeo una integración de Assistants API?
+### ¿Se puede testear una integración de Assistants API sin pegarle a la API?
 
-Mockea el cliente de OpenAI con `vi.mock()` o `unittest.mock.patch`. Testea `function calling` devolviendo `tool outputs` predefinidos y aserciones de que el asistente los recibe. Para tests end-to-end, usa un asistente aparte con un modelo más barato como `gpt-4o-mini`, y graba respuestas con VCR.py o Polly.js para reproducirlas en CI.
+Sí. Mockeá el cliente de OpenAI con `vi.mock()` o `unittest.mock.patch`. Testeá `function calling` devolviendo `tool outputs` predefinidos y aserciones de que el asistente los recibe. Para tests end-to-end, usá un asistente aparte con un modelo más barato como `gpt-4o-mini`, y grabá respuestas con VCR.py o Polly.js para reproducirlas en CI.
 
-### ¿Cómo manejo conversaciones largas que exceden la ventana de contexto?
+### ¿Qué pasa cuando una conversación excede la ventana de contexto?
 
-La Assistants API trunca mensajes antiguos automáticamente. Para preservar contexto importante, resume periódicamente la conversación y almacena el resumen. Para chats con mucho conocimiento, guarda hechos clave en un vector store y recupéralos con `file_search` en lugar de depender del historial completo del thread.
+La Assistants API trunca mensajes antiguos automáticamente. Para preservar contexto importante, resumí periódicamente la conversación y almacená el resumen. Para chats con mucho conocimiento, guardá hechos clave en un vector store y recuperálos con `file_search` en lugar de depender del historial completo del thread.
 
-### ¿Cómo implemento aislamiento multi-tenant con la Assistants API?
+### ¿Cómo mantengo tenants aislados con la Assistants API?
 
-Crea un asistente por tenant o incluye el contexto del tenant en las `instructions`. Scopea los IDs de thread por tenant y valida que un usuario solo acceda a sus propios threads. Nunca compartas vector stores de `file_search` entre tenants.
+Creá un asistente por tenant o incluí el contexto del tenant en las `instructions`. Scopeá los IDs de thread por tenant y validá que un usuario solo acceda a sus propios threads. Nunca compartas vector stores de `file_search` entre tenants — es una filtración de datos esperando a pasar.
 
-### ¿Cómo implemento fallback cuando la API de OpenAI cae?
+### ¿Cuál es mi fallback cuando la API de OpenAI cae?
 
-Implementa un circuit breaker que se abra tras un umbral de fallos. Cuando esté abierto, devuelve una respuesta cacheada o un mensaje de "servicio temporalmente no disponible". Encola mensajes del usuario con BullMQ o Celery y procésalos cuando la API se recupere. Para caminos críticos, configura un proveedor de modelos fallback.
+Implementá un circuit breaker que se abra tras un umbral de fallos. Cuando esté abierto, devolvé una respuesta cacheada o un mensaje de "servicio temporalmente no disponible". Encolá mensajes del usuario con BullMQ o Celery y procesalos cuando la API se recupere. Para caminos críticos, configurá un proveedor de modelos fallback.
 
 ## Errores Comunes en Producción
 
