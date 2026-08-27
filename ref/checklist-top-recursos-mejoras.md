@@ -4,8 +4,8 @@
 2. - [x] **parse-toml-files** (recipes) — 86.4/100 ✅ PROMOTE
 3. - [x] **chatbot-openai** (recipes) — 86.0/100 ✅ PROMOTE
 4. - [x] **optimistic-locking** (recipes) — 87.5/100 ✅ PROMOTE
-5. - [ ] **python-coverage-pytest-cov** (recipes)
-6. - [ ] **python-schedule-periodic-tasks** (recipes)
+5. - [x] **python-coverage-pytest-cov** (recipes) — 93.5/100 ✅ PROMOTE
+6. - [x] **python-schedule-periodic-tasks** (recipes) — 94.0/100 ✅ PROMOTE
 7. - [ ] **concurrent-data-structures** (recipes)
 8. - [ ] **parse-log-files** (recipes)
 9. - [ ] **flatten-unflatten-objects** (recipes)

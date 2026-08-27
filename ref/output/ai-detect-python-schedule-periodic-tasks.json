@@ -1,0 +1,423 @@
+[
+  {
+    "label": "python-schedule-periodic-tasks-en",
+    "model": "desklib",
+    "model_ai_pct": 38.7,
+    "ai_count": 16,
+    "human_count": 68,
+    "skipped_count": 1,
+    "total": 85,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 18.3,
+      "stddev": 9.6,
+      "cv": 0.53,
+      "verdict": "natural variation",
+      "sentence_count": 84,
+      "lengths": [
+        21,
+        26,
+        32,
+        23,
+        20,
+        12,
+        12,
+        11,
+        22,
+        19,
+        8,
+        17,
+        17,
+        19,
+        17,
+        10,
+        19,
+        17,
+        13,
+        28,
+        18,
+        16,
+        18,
+        13,
+        21,
+        12,
+        22,
+        31,
+        28,
+        24,
+        86,
+        10,
+        15,
+        28,
+        5,
+        20,
+        23,
+        19,
+        35,
+        18,
+        15,
+        26,
+        9,
+        15,
+        17,
+        24,
+        12,
+        14,
+        24,
+        21,
+        17,
+        11,
+        17,
+        16,
+        25,
+        10,
+        15,
+        17,
+        16,
+        14,
+        11,
+        25,
+        9,
+        17,
+        15,
+        13,
+        16,
+        16,
+        24,
+        12,
+        14,
+        21,
+        11,
+        20,
+        5,
+        13,
+        21,
+        12,
+        23,
+        14,
+        16,
+        16,
+        6,
+        26
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Set max_instances in the job defaults to apply the rule to all jobs, or on the job itself to apply it to just\none.",
+        0.7998
+      ],
+      [
+        "Start the scheduler when the Flask app boots, so it's already running before the first request arrives.",
+        0.6493
+      ],
+      [
+        "next_run_time takes a datetime, not a Unix timestamp, so pass datetime.now() + timedelta(...) or a\n  timezone-aware datetime.",
+        0.6303
+      ],
+      [
+        "In-process scheduling when you don't need distributed workers or guaranteed delivery.",
+        0.6186
+      ],
+      [
+        "BackgroundScheduler lives on a\nbackground thread, so it doesn't block request handling and fits inside a web app like Flask or FastAPI.",
+        0.5951
+      ],
+      [
+        "For async functions, use AsyncIOScheduler with AsyncIOExecutor, which integrates into the asyncio event loop\nand runs async jobs as coroutines.",
+        0.5941
+      ],
+      [
+        "A background scheduler does nothing until you call its start method, and that's an easy step to miss.",
+        0.5876
+      ],
+      [
+        "Duplicate runs across workers: a shared SQLAlchemy job store should only have one active scheduler process.",
+        0.5838
+      ],
+      [
+        "Three settings matter most when a job is late or still running from the previous round.",
+        0.5741
+      ],
+      [
+        "If you rely on an in-memory store, the job disappears when the process stops.",
+        0.5644
+      ],
+      [
+        "You can mix schedulers, job stores, and executors to match the workload.",
+        0.5524
+      ],
+      [
+        "A ProcessPoolExecutor handles CPU-bound work.",
+        0.5514
+      ],
+      [
+        "The Solution section has a configuration example that sets up\nfour worker processes.",
+        0.5492
+      ],
+      [
+        "For heavy\ndistributed work with retries, task routing, and worker scaling, Celery is the better choice.",
+        0.5243
+      ],
+      [
+        "[APScheduler documentation](https://apscheduler.readthedocs.io/en/stable/)\n[Flask with APScheduler guide](https://apscheduler.readthedocs.io/en/stable/userguide.html#scheduling-bac",
+        0.523
+      ],
+      [
+        "The process hangs on exit: BackgroundScheduler uses daemon threads that won't keep the main process alive and\n  will be killed abruptly when the process exits.",
+        0.5114
+      ],
+      [
+        "In\n  Flask, start the scheduler once when the app boots instead of on every request.",
+        0.4971
+      ],
+      [
+        "The interval trigger waits N seconds, minutes, hours, or days and fires again.",
+        0.4901
+      ],
+      [
+        "The date trigger is for one-shot runs at a specific datetime, like a delayed export or\na reminder.",
+        0.4873
+      ],
+      [
+        "For simple periodic tasks, APScheduler is a good fit; it's lighter and doesn't need a broker.",
+        0.4852
+      ],
+      [
+        "You need strict exactly-once semantics across many processes.",
+        0.4789
+      ],
+      [
+        "| Tool | Type | Requires Broker | Best For |\n|------|------|----------------|----------|\n| APScheduler | In-process | No | Simple periodic tasks |\n| Celery | Distributed | Yes (Red",
+        0.4747
+      ],
+      [
+        "With a SQLAlchemy store, the job\nis kept and runs on the next startup if it's still within the grace time.",
+        0.4725
+      ],
+      [
+        "Call shutdown() with a timeout so active jobs can finish.",
+        0.4702
+      ],
+      [
+        "A process lock or a\n  single-instance deployment stops that from happening.",
+        0.4699
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "python-schedule-periodic-tasks-es",
+    "model": "desklib",
+    "model_ai_pct": 35.1,
+    "ai_count": 17,
+    "human_count": 76,
+    "skipped_count": 4,
+    "total": 97,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 17.2,
+      "stddev": 10.2,
+      "cv": 0.59,
+      "verdict": "natural variation",
+      "sentence_count": 93,
+      "lengths": [
+        20,
+        32,
+        33,
+        29,
+        18,
+        16,
+        13,
+        11,
+        14,
+        7,
+        24,
+        8,
+        21,
+        14,
+        30,
+        20,
+        14,
+        16,
+        17,
+        15,
+        29,
+        20,
+        18,
+        19,
+        13,
+        21,
+        13,
+        22,
+        31,
+        31,
+        31,
+        91,
+        12,
+        18,
+        14,
+        19,
+        5,
+        22,
+        9,
+        17,
+        5,
+        23,
+        11,
+        16,
+        12,
+        13,
+        20,
+        6,
+        10,
+        8,
+        17,
+        14,
+        24,
+        5,
+        15,
+        7,
+        20,
+        9,
+        15,
+        6,
+        18,
+        18,
+        12,
+        14,
+        15,
+        20,
+        13,
+        15,
+        17,
+        26,
+        9,
+        23,
+        16,
+        13,
+        5,
+        9,
+        18,
+        15,
+        15,
+        15,
+        22,
+        11,
+        17,
+        9,
+        12,
+        21,
+        13,
+        18,
+        16,
+        17,
+        20,
+        7,
+        29
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Un planificador bloqueante no encaja en una web app porque bloquea el manejo de requests.",
+        0.9546
+      ],
+      [
+        "Ajust\u00e1 el ejecutor al trabajo.",
+        0.8993
+      ],
+      [
+        "Con varios workers de gunicorn pod\u00e9s terminar con varios planificadores corriendo la misma tarea dos veces.",
+        0.8515
+      ],
+      [
+        "Necesit\u00e1s sem\u00e1nticas estrictas de exactamente-una-vez entre muchos procesos.",
+        0.8462
+      ],
+      [
+        "Siempre termin\u00e1 el planificador al salir.",
+        0.8342
+      ],
+      [
+        "Una tarea lenta que dispara cada 30 segundos puede acumularse.",
+        0.8127
+      ],
+      [
+        "Para esos casos, us\u00e1 Celery o RQ.",
+        0.7605
+      ],
+      [
+        "Para tareas con\nmucho I/O, un ejecutor de hilos suele ser la mejor opci\u00f3n; el ejemplo de arriba usa un pool de procesos para\ntareas con uso intensivo de CPU.",
+        0.7438
+      ],
+      [
+        "El disparador de fecha es para ejecuciones puntuales en un datetime\nespec\u00edfico, como un recordatorio diferido o una exportaci\u00f3n \u00fanica.",
+        0.6381
+      ],
+      [
+        "[Documentaci\u00f3n de APScheduler](https://apscheduler.readthedocs.io/en/stable/)\n[Gu\u00eda APScheduler con Flask](https://apscheduler.readthedocs.io/en/stable/userguide.html#scheduling-ba",
+        0.6006
+      ],
+      [
+        "No los dejes pasar desapercibidos.",
+        0.6003
+      ],
+      [
+        "El argumento next_run_time espera un datetime, no un timestamp de Unix, as\u00ed que pas\u00e1 datetime.now() + timedelta(...)\no un datetime con zona horaria.",
+        0.5806
+      ],
+      [
+        "Eleg\u00ed un misfire_grace_time que se ajuste a la tarea.",
+        0.5419
+      ],
+      [
+        "Con un almac\u00e9n SQLAlchemy,\nla tarea se guarda y corre en el pr\u00f3ximo inicio si todav\u00eda est\u00e1 dentro del tiempo de tolerancia.",
+        0.5159
+      ],
+      [
+        "El planificador usa su zona horaria.",
+        0.5132
+      ],
+      [
+        "Pod\u00e9s gestionar tareas mientras el planificador est\u00e1 corriendo; el ejemplo \"Gesti\u00f3n din\u00e1mica de tareas\" en\nla secci\u00f3n Soluci\u00f3n muestra las llamadas.",
+        0.5071
+      ],
+      [
+        "Eso\nla hace \u00fatil para trabajo peque\u00f1o o mediano tipo cron, pero no la trates como un planificador distribuido: es\nla forma m\u00e1s r\u00e1pida de terminar con la misma tarea corriendo dos v",
+        0.5056
+      ],
+      [
+        "Mantener el inicio del planificador fuera de los manejadores de requests evita instancias duplicadas.",
+        0.4878
+      ],
+      [
+        "Un planificador en segundo plano no corre tareas hasta que llam\u00e1s start().",
+        0.4679
+      ],
+      [
+        "Para tareas largas, establec\u00e9 max_instances en 1 para que no se solapen.",
+        0.4676
+      ],
+      [
+        "Si confi\u00e1s en un almac\u00e9n en memoria, la tarea desaparece cuando se detiene el proceso.",
+        0.4626
+      ],
+      [
+        "APScheduler es m\u00e1s liviano y no necesita un broker.",
+        0.4532
+      ],
+      [
+        "Un ProcessPoolExecutor maneja tareas con uso intensivo de CPU.",
+        0.4508
+      ],
+      [
+        "Usar un almac\u00e9n en memoria para tareas cr\u00edticas es riesgoso porque las tareas se pierden al reiniciar.",
+        0.4458
+      ],
+      [
+        "Tres opciones deciden qu\u00e9 pasa cuando una tarea se atrasa o todav\u00eda est\u00e1 corriendo desde la ronda anterior.",
+        0.4154
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

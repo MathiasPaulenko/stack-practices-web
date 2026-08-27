@@ -1,0 +1,417 @@
+[
+  {
+    "label": "python-coverage-pytest-cov-en",
+    "model": "desklib",
+    "model_ai_pct": 39.1,
+    "ai_count": 23,
+    "human_count": 60,
+    "skipped_count": 3,
+    "total": 86,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 16.7,
+      "stddev": 11.5,
+      "cv": 0.69,
+      "verdict": "natural variation",
+      "sentence_count": 83,
+      "lengths": [
+        24,
+        18,
+        29,
+        18,
+        61,
+        10,
+        59,
+        5,
+        11,
+        16,
+        17,
+        12,
+        26,
+        19,
+        9,
+        81,
+        12,
+        16,
+        24,
+        19,
+        17,
+        26,
+        20,
+        16,
+        12,
+        12,
+        17,
+        13,
+        12,
+        17,
+        15,
+        15,
+        19,
+        9,
+        13,
+        14,
+        13,
+        5,
+        13,
+        16,
+        11,
+        23,
+        21,
+        22,
+        16,
+        27,
+        7,
+        12,
+        12,
+        13,
+        7,
+        7,
+        9,
+        9,
+        8,
+        20,
+        13,
+        13,
+        7,
+        10,
+        7,
+        19,
+        7,
+        13,
+        9,
+        10,
+        20,
+        5,
+        23,
+        16,
+        13,
+        7,
+        23,
+        19,
+        9,
+        13,
+        15,
+        16,
+        20,
+        10,
+        19,
+        13,
+        32
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "For more detail, see the official docs and related recipes below:\n[coverage.py documentation](https://coverage.readthedocs.io/)\n[pytest-cov documentation](https://pytest-cov.readth",
+        0.9853
+      ],
+      [
+        "**diff-cover reports 0% changed lines**:\n    generate coverage.xml with coverage xml and fetch the comparison branch first.",
+        0.897
+      ],
+      [
+        "These patterns are regular expressions, which is why if __name__ == .__main__.: matches if __name__ ==\n\"__main__\": \u2014 the .",
+        0.789
+      ],
+      [
+        "The [implementation example](#generate-coverage-badges-for-my-readme) creates the SVG badge.",
+        0.7694
+      ],
+      [
+        "wildcard matches the quotes too.",
+        0.7388
+      ],
+      [
+        "Run coverage combine before reporting.",
+        0.723
+      ],
+      [
+        "I start with 80-90% for modules that handle payments, auth, or validation.",
+        0.7009
+      ],
+      [
+        "It then counts how many of\nthose lines were hit and converts that into a percentage.",
+        0.6603
+      ],
+      [
+        "The [implementation example](#get-coverage-for-a-single-test-file) covers a single-file setup.",
+        0.6258
+      ],
+      [
+        "This spawns separate coverage data files per process, so run coverage combine after the test suite to merge them.",
+        0.625
+      ],
+      [
+        "I've merged PRs that looked green on the surface, only to discover later that a whole branch of validation logic had\nnever been exercised.",
+        0.6103
+      ],
+      [
+        "**Coverage report is empty**:\n    make sure --cov points to a package, not a top-level script, and that source is set in the config.",
+        0.5924
+      ],
+      [
+        "Use it for debug-only code, repr methods, and abstract\nmethod stubs, but don't\nexclude error handling paths because those are critical to test.",
+        0.5874
+      ],
+      [
+        "With Django, keep DJANGO_SETTINGS_MODULE set while the tests run.",
+        0.5804
+      ],
+      [
+        "For patterns that show up\nrepeatedly, add them to exclude_lines in the config.",
+        0.5765
+      ],
+      [
+        "Green lines are covered, red lines are missed, with line-by-line highlighting.",
+        0.5713
+      ],
+      [
+        "Open htmlcov/index.html in a browser.",
+        0.5644
+      ],
+      [
+        "It also generates HTML reports and lets me ignore files or lines\nthat don't need to be counted.",
+        0.5591
+      ],
+      [
+        "For PRs, run diff-cover --fail-under=100 against the changed lines.",
+        0.5485
+      ],
+      [
+        "**Committing coverage artifacts to version control**:\n    put .coverage, htmlcov/, .coverage.*, and any generated badges in .gitignore.",
+        0.535
+      ],
+      [
+        "**Branch coverage is lower than expected**:\n    add --cov-branch and check the HTML report for conditionals that always take the same path.",
+        0.516
+      ],
+      [
+        "The number looked great; the\n    safety was an illusion.",
+        0.5055
+      ],
+      [
+        "**Excluding too much**: if you exclude every hard-to-test line, the number becomes meaningless.",
+        0.5017
+      ],
+      [
+        "For Django, ensure DJANGO_SETTINGS_MODULE is set in your test configuration.",
+        0.4835
+      ],
+      [
+        "I exclude migrations/, test files, and __init__.py; I use pragma: no cover only for debug helpers or abstract\n  stubs.",
+        0.4504
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "python-coverage-pytest-cov-es",
+    "model": "desklib",
+    "model_ai_pct": 29.2,
+    "ai_count": 16,
+    "human_count": 72,
+    "skipped_count": 1,
+    "total": 89,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 16.5,
+      "stddev": 12.1,
+      "cv": 0.73,
+      "verdict": "natural variation",
+      "sentence_count": 88,
+      "lengths": [
+        22,
+        19,
+        30,
+        15,
+        62,
+        11,
+        64,
+        5,
+        13,
+        17,
+        18,
+        14,
+        10,
+        22,
+        21,
+        9,
+        88,
+        14,
+        14,
+        26,
+        20,
+        18,
+        25,
+        19,
+        18,
+        13,
+        12,
+        15,
+        13,
+        13,
+        18,
+        15,
+        14,
+        22,
+        10,
+        13,
+        16,
+        14,
+        13,
+        17,
+        13,
+        29,
+        23,
+        14,
+        10,
+        18,
+        27,
+        8,
+        11,
+        11,
+        5,
+        13,
+        8,
+        20,
+        5,
+        10,
+        9,
+        13,
+        5,
+        14,
+        7,
+        9,
+        8,
+        11,
+        8,
+        13,
+        11,
+        13,
+        5,
+        15,
+        6,
+        11,
+        12,
+        17,
+        14,
+        7,
+        22,
+        9,
+        11,
+        9,
+        16,
+        18,
+        21,
+        20,
+        11,
+        19,
+        14,
+        38
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Si quer\u00e9s profundizar, estos recursos cubren las herramientas y pr\u00e1cticas mencionadas:\n[Documentaci\u00f3n de coverage.py](https://coverage.readthedocs.io/)\n[Documentaci\u00f3n de pytest-cov",
+        0.8184
+      ],
+      [
+        "Branch coverage verifica si ambos paths de un if/else se tomaron.",
+        0.7936
+      ],
+      [
+        "Para c\u00f3digo de pegamento o archivos generados, un\nn\u00famero m\u00e1s bajo est\u00e1 bien si entiendo por qu\u00e9 es bajo.",
+        0.7712
+      ],
+      [
+        "**La cobertura cae despu\u00e9s de agregar pytest-xdist**:\n    cada worker escribe su propio archivo .coverage.*.",
+        0.7667
+      ],
+      [
+        "El n\u00famero se ve\u00eda\n    excelente; la seguridad era una ilusi\u00f3n.",
+        0.6836
+      ],
+      [
+        "El [ejemplo de implementaci\u00f3n](#mido-branch-coverage-en-lugar-de-line-coverage) activa branch coverage.",
+        0.5939
+      ],
+      [
+        "en regex coincide con las comillas.",
+        0.5923
+      ],
+      [
+        "Estos patrones son expresiones regulares.",
+        0.5863
+      ],
+      [
+        "Yo empiezo con 80-90% para m\u00f3dulos que manejan pagos, auth o validaci\u00f3n.",
+        0.5613
+      ],
+      [
+        "Revis\u00e1 el [ejemplo de implementaci\u00f3n](#excluyo-l\u00edneas-de-la-cobertura).",
+        0.5461
+      ],
+      [
+        "**diff-cover reporta 0% de l\u00edneas cambiadas**:\n    gener\u00e1 coverage.xml con coverage xml y obten\u00e9 la rama de comparaci\u00f3n antes.",
+        0.5268
+      ],
+      [
+        "Revis\u00e1 el [ejemplo de implementaci\u00f3n](#excluyo-un-archivo-entero-de-la-cobertura).",
+        0.5187
+      ],
+      [
+        "Para Django, aseg\u00farate de que DJANGO_SETTINGS_MODULE est\u00e9 configurado en tu configuraci\u00f3n de test.",
+        0.5174
+      ],
+      [
+        "El [ejemplo de implementaci\u00f3n](#obtengo-cobertura-para-un-solo-archivo-de-test) cubre un solo archivo.",
+        0.5112
+      ],
+      [
+        "Mide qu\u00e9 se ejecut\u00f3, no qu\u00e9 afirma el test en realidad.",
+        0.5101
+      ],
+      [
+        "Por ejemplo, if __name__ == .__main__.: coincide con\nif __name__ == \"__main__\": porque el .",
+        0.503
+      ],
+      [
+        "El [ejemplo de implementaci\u00f3n](#manejo-cobertura-con-multiprocessing) usa concurrency = multiprocessing.",
+        0.4996
+      ],
+      [
+        "Para prototipos o c\u00f3digo de pegamento, un\n  n\u00famero m\u00e1s bajo est\u00e1 bien si puedo explicarlo.",
+        0.482
+      ],
+      [
+        "Line coverage verifica si una sentencia se ejecut\u00f3.",
+        0.4754
+      ],
+      [
+        "El [ejemplo de implementaci\u00f3n](#genero-badges-de-cobertura-para-mi-readme) genera el badge SVG.",
+        0.4566
+      ],
+      [
+        "**Excluir demasiado**: si excluyes cada l\u00ednea dif\u00edcil de testear, el n\u00famero pierde sentido.",
+        0.4325
+      ],
+      [
+        "**Commitear artifacts de cobertura al control de versiones**:\n    agreg\u00e1 .coverage, htmlcov/, .coverage.* y badges generados a .gitignore.",
+        0.4191
+      ],
+      [
+        "Tambi\u00e9n genera reportes HTML y me permite ignorar\narchivos o l\u00edneas que no necesito contar.",
+        0.4008
+      ],
+      [
+        "**Incluir archivos de test en la cobertura**: tests/ deber\u00eda excluirse \u2014 est\u00e1s midiendo c\u00f3digo de producci\u00f3n.",
+        0.3943
+      ],
+      [
+        "Las l\u00edneas verdes est\u00e1n cubiertas, las rojas no, con\nhighlighting l\u00ednea por l\u00ednea.",
+        0.3899
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
