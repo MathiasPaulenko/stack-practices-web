@@ -51,7 +51,7 @@ seo:
 ---
 ## Overview
 
-CSV (Comma-Separated Values) is one of the most common formats for exchanging tabular data between systems. Whether you are importing user data, exporting reports, or processing datasets, knowing how to parse CSV files correctly is essential for backend and data engineering tasks.
+CSV (Comma-Separated Values) is one of the most common formats for exchanging tabular data between systems. Whether you are importing user data, exporting reports, or processing datasets, knowing how to parse CSV files correctly is essential for backend and data engineering tasks. For the same parsing mindset applied to server logs, see [Parse Log Files](/recipes/parse-log-files/).
 
 ## When to Use
 

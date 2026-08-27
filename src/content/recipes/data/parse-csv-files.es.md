@@ -51,7 +51,7 @@ seo:
 ---
 ## Visión General
 
-CSV (Comma-Separated Values) es uno de los formatos más comunes para intercambiar datos tabulares entre sistemas. Ya sea que estés importando datos de hojas de cálculo, exportando reportes o procesando datasets, saber analizar archivos CSV correctamente es esencial para tareas de backend e ingeniería de datos.
+CSV (Comma-Separated Values) es uno de los formatos más comunes para intercambiar datos tabulares entre sistemas. Ya sea que estés importando datos de hojas de cálculo, exportando reportes o procesando datasets, saber analizar archivos CSV correctamente es esencial para tareas de backend e ingeniería de datos. Para el mismo enfoque de análisis aplicado a logs de servidor, consulta [Analizar Archivos de Log](/recipes/parse-log-files/).
 
 ## Cuándo Usar
 
