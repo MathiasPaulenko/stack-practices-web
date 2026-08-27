@@ -19,6 +19,7 @@ const STATIC_SAFELIST = new Set([
   'skip-link',
   'sr-only',
   'pagefind-ui',
+  'mermaid-diagram',
   // Difficulty badge variants referenced dynamically by ListingPage.createCard
   'difficulty-badge--beginner',
   'difficulty-badge--intermediate',

@@ -35,6 +35,9 @@ export default function remarkMermaidBlocks() {
             hProperties: {
               class: 'mermaid-diagram',
               loading: 'lazy',
+              tabindex: '0',
+              role: 'button',
+              'aria-label': `Enlarge diagram: ${altText}`,
             },
           },
         };
@@ -68,10 +71,4 @@ function generateAltText(code) {
   return `Mermaid ${firstLine} diagram`;
 }
 
-function escapeAttr(text) {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/"/g, '&quot;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
+

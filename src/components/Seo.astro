@@ -272,6 +272,18 @@ const xDefault = hasEn ? enUrl : esUrl;
 // Keep the meta description within the recommended length without locale tags.
 const metaDescription = smartTruncate(description, 160);
 
+// Escape non-ASCII characters and HTML-sensitive delimiters in JSON-LD so the
+// inline <script type="application/ld+json"> is valid, pure ASCII, and safe to
+// parse regardless of how the file is later inspected or transcoded.
+function safeJsonStringify(obj: any): string {
+  return JSON.stringify(obj)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/[\u0080-\uFFFF]/g, (ch: string) => {
+      return '\\u' + ch.charCodeAt(0).toString(16).padStart(4, '0');
+    });
+}
+
 ---
 
 <title>{fullTitle}</title>
@@ -308,7 +320,7 @@ const metaDescription = smartTruncate(description, 160);
     <script
       is:inline
       type="application/ld+json"
-      set:html={JSON.stringify(
+      set:html={safeJsonStringify(
         jsonLd.length === 1
           ? jsonLd[0]
           : { '@context': 'https://schema.org', '@graph': jsonLd.map((s) => ({ ...s, '@context': undefined })) }
