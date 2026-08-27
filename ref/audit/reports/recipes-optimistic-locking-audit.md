@@ -62,7 +62,7 @@
   - Evidence: Añadido flowchart TD del flujo read-modify-write EN/ES. SVGs renderizados.
 
 - [x] **[MEDIUM] [HUMANIZATION] Passive voice EN** ✅ RESUELTO
-  - Evidence: "was bypassed" en Variants → "you bypass the version". Restantes "was modified" están en strings de error de código.
+  - Evidence: "was bypassed" en Variants → "you bypass the version". Restantes 2 "was modified" están en strings de error de código.
 
 - [x] **[LOW] [HUMANIZATION] Rule-of-three ES** ✅ RESUELTO
   - Evidence: 1 → 0. "PostgreSQL, MySQL y JPA" → "PostgreSQL y MySQL, además de JPA/Hibernate".
