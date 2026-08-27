@@ -1,0 +1,462 @@
+[
+  {
+    "label": "flatten-unflatten-objects-en",
+    "model": "desklib",
+    "model_ai_pct": 42.8,
+    "ai_count": 36,
+    "human_count": 73,
+    "skipped_count": 1,
+    "total": 110,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 18.1,
+      "stddev": 15.8,
+      "cv": 0.88,
+      "verdict": "natural variation",
+      "sentence_count": 109,
+      "lengths": [
+        17,
+        9,
+        34,
+        19,
+        9,
+        19,
+        12,
+        11,
+        10,
+        10,
+        10,
+        10,
+        18,
+        26,
+        13,
+        15,
+        39,
+        11,
+        32,
+        24,
+        18,
+        24,
+        9,
+        8,
+        13,
+        17,
+        23,
+        24,
+        13,
+        26,
+        42,
+        12,
+        15,
+        24,
+        12,
+        31,
+        21,
+        9,
+        21,
+        19,
+        15,
+        18,
+        9,
+        15,
+        18,
+        25,
+        27,
+        14,
+        13,
+        8,
+        6,
+        13,
+        17,
+        9,
+        25,
+        18,
+        16,
+        31,
+        42,
+        21,
+        6,
+        148,
+        15,
+        19,
+        15,
+        28,
+        19,
+        32,
+        6,
+        17,
+        8,
+        7,
+        19,
+        10,
+        16,
+        8,
+        11,
+        9,
+        11,
+        6,
+        15,
+        8,
+        8,
+        77,
+        11,
+        10,
+        13,
+        12,
+        7,
+        17,
+        12,
+        20,
+        26,
+        22,
+        21,
+        22,
+        6,
+        13,
+        14,
+        6,
+        19,
+        16,
+        8,
+        12,
+        21,
+        12,
+        9,
+        19,
+        16
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "If you want the reference to stay visible, use a placeholder such as [Circular].",
+        0.9358
+      ],
+      [
+        "If your data might contain dots (for example, domain names like example.com), I switch to a double underscore or an arrow symbol so the separator never clashes with the key itself.",
+        0.9082
+      ],
+      [
+        "A generic type that builds keys recursively as `${Prefix}.${Key} does the job.",
+        0.9015
+      ],
+      [
+        "Use established libraries (flat, flatten-dict, pandas.json_normalize) in production.",
+        0.9001
+      ],
+      [
+        "For database work, such as PostgreSQL JSON path queries, use the database's built-in functions instead of doing it in the application.",
+        0.8767
+      ],
+      [
+        "Not handling circular references, which cause infinite recursion.",
+        0.8757
+      ],
+      [
+        "I've seen this bug in production form handlers where the backend received {tags: {\"0\": \"admin\"}} instead of {tags: [\"admin\"]}.",
+        0.8142
+      ],
+      [
+        "Related recipes: [Date Formatting](/recipes/date-formatting/) and [Money and Currency Handling](/recipes/money-currency/).",
+        0.8104
+      ],
+      [
+        "**Mixed array/object keys**: An array with string keys like [{a: 1}, \"text\"] flattens to 0.a and 1.",
+        0.7725
+      ],
+      [
+        "To fix this, use a separator that distinguishes object keys from array indices explicitly, or add a flag to disable numeric-key-to-array conversion.",
+        0.7634
+      ],
+      [
+        "The circular link won't survive unflatten.",
+        0.7548
+      ],
+      [
+        "Recursive traversal walks every key-value pair in the nested structure.",
+        0.747
+      ],
+      [
+        "If keys contain dots, use __ or a Unicode character instead.",
+        0.7319
+      ],
+      [
+        "| Approach | Separator | Array Handling | Best For |\n| --- | --- | --- | --- |\n| Dot-notation | .",
+        0.7267
+      ],
+      [
+        "Flattening arrays without preserving their indices means you can't reconstruct the original structure.",
+        0.7264
+      ],
+      [
+        "Or choose a separator that can't show up in your data, like \u2192 or another Unicode character.",
+        0.7088
+      ],
+      [
+        "The examples below run in Python, JavaScript, and Java, and cover custom separators, bracketed array indices, and round-trip fidelity.",
+        0.6849
+      ],
+      [
+        "| Language | Library | What it does |\n| --- | --- | --- |\n| JavaScript | [flat](https://www.npmjs.com/package/flat) | Flatten/unflatten with custom separators, depth limits, safe k",
+        0.6812
+      ],
+      [
+        "JavaScript engines vary but typically allow 10k+ frames.",
+        0.6717
+      ],
+      [
+        "An iterative version with an explicit stack avoids this, but at that depth the flat keys become unreadable (a.b.c.d.e.f...) and the flat representation is harder to work with than ",
+        0.6429
+      ],
+      [
+        "Sparse arrays, objects with a null prototype, and special types like Date, RegExp, and Map can change after a round-trip.",
+        0.6429
+      ],
+      [
+        "For analytics pipelines, pandas.json_normalize is the right tool because it produces a DataFrame directly, skipping the intermediate flat-dict step.",
+        0.6416
+      ],
+      [
+        "In TypeScript, that type is usually written as Flatten<T>.",
+        0.6191
+      ],
+      [
+        "**The data is already tabular.** If the input is a list of flat objects, flattening does nothing useful and adds overhead.",
+        0.6127
+      ],
+      [
+        "The safest approach is to treat the separator as a reserved character.",
+        0.6058
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "flatten-unflatten-objects-es",
+    "model": "desklib",
+    "model_ai_pct": 37.0,
+    "ai_count": 25,
+    "human_count": 82,
+    "skipped_count": 1,
+    "total": 108,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 20.8,
+      "stddev": 17.2,
+      "cv": 0.83,
+      "verdict": "natural variation",
+      "sentence_count": 107,
+      "lengths": [
+        19,
+        14,
+        35,
+        29,
+        11,
+        19,
+        13,
+        11,
+        16,
+        11,
+        11,
+        9,
+        33,
+        34,
+        24,
+        17,
+        43,
+        15,
+        31,
+        24,
+        21,
+        30,
+        9,
+        8,
+        13,
+        19,
+        29,
+        27,
+        15,
+        28,
+        51,
+        14,
+        17,
+        24,
+        7,
+        30,
+        26,
+        11,
+        25,
+        22,
+        17,
+        24,
+        15,
+        13,
+        19,
+        34,
+        33,
+        17,
+        14,
+        8,
+        7,
+        8,
+        6,
+        20,
+        12,
+        26,
+        17,
+        17,
+        32,
+        47,
+        22,
+        6,
+        155,
+        18,
+        21,
+        15,
+        39,
+        25,
+        34,
+        8,
+        21,
+        10,
+        10,
+        21,
+        13,
+        16,
+        11,
+        11,
+        10,
+        11,
+        9,
+        15,
+        8,
+        11,
+        87,
+        12,
+        13,
+        15,
+        13,
+        6,
+        17,
+        11,
+        21,
+        27,
+        23,
+        23,
+        28,
+        7,
+        22,
+        26,
+        18,
+        11,
+        16,
+        28,
+        11,
+        19,
+        16
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "| Enfoque | Separador | Manejo de Arrays | Mejor Para |\n| --- | --- | --- | --- |\n| Notaci\u00f3n por puntos | .",
+        0.8796
+      ],
+      [
+        "Construyas sistemas de configuraci\u00f3n en vivo donde rutas con notaci\u00f3n por puntos accedan a settings anidados.",
+        0.86
+      ],
+      [
+        "La profundidad de recursi\u00f3n es el riesgo real.",
+        0.8508
+      ],
+      [
+        "Detectar los \u00edndices de array (strings num\u00e9ricos) permite reconstruir arrays en lugar de objetos con claves num\u00e9ricas.",
+        0.7632
+      ],
+      [
+        "Si tus claves pueden contener puntos (por ejemplo example.com), yo lo cambio por __ o una flecha Unicode para que la ruta no choque con el nombre de la clave.",
+        0.7479
+      ],
+      [
+        "Aplanar no es la herramienta adecuada para todo problema de datos anidados.",
+        0.7299
+      ],
+      [
+        "La mayor\u00eda de librer\u00edas, incluida flat, permiten usar un separador personalizado.",
+        0.7299
+      ],
+      [
+        "Usa librer\u00edas establecidas (flat, flatten-dict, pandas.json_normalize) en producci\u00f3n.",
+        0.7265
+      ],
+      [
+        "**Claves mixtas array/objeto**: Un array con claves de string como [{a: 1}, \"texto\"] se aplana a 0.a y 1.",
+        0.7036
+      ],
+      [
+        "Si las claves contienen puntos, usa __ o un car\u00e1cter Unicode.",
+        0.6475
+      ],
+      [
+        "Porque la funci\u00f3n de reconstrucci\u00f3n verifica si una clave es num\u00e9rica para decidir entre crear un array o un objeto en ese nivel.",
+        0.6443
+      ],
+      [
+        "Cuando la recursi\u00f3n encuentre un objeto que ya est\u00e1 en el conjunto, reempl\u00e1zalo por un marcador como [Circular] u omite la clave.",
+        0.6285
+      ],
+      [
+        "Trata el separador como un car\u00e1cter reservado.",
+        0.6098
+      ],
+      [
+        "Siempre conserva los \u00edndices del array en la clave aplanada (tags[0]).",
+        0.5968
+      ],
+      [
+        "por \\.) y desesc\u00e1palo al reconstruir.",
+        0.5864
+      ],
+      [
+        "Recursos relacionados: [Formateo de Fechas](/recipes/date-formatting/) y [Manejo de Dinero y Moneda](/recipes/money-currency/).",
+        0.5807
+      ],
+      [
+        "Siempre conserva los \u00edndices de array (tags[0]) en las claves planas.",
+        0.5747
+      ],
+      [
+        "He visto este bug en producci\u00f3n en handlers de formulario donde el backend recib\u00eda {tags: {\"0\": \"admin\"}} en lugar de {tags: [\"admin\"]}.",
+        0.5482
+      ],
+      [
+        "Para los arrays a\u00f1ade [index] para preservar la posici\u00f3n.",
+        0.5341
+      ],
+      [
+        "Aplanar es O(n) en el n\u00famero de pares clave-valor \u2014 visita cada hoja una vez.",
+        0.5313
+      ],
+      [
+        "Solo cambio a notaci\u00f3n por corchetes cuando trabajo con datos de formulario estilo PHP.",
+        0.5238
+      ],
+      [
+        "| Sufijo [index] | MongoDB, lodash, query strings |\n| Notaci\u00f3n por corchetes | .",
+        0.5108
+      ],
+      [
+        "Todo lo que quede por debajo se conserva anidado bajo el prefijo actual.",
+        0.5059
+      ],
+      [
+        "Quitarlos convierte silenciosamente arrays en objetos con claves num\u00e9ricas de string.",
+        0.5037
+      ],
+      [
+        "Los ejemplos de abajo muestran implementaciones recursivas en Python, JavaScript y Java, con separadores personalizados, manejo de \u00edndices de arrays y fidelidad en el ciclo de ida ",
+        0.5025
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
