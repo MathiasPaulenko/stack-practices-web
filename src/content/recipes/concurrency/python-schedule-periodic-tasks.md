@@ -462,6 +462,7 @@ survive restarts, and handle errors with listeners. Always shut down the schedul
 - [APScheduler documentation](https://apscheduler.readthedocs.io/en/stable/)
 - [Flask with APScheduler guide](https://apscheduler.readthedocs.io/en/stable/userguide.html#scheduling-background-jobs)
 - [APScheduler job stores](https://apscheduler.readthedocs.io/en/stable/userguide.html#configuring-the-scheduler)
+- [Companion project on GitHub](https://github.com/mathiaspaulenko/stack-practices-resources/tree/main/resources/recipes/concurrency/python-schedule-periodic-tasks)
 - Internal: [Cron Jobs](/recipes/cron-jobs/)
 - Internal: [Docker health check configuration](/recipes/docker-health-check-configuration/)
 - Internal: [Circuit breaker pattern](/patterns/circuit-breaker-pattern/)

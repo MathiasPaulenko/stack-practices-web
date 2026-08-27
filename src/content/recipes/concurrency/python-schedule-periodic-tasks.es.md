@@ -473,6 +473,7 @@ listeners. Siempre terminá el planificador de forma limpia.
 - [Documentación de APScheduler](https://apscheduler.readthedocs.io/en/stable/)
 - [Guía APScheduler con Flask](https://apscheduler.readthedocs.io/en/stable/userguide.html#scheduling-background-jobs)
 - [Almacenes APScheduler](https://apscheduler.readthedocs.io/en/stable/userguide.html#configuring-the-scheduler)
+- [Proyecto companion en GitHub](https://github.com/mathiaspaulenko/stack-practices-resources/tree/main/resources/recipes/concurrency/python-schedule-periodic-tasks)
 - Interno: [Cron Jobs](/es/recipes/cron-jobs/)
 - Interno: [Docker health check configuration](/es/recipes/docker-health-check-configuration/)
 - Interno: [Circuit breaker pattern](/es/patterns/circuit-breaker-pattern/)
