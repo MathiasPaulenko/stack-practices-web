@@ -6,8 +6,8 @@
 4. - [x] **optimistic-locking** (recipes) — 87.5/100 ✅ PROMOTE
 5. - [x] **python-coverage-pytest-cov** (recipes) — 93.5/100 ✅ PROMOTE
 6. - [x] **python-schedule-periodic-tasks** (recipes) — 94.0/100 ✅ PROMOTE
-7. - [ ] **concurrent-data-structures** (recipes)
-8. - [ ] **parse-log-files** (recipes)
+7. - [x] **concurrent-data-structures** (recipes) — 96.0/100 ✅ PROMOTE
+8. - [x] **parse-log-files** (recipes) — 93.0/100 ✅ PROMOTE
 9. - [ ] **flatten-unflatten-objects** (recipes)
 10. - [ ] **python-asyncio-semaphore-rate-limiting** (recipes)
 11. - [ ] **penetration-test-template** (docs)
