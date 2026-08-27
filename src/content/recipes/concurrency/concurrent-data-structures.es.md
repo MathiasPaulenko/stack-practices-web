@@ -20,9 +20,9 @@ relatedResources:
   - /recipes/thread-pools
   - /recipes/python-thread-pool-executor
   - /recipes/race-condition-prevention
-  - /recipes/csp-communication
-  - /recipes/async-patterns
-lastUpdated: "2026-08-25"
+  - /patterns/queue-based-load-leveling-pattern
+  - /guides/concurrency-patterns-guide
+lastUpdated: "2026-08-27"
 publishedAt: "2026-06-14"
 author: Mathias Paulenko
 seo:
@@ -41,7 +41,7 @@ seo:
 
 Compartir un ArrayList o HashMap normal entre hilos es pedir corrupción silenciosa. Un hilo puede leer el índice 0 mientras otro lo elimina, lanzando ConcurrentModificationException o, peor, dejando la lista interna de buckets en un estado inconsistente. Estos errores suelen pasar todos los tests unitarios y aparecen solo bajo carga real.
 
-Para eso sirven las colecciones concurrentes. Usan bloqueos de grano fino, algoritmos sin bloqueos o instantáneas para que varios hilos lean y escriban sin andar envolviendo cada llamada en synchronized. A continuación se muestran versiones en Java, Python y C++.
+Para eso sirven las colecciones concurrentes. Usan bloqueos de grano fino, algoritmos sin bloqueos o instantáneas para que varios hilos lean y escriban sin andar envolviendo cada llamada en synchronized. Abajo dejo ejemplos listos para ejecutar en Java, Python y C++.
 
 ## Cuándo usarlo
 
@@ -273,13 +273,23 @@ int main() {
 
 ## Explicación
 
-Una cola bloqueante frena a los productores si la cola está llena y a los consumidores si está vacía. Ese backpressure integrado evita que un productor rápido sature a uno lento. Una cola con array subyacente usa un solo bloqueo; una vinculada usa bloqueos separados para cabeza y cola. Esa separación mejora cuando productores y consumidores corren a la vez.
+Una cola bloqueante frena a los productores si la cola está llena y a los consumidores si está vacía. Esa contrapresión o backpressure evita que un productor rápido sature a uno lento. Una cola con array subyacente usa un solo bloqueo; una vinculada usa bloqueos separados para cabeza y cola. Esa separación mejora cuando productores y consumidores corren a la vez.
+
+El flujo productor-consumidor se ve así:
+
+```mermaid
+flowchart LR
+    P["Productor"] -->|put| Q["ArrayBlockingQueue"]
+    Q -->|take| C["Consumidor"]
+    Q -. "cola llena: el productor espera" .-> P
+    Q -. "cola vacía: el consumidor espera" .-> C
+```
 
 Un mapa concurrente no pone un bloqueo global sobre el mapa entero como un wrapper sincronizado. Usa bloqueo de grano fino por cubeta (per-bin lock striping), así que las lecturas son en general sin bloqueos y las escrituras tocan solo una región pequeña. Con computeIfAbsent, la carga perezosa de una caché pasa a ser atómica. Si vas a proteger una sección crítica más amplia, revisa [locks y mutexes](/recipes/locks-and-mutexes/).
 
 Una lista copy-on-write copia el array subyacente entero en cada escritura, así que las lecturas son sin bloqueos y siempre ven una instantánea estable. Resulta útil con escrituras raras, como en listas de listeners de eventos o pequeñas instantáneas de configuración.
 
-La cola de Python usa un bloqueo reentrante y dos semáforos, así que put, get y task_done son seguros desde cualquier hilo. En asyncio, usa asyncio.Queue en vez de queue.Queue; la segunda está hecha para hilos, no para corrutinas.
+La cola de Python usa un bloqueo reentrante y dos semáforos, así que put, get y task_done son seguros desde cualquier hilo. Cuando escribo código con asyncio, uso asyncio.Queue en lugar de queue.Queue; la segunda está hecha para hilos, no para corrutinas.
 
 El contador atómico de Python envuelve un entero bajo un único bloqueo, mientras que std::atomic en C++ usa compare-and-swap del hardware. Ambos se libran de mutexes explícitos para contadores simples. Para cambios de estado más complejos, consulta la receta de [prevención de condiciones de carrera](/recipes/race-condition-prevention/).
 
@@ -346,10 +356,12 @@ Cada lectura o escritura bloquea toda la lista. Si los hilos empiezan a competir
 
 ## Conclusiones clave
 
-Ajusta la estructura a las lecturas y escrituras, no solo al lenguaje. Una cola bloqueante encaja bien en pipelines productor-consumidor, un mapa concurrente en cachés compartidas y una lista copy-on-write en listas de listeners que casi no cambian.
+Elijo la estructura según el patrón de lecturas y escrituras, no solo porque el lenguaje la tenga. Una cola bloqueante encaja bien en pipelines productor-consumidor, un mapa concurrente en cachés compartidas y una lista copy-on-write en listas de listeners que casi no cambian.
 
 Los contadores atómicos y las colas seguras entre hilos resuelven buena parte del bloqueo, pero no hacen inmutables tus valores. Un contenedor seguro entre hilos solo coordina el acceso a sí mismo, no a los objetos dentro. Mantén los valores inmutables o copia defensivamente antes de compartirlos.
 
 ## Lecturas adicionales
 
-Para Java, el resumen del paquete y los documentos de [ConcurrentHashMap](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html) explican la API. Para Python, los módulos [queue](https://docs.python.org/3/library/queue.html) y [threading](https://docs.python.org/3/library/threading.html) son las referencias. Para C++, la página de [std::atomic](https://en.cppreference.com/w/cpp/atomic/atomic) tiene los detalles. Vale la pena leer después: [Pools de hilos](/recipes/thread-pools/), [Locks y mutexes](/recipes/locks-and-mutexes/) y [Prevención de condiciones de carrera](/recipes/race-condition-prevention/).
+Para Java, el resumen del paquete y los documentos de [ConcurrentHashMap](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html) explican la API. Para Python, los módulos [queue](https://docs.python.org/3/library/queue.html) y [threading](https://docs.python.org/3/library/threading.html) son las referencias. Para C++, la página de [std::atomic](https://en.cppreference.com/w/cpp/atomic/atomic) tiene los detalles. Si quieres profundizar, suelo recomendar [Pools de hilos](/recipes/thread-pools/), [Locks y mutexes](/recipes/locks-and-mutexes/) y [Prevención de condiciones de carrera](/recipes/race-condition-prevention/) como siguiente paso.
+
+[Descargar proyectos runnable](https://github.com/mathiaspaulenko/stack-practices-resources/tree/main/resources/recipes/concurrency/concurrent-data-structures) — el repositorio companion de esta receta.

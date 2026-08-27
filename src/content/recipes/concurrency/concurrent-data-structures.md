@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: concurrent-data-structures
-title: "Thread-Safe Collections: Blocking Queues & Concurrent Maps"
+title: "Thread-Safe Collections: Blocking Queues and Concurrent Maps"
 description: "How to safely share collections between threads using concurrent data structures—blocking queues, maps, lists, and atomic counters—in Java, Python, and C++."
 metaDescription: "Thread-safe collections in Java (ConcurrentHashMap, BlockingQueue), Python (queue.Queue), and C++ (atomic). No hand-written locks, with code examples."
 difficulty: intermediate
@@ -20,9 +20,9 @@ relatedResources:
   - /recipes/thread-pools
   - /recipes/python-thread-pool-executor
   - /recipes/race-condition-prevention
-  - /recipes/csp-communication
-  - /recipes/async-patterns
-lastUpdated: "2026-08-25"
+  - /patterns/queue-based-load-leveling-pattern
+  - /guides/concurrency-patterns-guide
+lastUpdated: "2026-08-27"
 publishedAt: "2026-06-14"
 author: Mathias Paulenko
 seo:
@@ -41,7 +41,7 @@ seo:
 
 Sharing a plain `ArrayList` or `HashMap` across threads is asking for silent corruption. One thread can read index 0 while another removes it, throwing `ConcurrentModificationException` or, worse, leaving the internal bucket list in an inconsistent state. These bugs often pass every unit test and surface only under real load.
 
-That's the job concurrent collections are built for. They use fine-grained locks, lock-free algorithms, or snapshots so more than one thread can read and write safely without wrapping every call in `synchronized`. Java, Python, and C++ versions are shown below.
+That's the job concurrent collections are built for. They use fine-grained locks, lock-free algorithms, or snapshots so more than one thread can read and write safely without wrapping every call in `synchronized`. Below I put runnable examples in Java, Python, and C++.
 
 ## When to Use
 
@@ -275,11 +275,21 @@ int main() {
 
 A blocking queue blocks producers when the queue's full and consumers when it's empty. That built-in backpressure stops a fast producer from overwhelming a slow consumer. An array-backed blocking queue uses a single lock; a linked one uses separate locks for head and tail. That separation reduces contention when producers and consumers run at the same time.
 
+The producer-consumer flow looks like this:
+
+```mermaid
+flowchart LR
+    P["Producer"] -->|put| Q["ArrayBlockingQueue"]
+    Q -->|take| C["Consumer"]
+    Q -. "queue full: producer blocks" .-> P
+    Q -. "queue empty: consumer blocks" .-> C
+```
+
 A ConcurrentHashMap doesn't put a global lock on the whole map like a synchronized wrapper. It uses fine-grained bucket locking (per-bin lock striping), so reads are usually lock-free and writes hit only a small region. The map's computeIfAbsent method makes lazy cache loading atomic. If you're guarding a larger critical section, review [locks and mutexes](/recipes/locks-and-mutexes/).
 
 A copy-on-write list makes a fresh copy of its backing array on every write, so reads are lock-free and always see a stable snapshot. That's great when writes are rare, such as event listener lists or small configuration snapshots.
 
-Python's queue uses a reentrant lock and two semaphores, so put, get, and task_done are safe from any thread. In asyncio, use asyncio.Queue instead of queue.Queue; the latter is built for threads, not coroutines.
+Python's queue uses a reentrant lock and two semaphores, so put, get, and task_done are safe from any thread. When I write asyncio code I use asyncio.Queue instead of queue.Queue; the latter is built for threads, not coroutines.
 
 An atomic counter in Python uses a single lock around the integer, while std::atomic in C++ uses hardware compare-and-swap. Both avoid explicit mutexes for simple counters. For larger state changes, review the [race condition prevention](/recipes/race-condition-prevention/) recipe.
 
@@ -346,10 +356,12 @@ Every read or write locks the entire list. Once threads start contending, they q
 
 ## Key Takeaways
 
-Match the structure to the reads and writes, not just to the language. A BlockingQueue fits producer-consumer pipelines, a ConcurrentHashMap fits shared caches, and a CopyOnWriteArrayList fits listener lists that barely change.
+I pick the structure for the read/write pattern, not just because the language has it. A BlockingQueue fits producer-consumer pipelines, a ConcurrentHashMap fits shared caches, and a CopyOnWriteArrayList fits listener lists that barely change.
 
 Atomic counters and thread-safe queues cover most of the locking, but they don't make your values immutable. A thread-safe container only coordinates access to itself, not the objects inside it. Keep values immutable or copy them before sharing.
 
 ## Further Reading
 
-For Java, the package summary and [ConcurrentHashMap](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html) docs explain the API. For Python, the [queue](https://docs.python.org/3/library/queue.html) and [threading](https://docs.python.org/3/library/threading.html) modules are the references. For C++, the [std::atomic](https://en.cppreference.com/w/cpp/atomic/atomic) page has the details. Worth reading next: [Thread pools](/recipes/thread-pools/), [Locks and mutexes](/recipes/locks-and-mutexes/), and [Race condition prevention](/recipes/race-condition-prevention/).
+For Java, the package summary and [ConcurrentHashMap](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html) docs explain the API. For Python, the [queue](https://docs.python.org/3/library/queue.html) and [threading](https://docs.python.org/3/library/threading.html) modules are the references. For C++, the [std::atomic](https://en.cppreference.com/w/cpp/atomic/atomic) page has the details. If you want to dig deeper, I usually send people to [Thread pools](/recipes/thread-pools/), [Locks and mutexes](/recipes/locks-and-mutexes/), and [Race condition prevention](/recipes/race-condition-prevention/) next.
+
+[Download runnable projects](https://github.com/mathiaspaulenko/stack-practices-resources/tree/main/resources/recipes/concurrency/concurrent-data-structures) — the companion repo for this recipe.
