@@ -1,0 +1,444 @@
+[
+  {
+    "label": "parse-log-files-en",
+    "model": "desklib",
+    "model_ai_pct": 43.6,
+    "ai_count": 31,
+    "human_count": 69,
+    "skipped_count": 1,
+    "total": 101,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.9,
+      "stddev": 5.1,
+      "cv": 0.35,
+      "verdict": "somewhat uniform",
+      "sentence_count": 100,
+      "lengths": [
+        22,
+        14,
+        22,
+        15,
+        13,
+        15,
+        10,
+        16,
+        13,
+        15,
+        27,
+        20,
+        16,
+        18,
+        24,
+        10,
+        13,
+        21,
+        23,
+        13,
+        19,
+        14,
+        14,
+        10,
+        18,
+        15,
+        8,
+        13,
+        13,
+        18,
+        12,
+        20,
+        15,
+        10,
+        12,
+        11,
+        11,
+        20,
+        11,
+        24,
+        11,
+        10,
+        25,
+        11,
+        11,
+        13,
+        8,
+        19,
+        11,
+        19,
+        11,
+        10,
+        11,
+        15,
+        20,
+        18,
+        23,
+        17,
+        19,
+        8,
+        11,
+        11,
+        8,
+        20,
+        8,
+        10,
+        12,
+        12,
+        19,
+        11,
+        13,
+        14,
+        8,
+        9,
+        15,
+        12,
+        14,
+        27,
+        8,
+        10,
+        9,
+        7,
+        21,
+        16,
+        24,
+        16,
+        12,
+        19,
+        12,
+        18,
+        17,
+        23,
+        22,
+        26,
+        9,
+        9,
+        11,
+        12,
+        9,
+        25
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "When you need tamper-proof audit trails for regulatory requirements, use a dedicated logging pipeline with immutable storage.",
+        0.9511
+      ],
+      [
+        "Syslog messages use either [RFC 3164](https://datatracker.ietf.org/doc/html/rfc3164) or [RFC 5424](https://datatracker.ietf.org/doc/html/rfc5424), depending on the sender.",
+        0.9085
+      ],
+      [
+        "Syslog messages use either [RFC 3164](https://datatracker.ietf.org/doc/html/rfc3164) or [RFC 5424](https://datatracker.ietf.org/doc/html/rfc5424), depending on the sender.",
+        0.9085
+      ],
+      [
+        "If the data lives in a database already, query it there instead of exporting it to a log file first.",
+        0.8956
+      ],
+      [
+        "Use the built-in JSON parser in your language.",
+        0.867
+      ],
+      [
+        "A typical access log entry is shown below:\n\n\n\nThe pattern pulls out the IP, timestamp, HTTP method, path, protocol, status code, and response size from that line.",
+        0.8634
+      ],
+      [
+        "Alert when a metric leaves the range you've measured during normal operation.",
+        0.846
+      ],
+      [
+        "Error rates split by endpoint, service, or host.",
+        0.8118
+      ],
+      [
+        "5xx rates and the 99th percentile of response time in your web server logs.",
+        0.7856
+      ],
+      [
+        "jq is a command-line JSON processor that's handy for quick filtering when you don't want to write a script.",
+        0.7841
+      ],
+      [
+        "If a field might contain spaces or quotes, such as a user-agent string, the pattern needs to be more defensive.",
+        0.781
+      ],
+      [
+        "I only add a custom regex when the source is a third party or an old system that can't change.",
+        0.7672
+      ],
+      [
+        "In those cases, use named regex groups in the language's regex engine.",
+        0.7617
+      ],
+      [
+        "When you only need the message body, a regex that handles the <PRI> header and the timestamp is usually enough for small tasks.",
+        0.7484
+      ],
+      [
+        "A small Python parser can pull out the priority, timestamp, host, and message with a short grammar or a dedicated library.",
+        0.7244
+      ],
+      [
+        "For markup or hierarchical data, see [Parse XML Files](/recipes/parse-xml-files/) and [Validate JSON Schema](/recipes/validate-json-schema/).",
+        0.7136
+      ],
+      [
+        "Each log entry is a self-contained JSON object, so you can decode each line with JSON.parse() and continue to the next.",
+        0.7066
+      ],
+      [
+        "In this recipe, you will parse Apache and Nginx access logs, JSON Lines records, and syslog messages with Python, Java, and JavaScript.",
+        0.6655
+      ],
+      [
+        "Use this when logs come from Unix systems, network gear, or containers.",
+        0.6579
+      ],
+      [
+        "Server logs record what happens on a machine: the requests it receives, the errors it hits, and the background events it generates.",
+        0.6145
+      ],
+      [
+        "This is the right choice when the delimiter is known and the schema is stable.",
+        0.6096
+      ],
+      [
+        "Forgetting to escape regex metacharacters in URL paths or user-agent strings.",
+        0.5997
+      ],
+      [
+        "rsyslog and syslog-ng receive and forward syslog messages.",
+        0.5644
+      ],
+      [
+        "Each log entry is a self-contained JSON object, so one JSON.parse() per line is enough.",
+        0.5478
+      ],
+      [
+        "After parsing, watch:\nParse error rate: alert when it exceeds your normal baseline.",
+        0.5334
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "parse-log-files-es",
+    "model": "desklib",
+    "model_ai_pct": 33.0,
+    "ai_count": 13,
+    "human_count": 85,
+    "skipped_count": 1,
+    "total": 99,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 16.5,
+      "stddev": 6.5,
+      "cv": 0.39,
+      "verdict": "somewhat uniform",
+      "sentence_count": 98,
+      "lengths": [
+        21,
+        13,
+        27,
+        28,
+        16,
+        12,
+        12,
+        16,
+        20,
+        32,
+        19,
+        25,
+        32,
+        9,
+        11,
+        25,
+        25,
+        10,
+        24,
+        20,
+        13,
+        9,
+        17,
+        17,
+        8,
+        13,
+        14,
+        17,
+        13,
+        22,
+        14,
+        11,
+        15,
+        12,
+        12,
+        19,
+        17,
+        31,
+        11,
+        9,
+        29,
+        10,
+        13,
+        13,
+        7,
+        23,
+        10,
+        24,
+        14,
+        11,
+        13,
+        17,
+        24,
+        18,
+        24,
+        17,
+        19,
+        6,
+        13,
+        13,
+        12,
+        20,
+        10,
+        10,
+        15,
+        16,
+        20,
+        10,
+        16,
+        16,
+        7,
+        11,
+        17,
+        14,
+        14,
+        31,
+        7,
+        14,
+        10,
+        8,
+        20,
+        18,
+        28,
+        19,
+        16,
+        22,
+        12,
+        18,
+        24,
+        24,
+        24,
+        28,
+        11,
+        9,
+        12,
+        12,
+        10,
+        27
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Si un campo puede contener espacios o comillas, como un agente de usuario, el patr\u00f3n debe ser m\u00e1s defensivo.",
+        0.8826
+      ],
+      [
+        "Tasa de 5xx y el percentil 99 del tiempo de respuesta de logs de servidores web.",
+        0.8569
+      ],
+      [
+        "Los mensajes syslog usan la [RFC 3164](https://datatracker.ietf.org/doc/html/rfc3164) o la [RFC 5424](https://datatracker.ietf.org/doc/html/rfc5424), seg\u00fan el emisor.",
+        0.7825
+      ],
+      [
+        "En la pr\u00e1ctica, empiezo con el formato que la aplicaci\u00f3n ya emite.",
+        0.7691
+      ],
+      [
+        "Los mensajes syslog siguen la [RFC 3164](https://datatracker.ietf.org/doc/html/rfc3164) o la [RFC 5424](https://datatracker.ietf.org/doc/html/rfc5424).",
+        0.7531
+      ],
+      [
+        "Usa grupos regex nombrados como (?P<ip>\\S+) para parsers auto-documentados.",
+        0.6427
+      ],
+      [
+        "La l\u00ednea base debe venir de al menos una semana completa de tr\u00e1fico normal.",
+        0.5916
+      ],
+      [
+        "Los logs de servidor son un registro de lo que ocurre en una m\u00e1quina: requests, errores y eventos en segundo plano.",
+        0.5871
+      ],
+      [
+        "Tasa de error por endpoint o servicio.",
+        0.5806
+      ],
+      [
+        "Es la elecci\u00f3n correcta cuando el delimitador es conocido y el esquema es estable.",
+        0.5689
+      ],
+      [
+        "Brilla con logs en JSON Lines.",
+        0.5295
+      ],
+      [
+        "La mayor\u00eda de las distribuciones Linux incluyen uno por defecto.",
+        0.5174
+      ],
+      [
+        "Picos an\u00f3malos en volumen de logs o cantidad de IPs \u00fanicas.",
+        0.5092
+      ],
+      [
+        "Un parser simple en Python puede separar la prioridad, la marca de tiempo, el host y el mensaje usando una peque\u00f1a gram\u00e1tica o una librer\u00eda.",
+        0.4995
+      ],
+      [
+        "Establece umbrales basados en tu l\u00ednea base, no en n\u00fameros que se vean bien en un dashboard.",
+        0.4899
+      ],
+      [
+        "Una l\u00ednea t\u00edpica se ve as\u00ed:\n\n\n\nLa regex captura la IP, la marca de tiempo, el m\u00e9todo HTTP, la ruta, el protocolo, el c\u00f3digo de estado y el tama\u00f1o de la respuesta.",
+        0.4726
+      ],
+      [
+        "Usa tail -f, librer\u00edas para seguir archivos espec\u00edficas del lenguaje, o env\u00eda logs a una cola de mensajes como Kafka o Redis Streams y cons\u00famelos con un worker.",
+        0.4675
+      ],
+      [
+        "Algunos proveedores o sistemas legacy emiten un formato de texto fijo.",
+        0.4141
+      ],
+      [
+        "Los logs en producci\u00f3n pueden crecer hasta gigabytes r\u00e1pidamente, as\u00ed que es mejor procesar el archivo como un flujo en lugar de cargarlo en memoria.",
+        0.406
+      ],
+      [
+        "Quieres dashboards o alertas basados en el volumen de logs de aplicaci\u00f3n.",
+        0.399
+      ],
+      [
+        "Si tus datos ya son tabulares, las mismas habilidades aplican en [Analizar Archivos CSV](/recipes/parse-csv-files/); para datos jer\u00e1rquicos o con marcas, consulta [Analizar Archivo",
+        0.3981
+      ],
+      [
+        "rsyslog, syslog-ng \u2014 \u00dasalos para recibir y reenviar mensajes syslog.",
+        0.3945
+      ],
+      [
+        "Solo elige esto cuando la fuente no pueda escribir un formato estructurado.",
+        0.3886
+      ],
+      [
+        "Cuando solo necesitas unos pocos valores de un archivo de configuraci\u00f3n peque\u00f1o, un parser de logs completo es excesivo; usa un parser de configuraci\u00f3n.",
+        0.3856
+      ],
+      [
+        "Los ejemplos anteriores leen el archivo l\u00ednea por l\u00ednea y hacen coincidir una regex con el formato combinado de Apache/Nginx.",
+        0.3817
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
