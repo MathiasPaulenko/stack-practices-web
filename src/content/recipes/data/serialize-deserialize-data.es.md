@@ -48,7 +48,7 @@ seo:
 ---
 ## Visión General
 
-La serialización convierte objetos en memoria a un formato que puede almacenarse o transmitirse. La deserialización revierte el proceso, reconstruyendo objetos desde bytes o texto. Estas operaciones son esenciales para APIs, caching, message queues, archivos de configuración y persistencia de sesiones. Esta recipe cubre serialización JSON, XML y YAML en Python, JavaScript y Java.
+La serialización convierte objetos en memoria a un formato que puede almacenarse o transmitirse. La deserialización revierte el proceso, reconstruyendo objetos desde bytes o texto. Estas operaciones son esenciales para APIs, caching, message queues, archivos de configuración y persistencia de sesiones. Esta recipe cubre serialización JSON, XML y YAML en Python, JavaScript y Java. Si necesitas pares clave-valor planos en lugar de un stream de bytes serializado, consulta [Aplanar y Reconstruir Objetos](/recipes/flatten-unflatten-objects/).
 
 ## Cuándo Usar
 
