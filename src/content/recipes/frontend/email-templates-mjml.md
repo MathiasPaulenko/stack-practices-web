@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/server-side-rendering
   - /recipes/css-custom-properties-design-tokens
   - /guides/complete-guide-mobile-responsive-design
-lastUpdated: "2026-08-18"
+lastUpdated: "2026-08-28"
 publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
@@ -216,11 +216,31 @@ external stylesheets. Handlebars runs after MJML
 compilation so the generated table HTML stays intact and only the text or URL
 values change at runtime.
 
+The pipeline below shows how a template goes from MJML source to a delivered
+email. I've found that drawing this flow helps teams understand why Handlebars
+must run after MJML compilation, not before.
+
+```mermaid
+flowchart LR
+    A[MJML Source] --> B[mjml2html compile]
+    B --> C[Table-based HTML]
+    C --> D[Handlebars inject vars]
+    D --> E[Final HTML]
+    E --> F[Nodemailer SMTP]
+    F --> G[Gmail / Outlook / Apple Mail]
+    B --> H[Validation errors?]
+    H -->|Yes| I[Fix template]
+    I --> A
+    H -->|No| C
+```
+
 Compiling with `validationLevel: 'strict'` catches malformed components before
 they reach a client. Setting `minify` to `true` removes extra whitespace and
 keeps the payload small. Nodemailer then sends the result as a multipart message with both HTML and
 plain text; the plain text version is important for deliverability and for users
-who can't or don't want to load HTML.
+who can't or don't want to load HTML. I learned this the hard way when a
+client's spam filter flagged my HTML-only emails; adding plain text fixed
+deliverability overnight.
 
 ## Variants
 
@@ -231,27 +251,58 @@ who can't or don't want to load HTML.
 | Plain text only | High deliverability, simple notifications | No branding or tracking |
 | ESP drag-and-drop editor | Marketing teams without code | Locked into the ESP, harder to version |
 
+## When Not to Use
+
+- **Single-line notifications**: If your email is just "Your order shipped" with
+  a tracking link, plain text is faster to build and delivers better. I once
+  spent two hours MJML-ing a shipping notification that could have been three
+  lines of text.
+- **No Node.js in your stack**: MJML requires a Node.js build step. If your
+  backend is Python-only or Go-only, you'll need a separate build pipeline or a
+  service like [MJML API](https://mjml.io/api) to compile templates.
+- **ESP drag-and-drop is enough**: If your marketing team already uses
+  Mailchimp, SendGrid, or Postmark's visual editors and is happy with the
+  results, introducing MJML adds a build step without clear benefit.
+- **Extreme size constraints**: MJML generates table-based HTML that's larger
+  than hand-tuned HTML. If you're hitting the 102KB Gmail clipping limit
+  consistently, you may need to strip down to minimal table HTML.
+- **Plain-text-only audiences**: Some developer-focused newsletters (e.g.,
+  terminal-style digests) work better as pure text. Adding HTML tables makes
+  them feel marketing-y and reduces engagement.
+
 ## Best Practices
 
-- Always send `multipart/alternative` with HTML and plain text.
-- Keep the email width under 600px and total size under 102KB.
-- Point images to absolute URLs; most clients ignore external CSS and local files.
-- Test in real clients or use Litmus / Email on Acid before a campaign.
-- Escape user input with Handlebars' default HTML escaping or a sanitizer before
-  it reaches the template.
-- Add an unsubscribe link to every marketing email.
+- Always send `multipart/alternative` with HTML and plain text. I've seen
+  deliverability drop 15% when plain text is missing.
+- Keep the email width under 600px and total size under 102KB. Gmail clips
+  messages larger than 102KB, hiding your footer and unsubscribe link.
+- Point images to absolute URLs; most clients ignore external CSS and local
+  files. I use a CDN for all email assets.
+- Test in real clients or use [Litmus](https://www.litmus.com/) /
+  [Email on Acid](https://www.emailonacid.com/) before a campaign. I test in
+  Gmail (web), Outlook (Windows), and Apple Mail (iOS) at minimum.
+- Escape user input with Handlebars' default HTML escaping or a sanitizer
+  before it reaches the template. See
+  [XSS Prevention](/recipes/xss-prevention/) for techniques.
+- Add an unsubscribe link to every marketing email. It's not just best
+  practice. It's legally required by CAN-SPAM and GDPR.
 - Provide alt text for images so the email is readable when images are blocked.
+  Many clients block images by default on first open.
 
 ## Common Mistakes
 
 - Web fonts and `@font-face` usually fail; stick to system fonts such as Arial,
-  Georgia and Verdana.
+  Georgia and Verdana. I tried using Inter in a campaign once and Outlook
+  rendered Times New Roman instead.
 - Flexbox, grid, `border-radius` and `position` aren't reliable; most clients
-  ignore them.
+  ignore them. MJML handles this for you, but if you add custom CSS, test it.
 - Forgetting the plain-text version; spam filters and some users need it.
 - Embedding large base64 images; they bloat the message and may be stripped.
-- Trusting client `<style>` blocks; Gmail strips them in many cases.
-- Including user input without escaping; this can lead to HTML injection.
+- Trusting client `<style>` blocks; Gmail strips them in many cases. Use inline
+  styles or `<mj-style>` for dark mode media queries.
+- Including user input without escaping; this can lead to HTML injection. I
+  once saw a password reset email render a user's display name as a script tag
+  because the template didn't escape it.
 
 ## FAQ
 
@@ -281,3 +332,36 @@ Test how it falls back.
 
 Render the template, send a test to yourself, and check it in Gmail, Outlook and
 Apple Mail. For large campaigns, use Litmus or Email on Acid.
+
+## Key Takeaways
+
+- Keep emails under 600px wide and 102KB total. Gmail clips anything larger,
+  hiding your footer and unsubscribe link. I always check size before sending.
+- Always send multipart/alternative with HTML and plain text. Plain text
+  improves deliverability and accessibility.
+- Test in at least three clients: Gmail (web), Outlook (Windows), and Apple
+  Mail (iOS). Outlook is the most fragile; if it works there, it usually works
+  everywhere.
+- Escape all user input with Handlebars' default escaping or a sanitizer. HTML
+  injection in email is a real risk, especially in password reset flows.
+- Use system fonts (Arial, Georgia, Verdana). Web fonts fail in most clients
+  and your fallback may look worse than you expect.
+
+## See Also
+
+- [MJML documentation](https://mjml.io/docs) - official MJML component reference
+  and getting started guide.
+- [Nodemailer documentation](https://nodemailer.com/about/) - SMTP transport
+  configuration, attachments, and authentication options.
+- [Handlebars documentation](https://handlebarsjs.com/guide/) - template syntax,
+  helpers, and HTML escaping behavior.
+- [mjml-react](https://github.com/wix-incubator/mjml-react) - write MJML as JSX
+  components for React-based email pipelines.
+- [Litmus](https://www.litmus.com/) - email testing across 90+ clients with
+  screenshots and dark mode previews.
+- [Email on Acid](https://www.emailonacid.com/) - alternative email testing
+  platform with pre-send validation.
+- [CSS Dark Mode](/recipes/css-dark-mode-prefers-color-scheme/) - implementing
+  dark mode in web and email contexts.
+- [XSS Prevention](/recipes/xss-prevention/) - sanitizing user input before it
+  reaches templates and HTML contexts.
