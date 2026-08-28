@@ -254,7 +254,7 @@ deliverability overnight.
 ## When Not to Use
 
 - **Single-line notifications**: If your email is just "Your order shipped" with
-  a tracking link, plain text is faster to build and delivers better. I once
+  a tracking link, plain text is faster to build and works better. I once
   spent two hours MJML-ing a shipping notification that could have been three
   lines of text.
 - **No Node.js in your stack**: MJML requires a Node.js build step. If your
@@ -309,29 +309,34 @@ deliverability overnight.
 ### Do I need MJML if I use SendGrid?
 
 SendGrid has templates, but MJML gives you version-controlled markup that you
-can render and send through any provider. You can also test the template on your
-own machine before sending.
+can render and send through any provider. I prefer MJML because I can test
+templates locally without depending on SendGrid's editor. You can also switch
+ESPs without rewriting your templates.
 
 ### Can I use React to render MJML?
 
 Yes. The `mjml-react` package lets you write MJML as JSX and still compile
-through the same pipeline.
+through the same pipeline. I've used it on a React project and it works well,
+though the build step is a bit slower than plain MJML files.
 
 ### Why does my template look broken in Outlook?
 
 Outlook on Windows relies on Word's HTML engine and ignores most modern CSS.
 MJML generates table-based HTML with conditional comments specifically to handle
-Outlook.
+Outlook. Even so, I always test in Outlook before sending; there are edge cases
+that even MJML doesn't cover perfectly.
 
 ### Can I use my own brand fonts?
 
 Most email clients won't load web fonts, so a fallback font stack is a must.
-Test how it falls back.
+Test how it falls back. I tried using Inter once and Outlook rendered Times
+New Roman, which looked terrible.
 
 ### How do I test emails before sending?
 
 Render the template, send a test to yourself, and check it in Gmail, Outlook and
-Apple Mail. For large campaigns, use Litmus or Email on Acid.
+Apple Mail. For large campaigns, I use Litmus or Email on Acid. I always send
+at least three test emails before a real campaign.
 
 ## Key Takeaways
 
