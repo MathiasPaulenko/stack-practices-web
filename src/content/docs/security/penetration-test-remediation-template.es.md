@@ -211,6 +211,7 @@ La plantilla transforma hallazgos de pentesting de texto pasivo en **tickets acc
 - **Guías relacionadas**: explora las guías de security y testing para profundizar.
 - **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
 - **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+- **Plantilla de Plan de Pruebas de Penetración**: usa la [Plantilla de Plan de Pruebas de Penetración](/es/docs/penetration-test-template/) para estructurar la auditoría inicial y documentar hallazgos antes de la remediación.
 
 ## Notas de Producción
 

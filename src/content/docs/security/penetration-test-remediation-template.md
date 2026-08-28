@@ -205,6 +205,7 @@ The template creates a **closed-loop system**: findings enter the tracker, get a
 - **Related guides**: explore the security and testing guides for deeper coverage.
 - **Complementary patterns**: review design patterns applicable to your technology stack.
 - **Public postmortems**: study real incidents from teams that faced similar production issues.
+- **Penetration Test Plan Template**: use the [Penetration Test Plan Template](/docs/penetration-test-template/) to structure the initial assessment and document findings before remediation.
 
 ## Production Notes
 
