@@ -16,7 +16,7 @@
 14. - [x] **email-templates-mjml** (recipes) — 94.0/100 ✅ PROMOTE
 15. - [x] **python-sentiment-analysis-nltk** (recipes) — 95.0/100 ✅ PROMOTE
 16. - [x] **url-encoding** (recipes) — 95.0/100 ✅ PROMOTE
-17. - [ ] **database-deadlocks-retries** (recipes)
+17. - [x] **database-deadlocks-retries** (recipes) — 96.0/100 ✅ PROMOTE
 18. - [ ] **generate-pdf-report-python** (recipes)
 19. - [ ] **go-rest-api-gin** (recipes)
 20. - [ ] **llm-fine-tuning** (recipes)
