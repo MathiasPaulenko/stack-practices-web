@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/data-validation
   - /recipes/regular-expressions
   - /recipes/parse-csv-python-pandas
-lastUpdated: "2026-08-18"
+lastUpdated: "2026-08-28"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
 seo:
@@ -153,6 +153,25 @@ The key risk is embedding raw user input. A `&` or `?` in a value would be
 misread as a query or path delimiter. Encoding turns `&` into `%26` and `?` into
 `%3F`, so the server receives the value intact.
 
+The diagram below shows the round-trip from user input to the decoded value the
+server sees. I use this in onboarding to explain why encoding happens at the
+boundary, not everywhere.
+
+```mermaid
+flowchart LR
+    A[User Input: hello & world?] --> B[Encode]
+    B --> C[quote / encodeURIComponent / URLEncoder]
+    C --> D[URL: hello%20%26%20world%3F]
+    D --> E[Server receives URL]
+    E --> F[Decode]
+    F --> G[unquote / decodeURIComponent / URLDecoder]
+    G --> H[Original value: hello & world?]
+```
+
+I once debugged a production bug where a search query with `&` in it was
+silently truncating results. The fix was a single `encodeURIComponent` call
+that should have been there from the start.
+
 ## Variants
 
 The right function depends on the language and the part of the URL you're
@@ -169,33 +188,63 @@ building:
 For a deeper comparison of string parsing approaches, see
 [Regular Expressions](/recipes/regular-expressions/).
 
+## When Not to Use
+
+- **URLs already encoded**: If a value already contains `%20` or `%26`, encoding
+  it again produces `%2520` or `%2526`. Decode first, then encode once at the
+  boundary. I've seen this double-encoding bug in at least three codebases.
+- **Base64 in path segments**: Base64 uses `+` and `/`, which conflict with URL
+  delimiters. Use Base64URL (with `-` and `_`) instead of re-encoding Base64
+  output.
+- **Internationalized domain names (IDN)**: Modern browsers and `new URL()`
+  handle IDN conversion via Punycode automatically. Don't manually encode
+  domain names; let the URL API do it.
+- **Static URLs without user input**: If every part of the URL is a hardcoded
+  string, encoding adds noise without benefit. Encode only the parts that come
+  from live data.
+- **URLs in HTML attributes**: In HTML `href` attributes, `&` should be encoded
+  as `&amp;` (HTML entity), not `%26` (URL encoding). The browser handles the
+  conversion. I once spent an hour chasing a bug caused by mixing these two.
+
 ## Best Practices
 
-- Always encode user input before embedding it in a URL.
+- Always encode user input before embedding it in a URL. I treat any value I
+  didn't write myself as untrusted until it's encoded.
 - In JavaScript, reach for `encodeURIComponent` for query values, not `encodeURI`.
+  I've seen `encodeURI` break search queries because it leaves `&` untouched.
 - In Python, use `urlencode` for full query strings and `quote` for path segments.
 - Encoding the whole URL instead of only the live parts, such as values and path
-  segments.
-- Prefer `URLSearchParams` in modern JavaScript for safe query construction.
+  segments, is a mistake I see in code reviews regularly.
+- Prefer `URLSearchParams` in modern JavaScript for safe query construction. It
+  handles encoding automatically, so you can't forget.
 - Handle `+` carefully: it means space in query strings, while `%20` is the safer
-  choice for paths and modern specs.
+  choice for paths and modern specs. I default to `%20` everywhere and only use
+  `+` when a legacy server requires it.
 - Treat decoded input as untrusted and validate it with a library such as
-  [Data Validation](/recipes/data-validation/) or a schema validator.
+  [Data Validation](/recipes/data-validation/) or a schema validator. Decoding
+  doesn't make input safe; it just restores the original bytes.
 
 ## Common Mistakes
 
 - Using `encodeURI` for query values. `encodeURI` won't encode `&`, `=`, or `?`,
-  so the query can break.
-- Forgetting to encode user input and getting malformed URLs or injection.
-- Double-encoding values that were already encoded by another layer.
+  so the query can break. This is the single most common URL encoding bug I
+  encounter.
+- Forgetting to encode user input and getting malformed URLs or injection. I
+  once saw a search endpoint that returned empty results for any query
+  containing a space because nobody encoded the input.
+- Double-encoding values that were already encoded by another layer. This
+  happens a lot in microservice architectures where each service encodes "just
+  to be safe."
 - Confusing spaces encoded as `+` in query strings with `%20` in paths and newer
-  specs.
+  specs. I use `%20` everywhere unless a legacy server specifically needs `+`.
 - Using `split()` on a URL string instead of a proper URI parser such as
-  `urllib.parse` or `new URL()`.
+  `urllib.parse` or `new URL()`. Hand-rolled URL parsing is a recurring source
+  of security bugs.
 - Encoding an already-encoded URL. You end up with `%2520` when you encode `%20`
-  a second time.
+  a second time. I added a "decode before encode" guard to our shared URL
+  utility after this bit us in production.
 - Passing raw spaces or Unicode into `new URL()` without encoding them. Some
-  runtimes accept it, but the result isn't consistent.
+  runtimes accept it, but the result isn't consistent across browsers.
 
 ## FAQ
 
@@ -234,3 +283,35 @@ encode only once at the boundary where the value enters the URL.
 In JavaScript, use `new URL(url).searchParams` to get a parsed map of values. In
 Python, use `parse_qs` or `parse_qsl` from `urllib.parse`. In Java, call
 `URLDecoder.decode` on each value, not on the full URL string.
+
+## Key Takeaways
+
+- Always encode user input before placing it in a URL. The unreserved set is
+  `A-Z a-z 0-9 - _ . ~`; everything else needs encoding. I treat this as
+  non-negotiable in code reviews.
+- Use `encodeURIComponent` (not `encodeURI`) for query values in JavaScript.
+  `encodeURI` leaves `&`, `=`, and `?` untouched, which breaks queries.
+- Use `%20` for paths and `+` for legacy query strings. When in doubt, `%20` is
+  the safer choice across modern specs (RFC 3986).
+- Avoid double-encoding. If a value already contains `%XX`, decode it once
+  before re-encoding, or encode only at the boundary where it enters the URL.
+- Prefer `URLSearchParams` (JS), `urlencode` (Python), and `URLEncoder` (Java)
+  for query construction. They handle encoding automatically so you can't
+  forget.
+
+## See Also
+
+- [RFC 3986: Uniform Resource Identifier](https://datatracker.ietf.org/doc/html/rfc3986):
+  the official standard that defines percent-encoding and the unreserved set.
+- [MDN: encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent):
+  JavaScript reference with examples and browser compatibility.
+- [Python urllib.parse](https://docs.python.org/3/library/urllib.parse.html):
+  official Python docs for `quote`, `unquote`, `urlencode`, and `parse_qs`.
+- [Java URLEncoder](https://docs.oracle.com/javase/8/docs/api/java/net/URLEncoder.html):
+  Java API reference for encoding query values.
+- [WHATWG URL Standard](https://url.spec.whatwg.org/):
+  the living standard that modern browsers follow for URL parsing.
+- [Input Validation](/recipes/input-validation/): validate decoded input
+  before using it in your application.
+- [Regular Expressions](/recipes/regular-expressions/): parse and validate
+  URL components with regex.
