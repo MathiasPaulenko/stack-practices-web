@@ -1,0 +1,461 @@
+[
+  {
+    "label": "python-asyncio-semaphore-rate-limiting-en",
+    "model": "desklib",
+    "model_ai_pct": 46.9,
+    "ai_count": 42,
+    "human_count": 66,
+    "skipped_count": 0,
+    "total": 108,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 17.9,
+      "stddev": 14.7,
+      "cv": 0.82,
+      "verdict": "natural variation",
+      "sentence_count": 108,
+      "lengths": [
+        15,
+        17,
+        29,
+        24,
+        17,
+        38,
+        12,
+        11,
+        9,
+        17,
+        11,
+        13,
+        22,
+        10,
+        39,
+        5,
+        19,
+        11,
+        24,
+        14,
+        16,
+        23,
+        41,
+        15,
+        15,
+        15,
+        18,
+        8,
+        20,
+        14,
+        15,
+        9,
+        13,
+        9,
+        10,
+        10,
+        20,
+        10,
+        17,
+        22,
+        13,
+        13,
+        6,
+        14,
+        25,
+        16,
+        15,
+        26,
+        10,
+        17,
+        12,
+        31,
+        10,
+        15,
+        8,
+        15,
+        8,
+        18,
+        8,
+        21,
+        10,
+        13,
+        35,
+        7,
+        23,
+        22,
+        27,
+        6,
+        10,
+        13,
+        21,
+        6,
+        12,
+        24,
+        123,
+        19,
+        11,
+        10,
+        13,
+        25,
+        9,
+        33,
+        23,
+        7,
+        22,
+        15,
+        36,
+        14,
+        7,
+        19,
+        16,
+        15,
+        17,
+        16,
+        94,
+        13,
+        11,
+        12,
+        15,
+        11,
+        11,
+        17,
+        15,
+        19,
+        23,
+        8,
+        9,
+        23
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "A semaphore isn't always the right answer.",
+        0.9833
+      ],
+      [
+        "It's tempting to reuse the same semaphore for every API, but that backfires more often than not.",
+        0.9037
+      ],
+      [
+        "The standard library class doesn't let you resize on the fly.",
+        0.8292
+      ],
+      [
+        "My approach: start with 10 concurrent, measure total time for a fixed batch of 100 requests, then try 20, 50, and 100.",
+        0.7994
+      ],
+      [
+        "Always reach for the context manager (async with semaphore:) \u2014 that way you don't leak slots when exceptions fire.",
+        0.7963
+      ],
+      [
+        "In benchmarks I've run, the overhead is under 1 microsecond per acquire/release pair on CPython 3.11, which is negligible compared to any real I/O operation.",
+        0.7852
+      ],
+      [
+        "I ran into this with a job queue where urgent tasks sat behind batch imports \u2014 adding a priority queue fixed it, but it took a while to diagnose because the semaphore itself looked",
+        0.7845
+      ],
+      [
+        "When a task calls [acquire](https://docs.python.org/3/library/asyncio-sync.html#asyncio.Semaphore.acquire), the counter goes down by one.",
+        0.7618
+      ],
+      [
+        "I give each service its own cap instead of sharing one semaphore everywhere.",
+        0.7599
+      ],
+      [
+        "I measure throughput empirically rather than guessing.",
+        0.7538
+      ],
+      [
+        "Throw a timeout on it with asyncio.wait_for or asyncio.timeout().",
+        0.7167
+      ],
+      [
+        "If you want a broader view of concurrency patterns, the [Concurrency Patterns Guide](/guides/concurrency-patterns-guide/) goes deeper.",
+        0.7123
+      ],
+      [
+        "I've seen production bugs where a bare acquire() without a try/finally slowly drained the semaphore over hours \u2014 don't repeat that mistake.",
+        0.7084
+      ],
+      [
+        "For CPU-bound work, use [ProcessPoolExecutor](https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ProcessPoolExecutor) or a process pool, not an async sema",
+        0.7055
+      ],
+      [
+        "A semaphore means \"run at most N at once\", not \"send at most N per second\", so don't confuse the two.",
+        0.7054
+      ],
+      [
+        "It's easy to mix up concurrency and rate.",
+        0.7041
+      ],
+      [
+        "If the work drags on too long, the timeout triggers, the slot goes back into the pool, and the remaining tasks keep moving.",
+        0.7028
+      ],
+      [
+        "[aiolimiter](https://github.com/mjpieters/aiolimiter) is a solid library that handles this for you.",
+        0.6921
+      ],
+      [
+        "When you're hitting many different hosts, each one tends to have its own tolerance for load.",
+        0.684
+      ],
+      [
+        "Watch both the error rate and the response time as you go.",
+        0.6778
+      ],
+      [
+        "You never have to call the release method by hand.",
+        0.6777
+      ],
+      [
+        "Just fire them all at once.",
+        0.6621
+      ],
+      [
+        "One edge case worth knowing: asyncio.Semaphore isn't thread-safe.",
+        0.6562
+      ],
+      [
+        "If an exception pops up between the two calls, the slot is gone for good.",
+        0.6406
+      ],
+      [
+        "**You've got fewer than 5 concurrent tasks.** The overhead of creating and managing a semaphore isn't worth it for tiny batches.",
+        0.6322
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "python-asyncio-semaphore-rate-limiting-es",
+    "model": "desklib",
+    "model_ai_pct": 33.7,
+    "ai_count": 21,
+    "human_count": 86,
+    "skipped_count": 0,
+    "total": 107,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 19.4,
+      "stddev": 16.4,
+      "cv": 0.85,
+      "verdict": "natural variation",
+      "sentence_count": 107,
+      "lengths": [
+        15,
+        17,
+        27,
+        33,
+        18,
+        51,
+        15,
+        18,
+        16,
+        13,
+        10,
+        21,
+        11,
+        39,
+        6,
+        19,
+        12,
+        24,
+        14,
+        15,
+        27,
+        42,
+        16,
+        12,
+        10,
+        19,
+        10,
+        21,
+        18,
+        17,
+        11,
+        15,
+        11,
+        12,
+        13,
+        20,
+        5,
+        20,
+        24,
+        9,
+        16,
+        6,
+        19,
+        28,
+        16,
+        16,
+        31,
+        10,
+        12,
+        21,
+        31,
+        10,
+        10,
+        10,
+        19,
+        10,
+        17,
+        6,
+        24,
+        13,
+        19,
+        35,
+        8,
+        22,
+        22,
+        31,
+        6,
+        11,
+        14,
+        19,
+        5,
+        13,
+        26,
+        131,
+        22,
+        16,
+        10,
+        16,
+        29,
+        11,
+        28,
+        26,
+        9,
+        24,
+        19,
+        42,
+        13,
+        9,
+        14,
+        17,
+        17,
+        24,
+        20,
+        111,
+        14,
+        8,
+        10,
+        18,
+        14,
+        12,
+        16,
+        14,
+        22,
+        18,
+        8,
+        7,
+        20
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "No tienes que acordarte de llamar al m\u00e9todo release a mano.",
+        0.9747
+      ],
+      [
+        "La clase de la librer\u00eda est\u00e1ndar no expone un m\u00e9todo de redimensionamiento.",
+        0.9409
+      ],
+      [
+        "[asyncio.Lock](https://docs.python.org/3/library/asyncio-sync.html#asyncio.Lock) y Semaphore est\u00e1n dise\u00f1ados para scheduling de corrutinas en un solo thread, no para coordinaci\u00f3n e",
+        0.8369
+      ],
+      [
+        "Los clientes HTTP y cualquier otro que no traiga su propio grupo son buenos candidatos para un sem\u00e1foro.",
+        0.8245
+      ],
+      [
+        "**El workload es CPU-bound.** Los sem\u00e1foros controlan concurrencia as\u00edncrona, no paralelismo.",
+        0.7128
+      ],
+      [
+        "Cada acquire y release implica un punto de suspensi\u00f3n de corrutina y una operaci\u00f3n de deque.",
+        0.6876
+      ],
+      [
+        "Usa siempre el context manager (async with semaphore:) para evitar perder slots en excepciones.",
+        0.6711
+      ],
+      [
+        "Agrega un timeout con asyncio.wait_for o asyncio.timeout().",
+        0.65
+      ],
+      [
+        "Es f\u00e1cil confundir concurrencia y tasa.",
+        0.6348
+      ],
+      [
+        "Otra opci\u00f3n es sustituir el sem\u00e1foro por uno nuevo que arranque con otro l\u00edmite.",
+        0.6083
+      ],
+      [
+        "L\u00e1nzalas todas a la vez.",
+        0.5783
+      ],
+      [
+        "Usa un cubo de tokens para limitaci\u00f3n de tasa.",
+        0.5707
+      ],
+      [
+        "La forma m\u00e1s segura de usarlo es el context manager.",
+        0.5675
+      ],
+      [
+        "A\u00f1ade un timeout junto al sem\u00e1foro.",
+        0.562
+      ],
+      [
+        "Para trabajo con bases de datos, el pool de asyncpg suele ser suficiente por s\u00ed solo.",
+        0.5582
+      ],
+      [
+        "Un caso l\u00edmite que conviene conocer: asyncio.Semaphore no es thread-safe.",
+        0.5519
+      ],
+      [
+        "Si se acumulan fallos, baja el l\u00edmite para darle margen al servicio.",
+        0.5262
+      ],
+      [
+        "Eso convierte a un lock en un caso especial de sem\u00e1foro con l\u00edmite 1.",
+        0.5184
+      ],
+      [
+        "El overhead de un sem\u00e1foro es peque\u00f1o pero no cero.",
+        0.5173
+      ],
+      [
+        "Para bases de datos, me quedo cerca del tama\u00f1o del grupo de conexiones.",
+        0.5046
+      ],
+      [
+        "asyncio.Semaphore pone un tope al n\u00famero de operaciones as\u00edncronas que pueden ejecutarse a la vez.",
+        0.5004
+      ],
+      [
+        "Si la mayor parte del tiempo se pasa esperando el sem\u00e1foro, el l\u00edmite es demasiado bajo.",
+        0.4822
+      ],
+      [
+        "[aiolimiter](https://github.com/mjpieters/aiolimiter) es una librer\u00eda s\u00f3lida que maneja esto por ti.",
+        0.4786
+      ],
+      [
+        "Si quieres una visi\u00f3n m\u00e1s amplia de patrones de concurrencia, consulta la [Gu\u00eda de patrones de concurrencia](/es/guides/concurrency-patterns-guide/).",
+        0.4715
+      ],
+      [
+        "Todo lo que viene detr\u00e1s se queda esperando.",
+        0.4649
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
