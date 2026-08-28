@@ -2,169 +2,219 @@
   {
     "label": "generate-pdf-report-python-en",
     "model": "desklib",
-    "model_ai_pct": 49.9,
-    "ai_count": 25,
-    "human_count": 23,
+    "model_ai_pct": 52.5,
+    "ai_count": 52,
+    "human_count": 46,
     "skipped_count": 4,
-    "total": 52,
+    "total": 102,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 12.0,
-      "stddev": 6.3,
-      "cv": 0.53,
+      "mean": 13.3,
+      "stddev": 7.5,
+      "cv": 0.57,
       "verdict": "natural variation",
-      "sentence_count": 48,
+      "sentence_count": 98,
       "lengths": [
-        19,
-        25,
-        7,
-        38,
         10,
-        13,
+        32,
+        10,
+        26,
+        24,
+        12,
+        63,
+        22,
+        15,
+        36,
+        7,
+        14,
+        17,
         5,
+        22,
         23,
-        9,
         27,
         17,
         15,
+        8,
+        13,
+        11,
+        10,
+        12,
+        8,
+        15,
+        7,
+        14,
         6,
         12,
         13,
         13,
         19,
-        10,
-        9,
-        11,
         13,
-        6,
-        5,
-        5,
         10,
-        18,
-        6,
-        6,
-        5,
-        7,
-        11,
-        14,
-        8,
-        7,
         9,
         12,
-        13,
         11,
+        17,
+        13,
+        6,
+        6,
+        18,
+        5,
+        14,
+        8,
+        18,
+        8,
+        12,
+        8,
         10,
-        9,
+        6,
+        6,
+        13,
+        5,
+        15,
+        10,
+        14,
+        8,
+        14,
+        14,
+        12,
         15,
         7,
+        14,
+        7,
         13,
-        8,
+        13,
         11,
+        13,
+        10,
+        9,
+        13,
+        15,
+        10,
+        7,
+        13,
+        9,
         11,
+        13,
+        10,
         16,
-        11
+        11,
+        22,
+        17,
+        12,
+        18,
+        17,
+        14,
+        14,
+        12,
+        8,
+        7,
+        8,
+        8,
+        7,
+        15,
+        9
       ]
     },
     "top_ai_sentences": [
       [
-        "This is the simplest way to support\nUnicode and non-Latin scripts.",
-        0.8228
+        "This recipe covers both\nlibraries with working examples you can run today.",
+        0.9021
+      ],
+      [
+        "fpdf2 works like a grid of cells.",
+        0.8762
+      ],
+      [
+        "fpdf2 is my first choice for simple, text-heavy PDFs with minimal layout.",
+        0.8549
+      ],
+      [
+        "The diagram below shows the typical flow I use when building a PDF report: start\nwith a data source, prepare and possibly aggregate it, pick a template or layout,\nrender the docume",
+        0.8519
+      ],
+      [
+        "This is the simplest way I've found to support Unicode and non-Latin scripts.",
+        0.8493
+      ],
+      [
+        "[Python Excel Read Write](/recipes/python-excel-read-write/): how to read\n  spreadsheet data before turning it into a PDF.",
+        0.847
+      ],
+      [
+        "[ReportLab User Guide](https://www.reportlab.com/docs/reportlab-userguide.pdf):\n  the full ReportLab reference.",
+        0.8399
+      ],
+      [
+        "Add page numbers and dates to client-facing reports.",
+        0.7742
+      ],
+      [
+        "You add pages, set fonts, and place text by\nspecifying x and y positions.",
+        0.7668
+      ],
+      [
+        "The doc.page attribute gives you the\nnumber for the footer.",
+        0.763
       ],
       [
         "ReportLab uses a flowable-based system.",
         0.7625
       ],
       [
+        "Embed charts as images when you need visualizations.",
+        0.7394
+      ],
+      [
         "In fpdf2, call pdf.image(\"chart.png\",\nx=10, y=20, w=100) to place the image.",
         0.7383
+      ],
+      [
+        "[pandas to_html](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_html.html):\n  an alternative route for HTML-first PDFs.",
+        0.7272
+      ],
+      [
+        "Generating reports without a timestamp or version.",
+        0.7257
+      ],
+      [
+        "I find it perfect for simple documents, but it\ndoesn't handle automatic wrapping or multi-page tables well.",
+        0.7224
+      ],
+      [
+        "Fonts, page sizes, and image\n  handling can differ between viewers.",
+        0.7175
       ],
       [
         "Use the onFirstPage and onLaterPages callbacks in doc.build(), as shown in\nthe header-and-footer example above.",
         0.7172
       ],
       [
+        "[WeasyPrint](https://weasyprint.org/): HTML and CSS to PDF converter.",
+        0.6957
+      ],
+      [
         "WeasyPrint converts HTML and CSS to PDF with good fidelity.",
         0.6944
       ],
       [
-        "It lays\nout content through cells, similar to writing text into a grid.",
-        0.6789
+        "They make the document\n  look finished and help the reader track versions.",
+        0.6936
+      ],
+      [
+        "fpdf2 is small, quick to learn, and ideal for the text-heavy documents I write\nwhen I just need a page, some cells, and an output path.",
+        0.6904
+      ],
+      [
+        "fpdf2 needs a font that contains the characters you use.",
+        0.6808
+      ],
+      [
+        "Don't embed high-resolution photos without resizing them first.",
+        0.6805
       ],
       [
         "Choose the library by document complexity.",
         0.6772
-      ],
-      [
-        "That extra power also makes the learning curve steeper.",
-        0.6703
-      ],
-      [
-        "For non-Latin text, load a TrueType font through pdf.add_font() and activate\n  it with pdf.set_font().",
-        0.6508
-      ],
-      [
-        "Download a TTF file, call pdf.add_font(\"DejaVu\", \"\", \"DejaVuSans.ttf\"),\n then pdf.set_font(\"DejaVu\", size=12).",
-        0.6471
-      ],
-      [
-        "This recipe covers both with working examples.",
-        0.6366
-      ],
-      [
-        "Use ReportLab when you need tables, headers, footers, or multi-page layouts.",
-        0.6361
-      ],
-      [
-        "Reach for these libraries when you need to generate invoices, receipts, or\nfinancial reports; build automated reporting pipelines such as daily or weekly\nsummaries; export formatte",
-        0.6285
-      ],
-      [
-        "fpdf2 is smaller and fits text-heavy documents without complex layouts.",
-        0.6262
-      ],
-      [
-        "Use SimpleDocTemplate for most cases.",
-        0.6078
-      ],
-      [
-        "Nothing is written until\n  you do.",
-        0.6051
-      ],
-      [
-        "This is more complex but\ngives magazine-style layouts.",
-        0.5988
-      ],
-      [
-        "Python handles this well with two main libraries:\nReportLab, which gives full control over layout, and fpdf2, which is lighter and\nfaster to get started.",
-        0.5944
-      ],
-      [
-        "Build reports from data\n  files or APIs.",
-        0.5882
-      ],
-      [
-        "Using fpdf2 for complex tables.",
-        0.5592
-      ],
-      [
-        "For simple invoices or text reports, fpdf2 is usually enough.",
-        0.5569
-      ],
-      [
-        "Set explicit font sizes and margins.",
-        0.5566
-      ],
-      [
-        "It needs less code\n  and fewer dependencies than ReportLab.",
-        0.5547
-      ],
-      [
-        "It's bigger\nthan fpdf2 but handles complex layouts well.",
-        0.5445
-      ],
-      [
-        "In ReportLab, import Image and append Image(\"chart.png\", width=15*cm,\nheight=8*cm) to your elements list.",
-        0.5199
       ]
     ],
     "diagnostics_sample": []
@@ -172,68 +222,123 @@
   {
     "label": "generate-pdf-report-python-es",
     "model": "desklib",
-    "model_ai_pct": 35.1,
-    "ai_count": 12,
-    "human_count": 37,
+    "model_ai_pct": 36.9,
+    "ai_count": 25,
+    "human_count": 79,
     "skipped_count": 3,
-    "total": 52,
+    "total": 107,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 13.1,
-      "stddev": 6.5,
-      "cv": 0.5,
+      "mean": 13.7,
+      "stddev": 5.9,
+      "cv": 0.43,
       "verdict": "somewhat uniform",
-      "sentence_count": 49,
+      "sentence_count": 104,
       "lengths": [
-        22,
-        28,
+        12,
+        34,
+        11,
+        25,
+        29,
+        12,
+        19,
+        13,
+        19,
+        10,
+        14,
+        26,
+        15,
+        37,
         7,
-        39,
-        14,
-        14,
+        12,
+        16,
         7,
         23,
-        13,
+        27,
         26,
         19,
         17,
+        9,
+        14,
+        11,
+        12,
+        13,
+        9,
+        19,
+        8,
+        19,
         8,
         15,
         16,
         13,
         19,
+        14,
         11,
         8,
+        11,
         14,
+        19,
+        15,
+        9,
+        7,
+        20,
+        8,
         15,
         7,
-        7,
+        21,
+        12,
+        14,
+        9,
+        13,
+        5,
         8,
+        13,
+        5,
+        17,
         10,
-        19,
-        5,
-        8,
-        5,
-        8,
-        11,
         16,
         9,
-        8,
+        15,
         5,
-        9,
         14,
+        14,
+        15,
+        9,
+        13,
+        6,
+        11,
         14,
         11,
+        16,
         10,
         10,
+        13,
         20,
+        10,
         9,
         12,
         8,
+        10,
         11,
         13,
+        10,
         16,
-        11
+        11,
+        25,
+        16,
+        12,
+        15,
+        14,
+        16,
+        17,
+        14,
+        8,
+        8,
+        9,
+        7,
+        8,
+        16,
+        10
       ]
     },
     "top_ai_sentences": [
@@ -242,32 +347,76 @@
         0.9692
       ],
       [
+        "La uso cuando la salida es\n  mayormente etiquetas y p\u00e1rrafos cortos.",
+        0.9425
+      ],
+      [
+        "Lo uso cuando el reporte ya existe como\nuna p\u00e1gina web con estilos.",
+        0.8446
+      ],
+      [
+        "La mayor\u00eda de los equipos termina necesitando convertir datos en un PDF.",
+        0.8178
+      ],
+      [
         "Hardcodear datos en lugar de leer desde una fuente.",
         0.7672
+      ],
+      [
+        "Embebeb\u00e9 gr\u00e1ficos como im\u00e1genes cuando necesites visualizaciones.",
+        0.7604
       ],
       [
         "No se escribe nada hasta que lo\n  hag\u00e1s.",
         0.7389
       ],
       [
+        "ReportLab no entiende objetos de pandas de forma nativa.",
+        0.7171
+      ],
+      [
+        "[Python Excel Read Write](/recipes/python-excel-read-write/): c\u00f3mo leer datos\n  de hojas de c\u00e1lculo antes de convertirlos a PDF.",
+        0.6897
+      ],
+      [
         "Eleg\u00ed la librer\u00eda seg\u00fan la complejidad del documento.",
         0.6878
+      ],
+      [
+        "[Parse CSV with pandas](/recipes/parse-csv-python-pandas/): prepar\u00e1 datos para\n  tablas de ReportLab.",
+        0.6792
+      ],
+      [
+        "[ReportLab User Guide](https://www.reportlab.com/docs/reportlab-userguide.pdf):\n  la referencia completa de ReportLab.",
+        0.6539
+      ],
+      [
+        "Crear certificados, etiquetas o documentos imprimibles a partir de plantillas.",
+        0.6439
+      ],
+      [
+        "Us\u00e1 estas librer\u00edas cuando necesites:\nGenerar facturas, recibos o reportes financieros a partir de filas de base de\n  datos.",
+        0.6406
       ],
       [
         "Ignorar el tama\u00f1o de p\u00e1gina.",
         0.6315
       ],
       [
+        "fpdf2 funciona como una grilla de celdas.",
+        0.6302
+      ],
+      [
         "En fpdf2, llam\u00e1 pdf.image(\"chart.png\",\nx=10, y=20, w=100) para colocar la imagen.",
         0.6293
       ],
       [
-        "Esta receta cubre\nambas con ejemplos funcionales.",
-        0.6149
+        "Esta receta cubre ambas librer\u00edas con ejemplos funcionales que\npod\u00e9s ejecutar hoy.",
+        0.5926
       ],
       [
-        "La mayor\u00eda de los equipos termina necesitando convertir datos en un PDF: una\nfactura, un resumen semanal de ventas o un certificado.",
-        0.5964
+        "Exportar tablas de datos con formato a PDF desde un dashboard web o una\n  herramienta de l\u00ednea de comandos.",
+        0.5724
       ],
       [
         "Us\u00e1 SimpleDocTemplate para la mayor\u00eda de los casos.",
@@ -278,64 +427,20 @@
         0.5625
       ],
       [
+        "Construir pipelines de reportes automatizados, como res\u00famenes diarios o\n  semanales enviados por email.",
+        0.5463
+      ],
+      [
+        "Generar reportes sin timestamp o versi\u00f3n.",
+        0.5289
+      ],
+      [
         "ReportLab usa un sistema basado en flowables.",
         0.5163
       ],
       [
-        "Los m\u00e1rgenes default de\n  ReportLab son ajustados.",
-        0.5092
-      ],
-      [
-        "Usar fpdf2 para tablas complejas.",
-        0.4875
-      ],
-      [
-        "fpdf2 es m\u00e1s chica y sirve para documentos con mucho texto sin layouts complejos.",
-        0.4642
-      ],
-      [
-        "Ese poder extra tambi\u00e9n hace que la curva de aprendizaje sea\nm\u00e1s pronunciada.",
-        0.4115
-      ],
-      [
-        "Embebeb\u00e9 gr\u00e1ficos como im\u00e1genes cuando necesites visualizaciones; renderizar\n  directamente en el canvas del PDF es m\u00e1s dif\u00edcil de mantener.",
-        0.4062
-      ],
-      [
-        "Us\u00e1 los callbacks onFirstPage y onLaterPages de doc.build(), como se muestra\nen el ejemplo de encabezado y pie de p\u00e1gina.",
-        0.4017
-      ],
-      [
-        "Es m\u00e1s complejo pero\npermite layouts estilo revista.",
-        0.3919
-      ],
-      [
-        "En ReportLab, import\u00e1 Image y agreg\u00e1 Image(\"chart.png\", width=15*cm,\nheight=8*cm) a tu lista de elementos.",
-        0.3819
-      ],
-      [
-        "WeasyPrint convierte HTML y CSS a PDF con buena fidelidad.",
-        0.3523
-      ],
-      [
-        "Necesita\n  menos c\u00f3digo y menos dependencias que ReportLab.",
-        0.3071
-      ],
-      [
-        "Constru\u00ed reportes desde\n  archivos de datos o APIs.",
-        0.2896
-      ],
-      [
-        "Defin\u00ed\nvarios frames en una p\u00e1gina y asign\u00e1 flowables a cada uno.",
-        0.2818
-      ],
-      [
-        "fpdf2 necesita una fuente que realmente contenga los\n  caracteres que us\u00e1s.",
-        0.2809
-      ],
-      [
-        "Defin\u00ed tama\u00f1os de fuente y m\u00e1rgenes expl\u00edcitamente.",
-        0.2724
+        "El atributo doc.page te da el\nn\u00famero para el pie.",
+        0.5107
       ]
     ],
     "diagnostics_sample": []
