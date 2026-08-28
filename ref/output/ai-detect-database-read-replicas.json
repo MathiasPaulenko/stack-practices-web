@@ -1,0 +1,415 @@
+[
+  {
+    "label": "database-read-replicas-en",
+    "model": "desklib",
+    "model_ai_pct": 42.4,
+    "ai_count": 26,
+    "human_count": 58,
+    "skipped_count": 5,
+    "total": 89,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.9,
+      "stddev": 11.1,
+      "cv": 0.74,
+      "verdict": "natural variation",
+      "sentence_count": 84,
+      "lengths": [
+        16,
+        28,
+        25,
+        52,
+        16,
+        16,
+        11,
+        16,
+        6,
+        15,
+        11,
+        19,
+        11,
+        16,
+        9,
+        11,
+        80,
+        16,
+        20,
+        13,
+        14,
+        20,
+        16,
+        13,
+        25,
+        9,
+        12,
+        10,
+        12,
+        13,
+        27,
+        6,
+        17,
+        15,
+        7,
+        16,
+        15,
+        6,
+        11,
+        8,
+        12,
+        14,
+        20,
+        11,
+        11,
+        8,
+        15,
+        8,
+        11,
+        12,
+        7,
+        12,
+        8,
+        13,
+        5,
+        9,
+        6,
+        25,
+        11,
+        12,
+        26,
+        6,
+        13,
+        12,
+        17,
+        10,
+        57,
+        18,
+        6,
+        11,
+        5,
+        6,
+        33,
+        7,
+        9,
+        17,
+        11,
+        14,
+        11,
+        10,
+        11,
+        8,
+        12,
+        10
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "I start with one or two.",
+        0.9534
+      ],
+      [
+        "This recipe walks through setting up read replicas, splitting reads from writes,\nmonitoring replication lag, and handling stale reads in PostgreSQL, MySQL, and\ncloud-managed databa",
+        0.7983
+      ],
+      [
+        "**Write-heavy workloads**: If your workload is more than 50% writes, replicas\n  won't help.",
+        0.7629
+      ],
+      [
+        "Always account for replication lag in read-after-write scenarios.",
+        0.7156
+      ],
+      [
+        "The table\nbelow compares replication types, lag monitoring, and read-routing options.",
+        0.7135
+      ],
+      [
+        "If your team is small, the operational\n  overhead might not be worth it.",
+        0.6963
+      ],
+      [
+        "Find the right\n  ratio (usually 1:3 to 1:5).",
+        0.6826
+      ],
+      [
+        "I run failover drills monthly and they've saved me\n  during real outages.",
+        0.6629
+      ],
+      [
+        "**No failover plan**: When the primary fails, promote a replica quickly.",
+        0.6533
+      ],
+      [
+        "I've never needed more\n  than 5 replicas even for high-traffic apps, and most workloads are fine with 2-3.",
+        0.6399
+      ],
+      [
+        "For analytics, a few seconds to a few\nminutes is usually fine.",
+        0.6329
+      ],
+      [
+        "[PostgreSQL streaming replication docs](https://www.postgresql.org/docs/current/warm-standby.html) - official documentation for streaming replication setup.",
+        0.6253
+      ],
+      [
+        "I target under 100ms for user-facing reads.",
+        0.6115
+      ],
+      [
+        "For analytics that shouldn't impact production writes, read replicas keep\n  reporting work away from the primary.",
+        0.606
+      ],
+      [
+        "[Connection Pooling](/recipes/database-connection-pooling/) - pool configuration for primary and replica connections.",
+        0.6006
+      ],
+      [
+        "**Sending writes to replicas**: Replicas are read-only; writes will fail or be\n  silently ignored.",
+        0.5913
+      ],
+      [
+        "For cache invalidation, keep it under one second.",
+        0.583
+      ],
+      [
+        "On AWS\n  RDS, a db.r6g.large replica costs the same as the primary.",
+        0.5736
+      ],
+      [
+        "To get geographic read locality, place replicas close to your\n  users.",
+        0.5492
+      ],
+      [
+        "[MySQL replication docs](https://dev.mysql.com/doc/refman/8.0/en/replication.html) - official MySQL replication guide covering binlog, async, and semi-sync modes.",
+        0.5486
+      ],
+      [
+        "I always monitor replication lag and alert when it exceeds my use case threshold\n(1 to 5 seconds for user-facing reads, up to 60 seconds for analytics).",
+        0.5463
+      ],
+      [
+        "Not with standard read replicas.",
+        0.5435
+      ],
+      [
+        "This is the most common bug I see\n  in production: a user updates data, reads it back, and sees the old value because\n  the read hit a replica that hasn't caught up yet.",
+        0.5388
+      ],
+      [
+        "**Over-replicating**: Each replica adds load to the primary.",
+        0.5254
+      ],
+      [
+        "Set the\nalert threshold to whichever requirement is tightest for your use case.",
+        0.5209
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "database-read-replicas-es",
+    "model": "desklib",
+    "model_ai_pct": 38.1,
+    "ai_count": 23,
+    "human_count": 62,
+    "skipped_count": 3,
+    "total": 88,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 16.5,
+      "stddev": 13.1,
+      "cv": 0.8,
+      "verdict": "natural variation",
+      "sentence_count": 85,
+      "lengths": [
+        21,
+        30,
+        34,
+        59,
+        17,
+        18,
+        11,
+        17,
+        6,
+        19,
+        15,
+        20,
+        15,
+        17,
+        10,
+        18,
+        100,
+        23,
+        16,
+        17,
+        23,
+        20,
+        13,
+        29,
+        14,
+        12,
+        11,
+        17,
+        13,
+        30,
+        8,
+        17,
+        16,
+        8,
+        17,
+        5,
+        17,
+        7,
+        11,
+        9,
+        12,
+        16,
+        24,
+        16,
+        9,
+        8,
+        14,
+        8,
+        12,
+        13,
+        10,
+        11,
+        10,
+        14,
+        5,
+        8,
+        6,
+        23,
+        10,
+        10,
+        28,
+        6,
+        19,
+        14,
+        15,
+        10,
+        60,
+        23,
+        8,
+        11,
+        6,
+        7,
+        35,
+        7,
+        12,
+        5,
+        17,
+        13,
+        17,
+        14,
+        12,
+        11,
+        9,
+        12,
+        11
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Yo apunto a menos de 100ms para lecturas de usuarios.",
+        0.9799
+      ],
+      [
+        "Tu aplicaci\u00f3n debe manejar lecturas stale\no enrutar queries cr\u00edticas de consistencia de vuelta a la primaria.",
+        0.9662
+      ],
+      [
+        "**Asumir que las r\u00e9plicas son instant\u00e1neamente consistentes**: Me ha picado\n  esto.",
+        0.864
+      ],
+      [
+        "La r\u00e9plica puede estar 200ms atr\u00e1s y tu usuario\n  ve datos stale.",
+        0.8433
+      ],
+      [
+        "Enruta queries de lectura-despu\u00e9s-de-escritura a la primaria.",
+        0.8358
+      ],
+      [
+        "Yo empiezo con una o dos.",
+        0.8171
+      ],
+      [
+        "Enruta lecturas sensibles al tiempo a la primaria.",
+        0.7682
+      ],
+      [
+        "**Requisitos de consistencia fuerte**: Si tu app necesita consistencia\n  lectura-despu\u00e9s-de-escritura en cada query, las r\u00e9plicas introducen riesgo de\n  lecturas stale.",
+        0.7584
+      ],
+      [
+        "Cuando el workload es mayormente lecturas con escrituras moderadas, las r\u00e9plicas suelen ser la mejora m\u00e1s r\u00e1pida.",
+        0.6816
+      ],
+      [
+        "No con read replicas est\u00e1ndar.",
+        0.664
+      ],
+      [
+        "Las conexiones directas\n  agotan el max_connections de la r\u00e9plica r\u00e1pidamente bajo carga.",
+        0.6603
+      ],
+      [
+        "Las read replicas est\u00e1ndar rechazan escrituras.",
+        0.66
+      ],
+      [
+        "Para localidad geogr\u00e1fica de lecturas, coloca r\u00e9plicas cerca de los usuarios.",
+        0.6422
+      ],
+      [
+        "Para an\u00e1lisis que no deber\u00edan impactar escrituras de producci\u00f3n, las r\u00e9plicas mantienen el reporting lejos de la primaria.",
+        0.6417
+      ],
+      [
+        "Para an\u00e1lisis, desde unos\nsegundos hasta varios minutos suele estar bien.",
+        0.62
+      ],
+      [
+        "[Documentaci\u00f3n de streaming replication en PostgreSQL](https://www.postgresql.org/docs/current/warm-standby.html) - documentaci\u00f3n oficial para configurar streaming replication.",
+        0.615
+      ],
+      [
+        "La mayor\u00eda de workloads obtienen un buen retorno con\nuna relaci\u00f3n de 1:3 a 1:5 entre primaria y r\u00e9plicas.",
+        0.6023
+      ],
+      [
+        "**Sobre-replicar**: Cada r\u00e9plica a\u00f1ade carga a la primaria.",
+        0.5814
+      ],
+      [
+        "Cuando un usuario\nactualiza su perfil, lo leo de vuelta desde la primaria para evitar datos stale.",
+        0.5278
+      ],
+      [
+        "[Documentaci\u00f3n de PgBouncer](https://www.pgbouncer.org/config.html) - configuraci\u00f3n de connection pooling para PostgreSQL con soporte de r\u00e9plicas.",
+        0.5237
+      ],
+      [
+        "**Restricciones de presupuesto**: Cada r\u00e9plica duplica aproximadamente el costo\n  de la base de datos.",
+        0.5192
+      ],
+      [
+        "La r\u00e9plica a\u00fan no se hab\u00eda sincronizado con la primaria.",
+        0.514
+      ],
+      [
+        "Sin monitoreo, est\u00e1s volando a ciegas.",
+        0.5051
+      ],
+      [
+        "[Arquitectura de CockroachDB](https://www.cockroachlabs.com/docs/stable/architecture/overview.html) - r\u00e9plicas multi-activas con consenso Raft.",
+        0.4755
+      ],
+      [
+        "La tabla\ncompara los tipos de replicaci\u00f3n, el monitoreo de lag y las opciones de enrutado\nde lecturas.",
+        0.4531
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
