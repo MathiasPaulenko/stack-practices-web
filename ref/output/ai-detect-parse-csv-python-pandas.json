@@ -1,0 +1,432 @@
+[
+  {
+    "label": "parse-csv-python-pandas-en",
+    "model": "desklib",
+    "model_ai_pct": 55.1,
+    "ai_count": 55,
+    "human_count": 37,
+    "skipped_count": 0,
+    "total": 92,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 17.8,
+      "stddev": 17.2,
+      "cv": 0.97,
+      "verdict": "natural variation",
+      "sentence_count": 92,
+      "lengths": [
+        11,
+        10,
+        12,
+        16,
+        9,
+        28,
+        23,
+        15,
+        14,
+        9,
+        13,
+        18,
+        8,
+        27,
+        16,
+        22,
+        119,
+        12,
+        11,
+        9,
+        19,
+        14,
+        5,
+        11,
+        7,
+        12,
+        7,
+        20,
+        11,
+        8,
+        15,
+        13,
+        10,
+        19,
+        92,
+        19,
+        20,
+        15,
+        109,
+        11,
+        13,
+        13,
+        19,
+        12,
+        15,
+        14,
+        31,
+        16,
+        19,
+        16,
+        14,
+        14,
+        17,
+        15,
+        15,
+        25,
+        18,
+        17,
+        21,
+        11,
+        24,
+        23,
+        10,
+        18,
+        10,
+        19,
+        10,
+        10,
+        11,
+        12,
+        14,
+        9,
+        17,
+        10,
+        26,
+        12,
+        16,
+        7,
+        26,
+        9,
+        17,
+        7,
+        17,
+        7,
+        16,
+        13,
+        17,
+        14,
+        18,
+        17,
+        14,
+        17
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "It's one of those small habits that pays off consistently.",
+        0.9762
+      ],
+      [
+        "The results surprised me the first time I ran them, and they've held consistent across different datasets:\n\n| Tool | Load time | Memory peak | Notes |\n|------|-----------|---------",
+        0.9361
+      ],
+      [
+        "The pattern is straightforward: iterate over chunks, aggregate each one, then combine the results at the end.",
+        0.9279
+      ],
+      [
+        "I always start by declaring an explicit encoding value instead of relying on platform\ndefaults.",
+        0.9144
+      ],
+      [
+        "**Real-time streaming**: CSV is a batch format.",
+        0.8945
+      ],
+      [
+        "Choosing the right tool depends on two things: how big the file is, and what you plan to do with the data.",
+        0.8795
+      ],
+      [
+        "One thing I learned the hard way: object dtype is the most expensive.",
+        0.8771
+      ],
+      [
+        "I've seen memory drop by 60% just from those two changes.",
+        0.8622
+      ],
+      [
+        "I've used most of them in production, and each one has a sweet spot where it outperforms the others.",
+        0.8522
+      ],
+      [
+        "| Tool | Version | Strengths | Weaknesses |\n|------|---------|-----------|------------|\n| [pandas](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html) | 2.2+ | Matur",
+        0.835
+      ],
+      [
+        "If you need to process data as it arrives, build a generator pipeline or use a streaming framework like Kafka.",
+        0.8288
+      ],
+      [
+        "Use chunksize when the file doesn't fit in RAM.",
+        0.8156
+      ],
+      [
+        "It ships with Python and uses almost no memory, which makes it perfect for scripts that just need to read or write rows without any transformation.",
+        0.8155
+      ],
+      [
+        "I always use read_csv explicitly with the sep parameter to avoid confusion.",
+        0.7913
+      ],
+      [
+        "These two functions are identical except for the default separator.",
+        0.7872
+      ],
+      [
+        "**Binary data**: Parquet, Feather, or HDF5 are better for binary formats.",
+        0.7821
+      ],
+      [
+        "For anything under 50MB, the csv module or pandas read_csv works fine.",
+        0.7664
+      ],
+      [
+        "[DuckDB CSV import](https://duckdb.org/docs/data/csv/overview) - DuckDB docs for loading CSVs with SQL, my preferred tool for files above 10GB.",
+        0.76
+      ],
+      [
+        "Older systems often produce files in\nlatin-1 or cp1252, so skipping encoding checks is risky; I always try UTF-8\nfirst, then fall back to latin-1.",
+        0.7556
+      ],
+      [
+        "read_table defaults to sep=\"\\t\" (tab), while read_csv defaults to sep=\",\" (comma).",
+        0.7339
+      ],
+      [
+        "When a CSV is larger than 500MB, I set\nchunksize to keep memory usage under control.",
+        0.7219
+      ],
+      [
+        "Don't treat an Excel spreadsheet as a CSV file; open spreadsheets\nwith a dedicated reader instead of parsing them as CSV.",
+        0.7065
+      ],
+      [
+        "The DataFrame API saves enough time to justify the memory cost for anything beyond plain iteration.",
+        0.6968
+      ],
+      [
+        "For files above 10GB, skip pandas entirely.",
+        0.6848
+      ],
+      [
+        "The read_csv function takes parameters for the delimiter (sep), the file\nencoding, the column types (dtype), date parsing, custom null values, and\nwhich columns to load (usecols).",
+        0.6687
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "parse-csv-python-pandas-es",
+    "model": "desklib",
+    "model_ai_pct": 38.9,
+    "ai_count": 24,
+    "human_count": 70,
+    "skipped_count": 1,
+    "total": 95,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 18.0,
+      "stddev": 18.8,
+      "cv": 1.05,
+      "verdict": "natural variation",
+      "sentence_count": 94,
+      "lengths": [
+        13,
+        9,
+        12,
+        16,
+        8,
+        13,
+        12,
+        29,
+        11,
+        16,
+        12,
+        10,
+        15,
+        16,
+        14,
+        73,
+        123,
+        13,
+        12,
+        10,
+        22,
+        10,
+        14,
+        13,
+        7,
+        10,
+        9,
+        21,
+        11,
+        10,
+        17,
+        13,
+        12,
+        18,
+        100,
+        20,
+        17,
+        21,
+        17,
+        113,
+        11,
+        17,
+        14,
+        12,
+        20,
+        12,
+        14,
+        18,
+        14,
+        32,
+        15,
+        10,
+        15,
+        15,
+        14,
+        14,
+        5,
+        15,
+        14,
+        22,
+        11,
+        13,
+        19,
+        11,
+        25,
+        16,
+        12,
+        8,
+        12,
+        11,
+        10,
+        12,
+        11,
+        8,
+        5,
+        11,
+        25,
+        11,
+        13,
+        7,
+        26,
+        9,
+        16,
+        7,
+        17,
+        8,
+        14,
+        16,
+        19,
+        19,
+        21,
+        18,
+        15,
+        18
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "**Datos binarios**: Parquet, Feather o HDF5 son mejores para formatos binarios.",
+        0.9397
+      ],
+      [
+        "Limpia espacios en nombres de columna con\ndf.columns = df.columns.str.strip().",
+        0.8884
+      ],
+      [
+        "[Documentaci\u00f3n de pandas.read_csv](https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html) - la referencia oficial de la API que tengo bookmarked para cada par\u00e1metro.",
+        0.8127
+      ],
+      [
+        "Por encima de 1GB, cambio a chunked pandas o Polars.",
+        0.785
+      ],
+      [
+        "**Streaming en tiempo real**: CSV es un formato batch.",
+        0.7104
+      ],
+      [
+        "**Datos jer\u00e1rquicos o anidados**: CSV es plano.",
+        0.7056
+      ],
+      [
+        "Yo uso esta receta cuando pulled datos tabulares de cualquier fuente externa.",
+        0.6961
+      ],
+      [
+        "Estas dos funciones son id\u00e9nticas salvo por el separador por defecto.",
+        0.6933
+      ],
+      [
+        "Polars suele ser varias veces m\u00e1s r\u00e1pido que pandas\nen archivos grandes.",
+        0.6767
+      ],
+      [
+        "He visto la memoria caer 60% solo con esos dos cambios.",
+        0.6379
+      ],
+      [
+        "Si necesitas procesar datos a medida que llegan, construye un pipeline de generadores o usa un framework de streaming como Kafka.",
+        0.6261
+      ],
+      [
+        "Son m\u00e1s r\u00e1pidos de leer y m\u00e1s peque\u00f1os en disco.",
+        0.6136
+      ],
+      [
+        "Esto ahorra memoria\ncuando el archivo tiene muchas columnas que no necesitas.",
+        0.6006
+      ],
+      [
+        "[Import CSV de DuckDB](https://duckdb.org/docs/data/csv/overview) - docs de DuckDB para cargar CSVs con SQL, mi herramienta preferida para archivos mayores a 10GB.",
+        0.5873
+      ],
+      [
+        "Si estoy usando el m\u00f3dulo csv del stdlib, cambio de csv.DictReader a csv.reader para obtener una tupla simple por fila en lugar de un dict.",
+        0.5696
+      ],
+      [
+        "read_table usa sep=\"\\t\" (tab), mientras que read_csv usa sep=\",\" (coma).",
+        0.563
+      ],
+      [
+        "El ecosistema de datos en Python tiene varias herramientas para parsing CSV.",
+        0.5594
+      ],
+      [
+        "Valida la estructura del archivo antes\ndel parsing completo: headers, n\u00famero de filas y tama\u00f1o.",
+        0.545
+      ],
+      [
+        "Cargar archivos\nenteros en memoria cuando el procesamiento por chunks funcionar\u00eda.",
+        0.5289
+      ],
+      [
+        "Yo lo uso para tareas simples donde solo necesito iterar sobre filas.",
+        0.5211
+      ],
+      [
+        "Los archivos Excel tienen hojas, f\u00f3rmulas y formato que CSV no puede representar.",
+        0.5105
+      ],
+      [
+        "Eso solo puede cortar la memoria 80% en columnas con baja cardinalidad.",
+        0.5068
+      ],
+      [
+        "Ignorar\nproblemas de quoting: usa la opci\u00f3n quoting=csv.QUOTE_ALL si los campos\ncontienen comas.",
+        0.5057
+      ],
+      [
+        "Monitorea con el m\u00e9todo df.memory_usage(deep=True).",
+        0.5019
+      ],
+      [
+        "Siempre setea dtype expl\u00edcitamente en archivos grandes.",
+        0.4997
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
