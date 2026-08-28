@@ -1,0 +1,444 @@
+[
+  {
+    "label": "url-encoding-en",
+    "model": "desklib",
+    "model_ai_pct": 50.1,
+    "ai_count": 46,
+    "human_count": 50,
+    "skipped_count": 4,
+    "total": 100,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.2,
+      "stddev": 10.7,
+      "cv": 0.76,
+      "verdict": "natural variation",
+      "sentence_count": 96,
+      "lengths": [
+        15,
+        26,
+        22,
+        25,
+        23,
+        11,
+        7,
+        6,
+        6,
+        24,
+        26,
+        13,
+        19,
+        8,
+        12,
+        7,
+        9,
+        16,
+        15,
+        18,
+        15,
+        104,
+        20,
+        18,
+        8,
+        10,
+        14,
+        11,
+        15,
+        11,
+        20,
+        9,
+        20,
+        5,
+        13,
+        10,
+        13,
+        10,
+        11,
+        13,
+        25,
+        9,
+        8,
+        20,
+        15,
+        19,
+        11,
+        5,
+        12,
+        11,
+        11,
+        21,
+        9,
+        30,
+        11,
+        18,
+        10,
+        12,
+        18,
+        11,
+        11,
+        12,
+        10,
+        19,
+        20,
+        16,
+        19,
+        14,
+        12,
+        9,
+        6,
+        5,
+        8,
+        12,
+        20,
+        12,
+        8,
+        13,
+        10,
+        10,
+        5,
+        8,
+        9,
+        6,
+        10,
+        13,
+        22,
+        11,
+        8,
+        15,
+        9,
+        11,
+        9,
+        13,
+        11,
+        9
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Some\n  runtimes accept it, but the result isn't consistent across browsers.",
+        0.847
+      ],
+      [
+        "Using split() on a URL string instead of a proper URI parser such as\n  urllib.parse or new URL().",
+        0.8459
+      ],
+      [
+        "The right function depends on the language and the part of the URL you're\nbuilding:\n\n| Function | Encodes | Safe for |\n| --- | --- | --- |\n| encodeURIComponent (JS) | Everything ex",
+        0.8263
+      ],
+      [
+        "When you aren't sure which to use, %20 is the safer\noption.",
+        0.8249
+      ],
+      [
+        "They handle encoding automatically so you can't\n  forget.",
+        0.8121
+      ],
+      [
+        "[Java URLEncoder](https://docs.oracle.com/javase/8/docs/api/java/net/URLEncoder.html):\n  Java API reference for encoding query values.",
+        0.7908
+      ],
+      [
+        "I\n  once saw a search endpoint that returned empty results for any query\n  containing a space because nobody encoded the input.",
+        0.7877
+      ],
+      [
+        "Use Base64URL (with - and _) instead of re-encoding Base64\n  output.",
+        0.7854
+      ],
+      [
+        "The diagram below shows the round-trip from user input to the decoded value the\nserver sees.",
+        0.7832
+      ],
+      [
+        "**URLs in HTML attributes**: In HTML href attributes, & should be encoded\n  as &amp; (HTML entity), not %26 (URL encoding).",
+        0.7771
+      ],
+      [
+        "I've seen this double-encoding bug in at least three codebases.",
+        0.7682
+      ],
+      [
+        "It\n  handles encoding automatically, so you can't forget.",
+        0.7591
+      ],
+      [
+        "**Base64 in path segments**: Base64 uses + and /, which conflict with URL\n  delimiters.",
+        0.7575
+      ],
+      [
+        "[MDN: encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent):\n  JavaScript reference with examples and browser com",
+        0.7474
+      ],
+      [
+        "[Python urllib.parse](https://docs.python.org/3/library/urllib.parse.html):\n  official Python docs for quote, unquote, urlencode, and parse_qs.",
+        0.7335
+      ],
+      [
+        "[Regular Expressions](/recipes/regular-expressions/): parse and validate\n  URL components with regex.",
+        0.7079
+      ],
+      [
+        "This is the single most common URL encoding bug I\n  encounter.",
+        0.7007
+      ],
+      [
+        "[WHATWG URL Standard](https://url.spec.whatwg.org/):\n  the living standard that modern browsers follow for URL parsing.",
+        0.6995
+      ],
+      [
+        "**URLs already encoded**: If a value already contains %20 or %26, encoding\n  it again produces %2520 or %2526.",
+        0.6889
+      ],
+      [
+        "The fix was a single encodeURIComponent call\nthat should have been there from the start.",
+        0.6538
+      ],
+      [
+        "Use encodeURIComponent (not encodeURI) for query values in JavaScript.",
+        0.6538
+      ],
+      [
+        "I once spent an hour chasing a bug caused by mixing these two.",
+        0.6216
+      ],
+      [
+        "Prefer URLSearchParams (JS), urlencode (Python), and URLEncoder (Java)\n  for query construction.",
+        0.621
+      ],
+      [
+        "The browser handles the\n  conversion.",
+        0.6194
+      ],
+      [
+        "In Java, call\nURLDecoder.decode on each value, not on the full URL string.",
+        0.6166
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "url-encoding-es",
+    "model": "desklib",
+    "model_ai_pct": 40.2,
+    "ai_count": 36,
+    "human_count": 66,
+    "skipped_count": 4,
+    "total": 106,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.8,
+      "stddev": 6.7,
+      "cv": 0.49,
+      "verdict": "somewhat uniform",
+      "sentence_count": 102,
+      "lengths": [
+        20,
+        11,
+        15,
+        24,
+        23,
+        23,
+        13,
+        7,
+        7,
+        7,
+        12,
+        15,
+        13,
+        14,
+        18,
+        10,
+        12,
+        7,
+        9,
+        20,
+        18,
+        15,
+        13,
+        27,
+        25,
+        55,
+        22,
+        18,
+        10,
+        11,
+        16,
+        14,
+        18,
+        14,
+        21,
+        10,
+        21,
+        5,
+        12,
+        12,
+        14,
+        10,
+        10,
+        14,
+        16,
+        6,
+        11,
+        9,
+        23,
+        16,
+        20,
+        11,
+        6,
+        12,
+        10,
+        13,
+        21,
+        9,
+        13,
+        16,
+        12,
+        14,
+        15,
+        5,
+        5,
+        22,
+        18,
+        13,
+        9,
+        19,
+        21,
+        20,
+        19,
+        13,
+        11,
+        7,
+        7,
+        8,
+        11,
+        25,
+        5,
+        8,
+        14,
+        12,
+        11,
+        6,
+        7,
+        10,
+        6,
+        6,
+        10,
+        13,
+        23,
+        11,
+        8,
+        16,
+        11,
+        12,
+        13,
+        15,
+        12,
+        10
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Decodifica primero y codifica una sola vez\n  en el l\u00edmite.",
+        0.8538
+      ],
+      [
+        "Codificarlo convierte & en\n%26 y ?",
+        0.7845
+      ],
+      [
+        "**Base64 en segmentos de path**: Base64 usa + y /, que conflict\u00faan con\n  delimitadores de URL.",
+        0.7645
+      ],
+      [
+        "Codifica solo las partes que\n  vienen de datos en vivo.",
+        0.7476
+      ],
+      [
+        "* | Query strings (espacios \u2192 +) |\n\nPara una comparaci\u00f3n m\u00e1s profunda de enfoques de parsing de strings, consulta\n[Regular Expressions](/recipes/regular-expressions/).",
+        0.7416
+      ],
+      [
+        "[RFC 3986: Uniform Resource Identifier](https://datatracker.ietf.org/doc/html/rfc3986):\n  el est\u00e1ndar oficial que define percent-encoding y el conjunto no reservado.",
+        0.7313
+      ],
+      [
+        "Prefiere URLSearchParams (JS), urlencode (Python) y URLEncoder (Java)\n  para construir queries.",
+        0.7166
+      ],
+      [
+        "Manejan la codificaci\u00f3n autom\u00e1ticamente as\u00ed no pod\u00e9s\n  olvidarte.",
+        0.7101
+      ],
+      [
+        "**URLs en atributos HTML**: En atributos href de HTML, & debe codificarse\n  como &amp; (entidad HTML), no como %26 (URL encoding).",
+        0.7049
+      ],
+      [
+        "[Java URLEncoder](https://docs.oracle.com/javase/8/docs/api/java/net/URLEncoder.html):\n  referencia de la API de Java para codificar valores de query.",
+        0.6972
+      ],
+      [
+        "[MDN: encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent):\n  referencia de JavaScript con ejemplos y compatibil",
+        0.6939
+      ],
+      [
+        "sin tocar, lo que rompe queries.",
+        0.6677
+      ],
+      [
+        "Lo uso en onboarding para explicar por\nqu\u00e9 la codificaci\u00f3n ocurre en el l\u00edmite, no en todos lados.",
+        0.6552
+      ],
+      [
+        "**URLs ya codificadas**: Si un valor ya contiene %20 o %26, codificarlo\n  otra vez produce %2520 o %2526.",
+        0.6448
+      ],
+      [
+        "Los caracteres reservados como &, =, ?,\n#, / y el espacio son especialmente importantes porque tienen significado\nestructural.",
+        0.6351
+      ],
+      [
+        "%2520 es el resultado de double-encoding de %20.",
+        0.6346
+      ],
+      [
+        "Por ejemplo, caf\u00e9 se convierte\nen caf%C3%A9.",
+        0.6195
+      ],
+      [
+        "Maneja la codificaci\u00f3n autom\u00e1ticamente, as\u00ed que no pod\u00e9s olvidarte.",
+        0.6076
+      ],
+      [
+        "Cualquier car\u00e1cter fuera del conjunto no reservado A-Z a-z 0-9 - _ .",
+        0.5997
+      ],
+      [
+        "Prefiere URLSearchParams en JavaScript moderno para construir queries de forma\n  segura.",
+        0.5862
+      ],
+      [
+        "| Funci\u00f3n | Codifica | Seguro para |\n| --- | --- | --- |\n| encodeURIComponent (JS) | Todo excepto A-Z a-z 0-9 - _ .",
+        0.5778
+      ],
+      [
+        "Parsear URLs y extraer par\u00e1metros de query.",
+        0.5777
+      ],
+      [
+        "[Input Validation](/recipes/input-validation/): valida el input decodificado\n  antes de usarlo en tu aplicaci\u00f3n.",
+        0.5756
+      ],
+      [
+        "He visto encodeURI romper b\u00fasquedas porque deja & sin tocar.",
+        0.5733
+      ],
+      [
+        "El conjunto no reservado (A-Z, a-z, 0-9, -, _, ., ~) puede aparecer\ntal cual.",
+        0.5653
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
