@@ -281,7 +281,7 @@ For a deeper comparison of transformer-based approaches, see
   percentiles.
 - Update the lexicon with domain-specific words, because VADER's default lexicon
   comes from social media. I once added "crash", "buggy", and "responsive" for
-  an app review pipeline and accuracy jumped noticeably.
+  an app review pipeline and accuracy jumped quite a bit.
 - VADER works best on short texts such as sentences or short paragraphs, so for
   long documents you should score paragraph by paragraph.
 - Don't use VADER for sarcasm detection because it scores literal word meanings,
