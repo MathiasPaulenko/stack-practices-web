@@ -8,8 +8,8 @@
 6. - [x] **python-schedule-periodic-tasks** (recipes) — 94.0/100 ✅ PROMOTE
 7. - [x] **concurrent-data-structures** (recipes) — 96.0/100 ✅ PROMOTE
 8. - [x] **parse-log-files** (recipes) — 93.0/100 ✅ PROMOTE
-9. - [ ] **flatten-unflatten-objects** (recipes)
-10. - [ ] **python-asyncio-semaphore-rate-limiting** (recipes)
+9. - [x] **flatten-unflatten-objects** (recipes) — 95.0/100 ✅ PROMOTE
+10. - [x] **python-asyncio-semaphore-rate-limiting** (recipes) — 95.0/100 ✅ PROMOTE
 11. - [ ] **penetration-test-template** (docs)
 12. - [ ] **parse-csv-python-pandas** (recipes)
 13. - [ ] **database-read-replicas** (recipes)
