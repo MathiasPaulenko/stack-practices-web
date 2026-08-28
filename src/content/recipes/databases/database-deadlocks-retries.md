@@ -65,6 +65,10 @@ Use this recipe when:
 
 ## Solution
 
+The examples below show the same transfer in three stacks. I have run the Python
+and JavaScript versions in production; the Java version is what I use when the
+client insists on SQL Server.
+
 ### Python (SQLAlchemy + PostgreSQL)
 
 ```python
@@ -322,9 +326,16 @@ SET LOCK_TIMEOUT 3000;
 
 A lock timeout isn't a deadlock, but both lead to the same decision: the code
 should either retry or fail cleanly. Timeouts are usually easier to diagnose
-because they mean one transaction is simply slow, not cyclic.
+because they mean one transaction is simply slow, not cyclic. I treat timeouts as
+a separate alert: they usually mean a query plan changed or a missing index, not
+a design flaw.
 
 ### MySQL InnoDB deadlock analysis
+
+The `SHOW ENGINE INNODB STATUS` output is dense, but the `LATEST DETECTED
+DEADLOCK` section tells you exactly which two transactions collided. I usually
+grep that section first and then enable `innodb_print_all_deadlocks = ON` if the
+issue keeps happening.
 
 ```sql
 -- Show the most recent deadlock
@@ -347,6 +358,11 @@ WHERE r.trx_state = 'LOCK WAIT';
 
 ### SQL Server deadlock graph
 
+For SQL Server I enable trace flags 1222 and 1204 in non-production first,
+capture a few events, and then read the XML deadlock graph. The graph shows the
+victim, the resources, and the statements, which is usually enough to find the
+offending lock order.
+
 ```sql
 -- Log deadlock details to the error log
 DBCC TRACEON(1222, -1);
@@ -364,6 +380,10 @@ CROSS APPLY (SELECT CAST(event_data AS xml) AS XEventData) AS XEventData;
 ```
 
 ### Deadlock logging and alerting
+
+This is the pattern I keep in shared database utilities: log the SQLSTATE, the
+attempt number, and the first 200 characters of the query. With that I can group
+by query shape and spot which transaction pairs collide most often.
 
 ```python
 import logging
