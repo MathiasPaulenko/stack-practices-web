@@ -10,8 +10,8 @@
 8. - [x] **parse-log-files** (recipes) — 93.0/100 ✅ PROMOTE
 9. - [x] **flatten-unflatten-objects** (recipes) — 95.0/100 ✅ PROMOTE
 10. - [x] **python-asyncio-semaphore-rate-limiting** (recipes) — 95.0/100 ✅ PROMOTE
-11. - [ ] **penetration-test-template** (docs)
-12. - [ ] **parse-csv-python-pandas** (recipes)
+11. - [ ] **penetration-test-template** (docs) — 91.0/100 ✅ PROMOTE (sin commitear)
+12. - [x] **parse-csv-python-pandas** (recipes) — 90.0/100 ✅ PROMOTE
 13. - [ ] **database-read-replicas** (recipes)
 14. - [ ] **email-templates-mjml** (recipes)
 15. - [ ] **python-sentiment-analysis-nltk** (recipes)
