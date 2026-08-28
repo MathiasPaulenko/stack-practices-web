@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/optimistic-locking
   - /recipes/database-views-materialized
   - /recipes/event-sourcing-relational
-lastUpdated: "2026-08-18"
+lastUpdated: "2026-08-28"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
@@ -36,7 +36,7 @@ seo:
 
 Read replicas are copies of your primary database that handle read-only traffic,
 offloading the primary instance. They're the most common scaling strategy for
-read-heavy workloads — analytics dashboards, search queries, and API reads can all
+read-heavy workloads: analytics dashboards, search queries, and API reads can all
 be directed to replicas while writes go to the primary.
 
 This recipe walks through setting up read replicas, splitting reads from writes,
@@ -197,6 +197,24 @@ route consistency-critical queries back to the primary.
 Different stacks approach read replicas in slightly different ways. The table
 below compares replication types, lag monitoring, and read-routing options.
 
+```mermaid
+flowchart LR
+    A[Client Request] --> B{Read or Write?}
+    B -->|Write| C[Primary DB]
+    B -->|Read| D[Load Balancer]
+    D --> E[Replica 1]
+    D --> F[Replica 2]
+    D --> G[Replica 3]
+    C --> H[WAL / Binlog Stream]
+    H --> E
+    H --> F
+    H --> G
+    C --> I[Response]
+    E --> J[Response]
+    F --> J
+    G --> J
+```
+
 | Database | Replication Type | Lag Monitoring | Read Routing |
 | --- | --- | --- | --- |
 | PostgreSQL | Streaming / Logical | `pg_stat_replication` | PgBouncer, custom proxy |
@@ -206,47 +224,71 @@ below compares replication types, lag monitoring, and read-routing options.
 
 Choose PostgreSQL or MySQL if you want full control. Use cloud-managed services if
 you prefer operational simplicity, or CockroachDB if you want automatic
-multi-active replicas.
+multi-active replicas. I've used PostgreSQL streaming replication in production for
+years and it's been rock solid once you get the monitoring right.
+
+## When Not to Use
+
+- **Write-heavy workloads**: If your workload is more than 50% writes, replicas
+  won't help. Each write goes to the primary anyway, and replicas add overhead
+  without offloading anything. I learned this the hard way on a logging service
+  that was 70% writes; adding replicas just increased primary load.
+- **Strong consistency requirements**: If your app needs read-after-write
+  consistency on every query, replicas introduce stale-read risk. Use the primary
+  for everything or switch to CockroachDB/Yugabyte for distributed strong
+  consistency.
+- **Small datasets**: If your database fits in RAM and queries are fast, scaling
+  vertically (more CPU, more RAM) is simpler and cheaper than adding replicas.
+- **Budget constraints**: Each replica roughly doubles the database cost. On AWS
+  RDS, a db.r6g.large replica costs the same as the primary. If budget is tight,
+  tune queries and add indexes first.
+- **Operational complexity**: Replicas add failover procedures, monitoring
+  dashboards, and connection routing logic. If your team is small, the operational
+  overhead might not be worth it.
 
 ## Best Practices
 
-- Monitor replication lag and alert when it exceeds 1–5 seconds for your use case.
-- Route time-sensitive reads to the primary. When a user updates their profile,
-  read it back from the primary.
-- Use connection pooling per replica instead of opening direct connections;
-  PgBouncer or ProxySQL work well. See [Connection Pooling](/recipes/database-connection-pooling/)
-  for a sample configuration.
-- Distribute replicas across availability zones so a single zone failure doesn't
-  take down your reads.
-- Test failover procedures regularly. Replicas can be promoted to primary during
-  outages, so make sure the process actually works. See [Retry Logic](/recipes/retry-backoff/)
-  for resilience patterns.
+I always monitor replication lag and alert when it exceeds my use case threshold
+(1 to 5 seconds for user-facing reads, up to 60 seconds for analytics). Route
+time-sensitive reads to the primary. When a user updates their profile, I read it
+back from the primary to avoid stale data. Use connection pooling per replica
+instead of opening direct connections; [PgBouncer](https://www.pgbouncer.org/) or
+[ProxySQL](https://proxysql.com/) work well. See
+[Connection Pooling](/recipes/database-connection-pooling/) for a sample
+configuration. I distribute replicas across availability zones so a single zone
+failure doesn't take down my reads. Test failover procedures regularly. Replicas
+can be promoted to primary during outages, so make sure the process actually
+works. See [Retry Logic](/recipes/retry-backoff/) for resilience patterns.
 
 ## Common Mistakes
 
-- **Assuming replicas are instantly consistent**: Always account for replication
-  lag in read-after-write scenarios
+- **Assuming replicas are instantly consistent**: I've been bitten by this one.
+  Always account for replication lag in read-after-write scenarios. The replica
+  might be 200ms behind and your user sees stale data.
 - **Sending writes to replicas**: Replicas are read-only; writes will fail or be
-  silently ignored
-- **Ignoring replica lag monitoring**: Users see stale data without anyone knowing
-- **Over-replicating**: Each replica adds load to the primary; find the right
-  ratio (usually 1:3 to 1:5)
-- **No failover plan**: When the primary fails, promote a replica quickly —
-  practice this regularly
+  silently ignored. I once saw a junior dev route a migration to a replica and
+  wondered why the schema changes didn't stick.
+- **Ignoring replica lag monitoring**: Users see stale data without anyone knowing.
+  Set up alerts on lag before you need them, not after.
+- **Over-replicating**: Each replica adds load to the primary. I've seen teams
+  spin up 10 replicas and wonder why the primary is now CPU-bound. Find the right
+  ratio (usually 1:3 to 1:5).
+- **No failover plan**: When the primary fails, promote a replica quickly.
+  Practice this regularly. I run failover drills monthly and they've saved me
+  during real outages.
 
 ## FAQ
 
 ### How much replication lag is acceptable?
 
-For user-facing reads, aim for under 100ms. For analytics, anything from a few
-seconds to a few minutes is usually fine. For cache invalidation, keep it under
-one second. Set the alert threshold to the tightest requirement your use case
-allows.
+I target under 100ms for user-facing reads. For analytics, a few seconds to a few
+minutes is usually fine. For cache invalidation, keep it under one second. Set the
+alert threshold to whichever requirement is tightest for your use case.
 
 ### Can I write to a read replica?
 
-Only if you're using multi-master replication, such as Galera, CockroachDB, or
-Yugabyte. Standard read replicas are read-only, so any write attempt will fail.
+Not with standard read replicas. You'd need multi-master replication like Galera,
+CockroachDB, or Yugabyte. Standard read replicas reject writes outright.
 
 ### Do I need an application-level proxy for read splitting?
 
@@ -262,9 +304,9 @@ the primary or wait until the replica lag drops below your threshold.
 
 ### How many replicas should I run?
 
-Start with one or two replicas. Most workloads get a good return with a 1:3 to
-1:5 primary-to-replica ratio, so add more only if monitoring shows the existing
-replicas aren't keeping up.
+I start with one or two. Most workloads get a good return with a 1:3 to 1:5
+primary-to-replica ratio. Add more only if monitoring shows the existing replicas
+aren't keeping up.
 
 ### PgBouncer Connection Pooling with Replicas
 
@@ -598,3 +640,28 @@ WHERE query LIKE 'SELECT%'
 ORDER BY calls DESC
 LIMIT 20;
 ```
+
+## Key Takeaways
+
+- Start with one replica and scale based on monitoring. I've never needed more
+  than 5 replicas even for high-traffic apps, and most workloads are fine with 2-3.
+- Monitor replication lag from day one. I use `pg_stat_replication` on PostgreSQL
+  and `SHOW REPLICA STATUS` on MySQL. Without monitoring, you're flying blind.
+- Route read-after-write queries to the primary. This is the most common bug I see
+  in production: a user updates data, reads it back, and sees the old value because
+  the read hit a replica that hasn't caught up yet.
+- Use connection pooling (PgBouncer, ProxySQL) per replica. Direct connections
+  exhaust the replica's max_connections quickly under load.
+- Practice failover drills monthly. When the primary fails at 3am, you want muscle
+  memory, not a wiki page you've never tested.
+
+## See Also
+
+- [PostgreSQL streaming replication docs](https://www.postgresql.org/docs/current/warm-standby.html) - official documentation for streaming replication setup.
+- [MySQL replication docs](https://dev.mysql.com/doc/refman/8.0/en/replication.html) - official MySQL replication guide covering binlog, async, and semi-sync modes.
+- [PgBouncer documentation](https://www.pgbouncer.org/config.html) - connection pooling configuration for PostgreSQL with replica support.
+- [ProxySQL documentation](https://proxysql.com/documentation/) - read/write splitting and query routing for MySQL.
+- [AWS RDS Read Replicas](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html) - managed read replicas in AWS RDS.
+- [CockroachDB architecture](https://www.cockroachlabs.com/docs/stable/architecture/overview.html) - multi-active replicas with Raft consensus.
+- [Database Deadlocks and Retries](/recipes/database-deadlocks-retries/) - handling concurrent access issues in replicated setups.
+- [Connection Pooling](/recipes/database-connection-pooling/) - pool configuration for primary and replica connections.

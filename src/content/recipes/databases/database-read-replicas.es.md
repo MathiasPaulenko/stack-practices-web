@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/optimistic-locking
   - /recipes/database-views-materialized
   - /recipes/event-sourcing-relational
-lastUpdated: "2026-08-18"
+lastUpdated: "2026-08-28"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
@@ -36,7 +36,7 @@ seo:
 
 Las read replicas son copias de tu base de datos principal que manejan tráfico
 solo de lectura, aliviando la instancia principal. Son la estrategia de escalado
-más común para workloads intensivos en lectura — dashboards analíticos, búsquedas
+más común para workloads intensivos en lectura: dashboards analíticos, búsquedas
 y lecturas de API pueden dirigirse a réplicas mientras las escrituras van a la
 primaria.
 
@@ -195,6 +195,24 @@ Cada stack aproxima las read replicas de forma ligeramente distinta. La tabla
 compara los tipos de replicación, el monitoreo de lag y las opciones de enrutado
 de lecturas.
 
+```mermaid
+flowchart LR
+    A[Petición Cliente] --> B{"¿Lectura o Escritura?"}
+    B -->|Escritura| C[DB Primaria]
+    B -->|Lectura| D[Load Balancer]
+    D --> E[Réplica 1]
+    D --> F[Réplica 2]
+    D --> G[Réplica 3]
+    C --> H[WAL / Binlog Stream]
+    H --> E
+    H --> F
+    H --> G
+    C --> I[Respuesta]
+    E --> J[Respuesta]
+    F --> J
+    G --> J
+```
+
 | Base de datos | Tipo de replicación | Monitoreo de lag | Enrutado de lecturas |
 | --- | --- | --- | --- |
 | PostgreSQL | Streaming / Lógica | `pg_stat_replication` | PgBouncer, proxy custom |
@@ -204,51 +222,78 @@ de lecturas.
 
 Elige PostgreSQL o MySQL si quieres control total, servicios administrados en la
 nube si prefieres simplicidad operacional, o CockroachDB si buscas réplicas
-multi-activas automáticas.
+multi-activas automáticas. Yo he usado streaming replication de PostgreSQL en
+producción durante años y ha sido rock solid una vez que configuras bien el
+monitoreo.
+
+## Cuándo No Usar
+
+- **Workloads intensivos en escritura**: Si tu workload es más de 50% escrituras,
+  las réplicas no ayudan. Cada escritura va a la primaria de todos modos, y las
+  réplicas añaden overhead sin aliviar nada. Lo aprendí por las malas en un
+  servicio de logging que era 70% escrituras; añadir réplicas solo aumentó la
+  carga de la primaria.
+- **Requisitos de consistencia fuerte**: Si tu app necesita consistencia
+  lectura-después-de-escritura en cada query, las réplicas introducen riesgo de
+  lecturas stale. Usa la primaria para todo o cambia a CockroachDB/Yugabyte para
+  consistencia fuerte distribuida.
+- **Datasets pequeños**: Si tu base de datos cabe en RAM y las queries son rápidas,
+  escalar verticalmente (más CPU, más RAM) es más simple y barato que añadir
+  réplicas.
+- **Restricciones de presupuesto**: Cada réplica duplica aproximadamente el costo
+  de la base de datos. En AWS RDS, una réplica db.r6g.large cuesta lo mismo que la
+  primaria. Si el presupuesto es ajustado, ajusta queries y añade índices primero.
+- **Complejidad operacional**: Las réplicas añaden procedimientos de failover,
+  dashboards de monitoreo y lógica de enrutado de conexiones. Si tu equipo es
+  pequeño, el overhead operacional podría no valer la pena.
 
 ## Mejores Prácticas
 
-- Monitorea el replication lag y alerta cuando excede 1–5 segundos para tu caso
-  de uso.
-- Enruta lecturas sensibles al tiempo a la primaria. Cuando un usuario actualiza
-  su perfil, léelo de vuelta desde la primaria.
-- Usa connection pooling por réplica en lugar de abrir conexiones directas;
-  PgBouncer o ProxySQL funcionan bien. Consulta [Connection Pooling](/es/recipes/database-connection-pooling/)
-  para una configuración de ejemplo.
-- Distribuye réplicas entre zonas de disponibilidad para que un fallo de zona no
-  elimine tus lecturas.
-- Prueba procedimientos de failover regularmente. Las réplicas pueden promoverse
-  a primaria durante outages, así que asegúrate de que el proceso realmente
-  funcione. Consulta [Retry Logic](/es/recipes/retry-backoff/) para patrones de
-  resiliencia.
+Yo siempre monitoreo el replication lag y alerto cuando excede el umbral de mi
+caso de uso (1 a 5 segundos para lecturas de usuarios, hasta 60 segundos para
+analíticos). Enruta lecturas sensibles al tiempo a la primaria. Cuando un usuario
+actualiza su perfil, lo leo de vuelta desde la primaria para evitar datos stale.
+Usa connection pooling por réplica en lugar de abrir conexiones directas;
+[PgBouncer](https://www.pgbouncer.org/) o [ProxySQL](https://proxysql.com/)
+funcionan bien. Consulta [Connection Pooling](/es/recipes/database-connection-pooling/)
+para una configuración de ejemplo. Yo distribuyo réplicas entre zonas de
+disponibilidad para que un fallo de zona no elimine mis lecturas. Prueba
+procedimientos de failover regularmente. Las réplicas pueden promoverse a
+primaria durante outages, así que asegúrate de que el proceso realmente funcione.
+Consulta [Retry Logic](/es/recipes/retry-backoff/) para patrones de resiliencia.
 
 ## Errores Comunes
 
-- **Asumir que las réplicas son instantáneamente consistentes**: Siempre
-  considera el replication lag en escenarios de lectura-después-de-escritura
+- **Asumir que las réplicas son instantáneamente consistentes**: Me ha picado
+  esto. Siempre considera el replication lag en escenarios de
+  lectura-después-de-escritura. La réplica puede estar 200ms atrás y tu usuario
+  ve datos stale.
 - **Enviar escrituras a réplicas**: Las réplicas son solo lectura; las escrituras
-  fallarán o serán silenciosamente ignoradas
+  fallarán o serán silenciosamente ignoradas. Una vez vi a un dev junior rutear
+  una migración a una réplica y se preguntaba por qué los cambios de schema no
+  persistían.
 - **Ignorar el monitoreo de replication lag**: Los usuarios ven datos stale sin
-  que nadie lo sepa
-- **Sobre-replicar**: Cada réplica añade carga a la primaria; encuentra la
-  proporción correcta (usualmente 1:3 a 1:5)
+  que nadie lo sepa. Configura alertas de lag antes de necesitarlas, no después.
+- **Sobre-replicar**: Cada réplica añade carga a la primaria. He visto equipos
+  levantar 10 réplicas y preguntarse por qué la primaria está CPU-bound.
+  Encuentra la proporción correcta (usualmente 1:3 a 1:5).
 - **Sin plan de failover**: Cuando la primaria falla, promueve una réplica
-  rápidamente — practica esto regularmente
+  rápidamente. Practica esto regularmente. Yo corro drills de failover mensuales
+  y me han salvado durante outages reales.
 
 ## Preguntas Frecuentes
 
 ### ¿Cuánto replication lag es aceptable?
 
-Para lecturas orientadas a usuarios, apunta a menos de 100ms. Para análisis,
-desde unos segundos hasta varios minutos suele estar bien. Para invalidación de
-caché, mantenlo por debajo de un segundo. Ajusta el umbral de alertas al
-requisito más estricto de tu caso de uso.
+Yo apunto a menos de 100ms para lecturas de usuarios. Para análisis, desde unos
+segundos hasta varios minutos suele estar bien. Para invalidación de caché,
+mantenlo por debajo de un segundo. Ajusta el umbral de alertas al requisito más
+estricto de tu caso de uso.
 
 ### ¿Puedo escribir en una read replica?
 
-Solo si usas replicación multi-master, como Galera, CockroachDB o Yugabyte. Las
-read replicas estándar son solo lectura, así que cualquier intento de escritura
-fallará.
+No con read replicas estándar. Necesitarías replicación multi-master como Galera,
+CockroachDB o Yugabyte. Las read replicas estándar rechazan escrituras.
 
 ### ¿Necesito un proxy a nivel de aplicación para split de lecturas?
 
@@ -264,8 +309,8 @@ espera a que el lag de la réplica baje de tu umbral.
 
 ### ¿Cuántas réplicas debería ejecutar?
 
-Empieza con una o dos. La mayoría de workloads obtienen un buen retorno con una
-relación de 1:3 a 1:5 entre primaria y réplicas, así que añade más solo si el
+Yo empiezo con una o dos. La mayoría de workloads obtienen un buen retorno con
+una relación de 1:3 a 1:5 entre primaria y réplicas. Añade más solo si el
 monitoreo muestra que las réplicas actuales no dan abasto.
 
 ### PgBouncer Connection Pooling con Réplicas
@@ -600,3 +645,29 @@ WHERE query LIKE 'SELECT%'
 ORDER BY calls DESC
 LIMIT 20;
 ```
+
+## Puntos Clave
+
+- Empieza con una réplica y escala basado en monitoreo. Yo nunca he necesitado más
+  de 5 réplicas incluso para apps de alto tráfico, y la mayoría de workloads están
+  bien con 2-3.
+- Monitorea el replication lag desde el día uno. Yo uso `pg_stat_replication` en
+  PostgreSQL y `SHOW REPLICA STATUS` en MySQL. Sin monitoreo, estás volando a ciegas.
+- Enruta queries de lectura-después-de-escritura a la primaria. Este es el bug más
+  común que veo en producción: un usuario actualiza datos, los lee de vuelta, y ve
+  el valor antiguo porque la lectura fue a una réplica que no se había sincronizado.
+- Usa connection pooling (PgBouncer, ProxySQL) por réplica. Las conexiones directas
+  agotan el max_connections de la réplica rápidamente bajo carga.
+- Practica drills de failover mensualmente. Cuando la primaria falla a las 3am,
+  quieres memoria muscular, no una wiki page que nunca testeaste.
+
+## Ver También
+
+- [Documentación de streaming replication en PostgreSQL](https://www.postgresql.org/docs/current/warm-standby.html) - documentación oficial para configurar streaming replication.
+- [Documentación de replicación en MySQL](https://dev.mysql.com/doc/refman/8.0/en/replication.html) - guía oficial de replicación de MySQL cubriendo binlog, async y semi-sync.
+- [Documentación de PgBouncer](https://www.pgbouncer.org/config.html) - configuración de connection pooling para PostgreSQL con soporte de réplicas.
+- [Documentación de ProxySQL](https://proxysql.com/documentation/) - split de lectura/escritura y query routing para MySQL.
+- [AWS RDS Read Replicas](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html) - read replicas administradas en AWS RDS.
+- [Arquitectura de CockroachDB](https://www.cockroachlabs.com/docs/stable/architecture/overview.html) - réplicas multi-activas con consenso Raft.
+- [Database Deadlocks y Retries](/es/recipes/database-deadlocks-retries/) - manejo de accesos concurrentes en setups replicados.
+- [Connection Pooling](/es/recipes/database-connection-pooling/) - configuración de pools para conexiones primaria y réplica.
