@@ -1,7 +1,7 @@
 [
   {
     "label": "database-deadlocks-retries",
-    "total_sentences": 68,
+    "total_sentences": 97,
     "pattern_totals": {},
     "findings": []
   }

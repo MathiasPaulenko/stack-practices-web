@@ -1,0 +1,427 @@
+[
+  {
+    "label": "database-deadlocks-retries-en",
+    "model": "desklib",
+    "model_ai_pct": 45.6,
+    "ai_count": 36,
+    "human_count": 54,
+    "skipped_count": 9,
+    "total": 99,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.1,
+      "stddev": 5.5,
+      "cv": 0.39,
+      "verdict": "somewhat uniform",
+      "sentence_count": 90,
+      "lengths": [
+        19,
+        14,
+        22,
+        22,
+        12,
+        13,
+        10,
+        14,
+        15,
+        18,
+        6,
+        15,
+        11,
+        7,
+        16,
+        18,
+        12,
+        11,
+        26,
+        30,
+        21,
+        16,
+        10,
+        19,
+        16,
+        17,
+        28,
+        11,
+        17,
+        14,
+        5,
+        19,
+        5,
+        20,
+        6,
+        19,
+        15,
+        8,
+        12,
+        11,
+        20,
+        13,
+        6,
+        20,
+        22,
+        18,
+        11,
+        13,
+        5,
+        21,
+        8,
+        13,
+        21,
+        21,
+        15,
+        7,
+        17,
+        6,
+        15,
+        8,
+        15,
+        8,
+        16,
+        9,
+        15,
+        10,
+        15,
+        14,
+        16,
+        13,
+        7,
+        18,
+        11,
+        14,
+        7,
+        25,
+        13,
+        14,
+        26,
+        12,
+        10,
+        14,
+        12,
+        10,
+        14,
+        12,
+        8,
+        8,
+        11,
+        10
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "When you already\nown every lock, you don't wait again while the transaction is open.",
+        0.9128
+      ],
+      [
+        "[MySQL InnoDB Deadlocks](https://dev.mysql.com/doc/refman/8.0/en/innodb-deadlocks.html):\n  MySQL reference for deadlock detection and troubleshooting.",
+        0.863
+      ],
+      [
+        "Start two threads or processes that acquire the same locks in opposite order.",
+        0.8511
+      ],
+      [
+        "[Knex.js Transactions](https://knexjs.org/guide/transactions.html): Knex\n  transaction and query builder reference.",
+        0.851
+      ],
+      [
+        "I once had a\nbackground job that retried 100 times during an outage and made recovery much\nslower.",
+        0.8401
+      ],
+      [
+        "FOR UPDATE over a pre-sorted set.",
+        0.8374
+      ],
+      [
+        "[Database Transactions](/recipes/database-transactions/): how to manage\n  transactions safely before adding retry logic.",
+        0.7947
+      ],
+      [
+        "This is\nthe first thing I check when a deadlock rate suddenly rises.",
+        0.6978
+      ],
+      [
+        "I use this exact example when explaining deadlocks to junior\ndevelopers.",
+        0.6876
+      ],
+      [
+        "Data must stay consistent under high concurrency and you can't tolerate\n  silent failures.",
+        0.6848
+      ],
+      [
+        "[Polly Retry Policy](https://www.pollydocs.org/): the .NET resilience library\n  used in the C# example.",
+        0.6764
+      ],
+      [
+        "The diagram below shows the classic deadlock cycle between two fund-transfer\ntransactions.",
+        0.6686
+      ],
+      [
+        "If your\nlogs only say \"transaction failed,\" you lose the chance to tune lock order or\nindexing.",
+        0.6625
+      ],
+      [
+        "This is the root cause of most\ndeadlocks I've debugged in microservice code.",
+        0.6623
+      ],
+      [
+        "In\nmost runs one commits and the other gets rolled back as the victim.",
+        0.6604
+      ],
+      [
+        "A lock timeout isn't a deadlock, but both lead to the same decision: the code\nshould either retry or fail cleanly.",
+        0.6579
+      ],
+      [
+        "You can't remove every\ndeadlock from a concurrent system, but you can keep them rare and recover\nautomatically with proper retry logic.",
+        0.6569
+      ],
+      [
+        "SERIALIZABLE raises the chance of deadlocks because it holds more\nrestrictive locks and for longer.",
+        0.6556
+      ],
+      [
+        "I aim for \"rare and recoverable,\" not\n\"impossible.\"\n\n\n\nNo.",
+        0.6534
+      ],
+      [
+        "Choose\none ordering rule and apply it everywhere.",
+        0.6521
+      ],
+      [
+        "Sorting by\nprimary key ascending works well.",
+        0.6313
+      ],
+      [
+        "For PostgreSQL, check the pg_stat_database.deadlocks counter and enable\nlog_lock_waits to see what was blocked.",
+        0.6165
+      ],
+      [
+        "The longer a transaction holds locks, the more likely\nit'll cross another one and create a cycle.",
+        0.5835
+      ],
+      [
+        "Accessing rows in different orders.",
+        0.5796
+      ],
+      [
+        "One acquires the lock and continues; the\nother waits behind it, so neither one can form a cycle.",
+        0.5756
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "database-deadlocks-retries-es",
+    "model": "desklib",
+    "model_ai_pct": 36.6,
+    "ai_count": 23,
+    "human_count": 68,
+    "skipped_count": 9,
+    "total": 100,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.9,
+      "stddev": 6.1,
+      "cv": 0.41,
+      "verdict": "somewhat uniform",
+      "sentence_count": 91,
+      "lengths": [
+        20,
+        13,
+        23,
+        23,
+        10,
+        11,
+        11,
+        14,
+        16,
+        21,
+        6,
+        14,
+        14,
+        7,
+        15,
+        15,
+        15,
+        11,
+        27,
+        33,
+        21,
+        16,
+        11,
+        20,
+        16,
+        15,
+        31,
+        13,
+        17,
+        14,
+        7,
+        22,
+        5,
+        22,
+        6,
+        22,
+        23,
+        9,
+        17,
+        13,
+        6,
+        24,
+        13,
+        7,
+        24,
+        24,
+        18,
+        13,
+        14,
+        7,
+        23,
+        6,
+        17,
+        25,
+        23,
+        19,
+        7,
+        19,
+        8,
+        16,
+        8,
+        15,
+        10,
+        14,
+        9,
+        15,
+        13,
+        14,
+        5,
+        9,
+        10,
+        12,
+        21,
+        11,
+        14,
+        9,
+        27,
+        13,
+        12,
+        26,
+        13,
+        13,
+        14,
+        13,
+        12,
+        14,
+        14,
+        10,
+        10,
+        12,
+        10
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Eleg\u00ed un orden y respetalo siempre.",
+        0.912
+      ],
+      [
+        "[Jobs por lotes](/recipes/batch-processing-patterns/) y usuarios interactivos\n  compiten por los mismos registros.",
+        0.8048
+      ],
+      [
+        "FOR UPDATE sobre un conjunto\npre-ordenado.",
+        0.7879
+      ],
+      [
+        "La base de\ndatos detecta el ciclo y aborta una transacci\u00f3n como v\u00edctima.",
+        0.76
+      ],
+      [
+        "[Polly Retry Policy](https://www.pollydocs.org/): la librer\u00eda de resiliencia\n  .NET usada en el ejemplo de C#.",
+        0.7398
+      ],
+      [
+        "Una vez tuve un job de fondo que reintent\u00f3 100 veces\ndurante una outage y ralentiz\u00f3 la recuperaci\u00f3n.",
+        0.7351
+      ],
+      [
+        "No pod\u00e9s eliminar\ntodos los deadlocks en un sistema concurrente, pero pod\u00e9s mantenerlos raros y\nrecuperarte autom\u00e1ticamente con la l\u00f3gica de reintento correcta.",
+        0.7145
+      ],
+      [
+        "**SQL Server**: trace flags 1222 y 1204 m\u00e1s Extended Events.",
+        0.695
+      ],
+      [
+        "[MySQL InnoDB Deadlocks](https://dev.mysql.com/doc/refman/8.0/en/innodb-deadlocks.html):\n  referencia de MySQL para detecci\u00f3n y troubleshooting de deadlocks.",
+        0.6885
+      ],
+      [
+        "Uno\ndebiera tener \u00e9xito y el otro debiera hacer rollback como v\u00edctima.",
+        0.6826
+      ],
+      [
+        "Establec\u00e9 un m\u00e1ximo de reintentos y fall\u00e1 r\u00e1pido\ncuando la base de datos est\u00e1 congestionada, para que el llamante pueda retroceder\no degradar gracefulmente.",
+        0.6694
+      ],
+      [
+        "No pod\u00e9s\nreintentar lo que no ves.",
+        0.6459
+      ],
+      [
+        "Acceder a las filas en distinto orden.",
+        0.635
+      ],
+      [
+        "[Knex.js Transactions](https://knexjs.org/guide/transactions.html): referencia\n  de transacciones y query builder de Knex.",
+        0.6325
+      ],
+      [
+        "Solo escalatoria a SERIALIZABLE cuando puedo\nprobar que un phantom read romper\u00eda la correctitud.",
+        0.6015
+      ],
+      [
+        "[Database Transactions](/recipes/database-transactions/): c\u00f3mo manejar\n  transacciones de forma segura antes de agregar reintentos.",
+        0.5982
+      ],
+      [
+        "SERIALIZABLE aumenta la probabilidad de deadlock porque mantiene locks m\u00e1s\nrestrictivos y por m\u00e1s tiempo.",
+        0.5705
+      ],
+      [
+        "En cualquier sistema concurrente con locks, los deadlocks\nson posibles.",
+        0.5458
+      ],
+      [
+        "Los timeouts suelen ser m\u00e1s f\u00e1ciles de\ndiagnosticar porque indican una transacci\u00f3n lenta, no un ciclo.",
+        0.5415
+      ],
+      [
+        "**PostgreSQL**: contador pg_stat_database.deadlocks y log_lock_waits.",
+        0.5358
+      ],
+      [
+        "[SQLAlchemy Sessions](https://docs.sqlalchemy.org/en/20/orm/session_basics.html):\n  documentaci\u00f3n oficial de sesiones y transacciones de SQLAlchemy.",
+        0.5143
+      ],
+      [
+        "Fall\u00e1 inmediatamente ante errores de sintaxis,\nviolaciones de constraints o p\u00e9rdida de conexi\u00f3n.",
+        0.5111
+      ],
+      [
+        "Us\u00e1 el nivel de aislamiento m\u00e1s bajo que satisfaga\ntu requisito de consistencia.",
+        0.5052
+      ],
+      [
+        "El diagrama de abajo muestra el ciclo cl\u00e1sico de deadlock entre dos transacciones\nde transferencia.",
+        0.4919
+      ],
+      [
+        "La mayor\u00eda de las herramientas de monitoreo tambi\u00e9n muestran gr\u00e1ficos de\ndeadlock.",
+        0.4652
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
