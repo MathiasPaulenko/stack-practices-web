@@ -51,6 +51,7 @@ Making HTTP requests one at a time is slow when you need to fetch from multiple 
 - You are building a web scraper that fetches many pages
 - You need to call multiple microservices and aggregate results
 - Sequential HTTP requests are too slow for your use case
+- You need to cap concurrency to respect API rate limits — see [Rate Limit Async Operations with asyncio.Semaphore](/recipes/python-asyncio-semaphore-rate-limiting/)
 
 ## Solution
 

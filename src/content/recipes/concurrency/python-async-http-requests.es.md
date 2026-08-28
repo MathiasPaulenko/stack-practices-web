@@ -51,6 +51,7 @@ Hacer peticiones HTTP una a la vez es lento cuando necesitas obtener datos de m�
 - Estás construyendo un web scraper que obtiene muchas páginas
 - Necesitas llamar múltiples microservicios y agregar resultados
 - Las peticiones HTTP secuenciales son demasiado lentas para tu caso de uso
+- Necesitas limitar la concurrencia para respetar límites de tasa — consulta [Limitar Llamadas API Concurrentes con asyncio.Semaphore](/es/recipes/python-asyncio-semaphore-rate-limiting/)
 
 ## Solución
 
