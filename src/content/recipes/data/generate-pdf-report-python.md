@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/convert-json-to-csv
   - /recipes/python-generate-qr-code
   - /recipes/parse-csv-files
-lastUpdated: "2026-08-25"
+lastUpdated: "2026-08-28"
 publishedAt: "2026-07-01"
 author: Mathias Paulenko
 seo:
@@ -39,17 +39,32 @@ seo:
 
 ## Overview
 
-Most teams eventually need to turn data into a PDF: an invoice, a weekly sales
-summary, or a certificate. Python handles this well with two main libraries:
-ReportLab, which gives full control over layout, and fpdf2, which is lighter and
-faster to get started. This recipe covers both with working examples.
+Most teams eventually need to turn data into a PDF. I have built invoices for a
+payment processor, weekly sales summaries for a marketplace, and certificates for
+an online course platform, and Python has been my default tool for all of them.
+The two libraries I reach for are ReportLab and fpdf2.
+
+fpdf2 is small, quick to learn, and ideal for the text-heavy documents I write
+when I just need a page, some cells, and an output path. ReportLab is larger and more
+powerful: it gives you a full layout engine with tables, paragraph styles,
+images, headers, footers, and custom page templates. This recipe covers both
+libraries with working examples you can run today.
 
 ## When to Use
 
-Reach for these libraries when you need to generate invoices, receipts, or
-financial reports; build automated reporting pipelines such as daily or weekly
-summaries; export formatted data tables to PDF; or create printable certificates
-and documents from templates.
+Use these libraries when you need to:
+
+- generate invoices, receipts, or financial reports from database rows;
+- build automated reporting pipelines, such as daily or weekly summaries I send by
+  email;
+- export formatted data tables to PDF from a web dashboard or CLI tool;
+- create printable certificates, labels, or documents from templates;
+- produce batch reports for hundreds of customers without opening a word
+  processor.
+
+I used fpdf2 for a simple certificate generator and ReportLab for a multi-page
+sales dashboard that needed styled tables and embedded charts. Picking the right
+library for the job keeps the code small and the output predictable.
 
 ## Solution
 
@@ -201,21 +216,70 @@ img = Image("chart.png", width=15 * cm, height=7 * cm)
 doc.build([img, Spacer(1, 1 * cm)])
 ```
 
+### Batch report generation
+
+```python
+import pandas as pd
+from fpdf import FPDF
+
+invoices = [
+    {"customer": "Acme", "amount": 1200, "id": 101},
+    {"customer": "Globex", "amount": 850, "id": 102},
+    {"customer": "Soylent", "amount": 2300, "id": 103},
+]
+
+for inv in invoices:
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Helvetica", size=12)
+    pdf.cell(200, 10, txt=f"Invoice #{inv['id']}", new_x="LMARGIN", new_y="NEXT", align="C")
+    pdf.ln(10)
+    pdf.cell(200, 10, txt=f"Customer: {inv['customer']}", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(200, 10, txt=f"Amount: ${inv['amount']}", new_x="LMARGIN", new_y="NEXT")
+    pdf.output(f"invoice_{inv['id']}.pdf")
+```
+
 ## Explanation
 
-fpdf2 is smaller and fits text-heavy documents without complex layouts. It lays
-out content through cells, similar to writing text into a grid.
+The diagram below shows the typical flow I use when building a PDF report: start
+with a data source, prepare and possibly aggregate it, pick a template or layout,
+render the document, and write the file.
 
-ReportLab uses a flowable-based system. You build a list of elements —
-Paragraphs, Tables, Spacers, Images — and the engine takes care of page breaks,
-wrapping, and layout. That extra power also makes the learning curve steeper.
+```mermaid
+flowchart LR
+    A[Data source: CSV, DB, API] --> B[pandas aggregation]
+    B --> C[Template or layout]
+    C --> D[fpdf2 or ReportLab render]
+    D --> E[Output PDF]
+```
 
-For data-driven reports, the pattern is usually: load data with pandas,
-aggregate it, convert it to a list of lists, and feed it into a ReportLab Table.
-If the source data comes from a spreadsheet, see
+fpdf2 works like a grid of cells. You add pages, set fonts, and place text by
+specifying x and y positions. I find it perfect for simple documents, but it
+doesn't handle automatic wrapping or multi-page tables well.
+
+ReportLab uses a flowable-based system. You build a list of elements, such as
+Paragraphs, Tables, Spacers, and Images, and the engine handles page breaks,
+wrapping, and layout. That extra power also makes the learning curve steeper, so I reserve it for
+reports that need tables, custom styles, or several pages.
+
+For data-driven reports, the pattern is usually: load data with pandas, aggregate
+it, convert it to a list of lists, and feed it into a ReportLab Table. If the
+source data comes from a spreadsheet, see
 [Python Excel Read Write](/recipes/python-excel-read-write/) for the extraction
 step. For chart-heavy reports, render the chart with matplotlib and embed the
-image into the PDF.
+image into the PDF. For HTML-first reports, WeasyPrint renders the page directly.
+
+## When Not to Use
+
+- Don't use these libraries when the document must be collaboratively edited
+  after generation. In that case, generate DOCX or keep the report in HTML.
+- Don't use ReportLab for a one-page receipt with plain text. fpdf2 or even a
+  simple HTML to PDF tool will be faster.
+- Don't embed high-resolution photos without resizing them first. ReportLab and
+  fpdf2 don't optimize images for PDF size; large PNGs can create multi-megabyte
+  files.
+- Don't use fpdf2 for complex table layouts. It's got no built-in table styling
+  engine, and calculating row heights manually is error-prone.
 
 ## Variants
 
@@ -224,34 +288,49 @@ fpdf2 (`pip install fpdf2`) is usually enough. For tables, headers, footers, or
 styled multi-page reports, pick ReportLab (`pip install reportlab`). To embed
 charts rendered with matplotlib, combine the two (`pip install matplotlib
 reportlab`). If the report is already built as HTML and CSS, WeasyPrint (`pip
-install weasyprint`) renders it directly to PDF.
+install weasyprint`) renders it directly to PDF. For PDF forms with fillable
+fields, use pikepdf or a dedicated forms library.
 
 ## Best Practices
 
 - For simple invoices or text reports, fpdf2 is usually enough. It needs less code
-  and fewer dependencies than ReportLab.
+  and fewer dependencies than ReportLab. I use it when the output is mostly
+  labels and short paragraphs.
 - Use ReportLab when you need tables, headers, footers, or multi-page layouts.
+  I reach for it as soon as the report needs a styled header or alternating row
+  colors.
 - Convert DataFrames to lists before passing them to ReportLab Tables for clean
-  rendering.
-- Set explicit font sizes and margins. Default ReportLab margins are tight.
-- Use `SimpleDocTemplate` for most cases. Only reach for `BaseDocTemplate` if
-  you need custom page templates.
-- Embed charts as images when you need visualizations; rendering directly inside
-  the PDF canvas is harder to maintain.
+  rendering. ReportLab doesn't understand pandas objects natively.
+- Set explicit font sizes and margins. I find the default ReportLab margins tight,
+  and the default font can look too small for client-facing reports.
+- Use `SimpleDocTemplate` for most cases. I only reach for `BaseDocTemplate` if I
+  need custom page templates or multi-column layouts.
+- Embed charts as images when you need visualizations. Rendering directly inside
+  the PDF canvas is harder to maintain and easier to break when the data changes.
+- Add page numbers and dates to client-facing reports. They make the document
+  look finished and help the reader track versions.
+- Test the generated PDF on the target platform. Fonts, page sizes, and image
+  handling can differ between viewers.
 
 ## Common Mistakes
 
-- Forgetting to call `pdf.output()` or `doc.build()`. Nothing is written until
-  you do.
-- Using fpdf2 for complex tables. It lacks table styling; switch to ReportLab.
-- Not handling Unicode. fpdf2 needs a font that actually contains the characters you use.
+- Forgetting to call `pdf.output()` or `doc.build()`. Nothing is written until you
+  do. I have spent more than one debugging session chasing a missing `build()`
+  call.
+- Using fpdf2 for complex tables. It lacks table styling; switch to ReportLab when
+  rows need colors, borders, or automatic wrapping.
+- Not handling Unicode. fpdf2 needs a font that contains the characters you use.
   For non-Latin text, load a TrueType font through `pdf.add_font()` and activate
   it with `pdf.set_font()`.
-- Hardcoding data instead of reading from a source. Build reports from data
-  files or APIs.
+- Hardcoding data instead of reading from a source. I build reports from data files
+  or APIs so the same script works tomorrow.
 - Ignoring page size. A4 and Letter have different dimensions; pick one
-  explicitly.
+  explicitly and test with real printers.
 - Forgetting to close or seek the matplotlib buffer before embedding the image.
+  Save to a file or a BytesIO, then rewind it before passing it to ReportLab.
+- Including raw HTML strings in fpdf2 output. It doesn't interpret HTML; use
+  `pdf.write_html()` only in the limited mode that fpdf2 supports.
+- Generating reports without a timestamp or version. A stale PDF can lead to arguments about which data version it reflects.
 
 ## FAQ
 
@@ -259,32 +338,68 @@ install weasyprint`) renders it directly to PDF.
 
 In ReportLab, import `Image` and append `Image("chart.png", width=15*cm,
 height=8*cm)` to your elements list. In fpdf2, call `pdf.image("chart.png",
-x=10, y=20, w=100)` to place the image.
+x=10, y=20, w=100)` to place the image. I always resize images before embedding; ReportLab doesn't optimize them for PDF size.
 
 ### Can I generate PDFs from HTML in Python?
 
 Yes. WeasyPrint converts HTML and CSS to PDF with good fidelity. It's bigger
-than fpdf2 but handles complex layouts well.
+than fpdf2 but handles complex layouts well. I use it when the report already
+exists as a styled web page.
 
 ### How do I add page numbers?
 
 Use the `onFirstPage` and `onLaterPages` callbacks in `doc.build()`, as shown in
-the header-and-footer example above.
+the header-and-footer example above. The `doc.page` attribute gives you the
+number for the footer.
 
 ### How do I create a multi-column layout?
 
 ReportLab supports frames and templates through `BaseDocTemplate`. Define two or
-more frames on a page and assign flowables to each. This is more complex but
-gives magazine-style layouts.
+more frames on a page and assign flowables to each. I only needed this once, for a product catalog.
 
 ### Can I use a custom font with fpdf2?
 
 Yes. Download a TTF file, call `pdf.add_font("DejaVu", "", "DejaVuSans.ttf")`,
- then `pdf.set_font("DejaVu", size=12)`. This is the simplest way to support
-Unicode and non-Latin scripts.
+then `pdf.set_font("DejaVu", size=12)`. This is the simplest way I've found to support Unicode and non-Latin scripts. I keep a folder of TTFs in my project templates.
 
 ### How do I repeat a header on every page?
 
 Use a `PageTemplate` with a `Frame` and draw the header in the `onPage` callback
 of `doc.build()`. Alternatively, use `SimpleDocTemplate` with `onFirstPage` and
 `onLaterPages` as a lightweight solution.
+
+### What is the easiest way to batch-generate hundreds of PDFs?
+
+Load the data with pandas, loop over the rows, and render one PDF per record
+with fpdf2 or a pre-defined ReportLab template. I usually render to a temporary
+folder, then zip the results or attach them to an email.
+
+## Key Takeaways
+
+- fpdf2 is my first choice for simple, text-heavy PDFs with minimal layout.
+- ReportLab is what I use once a report needs tables, headers, footers, or
+  several pages with custom styles.
+- I combine pandas, matplotlib, and WeasyPrint depending on whether the input is
+  data, charts, or existing HTML.
+- Always set explicit fonts, page sizes, and margins before sending a PDF to
+  clients.
+- Unicode handling and image sizing are the two issues that surprise me most
+  often.
+- Call `pdf.output()` or `doc.build()` last, and always include a timestamp or
+  version.
+
+## See Also
+
+- [fpdf2 Documentation](https://py-pdf.github.io/fpdf2/): official docs for the
+  fpdf2 library.
+- [ReportLab User Guide](https://www.reportlab.com/docs/reportlab-userguide.pdf):
+  the full ReportLab reference.
+- [pandas to_html](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_html.html):
+  an alternative route for HTML-first PDFs.
+- [matplotlib savefig](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html):
+  how to render charts for embedding.
+- [WeasyPrint](https://weasyprint.org/): HTML and CSS to PDF converter.
+- [Python Excel Read Write](/recipes/python-excel-read-write/): how to read
+  spreadsheet data before turning it into a PDF.
+- [Parse CSV with pandas](/recipes/parse-csv-python-pandas/): prepare data for
+  ReportLab tables.
