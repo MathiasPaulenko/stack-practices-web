@@ -2,20 +2,18 @@
   {
     "label": "python-sentiment-analysis-nltk-en",
     "model": "desklib",
-    "model_ai_pct": 44.8,
-    "ai_count": 37,
-    "human_count": 56,
+    "model_ai_pct": 44.0,
+    "ai_count": 38,
+    "human_count": 61,
     "skipped_count": 5,
-    "total": 98,
-    "pattern_totals": {
-      "flaggy_adverb": 1
-    },
+    "total": 104,
+    "pattern_totals": {},
     "text_metrics": {
-      "mean": 14.5,
-      "stddev": 9.5,
-      "cv": 0.66,
+      "mean": 14.9,
+      "stddev": 9.4,
+      "cv": 0.63,
       "verdict": "natural variation",
-      "sentence_count": 93,
+      "sentence_count": 99,
       "lengths": [
         17,
         16,
@@ -59,7 +57,7 @@
         22,
         16,
         14,
-        16,
+        18,
         22,
         15,
         19,
@@ -82,14 +80,20 @@
         15,
         10,
         11,
+        24,
+        9,
         10,
         20,
+        21,
         5,
         36,
+        25,
         9,
         25,
+        18,
         10,
         32,
+        25,
         14,
         18,
         15,
@@ -214,18 +218,7 @@
         0.5519
       ]
     ],
-    "diagnostics_sample": [
-      {
-        "sentence": "I once added \"crash\", \"buggy\", and \"responsive\" for\n  an app review pipeline and accuracy jumped noticeably.",
-        "findings": [
-          {
-            "pattern": "flaggy_adverb",
-            "match": "noticeably",
-            "suggestion": "try 'definitely' or cut it"
-          }
-        ]
-      }
-    ]
+    "diagnostics_sample": []
   },
   {
     "label": "python-sentiment-analysis-nltk-es",

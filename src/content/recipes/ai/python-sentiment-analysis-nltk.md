@@ -316,32 +316,42 @@ For a deeper comparison of transformer-based approaches, see
 ### Does VADER support languages other than English?
 
 No. VADER is English-only. For Spanish, use `pysentimiento` (based on BERT) or
-a multilingual transformer.
+a multilingual transformer. I tried translating Spanish reviews to English and
+then scoring them with VADER once; the results were noisy because translation
+flattens tone and idioms. Go straight to `pysentimiento` if your text is
+Spanish.
 
 ### How accurate is VADER compared to machine learning models?
 
 In most social media benchmarks, VADER lands around 0.70-0.80 F1. Fine-tuned
 transformers like RoBERTa reach 0.90+, so VADER is best for quick prototyping or
-when you can't label training data.
+when you can't label training data. I've shipped VADER in production dashboards
+where 0.75 F1 was plenty; for customer-facing sentiment labels, I'd switch to a
+fine-tuned model.
 
 ### Can I use VADER for aspect-based sentiment analysis?
 
 Not directly. VADER scores the whole text. If you need aspect-based analysis (for
 example, "the food was great but service was slow"), split the text by mentions
 of each aspect and score the segments one by one, or use a model like `pyabsa`.
+I tried the manual split approach on restaurant reviews and it works okay for
+simple cases, but `pyabsa` is worth the setup for anything serious.
 
 ### How do I handle emojis?
 
 VADER already understands common emoticons like `:)` and `:(`. If you need to
 score full Unicode emoji, convert them to text descriptions with the `emoji`
-library first and then pass the result to VADER.
+library first and then pass the result to VADER. I had to do this for a Twitter
+pipeline where half the sentiment was carried by emoji alone.
 
 ### How do I handle sarcasm and irony?
 
 VADER can't detect sarcasm because it scores literal word meanings. For sarcasm
 detection, use a transformer model fine-tuned on sarcastic text, or add a
 preprocessing step that detects sarcasm markers (for example, "oh great", "just
-what I needed") and flips the score.
+what I needed") and flips the score. I built a sarcasm filter for support
+tickets once; it caught maybe 60% of sarcastic tickets, which was enough to
+flag them for manual review.
 
 ### What about real-time streaming?
 
