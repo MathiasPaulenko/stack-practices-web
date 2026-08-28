@@ -252,37 +252,46 @@ For a deeper comparison of string parsing approaches, see
 
 Any character outside the unreserved set `A-Z a-z 0-9 - _ . ~` should be encoded
 before it goes into a URL. Reserved characters such as `&`, `=`, `?`, `#`, `/`,
-and space are especially important because they carry structural meaning.
+and space are especially important because they carry structural meaning. I keep
+a cheat sheet with this set taped to my monitor because I look it up constantly.
 
 ### What is the difference between `encodeURI` and `encodeURIComponent`?
 
 `encodeURI` keeps the delimiters that make a URL work (`:`, `/`, `?`, `&`, etc.),
 so it's meant for full URLs. `encodeURIComponent` encodes almost everything, so
-it's the right choice for individual query values and path segments.
+it's the right choice for individual query values and path segments. I learned
+this the hard way after `encodeURI` broke a search query with `&` in it.
 
 ### Should I use `+` or `%20` for spaces?
 
 In query strings, many servers accept `+` because of HTML forms, and `urlencode`
 in Python emits `+` by default. In paths and for modern APIs, `%20` is the safer
 and more standard choice. When you aren't sure which to use, `%20` is the safer
-option.
+option. I default to `%20` everywhere and only switch to `+` when a legacy server
+complains.
 
 ### How do I handle non-ASCII characters?
 
 Encode them as UTF-8 first, then percent-encode each byte. Modern URL APIs do
-this automatically. For example, `café` becomes `caf%C3%A9`.
+this automatically. For example, `café` becomes `caf%C3%A9`. I had to debug this
+once for a Spanish search endpoint where `ñ` was silently dropped because the
+server expected UTF-8 percent-encoding and got Latin-1.
 
 ### Why am I getting `%2520`?
 
 You get `%2520` when you encode `%20` twice. It means you encoded the value after
 it had already been encoded. Decode the value once before re-encoding it, or
-encode only once at the boundary where the value enters the URL.
+encode only once at the boundary where the value enters the URL. I wrote a
+`encodeOnce` helper at work that checks for existing `%XX` patterns before
+encoding, and it's saved me from this bug more than once.
 
 ### How do I decode a query string?
 
 In JavaScript, use `new URL(url).searchParams` to get a parsed map of values. In
 Python, use `parse_qs` or `parse_qsl` from `urllib.parse`. In Java, call
-`URLDecoder.decode` on each value, not on the full URL string.
+`URLDecoder.decode` on each value, not on the full URL string. I once spent an
+hour debugging a Java endpoint because someone called `URLDecoder.decode` on the
+entire URL and it mangled the path separators.
 
 ## Key Takeaways
 
