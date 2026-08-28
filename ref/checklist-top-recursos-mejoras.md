@@ -14,7 +14,7 @@
 12. - [x] **parse-csv-python-pandas** (recipes) — 90.0/100 ✅ PROMOTE
 13. - [x] **database-read-replicas** (recipes) — 94.0/100 ✅ PROMOTE
 14. - [x] **email-templates-mjml** (recipes) — 94.0/100 ✅ PROMOTE
-15. - [ ] **python-sentiment-analysis-nltk** (recipes)
+15. - [x] **python-sentiment-analysis-nltk** (recipes) — 95.0/100 ✅ PROMOTE
 16. - [ ] **url-encoding** (recipes)
 17. - [ ] **database-deadlocks-retries** (recipes)
 18. - [ ] **generate-pdf-report-python** (recipes)
