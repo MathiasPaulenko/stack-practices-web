@@ -12,7 +12,7 @@
 10. - [x] **python-asyncio-semaphore-rate-limiting** (recipes) — 95.0/100 ✅ PROMOTE
 11. - [ ] **penetration-test-template** (docs) — 91.0/100 ✅ PROMOTE (sin commitear)
 12. - [x] **parse-csv-python-pandas** (recipes) — 90.0/100 ✅ PROMOTE
-13. - [ ] **database-read-replicas** (recipes)
+13. - [x] **database-read-replicas** (recipes) — 94.0/100 ✅ PROMOTE
 14. - [ ] **email-templates-mjml** (recipes)
 15. - [ ] **python-sentiment-analysis-nltk** (recipes)
 16. - [ ] **url-encoding** (recipes)
