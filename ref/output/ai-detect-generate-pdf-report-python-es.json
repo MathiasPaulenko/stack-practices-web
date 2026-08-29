@@ -1,0 +1,228 @@
+[
+  {
+    "label": "generate-pdf-report-python.es-en",
+    "model": "desklib",
+    "model_ai_pct": 36.9,
+    "ai_count": 25,
+    "human_count": 79,
+    "skipped_count": 3,
+    "total": 107,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.7,
+      "stddev": 5.9,
+      "cv": 0.43,
+      "verdict": "somewhat uniform",
+      "sentence_count": 104,
+      "lengths": [
+        12,
+        34,
+        11,
+        25,
+        29,
+        12,
+        19,
+        13,
+        19,
+        10,
+        14,
+        26,
+        15,
+        37,
+        7,
+        12,
+        16,
+        7,
+        23,
+        27,
+        26,
+        19,
+        17,
+        9,
+        14,
+        11,
+        12,
+        13,
+        9,
+        19,
+        8,
+        19,
+        8,
+        15,
+        16,
+        13,
+        19,
+        14,
+        11,
+        8,
+        11,
+        14,
+        19,
+        15,
+        9,
+        7,
+        20,
+        8,
+        15,
+        7,
+        21,
+        12,
+        14,
+        9,
+        13,
+        5,
+        8,
+        13,
+        5,
+        17,
+        10,
+        16,
+        9,
+        15,
+        5,
+        14,
+        14,
+        15,
+        9,
+        13,
+        6,
+        11,
+        14,
+        11,
+        16,
+        10,
+        10,
+        13,
+        20,
+        10,
+        9,
+        12,
+        8,
+        10,
+        11,
+        13,
+        10,
+        16,
+        11,
+        25,
+        16,
+        12,
+        15,
+        14,
+        16,
+        17,
+        14,
+        8,
+        8,
+        9,
+        7,
+        8,
+        16,
+        10
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Descarg\u00e1 un archivo TTF, llam\u00e1 pdf.add_font(\"DejaVu\", \"\",\n\"DejaVuSans.ttf\"), luego pdf.set_font(\"DejaVu\", size=12).",
+        0.9692
+      ],
+      [
+        "La uso cuando la salida es\n  mayormente etiquetas y p\u00e1rrafos cortos.",
+        0.9425
+      ],
+      [
+        "Lo uso cuando el reporte ya existe como\nuna p\u00e1gina web con estilos.",
+        0.8446
+      ],
+      [
+        "La mayor\u00eda de los equipos termina necesitando convertir datos en un PDF.",
+        0.8178
+      ],
+      [
+        "Hardcodear datos en lugar de leer desde una fuente.",
+        0.7672
+      ],
+      [
+        "Embebeb\u00e9 gr\u00e1ficos como im\u00e1genes cuando necesites visualizaciones.",
+        0.7604
+      ],
+      [
+        "No se escribe nada hasta que lo\n  hag\u00e1s.",
+        0.7389
+      ],
+      [
+        "ReportLab no entiende objetos de pandas de forma nativa.",
+        0.7171
+      ],
+      [
+        "[Python Excel Read Write](/recipes/python-excel-read-write/): c\u00f3mo leer datos\n  de hojas de c\u00e1lculo antes de convertirlos a PDF.",
+        0.6897
+      ],
+      [
+        "Eleg\u00ed la librer\u00eda seg\u00fan la complejidad del documento.",
+        0.6878
+      ],
+      [
+        "[Parse CSV with pandas](/recipes/parse-csv-python-pandas/): prepar\u00e1 datos para\n  tablas de ReportLab.",
+        0.6792
+      ],
+      [
+        "[ReportLab User Guide](https://www.reportlab.com/docs/reportlab-userguide.pdf):\n  la referencia completa de ReportLab.",
+        0.6539
+      ],
+      [
+        "Crear certificados, etiquetas o documentos imprimibles a partir de plantillas.",
+        0.6439
+      ],
+      [
+        "Us\u00e1 estas librer\u00edas cuando necesites:\nGenerar facturas, recibos o reportes financieros a partir de filas de base de\n  datos.",
+        0.6406
+      ],
+      [
+        "Ignorar el tama\u00f1o de p\u00e1gina.",
+        0.6315
+      ],
+      [
+        "fpdf2 funciona como una grilla de celdas.",
+        0.6302
+      ],
+      [
+        "En fpdf2, llam\u00e1 pdf.image(\"chart.png\",\nx=10, y=20, w=100) para colocar la imagen.",
+        0.6293
+      ],
+      [
+        "Esta receta cubre ambas librer\u00edas con ejemplos funcionales que\npod\u00e9s ejecutar hoy.",
+        0.5926
+      ],
+      [
+        "Exportar tablas de datos con formato a PDF desde un dashboard web o una\n  herramienta de l\u00ednea de comandos.",
+        0.5724
+      ],
+      [
+        "Us\u00e1 SimpleDocTemplate para la mayor\u00eda de los casos.",
+        0.5693
+      ],
+      [
+        "Esta es la forma m\u00e1s\nsimple de soportar Unicode y scripts no latinos.",
+        0.5625
+      ],
+      [
+        "Construir pipelines de reportes automatizados, como res\u00famenes diarios o\n  semanales enviados por email.",
+        0.5463
+      ],
+      [
+        "Generar reportes sin timestamp o versi\u00f3n.",
+        0.5289
+      ],
+      [
+        "ReportLab usa un sistema basado en flowables.",
+        0.5163
+      ],
+      [
+        "El atributo doc.page te da el\nn\u00famero para el pie.",
+        0.5107
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

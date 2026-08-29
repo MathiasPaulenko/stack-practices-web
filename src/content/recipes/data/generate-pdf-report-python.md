@@ -338,7 +338,8 @@ fields, use pikepdf or a dedicated forms library.
 
 In ReportLab, import `Image` and append `Image("chart.png", width=15*cm,
 height=8*cm)` to your elements list. In fpdf2, call `pdf.image("chart.png",
-x=10, y=20, w=100)` to place the image. I always resize images before embedding; ReportLab doesn't optimize them for PDF size.
+x=10, y=20, w=100)` to place the image. I always resize images before embedding;
+ReportLab doesn't optimize them for PDF size.
 
 ### Can I generate PDFs from HTML in Python?
 
@@ -360,7 +361,9 @@ more frames on a page and assign flowables to each. I only needed this once, for
 ### Can I use a custom font with fpdf2?
 
 Yes. Download a TTF file, call `pdf.add_font("DejaVu", "", "DejaVuSans.ttf")`,
-then `pdf.set_font("DejaVu", size=12)`. This is the simplest way I've found to support Unicode and non-Latin scripts. I keep a folder of TTFs in my project templates.
+then `pdf.set_font("DejaVu", size=12)`. This is the simplest way I've found to
+support Unicode and non-Latin scripts. I keep a folder of TTFs in my project
+templates.
 
 ### How do I repeat a header on every page?
 
