@@ -1,0 +1,372 @@
+[
+  {
+    "label": "go-rest-api-gin-en",
+    "model": "desklib",
+    "model_ai_pct": 43.3,
+    "ai_count": 23,
+    "human_count": 40,
+    "skipped_count": 1,
+    "total": 64,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.4,
+      "stddev": 4.9,
+      "cv": 0.4,
+      "verdict": "somewhat uniform",
+      "sentence_count": 63,
+      "lengths": [
+        9,
+        18,
+        21,
+        10,
+        13,
+        9,
+        7,
+        16,
+        11,
+        20,
+        24,
+        14,
+        17,
+        8,
+        11,
+        7,
+        15,
+        7,
+        23,
+        12,
+        8,
+        8,
+        11,
+        18,
+        13,
+        5,
+        10,
+        5,
+        15,
+        11,
+        14,
+        9,
+        11,
+        11,
+        7,
+        10,
+        12,
+        13,
+        21,
+        6,
+        12,
+        19,
+        9,
+        12,
+        13,
+        21,
+        9,
+        9,
+        10,
+        15,
+        11,
+        15,
+        9,
+        18,
+        10,
+        8,
+        17,
+        7,
+        25,
+        7,
+        10,
+        18,
+        5
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Run load tests on the slowest percentiles, not just average latency.",
+        0.9037
+      ],
+      [
+        "Use gin.New() instead of gin.Default() when you want full control over\n  which middleware runs and in which order.",
+        0.7667
+      ],
+      [
+        "Calling c.Abort() without writing a response, which leaves the client\n  hanging.",
+        0.7227
+      ],
+      [
+        "Register a /health endpoint that returns 200 with {\"status\": \"healthy\"}.",
+        0.7193
+      ],
+      [
+        "Close\ndatabase connections and flush logs after shutdown completes.",
+        0.712
+      ],
+      [
+        "For a per-client limiter, store one limiter per IP or user ID.",
+        0.7109
+      ],
+      [
+        "Cross-cutting concerns such as logging, auth, and metrics must be reusable\n  across endpoints.",
+        0.7077
+      ],
+      [
+        "You need a fast, lightweight HTTP framework for Go services.",
+        0.7039
+      ],
+      [
+        "Use the middleware in main.go:\n\n\n\n\n\n\n\n\n\n\n\nAttach errors to the context with c.Error(err) in handlers or middleware.",
+        0.6511
+      ],
+      [
+        "Use swaggo/swag to generate OpenAPI docs from annotations.",
+        0.6481
+      ],
+      [
+        "Always add your own business validation where needed.",
+        0.6237
+      ],
+      [
+        "For a single\ninstance, one limiter per client IP works.",
+        0.6182
+      ],
+      [
+        "It's a shortcut over manual parsing, but it only tells you that the input\nmatches the rules.",
+        0.6175
+      ],
+      [
+        "Use a token bucket such as golang.org/x/time/rate as middleware.",
+        0.5934
+      ],
+      [
+        "This recipe shows how to build a small but production-ready\nREST API with custom middleware, validation, structured errors, and graceful\nshutdown.",
+        0.5865
+      ],
+      [
+        "Keep middleware small and focused.",
+        0.5787
+      ],
+      [
+        "You can run gRPC and HTTP servers side by side, or use grpc-gateway to\nexpose HTTP endpoints generated from protobuf definitions.",
+        0.575
+      ],
+      [
+        "Create a router with mocked dependencies and assert on the\nstatus code, body, and headers.",
+        0.5667
+      ],
+      [
+        "Errors attached\nwith c.Error() are collected there.",
+        0.5404
+      ],
+      [
+        "Use httptest.NewRecorder() and router.ServeHTTP to call handlers without\nstarting a server.",
+        0.54
+      ],
+      [
+        "The error handler at the end of the chain inspects c.Errors.",
+        0.5368
+      ],
+      [
+        "This keeps handlers from writing the\nresponse twice and makes the final response format consistent.",
+        0.5196
+      ],
+      [
+        "Return\n401 for invalid or expired tokens.",
+        0.518
+      ],
+      [
+        "The API serves SPAs, mobile clients, or other backends.",
+        0.4715
+      ],
+      [
+        "Group routes by domain with gin.RouterGroup.",
+        0.4671
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "go-rest-api-gin-es",
+    "model": "desklib",
+    "model_ai_pct": 30.9,
+    "ai_count": 11,
+    "human_count": 52,
+    "skipped_count": 1,
+    "total": 64,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.6,
+      "stddev": 5.5,
+      "cv": 0.4,
+      "verdict": "somewhat uniform",
+      "sentence_count": 63,
+      "lengths": [
+        14,
+        18,
+        22,
+        11,
+        13,
+        10,
+        8,
+        15,
+        12,
+        20,
+        27,
+        14,
+        16,
+        8,
+        10,
+        8,
+        16,
+        10,
+        26,
+        14,
+        8,
+        8,
+        11,
+        17,
+        13,
+        6,
+        9,
+        5,
+        19,
+        14,
+        14,
+        12,
+        10,
+        14,
+        11,
+        12,
+        14,
+        13,
+        20,
+        6,
+        13,
+        30,
+        12,
+        14,
+        16,
+        23,
+        15,
+        8,
+        11,
+        18,
+        11,
+        15,
+        9,
+        20,
+        10,
+        8,
+        19,
+        10,
+        23,
+        7,
+        10,
+        22,
+        5
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "El graceful shutdown envuelve el http.Server de la librer\u00eda est\u00e1ndar.",
+        0.8272
+      ],
+      [
+        "Llamar c.Abort() sin escribir una respuesta, dejando al cliente colgado.",
+        0.733
+      ],
+      [
+        "Para un limiter por cliente, guard\u00e1 un limiter por IP o por user ID.",
+        0.6958
+      ],
+      [
+        "El error handler al final de la cadena inspecciona c.Errors.",
+        0.679
+      ],
+      [
+        "Los errores\nadjuntos con c.Error() se acumulan ah\u00ed.",
+        0.661
+      ],
+      [
+        "Us\u00e1 un token bucket como golang.org/x/time/rate como middleware.",
+        0.5827
+      ],
+      [
+        "Para una sola\ninstancia, un limiter por IP de cliente funciona.",
+        0.578
+      ],
+      [
+        "Confiar solo en la validaci\u00f3n del binding para reglas de negocio.",
+        0.5714
+      ],
+      [
+        "La API sirve a SPAs, clientes mobile u otros backends.",
+        0.5362
+      ],
+      [
+        "Registr\u00e1 un endpoint /health que devuelva 200 con {\"status\": \"healthy\"}.",
+        0.5176
+      ],
+      [
+        "Consult\u00e1\n  [Llamar REST API](/recipes/call-rest-api/) para patrones de cliente.",
+        0.5097
+      ],
+      [
+        "Mantener conexiones a base de datos en el context sin un pool de conexiones.",
+        0.4616
+      ],
+      [
+        "Necesit\u00e1s un framework HTTP r\u00e1pido y liviano para servicios en Go.",
+        0.461
+      ],
+      [
+        "Logue\u00e1 el error original con un request ID para\ntracing.",
+        0.4524
+      ],
+      [
+        "Uno para logging, otro para auth,\n  otro para errores.",
+        0.4438
+      ],
+      [
+        "Devolv\u00e9 401 para\ntokens inv\u00e1lidos o expirados.",
+        0.4187
+      ],
+      [
+        "Los cross-cutting concerns como logging, auth y m\u00e9tricas deben ser reutilizables\n  entre endpoints.",
+        0.4126
+      ],
+      [
+        "Us\u00e1 el middleware en main.go:\n\n\n\n\n\n\n\n\n\n\n\nAdjunt\u00e1 errores al contexto con c.Error() en handlers o middleware.",
+        0.4126
+      ],
+      [
+        "El error\nhandler corre despu\u00e9s de c.Next() y escribe una respuesta consistente.",
+        0.406
+      ],
+      [
+        "Es\nun atajo sobre el parsing manual, pero solo indica que el input cumple las\nreglas.",
+        0.3834
+      ],
+      [
+        "Us\u00e1 swaggo/swag para generar docs OpenAPI desde anotaciones.",
+        0.3718
+      ],
+      [
+        "Agrup\u00e1 rutas por dominio con gin.RouterGroup.",
+        0.3697
+      ],
+      [
+        "Mezclar responsabilidades dificulta los tests.",
+        0.3441
+      ],
+      [
+        "Manten\u00e9 el middleware peque\u00f1o y enfocado.",
+        0.3422
+      ],
+      [
+        "Us\u00e1 gin.New() en lugar de gin.Default() cuando quer\u00e9s controlar\n  exactamente qu\u00e9 middleware corre y en qu\u00e9 orden.",
+        0.2917
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
