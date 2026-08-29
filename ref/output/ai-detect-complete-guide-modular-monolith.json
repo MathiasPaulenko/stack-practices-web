@@ -2,7 +2,7 @@
   {
     "label": "complete-guide-modular-monolith-en",
     "model": "desklib",
-    "model_ai_pct": 39.0,
+    "model_ai_pct": 39.1,
     "ai_count": 45,
     "human_count": 142,
     "skipped_count": 9,
@@ -10,8 +10,8 @@
     "pattern_totals": {},
     "text_metrics": {
       "mean": 17.3,
-      "stddev": 17.6,
-      "cv": 1.02,
+      "stddev": 18.3,
+      "cv": 1.06,
       "verdict": "natural variation",
       "sentence_count": 187,
       "lengths": [
@@ -38,7 +38,7 @@
         25,
         21,
         19,
-        240,
+        250,
         12,
         14,
         24,
@@ -206,7 +206,7 @@
     },
     "top_ai_sentences": [
       [
-        "The key word is tiny, and a new type should feel hard to justify.",
+        "The key word is\ntiny, and a new type should feel hard to justify.",
         0.9768
       ],
       [
@@ -230,19 +230,19 @@
         0.6535
       ],
       [
-        "In this guide I'm sticking to the code, but I'll be blunt: the code falls apart if the team map doesn't line up.",
+        "In this guide I'm sticking to the code, but I'll be blunt: the code falls apart if the team map\ndoesn't line up.",
         0.6278
       ],
       [
-        "I don't let that outside mess bleed into my domain model.",
+        "I don't let\nthat outside mess bleed into my domain model.",
         0.6096
       ],
       [
-        "I've watched teams create modules/orders and modules/customers and then waste weeks in circular arguments about who owns which subfolder.",
+        "I've watched teams create modules/orders and modules/customers and then waste weeks in circular arguments about who\nowns which subfolder.",
         0.6057
       ],
       [
-        "And it's a sane choice when I'm not yet sure that microservices justify their cost in infrastructure, observability, and team coordination.",
+        "And it's\na sane choice when I'm not yet sure that microservices justify their cost in infrastructure, observability, and team\ncoordination.",
         0.6036
       ],
       [
@@ -250,11 +250,11 @@
         0.6016
       ],
       [
-        "The box itself doesn't matter; the arrows are what betray you.",
+        "The box itself doesn't matter; the\narrows are what betray you.",
         0.5968
       ],
       [
-        "When a module needs another module's data, it calls that module's public API instead of running a join or peeking at the table.",
+        "When a module needs another module's data, it calls that module's public API instead of running a join or peeking at the\ntable.",
         0.5757
       ],
       [
@@ -270,7 +270,7 @@
         0.5647
       ],
       [
-        "That's the kind of seam that makes extraction cheap.",
+        "That's the\nkind of seam that makes extraction cheap.",
         0.5609
       ],
       [
@@ -278,11 +278,11 @@
         0.5553
       ],
       [
-        "This one habit makes extraction almost free later.",
+        "This one\nhabit makes extraction almost free later.",
         0.554
       ],
       [
-        "That's different from a modular monolith, which organizes code by business domain.",
+        "That's\ndifferent from a modular monolith, which organizes code by business domain.",
         0.5514
       ],
       [
@@ -311,16 +311,16 @@
   {
     "label": "complete-guide-modular-monolith-es",
     "model": "desklib",
-    "model_ai_pct": 39.4,
+    "model_ai_pct": 39.5,
     "ai_count": 56,
     "human_count": 134,
     "skipped_count": 8,
     "total": 198,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 17.6,
-      "stddev": 19.7,
-      "cv": 1.12,
+      "mean": 17.7,
+      "stddev": 20.4,
+      "cv": 1.15,
       "verdict": "natural variation",
       "sentence_count": 190,
       "lengths": [
@@ -347,7 +347,7 @@
         25,
         23,
         24,
-        270,
+        280,
         14,
         18,
         25,
@@ -518,11 +518,11 @@
     },
     "top_ai_sentences": [
       [
-        "En esta gu\u00eda me enfoco en el c\u00f3digo, pero te lo digo de una: el c\u00f3digo se rompe si el mapa de equipos no coincide.",
+        "En esta gu\u00eda me enfoco en el c\u00f3digo, pero te lo digo de una: el\nc\u00f3digo se rompe si el mapa de equipos no coincide.",
         0.9669
       ],
       [
-        "Ese es el tipo de costura que hace la extracci\u00f3n barata.",
+        "Ese es el tipo de costura que hace la\nextracci\u00f3n barata.",
         0.9628
       ],
       [
@@ -536,10 +536,6 @@
       [
         "La l\u00f3gica de negocio pertenece a un m\u00f3dulo.",
         0.8935
-      ],
-      [
-        "Mov\u00e1 la propiedad de datos y esquema.",
-        0.8649
       ],
       [
         "Los eventos desacoplan al publicador del suscriptor.",
@@ -562,7 +558,7 @@
         0.774
       ],
       [
-        "Para el lado de mensajer\u00eda en la extracci\u00f3n, tengo abiertos los docs de [RabbitMQ](https://www.rabbitmq.com/docs), [Kafka](https://kafka.apache.org/documentation/) y [gRPC](https:/",
+        "Para el lado de mensajer\u00eda en la extracci\u00f3n,\ntengo abiertos los docs de [RabbitMQ](https://www.rabbitmq.com/docs), [Kafka](https://kafka.apache.org/documentation/) y\n[gRPC](https:/",
         0.7704
       ],
       [
@@ -582,7 +578,7 @@
         0.7129
       ],
       [
-        "La regla es que cada m\u00f3dulo sea due\u00f1o de su propio esquema y tablas.",
+        "La regla es que cada m\u00f3dulo sea due\u00f1o de su propio esquema y\ntablas.",
         0.7111
       ],
       [
@@ -590,7 +586,7 @@
         0.7
       ],
       [
-        "Si el sistema tiene una vida \u00fatil corta, la pista de migraci\u00f3n podr\u00eda no importar nunca.",
+        "Si el sistema tiene una vida \u00fatil corta, la pista de migraci\u00f3n podr\u00eda no importar\nnunca.",
         0.699
       ],
       [
@@ -598,11 +594,11 @@
         0.697
       ],
       [
-        "Si quer\u00e9s una referencia de patr\u00f3n m\u00e1s compacta, la p\u00e1gina del [patr\u00f3n Modular Monolith](/patterns/modular-monolith-pattern/) es una buena compa\u00f1\u00eda.",
+        "Si quer\u00e9s una referencia de patr\u00f3n m\u00e1s compacta, la p\u00e1gina del\n[patr\u00f3n Modular Monolith](/patterns/modular-monolith-pattern/) es una buena compa\u00f1\u00eda.",
         0.6754
       ],
       [
-        "Tambi\u00e9n lo uso cuando quiero una \u00fanica base de datos y un \u00fanico repositorio, pero tambi\u00e9n me asusta la gran bola de lodo que puede llegar a ser un monolito cl\u00e1sico.",
+        "Tambi\u00e9n\nlo uso cuando quiero una \u00fanica base de datos y un \u00fanico repositorio, pero tambi\u00e9n me asusta la gran bola de lodo que\npuede llegar a ser un monolito cl\u00e1sico.",
         0.6749
       ],
       [
@@ -610,12 +606,16 @@
         0.6674
       ],
       [
-        "Evitalo para proyectos muy chicos o de vida corta, y evitalo cuando ya necesit\u00e1s despliegues independientes reales y aislamiento de red.",
+        "Evitalo para proyectos muy chicos o de vida corta, y evitalo cuando ya necesit\u00e1s despliegues independientes reales y\naislamiento de red.",
         0.6541
       ],
       [
         "Si agregar un tipo nuevo es demasiado f\u00e1cil, va a crecer.",
         0.6467
+      ],
+      [
+        "La distribuci\u00f3n\nes una factura que sigue llegando.",
+        0.6364
       ]
     ],
     "diagnostics_sample": []
