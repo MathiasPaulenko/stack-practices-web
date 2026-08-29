@@ -1,0 +1,112 @@
+{
+  "EN": {
+    "exists": true,
+    "title": "Deep Clone in JavaScript: structuredClone vs lodash vs JSON",
+    "meta_desc": "Deep clone JavaScript objects with structuredClone, lodash, JSON.parse, and manual recursion. Includes Python and Java examples plus a decision matrix.",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "html_lang": "en",
+    "canonical": [
+      "https://stackpractices.com/recipes/deep-clone-javascript/"
+    ],
+    "hreflang": [
+      "en",
+      "es",
+      "x-default"
+    ],
+    "hreflang_hrefs": [
+      "/rss.xml",
+      "https://stackpractices.com/recipes/deep-clone-javascript/",
+      "https://stackpractices.com/es/recipes/deep-clone-javascript/",
+      "https://stackpractices.com/recipes/deep-clone-javascript/"
+    ],
+    "og": {
+      "title": "Deep Clone in JavaScript: structuredClone vs lodash vs JSON | StackPractices",
+      "description": "Deep clone JavaScript objects with structuredClone, lodash, JSON.parse, and manual recursion. Includes Python and Java examples plus a decision matrix.",
+      "url": "https://stackpractices.com/recipes/deep-clone-javascript/",
+      "type": "article",
+      "locale": "en_US"
+    },
+    "jsonld_count": 1,
+    "jsonld_types": [
+      "TechArticle",
+      "SpeakableSpecification",
+      "Person",
+      "Organization",
+      "BreadcrumbList",
+      "ListItem",
+      "ListItem",
+      "ListItem",
+      "FAQPage",
+      "Question",
+      "Answer",
+      "Question",
+      "Answer",
+      "Question",
+      "Answer",
+      "Question",
+      "Answer"
+    ],
+    "mermaid_img_count": 1,
+    "mermaid_img_html": [
+      "<img src=\"/assets/diagrams/deep-clone-javascript-1.svg\" alt=\"flowchart diagram: What are you cloning?\" class=\"mermaid-diagram\" loading=\"lazy\" tabindex=\"0\" role=\"button\" aria-label=\"Enlarge diagram: flowchart diagram: What are you cloning?\">"
+    ],
+    "lightbox_script": true,
+    "raw_mermaid_pre": 0,
+    "mermaid_maxwidth": false
+  },
+  "ES": {
+    "exists": true,
+    "title": "Deep Clone en JavaScript: structuredClone vs lodash vs JSON",
+    "meta_desc": "Clonación profunda en JavaScript con structuredClone, lodash, JSON.parse y recursión manual. Incluye ejemplos en Python y Java más una matriz de decisión.",
+    "viewport": "width=device-width, initial-scale=1.0",
+    "html_lang": "es",
+    "canonical": [
+      "https://stackpractices.com/es/recipes/deep-clone-javascript/"
+    ],
+    "hreflang": [
+      "en",
+      "es",
+      "x-default"
+    ],
+    "hreflang_hrefs": [
+      "/es/rss.xml",
+      "https://stackpractices.com/recipes/deep-clone-javascript/",
+      "https://stackpractices.com/es/recipes/deep-clone-javascript/",
+      "https://stackpractices.com/recipes/deep-clone-javascript/"
+    ],
+    "og": {
+      "title": "Deep Clone en JavaScript: structuredClone vs lodash vs JSON | StackPractices",
+      "description": "Clonación profunda en JavaScript con structuredClone, lodash, JSON.parse y recursión manual. Incluye ejemplos en Python y Java más una matriz de decisión.",
+      "url": "https://stackpractices.com/es/recipes/deep-clone-javascript/",
+      "type": "article",
+      "locale": "es_ES"
+    },
+    "jsonld_count": 1,
+    "jsonld_types": [
+      "TechArticle",
+      "SpeakableSpecification",
+      "Person",
+      "Organization",
+      "BreadcrumbList",
+      "ListItem",
+      "ListItem",
+      "ListItem",
+      "FAQPage",
+      "Question",
+      "Answer",
+      "Question",
+      "Answer",
+      "Question",
+      "Answer",
+      "Question",
+      "Answer"
+    ],
+    "mermaid_img_count": 1,
+    "mermaid_img_html": [
+      "<img src=\"/assets/diagrams/deep-clone-javascript-es-1.svg\" alt=\"flowchart diagram: ¿Qué estás clonando?\" class=\"mermaid-diagram\" loading=\"lazy\" tabindex=\"0\" role=\"button\" aria-label=\"Enlarge diagram: flowchart diagram: ¿Qué estás clonando?\">"
+    ],
+    "lightbox_script": true,
+    "raw_mermaid_pre": 0,
+    "mermaid_maxwidth": false
+  }
+}

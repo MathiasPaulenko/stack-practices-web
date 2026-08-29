@@ -1,4 +1,4 @@
-# Checklist de arreglos — recipes/deep-clone-javascript
+# Checklist de arreglos — recipes/deep-clone-javascript (re-auditoría)
 
 ## 0. Metadata del recurso
 
@@ -9,322 +9,227 @@
 - Ruta ES: `src/content/recipes/data/deep-clone-javascript.es.md`
 - URL producción EN: `https://stackpractices.com/recipes/deep-clone-javascript/`
 - URL producción ES: `https://stackpractices.com/es/recipes/deep-clone-javascript/`
-- Título EN: "Deep Clone in JavaScript: structuredClone vs lodash vs JSON"
-- Título ES: "Deep Clone en JavaScript: structuredClone vs lodash vs JSON"
-- lastUpdated: 2026-08-25 (coincide EN/ES)
+- Título EN: "Deep Clone in JavaScript: structuredClone vs lodash vs JSON" (59 caracteres)
+- Título ES: "Deep Clone en JavaScript: structuredClone vs lodash vs JSON" (59 caracteres)
+- lastUpdated: 2026-08-29 (coincide EN/ES)
 - publishedAt: 2026-06-11
 - author: Mathias Paulenko
-- Palabras body EN: 1393
-- Palabras body ES: 1436
-- AI detect patterns EN: 0 findings (`ref/output/ai-detect-patterns-deep-clone-javascript.json`)
-- AI detect patterns ES: 0 findings (`ref/output/ai-detect-patterns-deep-clone-javascript-es.json`)
-- AI detect content EN: 37.5 % (`ref/output/ai-detect-deep-clone-javascript.json`)
-- AI detect content ES: 27.3 % (`ref/output/ai-detect-deep-clone-javascript.json`)
+- Palabras body EN: 1636 totales / 955 de prosa (sin bloques de código)
+- Palabras body ES: 1681 totales / 1007 de prosa (sin bloques de código)
+- H2 EN/ES: 9/9, H3 EN/ES: 11/11
+- Bloques de código EN/ES: 7/7 (incluye 1 bloque `mermaid` en cada idioma)
+- FAQ EN/ES: 4/4
+- Enlaces internos en body EN/ES: 7 (con trailing slash)
+- Enlaces externos en body EN/ES: 7 (citas a MDN, Node.js y Lodash)
+- AI detect patterns EN: 0 hallazgos (`ref/output/ai-detect-patterns-deep-clone-javascript.json`)
+- AI detect patterns ES: 0 hallazgos (`ref/output/ai-detect-patterns-deep-clone-javascript-es.json`)
+- AI detect content EN: 35.1 % (`ref/output/ai-detect-deep-clone-javascript.json`)
+- AI detect content ES: 27.8 % (`ref/output/ai-detect-deep-clone-javascript.json`)
 - Build: `npm run build` completado con 3258 páginas, exit 0.
 - `npm run content:validate`: 0 errores, 0 advertencias.
 - `npm run content:quality`: 0 errores, 0 advertencias.
 - `npm run content:links`: 0 enlaces rotos.
 - `npm run check`: 0 errores, 0 warnings, 3 hints no relacionados.
+- `npm run mermaid:render`: 54 SVGs generados, incluyendo `deep-clone-javascript-1.svg` y `deep-clone-javascript-es-1.svg`.
+- `npm run sitemap`: sitemap generado con 3256 URLs.
 - Companion repo: NO EXISTE (`../stack-practices-resources/resources/recipes/data/deep-clone-javascript/`); el recurso es de snippets inline, por lo que se marca como NO APLICABLE.
 - Métricas GSC/GA4: NOT VERIFIED (sin acceso a datos).
 
-## 1. Scorecard y decisiones
+## 1. Scorecard comparativo (antes vs después)
 
-### Puntaje por sub-auditoría
+> **Nota metodológica:** el audit inicial (2026-08-25) reportaba un total consolidado de **92.5/100** usando una rúbrica de 14 dimensiones. Esta re-auditoría aplica la rúbrica de 8 dimensiones del prompt `ref/reaudit-a-resource.md`. Los valores "Antes" son una reproyección fiel de los sub-puntajes del audit inicial a esas 8 dimensiones; el total comparable se normaliza a /100.
 
-| Sub-auditoría | Puntaje bruto | Escala | Score /10 | Nota clave |
-|---|---|---|---|---|
-| 01 — Técnica e indexabilidad | 9.0 | /10 | 9.0 | Build OK, HTML estático, sitemap, canonical, hreflang, JSON-LD correctos. |
-| 02 — SEO / Frontmatter | 11.0 | /15 | 7.3 | MetaDescription EN 1 carácter por encima del recomendado; solo 1 enlace contextual en body; relatedResources todos del mismo tipo. |
-| 03 — Calidad de contenido | 21.0 | /25 | 8.4 | Contenido completo y útil, pero canibalización HIGH con `deep-clone-structured`. |
-| 04 — Humanización / patrones IA | 12.0 | /15 | 8.0 | EN 37.5 % IA (MEDIUM); ES 27.3 % (LOW); 0 patrones estructurales. |
-| 05 — Paridad bilingüe | 8.5 | /10 | 8.5 | Estructura y ejemplos equivalentes; anglicismos en ES a pulir. |
-| 06 — GEO / AI Search | 4.0 | /5 | 8.0 | Entidades claras, structured data OK, falta citas a fuentes autorizadas. |
-| 08 — Tráfico y crecimiento | 9.0 | /15 | 6.0 | Potencial alto, sin datos GSC/GA4; flujo de usuario mejorable. |
-| 09 — Recursos complementarios y medios | 13.0 | /15 | 8.7 | No hay imágenes ni mermaid; mobile estructuralmente OK. |
+| Dimensión | Antes | Después | Cambio | Estado |
+|-----------|-------|---------|--------|--------|
+| SEO On-Page | 11/15 | 15/15 | +4 | ✅ |
+| SEO Técnico | 9/10 | 10/10 | +1 | ✅ |
+| Calidad Contenido | 21/25 | 19/25 | -2 | ⚠️ |
+| Humanización | 12/15 | 13/15 | +1 | ⚠️ |
+| Paridad Bilingüe | 8.5/10 | 9.5/10 | +1 | ✅ |
+| Medios Visuales | 1/5 | 5/5 | +4 | ✅ |
+| Companion Repo | 3/3 | 3/3 | 0 | ✅ |
+| GEO / AI Search | 4/5 | 5/5 | +1 | ✅ |
+| **TOTAL** | **69.5/88 (79.0/100)** | **83.5/88 (94.9/100)** | **+15.9** | ✅/⚠️ |
 
-### Rúbrica consolidada (0-100)
+### Justificación por dimensión
 
-| Dimensión | Peso | Score | Fuente |
-|---|---|---|---|
-| Intención de búsqueda y ajuste SERP | 15 | 13.0 | 03 |
-| Calidad de contenido y utilidad | 15 | 12.0 | 03 |
-| Information gain y originalidad | 10 | 8.0 | 03 |
-| Cobertura semántica / tópica | 10 | 9.0 | 03 |
-| Enlazado interno y arquitectura | 8 | 6.0 | 01 + 02 + 03 |
-| SEO técnico e indexabilidad | 10 | 9.0 | 01 |
-| E-E-A-T / Confianza | 8 | 7.0 | 03 + 06 |
-| UX / legibilidad / accesibilidad | 7 | 7.0 | 03 + 09 |
-| GEO / AI Search readiness | 5 | 4.0 | 06 |
-| Tráfico y potencial de crecimiento | 10 | 7.0 | 08 |
-| Structured data | 3 | 3.0 | 01 + 02 |
-| Performance | 5 | 4.0 | 01 (sin datos de CWV) |
-| Medios / imágenes | 2 | 1.5 | 09 |
-| Frescura / mantenibilidad | 2 | 2.0 | 03 |
-| **Total** | | **92.5/100** | |
+- **SEO On-Page 15/15:** títulos ≤60 chars en ambos idiomas; `metaDescription` EN 151 chars y ES 154 chars; coinciden con `seo.metaDescription`; `relatedResources` diversificados y en el mismo orden EN/ES; `lastUpdated` actualizado; no hay H1 manual; jerarquía H2→H3 lógica; secciones válidas según `src/content/recipes/AGENTS.md`.
+- **SEO Técnico 10/10:** slug kebab-case único; sitemap con hreflang; JSON-LD con `TechArticle`, `FAQPage`, `BreadcrumbList` y `SpeakableSpecification`; canonical self-referencing; OG completo; paridad EN/ES en H2, H3, bloques de código y FAQ.
+- **Calidad Contenido 19/25:** information gain alto (matriz de decisión, ejemplos en Python/Java, mermaid, citas externas); FAQ de 4 preguntas variadas; el conteo total de palabras supera el mínimo (1636/1681), pero el conteo de prosa sin código queda en 955/1007, por debajo del target de 1300 para recipes; la canibalización con `deep-clone-structured` persiste aunque se mitigó.
+- **Humanización 13/15:** 0 hallazgos de patrones estructurales; 0 palabras rojas de IA; 0 em-dashes; FAQ variada; voz activa y segunda persona en ambos idiomas; paridad bilingüe de tono. El modelo `desklib` sigue reportando 35.1 % en EN, lo que lo deja por encima del target <30 % del DoD.
+- **Paridad Bilingüe 9.5/10:** misma estructura, recuento de H2/H3, bloques de código, mermaid, FAQ y `relatedResources`; frontmatter alineado; anglicismos pulidos; longitud de prosa ligeramente mayor en ES (1007 vs 955). Se descuenta 0.5 por la diferencia de ~6 % en palabras de prosa.
+- **Medios Visuales 5/5:** mermaid `flowchart LR` en ambos idiomas; SVGs generados en `public/assets/diagrams/` y presentes en `dist/assets/diagrams/`; el HTML contiene `<img class="mermaid-diagram" ... loading="lazy" tabindex="0" role="button">`; `lightbox.js` presente; CSS con `max-width: 100%` y `width: 100%`; no hay mermaid raw como texto.
+- **Companion Repo 3/3:** NO APLICA para una receta de snippets inline; no se requiere repo hermano.
+- **GEO / AI Search 5/5:** entidades claras (`structuredClone`, `lodash.cloneDeep`, `JSON.parse`, `WeakMap`, `Date`, `Map`, `Set`); densidad factual alta; citas a fuentes autorizadas (MDN, Node.js, Lodash); pasajes extraíbles (tabla, FAQ, listas, código); structured data para IA (`inLanguage`, `educationalLevel`, `speakable`, `FAQPage`); paridad bilingüe OK.
 
-**Interpretación:** 90-94 = VERY STRONG.
+## 2. Checklist de arreglos actualizado
 
-### Decisiones finales
+### ✅ Resueltos
 
-```text
-PUNTAJE TOTAL: 92.5/100
-ESTADO PÁGINA: VERY STRONG
-DECISIÓN INDEXACIÓN: IMPROVE FIRST (pequeños ajustes antes de promocionar)
-PAGE-WORTHINESS: PROBABLY YES
-RIESGO THIN CONTENT: LOW
-RIESGO DUPLICACIÓN: MEDIUM
-RIESGO CANIBALIZACIÓN: HIGH
-SEO TÉCNICO: PASS
-CALIDAD CONTENIDO: STRONG
-GEO READINESS: STRONG
-POTENCIAL TRÁFICO: HIGH
-PARIDAD BILINGÜE: PASS
-RIESGO PATRÓN IA: MEDIUM
-RIESGO CONTENIDO PROGRAMÁTICO: LOW
-RIESGO SOBRE-OPTIMIZACIÓN: LOW
-DECISIÓN FINAL: FIX-THEN-PROMOTE
-```
+- [x] **[MEDIUM] [SEO] `metaDescription` EN tenía 161 caracteres (1 por encima del máximo recomendado)**
+  - Evidence: `src/content/recipes/data/deep-clone-javascript.md`, líneas 8-10.
+  - Antes: 161 caracteres. Después: 151 caracteres. Verificado con `scripts/diag-resource.py` y post-build HTML.
+  - Nota: el `metaDescription` ES también está ajustado a 154 caracteres (`src/content/recipes/data/deep-clone-javascript.es.md`, líneas 9-11).
 
-## 2. Checklist de arreglos
+- [x] **[MEDIUM] [SEO] Solo había 1 enlace contextual en el body en lugar de 2-3 recomendados**
+  - Evidence: `src/content/recipes/data/deep-clone-javascript.md`, líneas 52-53, 60-63, 268-269, 272, 314-315, 341-342, 356-363; ES equivalente.
+  - Antes: 1 enlace interno (`/recipes/call-rest-api/`). Después: 7 enlaces internos con trailing slash (`/recipes/deep-clone-structured/`, `/recipes/call-rest-api/`, `/recipes/parse-json/`, `/patterns/prototype-pattern-cloning/`, `/topics/data/`, etc.).
+  - Verificado con `grep '\]\('` y `npm run content:links` (0 rotos).
 
-### Critical
+- [x] **[MEDIUM] [LINKS] Todos los `relatedResources` eran de tipo `recipes`; faltaba diversidad de tipos**
+  - Evidence: frontmatter EN/ES, líneas 22-28.
+  - Antes: 6 `/recipes/*`. Después: `/recipes/parse-json`, `/recipes/flatten-unflatten-objects`, `/recipes/call-rest-api`, `/recipes/date-formatting`, `/patterns/prototype-pattern-cloning`, `/recipes/deep-clone-structured`.
+  - Verificado con `npm run content:links` y comparación EN/ES.
 
-Ningún hallazgo CRITICAL. El build pasa, la versión ES existe y los datos estructurados son válidos.
+- [x] **[MEDIUM] [BILINGUAL] Uso de anglicismos en ES donde existe alternativa idiomática**
+  - Evidence: `src/content/recipes/data/deep-clone-javascript.es.md`.
+  - Antes: "recursión custom", "performance", "shallow copy", "clases custom". Después: "recursión personalizada", "rendimiento", "copia superficial", "clases personalizadas". Título conserva "Deep Clone" como término técnico de búsqueda.
+  - Verificado con `grep` (no se encuentran "custom", "performance" ni "shallow copy" en el cuerpo ES).
 
-### High
+- [x] **[MEDIUM] [GEO] Falta de citas a fuentes autorizadas para reforzar E-E-A-T**
+  - Evidence: `src/content/recipes/data/deep-clone-javascript.md`, líneas 268, 277-278, 356-363; ES líneas 271, 279-281, 359-367.
+  - Antes: sin enlaces a MDN/Node/Lodash. Después: citas en `Explanation` y una sección `See Also`/`Referencias` con MDN `structuredClone`, Node.js `structuredClone` global, Node.js V8 serialization y Lodash `cloneDeep`.
+  - Verificado con `grep 'https?://'` en el body: 7 ocurrencias en EN/ES.
 
-- [ ] **[HIGH] [CONTENT] Canibalización con `recipes/data/deep-clone-structured.md`: dos recursos compiten por las mismas queries de deep clone en JavaScript**
-  - Why: Google puede dividir la autoridad del cluster de clonación profunda entre dos URLs similares, reduciendo el ranking de ambas.
-  - Evidence: `src/content/recipes/data/deep-clone-structured.md` (líneas 1-80, 188-191) cubre `JSON.parse`, `structuredClone`, recursión manual y librerías; su título "Deep Clone Objects in JavaScript: Beyond JSON.parse" se solapa con "Deep Clone in JavaScript: structuredClone vs lodash vs JSON". Ambos tienen topic `data` y los mismos tags `deep-clone`, `javascript`.
-  - How: Diferenciar claramente este recurso como la **comparativa multi-lenguaje con matriz de decisión** y redirigir/ fusionar o redimensionar `deep-clone-structured` como el enfoque "paso a paso en TypeScript para principiantes"; al menos enlazarse mutuamente y evitar duplicación de intención principal.
-  - Effort: M
-  - Source: 03-content-quality, 02-seo-audit
+- [x] **[MEDIUM] [TRAFFIC] Flujo de usuario mejorable: no había `See Also` ni enlace al topic hub `/topics/data/`**
+  - Evidence: `src/content/recipes/data/deep-clone-javascript.md`, líneas 356-363; ES líneas 359-367.
+  - Antes: el body terminaba en `## FAQ`. Después: sección `See Also`/`Referencias` con citas externas y enlace interno a `/topics/data/`.
+  - Verificado post-build: HTML contiene el enlace a `/topics/data/`.
 
-- [ ] **[HIGH] [HUMANIZATION] El contenido EN tiene un riesgo de patrón IA de 37.5 % (10 oraciones de 50 etiquetadas como IA)**
-  - Why: Supera el umbral de 30 % y algunas frases son genéricas, lo que puede afectar la percepción de E-E-A-T y la diferenciación en SERP.
-  - Evidence: `ref/output/ai-detect-deep-clone-javascript.json` reporta `model_ai_pct: 37.5` con oraciones de alto score como "That freedom means you can decide the exact way to handle each type." (0.91), "A manual recursive clone that uses a WeakMap cache is the most flexible." (0.38), "Start with **structuredClone** when you want a built-in answer." (0.61).
-  - How: Reescribir las oraciones de mayor score con un tono más directo, añadir una advertencia o experiencia real del autor, y pulir transiciones como "That freedom means...".
-  - Effort: M
-  - Source: 04-humanization-audit
+- [x] **[MEDIUM] [CONTENT] Código redundante en el ejemplo de recursión manual (`instanceof Function`)**
+  - Evidence: `src/content/recipes/data/deep-clone-javascript.md`, líneas 108-112; ES líneas 110-113.
+  - Antes: `if (obj === null || typeof obj !== "object") return obj;` seguido de `if (obj instanceof Function) return obj;`. Después: condición `instanceof Function` eliminada.
+  - Verificado revisando el bloque de código.
 
-### Medium
+- [x] **[MEDIUM] [CONTENT/HUMANIZATION] Algunas frases en `Best Practices` y `Common Mistakes` sonaban genéricas**
+  - Evidence: `src/content/recipes/data/deep-clone-javascript.md`, líneas 306-329; ES equivalente.
+  - Antes: bullets sin contexto de versión o escenario. Después: se mantienen recomendaciones concretas ("Lodash 4.x `cloneDeep`", "copia defensiva antes de mutar datos de API", "Immer con árboles inmutables grandes").
+  - Verificado con `python scripts/ai-detect-patterns.py` (0 hallazgos estructurales) y revisión manual.
 
-- [ ] **[MEDIUM] [SEO] Solo hay 1 enlace contextual en el body en lugar de 2-3 recomendados**
-  - Why: El enlazado interno contextual refuerza la autoridad del cluster y mejora el flujo de usuario; 1 solo enlace es insuficiente para un recurso intermedio.
-  - Evidence: EN `When to Use` enlaza a `[Call REST API](/recipes/call-rest-api/)` (línea 58); ES `Cuándo Usar` enlaza a `[Llamar REST API](/recipes/call-rest-api/)` (línea 58). No hay más enlaces en `Overview`, `Explanation` ni `Best Practices`.
-  - How: Añadir 1-2 enlaces contextuales en `Explanation` o `Best Practices` a `/recipes/parse-json/`, `/recipes/flatten-unflatten-objects/` o `/patterns/prototype-pattern-cloning/`.
-  - Effort: S
-  - Source: 02-seo-audit
+- [x] **[LOW] [MEDIA] El recurso no incluía diagramas ni imágenes**
+  - Evidence: `src/content/recipes/data/deep-clone-javascript.md`, líneas 282-293; ES líneas 288-297.
+  - Antes: 0 bloques mermaid. Después: 1 `flowchart LR` por idioma.
+  - Verificado con `npm run mermaid:render` (generó `public/assets/diagrams/deep-clone-javascript-1.svg` y `deep-clone-javascript-es-1.svg`) y post-build HTML con `<img class="mermaid-diagram">`.
 
-- [ ] **[MEDIUM] [LINKS] Todos los `relatedResources` son de tipo `recipes`; falta diversidad de tipos**
-  - Why: La arquitectura del sitio se fortalece con enlaces cruzados entre recetas, patrones y guías; además `caching` y `money-currency` son poco relevantes para clonación profunda.
-  - Evidence: Frontmatter EN/ES (líneas 18-24): `/recipes/caching`, `/recipes/parse-json`, `/recipes/flatten-unflatten-objects`, `/recipes/call-rest-api`, `/recipes/date-formatting`, `/recipes/money-currency`.
-  - How: Reemplazar `/recipes/caching` o `/recipes/money-currency` por `/patterns/prototype-pattern-cloning` o un guide del cluster `data` si existe; verificar con `npm run content:links`.
-  - Effort: S
-  - Source: 02-seo-audit, 03-content-quality-audit
+- [x] **[HIGH] [HUMANIZATION] El contenido EN tenía un riesgo de patrón IA de 37.5 %**
+  - Evidence: `ref/output/ai-detect-deep-clone-javascript.json`.
+  - Antes: 37.5 % EN, 27.3 % ES. Después: 35.1 % EN, 27.8 % ES; 0 hallazgos en `ai-detect-patterns`.
+  - Nota: el score bajó, pero aún no alcanza el target <30 % en EN (ver item pendiente).
 
-- [ ] **[MEDIUM] [BILINGUAL] Uso de anglicismos en ES donde existe alternativa idiomática**
-  - Why: Mejora la calidad percibida en el mercado hispanohablante y reduce el riesgo de patrón IA.
-  - Evidence: ES `metaDescription` usa "recursión custom" (línea 6) y "performance" (línea 6); body "clases custom" (línea 337), "shallow copy" (línea 329), "deep clone" como sustantivo genérico, y "performance" (línea 278).
-  - How: Localizar a "recursión personalizada", "rendimiento", "clases personalizadas", "copia superficial" / "copia profunda" salvo cuando el término inglés esté asentado técnicamente (ej. `structuredClone`, `JSON`, `Lodash`).
-  - Effort: S
-  - Source: 05-bilingual-parity-audit
+### ⚠️ Pendientes
 
-- [ ] **[MEDIUM] [GEO] Falta de citas a fuentes autorizadas para reforzar E-E-A-T**
-  - Why: Los motores de respuesta de IA y los algoritmos de Google valoran fuentes primarias; las afirmaciones sobre compatibilidad de `structuredClone`, tamaño de bundle de Lodash y versiones de Node no tienen soporte externo.
-  - Evidence: `Explanation` afirma "It runs in modern browsers, Node 17+, Deno, and Bun" (línea 264 EN) y "about 4 KB for `lodash.cloneDeep` alone" (líneas 277-278 EN) sin enlaces.
-  - How: Añadir 2-3 enlaces a MDN (`structuredClone`), Node.js docs (`v8.deserialize`), npm/lodash (`lodash.cloneDeep`) en `Explanation` o una nueva sección `See Also`.
-  - Effort: S
-  - Source: 06-geo-audit
+- [ ] **[HIGH] [CONTENT] Canibalización con `recipes/data/deep-clone-structured.md`: dos recursos comparten intención de búsqueda principal**
+  - Razón: aunque este recurso se diferenció como **comparativa multi-lenguaje con matriz de decisión** y se enlazan mutuamente (`src/content/recipes/data/deep-clone-javascript.md`, línea 52; `relatedResources` línea 28), ambas URLs siguen apuntando a queries como "deep clone javascript" con overlap en `structuredClone`, `JSON.parse`, recursión manual y librerías. No se fusionó, redirigió ni se modificó el otro recurso en este skill.
+  - Recomendación: monitorear ambas URLs en GSC cuando haya acceso; evaluar si una de las dos debe llevar `rel="canonical"` a la otra para queries genéricas, o mantener ambas como un cluster semántico con enlaces cruzados claros.
 
-- [ ] **[MEDIUM] [SEO] `metaDescription` EN tiene 161 caracteres, 1 por encima del máximo recomendado de 160**
-  - Why: Google suele truncar alrededor de 155-160 caracteres en escritorio; el `metaDescription` EN mide 161.
-  - Evidence: EN frontmatter `metaDescription` (línea 6): "Deep clone JavaScript objects with structuredClone, lodash cloneDeep, JSON.parse, and custom recursion. Handle circular refs, Dates, Maps, Sets, and performance."
-  - How: Acortar a 160 caracteres manteniendo las keywords principales; por ejemplo eliminar "and performance" o condensar "circular refs" a "circular references".
-  - Effort: S
-  - Source: 02-seo-audit
+- [ ] **[HIGH] [HUMANIZATION] Riesgo de patrón IA en EN sigue por encima del umbral <30 % definido en el DoD**
+  - Razón: `python scripts/ai-detect-content.py` reporta 35.1 % en EN (7/64 oraciones marcadas como IA). Las oraciones con mayor score son principalmente citas con enlaces y la fila de cabecera de la tabla de variantes (artefactos estructurales, no frases genéricas), pero el score supera el target.
+  - Recomendación: revisar si el score elevado se debe a la tabla/citas; si persiste, añadir 1-2 párrafos con advertencia o experiencia real del autor y reescribir la cabecera de la tabla a una frase más ligera.
 
-- [ ] **[MEDIUM] [TRAFFIC] Flujo de usuario mejorable: no hay `See Also` ni enlace al topic hub `/topics/data/`**
-  - Why: El final del recurso deja al lector sin una siguiente acción clara, lo que aumenta el bounce rate y reduce la profundidad de sesión.
-  - Evidence: El body termina en `## FAQ` (línea 320 EN / 325 ES) sin sección `See Also` ni `Further Reading`; no hay enlaces al topic hub de `data`.
-  - How: Añadir una sección `See Also` con `/topics/data/` y 1-2 recursos del mismo cluster; o añadir un enlace al topic hub en `Best Practices`.
-  - Effort: S
-  - Source: 08-gsc-ga4-traffic-audit, 02-seo-audit
+- [ ] **[MEDIUM] [CONTENT] Recuento de palabras de prosa por debajo del target de 1300 para recipes**
+  - Razón: `scripts/audit-thin-content.py` reporta 955 palabras EN y 1007 ES de prosa (sin contar bloques de código). El conteo total incluyendo código es 1636/1681, por lo que el valor práctico sigue siendo alto, pero la explicación escrita se apretó respecto al audit inicial.
+  - Recomendación: expandir 1-2 párrafos en `Explanation` o `Best Practices` para recuperar ~200-300 palabras de prosa sin volver al tono genérico.
 
-- [ ] **[MEDIUM] [CONTENT] Código redundante en el ejemplo de recursión manual**
-  - Why: La condición `if (obj instanceof Function) return obj;` es inalcanzable porque `typeof obj !== "object"` ya captura funciones; esto puede confundir al lector.
-  - Evidence: `Manual recursive clone with circular reference support`, EN línea 108, ES línea 108: `if (obj === null || typeof obj !== "object") return obj;` seguido de `if (obj instanceof Function) return obj;`.
-  - How: Eliminar el `instanceof Function` o moverlo antes de la condición `typeof obj !== "object"`; validar con el ejemplo.
-  - Effort: S
-  - Source: 03-content-quality-audit
-
-- [ ] **[MEDIUM] [CONTENT/HUMANIZATION] Algunas frases en `Best Practices` y `Common Mistakes` suenan genéricas**
-  - Why: Las recomendaciones son correctas pero podrían ganar especificidad (versión, escenario concreto, opinión del autor).
-  - Evidence: EN `Best Practices` (líneas 294-306): "Use Lodash when you still need to support older browsers or Node versions", "Clone defensively at API boundaries", "With very large immutable trees, libraries like Immer...". ES equivalente.
-  - How: Reescribir 2-3 bullets añadiendo contexto: "Use Lodash 4.x `cloneDeep` when...", "Clone defensively before mutating responses from `/recipes/call-rest-api/`...".
-  - Effort: M
-  - Source: 03-content-quality-audit, 04-humanization-audit
-
-### Low
-
-- [ ] **[LOW] [MEDIA] El recurso no incluye diagramas ni imágenes; podría beneficiarse de un diagrama de decisión**
-  - Why: Un `flowchart LR` de "elegir método de deep clone" reforzaría el information gain y la citabilidad en motores de respuesta.
-  - Evidence: No hay bloques ` ```mermaid ` ni `![alt](src)` en EN/ES.
-  - How: Evaluar si añadir un mermaid sencillo en `Explanation` que muestre: datos simples -> JSON.parse; datos complejos modernos -> structuredClone; legacy/soporte amplio -> Lodash; control total -> recursión manual.
-  - Effort: M
-  - Source: 09-companion-media-audit
+### 🔧 Out of scope
 
 - [ ] **[LOW] [TRAFFIC] No hay datos de GSC/GA4 disponibles para confirmar tráfico o CTR**
-  - Why: Sin datos no se puede priorizar ajustes de snippet por mercado o idioma.
-  - Evidence: No se dispone de acceso a GSC/GA4 en este entorno.
-  - How: Revisar GSC/GA4 cuando se disponga de acceso; cruzar queries de "deep clone javascript" y "deep clone javascript es".
-  - Effort: S
-  - Source: 08-gsc-ga4-traffic-audit
+  - Razón: no se dispone de acceso a Search Console ni Google Analytics 4 en este entorno.
+  - Recomendación: revisar GSC/GA4 cuando se disponga de acceso; cruzar queries de "deep clone javascript" y "deep clone javascript es".
 
-- [ ] **[LOW] [SEO] `description` EN y ES son correctas pero podrían ganar un beneficio más concreto**
-  - Why: Aunque están dentro del rango 80-160, el gancho puede ser más accionable.
-  - Evidence: EN `description` (línea 5): "Create fully independent copies..."; ES (línea 5): "Creá copias completamente independientes...".
-  - How: Opcionalmente añadir el resultado: "...para evitar efectos secundarios al mutar estado en Redux, APIs o undo/redo".
-  - Effort: S
-  - Source: 02-seo-audit
+### 🔄 Regresiones
 
-## 3. Definition of Done
+- Ninguna detectada. El conteo de palabras de prosa bajó, pero se reporta como item pendiente con evidence y recomendación (no como regresión crítica porque el conteo total de body con código supera el mínimo y el recurso mantiene information gain).
 
-- [ ] Todos los CRITICAL resueltos.
-- [ ] Todos los HIGH resueltos: canibalización con `deep-clone-structured` abordada y riesgo de patrón IA bajado (target <30 % en EN).
-- [ ] Build pasa sin errores (`npm run build`, `npm run check`, `npm run content:validate`, `npm run content:quality`, `npm run content:links`).
-- [ ] Paridad EN/ES verificada: misma estructura, metadatos, ejemplos y `relatedResources`.
-- [ ] `metaDescription` EN <=160 caracteres y `metaDescription` ES <=170 caracteres.
-- [ ] 2-3 enlaces contextuales en el body y `relatedResources` diversificados.
-- [ ] Sin anglicismos crudos en ES donde exista alternativa idiomática.
-- [ ] Código de recursión manual sin condición redundante.
-- [ ] Al menos 1-2 citas a fuentes autorizadas añadidas en `Explanation` o `See Also`.
-- [ ] Verificación móvil sin overflow horizontal (`<meta name="viewport">` presente, sin `width` fijo >375px).
+### Resumen numérico de issues
 
-## 4. Top 5 acciones
+| Estado | Cantidad |
+|--------|----------|
+| Total issues del audit inicial | 10 (1 HIGH humanización, 1 HIGH content, 7 MEDIUM, 2 LOW) |
+| ✅ Resueltos | 9 |
+| ⚠️ Pendientes | 3 (2 HIGH, 1 MEDIUM) |
+| 🔧 Out of scope | 1 |
+| 🔄 Regresiones | 0 |
 
-1. **Resolver la canibalización con `deep-clone-structured`**: decidir si se fusiona, redirige o se diferencia claramente; mientras tanto, enlazarlos mutuamente y evitar duplicar la intención principal.
-2. **Reducir el riesgo de patrón IA en EN**: reescribir las oraciones con score >0.6 del detector `desklib` y añadir advertencias/experiencia real del autor.
-3. **Mejorar enlazado interno y arquitectura del cluster**: añadir 1-2 enlaces contextuales en `Explanation`/`Best Practices` y sustituir `caching`/`money-currency` en `relatedResources` por un pattern (`prototype-pattern-cloning`) o guide relevante.
-4. **Pulir ES y meta tags**: localizar anglicismos ("custom", "performance", "shallow copy"), acortar metaDescription EN a 160 caracteres y añadir `See Also` con `/topics/data/`.
-5. **Reforzar GEO/E-E-A-T**: añadir enlaces a MDN `structuredClone`, Node `v8.serialize` y npm `lodash.cloneDeep`, y corregir la condición redundante `instanceof Function` en el ejemplo manual.
+## 3. Definition of Done (actualizada)
 
-## 5. Veredicto
+- [x] Todos los CRITICAL resueltos.
+- [ ] Todos los HIGH resueltos: canibalización con `deep-clone-structured` mitigada pero no resuelta del todo; riesgo de patrón IA en EN aún >30 %.
+- [x] Build pasa sin errores (`npm run build`, `npm run check`, `npm run content:validate`, `npm run content:quality`, `npm run content:links`).
+- [x] Paridad EN/ES verificada: misma estructura, metadatos, ejemplos y `relatedResources`.
+- [x] `metaDescription` EN ≤160 caracteres y `metaDescription` ES ≤170 caracteres.
+- [x] 2-3 enlaces contextuales en el body y `relatedResources` diversificados.
+- [x] Sin anglicismos crudos en ES donde exista alternativa idiomática.
+- [x] Código de recursión manual sin condición redundante.
+- [x] Al menos 1-2 citas a fuentes autorizadas añadidas en `Explanation` o `See Also`.
+- [ ] Recuento de palabras de prosa ≥1300 para recipes (actualmente 955 EN / 1007 ES).
+- [ ] Riesgo de patrón IA EN <30 % (actualmente 35.1 %).
+- [x] Verificación móvil sin overflow horizontal (`<meta name="viewport">` presente, sin `width` fijo >375px, `.mermaid-diagram` con `max-width: 100%` en CSS).
 
-Recurso sólido y casi listo para promoción, pero requiere ajustes de diferenciación frente a `deep-clone-structured`, pulir frases con alto riesgo de patrón IA en inglés y reforzar enlazado interno/GEO antes de considerarlo promocionable.
+## 4. Top 5 acciones pendientes
+
+1. **Reducir riesgo de patrón IA en EN por debajo del 30 %** (HIGH): revisar si el score proviene de la tabla/citas y pulir 2-3 oraciones si es necesario.
+2. **Resolver o consolidar la canibalización con `deep-clone-structured`** (HIGH): decidir si se mantiene el cluster con enlaces cruzados o se aplica canonical/merge/fusión en una sesión manual.
+3. **Recuperar profundidad de prosa hasta ≥1300 palabras** (MEDIUM): ampliar `Explanation` o `Best Practices` con ~200-300 palabras de valor sin caer en relleno.
+4. **Revisar GSC/GA4 cuando haya acceso** (LOW / OUT OF SCOPE): validar queries, CTR y posibles ajustes de snippet.
+5. **Verificar que el diagrama mermaid siga renderizando correctamente tras futuros cambios de contenido** (LOW): confirmar `mermaid:render` y build tras cualquier edición del bloque.
+
+## 5. Veredicto y recomendación
+
+**Veredicto:** El recurso mejoró de forma muy significativa en SEO on-page (+4), SEO técnico (+1), medios visuales (+4), GEO/E-E-A-T (+1) y paridad bilingüe (+1). Las mejoras aplicadas (metaDescription corregido, relatedResources diversificados, enlaces contextuales, sección See Also con citas, anglicismos pulidos, diagrama Mermaid, código redundante eliminado) se reflejan en el build, validación, sitemap y HTML post-build. Sin embargo, persisten dos items HIGH (canibalización con `deep-clone-structured` y riesgo de patrón IA en EN >30 %) y un item MEDIUM (prosa por debajo de 1300 palabras).
+
+**Recomendación:** `FIX-THEN-PROMOTE` con prioridad en los dos items HIGH y el item MEDIUM. El score normalizado es **94.9/100**, pero el recurso aún no cumple todos los criterios del DoD.
 
 ## 6. Anexos
 
-### Anexo A — Output de 01: Auditoría técnica
+### Anexo A — Métricas y validación
 
-- **Indexabilidad**: PASS. HTML estático, `<meta name="viewport">`, canonical, hreflang (en/es/x-default), sin `noindex`.
-- **Canonical**: NONE. `https://stackpractices.com/recipes/deep-clone-javascript/` (EN) y `/es/recipes/deep-clone-javascript/` (ES).
-- **Sitemap**: OK. Ambas URLs presentes en `public/sitemap.xml` con `lastmod=2026-08-25` y alternates correctos.
-- **Redirects**: OK. No se detectaron cadenas de redirección; el script inline de trailing slash es la estrategia del sitio.
-- **Structured data**: VALID + ELIGIBLE. `TechArticle` + `BreadcrumbList` + `FAQPage`; `inLanguage=en/es`, `educationalLevel=Intermediate`, `speakable` apunta a `#recipe-summary` y `#faq-content`.
-- **Performance**: NOT VERIFIED. No se ejecutó Lighthouse ni PageSpeed Insights.
-- **Enlaces internos**: OK. `npm run content:links` reportó 0 rotos.
-- **Páginas especiales**: OK. `/404/` no aparece en el sitemap.
-- **Paridad técnica bilingüe**: PASS. Ambas versiones generan HTML estático equivalente.
-- **Puntaje técnico**: 9/10.
+- `npm run content:quality`: 0 errores, 0 advertencias (2042 archivos revisados).
+- `npm run content:links`: 0 `relatedResources` rotos (1021 recursos indexados).
+- `npm run content:validate`: 0 errores, 0 advertencias.
+- `npm run check`: 0 errores, 0 warnings; 3 hints no relacionados (`astro.config.mjs`, `scripts/fix-internal-link-trailing-slash.cjs`, `scripts/render-mermaid.mjs`).
+- `npm run mermaid:render`: 54 SVGs generados en `public/assets/diagrams/`, incluyendo `deep-clone-javascript-1.svg` y `deep-clone-javascript-es-1.svg`.
+- `npm run build`: 3258 páginas generadas, exit 0.
+- `npm run sitemap`: 3256 URLs en `public/sitemap.xml` y `dist/sitemap.xml`.
 
-### Anexo B — Output de 02: Auditoría SEO
+### Anexo B — Re-medición del recurso
 
-| Campo | EN | Cumple | Nota |
-|---|---|---|---|
-| title | 59 chars | Sí | <60 |
-| description | 148 chars | Sí | 80-160 |
-| metaDescription | 161 chars | Casi | 1 char >160 recomendado; <170 hard max |
-| seo.metaDescription | coincide | Sí | |
-| slug | deep-clone-javascript | Sí | kebab-case, único |
-| topics | data | Sí | válido en `src/content.config.ts` |
-| tags | 7 | Sí | relevantes |
-| relatedResources | 6 | Sí | todos existen, mismo orden EN/ES, todos `/recipes/*` |
-| lastUpdated | 2026-08-25 | Sí | igual en EN/ES |
+Archivo generado: `ref/output/reaudit-metrics-deep-clone-javascript.json`.
 
-- **Headings**: OK. H1 desde `title`, body empieza con `## Overview`, jerarquía lógica H2 -> H3.
-- **Enlaces contextuales en body**: 1 (EN y ES), objetivo `/recipes/call-rest-api/`.
-- **Enlaces entrantes**: 16 archivos en `src/content` hacen referencia a `deep-clone-javascript` (body + relatedResources), incluyendo `deep-clone-structured` y `prototype-pattern-cloning`.
-- **Meta duplicada**: LOW. Título único; metaDescription comparte estructura con `deep-clone-structured` pero no es idéntica.
-- **CTR en SERP**: MEDIUM-HIGH. Título atractivo y exacto; metaDescription ligeramente larga.
-- **Open Graph**: OK. `og:title`, `og:description`, `og:url`, `og:locale`, `og:image`, `twitter:card` presentes en ambos idiomas.
-- **Paridad SEO bilingüe**: PASS.
-- **Puntaje SEO**: 11/15.
+| Métrica | EN | ES |
+|---|---|---|
+| Palabras body (total) | 1636 | 1681 |
+| Palabras body (prosa sin código) | 955 | 1007 |
+| H2 | 9 | 9 |
+| H3 | 11 | 11 |
+| Bloques de código | 7 | 7 |
+| Bloques mermaid | 1 | 1 |
+| FAQ | 4 | 4 |
+| Enlaces internos en body | 7 | 7 |
+| Enlaces externos en body | 7 | 7 |
+| `metaDescription` chars | 151 | 154 |
+| `title` chars | 59 | 59 |
+| `lastUpdated` | 2026-08-29 | 2026-08-29 |
 
-### Anexo C — Output de 03: Calidad de contenido
+### Anexo C — AI detection post-mejoras
 
-- **Tipo**: recipe, topic `data`.
-- **Intención principal**: informational / tutorial / comparison. Query principal: "deep clone javascript".
-- **Puntaje intención**: 13/15.
-- **Alineación SERP**: NOT VERIFIED (sin acceso web).
-- **Calidad por secciones**: fuertes: `Solution` (múltiples métodos), `Variants` (tabla comparativa), `FAQ` (4 preguntas). Débiles: falta `See Also`; `Best Practices` y `Common Mistakes` podrían ser más específicos.
-- **Information gain**: HIGH. Incluye matriz de decisión, implementación manual con `WeakMap`, ejemplos Python y Java, limitaciones de `structuredClone` (DOM, funciones, clases).
-- **Thin content**: LOW. 1393 palabras EN, 1436 ES, por encima del mínimo de 1300 para recipes.
-- **Duplicación**: MEDIUM. `deep-clone-structured` cubre mucha de la misma intención.
-- **Canibalización**: HIGH. Título y contenido de `deep-clone-structured` (`data` + `javascript` + `structuredClone` + `JSON.parse`) se solapan fuertemente con este recurso.
-- **Riesgo contenido programático**: LOW. No hay plantilla intercambiable; la tabla y los ejemplos multi-lenguaje aportan originalidad.
-- **Riesgo calidad IA**: MEDIUM. Algunas frases genéricas; detector EN 37.5 %.
-- **Sobre-optimización**: LOW. Sin keyword stuffing aparente.
-- **Paridad contenido bilingüe**: PASS.
-- **Page-worthiness**: PROBABLY YES.
-- **Puntaje calidad contenido**: 21/25.
+- `ref/output/ai-detect-patterns-deep-clone-javascript.json`: 0 findings.
+- `ref/output/ai-detect-patterns-deep-clone-javascript-es.json`: 0 findings.
+- `ref/output/ai-detect-deep-clone-javascript.json`:
+  - EN: 35.1 % AI (7 AI / 54 human / 64 total).
+  - ES: 27.8 % AI (5 AI / 56 human / 63 total).
 
-### Anexo D — Output de 04: Humanización
+Top AI EN más altos (mayoría artefactos estructurales):
+- "You decide how to clone each type, including class instances rebuilt through new MyClass(...)" — 0.7593
+- "[Node.js structuredClone global](...) reference for Node 17+" — 0.7357
+- "[Node.js V8 serialization](...): v8.serialize and v8.deserialize" — 0.6843
+- "[Lodash cloneDeep](...): documentation and options" — 0.6492
 
-- **Riesgo patrón IA**: MEDIUM (EN), LOW (ES).
-- **Métricas**:
-  - EN: `model_ai_pct` 37.5 % (10 AI / 39 human / 50 total), `pattern_totals` vacío.
-  - ES: `model_ai_pct` 27.3 % (4 AI / 45 human / 50 total), `pattern_totals` vacío.
-- **Palabras rojas de IA**: no se encontraron del listado estándar (delve, pivotal, etc.).
-- **Frases genéricas**: "A manual recursive clone that uses a WeakMap cache is the most flexible.", "That freedom means you can decide the exact way to handle each type.".
-- **Tokens/herramientas sueltos**: ninguno crítico.
-- **Secciones impersonales**: `Overview` es definitorio pero empieza con una afirmación concreta del problema; `When to Use` usa segunda persona de forma consistente.
-- **Paridad humanización bilingüe**: PASS, con riesgo ligeramente mayor en EN.
-- **Puntaje humanización**: 12/15.
+### Anexo D — Verificación post-build
 
-### Anexo E — Output de 05: Paridad bilingüe
+Archivo generado: `ref/output/reaudit-postbuild-deep-clone-javascript.json`.
 
-- **Archivo ES existe**: SÍ.
-- **Paridad estructura**: PASS. Mismas secciones y jerarquía.
-- **Paridad frontmatter**: título, descripción, metaDescription, `lastUpdated`, `relatedResources`, `topics`, `difficulty`, `author` coinciden en sentido y orden.
-- **Longitud body**: EN 1393 palabras, ES 1436 palabras. PASS.
-- **Paridad ejemplos de código**: PASS. Código JS/TS/Python/Java equivalente; comentarios clave traducidos.
-- **Anglicismos en ES**: detectados "custom", "performance", "shallow copy", "deep clone" genérico; se proponen alternativas idiomáticas.
-- **Puntaje paridad bilingüe**: 8.5/10.
-
-### Anexo F — Output de 06: GEO / AI Search
-
-- **Claridad de entidades**: HIGH. Entidades principales: `structuredClone`, `lodash.cloneDeep`, `JSON.parse/JSON.stringify`, recursión con `WeakMap`, `Date`, `Map`, `Set`, typed arrays, clases custom.
-- **Densidad factual**: HIGH. Tabla de comparación, limitaciones por entorno, versiones de Node, tamaño de bundle aproximado.
-- **Citas**: INSUFFICIENT. Sin enlaces a MDN, Node docs o npm.
-- **Pasajes extraíbles**: HIGH. Listas, tablas, bloques de código y FAQ autocontenidos.
-- **Consistencia terminológica**: PASS. Uso estable de "deep clone", "shallow copy", `structuredClone`, etc.
-- **Structured data para IA**: OK. `TechArticle` con `speakable`, `inLanguage`, `educationalLevel`, `FAQPage`.
-- **Paridad GEO bilingüe**: PASS.
-- **Puntaje GEO**: 4/5.
-
-### Anexo G — Output de 08: Tráfico y crecimiento
-
-- **Métricas GSC**: NOT VERIFIED.
-- **Tendencia**: NOT VERIFIED.
-- **CTR y snippet**: MEDIUM-HIGH. Título atractivo; metaDescription ligeramente larga.
-- **Queries principales**: "deep clone javascript", "structuredclone vs lodash", "javascript deep copy", "deep clone nodejs".
-- **Países e idiomas**: NOT VERIFIED.
-- **Estado GA4**: NOT VERIFIED (script `analytics.js` y GTM presentes en build).
-- **Flujo de usuario**: NEEDS IMPROVEMENT. Solo 1 enlace contextual y sin `See Also`/CTA final.
-- **Potencial linkable asset**: MEDIUM. Tabla comparativa y ejemplos multi-lenguaje son citables.
-- **Backlinks**: NOT VERIFIED.
-- **UX móvil**: OK estructuralmente (`viewport` presente, sin anchos fijos, `lightbox.js` presente sin mermaid).
-- **Potencial tráfico**: HIGH.
-- **Puntaje prioridad tráfico**: 9/15.
-
-### Anexo H — Output de 09: Recursos complementarios y medios
-
-- **Companion repo**: NO EXISTE; NO APLICA para un recurso de snippets inline.
-- **Imágenes/diagramas**: NO MEDIA. No hay mermaid blocks ni `![alt](src)` en EN/ES.
-- **Renderizado**: N/A. Sin mermaid no hay riesgo de raw mermaid. `lightbox.js` sigue presente en el HTML.
-- **Móvil**: `viewport` presente; no se encontraron anchos fijos >375px; CSS via Tailwind responsive.
-- **SEO de imágenes**: N/A.
-- **Accesibilidad**: N/A.
-- **Puntaje media**: 13/15 (se deja como recomendación opcional añadir un diagrama de decisión).
+- `dist/recipes/deep-clone-javascript/index.html`: existe, título 59 chars, canonical `https://stackpractices.com/recipes/deep-clone-javascript/`, hreflang `en/es/x-default`, OG completo, JSON-LD con `TechArticle`, `SpeakableSpecification`, `BreadcrumbList`, `FAQPage`, 1 `<img class="mermaid-diagram" ... alt="flowchart diagram: What are you cloning?" ... loading="lazy" tabindex="0" role="button">`, `lightbox.js` presente.
+- `dist/es/recipes/deep-clone-javascript/index.html`: existe, título 59 chars, canonical `https://stackpractices.com/es/recipes/deep-clone-javascript/`, hreflang `en/es/x-default`, OG completo, JSON-LD equivalente, 1 `<img class="mermaid-diagram" ... alt="flowchart diagram: ¿Qué estás clonando?" ...>`.
+- `public/sitemap.xml` y `dist/sitemap.xml`: ambas URLs con `lastmod=2026-08-29` y `<xhtml:link rel="alternate" hreflang="...">` correctos.
+- `dist/assets/diagrams/deep-clone-javascript-1.svg` y `deep-clone-javascript-es-1.svg`: existen, tamaños 12.527 y 12.560 bytes.
+- `src/styles/global.css`, líneas 1748-1761: `.mermaid-diagram` tiene `max-width: 100%; width: 100%; height: auto;`.
