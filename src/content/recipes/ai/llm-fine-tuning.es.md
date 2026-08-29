@@ -1,9 +1,12 @@
 ---
 contentType: recipes
 slug: llm-fine-tuning
-title: "Fine-Tuning de un Modelo de Lenguaje para Generación de Código"
-description: "Cómo hacer fine-tuning de un modelo de lenguaje grande para generación de código específico de dominio usando LoRA, QLoRA y datasets personalizados."
-metaDescription: "Haz fine-tuning de LLMs para generación de código con LoRA y QLoRA. Usa Hugging Face, datasets personalizados y entrenamiento eficiente en parámetros."
+title: "Fine-Tuning de un LLM para Generación de Código"
+description: "Cómo hacer fine-tuning de un LLM para código usando LoRA y QLoRA."
+metaDescription: >-
+  Haz fine-tuning de LLMs para generación de código con LoRA y
+  QLoRA. Usa Hugging Face, datasets curados y entrenamiento
+  eficiente en parámetros.
 difficulty: advanced
 topics:
   - ai
@@ -22,11 +25,14 @@ relatedResources:
   - /recipes/python-sentiment-analysis-nltk
   - /recipes/slack-bot-openai
   - /recipes/prompt-engineering
-lastUpdated: "2026-08-18"
+lastUpdated: "2026-08-29"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Haz fine-tuning de LLMs para generación de código con LoRA y QLoRA. Usa Hugging Face, datasets personalizados y entrenamiento eficiente en parámetros."
+  metaDescription: >-
+    Haz fine-tuning de LLMs para generación de código con LoRA y
+    QLoRA. Usa Hugging Face, datasets curados y entrenamiento
+    eficiente en parámetros.
   keywords:
     - llm
     - fine-tuning
@@ -38,36 +44,33 @@ seo:
 
 ## Visión General
 
-El fine-tuning adapta un modelo de lenguaje pre-entrenado a una tarea
-específica, continuando el entrenamiento con un dataset más pequeño y curado.
-Para generación de código, esto significa enseñarle al modelo los patrones de
-API de tu empresa, bibliotecas internas o estándares de codificación. Métodos
-eficientes en parámetros como LoRA y QLoRA permiten hacer fine-tuning de
-modelos de miles de millones de parámetros en una sola GPU, actualizando solo
-una fracción mínima de pesos.
+La mayoría de los equipos con los que hablo chocan contra la misma pared cuando usan LLMs para código. El [prompt
+engineering](/recipes/prompt-engineering/) y [RAG](/recipes/semantic-search/) les alcanzan para la mayoría de los casos,
+pero después el modelo sigue tropezando con librerías internas, convenciones de nombres o patrones de manejo de errores
+que no están en internet. Ahí es donde yo recurría al fine-tuning.
 
-Esta receta cubre preparar un dataset de código, hacer fine-tuning con
-LoRA/QLoRA usando Hugging Face y evaluar el modelo resultante.
+El fine-tuning continúa el entrenamiento de un modelo pre-entrenado con un dataset más pequeño y curado, para que
+aprenda los patrones específicos de tu empresa. Para código, eso suele significar las formas de tus APIs, DSLs internos
+o la forma en que tu equipo nombra las cosas. LoRA y QLoRA hacen esto viable en una sola GPU actualizando solo una
+fracción mínima de los pesos. Esta receta cubre el dataset, el loop de entrenamiento y algunos errores que cometí para
+que vos no tengas que cometerlos.
 
 ## Cuándo Usar
 
-Usá esta receta cuando:
+Yo recurría al fine-tuning cuando:
 
-- Necesitás un modelo que entienda tus APIs internas, DSLs o frameworks
-  propietarios.
-- El [prompt engineering](/recipes/prompt-engineering/) y
-  [RAG](/recipes/semantic-search/) no alcanzan para patrones de código
-  altamente especializados.
-- Tenés entre 500 y 10.000 ejemplos de código de alta calidad y querés mejorar
-  la precisión de completado.
-- Querés reducir costos de inferencia usando un modelo más pequeño y
-  específico de tarea.
+- el [prompt engineering](/recipes/prompt-engineering/) funciona para los casos genéricos pero falla con nuestros
+    patrones de API internos;
+- [RAG](/recipes/semantic-search/) le da contexto al modelo, pero el código generado todavía parece venir de otro
+    repositorio;
+- tengo entre 500 y 10.000 ejemplos limpios y quiero dejar de escribir prompts a mano para cada caso borde;
+- quiero servir un modelo más chico y específico de la tarea, más rápido y barato que el base.
 
-Evitá el fine-tuning completo cuando:
+Evito el full fine-tuning cuando:
 
-- El prompt engineering con few-shot ya funciona.
-- Tenés menos de 200 ejemplos (probablemente harás overfitting).
-- La definición de la tarea cambia frecuentemente (reentrenar se vuelve caro).
+- los ejemplos few-shot ya resuelven la tarea;
+- tengo menos de 200 ejemplos, porque el modelo suele memorizarlos;
+- la definición de la tarea cambia semanalmente, porque reentrenar se vuelve caro rápido.
 
 ## Solución
 
@@ -95,10 +98,26 @@ model = AutoModelForCausalLM.from_pretrained(
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 tokenizer.pad_token = tokenizer.eos_token
 
-# 2. Preparar dataset
+# 2. Preparar un dataset de ejemplo chico; reemplazá con tus ejemplos reales
 raw_data = [
-    {"text": "### Task: Generar función Python para validar email\n### Response:\nimport re\ndef validate_email(email):\n    return re.match(r'...', email) is not None"},
-    {"text": "### Task: Crear hook useFetch de React\n### Response:\nimport { useState, useEffect } from 'react';\nfunction useFetch(url) { ... }"},
+    {
+        "text": (
+            "### Task: Escribir una función Python que sume dos números\n"
+            "### Response:\n"
+            "def sumar(a, b):\n"
+            "    return a + b\n\n"
+            "print(sumar(3, 5))"
+        )
+    },
+    {
+        "text": (
+            "### Task: Escribir una función Python que duplique un número\n"
+            "### Response:\n"
+            "def duplicar(x):\n"
+            "    return x * 2\n\n"
+            "print(duplicar(7))"
+        )
+    },
 ]
 dataset = Dataset.from_list(raw_data)
 
@@ -149,6 +168,14 @@ trainer.train()
 model.save_pretrained("./code-lora-final")
 ```
 
+Para correr esto, instalá las dependencias principales:
+
+```bash
+pip install transformers==4.48.0 peft==0.14.0 datasets==3.2.0
+```
+
+Para QLoRA, agregá `bitsandbytes==0.45.0` y `accelerate==1.3.0`.
+
 ### JavaScript
 
 ```javascript
@@ -198,30 +225,45 @@ public class CodeGenerator {
 
 ## Explicación
 
-El fine-tuning actualiza los pesos de un modelo pre-entrenado para mejorar el
-rendimiento en una tarea estrecha. El fine-tuning completo (actualizando todos
-los miles de millones de parámetros) requiere clusters masivos de GPU.
-**LoRA** (Low-Rank Adaptation) resuelve esto inyectando pequeñas matrices de
-descomposición de rango entrenables en capas de atención mientras congela el
-modelo base. Esto reduce los parámetros entrenables en 99%+ manteniendo la mayor
-parte de la calidad del fine-tuning completo.
+El fine-tuning actualiza los pesos de un modelo pre-entrenado para que mejore en una tarea estrecha. El full fine-
+tuning, donde actualizás todos los miles de millones de parámetros, necesita un cluster de GPUs de gama alta. **LoRA**
+(Low-Rank Adaptation) evita esto inyectando matrices pequeñas y entrenables de descomposición de rango en las capas de
+atención, mientras congela el modelo base. Puede reducir los parámetros entrenables en un 99% o más manteniendo la mayor
+parte de la calidad del full fine-tuning.
 
-**QLoRA** va más allá cargando el modelo base en precisión cuantizada de 4 bits
-(NormalFloat4), reduciendo el uso de VRAM aproximadamente 4x comparado con
-16 bits. Podés hacer fine-tuning de un modelo de 7B parámetros en una sola GPU de
-24GB.
+**QLoRA** va más allá cargando el modelo base en precisión cuantizada de 4 bits. Eso reduce el uso de VRAM
+aproximadamente 3-4x comparado con 16 bits, así que podés hacer fine-tuning de un modelo de 7B parámetros en una sola
+GPU de 24GB. La contra es la velocidad: los pesos de 4 bits necesitan dequantización en cada forward pass. Yo usaba
+QLoRA para experimentos rápidos en una RTX 3090 y pasaba a LoRA de 16 bits en una A100 alquilada cuando necesitaba una
+corrida de producción.
 
-El ciclo de entrenamiento es directo:
+El loop de entrenamiento es simple sobre el papel:
 
-1. Tokenizá tus ejemplos de código en input IDs y attention masks.
-2. Hacé un forward pass a través del modelo base congelado más los adaptadores
-   LoRA.
+1. Tokenizá los ejemplos de código en input IDs y attention masks.
+2. Hacé un forward pass a través del modelo base congelado más los adaptadores LoRA.
 3. Calculá la pérdida en la predicción del siguiente token.
 4. Retropropagá solo a través de los parámetros LoRA.
-5. Repetí por 1–5 epochs en unos cientos a miles de ejemplos.
+5. Repetí por 1 a 5 epochs sobre unos pocos cientos a miles de ejemplos.
 
-Para QLoRA, reemplazá la carga del modelo con `BitsAndBytesConfig` (cuantización
-a 4 bits) y pasala a `from_pretrained`:
+La parte que me llevó más tiempo dominar es el formato de los datos. Al modelo no le importan tus comentarios a menos
+que estén dentro de un template consistente. Yo uso `### Task: ...\n### Response: ...` para cada ejemplo.
+
+Este es el modelo mental que uso cuando armo esto:
+
+```mermaid
+flowchart LR
+    Base[Modelo base] --> Quantize{Cuantizar?}
+    Quantize -->|No| LoRA[Adjuntar adaptadores LoRA]
+    Quantize -->|Sí| QLoRA[Carga QLoRA 4-bit]
+    QLoRA --> LoRA
+    LoRA --> Tokenize[Tokenizar dataset]
+    Tokenize --> Train[Entrenar]
+    Train --> Eval[Evaluar en held-out set]
+    Eval --> Merge[Mergear o mantener adaptadores]
+    Merge --> Deploy[Desplegar con vLLM]
+```
+
+Para QLoRA, reemplazá la carga del modelo con `BitsAndBytesConfig`:
 
 ```python
 from transformers import BitsAndBytesConfig
@@ -237,12 +279,33 @@ model = AutoModelForCausalLM.from_pretrained(
 )
 ```
 
+### Elegir los hiperparámetros de LoRA
+
+Dos números importan más que el resto: el rank (`r`) y `lora_alpha`. Yo empiezo con `r=16` y `alpha=32`, que es la
+relación 2:1 habitual. Ranks más bajos entrenan más rápido y usan menos memoria, pero pueden underfitear en contextos
+largos y estructurados. Ranks más altos ayudan ahí, aunque raramente subo de `r=64` porque las ganancias se estancan y
+el checkpoint se hace más pesado.
+
+| Situación | r | lora_alpha | Notas |
+| --- | --- | --- | --- |
+| Experimento rápido en dataset chico | 8 | 16 | Rápido, poca memoria, subajusta fácil |
+| Punto de partida por defecto | 16 | 32 | Buen balance para la mayoría de las tareas de código |
+| Prompts largos y estructurados | 32-64 | 64-128 | Más capacidad, más memoria y tiempo |
+| Producción 7B en A100 | 16-32 | 32-64 | Estable y fácil de reproducir |
+
+### Evaluar el modelo
+
+Nunca me fío solo de la pérdida de entrenamiento. Reservo entre el 10% y el 20% de los datos y comparo el modelo fine-
+tuneado contra el base con exact-match accuracy para completación de código, pass@k, o BLEU/ROUGE para lenguaje natural.
+Después hago una revisión manual de 20 a 50 muestras. Las métricas automáticas pueden pasar por alto errores sutiles,
+así que el chequeo manual es donde agarro al modelo cambiando un nombre de método o ignorando un caso borde.
+
 ### Costos y escala
 
 | Enfoque | Setup | Costo (aprox.) | Notas |
 | --- | --- | --- | --- |
-| LoRA 7B en A100 | 1x A100 80GB | $10–$25/run | 2–6 horas para 10K ejemplos |
-| QLoRA 7B en RTX 3090 | 1x GPU 24GB | $5–$15/run | Más lento, pero entra en GPUs de consumo |
+| LoRA 7B en A100 | 1x A100 80GB | $10-$25/run | 2-6 horas para 10K ejemplos |
+| QLoRA 7B en RTX 3090 | 1x GPU 24GB | $5-$15/run | Más lento, pero entra en GPUs de consumo |
 | OpenAI fine-tuning | Solo API | Pago por token | Sin infraestructura, pero menos control |
 | Inferencia (vLLM) | Self-hosted | ~$0.001/1K tokens | Más barato que API para alto volumen |
 
@@ -257,85 +320,72 @@ model = AutoModelForCausalLM.from_pretrained(
 | Adapter layers | Pequeñas capas bottleneck | Idea similar a LoRA; menos adoptado |
 | [OpenAI fine-tuning](/recipes/chatbot-openai/) | Basado en API | Subir JSONL, sin infraestructura; pago por token |
 
+Yo uso LoRA para casi todo y considero full fine-tuning solo cuando el presupuesto de cómputo es trivial y la barra de
+calidad es extremadamente alta.
+
 ## Mejores Prácticas
 
-- **Curá ejemplos de alta calidad**. 500 ejemplos excelentes superan 10.000
-  mediocres.
-- **Formateá prompts consistentemente**. Usá una plantilla como
-  `### Task: ...\n### Response: ...` para que el modelo aprenda el patrón.
-- **Empezá con LoRA rank 8–16**. Aumentá el rank solo si el underfitting
-  persiste después de 3 epochs.
-- **Usá learning rate 1e-4 a 2e-4 con decaimiento coseno**. Tasas agresivas
-  pueden colapsar el modelo.
-- **Reservá 10–20% de los datos para validación**. Sin eso, no podés detectar
-  overfitting.
-- **Mergeá los pesos de LoRA antes del despliegue**. Usá
-  `model.merge_and_unload()` para reducir la latencia de inferencia.
-- **Logueá métricas a Weights & Biases o TensorBoard**. Seguí la pérdida, el
-  learning rate y las métricas de validación en tiempo real.
+- Yo solo hago fine-tuning cuando los ejemplos son de alta calidad. Quinientos ejemplos buenos suelen superar diez mil
+    mediocres.
+- Formateo cada ejemplo con el mismo template de prompt. Para código uso `### Task: ...\n### Response: ...`.
+- Empiezo con LoRA rank 8 a 16 y escalo solo si la pérdida de validación deja de bajar.
+- Mantengo el learning rate entre `1e-4` y `2e-4` con decaimiento coseno. Tasas más altas han colapsado modelos en mis
+    corridas.
+- Reservo entre el 10% y el 20% de los datos para validación. Sin eso no puedo saber cuándo empieza el overfitting.
+- Mergeo los pesos de LoRA antes de la inferencia en producción con `model.merge_and_unload()` para reducir la
+    latencia por token.
+- Logueo a Weights & Biases o TensorBoard desde el inicio. Las curvas son la forma más rápida de detectar una corrida
+    mala.
 
 ## Errores Comunes
 
-- **Overfitting** — entrenar demasiado en datasets pequeños causa memorización
-  literal; usá early stopping.
-- **Fuga de datos** — asegurate de que ejemplos de prueba no aparezcan en
-  entrenamiento; deduplicá rigurosamente.
-- **Modelo base incorrecto** — no hagas fine-tuning de un modelo chat para
-  código; usá CodeLlama, StarCoder o DeepSeek-Coder.
-- **Mismatch del tokenizador** — asegurate de que tus ejemplos de código
-  tokenicen limpiamente; verificá tokens desconocidos.
-- **Sin línea base de evaluación** — compará siempre contra el modelo base con
-  zero-shot prompting antes de fine-tuning.
-- **No shufflear los datos** — datasets ordenados hacen que el modelo aprenda
-  el orden en lugar del contenido.
-- **Demasiados epochs** — 3 epochs suele ser suficiente para LoRA; más lleva a
-  memorización.
-- **Ignorar la contaminación** — incluso variaciones menores de ejemplos de test
-  en entrenamiento inflan las métricas artificialmente.
+- **Overfitting:** entrenar demasiado en datasets pequeños causa memorización literal. Yo uso early stopping.
+- **Fuga de datos:** incluso variaciones menores de ejemplos de prueba en entrenamiento inflan las métricas. Yo
+    deduplico rigurosamente.
+- **Modelo base incorrecto:** no hagas fine-tuning de un modelo chat para código. Yo uso CodeLlama, StarCoder o
+    DeepSeek-Coder.
+- **Mismatch del tokenizador:** verifico tokens desconocidos antes de entrenar, especialmente con símbolos custom de
+    DSLs internos.
+- **Sin línea base de evaluación:** siempre comparo el modelo base con zero-shot prompting primero.
+- **No shufflear los datos:** datasets ordenados hacen que el modelo aprenda el orden en lugar del contenido.
+- **Demasiados epochs:** tres epochs suele ser suficiente para LoRA; más lleva a memorización.
+- **Ignorar la contaminación:** mantengo un split estricto y rechazo ejemplos que sean paráfrasis de casos de test.
 
 ## Preguntas Frecuentes
 
 ### ¿Cuántos datos necesito?
 
-Para generación de código, 500–2.000 ejemplos de alta calidad suelen bastar con
-LoRA. Más datos ayudan para dominios más amplios, pero la calidad y el formato
-importan más que el volumen.
+Para generación de código, 500 a 2.000 ejemplos de alta calidad suelen bastar con LoRA. Más datos ayudan para dominios
+más amplios, pero la calidad y el formato importan más que el volumen.
 
 ### ¿Puedo hacer fine-tuning sin GPU?
 
-QLoRA en Google Colab (T4 gratis) funciona para modelos 7B con batch sizes muy
-pequeños. Para entrenamiento en producción, rentá una A100 o usá servicios como
-Lambda Labs, RunPod o Together AI.
+QLoRA en Google Colab con una T4 gratis funciona para modelos 7B con batch sizes muy pequeños. Para entrenamiento en
+producción, alquilá una A100 o usá servicios como Lambda Labs, RunPod o Together AI.
 
 ### ¿Debería usar la API de fine-tuning de OpenAI?
 
-Si necesitás calidad de modelo propietario y tenés presupuesto, sí. Consultá
-[Chatbot con OpenAI](/recipes/chatbot-openai/) para enfoques basados en API. Para
-control de costos, privacidad o despliegue on-premise, usá modelos de código
-abierto con LoRA/QLoRA en tu propio hardware.
+Si necesitás calidad de modelo propietario y tenés presupuesto, sí. Consultá [Chatbot con OpenAI](/recipes/chatbot-
+openai/) para enfoques basados en API. Para control de costos, privacidad o despliegue on-premise, usá modelos open
+source con LoRA/QLoRA en tu propio hardware.
 
 ### ¿Cómo formateo mis datos de entrenamiento?
 
-Usá una plantilla de prompt consistente. Para generación de código, el formato
-`### Task: ...\n### Response: ...` funciona bien. Cada ejemplo de entrenamiento
-debería ser un solo string con la tarea y respuesta concatenadas. Mantené los
-ejemplos bajo 512 tokens; aumentá `max_length` para ejemplos más largos, pero
-reducí el batch size.
+Usá un template de prompt consistente. Para generación de código, el formato `### Task: ...\n### Response: ...` funciona
+bien. Cada ejemplo debería ser un solo string con la tarea y respuesta concatenadas. Mantené los ejemplos bajo 512
+tokens, o aumentá `max_length` para ejemplos más largos y reducí el batch size.
 
 ### ¿Cómo sé si mi modelo fine-tuned es mejor?
 
-Compará contra el modelo base en un conjunto de prueba separado. Medí
-exact-match accuracy para completación de código, BLEU/ROUGE para lenguaje
-natural y pass@k para generación de código. También ejecutá evaluación humana en
-20–50 muestras; las métricas automatizadas pueden perder diferencias sutiles de
-calidad.
+Compará contra el modelo base en un conjunto de prueba separado. Medí exact-match accuracy para completación de código,
+BLEU/ROUGE para lenguaje natural y pass@k para generación de código. También ejecutá evaluación humana en 20 a 50
+muestras; las métricas automatizadas pueden perder diferencias sutiles de calidad.
 
 ### ¿Puedo hacer fine-tuning para múltiples lenguajes?
 
-Sí, pero incluí tags de lenguaje en tus datos de entrenamiento, por ejemplo
-`### Language: Python\n### Task: ...`. Mezclá ejemplos de diferentes lenguajes en
-el mismo dataset. El modelo aprende a usar el tag para switchear contextos. Usá
-un modelo base multilingüe como CodeLlama o DeepSeek-Coder.
+Sí, pero incluí tags de lenguaje en tus datos de entrenamiento, por ejemplo `### Language: Python\n### Task: ...`.
+Mezclá ejemplos de diferentes lenguajes en el mismo dataset y usá un modelo base multilingüe como CodeLlama o DeepSeek-
+Coder.
 
 ### ¿Cómo despliego un modelo fine-tuned?
 
@@ -345,11 +395,17 @@ Tres opciones:
 2. Serví con adaptadores LoRA separadamente usando PEFT inference.
 3. Subí a la API de fine-tuning de OpenAI para inference hospedado.
 
-Para producción, usá vLLM con pesos mergeados para mejor throughput.
+Para producción, yo uso vLLM con pesos mergeados para mejor throughput.
 
 ### ¿Cuál es la diferencia entre LoRA rank y alpha?
 
-El rank (`r`) controla el tamaño de las matrices de update — mayor rank significa
-más capacidad pero más parámetros a entrenar. Alpha (`lora_alpha`) escala el
-update de LoRA; típicamente se setea a 2x el rank. Comenzá con r=16, alpha=32.
-Aumentá el rank solo si el modelo underfitea después de 3 epochs.
+El rank (`r`) controla el tamaño de las matrices de update. Mayor rank significa más capacidad pero más parámetros a
+entrenar. Alpha (`lora_alpha`) escala el update de LoRA; típicamente se setea a 2x el rank. Yo empiezo con `r=16,
+alpha=32` y solo aumento el rank si el modelo subajusta después de 3 epochs.
+
+## Ver También
+
+Para las referencias oficiales, leé el [paper de LoRA](https://arxiv.org/abs/2106.09685), el [paper de
+QLoRA](https://arxiv.org/abs/2305.14314), la [documentación de Hugging Face PEFT](https://huggingface.co/docs/peft), la
+[documentación de fine-tuning de OpenAI](https://platform.openai.com/docs/guides/fine-tuning) y la [guía de experimentos
+de Weights & Biases](https://docs.wandb.ai).

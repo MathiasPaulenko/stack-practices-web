@@ -1,0 +1,409 @@
+[
+  {
+    "label": "llm-fine-tuning-en",
+    "model": "desklib",
+    "model_ai_pct": 38.9,
+    "ai_count": 20,
+    "human_count": 62,
+    "skipped_count": 2,
+    "total": 84,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 19.9,
+      "stddev": 25.1,
+      "cv": 1.26,
+      "verdict": "natural variation",
+      "sentence_count": 82,
+      "lengths": [
+        13,
+        29,
+        8,
+        17,
+        17,
+        19,
+        19,
+        69,
+        34,
+        13,
+        10,
+        21,
+        18,
+        22,
+        18,
+        8,
+        19,
+        13,
+        25,
+        17,
+        13,
+        6,
+        6,
+        15,
+        13,
+        20,
+        35,
+        14,
+        15,
+        31,
+        89,
+        29,
+        11,
+        25,
+        219,
+        9,
+        10,
+        9,
+        19,
+        18,
+        12,
+        8,
+        11,
+        10,
+        13,
+        11,
+        18,
+        10,
+        12,
+        10,
+        6,
+        21,
+        23,
+        15,
+        14,
+        16,
+        12,
+        14,
+        17,
+        16,
+        17,
+        7,
+        17,
+        10,
+        33,
+        15,
+        11,
+        15,
+        19,
+        9,
+        29,
+        17,
+        17,
+        8,
+        15,
+        8,
+        10,
+        14,
+        15,
+        17,
+        19,
+        28
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "The catch is training speed: 4-bit weights need dequantization on every forward pass.",
+        0.8901
+      ],
+      [
+        "The model doesn't even look at your comments\nunless they're inside the same template as the rest of the example.",
+        0.8272
+      ],
+      [
+        "**QLoRA** loads the base model in 4-bit precision.",
+        0.7769
+      ],
+      [
+        "That's the point where I reach for fine-tuning.",
+        0.772
+      ],
+      [
+        "Pick one prompt template and use it for every example.",
+        0.7581
+      ],
+      [
+        "I also read through 20 to 50 samples manually and check for wrong\nmethod names or missed edge cases.",
+        0.6988
+      ],
+      [
+        "Higher rates have collapsed models in my runs.",
+        0.6888
+      ],
+      [
+        "Without it, I can't tell when the model starts overfitting.",
+        0.6453
+      ],
+      [
+        "Fine-tuning continues training a pre-trained model on a smaller, curated dataset so it learns your company-specific\npatterns.",
+        0.6374
+      ],
+      [
+        "**No evaluation baseline:** I always run the base model with a few zero-shot prompts before training, so I have a\n    number to beat.",
+        0.5915
+      ],
+      [
+        "For cost control, privacy, or on-premise deployment, I\nprefer open-source models with LoRA/QLoRA on my own hardware.",
+        0.5878
+      ],
+      [
+        "**LoRA** (Low-Rank Adaptation) gets around that by injecting small,\ntrainable matrices into attention layers while the rest of the model stays frozen.",
+        0.5759
+      ],
+      [
+        "The r value sets how big the adapter matrices are.",
+        0.5491
+      ],
+      [
+        "I add a header like this before each example:\n\n\n\nMix examples from different languages in the same dataset and use a multilingual base model like CodeLlama or DeepSeek-\nCoder.",
+        0.5473
+      ],
+      [
+        "This recipe covers the dataset, the\ntraining loop, and a few mistakes I made so you don't have to.",
+        0.5472
+      ],
+      [
+        "I start with r=16, alpha=32 and only\nincrease r if the validation loss is still flat after 3 epochs.",
+        0.5395
+      ],
+      [
+        "Then I do a manual review of\n20 to 50 samples.",
+        0.5251
+      ],
+      [
+        "To run this, install the core dependencies:\n\n\n\nFor QLoRA, add bitsandbytes==0.45.0 and accelerate==1.3.0.",
+        0.5195
+      ],
+      [
+        "That gives the best throughput I have\nmeasured.",
+        0.5087
+      ],
+      [
+        "For code generation, 500 to 2,000 high-quality examples often suffice with LoRA.",
+        0.5014
+      ],
+      [
+        "**Overfitting:** training too long on small datasets causes verbatim memorization.",
+        0.4939
+      ],
+      [
+        "Compute the loss on next-token prediction.",
+        0.4931
+      ],
+      [
+        "More data helps for broader domains,\nbut quality and formatting matter more than volume.",
+        0.4929
+      ],
+      [
+        "Automated metrics can miss subtle bugs, so the manual check is where I catch the model swapping a\nmethod name or ignoring an edge case.",
+        0.4871
+      ],
+      [
+        "In my runs it often cuts trainable\nparameters by 99% or more while keeping most of the quality.",
+        0.4802
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "llm-fine-tuning-es",
+    "model": "desklib",
+    "model_ai_pct": 36.6,
+    "ai_count": 21,
+    "human_count": 60,
+    "skipped_count": 4,
+    "total": 85,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 20.4,
+      "stddev": 27.4,
+      "cv": 1.34,
+      "verdict": "natural variation",
+      "sentence_count": 81,
+      "lengths": [
+        19,
+        36,
+        7,
+        25,
+        22,
+        18,
+        21,
+        74,
+        35,
+        13,
+        16,
+        21,
+        24,
+        20,
+        14,
+        29,
+        16,
+        27,
+        20,
+        14,
+        9,
+        8,
+        14,
+        14,
+        16,
+        7,
+        31,
+        12,
+        18,
+        22,
+        99,
+        32,
+        10,
+        29,
+        236,
+        11,
+        8,
+        9,
+        8,
+        18,
+        11,
+        9,
+        12,
+        9,
+        19,
+        10,
+        12,
+        9,
+        15,
+        12,
+        6,
+        16,
+        14,
+        17,
+        13,
+        17,
+        15,
+        18,
+        17,
+        17,
+        10,
+        10,
+        18,
+        6,
+        11,
+        13,
+        18,
+        11,
+        17,
+        18,
+        18,
+        20,
+        17,
+        8,
+        11,
+        11,
+        11,
+        10,
+        14,
+        18,
+        34
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Para c\u00f3digo uso ### Task: ...\\n### Response: ....",
+        0.9565
+      ],
+      [
+        "Yo uso ### Task: ...\\n### Response: ...",
+        0.8559
+      ],
+      [
+        "**Ignorar la contaminaci\u00f3n:** mantengo un split estricto y rechazo ejemplos que sean par\u00e1frasis de casos de test.",
+        0.8474
+      ],
+      [
+        "S\u00ed, pero inclu\u00ed tags de lenguaje en tus datos de entrenamiento, por ejemplo ### Language: Python\\n### Task: ....",
+        0.8451
+      ],
+      [
+        "La contra es la velocidad: los pesos de 4 bits necesitan dequantizaci\u00f3n en cada forward pass.",
+        0.8092
+      ],
+      [
+        "Para generaci\u00f3n de c\u00f3digo, el formato ### Task: ...\\n### Response: ...",
+        0.7764
+      ],
+      [
+        "Las curvas son la forma m\u00e1s r\u00e1pida de detectar una corrida\n    mala.",
+        0.7718
+      ],
+      [
+        "Compar\u00e1 contra el modelo base en un conjunto de prueba separado.",
+        0.7168
+      ],
+      [
+        "**QLoRA** va m\u00e1s all\u00e1 cargando el modelo base en precisi\u00f3n cuantizada de 4 bits.",
+        0.7165
+      ],
+      [
+        "Calcul\u00e1 la p\u00e9rdida en la predicci\u00f3n del siguiente token.",
+        0.6956
+      ],
+      [
+        "Sub\u00ed a la API de fine-tuning de OpenAI para inference hospedado.",
+        0.6487
+      ],
+      [
+        "LoRA y QLoRA hacen esto viable en una sola GPU actualizando solo una\nfracci\u00f3n m\u00ednima de los pesos.",
+        0.6437
+      ],
+      [
+        "Yo empiezo con r=16,\nalpha=32 y solo aumento el rank si el modelo subajusta despu\u00e9s de 3 epochs.",
+        0.6126
+      ],
+      [
+        "Retropropag\u00e1 solo a trav\u00e9s de los par\u00e1metros LoRA.",
+        0.5759
+      ],
+      [
+        "**Modelo base incorrecto:** no hagas fine-tuning de un modelo chat para c\u00f3digo.",
+        0.5701
+      ],
+      [
+        "**Mismatch del tokenizador:** verifico tokens desconocidos antes de entrenar, especialmente con s\u00edmbolos custom de\n    DSLs internos.",
+        0.551
+      ],
+      [
+        "Para producci\u00f3n, yo uso vLLM con pesos mergeados para mejor throughput.",
+        0.5445
+      ],
+      [
+        "Despu\u00e9s hago una revisi\u00f3n manual de 20 a 50 muestras.",
+        0.5233
+      ],
+      [
+        "Si necesit\u00e1s calidad de modelo propietario y ten\u00e9s presupuesto, s\u00ed.",
+        0.5095
+      ],
+      [
+        "La mayor\u00eda de los equipos con los que hablo chocan contra la misma pared cuando usan LLMs para c\u00f3digo.",
+        0.5077
+      ],
+      [
+        "Tasas m\u00e1s altas han colapsado modelos en mis\n    corridas.",
+        0.5062
+      ],
+      [
+        "Ah\u00ed es donde yo recurr\u00eda al fine-tuning.",
+        0.4882
+      ],
+      [
+        "**Fuga de datos:** incluso variaciones menores de ejemplos de prueba en entrenamiento inflan las m\u00e9tricas.",
+        0.4868
+      ],
+      [
+        "Sin eso no puedo saber cu\u00e1ndo empieza el overfitting.",
+        0.4806
+      ],
+      [
+        "Este es el modelo mental que uso cuando armo esto:\n\n\n\nPara QLoRA, reemplaz\u00e1 la carga del modelo con BitsAndBytesConfig:\n\n\n\n\n\nDos n\u00fameros importan m\u00e1s que el resto: el rank (r) y lo",
+        0.4665
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
