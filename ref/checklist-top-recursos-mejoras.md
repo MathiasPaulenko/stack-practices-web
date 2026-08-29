@@ -20,7 +20,7 @@
 18. - [x] **generate-pdf-report-python** (recipes) — 95.0/100 ✅ PROMOTE
 19. - [ ] **go-rest-api-gin** (recipes) — 80.7/100 FIX-THEN-PROMOTE
 20. - [ ] **llm-fine-tuning** (recipes)
-21. - [ ] **complete-guide-modular-monolith** (guides)
+21. - [x] **complete-guide-modular-monolith** (guides) — 85.0/100 ✅ PROMOTE
 22. - [ ] **deep-clone-javascript** (recipes)
 23. - [ ] **rabbitmq-task-queue** (recipes)
 24. - [ ] **partial-class-pattern** (patterns)
