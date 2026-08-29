@@ -2,184 +2,204 @@
   {
     "label": "go-rest-api-gin-en",
     "model": "desklib",
-    "model_ai_pct": 43.3,
-    "ai_count": 23,
-    "human_count": 40,
+    "model_ai_pct": 38.2,
+    "ai_count": 21,
+    "human_count": 62,
     "skipped_count": 1,
-    "total": 64,
+    "total": 84,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 12.4,
-      "stddev": 4.9,
-      "cv": 0.4,
+      "mean": 16.1,
+      "stddev": 7.8,
+      "cv": 0.48,
       "verdict": "somewhat uniform",
-      "sentence_count": 63,
+      "sentence_count": 83,
       "lengths": [
-        9,
-        18,
-        21,
-        10,
-        13,
-        9,
-        7,
+        38,
+        19,
+        36,
+        34,
         16,
-        11,
-        20,
-        24,
-        14,
+        18,
         17,
         8,
+        13,
+        7,
+        16,
+        16,
         11,
-        7,
-        15,
-        7,
-        23,
-        12,
-        8,
-        8,
         11,
         18,
-        13,
-        5,
-        10,
-        5,
-        15,
-        11,
-        14,
         9,
+        23,
+        24,
+        14,
+        12,
+        8,
+        17,
+        24,
+        16,
         11,
+        18,
+        18,
+        23,
+        27,
+        9,
+        13,
+        22,
+        49,
+        18,
+        6,
+        16,
+        17,
+        32,
+        13,
+        12,
+        12,
+        6,
+        14,
+        13,
+        14,
         11,
-        7,
-        10,
+        22,
+        19,
+        14,
+        25,
+        8,
+        23,
+        8,
+        22,
         12,
         13,
         21,
         6,
         12,
         19,
-        9,
-        12,
-        13,
-        21,
-        9,
-        9,
-        10,
-        15,
         11,
+        20,
+        27,
+        12,
+        12,
+        16,
         15,
-        9,
-        18,
         10,
+        18,
+        16,
+        14,
         8,
-        17,
-        7,
-        25,
-        7,
-        10,
         18,
-        5
+        14,
+        26,
+        11,
+        6,
+        19,
+        8,
+        8,
+        5,
+        12,
+        10
       ]
     },
     "top_ai_sentences": [
       [
-        "Run load tests on the slowest percentiles, not just average latency.",
-        0.9037
+        "When I need rate limiting, I use a token bucket such as golang.org/x/time/rate\nas middleware.",
+        0.8293
       ],
       [
-        "Use gin.New() instead of gin.Default() when you want full control over\n  which middleware runs and in which order.",
-        0.7667
+        "It saves a lot\nof json.Unmarshal boilerplate, but only the shape of the input.",
+        0.7956
       ],
       [
-        "Calling c.Abort() without writing a response, which leaves the client\n  hanging.",
-        0.7227
+        "What I like most, though, is the middleware chain.",
+        0.7862
       ],
       [
-        "Register a /health endpoint that returns 200 with {\"status\": \"healthy\"}.",
-        0.7193
+        "For the official reference, read the [Gin documentation](https://gin-gonic.com/docs/).",
+        0.7536
       ],
       [
-        "Close\ndatabase connections and flush logs after shutdown completes.",
-        0.712
+        "It gives back an\nerror value instead of forcing a 400 response, so the JSON format is up to me.",
+        0.6904
       ],
       [
-        "For a per-client limiter, store one limiter per IP or user ID.",
-        0.7109
+        "[golang.org/x/time/rate](https://pkg.go.dev/golang.org/x/time/rate) explains the token-bucket limiter.",
+        0.6716
       ],
       [
-        "Cross-cutting concerns such as logging, auth, and metrics must be reusable\n  across endpoints.",
-        0.7077
+        "If you forget c.Next() in custom middleware, the handler never runs and the\n  client gets an empty 200 OK.",
+        0.6233
       ],
       [
-        "You need a fast, lightweight HTTP framework for Go services.",
-        0.7039
+        "The catch is that its built-in logger\noften collides with the custom one I add later.",
+        0.5994
       ],
       [
-        "Use the middleware in main.go:\n\n\n\n\n\n\n\n\n\n\n\nAttach errors to the context with c.Error(err) in handlers or middleware.",
-        0.6511
-      ],
-      [
-        "Use swaggo/swag to generate OpenAPI docs from annotations.",
-        0.6481
-      ],
-      [
-        "Always add your own business validation where needed.",
-        0.6237
-      ],
-      [
-        "For a single\ninstance, one limiter per client IP works.",
-        0.6182
-      ],
-      [
-        "It's a shortcut over manual parsing, but it only tells you that the input\nmatches the rules.",
-        0.6175
-      ],
-      [
-        "Use a token bucket such as golang.org/x/time/rate as middleware.",
-        0.5934
-      ],
-      [
-        "This recipe shows how to build a small but production-ready\nREST API with custom middleware, validation, structured errors, and graceful\nshutdown.",
-        0.5865
-      ],
-      [
-        "Keep middleware small and focused.",
-        0.5787
+        "I return\n401 whenever the token is missing, invalid, or expired.",
+        0.5809
       ],
       [
         "You can run gRPC and HTTP servers side by side, or use grpc-gateway to\nexpose HTTP endpoints generated from protobuf definitions.",
         0.575
       ],
       [
-        "Create a router with mocked dependencies and assert on the\nstatus code, body, and headers.",
-        0.5667
+        "I generate OpenAPI docs with swaggo/swag from annotations.",
+        0.5581
       ],
       [
-        "Errors attached\nwith c.Error() are collected there.",
-        0.5404
+        "I create a router with mocked dependencies and assert on the\nstatus code, body, and headers.",
+        0.5545
       ],
       [
-        "Use httptest.NewRecorder() and router.ServeHTTP to call handlers without\nstarting a server.",
-        0.54
+        "I have used it for internal services and public APIs\n  where I need low latency without the ceremony.",
+        0.5527
       ],
       [
-        "The error handler at the end of the chain inspects c.Errors.",
-        0.5368
+        "Calling c.Abort() without writing a response leaves the client hanging until\n  it times out.",
+        0.5515
       ],
       [
-        "This keeps handlers from writing the\nresponse twice and makes the final response format consistent.",
-        0.5196
+        "I add rate limiting when I want to protect a subset of routes or the whole API\nfrom a sudden burst of traffic.",
+        0.5413
       ],
       [
-        "Return\n401 for invalid or expired tokens.",
-        0.518
+        "I use httptest.NewRecorder() and router.ServeHTTP to call handlers without\nstarting a server.",
+        0.5383
       ],
       [
-        "The API serves SPAs, mobile clients, or other backends.",
-        0.4715
+        "I extract the token from the Authorization: Bearer <token> header, validate it\nwith a JWT library, and store the user ID in the context with c.Set().",
+        0.5353
       ],
       [
-        "Group routes by domain with gin.RouterGroup.",
-        0.4671
+        "This stops you from calling c.JSON twice and keeps clients from\nseeing raw Go error strings.",
+        0.5165
+      ],
+      [
+        "When load testing, I look at p95 and p99 latency, not the average.",
+        0.5074
+      ],
+      [
+        "I also use Gin when the same concerns (logging, auth, metrics) need to run\n  before every route.",
+        0.5044
+      ],
+      [
+        "For Gin add-ons, see the [CORS middleware](https://github.com/gin-contrib/cors) and the\n[Swaggo OpenAPI generator](https://github.com/swaggo/swag).",
+        0.5021
+      ],
+      [
+        "The error handler sits at the end of the chain and inspects c.Errors after the\nhandler returns.",
+        0.4997
+      ],
+      [
+        "It won't spot a\nduplicate email or a quota violation for you.",
+        0.4977
+      ],
+      [
+        "I use ShouldBindJSON when I want to handle the error myself.",
+        0.4943
+      ],
+      [
+        "Those checks belong in your own\nvalidation layer.",
+        0.4898
       ]
     ],
     "diagnostics_sample": []
@@ -187,82 +207,102 @@
   {
     "label": "go-rest-api-gin-es",
     "model": "desklib",
-    "model_ai_pct": 30.9,
-    "ai_count": 11,
-    "human_count": 52,
-    "skipped_count": 1,
-    "total": 64,
+    "model_ai_pct": 29.6,
+    "ai_count": 13,
+    "human_count": 70,
+    "skipped_count": 2,
+    "total": 85,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 13.6,
-      "stddev": 5.5,
-      "cv": 0.4,
-      "verdict": "somewhat uniform",
-      "sentence_count": 63,
+      "mean": 16.5,
+      "stddev": 8.3,
+      "cv": 0.5,
+      "verdict": "natural variation",
+      "sentence_count": 83,
       "lengths": [
-        14,
-        18,
-        22,
-        11,
-        13,
-        10,
-        8,
+        46,
+        19,
+        38,
+        33,
+        17,
+        16,
+        23,
         15,
+        8,
+        16,
+        18,
+        10,
         12,
         20,
-        27,
-        14,
-        16,
-        8,
-        10,
-        8,
-        16,
-        10,
+        32,
         26,
-        14,
-        8,
-        8,
-        11,
         17,
-        13,
-        6,
-        9,
-        5,
-        19,
-        14,
-        14,
-        12,
+        21,
+        7,
         10,
+        15,
+        19,
+        18,
+        10,
+        24,
+        19,
+        19,
+        29,
+        9,
+        14,
+        21,
+        52,
+        15,
+        23,
+        19,
+        11,
+        18,
+        14,
         14,
         11,
+        6,
+        18,
+        13,
+        11,
+        11,
+        21,
         12,
+        15,
+        15,
+        12,
+        11,
+        16,
+        16,
+        16,
         14,
         13,
         20,
         6,
         13,
         30,
-        12,
-        14,
-        16,
-        23,
+        9,
+        20,
+        28,
+        10,
+        11,
         15,
         8,
         11,
         18,
-        11,
-        15,
-        9,
-        20,
-        10,
+        13,
+        14,
         8,
         19,
         10,
         23,
-        7,
         10,
-        22,
-        5
+        6,
+        23,
+        8,
+        10,
+        8,
+        13,
+        8
       ]
     },
     "top_ai_sentences": [
@@ -271,24 +311,28 @@
         0.8272
       ],
       [
-        "Llamar c.Abort() sin escribir una respuesta, dejando al cliente colgado.",
-        0.733
+        "El error handler se sienta al final de la cadena.",
+        0.7633
       ],
       [
-        "Para un limiter por cliente, guard\u00e1 un limiter por IP o por user ID.",
-        0.6958
+        "/health es un liveness check liviano.",
+        0.6672
       ],
       [
-        "El error handler al final de la cadena inspecciona c.Errors.",
-        0.679
+        "Devuelve un error\nen lugar de escribir directamente una respuesta 400, lo que te da control sobre\nel formato JSON.",
+        0.6081
       ],
       [
-        "Los errores\nadjuntos con c.Error() se acumulan ah\u00ed.",
-        0.661
+        "El pool espera que le devuelvan la conexi\u00f3n mientras el request\n  termina.",
+        0.599
       ],
       [
         "Us\u00e1 un token bucket como golang.org/x/time/rate como middleware.",
         0.5827
+      ],
+      [
+        "Mantener una conexi\u00f3n a base de datos dentro del context sin un pool de\n  conexiones.",
+        0.5782
       ],
       [
         "Para una sola\ninstancia, un limiter por IP de cliente funciona.",
@@ -299,52 +343,52 @@
         0.5714
       ],
       [
-        "La API sirve a SPAs, clientes mobile u otros backends.",
-        0.5362
+        "[golang.org/x/time/rate](https://pkg.go.dev/golang.org/x/time/rate) explica el rate limiting con token bucket.",
+        0.5388
       ],
       [
-        "Registr\u00e1 un endpoint /health que devuelva 200 con {\"status\": \"healthy\"}.",
-        0.5176
+        "Yo lo us\u00e9 para servicios internos y APIs p\u00fablicas donde\n  necesitaba baja latencia sin tanto ritual.",
+        0.5382
       ],
       [
-        "Consult\u00e1\n  [Llamar REST API](/recipes/call-rest-api/) para patrones de cliente.",
+        "Consult\u00e1 [Llamar REST API](/recipes/call-rest-api/) para patrones de cliente.",
         0.5097
       ],
       [
-        "Mantener conexiones a base de datos en el context sin un pool de conexiones.",
-        0.4616
+        "El snippet de abajo permite un origen conocido, los m\u00e9todos HTTP comunes y\ncredentials.",
+        0.5036
       ],
       [
-        "Necesit\u00e1s un framework HTTP r\u00e1pido y liviano para servicios en Go.",
-        0.461
-      ],
-      [
-        "Logue\u00e1 el error original con un request ID para\ntracing.",
+        "Logue\u00e1 el error original con un request ID para tracing.",
         0.4524
       ],
       [
-        "Uno para logging, otro para auth,\n  otro para errores.",
-        0.4438
+        "La [documentaci\u00f3n de Gin](https://gin-gonic.com/docs/) es la referencia oficial.",
+        0.4213
       ],
       [
-        "Devolv\u00e9 401 para\ntokens inv\u00e1lidos o expirados.",
-        0.4187
+        "Cuando un handler o middleware\nadjunta un error con c.Error(err), Gin lo acumula en c.Errors.",
+        0.4168
       ],
       [
-        "Los cross-cutting concerns como logging, auth y m\u00e9tricas deben ser reutilizables\n  entre endpoints.",
-        0.4126
+        "Yo escribo uno para logging, otro para\n  auth, otro para errores.",
+        0.4153
       ],
       [
-        "Us\u00e1 el middleware en main.go:\n\n\n\n\n\n\n\n\n\n\n\nAdjunt\u00e1 errores al contexto con c.Error() en handlers o middleware.",
-        0.4126
+        "Los logs estructurados son mucho m\u00e1s f\u00e1ciles de mandar a ELK,\n  Datadog o CloudWatch.",
+        0.4136
       ],
       [
         "El error\nhandler corre despu\u00e9s de c.Next() y escribe una respuesta consistente.",
         0.406
       ],
       [
-        "Es\nun atajo sobre el parsing manual, pero solo indica que el input cumple las\nreglas.",
-        0.3834
+        "La verdadera ventaja, sin\nembargo, es la cadena de middleware: cada request pasa por los handlers\nregistrados en orden, y cada uno decide si sigue con c.Next() o se frena con\nc.Abo",
+        0.393
+      ],
+      [
+        "Adjunt\u00e1 errores al contexto con c.Error(err) en handlers o middleware.",
+        0.3756
       ],
       [
         "Us\u00e1 swaggo/swag para generar docs OpenAPI desde anotaciones.",
@@ -355,16 +399,12 @@
         0.3697
       ],
       [
-        "Mezclar responsabilidades dificulta los tests.",
-        0.3441
+        "Es un buen fit cuando la API sirve a SPAs, clientes m\u00f3viles u otros backends.",
+        0.3661
       ],
       [
-        "Manten\u00e9 el middleware peque\u00f1o y enfocado.",
-        0.3422
-      ],
-      [
-        "Us\u00e1 gin.New() en lugar de gin.Default() cuando quer\u00e9s controlar\n  exactamente qu\u00e9 middleware corre y en qu\u00e9 orden.",
-        0.2917
+        "Cuando hagas load tests, mir\u00e1 los percentiles p95 y p99, no el promedio.",
+        0.3625
       ]
     ],
     "diagnostics_sample": []

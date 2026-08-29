@@ -18,8 +18,8 @@
 16. - [x] **url-encoding** (recipes) — 95.0/100 ✅ PROMOTE
 17. - [x] **database-deadlocks-retries** (recipes) — 96.0/100 ✅ PROMOTE
 18. - [x] **generate-pdf-report-python** (recipes) — 95.0/100 ✅ PROMOTE
-19. - [ ] **go-rest-api-gin** (recipes) — 80.7/100 FIX-THEN-PROMOTE
-20. - [ ] **llm-fine-tuning** (recipes)
+19. - [x] **go-rest-api-gin** (recipes) — 95.5/100 ✅ PROMOTE
+20. - [x] **llm-fine-tuning** (recipes) — 94.0/100 ✅ PROMOTE
 21. - [x] **complete-guide-modular-monolith** (guides) — 85.0/100 ✅ PROMOTE
 22. - [ ] **deep-clone-javascript** (recipes)
 23. - [ ] **rabbitmq-task-queue** (recipes)
