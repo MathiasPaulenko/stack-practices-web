@@ -1,0 +1,464 @@
+[
+  {
+    "label": "server-sent-events-node-en",
+    "model": "desklib",
+    "model_ai_pct": 45.5,
+    "ai_count": 36,
+    "human_count": 73,
+    "skipped_count": 6,
+    "total": 115,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.6,
+      "stddev": 10.1,
+      "cv": 0.69,
+      "verdict": "natural variation",
+      "sentence_count": 109,
+      "lengths": [
+        17,
+        21,
+        26,
+        24,
+        19,
+        33,
+        17,
+        16,
+        22,
+        11,
+        8,
+        10,
+        11,
+        11,
+        7,
+        10,
+        6,
+        13,
+        11,
+        14,
+        23,
+        9,
+        5,
+        33,
+        29,
+        19,
+        10,
+        13,
+        19,
+        13,
+        23,
+        17,
+        16,
+        12,
+        13,
+        7,
+        20,
+        15,
+        26,
+        9,
+        17,
+        20,
+        15,
+        14,
+        13,
+        37,
+        14,
+        6,
+        12,
+        8,
+        16,
+        13,
+        11,
+        13,
+        12,
+        10,
+        16,
+        23,
+        11,
+        15,
+        22,
+        17,
+        98,
+        12,
+        14,
+        11,
+        12,
+        11,
+        11,
+        13,
+        10,
+        7,
+        10,
+        11,
+        8,
+        11,
+        17,
+        9,
+        8,
+        10,
+        13,
+        15,
+        6,
+        6,
+        13,
+        15,
+        10,
+        10,
+        13,
+        8,
+        8,
+        8,
+        5,
+        10,
+        11,
+        18,
+        8,
+        10,
+        12,
+        22,
+        16,
+        9,
+        14,
+        22,
+        6,
+        13,
+        13,
+        14,
+        9
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "The server keeps the socket open and writes\nlines in text/event-stream format.",
+        0.9043
+      ],
+      [
+        "Browsers cap connections per\n  origin at about six per domain when using HTTP/1.1.",
+        0.8921
+      ],
+      [
+        "When I need to lock the stream down, I have three\noptions.",
+        0.863
+      ],
+      [
+        "Cookies work best when the browser and the API share the\nsame origin.",
+        0.8519
+      ],
+      [
+        "For CORS, I use Express's cors middleware and allow the specific origin:\n\n\n\nThat config lets the browser connect from a different origin while keeping\ncredentials enabled.",
+        0.8464
+      ],
+      [
+        "Here is the\nhelper I use:\n\n\n\nOn the client, addEventListener('order-update', ...) only fires for messages\nwhose event: field matches.",
+        0.8171
+      ],
+      [
+        "Cookies work when the browser page and the API share the same origin.",
+        0.7981
+      ],
+      [
+        "The Node.js [http](https://nodejs.org/api/http.html) and\n  [stream](https://nodejs.org/api/stream.html) docs, for the underlying APIs.",
+        0.7329
+      ],
+      [
+        "[WebSocket Bidirectional Chat](/recipes/websocket-bidirectional-chat/) \u2014 for\n  two-way real-time communication.",
+        0.7182
+      ],
+      [
+        "Content-Type: text/event-stream tells the browser the\nresponse is an event stream.",
+        0.6899
+      ],
+      [
+        "The\nclient is falling behind.",
+        0.6865
+      ],
+      [
+        "The id field is optional, but it makes reconnections much easier.",
+        0.6726
+      ],
+      [
+        "I also set Cache-Control: no-cache and turn off proxy_buffering\n  in nginx.",
+        0.6663
+      ],
+      [
+        "I\n  emit a simple heartbeat event with an empty data field.",
+        0.6576
+      ],
+      [
+        "Production clients usually listen to more than one event type.",
+        0.6572
+      ],
+      [
+        "I set a retry\nvalue in milliseconds so the browser pauses before reconnecting.",
+        0.6114
+      ],
+      [
+        "If you want the protocol basics first, check\n[Server-Sent Events](/recipes/server-sent-events/); for bidirectional chat, see\n[WebSocket Bidirectional Chat](/recipes/websocket-bidir",
+        0.6071
+      ],
+      [
+        "Browsers handle this through the EventSource API, which\nreconnects automatically and sends back the Last-Event-ID header.",
+        0.5736
+      ],
+      [
+        "SSE reuses a normal HTTP response.",
+        0.5717
+      ],
+      [
+        "Your messages are small and text-only, so binary payloads aren't needed.",
+        0.5655
+      ],
+      [
+        "Node won't\n  close the response for you.",
+        0.564
+      ],
+      [
+        "For simple\none-to-one streams, the manual approach in this recipe is enough.",
+        0.5634
+      ],
+      [
+        "Think\n  stock tickers, sports scores, or log tails.",
+        0.5625
+      ],
+      [
+        "A query token is a short-lived value in the\nURL, but it can leak into server logs and browser history.",
+        0.5622
+      ],
+      [
+        "Nginx is the most common place where SSE breaks.",
+        0.5612
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "server-sent-events-node-es",
+    "model": "desklib",
+    "model_ai_pct": 36.1,
+    "ai_count": 22,
+    "human_count": 87,
+    "skipped_count": 4,
+    "total": 113,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.7,
+      "stddev": 10.5,
+      "cv": 0.67,
+      "verdict": "natural variation",
+      "sentence_count": 109,
+      "lengths": [
+        20,
+        20,
+        24,
+        25,
+        22,
+        36,
+        18,
+        18,
+        14,
+        13,
+        11,
+        12,
+        13,
+        11,
+        7,
+        5,
+        8,
+        7,
+        6,
+        15,
+        15,
+        19,
+        22,
+        11,
+        6,
+        34,
+        29,
+        19,
+        11,
+        34,
+        16,
+        27,
+        18,
+        17,
+        8,
+        15,
+        23,
+        18,
+        28,
+        10,
+        20,
+        21,
+        18,
+        16,
+        14,
+        39,
+        18,
+        5,
+        11,
+        9,
+        18,
+        15,
+        14,
+        11,
+        11,
+        12,
+        18,
+        20,
+        7,
+        15,
+        21,
+        19,
+        100,
+        13,
+        14,
+        9,
+        13,
+        14,
+        10,
+        12,
+        11,
+        9,
+        13,
+        11,
+        12,
+        12,
+        21,
+        14,
+        9,
+        11,
+        13,
+        18,
+        8,
+        7,
+        13,
+        14,
+        11,
+        10,
+        13,
+        10,
+        10,
+        9,
+        5,
+        6,
+        11,
+        21,
+        9,
+        11,
+        12,
+        25,
+        20,
+        13,
+        14,
+        19,
+        7,
+        17,
+        14,
+        16,
+        12
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Las cookies son la opci\u00f3n m\u00e1s limpia cuando la p\u00e1gina del\nbrowser y el servidor comparten origen.",
+        0.8653
+      ],
+      [
+        "Uso un evento heartbeat simple con un payload vac\u00edo, con\n  data: {} como contenido.",
+        0.8581
+      ],
+      [
+        "En la pr\u00e1ctica elijo una de tres\nopciones.",
+        0.8475
+      ],
+      [
+        "El servidor la mantiene abierta y escribe\nl\u00edneas en formato text/event-stream.",
+        0.7895
+      ],
+      [
+        "[Server-Sent Events](/recipes/server-sent-events/) \u2014 el protocolo y la\n  vista general multi-lenguaje.",
+        0.7804
+      ],
+      [
+        "El\n  cliente puede reconectar a un proceso diferente que no vio ese id.",
+        0.7739
+      ],
+      [
+        "Los clientes necesitan enviar mensajes frecuentes al servidor.",
+        0.7609
+      ],
+      [
+        "Olvidar los heartbeats y luego preguntarse por qu\u00e9 las conexiones se caen en\n  silencio.",
+        0.7599
+      ],
+      [
+        "El rate limiting importa si los clientes pueden disparar muchos eventos.",
+        0.7329
+      ],
+      [
+        "Documentaci\u00f3n de Node.js [http](https://nodejs.org/api/http.html) y\n  [stream](https://nodejs.org/api/stream.html).",
+        0.7161
+      ],
+      [
+        "Un cliente productivo suele escuchar m\u00e1s de un tipo de evento.",
+        0.6754
+      ],
+      [
+        "Server-Sent Events (SSE) permite que el servidor env\u00ede eventos de texto al\nbrowser a trav\u00e9s de una conexi\u00f3n HTTP persistente.",
+        0.6445
+      ],
+      [
+        "Esa\nes la se\u00f1al de backpressure.",
+        0.6337
+      ],
+      [
+        "Limit\u00e1 la cantidad de conexiones abiertas y el rate de mensajes por cliente.",
+        0.622
+      ],
+      [
+        "Node no va a\n  cerrar la respuesta por vos.",
+        0.5948
+      ],
+      [
+        "El protocolo es solo texto, as\u00ed que cualquier JSON se codifica dentro del campo\ndata:.",
+        0.5891
+      ],
+      [
+        "SSE reutiliza una respuesta HTTP.",
+        0.5787
+      ],
+      [
+        "Eso significa que pod\u00e9s\nreanudar el stream sin que el cliente pierda mensajes, siempre que el servidor\nmantenga un historial acotado.",
+        0.5688
+      ],
+      [
+        "Los browsers limitan\n  conexiones por origen, generalmente a seis por dominio en HTTP/1.1.",
+        0.5626
+      ],
+      [
+        "Tus mensajes son chicos y de texto; no necesit\u00e1s payloads binarios.",
+        0.5142
+      ],
+      [
+        "Cuando agreg\u00e1s un segundo proceso de Node, cada servidor solo conoce los\nclientes que tiene conectados.",
+        0.5083
+      ],
+      [
+        "El header Content-Type: text/event-stream le dice al\nbrowser que est\u00e1 viendo un stream de eventos.",
+        0.5069
+      ],
+      [
+        "El tr\u00e1fico fluye principalmente de servidor a cliente, y los clientes solo\n  escuchan.",
+        0.4849
+      ],
+      [
+        "Los eventos traen campos event:,\ndata:, id: y retry:.",
+        0.4818
+      ],
+      [
+        "En una app de Node.js y Express, la receta es corta: sete\u00e1 los\nheaders correctos, manten\u00e9 la respuesta abierta y escrib\u00ed l\u00edneas en formato\ntext/event-stream.",
+        0.4763
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
