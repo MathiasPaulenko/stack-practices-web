@@ -28,12 +28,15 @@
     (body prosa 1.562/1.669 EN/ES; AI EN 37.8%, ES 35.7%; diagrama Mermaid
     añadido; companion repo ejecutable en C#; verificación móvil 375px OK;
     build 3.258 pág.; 0 pendientes)
-25. - [x] **convert-csv-to-json** (recipes) — ~93/100 ✅ PROMOTE
-    (re-auditoría tras mejoras: body prosa 1.433/1.497 EN/ES; IA EN 42.2%, ES 36.2%
-    con `pattern_totals: {};` diagrama Mermaid + SVGs EN/ES; companion repo ejecutable
-    en Python/Node/Java; build 3.258 pág.; WebPage schema y verificación móvil real
-    quedan como out-of-scope globales)
-26. - [ ] **server-sent-events-node** (recipes)
+25. - [x] **convert-csv-to-json** (recipes) — ~92/100 ✅ PROMOTE
+    (ronda de mejora de humanización: IA EN 41.3%, ES 33.5% con
+    `pattern_totals: {};` 4 rondas completadas; body prosa ~1.400 palabras EN/ES;
+    diagrama Mermaid + SVGs EN/ES; companion repo ejecutable en Python/Node/Java;
+    build 3.258 pág.; WebPage schema y verificación móvil real quedan out-of-scope
+    globales)
+26. - [ ] **server-sent-events-node** (recipes) — 52/88 → 74/88 ✅ MEJORA SIGNIFICATIVA
+    (ronda final de humanización EN: 46.0% → 45.5%, `pattern_totals` vacío;
+    pendiente aceptación documentada o reescritura manual más profunda)
 27. - [ ] **python-airflow-dag-scheduling** (recipes)
 28. - [ ] **elasticsearch-aggregations** (recipes)
 29. - [ ] **password-hashing** (recipes)
