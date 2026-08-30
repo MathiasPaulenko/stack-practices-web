@@ -1,7 +1,7 @@
 [
   {
     "label": "rabbitmq-task-queue",
-    "total_sentences": 99,
+    "total_sentences": 102,
     "pattern_totals": {},
     "findings": []
   }
