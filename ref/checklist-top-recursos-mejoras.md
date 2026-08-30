@@ -37,9 +37,9 @@
 26. - [ ] **server-sent-events-node** (recipes) — 52/88 → 74/88 ✅ MEJORA SIGNIFICATIVA
     (ronda final de humanización EN: 46.0% → 45.5%, `pattern_totals` vacío;
     pendiente aceptación documentada o reescritura manual más profunda)
-27. - [x] **python-airflow-dag-scheduling** (recipes) — 80.5/88 PROMOTE (re-auditado)
-    (body prosa 2366/2334 EN/ES, AI EN 39.3% / ES 34.9%, pattern_totals vacío;
-    mermaid SVGs EN/ES, companion repo creado; build 3258 OK; 0 regresiones)
+27. - [x] **python-airflow-dag-scheduling** (recipes) — 82.5/88 PROMOTE (post-mejoras adicionales)
+    (body prosa 2495/2466 EN/ES, AI EN 39.2% / ES 34.3%, pattern_totals vacío;
+    7 enlaces externos, companion repo con 3 DAGs extras; build 3258 OK; 0 regresiones)
     (body prosa 669/638 EN/ES, AI EN 42.3%, ES 34.9%; sin diagramas ni companion;
     thin content y humanización EN son los bloqueos principales)
 28. - [ ] **elasticsearch-aggregations** (recipes)

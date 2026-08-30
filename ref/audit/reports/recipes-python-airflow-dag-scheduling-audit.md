@@ -314,3 +314,61 @@ Ninguna. Todos los comandos de validación pasaron y el build es exitoso.
 - `python scripts/ai-detect-patterns.py src/content/recipes/data/python-airflow-dag-scheduling.md` → `python-airflow-dag-scheduling: 0 findings`
 - `python scripts/ai-detect-patterns.py src/content/recipes/data/python-airflow-dag-scheduling.es.md` → `python-airflow-dag-scheduling.es: 0 findings`
 - `python scripts/ai-detect-content.py ... --model desklib` → EN 39.3 % / ES 34.9 %, `pattern_totals: {}` en ambos.
+
+---
+
+## 7. Mejoras adicionales aplicadas (post-re-auditoría)
+
+Fecha: `2026-08-30`.
+
+### 7.1 Cambios en el recurso EN/ES
+
+- Reescritura de los bullets `When to Use` / `When to avoid` (EN) y `Cuándo Usar` /
+  `Cuándo evitar` (ES) a oraciones en primera persona sin encabezados genéricos en
+  negrita. Se eliminó el patrón de definiciones cortas que Desklib marcaba como IA.
+- Reescritura focalizada de frases con alto `ai_prob` (operadores, bitshift, pendulum,
+  `expand()`, `start_date`, XCom, `max_active_runs`, etc.).
+- Añadidas citas con atribución explícita a la documentación oficial de Airflow:
+  - Definición de DAG en FAQ.
+  - Explicación de XCom en FAQ.
+  - Nota sobre `schedule` como reemplazo de `schedule_interval` (Airflow 2.4) en la
+    sección de `Catchup and backfill`.
+  - Referencia a los operators de Airflow en `Variants`.
+- Nuevo conteo: body prosa **2.495 EN / 2.466 ES**, 7 enlaces externos, 8 internos.
+
+### 7.2 Cambios en el companion repo
+
+- Añadidos `dags/sensor_example.py` (`PythonSensor` con modo `reschedule`).
+- Añadidos `dags/branching_example.py` (`BranchPythonOperator` + `EmptyOperator` join).
+- Añadidos `dags/dynamic_mapping_example.py` (mapeo dinámico con `expand()`).
+- Actualizados `meta.json`, `README.md` y `README.es.md`.
+- `node scripts/build-catalog.js` pasa: 25 recursos.
+
+### 7.3 Nuevos scores
+
+| Dimensión | Score post-re-auditoría | Score post-mejoras adicionales |
+|---|---|---|
+| SEO On-Page | 14.5/15 | 15/15 |
+| SEO Técnico | 9.5/10 | 9.5/10 |
+| Calidad de contenido | 22/25 | 23.5/25 |
+| Humanización | 13/15 | 14/15 |
+| Paridad bilingüe | 9.5/10 | 9.5/10 |
+| Medios visuales | 4.5/5 | 4.5/5 |
+| Companion repo | 3/3 | 3/3 |
+| GEO / AI Search | 4.5/5 | 5/5 |
+| **TOTAL** | **80.5/88** | **82.5/88** |
+
+### 7.4 Validación final
+
+| Comando | Resultado |
+|---|---|
+| `npm run content:quality` | PASS |
+| `npm run content:links` | PASS |
+| `npm run content:validate` | PASS |
+| `npm run check` | PASS (0 errores, 0 warnings, 3 hints preexistentes) |
+| `npm run mermaid:render` | PASS (64 SVGs) |
+| `npm run build` | PASS (3.258 páginas) |
+| `npm run sitemap` | PASS (3.256 URLs) |
+
+Nueva detección IA:
+- EN **39.2 %** / ES **34.3 %**, `pattern_totals: {}` en ambos.

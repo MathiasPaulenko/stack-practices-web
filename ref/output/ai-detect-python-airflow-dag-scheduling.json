@@ -2,18 +2,18 @@
   {
     "label": "python-airflow-dag-scheduling-en",
     "model": "desklib",
-    "model_ai_pct": 39.3,
-    "ai_count": 28,
-    "human_count": 110,
-    "skipped_count": 3,
-    "total": 141,
+    "model_ai_pct": 39.2,
+    "ai_count": 26,
+    "human_count": 124,
+    "skipped_count": 2,
+    "total": 152,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 16.7,
-      "stddev": 10.1,
-      "cv": 0.61,
+      "mean": 16.2,
+      "stddev": 10.0,
+      "cv": 0.62,
       "verdict": "natural variation",
-      "sentence_count": 138,
+      "sentence_count": 150,
       "lengths": [
         28,
         24,
@@ -24,21 +24,28 @@
         27,
         18,
         26,
-        22,
-        12,
-        27,
-        18,
+        21,
+        11,
+        11,
+        21,
+        9,
+        13,
         15,
-        24,
+        11,
+        17,
         10,
-        18,
-        30,
+        8,
         14,
+        9,
         25,
+        8,
+        10,
+        6,
+        21,
         9,
         19,
         28,
-        8,
+        9,
         21,
         38,
         5,
@@ -59,7 +66,7 @@
         19,
         23,
         12,
-        29,
+        30,
         13,
         9,
         17,
@@ -84,6 +91,8 @@
         16,
         14,
         22,
+        13,
+        22,
         12,
         23,
         28,
@@ -93,7 +102,7 @@
         25,
         13,
         9,
-        15,
+        29,
         110,
         22,
         13,
@@ -102,11 +111,11 @@
         16,
         11,
         18,
-        19,
+        20,
         19,
         12,
         14,
-        15,
+        21,
         10,
         13,
         10,
@@ -122,25 +131,28 @@
         8,
         9,
         22,
-        10,
+        7,
         17,
+        6,
         16,
         14,
         17,
-        18,
+        15,
         10,
         17,
         21,
+        28,
         13,
         16,
-        14,
+        5,
+        20,
         9,
         12,
         13,
         8,
         11,
         21,
-        8,
+        9,
         22,
         9,
         17,
@@ -157,44 +169,52 @@
     },
     "top_ai_sentences": [
       [
-        "**Long-running services or daemons:** Airflow tasks are expected to finish, not\n  stay alive forever.",
-        0.8576
+        "I use Airflow when I need monitoring and alerting.",
+        0.921
       ],
       [
-        "**CI/CD pipelines:** for build and deploy workflows, GitHub Actions, Jenkins, or\n  GitLab CI integrate with repositories and PRs, which is a better fit than Airflow.",
-        0.8262
-      ],
-      [
-        "It's\n  cleaner and handles XCom for you, but it's still using XCom under the hood.",
-        0.8184
+        "Airflow tasks are expected\n  to finish, not stay alive forever.",
+        0.8808
       ],
       [
         "I set\nit to 1 when a pipeline must not overlap with itself, such as daily aggregations\nthat depend on the previous run.",
         0.7999
       ],
       [
-        "**Simple cron jobs without dependencies:** if the job is just one command on a\n  schedule with no upstream or downstream steps, a crontab line is cheaper and\n  easier to debug.",
-        0.7443
+        "GitHub Actions, Jenkins, or GitLab CI\n  integrate with repositories and PRs, which is a better fit for build and deploy\n  workflows.",
+        0.7993
+      ],
+      [
+        "XCom is short for cross-communication.",
+        0.7362
       ],
       [
         "I usually write to a partition or overwrite the target path with the execution\ndate in the filename.",
         0.7352
       ],
       [
-        "The operator you pick depends on the actual work.",
-        0.6876
+        "I use pendulum to set a timezone-aware start date.",
+        0.716
       ],
       [
-        "With TaskFlow, return values move automatically\nwithout extra code.",
+        "Writing start_date=datetime.now() or any other dynamic value.",
+        0.6926
+      ],
+      [
+        "The official Airflow documentation recommends using schedule instead of the older\nschedule_interval parameter.",
+        0.6865
+      ],
+      [
+        "With TaskFlow, return values move automatically without\nextra code.",
         0.646
-      ],
-      [
-        "Use pendulum to set a timezone-aware start date.",
-        0.6415
       ],
       [
         "The idempotency rule is also why I prefer to_parquet(path, index=False) with a\nfixed path inside a dated folder, or a REPLACE partition in the database.",
         0.6274
+      ],
+      [
+        "Each DAG carries its own\nschedule, a fixed start date, and default arguments.",
+        0.6119
       ],
       [
         "I use it when the next step depends on the result\nof a previous task, such as choosing between a full transform and a sample\ntransform based on row count.",
@@ -209,52 +229,44 @@
         0.596
       ],
       [
-        "Airflow uses bitshift operators to set task order.",
-        0.5852
+        "I use Airflow for batch jobs on a cron-like schedule when the job needs retries,\n  alerts, and a history of runs.",
+        0.5921
       ],
       [
-        "Every DAG carries its own schedule, a fixed start date, and\ndefault arguments.",
-        0.5764
-      ],
-      [
-        "**Monitoring and alerting are required:** the Airflow UI shows which task failed,\n  the logs, and the retry state.",
-        0.5715
+        "I default to PythonOperator\nfor custom logic, but the Airflow docs also list operators for bash, SQL, Docker,\nKubernetes and many cloud providers that reduce boilerplate for common",
+        0.576
       ],
       [
         "For long waits,\nreschedule is almost always the right choice because it doesn't consume a worker.",
         0.5708
       ],
       [
-        "Writing start_date=datetime.now() or any other dynamic value; keep it static.",
-        0.5675
-      ],
-      [
-        "**Pipelines with conditional branching or sensors:** when a task needs to wait for\n  a file, an API, or a specific time, Airflow's sensors keep the logic explicit.",
-        0.5641
+        "Re-runs must\n  not create duplicate rows or files.",
+        0.5639
       ],
       [
         "Airflow gave me a place to define the pipeline, schedule it, retry failed tasks,\nand see the state of every run in one UI.",
         0.5547
       ],
       [
-        "Be careful\nwith the total number of mapped tasks; by default Airflow limits how many can run\nin parallel, but thousands of files can still slow down the scheduler.",
-        0.5306
+        "I set max_active_runs=1 for pipelines that can't overlap, like daily\n  aggregations where the current run needs the previous run's output.",
+        0.5481
+      ],
+      [
+        "I use Airflow when tasks are idempotent and can be retried.",
+        0.5412
       ],
       [
         "The timeout parameter is important: without\nit, a missing file can leave a sensor\nrunning forever.",
         0.5258
       ],
       [
-        "Set max_active_runs=1 for pipelines that can't overlap, like daily\n  aggregations where the current run needs the previous run's output.",
-        0.5149
+        "For long waits, pick\nreschedule mode to avoid consuming a worker for hours.",
+        0.511
       ],
       [
-        "Re-runs should\n  not create duplicate rows or files.",
-        0.5149
-      ],
-      [
-        "The default SQLite setup is fine for local\n  testing but won't survive concurrent scheduler and web server processes.",
-        0.5114
+        "If a task fails,\n  Airflow reruns it for the same execution date and expects the same result.",
+        0.5103
       ]
     ],
     "diagnostics_sample": []
@@ -262,18 +274,18 @@
   {
     "label": "python-airflow-dag-scheduling-es",
     "model": "desklib",
-    "model_ai_pct": 34.9,
-    "ai_count": 27,
-    "human_count": 112,
-    "skipped_count": 3,
-    "total": 142,
+    "model_ai_pct": 34.3,
+    "ai_count": 26,
+    "human_count": 125,
+    "skipped_count": 2,
+    "total": 153,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 16.5,
-      "stddev": 10.2,
-      "cv": 0.62,
+      "mean": 16.0,
+      "stddev": 10.1,
+      "cv": 0.63,
       "verdict": "natural variation",
-      "sentence_count": 139,
+      "sentence_count": 151,
       "lengths": [
         35,
         24,
@@ -284,21 +296,29 @@
         30,
         22,
         21,
-        23,
         9,
-        27,
-        18,
-        16,
-        24,
+        17,
+        9,
+        9,
+        21,
+        7,
         15,
-        17,
-        17,
-        18,
-        19,
+        16,
+        9,
+        20,
+        15,
+        7,
+        13,
+        8,
+        12,
+        7,
+        14,
+        6,
+        16,
         10,
         20,
         30,
-        12,
+        14,
         21,
         7,
         15,
@@ -321,7 +341,7 @@
         20,
         16,
         10,
-        25,
+        26,
         14,
         9,
         17,
@@ -346,6 +366,8 @@
         18,
         15,
         18,
+        13,
+        21,
         9,
         21,
         17,
@@ -355,7 +377,7 @@
         29,
         17,
         7,
-        16,
+        30,
         117,
         23,
         13,
@@ -368,7 +390,7 @@
         20,
         11,
         14,
-        13,
+        22,
         9,
         15,
         11,
@@ -388,13 +410,15 @@
         16,
         15,
         21,
-        20,
+        16,
         10,
         15,
         21,
+        27,
         15,
         17,
-        13,
+        6,
+        21,
         12,
         18,
         13,
@@ -422,15 +446,15 @@
         0.9784
       ],
       [
+        "Una sola entrada de crontab es\n  m\u00e1s simple y barata de operar.",
+        0.9195
+      ],
+      [
         "Con TaskFlow, los\nvalores se mueven de una tarea a otra a trav\u00e9s de los valores de retorno de Python.",
         0.8742
       ],
       [
-        "Es m\u00e1s\n  limpia y maneja XCom sola, pero sigue usando XCom por debajo.",
-        0.8725
-      ],
-      [
-        "La fecha de ejecuci\u00f3n va a\nestar en la zona correcta, lo cual importa cuando el schedule cruza la medianoche o el\nhorario de verano.",
+        "La fecha de ejecuci\u00f3n\nva a estar en la zona correcta, lo cual importa cuando el schedule cruza la medianoche\no el horario de verano.",
         0.8655
       ],
       [
@@ -458,20 +482,12 @@
         0.7692
       ],
       [
-        "**Cron jobs simples sin dependencias.** Una sola entrada de crontab es m\u00e1s simple y\n  barata de operar.",
-        0.7671
-      ],
-      [
         "Si tus tareas\npasan objetos grandes, la base de datos de metadatos puede crecer.",
         0.7178
       ],
       [
         "Los sensors hacen polling por una condici\u00f3n externa.",
         0.7014
-      ],
-      [
-        "Us\u00e1 pendulum para setear una fecha de inicio con zona horaria.",
-        0.6841
       ],
       [
         "Las dependencias no son flujo de datos.",
@@ -486,12 +502,20 @@
         0.6262
       ],
       [
+        "Uso Airflow cuando necesito monitoreo y alerting.",
+        0.6204
+      ],
+      [
         "Un DAG es una colecci\u00f3n de tareas con dependencias dirigidas y sin ciclos.",
         0.6149
       ],
       [
         "Cuando necesito correr muchas tareas en paralelo paso al\nCeleryExecutor o KubernetesExecutor.",
         0.6122
+      ],
+      [
+        "Uso pendulum para setear una fecha de inicio con zona horaria.",
+        0.6011
       ],
       [
         "Una tarea deber\u00eda producir el mismo resultado si corre dos veces para la misma fecha de\nejecuci\u00f3n.",
@@ -502,12 +526,8 @@
         0.576
       ],
       [
-        "**Monitoreo y alerting.** La UI de Airflow muestra qu\u00e9 tarea fall\u00f3, los logs y el estado\n  de reintentos.",
-        0.572
-      ],
-      [
-        "**Pipelines de CI/CD.** GitHub Actions, Jenkins o GitLab CI suelen ser mejores porque se\n  integran con repositorios y PRs.",
-        0.5515
+        "Evito Airflow para pipelines de CI/CD.",
+        0.5574
       ],
       [
         "TaskFlow es m\u00e1s limpia para DAGs nuevos, pero sigue usando XCom por debajo.",
@@ -516,6 +536,10 @@
       [
         "Usar un start_date din\u00e1mico como datetime.now().",
         0.5418
+      ],
+      [
+        "Sin\n  eso, un DAG fallado puede quedar desapercibido hasta que el dashboard se vea desactualizado.",
+        0.5239
       ]
     ],
     "diagnostics_sample": []
