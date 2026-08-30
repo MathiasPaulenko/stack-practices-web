@@ -24,7 +24,10 @@
 22. - [x] **deep-clone-javascript** (recipes) — 95.5/100 ✅ PROMOTE (riesgos residuales documentados)
 23. - [x] **rabbitmq-task-queue** (recipes) — 94.5/100 ✅ PROMOTE (mejora full completada;
     IA EN 37.3%, ES 27.6%; companion creado; alt del diagrama y benchmark resueltos)
-24. - [ ] **partial-class-pattern** (patterns)
+24. - [x] **partial-class-pattern** (patterns) — 76/100 → 80/91 (~88/100) ✅ PROMOTE
+    (body prosa 1.562/1.669 EN/ES; AI EN 37.8%, ES 35.7%; diagrama Mermaid
+    añadido; companion repo ejecutable en C#; verificación móvil 375px OK;
+    build 3.258 pág.; 0 pendientes)
 25. - [ ] **convert-csv-to-json** (recipes)
 26. - [ ] **server-sent-events-node** (recipes)
 27. - [ ] **python-airflow-dag-scheduling** (recipes)
