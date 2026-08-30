@@ -64,29 +64,32 @@ with the TaskFlow API. For a deeper look at architecture and deployment, see the
 I reach for Airflow when the work has more than one step, the steps depend on each
 other, and I want to observe what happened later.
 
-- **Batch jobs on a cron-like schedule:** if the job needs retries, alerts, and a
-  history of runs, Airflow beats a plain crontab. I still use
-  [cron jobs](/recipes/cron-jobs/) for one-off scripts that don't need dependencies.
-- **Pipelines with conditional branching or sensors:** when a task needs to wait for
-  a file, an API, or a specific time, Airflow's sensors keep the logic explicit.
-- **Monitoring and alerting are required:** the Airflow UI shows which task failed,
-  the logs, and the retry state. For very light task queues I sometimes prefer
-  [Celery](/recipes/python-celery-task-queue/), but I lose the DAG visualization.
-- **Tasks are idempotent and can be retried:** if a task fails, Airflow reruns it
-  for the same execution date and expects the same result. This fits batch work
-  much better than long-lived stateful processes.
+- I use Airflow for batch jobs on a cron-like schedule when the job needs retries,
+  alerts, and a history of runs. For one-off scripts without dependencies I still
+  reach for [cron jobs](/recipes/cron-jobs/).
+- I use Airflow when a pipeline has conditional branching or sensors. If a task
+  needs to wait for a file, an API, or a specific time, Airflow's sensors keep the
+  logic explicit.
+- I use Airflow when I need monitoring and alerting. The Airflow UI shows which task
+  failed, the logs, and the retry state. For very light task queues I sometimes
+  prefer [Celery](/recipes/python-celery-task-queue/), but I lose the DAG
+  visualization.
+- I use Airflow when tasks are idempotent and can be retried. If a task fails,
+  Airflow reruns it for the same execution date and expects the same result. This
+  fits batch work much better than long-lived stateful processes.
 
 ### When to avoid
 
-- **Real-time or streaming pipelines:** use Flink, Spark Streaming, or Kafka Streams
-  instead; Airflow is built for batch intervals.
-- **Simple cron jobs without dependencies:** if the job is just one command on a
-  schedule with no upstream or downstream steps, a crontab line is cheaper and
-  easier to debug.
-- **Long-running services or daemons:** Airflow tasks are expected to finish, not
-  stay alive forever.
-- **CI/CD pipelines:** for build and deploy workflows, GitHub Actions, Jenkins, or
-  GitLab CI integrate with repositories and PRs, which is a better fit than Airflow.
+- I avoid Airflow for real-time or streaming pipelines. Use Flink, Spark Streaming,
+  or Kafka Streams instead; Airflow is built for batch intervals.
+- I avoid Airflow for simple cron jobs without dependencies. If the job is just one
+  command on a schedule with no upstream or downstream steps, a crontab line is
+  cheaper and easier to debug.
+- I avoid Airflow for long-running services or daemons. Airflow tasks are expected
+  to finish, not stay alive forever.
+- I avoid Airflow for CI/CD pipelines. GitHub Actions, Jenkins, or GitLab CI
+  integrate with repositories and PRs, which is a better fit for build and deploy
+  workflows.
 
 ## Solution
 
@@ -153,9 +156,9 @@ and today, which can flood a new pipeline with hundreds of backfills.
 
 ### Task dependencies
 
-Airflow uses bitshift operators to set task order. I find them readable for linear
-chains, but `set_upstream` and `set_downstream` are useful when the dependency
-doesn't fit the visual arrow.
+Airflow uses Python bitshift operators to set task order. I find them readable for
+linear chains, but `set_upstream` and `set_downstream` are useful when the
+dependency doesn't fit the visual arrow.
 
 ```python
 # linear chain
@@ -365,7 +368,7 @@ def process_many_files():
 many_files_dag = process_many_files()
 ```
 
-`expand()` spins up one task instance for each item in the iterable. Be careful
+`expand()` spins up one task instance for each item in the iterable. I am careful
 with the total number of mapped tasks; by default Airflow limits how many can run
 in parallel, but thousands of files can still slow down the scheduler. I usually
 add a `.zip()` or filter step to cap the batch size.
@@ -457,6 +460,11 @@ now; `catchup=False` starts from the present. I set `catchup=False` for new DAGs
 I don't accidentally backfill months of runs. If I do want historical runs, I use
 `airflow dags backfill` from the CLI so I can control the range and parallelism.
 
+The official Airflow documentation recommends using `schedule` instead of the older
+`schedule_interval` parameter. `schedule` was introduced as the preferred form in
+Airflow 2.4 and accepts cron expressions, preset names such as `@daily`, or custom
+timetables.
+
 `max_active_runs` controls how many `DagRun` objects can run at the same time. I set
 it to 1 when a pipeline must not overlap with itself, such as daily aggregations
 that depend on the previous run.
@@ -475,8 +483,9 @@ pattern for writing date-partitioned files.
 
 ## Variants
 
-The operator you pick depends on the actual work. I default to `PythonOperator`
-for custom logic, but specialized operators reduce boilerplate for common cases.
+The operator I pick depends on the actual work. I default to `PythonOperator`
+for custom logic, but the Airflow docs also list operators for bash, SQL, Docker,
+Kubernetes and many cloud providers that reduce boilerplate for common cases.
 
 | Operator | Use case | Notes |
 | --- | --- | --- |
@@ -503,12 +512,13 @@ test outside Airflow.
 - Pick `mode="reschedule"` for sensors with long timeouts to free worker slots.
 - Keep tasks idempotent. Re-running a task for the same date should give the same
   result, so use partitions or overwrite semantics.
-- Set `max_active_runs=1` for pipelines that can't overlap, like daily
+- I set `max_active_runs=1` for pipelines that can't overlap, like daily
   aggregations where the current run needs the previous run's output.
 - Push small data via XCom; for large data, write to a file or object storage and
   pass the path. I treat the metadata database as state, not as a storage layer.
-- Prefer the TaskFlow API for new DAGs if you're on Airflow 2.0 or later. It's
-  cleaner and handles XCom for you, but it's still using XCom under the hood.
+- Prefer the TaskFlow API for new DAGs if you're on Airflow 2.0 or later. The
+  syntax is cleaner and it handles the XCom plumbing, but the return values still
+  travel through XCom behind the scenes.
 - Tag DAGs so filtering them in the UI is easier. Tags like `etl`, `sales`, and
   `critical` make navigation faster in a large deployment.
 - Set `retries` and `retry_delay` for transient failures like API timeouts. I start
@@ -523,20 +533,20 @@ test outside Airflow.
   new DAG. The default behavior catches many teams by surprise.
 - Pushing large DataFrames via XCom. Don't push large data into the Airflow metadata
   database; it's for state, not storage. The database grows and the UI slows down.
-- Writing non-idempotent tasks that append duplicate data on retry. Re-runs should
+- Writing non-idempotent tasks that append duplicate data on retry. Re-runs must
   not create duplicate rows or files.
 - Reaching for `PythonOperator` for everything instead of specialized operators.
   If the work is already a shell script or a container, the `BashOperator` or
   `DockerOperator` saves me from wrapping it in Python.
-- Writing `start_date=datetime.now()` or any other dynamic value; keep it static.
-  Airflow compares the start date to the schedule interval, and a moving start date
-  produces unexpected runs.
+- Writing `start_date=datetime.now()` or any other dynamic value. Airflow compares
+  the start date to the schedule interval, and a moving start date produces
+  unexpected runs. I keep `start_date` static and deterministic.
 - Using `depends_on_past=True` without understanding that a single missing or
   failed past run blocks the current run. I only enable this when the business
   logic genuinely needs the previous interval's output.
 - Running the scheduler and web server on the same machine in production without
-  separating the metadata database. The default SQLite setup is fine for local
-  testing but won't survive concurrent scheduler and web server processes.
+  separating the metadata database. SQLite is fine for local testing but won't
+  survive concurrent scheduler and web server processes.
 - Forgetting to set `on_failure_callback` or a notification on critical pipelines.
   If I skip this, a failed DAG can sit for hours before the dashboard makes it
   obvious.
@@ -546,16 +556,19 @@ test outside Airflow.
 ### What is a DAG in Airflow?
 
 A DAG is a set of tasks tied together by dependencies, where data flows one way and
-there are no cycles. Every DAG carries its own schedule, a fixed start date, and
-default arguments. The DAG itself doesn't run; it's a blueprint that the scheduler
-uses to create `DagRun` objects.
+there are no cycles. The [official Airflow docs](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html)
+describe a DAG as a collection of all the tasks you want to run, organized in a way
+that reflects their relationships and dependencies. Each DAG carries its own
+schedule, a fixed start date, and default arguments. The DAG itself doesn't run;
+it's a blueprint that the scheduler uses to create `DagRun` objects.
 
 ### What is XCom?
 
-Cross-communication. Tasks push values with `xcom_push` or by returning them, and
-pull values with `xcom_pull`. With TaskFlow, return values move automatically
-without extra code. XCom is stored in the Airflow metadata database, so keep values
-small. For large payloads, write to S3 or another store and pass the path.
+XCom is short for cross-communication. The [Airflow XCom docs](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/xcoms.html)
+explain that tasks push values with `xcom_push` or by returning them, and pull
+values with `xcom_pull`. With TaskFlow, return values move automatically without
+extra code. XCom is stored in the Airflow metadata database, so keep values small.
+For large payloads, write to S3 or another store and pass the path.
 
 ### Should I use `poke` or `reschedule` mode for sensors?
 
@@ -565,9 +578,9 @@ waits, which is why I almost always choose `reschedule` for hour-long waits.
 
 ### How do I handle timezone-aware scheduling?
 
-Use `pendulum` to set a timezone-aware start date. Then the execution date stays
-in the right time zone, which matters when the schedule crosses midnight or
-changes for daylight saving.
+I use `pendulum` to set a timezone-aware start date. The execution date then stays
+in the right time zone, which matters when the schedule crosses midnight or changes
+for daylight saving.
 
 ```python
 import pendulum

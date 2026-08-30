@@ -64,29 +64,31 @@ con la TaskFlow API. Para una mirada más profunda a arquitectura y despliegue, 
 Uso Airflow cuando el trabajo tiene más de un paso, los pasos dependen entre sí y quiero
 observar después qué pasó.
 
-- **Batch jobs con schedule tipo cron.** Si el job necesita reintentos, alertas e
-  historial de ejecuciones, Airflow le gana a un crontab simple. Todavía uso
+- Uso Airflow para batch jobs con schedule tipo cron. Si el job necesita reintentos,
+  alertas e historial de ejecuciones, Airflow le gana a un crontab simple. Todavía uso
   [cron jobs](/es/recipes/cron-jobs/) para scripts aislados sin dependencias.
-- **Pipelines con branching condicional o sensors.** Cuando una tarea necesita esperar un
-  archivo, una API o un horario específico, los sensors de Airflow mantienen la lógica
-  explícita.
-- **Monitoreo y alerting.** La UI de Airflow muestra qué tarea falló, los logs y el estado
-  de reintentos. Para colas de tareas muy livianas a veces prefiero
-  [Celery](/es/recipes/python-celery-task-queue/), aunque pierdo la visualización del DAG.
-- **Tareas idempotentes y reintentables.** Si una tarea falla, Airflow la vuelve a correr
-  para la misma fecha de ejecución y espera el mismo resultado. Eso se ajusta mucho mejor
-  al trabajo batch que a procesos stateful de larga duración.
+- Uso Airflow para pipelines con branching condicional o sensors. Cuando una tarea
+  necesita esperar un archivo, una API o un horario específico, los sensors de Airflow
+  mantienen la lógica explícita.
+- Uso Airflow cuando necesito monitoreo y alerting. La UI de Airflow muestra qué tarea
+  falló, los logs y el estado de reintentos. Para colas de tareas muy livianas a veces
+  prefiero [Celery](/es/recipes/python-celery-task-queue/), aunque pierdo la
+  visualización del DAG.
+- Uso Airflow cuando las tareas son idempotentes y reintentables. Si una tarea falla,
+  Airflow la vuelve a correr para la misma fecha de ejecución y espera el mismo
+  resultado. Eso se ajusta mucho mejor al trabajo batch que a procesos stateful de
+  larga duración.
 
 ### Cuándo evitar
 
-- **Pipelines real-time o streaming.** Usá Flink, Spark Streaming o Kafka Streams; Airflow
-  está hecho para intervalos batch.
-- **Cron jobs simples sin dependencias.** Una sola entrada de crontab es más simple y
-  barata de operar.
-- **Servicios long-running o daemons.** Las tareas de Airflow se espera que terminen, no
-  que permanezcan vivas para siempre.
-- **Pipelines de CI/CD.** GitHub Actions, Jenkins o GitLab CI suelen ser mejores porque se
-  integran con repositorios y PRs.
+- Evito Airflow para pipelines real-time o streaming. Usá Flink, Spark Streaming o
+  Kafka Streams; Airflow está hecho para intervalos batch.
+- Evito Airflow para cron jobs simples sin dependencias. Una sola entrada de crontab es
+  más simple y barata de operar.
+- Evito Airflow para servicios long-running o daemons. Las tareas de Airflow se espera
+  que terminen, no que permanezcan vivas para siempre.
+- Evito Airflow para pipelines de CI/CD. GitHub Actions, Jenkins o GitLab CI suelen ser
+  mejores porque se integran con repositorios y PRs.
 
 ## Solución
 
@@ -153,9 +155,9 @@ inundar un pipeline nuevo con cientos de backfills.
 
 ### Dependencias de tareas
 
-Airflow usa operadores de bitshift para establecer el orden de las tareas. Me resultan
-legibles para cadenas lineales, pero `set_upstream` y `set_downstream` son útiles cuando
-la dependencia no encaja visualmente en una flecha.
+Airflow usa operadores de bitshift de Python para establecer el orden de las tareas.
+Me resultan legibles para cadenas lineales, pero `set_upstream` y `set_downstream` son
+útiles cuando la dependencia no encaja visualmente en una flecha.
 
 ```python
 # cadena lineal
@@ -362,10 +364,10 @@ def process_many_files():
 many_files_dag = process_many_files()
 ```
 
-La llamada `expand()` crea una instancia de tarea por archivo. Cuidado con el total de
-tareas mapeadas; Airflow limita cuántas pueden correr en paralelo por defecto, pero miles
-de archivos igual pueden ralentizar el scheduler. Suelo agregar un paso de `.zip()` o filtro
-para limitar el tamaño del lote.
+La llamada `expand()` crea una instancia de tarea por archivo. Tengo cuidado con el total
+de tareas mapeadas; Airflow limita cuántas pueden correr en paralelo por defecto, pero
+miles de archivos igual pueden ralentizar el scheduler. Suelo agregar un paso de `.zip()`
+o filtro para limitar el tamaño del lote.
 
 ### Callbacks para éxito o falla
 
@@ -453,6 +455,10 @@ ahora; `catchup=False` arranca desde el presente. Pongo `catchup=False` en DAGs 
 no hacerme backfill de meses de ejecuciones por accidente. Si quiero ejecuciones históricas, uso
 `airflow dags backfill` desde el CLI así controlo el rango y el paralelismo.
 
+La documentación oficial de Airflow recomienda usar `schedule` en lugar del antiguo
+`schedule_interval`. `schedule` se introdujo como la forma preferida en Airflow 2.4 y
+acepta expresiones cron, nombres predefinidos como `@daily` o timetables personalizados.
+
 `max_active_runs` controla cuántos `DagRun` pueden correr al mismo tiempo. Lo seteo en 1
 cuando un pipeline no puede solaparse consigo mismo, como agregaciones diarias que
 dependen de la corrida anterior.
@@ -471,8 +477,9 @@ patrón similar para escribir archivos particionados por fecha.
 
 ## Variantes
 
-El operator que elegís depende del trabajo. Por defecto uso `PythonOperator` para lógica
-custom, pero los operators especializados reducen boilerplate para casos comunes.
+El operator que elijo depende del trabajo. Por defecto uso `PythonOperator` para lógica
+custom, pero los docs de Airflow también listan operators para bash, SQL, Docker,
+Kubernetes y muchos cloud providers que reducen boilerplate para casos comunes.
 
 | Operator | Caso de uso | Notas |
 | --- | --- | --- |
@@ -498,12 +505,13 @@ fuera de Airflow.
 - Usá `mode="reschedule"` en sensors con timeouts largos para liberar slots de worker.
 - Mantené las tareas idempotentes. Re-ejecutar la misma fecha debería dar el mismo
   resultado, así que usá particiones o semántica de sobreescritura.
-- Usá `max_active_runs=1` para pipelines que no pueden solaparse, como agregaciones diarias
-  que dependen de la corrida anterior.
+- Seteá `max_active_runs=1` para pipelines que no pueden solaparse, como agregaciones
+  diarias que dependen de la corrida anterior.
 - Empujá datos chicos por XCom; para datos grandes, escribí en un archivo o almacenamiento
   de objetos y pasá el path. La base de datos de metadatos es para estado, no storage.
-- Preferí la TaskFlow API para DAGs nuevos si estás en Airflow 2.0 o posterior. Es más
-  limpia y maneja XCom sola, pero sigue usando XCom por debajo.
+- Preferí la TaskFlow API para DAGs nuevos si estás en Airflow 2.0 o posterior. La
+  sintaxis es más limpia y maneja el XCom plumbing, pero los valores de retorno
+  todavía viajan por XCom detrás de escena.
 - Etiquetá los DAGs para filtrarlos fácil en la UI. Tags como `etl`, `sales` y `critical`
   hacen la navegación más rápida en un despliegue grande.
 - Seteá `retries` y `retry_delay` para fallas transitorias como timeouts de API. Empiezo con
@@ -518,19 +526,19 @@ fuera de Airflow.
   nuevo. El comportamiento por defecto sorprende a muchos equipos.
 - Pasar DataFrames grandes por XCom. La metadata DB no es un data store; la base crece y la
   UI se ralentiza.
-- Escribir tareas no idempotentes que agregan datos duplicados al reintentar. Las re-ejecuciones
-  no deberían crear filas o archivos duplicados.
+- Escribir tareas no idempotentes que agregan datos duplicados al reintentar. Las
+  re-ejecuciones no deben crear filas o archivos duplicados.
 - Usar `PythonOperator` para todo en lugar de operators especializados. Un `BashOperator` o
   `DockerOperator` suele ser mejor para scripts de shell o herramientas containerizadas.
-- Usar un `start_date` dinámico como `datetime.now()`. Mantenelo estático. Airflow compara
-  el `start_date` con el intervalo de schedule, y un `start_date` móvil produce corridas
-  inesperadas.
+- Usar un `start_date` dinámico como `datetime.now()`. Airflow compara el `start_date`
+  con el intervalo de schedule, y un `start_date` móvil produce corridas inesperadas.
+  Mantenelo estático y determinístico.
 - Usar `depends_on_past=True` sin entender que una sola corrida pasada faltante o fallida
   bloquea la corrida actual. Solo lo habilito cuando la lógica de negocio genuinamente
   necesita la salida del intervalo anterior.
 - Correr el scheduler y el web server en la misma máquina en producción sin separar la base
-  de datos de metadatos. El setup default de SQLite sirve para pruebas locales pero no
-  sobrevive a procesos concurrentes de scheduler y web server.
+  de datos de metadatos. SQLite sirve para pruebas locales pero no sobrevive a procesos
+  concurrentes de scheduler y web server.
 - Olvidarse de setear `on_failure_callback` o una notificación en pipelines críticos. Sin
   eso, un DAG fallado puede quedar desapercibido hasta que el dashboard se vea desactualizado.
 
@@ -539,14 +547,17 @@ fuera de Airflow.
 ### ¿Qué es un DAG en Airflow?
 
 Un DAG es un conjunto de tareas unidas por dependencias, donde los datos fluyen en una
-dirección y no hay ciclos. Cada DAG tiene su propio schedule, una fecha de inicio fija y
-argumentos por defecto. El DAG en sí no corre; es un blueprint que el scheduler usa para
-crear objetos `DagRun`.
+dirección y no hay ciclos. La [documentación oficial de Airflow](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html)
+describe un DAG como una colección de todas las tareas que querés correr, organizadas de
+manera que reflejen sus relaciones y dependencias. Cada DAG tiene su propio schedule, una
+fecha de inicio fija y argumentos por defecto. El DAG en sí no corre; es un blueprint que
+el scheduler usa para crear objetos `DagRun`.
 
 ### ¿Qué es XCom?
 
-Cross-communication. Las tareas empujan valores con `xcom_push` o retornándolos, y los leen
-con `xcom_pull`. Con TaskFlow, los valores de retorno se mueven automáticamente sin código
+XCom es la abreviatura de cross-communication. La [documentación de XCom de Airflow](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/xcoms.html)
+explica que las tareas empujan valores con `xcom_push` o retornándolos, y los leen con
+`xcom_pull`. Con TaskFlow, los valores de retorno se mueven automáticamente sin código
 extra. XCom se guarda en la base de datos de metadatos de Airflow, así que mantené los
 valores chicos. Para payloads grandes, escribí en S3 u otro almacenamiento y pasá el path.
 
@@ -558,9 +569,9 @@ esperas largas, por eso casi siempre elijo `reschedule` para esperas de una hora
 
 ### ¿Cómo manejo scheduling con zona horaria?
 
-Usá `pendulum` para setear una fecha de inicio con zona horaria. La fecha de ejecución va a
-estar en la zona correcta, lo cual importa cuando el schedule cruza la medianoche o el
-horario de verano.
+Uso `pendulum` para setear una fecha de inicio con zona horaria. La fecha de ejecución
+va a estar en la zona correcta, lo cual importa cuando el schedule cruza la medianoche
+o el horario de verano.
 
 ```python
 import pendulum
