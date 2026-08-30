@@ -2,25 +2,25 @@
   {
     "label": "rabbitmq-task-queue-en",
     "model": "desklib",
-    "model_ai_pct": 41.3,
-    "ai_count": 27,
-    "human_count": 69,
+    "model_ai_pct": 37.5,
+    "ai_count": 12,
+    "human_count": 87,
     "skipped_count": 3,
-    "total": 99,
+    "total": 102,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 15.8,
-      "stddev": 10.7,
-      "cv": 0.68,
+      "mean": 16.4,
+      "stddev": 10.4,
+      "cv": 0.63,
       "verdict": "natural variation",
-      "sentence_count": 96,
+      "sentence_count": 99,
       "lengths": [
-        18,
+        17,
         29,
-        26,
+        29,
         7,
         18,
-        28,
+        27,
         17,
         14,
         6,
@@ -32,12 +32,11 @@
         13,
         6,
         5,
-        8,
-        8,
+        20,
         17,
         7,
         31,
-        10,
+        9,
         28,
         25,
         14,
@@ -46,24 +45,25 @@
         8,
         21,
         39,
+        17,
         8,
         21,
-        13,
+        15,
         19,
         21,
-        16,
-        16,
+        21,
+        14,
         12,
         22,
-        7,
+        10,
         14,
         20,
-        9,
-        11,
+        18,
         100,
         17,
         17,
-        7,
+        12,
+        13,
         8,
         18,
         17,
@@ -72,7 +72,7 @@
         12,
         14,
         17,
-        13,
+        10,
         19,
         8,
         16,
@@ -80,7 +80,7 @@
         13,
         15,
         19,
-        13,
+        11,
         25,
         16,
         17,
@@ -88,131 +88,134 @@
         10,
         12,
         11,
-        9,
-        6,
         19,
-        14,
+        7,
+        19,
         13,
-        10,
+        13,
+        11,
         12,
-        17,
-        20,
+        19,
+        22,
         18,
         9,
-        7,
-        15,
+        10,
+        16,
         17,
         21,
-        11,
+        12,
+        15,
         13,
-        7,
-        18,
+        17,
         14,
         8,
         24,
-        8
+        8,
+        11,
+        10,
+        18
       ]
     },
     "top_ai_sentences": [
       [
-        "You'll see these patterns in production, yet you still need monitoring,\nconnection recovery, authentication, and TLS to fit your environment.",
-        0.8077
+        "These patterns work in production, but a real deployment still needs monitoring,\nconnection recovery, authentication and TLS before they fit your environment.",
+        0.9466
       ],
       [
-        "Broadcasting to thousands of clients in real time.",
-        0.7942
+        "The [AMQP 0-9-1 specification](https://www.amqp.org/specification/0-9-1/amqp-org-download) defines exchanges, queues, bindings and delivery semantics.",
+        0.9189
       ],
       [
-        "Choose the one that\nfits your routing needs and latency budget.",
-        0.7791
+        "Exchanges and queue patterns carry different trade-offs, so match the choice to your routing needs and latency budget.",
+        0.6722
       ],
       [
-        "For any queue that handles business-critical work, add a dedicated DLX and\n  DLQ.",
-        0.7595
+        "Republishing is simple, but the message loses its original place in line because it lands at the back of the queue.",
+        0.6552
       ],
       [
-        "Operators get a dedicated place to inspect\nfailures without blocking the main queue.",
-        0.7407
+        "RabbitMQ is a message broker that uses AMQP, an open wire protocol with clients\nin most languages.",
+        0.6427
       ],
       [
-        "To scale, add more nodes or consumers.",
-        0.6848
+        "Kafka, by contrast, is an event log built for high throughput and\nreplay.",
+        0.6346
       ],
       [
-        "RabbitMQ handles any pattern on a queue.",
-        0.6635
+        "Use the management UI on port 15672 to watch queue depth, consumer count and\nmessage rates.",
+        0.6081
       ],
       [
-        "AMQP gives you explicit control over routing, delivery guarantees, and\npersistence; that's why it fits task queues and request-reply (RPC) patterns\nbetter than plain HTTP polling.",
-        0.6437
+        "This gives operators a focused place to\ninspect failures while the main queue keeps moving.",
+        0.6071
       ],
       [
-        "Kafka, by contrast, is an event log optimized for high throughput and\nreplay.",
-        0.64
+        "If the timeout expires, the client promise rejects.",
+        0.5933
       ],
       [
-        "The table below compares exchange types and queue patterns.",
-        0.633
-      ],
-      [
-        "The server\nsends the same id back.",
-        0.6237
-      ],
-      [
-        "For time-sensitive retries, set x-message-ttl on a separate delay queue or use\na dedicated retry exchange.",
-        0.6211
-      ],
-      [
-        "Use manual ack, and call ack\n  only after the side effects are complete.",
-        0.609
-      ],
-      [
-        "RabbitMQ is a message broker that routes messages with low latency and flexible\nbindings.",
-        0.5943
-      ],
-      [
-        "Kafka doesn't support request-reply natively and uses different\ndelivery semantics.",
-        0.5586
-      ],
-      [
-        "The\n  queue survives a restart, but the messages don't.",
-        0.5585
-      ],
-      [
-        "If the timeout fires, the client promise rejects.",
-        0.5511
-      ],
-      [
-        "A WebSocket or pub-sub\n  broker is usually simpler.",
-        0.5459
-      ],
-      [
-        "Dead-letter exchanges catch messages that can't be processed.",
-        0.5432
-      ],
-      [
-        "The Python equivalent below uses pika 1.3.x.",
-        0.5309
+        "Use a topic\nexchange when pattern matching is needed, such as orders.us.created and\norders.eu.created both matching the orders.*.created pattern.",
+        0.5335
       ],
       [
         "| Approach | Best for | Trade-off |\n| --- | --- | --- |\n| Direct exchange | Exact queue routing | No pattern matching |\n| Topic exchange | Pattern-based routing (orders.*.created) ",
         0.5153
       ],
       [
-        "This works, but the\nrepublished message lands at the tail, so its place in line changes.",
-        0.5148
+        "A message\nlands in the DLQ when it's rejected without requeue, when it expires, or when it exceeds\nthe queue's x-max-delivery-count.",
+        0.5031
       ],
       [
-        "You need both: one keeps the queue structure, the other keeps the data.",
-        0.5127
+        "Teams reach for it when a web request\ndoes too much work: instead of making the user wait, you hand the job to a\nworker process through a queue.",
+        0.4866
       ],
       [
-        "In this recipe we use a direct exchange and the default empty exchange\nfor sendToQueue, which routes using the queue name as the routing key.",
-        0.51
+        "These snippets use TypeScript and amqplib 0.10.x.",
+        0.4846
       ],
       [
-        "Persistent messages are written to disk, so\nthey survive a restart.",
-        0.5075
+        "Acknowledge messages manually after the work is done.",
+        0.4758
+      ],
+      [
+        "A durable queue survives a broker restart, but it only stores the metadata of the\nqueue, not the messages inside it.",
+        0.4742
+      ],
+      [
+        "RabbitMQ is a message broker; it routes messages quickly and with flexible\nbindings.",
+        0.4717
+      ],
+      [
+        "Kafka usually fits that case better.",
+        0.468
+      ],
+      [
+        "With manual ack, an unacknowledged message is requeued when the\n  consumer disconnects, unless you explicitly nack it.",
+        0.4619
+      ],
+      [
+        "In a real service you should\ncatch that error, log it, and possibly retry with a delay or fall back to a\ncached result.",
+        0.4607
+      ],
+      [
+        "The [amqplib API reference](https://amqp-node.github.io/amqplib/) and the [pika docs](https://pika.readthedocs.io/en/stable/) document the Node.js and Python clients used in the ex",
+        0.4528
+      ],
+      [
+        "Kafka has no native request-reply support and uses different\ndelivery semantics.",
+        0.4508
+      ],
+      [
+        "For idempotent calls, a bounded retry works well.",
+        0.4504
+      ],
+      [
+        "A dead-letter exchange takes messages the consumer can't process and routes them\nto the DLQ for inspection.",
+        0.4479
+      ],
+      [
+        "A broker restart recreates a durable queue, but that alone doesn't save the\nmessages.",
+        0.439
       ]
     ],
     "diagnostics_sample": []
@@ -220,22 +223,22 @@
   {
     "label": "rabbitmq-task-queue-es",
     "model": "desklib",
-    "model_ai_pct": 29.8,
-    "ai_count": 16,
-    "human_count": 81,
+    "model_ai_pct": 28.1,
+    "ai_count": 13,
+    "human_count": 87,
     "skipped_count": 2,
-    "total": 99,
+    "total": 102,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 17.2,
-      "stddev": 11.6,
-      "cv": 0.67,
+      "mean": 17.7,
+      "stddev": 11.4,
+      "cv": 0.64,
       "verdict": "natural variation",
-      "sentence_count": 97,
+      "sentence_count": 100,
       "lengths": [
-        23,
+        20,
         28,
-        31,
+        35,
         7,
         19,
         28,
@@ -250,39 +253,39 @@
         19,
         5,
         5,
-        8,
-        9,
+        24,
         22,
         7,
         31,
-        12,
+        10,
         29,
-        26,
-        5,
+        27,
+        12,
         18,
         18,
         18,
         11,
         18,
         46,
-        14,
+        18,
+        8,
         21,
+        18,
+        18,
+        18,
         17,
-        18,
-        18,
-        18,
-        19,
+        17,
         11,
         21,
-        6,
+        8,
         13,
         22,
-        12,
-        15,
+        26,
         109,
         18,
         18,
-        7,
+        13,
+        11,
         10,
         24,
         21,
@@ -291,7 +294,7 @@
         11,
         15,
         20,
-        14,
+        12,
         21,
         10,
         19,
@@ -299,7 +302,7 @@
         13,
         18,
         22,
-        14,
+        13,
         27,
         17,
         20,
@@ -307,87 +310,78 @@
         12,
         13,
         12,
-        9,
-        7,
+        18,
+        8,
         21,
-        14,
+        8,
         15,
         13,
         12,
-        17,
-        25,
+        19,
+        24,
         19,
         11,
-        6,
-        18,
+        8,
+        19,
         21,
         21,
-        12,
         14,
-        11,
+        16,
+        14,
         21,
         15,
-        10,
+        9,
         21,
-        8
+        8,
+        12,
+        12,
+        23
       ]
     },
     "top_ai_sentences": [
       [
-        "La durabilidad tiene dos niveles.",
-        0.7959
+        "La durabilidad se divide en dos niveles: la queue y el mensaje.",
+        0.7733
       ],
       [
-        "Descuidar el consumer lag es un error.",
-        0.709
+        "La [especificaci\u00f3n AMQP 0-9-1](https://www.amqp.org/specification/0-9-1/amqp-org-download) define exchanges, queues, bindings y sem\u00e1nticas de entrega.",
+        0.7199
       ],
       [
-        "Eleg\u00ed el que\nmejor se ajuste a tus necesidades de enrutamiento y presupuesto de latencia.",
-        0.6789
+        "RabbitMQ es un broker de mensajes que usa AMQP, un\nprotocolo abierto con clientes en la mayor\u00eda de los lenguajes.",
+        0.7114
       ],
       [
-        "Transmitir a miles de clientes en tiempo real.",
-        0.6536
+        "Escal\u00e1s agregando nodos al broker o m\u00e1s consumers.",
+        0.6551
       ],
       [
         "El RPC sobre AMQP usa una reply queue exclusiva y auto-delete.",
         0.6483
       ],
       [
-        "El ejemplo de abajo usa pika 1.3.x.",
-        0.5863
+        "Republicar es simple, pero el mensaje\npierde su lugar original en la queue porque cae al final.",
+        0.6285
       ],
       [
         "Estos ejemplos usan TypeScript y amqplib 0.10.x.",
         0.5813
       ],
       [
+        "La referencia de la API de [amqplib](https://amqp-node.github.io/amqplib/) y los docs de [pika](https://pika.readthedocs.io/en/stable/) documentan los clientes de Node.js y Python ",
+        0.5732
+      ],
+      [
         "Cargas de batch pesadas que tardan minutos por mensaje sin acknowledgments,\n  porque los mensajes no confirmados pueden agotar la memoria del broker.",
         0.5704
-      ],
-      [
-        "Para escalar, agreg\u00e1s nodos o consumers.",
-        0.562
-      ],
-      [
-        "Necesit\u00e1s ambos: uno para la\nestructura de la queue y otro para los datos.",
-        0.5595
       ],
       [
         "Sete\u00e1 el prefetch seg\u00fan la duraci\u00f3n de la tarea y la cantidad de consumers.",
         0.5447
       ],
       [
-        "Esta receta usa TypeScript con amqplib 0.10.x.",
-        0.5441
-      ],
-      [
-        "Esto le da a los\noperadores un lugar claro para inspeccionar fallos sin bloquear la queue\nprincipal.",
-        0.5438
-      ],
-      [
-        "Un broker pub-sub o WebSocket\n  suele ser m\u00e1s simple.",
-        0.5359
+        "El server devuelve el mismo id al client.",
+        0.5422
       ],
       [
         "El prefetch(n) limita cu\u00e1ntos mensajes no confirmados puede tener cada consumer.",
@@ -398,40 +392,52 @@
         0.5023
       ],
       [
-        "Los dead-letter exchanges act\u00faan como un acompa\u00f1ante para mensajes que no se\npueden procesar.",
-        0.4829
+        "El ejemplo de abajo usa pika 1.3.x para su API\ns\u00edncrona de [BlockingConnection](https://pika.readthedocs.io/en/stable/modules/adapters/blocking.html).",
+        0.4737
       ],
       [
         "Cuando el mismo evento\ndeb\u00e9 llegar a m\u00faltiples consumers, un exchange fanout o topic es la mejor\nopci\u00f3n.",
         0.4658
       ],
       [
-        "Es simple, pero cambia la\nposici\u00f3n del mensaje en la queue porque el mensaje republicado va al final.",
-        0.4571
+        "Si una queue maneja trabajo cr\u00edtico, dale su propio DLX y DLQ.",
+        0.4466
       ],
       [
-        "Si se dispara el timeout, la promesa del client rechaza.",
-        0.4557
+        "Esta receta usa TypeScript con [amqplib](https://amqp-node.github.io/amqplib/) 0.10.x.",
+        0.4414
       ],
       [
         "Si te olvid\u00e1s de confirmar un mensaje, los mensajes no confirmados se quedan\n  en la memoria del broker y eventualmente pueden agotarla.",
         0.4295
       ],
       [
-        "Los mensajes persistentes se\nescriben en disco, as\u00ed que sobreviven un restart.",
-        0.4249
-      ],
-      [
         "Confirm\u00e1 los mensajes manualmente despu\u00e9s de que el trabajo termine.",
         0.4202
       ],
       [
-        "Estos patrones se usan com\u00fanmente en producci\u00f3n, pero igual vas a querer\nmonitoreo, recuperaci\u00f3n de conexiones, autenticaci\u00f3n y TLS para que coincida con\ntu entorno.",
-        0.414
-      ],
-      [
         "El publicador env\u00eda la tarea y\n  sigue, mientras un worker la toma despu\u00e9s.",
         0.3825
+      ],
+      [
+        "El throughput baja con l\u00f3gica de enrutamiento\ncompleja o mensajes grandes.",
+        0.3776
+      ],
+      [
+        "Kafka suele encajar mejor ah\u00ed.",
+        0.3766
+      ],
+      [
+        "Us\u00e1 la UI de management en el puerto 15672 para monitorear queue depth, cantidad de consumers\ny message rates.",
+        0.3744
+      ],
+      [
+        "Esto le da a los\noperadores un lugar enfocado para inspeccionar fallos mientras la queue\nprincipal sigue movi\u00e9ndose.",
+        0.3735
+      ],
+      [
+        "Alert\u00e1 sobre crecimiento del DLQ porque\n  significa que algo falla repetidamente.",
+        0.3369
       ]
     ],
     "diagnostics_sample": []

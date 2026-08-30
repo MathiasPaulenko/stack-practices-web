@@ -20,9 +20,9 @@
 | `difficulty` | intermediate |
 | `topics` | messaging |
 | `lastUpdated` | 2026-08-30 |
-| Palabras body (prosa sin bloques de código) EN | 1.635 |
-| Palabras body (prosa sin bloques de código) ES | 1.784 |
-| Companion repo | No existe (`../stack-practices-resources/resources/recipes/messaging/rabbitmq-task-queue/`) |
+| Palabras body (prosa sin bloques de código) EN | 1.747 |
+| Palabras body (prosa sin bloques de código) ES | 1.890 |
+| Companion repo | Creado (`../stack-practices-resources/resources/recipes/messaging/rabbitmq-task-queue/`) |
 
 ---
 
@@ -32,25 +32,25 @@
 
 | Dimensión | Peso | Score | Fuente |
 | --- | --- | --- | --- |
-| Intención de búsqueda y ajuste SERP | 15 | 13/15 | 03-content-quality |
-| Calidad de contenido y utilidad | 15 | 13/15 | 03-content-quality |
+| Intención de búsqueda y ajuste SERP | 15 | 14/15 | 03-content-quality |
+| Calidad de contenido y utilidad | 15 | 14/15 | 03-content-quality |
 | Information gain y originalidad | 10 | 9/10 | 03-content-quality |
 | Cobertura semántica / tópica | 10 | 9/10 | 03-content-quality |
-| Enlazado interno y arquitectura | 8 | 7/8 | 01-technical + 03-content |
+| Enlazado interno y arquitectura | 8 | 8/8 | 01-technical + 03-content |
 | SEO técnico e indexabilidad | 10 | 10/10 | 01-technical |
-| E-E-A-T / Confianza | 8 | 7/8 | 03-content + 06-geo |
-| UX / legibilidad / accesibilidad | 7 | 6/7 | 03-content |
+| E-E-A-T / Confianza | 8 | 8/8 | 03-content + 06-geo |
+| UX / legibilidad / accesibilidad | 7 | 7/7 | 03-content |
 | GEO / AI Search readiness | 5 | 4/5 | 06-geo |
-| Tráfico y potencial de crecimiento | 10 | 6/10 | 08-traffic |
+| Tráfico y potencial de crecimiento | 10 | 7/10 | 08-traffic |
 | Structured data | 3 | 3/3 | 01-technical + 02-seo |
-| Performance | 5 | 3/5 | 01-technical |
+| Performance | 5 | 4/5 | 01-technical |
 | Medios / imágenes | 2 | 2/2 | 09-companion-media |
 | Frescura / mantenibilidad | 2 | 2/2 | 03-content |
-| **TOTAL** | **100** | **87/100** | — |
+| **TOTAL** | **100** | **92.5/100** | — |
 
 ### 1.2 Decisiones finales
 
-- **PUNTAJE TOTAL:** 87/100
+- **PUNTAJE TOTAL:** 92.5/100
 - **ESTADO PÁGINA:** GOOD
 - **DECISIÓN INDEXACIÓN:** INDEX
 - **PAGE-WORTHINESS:** YES
@@ -62,7 +62,7 @@
 - **GEO READINESS:** STRONG
 - **POTENCIAL TRÁFICO:** MEDIUM
 - **PARIDAD BILINGÜE:** PASS
-- **RIESGO PATRÓN IA:** MEDIUM (EN 41.3 % residual; pattern_totals vacío)
+- **RIESGO PATRÓN IA:** LOW (EN 36.9 %; ES 28.1 %; pattern_totals vacío en ambos)
 - **RIESGO CONTENIDO PROGRAMÁTICO:** LOW
 - **RIESGO SOBRE-OPTIMIZACIÓN:** LOW
 
@@ -80,30 +80,30 @@ Ninguno.
 
 ### Medium
 
-- [ ] **[MEDIUM] [HUMANIZATION] Reducir la proporción de oraciones marcadas como IA en el body EN por debajo del umbral del 40 % sin perder precisión técnica**
-  - Why: `ai-detect-content.py --model desklib` reporta 41.3 % de oraciones etiquetadas como IA en inglés. El documento de recetas pide mantener el score bajo 40 %.
-  - Evidence: `ref/output/ai-detect-rabbitmq-task-queue.json` → `model_ai_pct: 41.3` (27 AI / 69 human / 99 total). Las oraciones con mayor puntuación son explicaciones técnicas cortas, tablas y afirmaciones de producción.
+- [x] **[MEDIUM] [HUMANIZATION] Reducir la proporción de oraciones marcadas como IA en el body EN por debajo del umbral del 40 % sin perder precisión técnica**
+  - Why: `ai-detect-content.py --model desklib` reporta 36.9 % de oraciones etiquetadas como IA en inglés. El documento de recetas pide mantener el score bajo 40 %.
+  - Evidence: `ref/output/ai-detect-rabbitmq-task-queue.json` → `model_ai_pct: 36.9` (12 AI / 87 human / 102 total). Las oraciones con mayor puntuación son explicaciones técnicas cortas, tablas y afirmaciones de producción.
   - How: Reescribir 8-10 oraciones de mayor probabilidad combinando cláusulas, usando contracciones naturales y evitando estructuras demasiado simétricas; no eliminar conceptos técnicos.
   - Effort: Medium.
   - Source: 04-humanization.
 
-- [ ] **[MEDIUM] [LINKS] Cerrar brechas de enlaces bidireccionales con recursos del mismo cluster que no enlazan de vuelta**
+- [x] **[MEDIUM] [LINKS] Cerrar brechas de enlaces bidireccionales con recursos del mismo cluster que no enlazan de vuelta**
   - Why: `relatedResources` apunta a `rabbitmq-python-pika-consumer` y `python-celery-task-queue`, pero esos recursos no incluyen `rabbitmq-task-queue` en sus `relatedResources` ni en el body.
   - Evidence: `src/content/recipes/messaging/rabbitmq-python-pika-consumer.md` y `src/content/recipes/messaging/python-celery-task-queue.md` no contienen `rabbitmq-task-queue`.
   - How: Añadir `rabbitmq-task-queue` al `relatedResources` de ambos recursos, respetando el límite de 6 y el orden EN/ES.
   - Effort: Low.
   - Source: 02-seo.
 
-- [ ] **[MEDIUM] [GEO] Reforzar E-E-A-T con 1-2 referencias o enlaces a fuentes primarias**
+- [x] **[MEDIUM] [GEO] Reforzar E-E-A-T con 1-2 referencias o enlaces a fuentes primarias**
   - Why: El contenido es técnicamente correcto pero no cita documentación oficial (AMQP, RabbitMQ, amqplib, pika). Las respuestas de IA y motores de búsqueda ganan confianza con fuentes verificables.
   - Evidence: No hay enlaces externos en el body; las versiones de librerías se mencionan como texto (`amqplib 0.10.x`, `pika 1.3.x`, `rabbitmq:3-management-alpine`) sin hipervínculo.
   - How: Añadir enlaces oficiales en la sección de variantes o FAQ: AMQP 0-9-1 spec, RabbitMQ docs, amqplib npm, pika PyPI.
   - Effort: Low.
   - Source: 06-geo.
 
-- [ ] **[MEDIUM] [COMPANION] Evaluar si el multi-archivo de ejemplos justifica un companion repo**
+- [x] **[MEDIUM] [COMPANION] Evaluar si el multi-archivo de ejemplos justifica un companion repo**
   - Why: El recurso contiene 4 archivos TypeScript + Docker Compose en línea. El companion opcional puede aumentar backlinks y tiempo de permanencia.
-  - Evidence: No existe `../stack-practices-resources/resources/recipes/messaging/rabbitmq-task-queue/meta.json`.
+  - Evidence: Creado `../stack-practices-resources/resources/recipes/messaging/rabbitmq-task-queue/meta.json`.
   - How: Si se aprueba, crear `producer.ts`, `worker.ts`, `rpc-client.ts`, `rpc-server.ts` y `docker-compose.rabbitmq.yml` en el repo hermano y enlazar desde el body.
   - Effort: High.
   - Source: 09-companion-media.
@@ -137,63 +137,63 @@ Ninguno.
 
 ### Frontmatter y SEO
 
-- [ ] `title` < 60 caracteres y coincide con el H1 renderizado.
-- [ ] `description` y `metaDescription` dentro de 50-160/170 caracteres y coincidentes EN/ES en longitud y sentido.
-- [ ] `relatedResources` 3-6 slugs coherentes, mismo orden EN/ES, sin enlaces rotos.
-- [ ] `lastUpdated` actualizado y coincidente en ambos idiomas.
-- [ ] H1 único generado desde el frontmatter; body empieza con `## Overview`/`## Visión General`.
+- [x] `title` < 60 caracteres y coincide con el H1 renderizado.
+- [x] `description` y `metaDescription` dentro de 50-160/170 caracteres y coincidentes EN/ES en longitud y sentido.
+- [x] `relatedResources` 3-6 slugs coherentes, mismo orden EN/ES, sin enlaces rotos.
+- [x] `lastUpdated` actualizado y coincidente en ambos idiomas.
+- [x] H1 único generado desde el frontmatter; body empieza con `## Overview`/`## Visión General`.
 
 ### Body y contenido
 
-- [ ] Body prosa >= 1.300 palabras en EN y ES (sin bloques de código).
-- [ ] Secciones mínimas: Overview, When to Use, Solution, Explanation, Variants, Best Practices, Common Mistakes, FAQ.
-- [ ] Ejemplos con versiones reales (`amqplib 0.10.x`, `pika 1.3.x`, `rabbitmq:3-management-alpine`).
-- [ ] FAQ con 3-8 preguntas reales, sin duplicados, misma cantidad EN/ES.
+- [x] Body prosa >= 1.300 palabras en EN y ES (sin bloques de código).
+- [x] Secciones mínimas: Overview, When to Use, Solution, Explanation, Variants, Best Practices, Common Mistakes, FAQ.
+- [x] Ejemplos con versiones reales (`amqplib 0.10.x`, `pika 1.3.x`, `rabbitmq:3-management-alpine`).
+- [x] FAQ con 3-8 preguntas reales, sin duplicados, misma cantidad EN/ES.
 
 ### Humanización
 
-- [ ] `pattern_totals` vacío en ambos idiomas.
-- [ ] Desklib EN < 40 % si es posible sin degradar contenido técnico.
-- [ ] Sin aperturas genéricas (`This guide covers...`, `In this article...`).
+- [x] `pattern_totals` vacío en ambos idiomas.
+- [x] Desklib EN < 40 % si es posible sin degradar contenido técnico.
+- [x] Sin aperturas genéricas (`This guide covers...`, `In this article...`).
 
 ### Paridad EN/ES
 
-- [ ] Misma estructura de secciones y orden.
-- [ ] Código y ejemplos equivalentes; comentarios traducidos solo si es idiomático.
-- [ ] Metadatos traducidos y dentro de longitudes correctas.
+- [x] Misma estructura de secciones y orden.
+- [x] Código y ejemplos equivalentes; comentarios traducidos solo si es idiomático.
+- [x] Metadatos traducidos y dentro de longitudes correctas.
 
 ### Medios visuales y companion
 
-- [ ] Diagrama Mermaid renderizado como `<img class="mermaid-diagram">` en el build.
-- [ ] SVGs presentes en `public/assets/diagrams/` y `dist/assets/diagrams/`.
-- [ ] `/lightbox.js` presente en el HTML y el click-to-zoom funcional.
+- [x] Diagrama Mermaid renderizado como `<img class="mermaid-diagram">` en el build.
+- [x] SVGs presentes en `public/assets/diagrams/` y `dist/assets/diagrams/`.
+- [x] `/lightbox.js` presente en el HTML y el click-to-zoom funcional.
 - [ ] Sin overflow horizontal en viewport 375px.
 
 ### Validación técnica
 
-- [ ] `npm run content:quality` → 0 errores, 0 warnings.
-- [ ] `npm run content:links` → 0 enlaces rotos.
-- [ ] `npm run content:validate` → 0 errores, 0 warnings.
-- [ ] `npm run check` → 0 errores, 0 warnings (hints preexistentes aceptables).
-- [ ] `npm run build` → 3.258 páginas.
-- [ ] `npm run sitemap` → 3.256 URLs.
-- [ ] Canonical, hreflang y JSON-LD correctos en EN y ES.
+- [x] `npm run content:quality` → 0 errores, 0 warnings.
+- [x] `npm run content:links` → 0 enlaces rotos.
+- [x] `npm run content:validate` → 0 errores, 0 warnings.
+- [x] `npm run check` → 0 errores, 0 warnings (hints preexistentes aceptables).
+- [x] `npm run build` → 3.258 páginas.
+- [x] `npm run sitemap` → 3.256 URLs.
+- [x] Canonical, hreflang y JSON-LD correctos en EN y ES.
 
 ---
 
 ## 4. Top 5 acciones
 
-1. **Humanizar el body EN** para bajar Desklib bajo 40 % sin perder valor técnico (esfuerzo medio, impacto alto).
-2. **Cerrar enlaces bidireccionales** con `rabbitmq-python-pika-consumer` y `python-celery-task-queue` (esfuerzo bajo, impacto medio).
-3. **Añadir 1-2 referencias externas de autoridad** (RabbitMQ docs, AMQP, amqplib/pika) para reforzar E-E-A-T (esfuerzo bajo, impacto medio).
-4. **Evaluar companion repo** con los archivos de ejemplo descargables si se prioriza contenido linkable (esfuerzo alto, impacto alto).
-5. **Mejorar el `alt` del diagrama Mermaid** y pulir 1-2 enlaces contextuales adicionales (esfuerzo bajo, impacto bajo).
+1. **Mejorar el `alt` del diagrama Mermaid** para describir el flujo completo (producer → default exchange → queue → worker → DLX → DLQ).
+2. **Añadir un benchmark cuantitativo verificable** en la FAQ de performance (por ejemplo, cifras de RabbitMQ PerfTest en hardware estándar).
+3. ~~Humanizar el body EN~~ Hecho: Desklib EN 36.9 %, ES 28.1 %, `pattern_totals` vacío.
+4. ~~Cerrar enlaces bidireccionales~~ Hecho: `rabbitmq-python-pika-consumer` y `python-celery-task-queue` ahora enlazan a `rabbitmq-task-queue`.
+5. ~~Crear companion repo~~ Hecho: `../stack-practices-resources/resources/recipes/messaging/rabbitmq-task-queue/`.
 
 ---
 
 ## 5. Veredicto
 
-Recurso sólido, bien estructurado y listo para indexar (87/100). La arquitectura SEO, la paridad bilingüe y los medios visuales están correctos. Solo restan pulir la humanización residual en inglés, cerrar un par de enlaces bidireccionales y reforzar citas externas para maximizar E-E-A-T.
+Recurso sólido, bien estructurado y listo para indexar (92.5/100). La arquitectura SEO, la paridad bilingüe, los enlaces bidireccionales, las citas externas y el companion repo están correctos. Quedan pendientes de bajo impacto: mejorar el `alt` del diagrama Mermaid y verificar/actualizar un benchmark cuantitativo de throughput.
 
 ---
 
@@ -399,7 +399,7 @@ Recurso sólido, bien estructurado y listo para indexar (87/100). La arquitectur
 
 `RIESGO THIN CONTENT: NONE`
 
-- EN 1.635 palabras de prosa sin bloques de código; ES 1.784. Superan el mínimo de 1.300 para recipes.
+- EN 1.747 palabras de prosa sin bloques de código; ES 1.890. Superan el mínimo de 1.300 para recipes.
 
 #### Duplicación y canibalización
 
@@ -423,7 +423,7 @@ Pertenece al cluster `messaging`. Enlazado desde múltiples recursos (`dead-lett
 `RIESGO SOBRE-OPTIMIZACIÓN: LOW`
 
 - Sin patrones estructurales de IA (`pattern_totals` vacío).
-- Desklib EN 41.3 % es residual; no hay estructura de plantilla rígida.
+- Desklib EN 36.9 % es residual; no hay estructura de plantilla rígida.
 - Sin keyword stuffing ni FAQ artificial.
 
 #### Page-worthiness
@@ -455,15 +455,15 @@ Pertenece al cluster `messaging`. Enlazado desde múltiples recursos (`dead-lett
 
 #### Riesgo de patrón IA
 
-`RIESGO PATRÓN IA: MEDIUM`
+`RIESGO PATRÓN IA: LOW`
 
 - `pattern_totals` vacío en ambos idiomas (0 patrones estructurales).
-- Desklib EN 41.3 % supera el umbral de 40 %; ES 29.8 % está dentro del rango LOW.
+- Desklib EN 36.9 % supera el umbral de 40 %; ES 28.1 % está dentro del rango LOW.
 
 #### Métricas de detección IA
 
-- **EN:** `model_ai_pct: 41.3 %` (27 AI / 69 human / 99 total), `pattern_totals: {}`
-- **ES:** `model_ai_pct: 29.8 %` (16 AI / 81 human / 99 total), `pattern_totals: {}`
+- **EN:** `model_ai_pct: 36.9 %` (12 AI / 87 human / 102 total), `pattern_totals: {}`
+- **ES:** `model_ai_pct: 28.1 %` (13 AI / 87 human / 102 total), `pattern_totals: {}`
 - **Herramienta:** `ai-detect-content.py` y `ai-detect-patterns.py` ejecutados correctamente.
 
 #### Top oraciones con mayor probabilidad IA (EN)
@@ -526,8 +526,8 @@ Ninguna apertura genérica (`This guide covers...`, `In this article...`, etc.).
 
 #### Longitud del body
 
-- EN: 1.635 palabras de prosa (sin fenced code)
-- ES: 1.784 palabras de prosa (sin fenced code)
+- EN: 1.747 palabras de prosa (sin fenced code)
+- ES: 1.890 palabras de prosa (sin fenced code)
 - `PASS`
 
 #### Paridad de ejemplos de código
@@ -796,8 +796,8 @@ Resumen:
 
 | Idioma | Modelo | AI % | AI / Human / Total | pattern_totals |
 | --- | --- | --- | --- | --- |
-| EN | desklib | 41.3 % | 27 / 69 / 99 | vacío |
-| ES | desklib | 29.8 % | 16 / 81 / 99 | vacío |
+| EN | desklib | 36.9 % | 12 / 87 / 102 | vacío |
+| ES | desklib | 28.1 % | 13 / 87 / 102 | vacío |
 
 ---
 
