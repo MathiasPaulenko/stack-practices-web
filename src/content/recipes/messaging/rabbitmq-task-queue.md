@@ -244,6 +244,7 @@ key. This recipe uses a `direct` exchange plus the default empty exchange for
 
 ```mermaid
 flowchart LR
+%% alt: A producer sends a task through the default exchange to the email.tasks queue, then to a worker; after three failed attempts the message is routed to the DLX and DLQ
     P[Producer] -->|sendToQueue| E[Default exchange]
     E --> Q[email.tasks queue]
     Q --> C[Worker consumer]
@@ -408,9 +409,14 @@ connection recovery, authentication and TLS before they fit your environment.
 
 ### What are the performance characteristics?
 
-A typical RabbitMQ work queue can move thousands to tens of thousands of messages
-per second per node. Throughput drops with heavy routing logic or large
-messages. You scale by adding more broker nodes or more consumers.
+A RabbitMQ node can move anywhere from tens of thousands to hundreds of thousands
+of small messages per second, depending on message size, persistence, publisher
+confirms and consumer acknowledgements. RabbitMQ's own benchmarker reports
+36,000–67,000 messages per second for replicated 1 KB quorum queues, and the
+official PerfTest tool can show higher numbers for classic queues in controlled
+setups. In real task-queue deployments with durable queues, persistent messages
+and manual acks, most teams see tens of thousands of messages per second per
+node. You scale by adding more broker nodes or more consumers.
 
 ### How do I debug issues with this approach?
 

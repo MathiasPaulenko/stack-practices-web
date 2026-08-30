@@ -247,6 +247,7 @@ key.
 
 ```mermaid
 flowchart LR
+%% alt: Un producer envía una tarea a través del exchange por defecto hacia la queue email.tasks y luego al worker; tras tres intentos fallidos el mensaje se enruta al DLX y DLQ
     P[Producer] -->|sendToQueue| E[Default exchange]
     E --> Q[queue email.tasks]
     Q --> C[Worker consumer]
@@ -413,9 +414,15 @@ entorno.
 
 ### ¿Cuáles son las características de rendimiento?
 
-Una work queue típica puede mover miles o decenas de miles de mensajes por
-segundo por nodo en RabbitMQ. El throughput baja con lógica de enrutamiento
-compleja o mensajes grandes. Escalás agregando nodos al broker o más consumers.
+Un nodo de RabbitMQ puede mover desde decenas de miles hasta cientos de miles
+de mensajes pequeños por segundo, según el tamaño del mensaje, la persistencia,
+los publisher confirms y los consumer acknowledgements. El benchmarker oficial de
+RabbitMQ reporta 36.000–67.000 mensajes por segundo para quorum queues replicadas
+con mensajes de 1 KB, y la herramienta oficial PerfTest puede mostrar números más
+altos para classic queues en entornos controlados. En despliegues reales de task
+queues con durable queues, mensajes persistentes y acks manuales, la mayoría de
+los equipos ve decenas de miles de mensajes por segundo por nodo. Escalás
+agregando nodos al broker o más consumers.
 
 ### ¿Cómo depuro problemas con este enfoque?
 
