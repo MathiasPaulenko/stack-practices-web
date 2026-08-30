@@ -2,18 +2,18 @@
   {
     "label": "deep-clone-javascript-en",
     "model": "desklib",
-    "model_ai_pct": 35.1,
-    "ai_count": 7,
-    "human_count": 54,
+    "model_ai_pct": 37.4,
+    "ai_count": 13,
+    "human_count": 69,
     "skipped_count": 3,
-    "total": 64,
+    "total": 85,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 13.7,
-      "stddev": 10.9,
-      "cv": 0.79,
+      "mean": 14.3,
+      "stddev": 10.1,
+      "cv": 0.71,
       "verdict": "natural variation",
-      "sentence_count": 61,
+      "sentence_count": 82,
       "lengths": [
         18,
         17,
@@ -21,6 +21,7 @@
         20,
         10,
         11,
+        15,
         16,
         11,
         8,
@@ -28,6 +29,7 @@
         7,
         8,
         7,
+        23,
         7,
         23,
         12,
@@ -36,20 +38,33 @@
         7,
         7,
         7,
-        8,
-        14,
+        21,
         17,
         19,
         20,
         30,
+        18,
+        19,
+        25,
+        14,
+        26,
         81,
-        42,
+        43,
+        16,
+        12,
+        17,
+        8,
+        5,
         13,
         17,
         17,
         15,
         10,
         20,
+        14,
+        20,
+        11,
+        16,
         10,
         13,
         12,
@@ -58,6 +73,8 @@
         7,
         11,
         9,
+        5,
+        28,
         6,
         23,
         11,
@@ -71,6 +88,10 @@
         9,
         13,
         6,
+        7,
+        24,
+        6,
+        7,
         6,
         7,
         6,
@@ -80,8 +101,12 @@
     },
     "top_ai_sentences": [
       [
-        "You decide how to clone each type, including class instances rebuilt\n  through new MyClass(...).",
-        0.7593
+        "The parser only sees a string.",
+        0.8779
+      ],
+      [
+        "It also covers fallbacks for\nolder runtimes, so you don't have to swap libraries mid-project.",
+        0.8181
       ],
       [
         "[Node.js structuredClone global](https://nodejs.org/api/globals.html#structuredclonevalue-options): reference for\n  Node 17+.",
@@ -96,12 +121,32 @@
         0.6843
       ],
       [
+        "structuredClone gives you a snapshot, but the original reference can still live\n  somewhere else, so the two copies can drift apart in ways that are hard to debug.",
+        0.6791
+      ],
+      [
+        "You rarely need all of them at once.",
+        0.664
+      ],
+      [
         "[Lodash cloneDeep](https://lodash.com/docs/4.17.15#cloneDeep): documentation and options.",
         0.6492
       ],
       [
+        "Prefer structuredClone in modern environments.",
+        0.6227
+      ],
+      [
         "Edit a nested state copy without touching the original, like in Redux reducers or form handling.",
         0.5915
+      ],
+      [
+        "JSON.stringify doesn't know what a Date is.",
+        0.5833
+      ],
+      [
+        "The cross-language angle helps\nwhen your team owns both a Node API and a Python data pipeline and needs the same cloning rules in each.",
+        0.5388
       ],
       [
         "Nested objects,\narrays and special types are cloned, not shared, so the copy doesn't reference the original.",
@@ -116,12 +161,28 @@
         0.4903
       ],
       [
+        "A manual WeakMap cache gives you full control over how each type is cloned, including class instances rebuilt\n  through new MyClass(...).",
+        0.4889
+      ],
+      [
+        "If you switch from\n  JSON.parse/stringify to structuredClone, the supported types change, and a test catches that before it reaches\n  production.",
+        0.4805
+      ],
+      [
+        "Match the method to the runtime and the shape of the data.",
+        0.4792
+      ],
+      [
         "MDN lists the supported types and DataCloneError details for\n  [structuredClone](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone).",
         0.4743
       ],
       [
         "You're serializing objects to pass through postMessage, IndexedDB, or Web Workers.",
         0.4594
+      ],
+      [
+        "This page keeps the comparison\nportable across JavaScript, Python and Java, with a decision tree for picking a method.",
+        0.4505
       ],
       [
         "Use WeakMap, not Map, so cached objects can still be garbage collected once the\n  original is released.",
@@ -138,46 +199,6 @@
       [
         "A deep clone copies an object or array and everything it contains, so the clone is fully independent.",
         0.4219
-      ],
-      [
-        "This recipe compares deep clone methods in\nJavaScript, Python and Java, including structuredClone, JSON.parse/stringify, Lodash and a manual recursive\nimplementation.",
-        0.4097
-      ],
-      [
-        "With very large immutable trees, libraries like Immer use structural sharing instead of copying the whole tree on\n  every update.",
-        0.4047
-      ],
-      [
-        "You're building undo/redo stacks and need immutable snapshots.",
-        0.4
-      ],
-      [
-        "On older versions, v8.deserialize(v8.serialize(obj)) uses\nNode's internal algorithm.",
-        0.3962
-      ],
-      [
-        "More data recipes in the [Data topic](/topics/data/).",
-        0.3916
-      ],
-      [
-        "See\n  [Call REST API](/recipes/call-rest-api/) for related patterns.",
-        0.3845
-      ],
-      [
-        "[MDN structuredClone](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone): supported types and\n  DataCloneError.",
-        0.378
-      ],
-      [
-        "Check the decision matrix in [Variants](#variants) to choose an approach.",
-        0.3692
-      ],
-      [
-        "A manual WeakMap cache gives you full control.",
-        0.367
-      ],
-      [
-        "Only reach for JSON.parse/stringify with simple plain objects.",
-        0.3665
       ]
     ],
     "diagnostics_sample": []
@@ -185,18 +206,18 @@
   {
     "label": "deep-clone-javascript-es",
     "model": "desklib",
-    "model_ai_pct": 27.8,
-    "ai_count": 5,
-    "human_count": 56,
+    "model_ai_pct": 30.2,
+    "ai_count": 9,
+    "human_count": 74,
     "skipped_count": 2,
-    "total": 63,
+    "total": 85,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 14.6,
-      "stddev": 11.7,
-      "cv": 0.8,
+      "mean": 15.0,
+      "stddev": 10.7,
+      "cv": 0.71,
       "verdict": "natural variation",
-      "sentence_count": 61,
+      "sentence_count": 83,
       "lengths": [
         20,
         15,
@@ -204,6 +225,7 @@
         20,
         11,
         14,
+        26,
         19,
         11,
         9,
@@ -211,6 +233,7 @@
         7,
         10,
         9,
+        23,
         7,
         24,
         12,
@@ -226,14 +249,28 @@
         21,
         5,
         36,
+        19,
+        20,
+        28,
+        16,
+        21,
         86,
-        46,
+        48,
+        17,
+        12,
+        17,
+        6,
+        5,
         15,
         18,
         16,
         18,
         9,
         21,
+        15,
+        21,
+        11,
+        18,
         9,
         13,
         13,
@@ -242,6 +279,8 @@
         8,
         10,
         8,
+        5,
+        24,
         20,
         11,
         16,
@@ -254,6 +293,10 @@
         8,
         16,
         6,
+        7,
+        22,
+        13,
+        11,
         6,
         7,
         6,
@@ -262,6 +305,10 @@
       ]
     },
     "top_ai_sentences": [
+      [
+        "Ve un n\u00famero, lo convierte en un string ISO 8601, y para cuando JSON.parse\nlo lee la informaci\u00f3n de tipo ya desapareci\u00f3.",
+        0.9053
+      ],
       [
         "Vos decid\u00eds c\u00f3mo clonar cada tipo, incluyendo instancias de clases\n  reconstruidas con new MyClass(...).",
         0.706
@@ -275,12 +322,28 @@
         0.6481
       ],
       [
+        "Eleg\u00ed el m\u00e9todo seg\u00fan el runtime y la forma de los datos.",
+        0.6044
+      ],
+      [
         "Si\nnecesit\u00e1s el comportamiento de clase, reconstru\u00ed instancias con new MyClass(...) o us\u00e1 una funci\u00f3n personalizada de\nLodash.",
         0.5806
       ],
       [
+        "Prefer\u00ed structuredClone en entornos modernos.",
+        0.5672
+      ],
+      [
+        "Esta p\u00e1gina\nmantiene la comparaci\u00f3n portable entre JavaScript, Python y Java, con un \u00e1rbol de decisi\u00f3n para elegir un m\u00e9todo.",
+        0.5571
+      ],
+      [
         "El primer nivel es nuevo, pero los\n  objetos anidados siguen apuntando al original.",
         0.503
+      ],
+      [
+        "Tratar un clon como inmutable.",
+        0.4706
       ],
       [
         "Us\u00e1 Object.getOwnPropertyDescriptors con Object.create para conservar los descriptores de propiedad y\nreconstruir la cadena de prototipo.",
@@ -295,12 +358,36 @@
         0.461
       ],
       [
+        "Us\u00e1 esa cuando quieras\nconstruir el clon a mano; us\u00e1 esta cuando necesites el mismo modelo mental en un stack pol\u00edglota.",
+        0.452
+      ],
+      [
+        "structuredClone no sirve en un navegador viejo, y Lodash es excesivo para\nun objeto de configuraci\u00f3n plano.",
+        0.4499
+      ],
+      [
+        "JSON.stringify no sabe qu\u00e9 es un Date.",
+        0.4061
+      ],
+      [
+        "Escrib\u00ed una peque\u00f1a prueba que mute el clon y verifique que el original sigue intacto.",
+        0.3981
+      ],
+      [
+        "Tambi\u00e9n muestra c\u00f3mo\nvolver a una alternativa segura cuando structuredClone no est\u00e9 disponible, para elegir la herramienta correcta sin\ncambiar de librer\u00eda a mitad del proyecto.",
+        0.3942
+      ],
+      [
         "MDN documenta\n  [structuredClone](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone) con los tipos soportados y los\n  detalles de DataCloneError.",
         0.3899
       ],
       [
         "Est\u00e1s serializando objetos para pasarlos por postMessage, IndexedDB o Web Workers.",
         0.3838
+      ],
+      [
+        "Si pas\u00e1s de\n  JSON.parse/stringify a structuredClone, los tipos soportados cambian, y una prueba lo atrapa antes de que llegue a\n  producci\u00f3n.",
+        0.3832
       ],
       [
         "| Enfoque                | Referencias circulares | Tipos especiales                        | Rendimiento | Entorno                                   |\n| ---------------------- | -",
@@ -317,50 +404,6 @@
       [
         "Lodash cloneDeep preserva accessors por defecto.",
         0.3627
-      ],
-      [
-        "Los objetos anidados, arrays y tipos especiales se duplican en vez de compartirse por referencia.",
-        0.3626
-      ],
-      [
-        "Compar\u00e1 los trade-offs de JSON.parse antes de copiar un payload.",
-        0.3441
-      ],
-      [
-        "Los casos edge de JSON.parse est\u00e1n en\n  [Parse JSON](/recipes/parse-json/).",
-        0.3332
-      ],
-      [
-        "Los casos edge de JSON.parse est\u00e1n en [Parse JSON](/recipes/parse-json/).",
-        0.3332
-      ],
-      [
-        "Clon\u00e1 defensivamente antes de mutar datos de una API o un store de estado, as\u00ed evit\u00e1s efectos secundarios.",
-        0.3329
-      ],
-      [
-        "Eval\u00faan el getter y copian el valor\nresultante.",
-        0.3306
-      ],
-      [
-        "Deja valores Date como strings ISO.",
-        0.3222
-      ],
-      [
-        "Reservalo solo\n  para objetos planos y arrays.",
-        0.3211
-      ],
-      [
-        "Las funciones y nodos DOM disparan un DataCloneError.",
-        0.3165
-      ],
-      [
-        "Necesit\u00e1s una copia defensiva de argumentos de funciones o respuestas de API antes de transformarlas.",
-        0.3046
-      ],
-      [
-        "Usar spread ({...obj}) u Object.assign esperando una clonaci\u00f3n profunda.",
-        0.3024
       ]
     ],
     "diagnostics_sample": []

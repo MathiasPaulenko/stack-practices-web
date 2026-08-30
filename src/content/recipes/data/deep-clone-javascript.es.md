@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/date-formatting
   - /patterns/prototype-pattern-cloning
   - /recipes/deep-clone-structured
-lastUpdated: "2026-08-29"
+lastUpdated: "2026-08-30"
 publishedAt: "2026-06-11"
 author: Mathias Paulenko
 seo:
@@ -51,7 +51,9 @@ Los objetos anidados, arrays y tipos especiales se duplican en vez de compartirs
 solo copia la referencia, así que cambios en una "copia" también afectan al original. Esta receta compara métodos de
 clonación profunda en JavaScript, Python y Java: `structuredClone`, `JSON.parse/stringify`, Lodash y una implementación
 recursiva manual. Mirá la matriz de decisión en [Variantes](#variantes) para elegir un enfoque. Si querés un recorrido
-paso a paso solo en JavaScript, consultá [Deep Clone Structured](/recipes/deep-clone-structured/).
+paso a paso solo en JavaScript, consultá [Deep Clone Structured](/recipes/deep-clone-structured/). También muestra cómo
+volver a una alternativa segura cuando `structuredClone` no esté disponible, para elegir la herramienta correcta sin
+cambiar de librería a mitad del proyecto.
 
 ## Cuándo Usar
 
@@ -62,6 +64,8 @@ paso a paso solo en JavaScript, consultá [Deep Clone Structured](/recipes/deep-
   [Llamar REST API](/recipes/call-rest-api/) para patrones relacionados.
 - Compará los trade-offs de `JSON.parse` antes de copiar un payload. Los casos edge de `JSON.parse` están en
   [Parse JSON](/recipes/parse-json/).
+- Necesitás un modelo mental que se traslade al backend en Python o Java, así todo el stack usa las mismas reglas de
+  clonación.
 
 ## Solución
 
@@ -283,6 +287,15 @@ Person cloned = DeepCopyUtil.deepCopy(original);
   nuevas instancias y apuntan los objetos ya copiados a la misma nueva instancia para mantener las referencias
   circulares.
 
+### Dónde encaja esta receta
+
+La clonación profunda parece simple hasta que aparece un `Date`, un `Map` o un nodo DOM en el payload. Esta página
+mantiene la comparación portable entre JavaScript, Python y Java, con un árbol de decisión para elegir un método. El
+ángulo multi-lenguaje ayuda cuando tu equipo tiene una API en Node y un pipeline de datos en Python y necesita las
+mismas reglas de clonación en ambos. Si solo te interesa JavaScript,
+[Deep Clone Structured](/recipes/deep-clone-structured/) es la guía más profunda, paso a paso. Usá esa cuando quieras
+construir el clon a mano; usá esta cuando necesites el mismo modelo mental en un stack políglota.
+
 ### Árbol de decisión
 
 ```mermaid
@@ -307,6 +320,10 @@ flowchart LR
 | Serialización Java     | Sí                     | Todos los tipos `Serializable`          | Lenta       | Java JVM                                  |
 | `copy.deepcopy` Python | Sí                     | La mayoría de tipos built-in            | Media       | Python                                    |
 
+El entorno importa tanto como la velocidad. `structuredClone` no sirve en un navegador viejo, y Lodash es excesivo para
+un objeto de configuración plano. Elegí el método según el runtime y la forma de los datos. Si el payload es chico y el
+runtime es moderno, `structuredClone` suele ser la opción menos sorprendente. Raramente necesitás todos a la vez.
+
 ## Mejores Prácticas
 
 - Preferí `structuredClone` en entornos modernos. Es nativo, evita dependencias extras y cubre referencias circulares y
@@ -319,6 +336,11 @@ flowchart LR
   [Llamar REST API](/recipes/call-rest-api/) para patrones sobre respuestas externas.
 - Con árboles inmutables muy grandes, librerías como Immer usan structural sharing en lugar de copiar todo el árbol en
   cada actualización.
+- Escribí una pequeña prueba que mute el clon y verifique que el original sigue intacto. Si pasás de
+  `JSON.parse/stringify` a `structuredClone`, los tipos soportados cambian, y una prueba lo atrapa antes de que llegue a
+  producción.
+- Revisá tu estrategia de clonación cuando actualices Node o tu bundler. Lo que el año pasado necesitaba Lodash hoy
+  puede ser nativo, y sacar esa dependencia achica el bundle.
 
 ## Errores Comunes
 
@@ -329,6 +351,8 @@ flowchart LR
   circulares.
 - Llamar `structuredClone` sobre funciones o nodos DOM. Las funciones y nodos DOM disparan un `DataCloneError`.
 - Clonar un objeto enorme en cada render ralentiza la UI. Usá memoización o structural sharing en su lugar.
+- Tratar un clon como inmutable. `structuredClone` te da un snapshot, pero la referencia original puede seguir viva en
+  otro lugar, así que ambas copias pueden divergir de formas confusas.
 
 ## Preguntas Frecuentes
 
@@ -355,6 +379,12 @@ objetos planos simples. Ver [Node.js V8 serialization](https://nodejs.org/api/v8
 Ni `structuredClone` ni `JSON.parse/stringify` mantienen getters y setters. Evalúan el getter y copian el valor
 resultante. Usá `Object.getOwnPropertyDescriptors` con `Object.create` para conservar los descriptores de propiedad y
 reconstruir la cadena de prototipo. Lodash `cloneDeep` preserva accessors por defecto.
+
+### ¿Por qué `JSON.parse(stringify(obj))` pierde los objetos `Date`?
+
+`JSON.stringify` no sabe qué es un `Date`. Ve un número, lo convierte en un string ISO 8601, y para cuando `JSON.parse`
+lo lee la información de tipo ya desapareció. El parser solo ve el string, así que eso es lo que devuelve. Por eso esta
+receta reserva `JSON.parse/stringify` para objetos planos y arrays.
 
 ## Referencias
 
