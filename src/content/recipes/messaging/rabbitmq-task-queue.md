@@ -2,7 +2,7 @@
 contentType: recipes
 slug: rabbitmq-task-queue
 title: "Task Queues and RPC with RabbitMQ and AMQP"
-description: "Distribute background tasks and implement request-reply patterns with RabbitMQ using durable queues, dead-letter exchanges, and prefetch for controlled concurrency."
+description: "Distribute background tasks and implement request-reply patterns with RabbitMQ using durable queues, dead-letter exchanges, and prefetch."
 metaDescription: "Implement task queues and RPC with RabbitMQ. Use durable queues, dead-letter exchanges, and prefetch for reliable task distribution and controlled concurrency."
 difficulty: intermediate
 topics:
@@ -16,13 +16,13 @@ tags:
   - rpc
   - dead-letter
 relatedResources:
-  - /recipes/background-jobs
   - /recipes/dead-letter-queue
   - /recipes/message-idempotency
-  - /recipes/event-driven-architecture
-  - /recipes/retry-backoff
+  - /recipes/rabbitmq-python-pika-consumer
+  - /recipes/python-celery-task-queue
+  - /recipes/event-driven-microservices
   - /guides/message-queue-guide
-lastUpdated: "2026-08-18"
+lastUpdated: "2026-08-30"
 publishedAt: "2026-06-18"
 author: Mathias Paulenko
 seo:
@@ -38,22 +38,50 @@ seo:
 
 ## Overview
 
-RabbitMQ is a solid choice for distributing background work and calling services
-synchronously over AMQP. This recipe covers how to set up a durable task queue,
-retry failed messages, route poison messages to a dead-letter queue, and
-use the request-reply pattern for RPC.
+RabbitMQ is a battle-tested message broker that speaks AMQP, an open wire
+protocol with clients in most languages. Teams reach for it when a web request
+does too much work: instead of making the user wait, you hand the job to a
+worker process through a queue. AMQP gives you explicit control over routing, delivery guarantees, and
+persistence; that's why it fits task queues and request-reply (RPC) patterns
+better than plain HTTP polling.
+
+This recipe's TypeScript examples use `amqplib` 0.10.x. The same concepts
+transfer to Python, Go, Java, or .NET clients, because they all talk the same
+protocol. You
+will configure a durable task queue, add a dead-letter exchange for poison
+messages, cap retries with prefetch, and implement an RPC call with a temporary
+reply queue.
 
 ## When to Use
 
-- Move slow work such as image processing or sending emails out of the main
-  request so it doesn't block. See [Background Jobs](/recipes/background-jobs/)
-for related patterns.
-- Retry a failed task a few times, then set it aside for inspection. See
-  [Retry Backoff](/recipes/retry-backoff/) for retry strategies.
+- Move slow work such as image processing, sending emails, or generating PDFs
+  out of the request path. The caller publishes the task and continues, while a
+  worker picks it up later. See [Background Jobs](/recipes/background-jobs/)
+  for related patterns.
+- Retry a failed task a few times, then route it to a dead-letter queue for
+  inspection once the retries are exhausted. See [Retry Backoff](/recipes/retry-backoff/)
+  for retry strategies.
 - You need request-reply communication that feels synchronous but skips the
-  overhead of HTTP. For HTTP alternatives, see [Call REST API](/recipes/call-rest-api/).
+  overhead of HTTP. RPC over AMQP is useful when a service lives behind a
+  firewall or when you already run RabbitMQ for events.
+- You want to scale workers horizontally: add more consumers to the same queue
+  and RabbitMQ distributes messages round-robin.
+
+Avoid RabbitMQ for:
+
+- Streaming high-throughput event logs where replay and long retention matter.
+  Kafka usually fits that case better. See [Event Streaming with Kafka](/recipes/kafka-event-streaming/).
+- Broadcasting to thousands of clients in real time. A WebSocket or pub-sub
+  broker is usually simpler.
+- Heavy batch workloads that take minutes per message without acknowledgments,
+  because unacknowledged messages can exhaust broker memory.
 
 ## Solution
+
+These snippets use TypeScript and `amqplib` 0.10.x. The producer creates a durable
+queue with a dead-letter policy, the worker consumes with prefetch and retries,
+the RPC client returns a promise, and the server replies with the same
+`correlationId`.
 
 ### 1. Producer with durable queue and DLX
 
@@ -208,21 +236,57 @@ volumes:
 
 ## Explanation
 
-- **Exchanges** pick which queues receive a message based on binding rules. A
-  `direct` exchange sends the message to every queue whose binding key matches the
-  routing key.
-- If both queues and messages are durable, your messages survive a broker
-  restart. Without durability, the broker drops everything when it restarts.
-- **Prefetch** limits how many unacknowledged messages each consumer can hold at
-  once, so a fast consumer can't hoard work and starve others.
-- **Dead-letter exchanges (DLX)** catch messages that are rejected without
-  requeue, that exceed a TTL, or that hit the max-delivery count. That gives you
-  a place to look at failures without losing the message.
-- **RPC over AMQP** relies on a temporary reply queue and a `correlationId`. The
-  client listens on the reply queue and the server echoes the `correlationId`
-  in the response.
+AMQP routing rests on three primitives: exchanges, queues, and bindings. A
+producer never sends directly to a queue; it sends to an exchange, and the
+exchange forwards the message to queues whose binding key matches the routing
+key. In this recipe we use a `direct` exchange and the default empty exchange
+for `sendToQueue`, which routes using the queue name as the routing key.
+
+```mermaid
+flowchart LR
+    P[Producer] -->|sendToQueue| E[Default exchange]
+    E --> Q[email.tasks queue]
+    Q --> C[Worker consumer]
+    C -->|nack after 3 attempts| D[DLX direct]
+    D --> DLQ[email.tasks.dlq]
+```
+
+Durability has two layers. A broker restart recreates a durable queue, but that alone doesn't save the
+messages. Messages also need `persistent: true` (delivery mode 2) so the broker
+writes them to disk. If you declare a durable
+queue and send transient messages, the queue survives but the messages disappear
+on restart.
+
+`prefetch(n)` is a per-consumer limit on unacknowledged messages. It prevents
+one fast worker from grabbing the next fifty tasks while a slow worker is still
+processing the first one. Task duration drives the right value: 5–10 is a reasonable starting point for
+CPU-bound work with fast workers, and you can raise it for IO-bound work that
+waits on network calls, but never beyond what the worker can handle.
+
+Dead-letter exchanges catch messages that can't be processed. A message lands in
+the DLQ when it's rejected without requeue, when it expires, or when it exceeds
+the queue's `x-max-delivery-count`. Operators get a dedicated place to inspect
+failures without blocking the main queue. Pair the DLQ
+with an `x-dead-letter-routing-key` so you can route different queues to
+different DLQs if your topology grows.
+
+The retry loop in the worker works by nacking the original message and then
+republishing it with an incremented `x-attempt` header. This works, but the
+republished message lands at the tail, so its place in line changes. For time-sensitive retries, set `x-message-ttl` on a separate delay queue or use
+a dedicated retry exchange.
+
+AMQP RPC relies on a temporary reply queue that's exclusive and auto-deleted.
+The client generates a `correlationId`, sends the request with `replyTo` set to
+that queue, and waits for a response whose `correlationId` matches. The server
+sends the same id back.
+Because AMQP is asynchronous, the client wraps this in a promise with a timeout.
+Always close the connection or clean up the reply queue when the timeout fires,
+otherwise the broker accumulates stale queues.
 
 ## Variants
+
+The table below compares exchange types and queue patterns. Choose the one that
+fits your routing needs and latency budget.
 
 | Approach | Best for | Trade-off |
 | --- | --- | --- |
@@ -232,7 +296,14 @@ volumes:
 | Work queue with prefetch | Load balancing among workers | Requires manual ack |
 | RPC with reply queue | Synchronous service calls | Adds latency and complexity |
 
+If you only need point-to-point task distribution, a `direct` exchange or the
+default exchange with `sendToQueue` is enough. When the same event must reach
+several consumers, a `fanout` or `topic` exchange is the better choice.
+
 ### Python equivalent with `pika`
+
+The TypeScript examples use `amqplib`, and the same library is available for
+Node.js and browsers via bundles. The Python equivalent below uses `pika` 1.3.x.
 
 ```python
 import pika
@@ -271,38 +342,53 @@ connection.close()
 
 ## Best Practices
 
-- Acknowledge messages manually, because auto-ack can lose work if the consumer
-  crashes mid-processing.
-- Set `prefetch` based on how long each task takes and how many consumers you
-  have, starting with 5–10 and tuning from there.
-- Declare queues and exchanges as `durable` so they survive a broker restart.
-- Add a DLX to any queue that matters, give it a dedicated DLQ, and cap retries
-  — three attempts, for example, before the message is routed out.
-- Keep an eye on queue depth, consumer lag, and DLQ growth, because a sudden
-  depth spike usually means a consumer is down or slow.
+- Acknowledge messages manually after the work is done. Auto-ack removes the
+  message from the queue as soon as it's delivered, so a crash mid-processing
+  loses it. With manual ack, an unacknowledged message is requeued when the
+  consumer disconnects, unless you explicitly `nack` it.
+- Set `prefetch` based on task duration and consumer count. Start with 5–10 for
+  mixed workloads, measure queue depth and consumer lag, then adjust up or down.
+  A prefetch that's too high wastes memory; too low leaves workers idle.
+- Declare both queues and exchanges as `durable` so the topology survives a
+  broker restart. For messages that must not disappear, publish with
+  `persistent: true` and never rely solely on queue durability.
+- For any queue that handles business-critical work, add a dedicated DLX and
+  DLQ. Cap retries — three attempts is a common default — and route poison
+  messages out of the retry loop.
+- Monitor queue depth, consumer count, and DLQ growth. A sudden depth spike
+  usually means a consumer is down or a downstream dependency is slow. Alert on
+  DLQ growth because it means something is repeatedly failing.
+- Use separate connections or channels for publishers and consumers on the same
+  process. Publishing while consuming on the same channel can block delivery
+  acknowledgments and create head-of-line blocking.
 
 ## Common Mistakes
 
-- Completely forgetting to acknowledge a message, which lets unacknowledged
-  messages pile up in memory and exhaust the broker.
-- Relying on auto-ack for long or fallible tasks is risky; when the worker
-  crashes, the message disappears.
-- Creating exclusive reply queues in RPC and never closing the connection, which
-  leaves queues sitting on the broker.
-- Keeping a failed message in the retry loop for good instead of capping retries
-  and sending poison messages to a DLQ.
-- Publishing to a durable queue but leaving `persistent: true` off, so the
-  message gets lost when the broker restarts.
+- If you forget to acknowledge a message, unacknowledged messages stay in the
+  broker's memory and can eventually exhaust it. Use manual ack, and call `ack`
+  only after the side effects are complete.
+- Relying on auto-ack for long or fallible tasks is risky: a crash or exception
+  causes the message to disappear rather than return to the queue.
+- Creating exclusive reply queues in RPC and never closing the connection or
+  channel is a mistake. Exclusive queues are deleted when the connection closes,
+  but if the connection stays open, stale queues accumulate.
+- Keeping a failed message in the retry loop forever is a mistake. Always cap
+  retries and move poison messages to a DLQ. Otherwise a bad message blocks the
+  queue for valid messages behind it.
+- Publishing to a durable queue without `persistent: true` is a mistake. The
+  queue survives a restart, but the messages don't.
+- Neglecting consumer lag is a mistake. A single slow worker can stall the whole
+  pipeline if prefetch is too high or if tasks aren't idempotent. See [Message
+  Idempotency](/recipes/message-idempotency/).
 
 ## FAQ
 
 ### How is this different from Kafka?
 
-RabbitMQ works as a message broker with flexible routing and low latency per
-message. Kafka, on the other hand, is an event log optimized for high throughput
-and replay.
-Kafka doesn't support request-reply natively and uses different delivery
-semantics.
+RabbitMQ is a message broker that routes messages with low latency and flexible
+bindings. Kafka, by contrast, is an event log optimized for high throughput and
+replay. Kafka doesn't support request-reply natively and uses different
+delivery semantics.
 
 ### Should I use a direct or topic exchange?
 
@@ -312,17 +398,35 @@ exchange when pattern matching is needed, such as `orders.us.created` and
 
 ### Is this solution production-ready?
 
-These patterns are common in production, but you still need monitoring,
-connection recovery, authentication, and TLS to match your environment.
+You'll see these patterns in production, yet you still need monitoring,
+connection recovery, authentication, and TLS to fit your environment.
 
 ### What are the performance characteristics?
 
 A typical RabbitMQ work queue can move thousands to tens of thousands of messages
-per second per node. Throughput drops with heavy routing logic or
-large messages. To scale, you add more nodes or consumers.
+per second per node. Throughput drops with heavy routing logic or large
+messages. To scale, add more nodes or consumers.
 
 ### How do I debug issues with this approach?
 
 The management UI on port 15672 gives you queue depth, consumer count, and
 message rates. Then check consumer logs, confirm the connection is open, and make
 sure your DLQ isn't filling up.
+
+### Why do I need both a durable queue and persistent messages?
+
+A durable queue survives a broker restart, but it only stores the metadata of the
+queue, not the messages inside it. Persistent messages are written to disk, so
+they survive a restart. You need both: one keeps the queue structure, the other keeps the data.
+
+### Can I mix task queues and RPC on the same RabbitMQ cluster?
+
+Yes. RabbitMQ handles any pattern on a queue. Just keep the naming and routing
+separate so a task queue isn't accidentally consumed by an RPC server. Many teams run one vhost for events and another for RPC to isolate
+traffic.
+
+### What happens if the RPC server is down?
+
+If the timeout fires, the client promise rejects. In a real service you should
+catch that error, log it, and possibly retry with a delay or fall back to a
+cached result. For idempotent calls, a bounded retry works well.

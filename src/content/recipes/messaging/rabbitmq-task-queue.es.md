@@ -2,7 +2,7 @@
 contentType: recipes
 slug: rabbitmq-task-queue
 title: "Task Queues y RPC con RabbitMQ y AMQP"
-description: "Distribuí tareas de background e implementá patrones request-reply con RabbitMQ usando durable queues, dead-letter exchanges y prefetch para concurrencia controlada."
+description: "Distribuí tareas en segundo plano e implementá patrones request-reply con RabbitMQ usando durable queues, dead-letter exchanges y prefetch."
 metaDescription: "Implementá task queues y RPC con RabbitMQ. Usá durable queues, dead-letter exchanges y prefetch para distribución confiable de tareas y concurrencia controlada."
 difficulty: intermediate
 topics:
@@ -16,13 +16,13 @@ tags:
   - rpc
   - dead-letter
 relatedResources:
-  - /recipes/background-jobs
   - /recipes/dead-letter-queue
   - /recipes/message-idempotency
-  - /recipes/event-driven-architecture
-  - /recipes/retry-backoff
+  - /recipes/rabbitmq-python-pika-consumer
+  - /recipes/python-celery-task-queue
+  - /recipes/event-driven-microservices
   - /guides/message-queue-guide
-lastUpdated: "2026-08-18"
+lastUpdated: "2026-08-30"
 publishedAt: "2026-06-18"
 author: Mathias Paulenko
 seo:
@@ -38,23 +38,52 @@ seo:
 
 ## Visión General
 
-RabbitMQ es una opción sólida para distribuir trabajo de background y llamar
-servicios de forma síncrona sobre AMQP. Esta receta cubre cómo armar una task
-queue durable, reintentar mensajes fallidos, enrutar mensajes
-problemáticos a una dead-letter queue y usar el patrón request-reply para RPC.
+RabbitMQ es un broker de mensajes probado en producción que habla AMQP, un
+protocolo abierto con clientes en la mayoría de los lenguajes. Los equipos lo
+usan cuando una request web hace demasiado trabajo: en lugar de hacer esperar al
+usuario, le pasan la tarea a un worker mediante una queue. AMQP te da control
+explícito sobre el enrutamiento, las garantías de entrega y la persistencia, por
+eso encaja mejor con task queues y patrones request-reply (RPC) que un HTTP
+polling simple.
+
+Esta receta usa TypeScript con `amqplib` 0.10.x. Los mismos conceptos se
+trasladan a clientes de Python, Go, Java o .NET, porque todos hablan el mismo
+protocolo. Vas a configurar una task queue durable, agregar un dead-letter
+exchange para mensajes problemáticos, limitar reintentos con prefetch e
+implementar una llamada RPC con una reply queue temporal.
 
 ## Cuándo Usar
 
-- Sacá el trabajo lento, como procesamiento de imágenes o envío de emails, fuera
-  de la request principal para que no bloquee. Consultá
-  [Background Jobs](/recipes/background-jobs/) para patrones relacionados.
-- Reintentá las tareas fallidas unas pocas veces antes de apartalas para
-  inspección. Consultá [Retry Backoff](/recipes/retry-backoff/)
-  para estrategias de reintento.
+- Sacá el trabajo lento, como procesamiento de imágenes, envío de emails o
+  generación de PDFs, del camino de la request. El publicador envía la tarea y
+  sigue, mientras un worker la toma después. Consultá [Background
+  Jobs](/recipes/background-jobs/) para patrones relacionados.
+- Reintentá una tarea fallida unas pocas veces y luego enrutala a una
+  dead-letter queue para inspeccionarla cuando se agoten los reintentos.
+  Consultá [Retry Backoff](/recipes/retry-backoff/) para estrategias de
+  reintento.
 - Necesitás comunicación request-reply que se sienta síncrona pero evite el
-  overhead de HTTP. Para alternativas HTTP, consultá [Llamar REST API](/recipes/call-rest-api/).
+  overhead de HTTP. El RPC sobre AMQP sirve cuando un servicio está detrás de un
+  firewall o cuando ya usás RabbitMQ para eventos.
+- Querés escalar workers horizontalmente: agregá más consumers a la misma queue
+  y RabbitMQ distribuye los mensajes en round-robin.
+
+Evitá RabbitMQ para:
+
+- Streaming de logs de eventos de alto throughput donde importan el replay y la
+  retención larga. Kafka suele encajar mejor ahí. Consultá [Event Streaming with
+  Kafka](/recipes/kafka-event-streaming/).
+- Transmitir a miles de clientes en tiempo real. Un broker pub-sub o WebSocket
+  suele ser más simple.
+- Cargas de batch pesadas que tardan minutos por mensaje sin acknowledgments,
+  porque los mensajes no confirmados pueden agotar la memoria del broker.
 
 ## Solución
+
+Estos ejemplos usan TypeScript y `amqplib` 0.10.x. El producer crea una durable
+queue con política de dead-letter, el worker consume con prefetch y reintentos,
+el client RPC devuelve una promesa y el server responde con el mismo
+`correlationId`.
 
 ### 1. Producer con durable queue y DLX
 
@@ -209,22 +238,59 @@ volumes:
 
 ## Explicación
 
-- **Exchanges** eligen qué queues reciben un mensaje a partir de reglas de binding.
-  Un exchange `direct` entrega un mensaje a cada queue cuya binding key coincida
-  con la routing key del mensaje.
-- Si tanto las queues como los mensajes son durables, tus mensajes sobreviven
-  un restart del broker. Sin durabilidad, el broker pierde todo al reiniciarse.
-- **Prefetch** limita cuántos mensajes no confirmados puede tener cada consumer a
-  la vez, así un consumer rápido no puede acaparar trabajo y dejar sin recursos a
-  otros.
-- **Dead-letter exchanges (DLX)** capturan mensajes que se rechazan sin requeue,
-  que expiran o que superan el máximo de entregas. Eso te da un lugar para mirar
-  fallos sin perder el mensaje.
-- **RPC sobre AMQP** usa una reply queue temporal y un `correlationId`. El client
-  escucha en la reply queue y el server repite el `correlationId` en la
-  respuesta.
+El enrutamiento AMQP se construye sobre tres primitivas: exchanges, queues y
+bindings. Un producer nunca envía directamente a una queue; envía a un exchange,
+y el exchange reenvía el mensaje a las queues cuya binding key coincida con la
+routing key. En esta receta usamos un exchange `direct` y un exchange vacío por
+defecto para `sendToQueue`, que enruta usando el nombre de la queue como routing
+key.
+
+```mermaid
+flowchart LR
+    P[Producer] -->|sendToQueue| E[Default exchange]
+    E --> Q[queue email.tasks]
+    Q --> C[Worker consumer]
+    C -->|nack luego de 3 intentos| D[DLX direct]
+    D --> DLQ[email.tasks.dlq]
+```
+
+La durabilidad tiene dos niveles. Una queue durable se recrea después de un
+restart del broker, pero eso solo no guarda los mensajes. Los mensajes también
+necesitan `persistent: true` (modo de entrega 2) para que el broker los escriba
+en disco. Si declarás una durable queue y enviás mensajes transient, la queue
+sobrevive pero los mensajes desaparecen al reiniciar.
+
+El `prefetch(n)` limita cuántos mensajes no confirmados puede tener cada consumer. Evita que
+un consumer rápido se lleve las siguientes cincuenta tareas mientras otro lento
+todavía procesa la primera. El valor correcto depende de la duración de la
+tarea: para trabajo CPU-bound con workers rápidos, 5–10 es un punto de partida
+razonable; para trabajo IO-bound que espera llamadas de red, podés subirlo, pero
+nunca por encima de lo que un worker puede manejar sin ahogarse.
+
+Los dead-letter exchanges actúan como un acompañante para mensajes que no se
+pueden procesar. Un mensaje cae en el DLQ cuando se rechaza sin requeue, cuando
+expira o cuando supera el `x-max-delivery-count` de la queue. Esto le da a los
+operadores un lugar claro para inspeccionar fallos sin bloquear la queue
+principal. Emparejá el DLQ con una `x-dead-letter-routing-key` para poder
+enrutar distintas queues a distintos DLQs si tu topología crece.
+
+El ciclo de reintentos del worker funciona rechazando el mensaje original y
+republicándolo con un header `x-attempt` incrementado. Es simple, pero cambia la
+posición del mensaje en la queue porque el mensaje republicado va al final. Para
+reintentos sensibles al tiempo, usá un `x-message-ttl` en una delay queue
+separada o un exchange de reintentos dedicado.
+
+El RPC sobre AMQP usa una reply queue exclusiva y auto-delete. El client genera
+un `correlationId`, envía la request con `replyTo` apuntando a esa queue y espera
+una respuesta cuyo `correlationId` coincida. El server repite el mismo id. Como
+AMQP es asíncrono, el client envuelve esto en una promesa con timeout. Siempre
+cerrá la conexión o limpiá la reply queue cuando se dispare el timeout, porque
+si no el broker acumula queues obsoletas.
 
 ## Variantes
+
+La tabla de abajo compara tipos de exchange y patrones de queue. Elegí el que
+mejor se ajuste a tus necesidades de enrutamiento y presupuesto de latencia.
 
 | Enfoque | Ideal para | Contra |
 | --- | --- | --- |
@@ -234,7 +300,15 @@ volumes:
 | Work queue con prefetch | Balanceo de carga entre workers | Requiere ack manual |
 | RPC con reply queue | Llamadas síncronas a servicios | Agrega latencia y complejidad |
 
+Si solo necesitás distribución de tareas punto a punto, un exchange `direct` o
+el exchange por defecto con `sendToQueue` es suficiente. Cuando el mismo evento
+debé llegar a múltiples consumers, un exchange `fanout` o `topic` es la mejor
+opción.
+
 ### Equivalente en Python con `pika`
+
+Los ejemplos de TypeScript usan `amqplib`, y la misma librería está disponible
+para Node.js y navegadores mediante bundles. El ejemplo de abajo usa `pika` 1.3.x.
 
 ```python
 import pika
@@ -273,30 +347,47 @@ connection.close()
 
 ## Mejores Prácticas
 
-- Confirmá los mensajes manualmente, porque si el consumer se cae a mitad de
-  procesamiento el auto-ack puede perder trabajo.
-- Seteá el `prefetch` según cuánto dura cada tarea y cuántos consumers tenés,
-  empezando con 5–10 y ajustando desde ahí.
-- Declará queues y exchanges como `durable` para que sobrevivan un restart del
-  broker.
-- Configurá un DLX en cualquier queue que importe, dale un DLQ dedicado y fijá un
-  límite de reintentos — tres intentos, por ejemplo, antes de enrutar el
-  mensaje.
-- Mantené un ojo en queue depth, consumer lag y crecimiento del DLQ, porque un
-  pico de depth suele significar que un consumer está caído o lento.
+- Confirmá los mensajes manualmente después de que el trabajo termine. El
+  auto-ack saca el mensaje de la queue apenas se entrega, así que si el worker
+  se cae a mitad de procesamiento se pierde. Con ack manual, un mensaje no
+  confirmado se reencola cuando el consumer se desconecta, salvo que lo rechaces
+  explícitamente con `nack`.
+- Seteá el `prefetch` según la duración de la tarea y la cantidad de consumers.
+  Empezá con 5–10 para cargas mixtas, medí queue depth y consumer lag, y ajustá
+  para arriba o para abajo. Un prefetch demasiado alto desperdicia memoria;
+  demasiado bajo deja workers ociosos.
+- Declará queues y exchanges como `durable` para que la topología sobreviva un
+  restart del broker. Para mensajes que no deben desaparecer, publicá con
+  `persistent: true` y nunca confiés solo en la durabilidad de la queue.
+- Agregá un DLX y un DLQ dedicado a cualquier queue que maneje trabajo crítico.
+  Limitá los reintentos — tres intentos es un default común — y enrutá los
+  mensajes problemáticos fuera del ciclo de reintentos.
+- Monitoreá queue depth, cantidad de consumers y crecimiento del DLQ. Un pico
+  repentino de depth suele significar que un consumer está caído o que una
+  dependencia downstream está lenta. Alertá sobre crecimiento del DLQ porque
+  significa que algo falla repetidamente.
+- Usá conexiones o canales separados para publishers y consumers en el mismo
+  proceso. Publicar mientras se consume en el mismo canal puede bloquear los
+  acknowledgments de entrega y crear head-of-line blocking.
 
 ## Errores Comunes
 
-- Olvidar confirmar un mensaje del todo, lo que deja mensajes no confirmados
-  acumulándose en memoria hasta agotar el broker.
-- Depender del auto-ack para tareas largas o fallibles es arriesgado; cuando el
-  worker se cae, el mensaje desaparece.
-- Crear reply queues exclusivas en RPC sin cerrar la conexión, lo que deja queues
-  huérfanas en el broker.
-- Dejar un mensaje fallido en el ciclo de reintentos para siempre en vez de
-  limitar los reintentos y enviar los problemáticos a un DLQ.
-- Publicar en una durable queue sin activar `persistent: true`, así el mensaje se
-  pierde cuando el broker reinicia.
+- Si te olvidás de confirmar un mensaje, los mensajes no confirmados se quedan
+  en la memoria del broker y eventualmente pueden agotarla. Usá ack manual y
+  llamá a `ack` solo cuando los efectos secundarios estén completos.
+- Depender del auto-ack en tareas largas o fallibles es arriesgado: un crash o
+  una excepción hacen que el mensaje desaparezca en lugar de volver a la queue.
+- Crear reply queues exclusivas en RPC y nunca cerrar la conexión o el canal es
+  un error. Las queues exclusivas se borran cuando se cierra la conexión, pero
+  si la conexión queda abierta se acumulan queues obsoletas.
+- Dejar un mensaje fallido en el ciclo de reintentos para siempre es un error.
+  Siempre limitá los reintentos y mové los mensajes problemáticos a un DLQ. Si
+  no, un mensaje malo bloquea la queue para los mensajes válidos detrás.
+- Publicar en una durable queue sin `persistent: true` activado es un error. La
+  queue sobrevive un restart, pero los mensajes no.
+- Descuidar el consumer lag es un error. Un worker lento puede parar todo el
+  pipeline si el prefetch es demasiado alto o si las tareas no son idempotentes.
+  Consultá [Message Idempotency](/recipes/message-idempotency/).
 
 ## Preguntas Frecuentes
 
@@ -316,8 +407,8 @@ exchange `topic` cuando necesitás pattern matching, por ejemplo que
 ### ¿Esta solución está lista para producción?
 
 Estos patrones se usan comúnmente en producción, pero igual vas a querer
-monitoreo, recuperación de conexiones, autenticación y TLS
-para que coincida con tu entorno.
+monitoreo, recuperación de conexiones, autenticación y TLS para que coincida con
+tu entorno.
 
 ### ¿Cuáles son las características de rendimiento?
 
@@ -328,5 +419,26 @@ compleja o mensajes grandes. Para escalar, agregás nodos o consumers.
 ### ¿Cómo depuro problemas con este enfoque?
 
 La UI de management en el puerto 15672 te da queue depth, cantidad de consumers
-y message rates. Revisá los logs del consumer, confirmá que la
-conexión esté abierta y asegurate de que tu DLQ no se esté llenando.
+y message rates. Revisá los logs del consumer, confirmá que la conexión esté
+abierta y asegurate de que tu DLQ no se esté llenando.
+
+### ¿Por qué necesito una durable queue y mensajes persistentes?
+
+Una durable queue sobrevive un restart del broker, pero solo guarda los
+metadatos de la queue, no los mensajes que contiene. Los mensajes persistentes se
+escriben en disco, así que sobreviven un restart. Necesitás ambos: uno para la
+estructura de la queue y otro para los datos.
+
+### ¿Puedo mezclar task queues y RPC en el mismo cluster de RabbitMQ?
+
+Sí. A RabbitMQ no le importa qué patrón uses en una queue. Solo mantené los
+nombres y el enrutamiento separados para que una task queue no sea consumida
+accidentalmente por un server RPC. Muchos equipos usan un vhost para eventos y
+otro para RPC para aislar el tráfico.
+
+### ¿Qué pasa si el server RPC está caído?
+
+Si se dispara el timeout, la promesa del client rechaza. En un servicio real deberías
+capturar ese error, loguearlo y posiblemente reintentar con un delay o caer en
+un resultado cacheado. Para llamadas idempotentes, un reintento acotado funciona
+bien.
