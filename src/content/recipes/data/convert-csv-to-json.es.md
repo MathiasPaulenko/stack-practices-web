@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/serialize-deserialize-data
   - /recipes/validate-json-schema
   - /recipes/python-excel-read-write
-lastUpdated: "2026-09-02"
+lastUpdated: "2026-08-30"
 publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
@@ -43,22 +43,22 @@ CSV es el formato de exportación por defecto de spreadsheets y bases de datos,
 pero solo guarda texto plano. JSON te da números, booleanos, objetos anidados y
 arrays — la forma que la mayoría de las APIs y document stores esperan.
 
-Encontrarás ejemplos abajo para Python, JavaScript y Java. Yo uso la versión
-rápida con librería estándar para archivos chicos, la versión con pandas cuando
-necesito inferencia de tipos, y la versión con streaming para lo que no entra en
-memoria. Si querés ir en el otro sentido, mirá
+Dejé ejemplos más abajo para Python, JavaScript y Java. Elegí el que se ajuste a
+tu stack. Yo uso la versión rápida con librería estándar para archivos chicos,
+pandas cuando necesito inferencia de tipos, y un parser de streaming para lo que
+no entra en memoria. Si querés ir en el otro sentido, mirá
 [Convertir JSON a CSV](/recipes/convert-json-to-csv/) y
 [Serializar y Deserializar Datos](/recipes/serialize-deserialize-data/) para los
-conceptos de estructura de datos que van alrededor.
+conceptos de estructura de datos alrededor.
 
 ## Cuándo Usar
 
-Esta receta sirve cuando necesitás:
+Uso esta receta cuando necesito:
 
-- Llevar exports de spreadsheets a una app web o API.
-- Cargar datos planos en MongoDB, Elasticsearch u otro document store.
-- Alimentar con datos CSV una librería de gráficos del lado del cliente.
-- Procesar un CSV demasiado grande para caber en memoria como un solo objeto,
+- llevar exports de spreadsheets a una app web o API.
+- llevar datos planos a MongoDB, Elasticsearch u otro document store.
+- alimentar una librería de gráficos del lado del cliente con datos CSV.
+- procesar un CSV demasiado grande para caber en memoria como un solo objeto,
   una fila a la vez.
 
 ### Elegir un enfoque
@@ -213,24 +213,24 @@ public class CsvToJsonCommons {
 
 ## Explicación
 
-CSV solo guarda texto, así que no distingue números, booleanos ni fechas. JSON te
-permite guardar números, booleanos, null, arrays y objetos; vos decidís cómo
-mapea cada valor a un tipo JSON: `age` va a número, `active` a booleano, `tags` a array.
+CSV solo guarda texto, así que no distingue números, booleanos ni fechas. JSON
+puede almacenar números, booleanos, null, arrays y objetos — vos decidís cómo
+mapea cada valor a un tipo: `age` va a número, `active` a booleano, `tags` a array.
 `csv.DictReader` de Python y `csv-parse` de Node devuelven strings por defecto,
 así que casteás manualmente o definís un schema.
 
-Un parser de streaming lee una fila a la vez, así que nunca guarda todo el archivo
-en memoria. Si necesitás JSON anidado, usá nombres de columna con puntos como
-`user.name` y una utilidad para aplanar, o armá el objeto en el código. Para ver
-más a fondo ese patrón, mirá
+Un parser de streaming lee una fila a la vez, así que el archivo nunca tiene que
+quedarse en memoria. Si necesitás JSON anidado, usá nombres de columna con puntos
+como `user.name` y una utilidad para aplanar, o armá el objeto en el código. Para
+ver más a fondo ese patrón, mirá
 [Aplanar y Desanidar Objetos](/recipes/flatten-unflatten-objects/).
 
-Las comillas y los escapes son los lugares donde el `line.split(',')` rompe. Una
-coma entre comillas o un salto de línea dentro de una celda son válidos en CSV, y
-una comilla dentro de una celda se escapa con otra comilla. Por eso un parser
-real gana siempre contra una regex o un split. Cuando exporto desde Excel, también
-me fijo el BOM UTF-8 al principio del archivo, que puede corromper el primer
-header y hacer que `DictReader` genere una clave como `\ufeffid`.
+Las comillas y los escapes son donde `line.split(',')` se rompe. Una coma entre
+comillas o un salto de línea dentro de una celda son válidos en CSV, y una
+comilla dentro de una celda se escapa con otra comilla. Por eso un parser real
+gana siempre contra una regex o un split. Cuando exporto desde Excel, también me
+fijo el BOM UTF-8 al principio del archivo, que puede corromper el primer header
+y hacer que `DictReader` genere una clave como `\ufeffid`.
 
 ## Variantes
 
@@ -247,11 +247,11 @@ Yo uso `csv.DictReader` o `Papa.parse` cuando quiero código sin instalar nada.
 `pandas` es mi primera opción cuando el CSV tiene fechas, tipos mezclados o
 necesito una vista previa. Paso a `csv-parse` con async iteration o `CsvMapper`
 con `readValues` cuando el archivo es demasiado grande para la memoria o cuando
-quiero que las filas vayan directo a otro consumidor asíncrono.
+quiero que las filas fluyan directo a otro consumidor asíncrono.
 
 ## Herramientas y Ecosistema
 
-La tabla de abajo lista las librerías que me cruzo más seguido en producción. Las
+La tabla de abajo tiene las librerías que me cruzo más seguido en producción. Las
 versiones cambian, así que las fijo en el companion repo o en un
 `requirements.txt`/`package.json`.
 
@@ -273,29 +273,28 @@ conversión.
 
 - Mapeá los headers CSV a claves JSON con `columns: true` o `DictReader`; no
   confíes en las posiciones, porque pueden cambiar entre exports.
-- Casteá los tipos de forma explícita. CSV no tiene booleanos ni fechas, así que
-  definí un schema o post-procesá las filas. Yo suelo tener un `TYPE_MAP` chico
-  por columna.
+- Acordate de castear los tipos de forma explícita. CSV no tiene booleanos ni
+  fechas, así que definí un schema o post-procesá las filas. Suelo tener un
+  `TYPE_MAP` chico para cada columna.
 - Hacé streaming una vez que el archivo pasa los 100 MB. Escribí el JSON en
   pedazos, o cargalo directamente a una base de datos. Cargar un archivo de varios
   gigabytes en una lista casi siempre termina en out-of-memory.
 - Validá el JSON de salida contra un schema cuando la estructura importe.
 - Mantené el encoding UTF-8 explícito y manejá los BOM, especialmente con exports
-  de Excel. Abrí archivos con `encoding='utf-8-sig'` cuando sé que el BOM es
-  probable.
+  de Excel. Abrí archivos con `encoding='utf-8-sig'` cuando un BOM es probable.
 
 ## Errores Comunes
 
-- Cargar un CSV de varios gigabytes entero en memoria. Esa es la razón principal
-  por la que me piden reescribir un script.
-- Separar filas con `line.split(',')` y romper con comillas o saltos de línea. El
-  CSV real puede tener saltos de línea dentro de celdas entre comillas siempre.
+- Subir un CSV de varios gigabytes entero a memoria. Eso suele terminar con un
+  ticket para reescribir el script.
+- Separar filas con `line.split(',')` y romper con comillas o saltos de línea. Un
+  CSV real puede tener saltos de línea dentro de celdas entre comillas.
 - Referenciar columnas por índice cuando los headers pueden cambiar; la primera
   columna de hoy puede no ser la primera de mañana.
 - Ignorar un BOM UTF-8 que corrompe la primera clave del header. Si ves `﻿` en
-  tus claves, esa es la señal.
-- Olvidar que JSON no tiene tipo date. Usá strings en formato ISO 8601 y dejá que
-  el consumidor los vuelva a convertir cuando lo necesite.
+  tus claves, ahí está el BOM.
+- Olvidarse de que JSON no tiene tipo `date`. Usá strings en formato ISO 8601 y
+  dejá que el consumidor los vuelva a convertir después.
 
 ## Ver También
 
@@ -309,8 +308,10 @@ conversión.
   convertida bajo un contrato.
 - RFC 4180 — la especificación canónica de CSV en
   [datatracker.ietf.org/doc/html/rfc4180](https://datatracker.ietf.org/doc/html/rfc4180).
-- [Código complementario ejecutable en GitHub](https://github.com/mathiaspaulenko/stack-practices-resources/tree/main/resources/recipes/data/convert-csv-to-json) —
+- [Código complementario en GitHub][companion] —
   el repositorio companion de esta receta.
+
+[companion]: https://github.com/mathiaspaulenko/stack-practices-resources/tree/main/resources/recipes/data/convert-csv-to-json
 
 ## Preguntas Frecuentes
 
@@ -331,10 +332,10 @@ expandilos en el código o con una librería como `flat` o `pandas.json_normaliz
 
 ### ¿Qué hago si el CSV tiene un delimitador distinto?
 
-Seteá la opción `delimiter` del parser para que coincida con el archivo.
-`csv.Sniffer` en Python, la opción `delimiter` de `csv-parse` y el export "CSV
-(punto y coma)" de Excel son soluciones comunes. RFC 4180 usa coma por defecto,
-pero archivos delimitados por tabulación o punto y coma siguen siendo válidos.
+Seteá el `delimiter` del parser para que coincida con el archivo. `csv.Sniffer`
+en Python, la opción `delimiter` de `csv-parse` y el export "CSV (punto y coma)"
+de Excel son soluciones comunes. RFC 4180 usa coma por defecto, pero archivos
+delimitados por tabulación o punto y coma siguen siendo válidos.
 
 ### ¿Cómo manejo CSV malformado?
 
@@ -344,18 +345,19 @@ con los registros buenos.
 
 ### ¿Puedo convertir CSV a JSON dentro del browser?
 
-Sí. PapaParse funciona en el browser con un string o un input `File`. Podés
-parsear un archivo que el usuario arrastra a la página y luego llamar
+Sí. PapaParse corre en el browser con un string o un input `File`. Podés parsear
+un archivo que el usuario arrastra a la página y luego llamar
 `JSON.stringify(result.data)`.
 
 ### ¿Qué es un BOM UTF-8 y por qué rompe mis headers?
 
-Un BOM son unos bytes extra (`\ufeff`) que algunos editores y Excel agregan al
-principio de un archivo UTF-8. Ese artefacto termina siendo parte del nombre de la primera columna. Abrí el archivo con `encoding='utf-8-sig'` en Python o sacá el BOM antes
-de parsear.
+Un BOM son algunos bytes extra (`\ufeff`) que algunos editores y Excel agregan al
+principio de un archivo UTF-8. Ese prefijo termina mezclado con el nombre de la
+primera columna. Abrí el archivo con `encoding='utf-8-sig'` en Python o sacá el
+BOM antes de parsear.
 
 ### ¿Cómo preservo fechas y booleanos en la salida JSON?
 
-CSV no tiene tipo date ni boolean, así que los tenés que castear. Yo convierto
-las fechas a strings ISO 8601 y los booleanos desde strings como `"true"` o
-`"false"` antes de llamar `json.dump` o `JSON.stringify`.
+CSV no tiene tipo `date` ni boolean, así que los tenés que castear. Convierto las
+fechas a strings ISO 8601 y los booleanos desde strings como `"true"` o
+`"false"` antes del `json.dump` o `JSON.stringify` final.

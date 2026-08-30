@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/serialize-deserialize-data
   - /recipes/validate-json-schema
   - /recipes/python-excel-read-write
-lastUpdated: "2026-09-02"
+lastUpdated: "2026-08-30"
 publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
@@ -43,7 +43,7 @@ CSV is the default export format for spreadsheets and databases, yet it only
 stores flat text. JSON gives you numbers, booleans, nested objects, and arrays —
 the shape that most APIs and document stores actually want.
 
-Below are examples for Python, JavaScript, and Java. I keep the quick
+I wrote the examples below in Python, JavaScript, and Java. I keep the quick
 standard-library version for small files, the pandas version when I need type
 inference, and the streaming versions for anything that won't fit in RAM. If you
 want to go the other way, see [Convert JSON to CSV](/recipes/convert-json-to-csv/)
@@ -78,9 +78,9 @@ graph LR
 
 ## When Not to Use
 
-- When data already lives in a database, query it directly with SQL rather than
-  exporting to CSV and parsing it again.
-- If the file is Parquet, Avro, or ORC, use the parser made for that binary format.
+- If the data is already in a database, query it directly with SQL instead of
+  round-tripping through CSV.
+- For Parquet, Avro, or ORC, use the parser built for that binary format.
 - You need to process live records as they arrive. Then batch conversion by file
   doesn't make sense; use a streaming pipeline instead.
 - The CSV contains deeply nested structures that are easier to express in XML or
@@ -212,7 +212,8 @@ public class CsvToJsonCommons {
 ## Explanation
 
 CSV only stores text, so it's got no idea whether a value is a number, a
-boolean, or a date. JSON can hold numbers, booleans, null, arrays, and objects; it's not limited to text. You're the one deciding how each value maps to a JSON type:
+boolean, or a date. JSON handles numbers, booleans, null, arrays, and objects;
+CSV doesn't. You're the one deciding how each value maps to a JSON type:
 `age` becomes a number, `active` a boolean, `tags` an array. Python's
 `csv.DictReader` and Node's `csv-parse` return strings by default, so you either
 cast manually or define a schema.
@@ -222,11 +223,11 @@ in memory. If you need nested JSON, use dotted column names like `user.name` and
 a flattening utility, or build the object in code. For a deeper look at that
 pattern, see [Flatten and Unflatten Nested Objects](/recipes/flatten-unflatten-objects/).
 
-Quoting and escaping are the places where naive `line.split(',')` breaks. A
-quoted comma or newline is legal in CSV, and a quoted quote is escaped with
-another quote. That's why a real parser beats a regex or split every time. When
-I export from Excel, I also watch for a UTF-8 BOM at the start of the file, which
-can corrupt the first header and make `DictReader` produce a key like `\ufeffid`.
+Quoting and escaping are where a naive `line.split(',')` breaks. A quoted comma
+or newline is legal in CSV, and a quoted quote is escaped with another quote.
+That's why a real parser beats a regex or a split every time. When I export from
+Excel, I also watch for a UTF-8 BOM at the start of the file, which can corrupt
+the first header and make `DictReader` produce a key like `\ufeffid`.
 
 ## Variants
 
@@ -242,12 +243,12 @@ can corrupt the first header and make `DictReader` produce a key like `\ufeffid`
 I reach for `csv.DictReader` or `Papa.parse` when I want zero-install code.
 `pandas` is my first choice when the CSV has dates, mixed types, or needs a
 preview. I switch to `csv-parse` with async iteration or `CsvMapper` with
-`readValues` once the file is too large for the heap, or when I want the output
-rows to flow straight into another async consumer.
+`readValues` once the file is too large for the heap, or when I want rows to flow
+straight into another async consumer.
 
 ## Tooling and Ecosystem
 
-I put the libraries I run into most often in production into the table below. Versions
+I put the libraries I use most often in production into the table below. Versions
 change, so I pin them in the companion repo or in a `requirements.txt`/`package.json`.
 
 | Library / Tool | Role | Reference |
@@ -269,22 +270,23 @@ with [Validate JSON Schema](/recipes/validate-json-schema/) after conversion.
   on positions, because they can change between exports.
 - Cast types explicitly. CSV has no booleans or dates, so either define a schema
   or post-process rows. I usually keep a small `TYPE_MAP` per column.
-- For files over 100 MB, stream the conversion. Write JSON in chunks, or send rows straight to a database. Loading a multi-gigabyte file into a list
-  will almost always hit an out-of-memory error.
+- For files over 100 MB, stream the conversion. Write JSON in chunks, or pipe rows
+  straight into a database. Loading a multi-gigabyte file into a list almost always
+  triggers an out-of-memory error.
 - Check the JSON against a schema when the output structure has to be exact.
 - Keep UTF-8 encoding explicit and handle BOMs, especially with Excel exports.
-  I open files with `encoding='utf-8-sig'` when I know the BOM is likely.
+  I open files with `encoding='utf-8-sig'` when a BOM is likely.
 
 ## Common Mistakes
 
-- Loading a multi-gigabyte CSV entirely into memory and hitting an out-of-memory
-  error. That mistake usually triggers a rewrite request.
-- A quoted comma or newline will trip up any `line.split(',')` shortcut, every time. Real CSV
-  can have newlines inside quoted cells.
+- Loading a multi-gigabyte CSV entirely into memory. That mistake usually
+  triggers a rewrite request.
+- A quoted comma or newline will trip up any `line.split(',')` shortcut, every
+  time. Real CSV can have newlines inside quoted cells.
 - Referencing columns by index when headers can change; the first column today
   may not be the first column tomorrow.
 - Ignoring a UTF-8 BOM that corrupts the first header. If `﻿` shows up in your
-  keys, you've found the culprit.
+  keys, the BOM is the culprit.
 - Forgetting that JSON has no native date type. Use ISO 8601 strings and let the
   consumer cast them back when needed.
 
@@ -298,10 +300,12 @@ with [Validate JSON Schema](/recipes/validate-json-schema/) after conversion.
   how to turn dotted column names like `user.name` into nested JSON.
 - [Validate JSON Schema](/recipes/validate-json-schema/) — keep the converted
   output under a contract.
-- RFC 4180 — the canonical CSV format specification at
+- RFC 4180 — the canonical CSV format spec at
   [datatracker.ietf.org/doc/html/rfc4180](https://datatracker.ietf.org/doc/html/rfc4180).
-- [Runnable companion code on GitHub](https://github.com/mathiaspaulenko/stack-practices-resources/tree/main/resources/recipes/data/convert-csv-to-json) —
+- [Runnable companion on GitHub][companion] —
   the companion repo for this recipe.
+
+[companion]: https://github.com/mathiaspaulenko/stack-practices-resources/tree/main/resources/recipes/data/convert-csv-to-json
 
 ## FAQ
 
@@ -318,7 +322,7 @@ Java, or `pd.read_csv(chunksize=...)` in Python.
 ### How do I create nested JSON objects from flat CSV columns?
 
 Use dotted column names like `user.name` and `user.email`, then expand them in
-code or with a library such as `flat` or `pandas.json_normalize`.
+code or with a library like `flat` or `pandas.json_normalize`.
 
 ### What should I do if the CSV has a different delimiter?
 
@@ -335,17 +339,17 @@ records.
 
 ### Can I convert CSV to JSON inside the browser?
 
-Yes. PapaParse works in the browser with a string or `File` input. You can parse
+Yes. PapaParse runs in the browser with a string or a `File` input. You can parse
 a file the user drops onto the page and then call `JSON.stringify(result.data)`.
 
 ### What is a UTF-8 BOM and why does it break my headers?
 
-A BOM is a few extra bytes (`\ufeff`) that some editors and Excel add to the
-beginning of a UTF-8 file. That artifact usually becomes part of the first column name. Open the
+A BOM is a handful of extra bytes (`\ufeff`) that some editors and Excel prepend
+to a UTF-8 file. That prefix usually pollutes the first column name. Open the
 file with `encoding='utf-8-sig'` in Python or strip the BOM before parsing.
 
 ### How do I preserve dates and booleans in the JSON output?
 
-CSV has no date or boolean type, so you must cast them. I usually convert dates
-to ISO 8601 strings and booleans from strings like `"true"` or `"false"` before
-calling `json.dump` or `JSON.stringify`.
+CSV has no date or boolean type, so you must cast them. I cast dates to ISO 8601
+strings and booleans from strings like `"true"` or `"false"` before the final
+`json.dump` or `JSON.stringify`.
