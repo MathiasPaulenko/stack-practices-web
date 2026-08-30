@@ -8,6 +8,7 @@ difficulty: beginner
 topics:
   - design
   - architecture
+category: structural
 tags:
   - pattern
   - design-pattern
@@ -22,7 +23,7 @@ relatedResources:
   - /patterns/marker-interface-pattern
   - /patterns/twin-pattern
   - /patterns/type-object-pattern
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-30"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
@@ -47,6 +48,13 @@ goal. Ruby reopens classes, Python can monkey-patch, and Java uses default
 interface methods or inheritance. The payoff is cleaner source organization,
 and the compiled output pays nothing extra for it.
 
+Picture a team using Entity Framework Core to scaffold database entities. The
+tool regenerates `Customer.cs` every time the schema changes, but the team also
+needs custom validation and computed properties. With partial classes they keep
+the generated file untouched and write their logic in `Customer.Custom.cs`. The
+compiler merges both files, so the runtime sees a single `Customer` class with
+all the members.
+
 ## When to Use
 
 Use the Partial Class Pattern when:
@@ -56,14 +64,20 @@ Use the Partial Class Pattern when:
 - Two or more developers need to change different parts of the same class without constant merge conflicts.
 - A big class can become readable if you split it by real responsibilities:
   validation in one file, serialization in another, persistence in a third.
+- You're using a source generator or Razor code-behind that produces one half
+  of the class and you write the other half by hand.
 
 ### When to avoid
 
-- The whole class fits in one file without scrolling, so it probably shouldn't be split.
+- If the whole class fits on one screen without scrolling, don't split it.
 - The splits create circular dependencies or confusing navigation.
 - The language doesn't support partial types natively and workarounds add
   complexity.
-- You're splitting mainly because the class is too big to read; it's probably time to extract smaller classes instead.
+- You're splitting mainly because the class is too big to read; it's probably
+  time to extract smaller classes instead. In that case, look at the
+  [Strategy Pattern](/patterns/strategy-pattern/) or
+  [Decorator Pattern](/patterns/decorator-pattern/) for ways to split behavior
+  without splitting the type.
 
 ## Solution
 
@@ -271,9 +285,80 @@ code generators overwrote hand-written changes every time they ran. After,
 generated code lives in one file and custom code in another, and both compile into
 a single type.
 
-The compiled binary looks the same whether the class was written in one file or
-split across ten; the difference is only in how the source is organized and how
-safe it's to regenerate.
+The compiler produces the same IL whether the class lives in one file or is
+spread across ten; only the source layout and the safety of regeneration change.
+
+```mermaid
+classDiagram
+    %% alt: Class diagram showing Customer.generated.cs (properties) and Customer.custom.cs (methods) merging into a single Customer class at compile time.
+    class CustomerGenerated {
+        +int Id
+        +string Name
+        +string Email
+    }
+    class CustomerCustom {
+        +bool IsValidEmail()
+        +string GetDisplayName()
+    }
+    class Customer {
+        +int Id
+        +string Name
+        +string Email
+        +bool IsValidEmail()
+        +string GetDisplayName()
+    }
+    CustomerGenerated --|> Customer : merged at compile time
+    CustomerCustom --|> Customer : merged at compile time
+```
+
+### What the compiler actually does
+
+When the C# compiler sees two or more `partial` declarations of the same class,
+it combines their member lists, attributes and interfaces into a single
+metadata definition. The resulting IL has one type name and one set of methods,
+properties and fields. There's no runtime cost and no extra indirection; a call
+to `customer.IsValidEmail()` is the same instruction whether the method was
+written in `Customer.cs` or `Customer.Validation.cs`.
+
+This also means that the order of source files only matters for field
+initializers. If two partials declare fields with initializers, the compiler
+applies them in the order it processes the source files within the same project,
+so relying on cross-partial field order is fragile and should be avoided.
+
+### Trade-offs
+
+The main benefit is separation of concerns: generated and hand-written code have
+different owners, review processes and lifecycles. You can regenerate the
+scaffolded half without a merge conflict, and you can unit-test the custom half
+independently by mocking the generated members.
+
+The risk is that splitting can hide a class that's grown too large. If the
+reason for the split is "the file is too long to scroll" rather than "these
+responsibilities change at different rates", the partials are a band-aid. In that
+case, extracting smaller classes is usually the better fix. Partials also add
+cognitive load: a reader must open several files to understand the full type, so
+naming conventions such as `Customer.generated.cs` and `Customer.Validation.cs`
+are essential.
+
+### Edge cases and limitations
+
+Partial methods are a related feature: the generator can declare `partial void
+OnSaving()` and the custom file can implement it. If no implementation is
+provided, the compiler removes the call site entirely, so the generated code pays
+nothing at runtime. This works well for lightweight hooks, but the method must return `void` and
+can't use `out` parameters in classic partial methods. Modern
+C# allows `partial` methods to have non-void return types and access modifiers if
+they've got an implementation, but not all generators use that form.
+
+A partial class can't add fields that another partial depends on during object
+initialization, because the initialization order is compiler-determined. If you
+need guaranteed initialization order, use a constructor defined in one file or
+refactor to a separate initializer class.
+
+Source generators in .NET rely heavily on partial classes. A generator runs
+during compilation and can produce a partial file that the developer completes
+with custom logic. This is the same mental model as a T4 template or a WinForms
+designer, but it's integrated into the build.
 
 ### Real-world examples
 
@@ -303,9 +388,13 @@ partial class, separating presentation from logic.
 | Default interface methods | Java | Interface methods with bodies |
 | Partial method | C# | Generated stub, optional implementation |
 
+If your language relies on mixins rather than partial types, the
+[Mixin Pattern](/patterns/mixin-pattern/) shows how to compose behavior without
+inheritance.
+
 ## Best Practices
 
-- Never edit generated files. Add a `// <auto-generated>` header so other developers know the file will be overwritten.
+- Never edit generated files. Put a `// <auto-generated>` header at the top so nobody else tries to edit them.
 - Use consistent naming like `Customer.generated.cs` and `Customer.custom.cs`.
 - Keep partials cohesive. Split around real responsibilities, not just to create more files.
 - Add a short class-level comment noting which partial owns persistence, validation, or serialization.
@@ -365,3 +454,18 @@ No. TypeScript has no `partial class` keyword. Use composition (OrderModel,
 OrderValidator, OrderPricer), mixins, declaration merging for
 interfaces/namespaces, or prototype/module augmentation. Most of the time,
 composition ends up being the cleanest way out.
+
+## See Also
+
+- [Companion examples on GitHub][companion] — runnable C# project with `Customer` and `Order` partials.
+- [Mixin Pattern](/patterns/mixin-pattern/) — compose behavior without inheritance.
+- [Decorator Pattern](/patterns/decorator-pattern/) — add responsibilities by wrapping objects.
+- [Strategy Pattern](/patterns/strategy-pattern/) — extract interchangeable algorithms.
+- [Microsoft Learn: Partial Classes and Methods](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/partial-classes-and-methods)
+- [C# Language Specification — Partial types](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/classes#1516-partial-types)
+- [Java Nested Classes](https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html)
+- [Python dataclasses](https://docs.python.org/3/library/dataclasses.html)
+- [MDN: Classes in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
+- [TypeScript Handbook: Classes](https://www.typescriptlang.org/docs/handbook/2/classes.html)
+
+[companion]: https://github.com/MathiasPaulenko/stack-practices-resources/tree/main/resources/patterns/design/partial-class-pattern
