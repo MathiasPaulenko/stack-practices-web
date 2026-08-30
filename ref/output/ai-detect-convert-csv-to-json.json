@@ -2,48 +2,48 @@
   {
     "label": "convert-csv-to-json-en",
     "model": "desklib",
-    "model_ai_pct": 42.2,
-    "ai_count": 22,
-    "human_count": 47,
-    "skipped_count": 4,
+    "model_ai_pct": 41.3,
+    "ai_count": 15,
+    "human_count": 55,
+    "skipped_count": 3,
     "total": 73,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 18.1,
+      "mean": 17.6,
       "stddev": 17.9,
-      "cv": 0.99,
+      "cv": 1.01,
       "verdict": "natural variation",
-      "sentence_count": 69,
+      "sentence_count": 70,
       "lengths": [
         16,
         20,
-        8,
+        10,
         28,
         23,
         14,
         11,
         12,
         17,
-        21,
-        16,
+        18,
+        13,
         9,
         13,
         18,
         20,
-        14,
+        10,
         22,
         18,
         19,
         21,
         13,
-        10,
+        9,
         18,
-        12,
+        13,
         32,
         123,
         16,
-        34,
-        15,
+        32,
+        14,
         14,
         110,
         21,
@@ -51,17 +51,17 @@
         8,
         8,
         11,
-        14,
+        13,
         14,
         11,
-        12,
-        12,
+        10,
+        7,
         7,
         13,
         8,
         19,
         9,
-        11,
+        12,
         8,
         13,
         12,
@@ -69,18 +69,19 @@
         17,
         11,
         10,
-        12,
+        11,
+        6,
         21,
         16,
-        22,
+        21,
         10,
         14,
         15,
         23,
-        11,
+        12,
         15,
-        21,
-        10,
+        19,
+        8,
         13,
         12,
         21
@@ -88,28 +89,24 @@
     },
     "top_ai_sentences": [
       [
-        "Below are examples for Python, JavaScript, and Java.",
-        0.8564
+        "[Runnable companion on GitHub][companion] \u2014\n  the companion repo for this recipe.",
+        0.9949
       ],
       [
-        "When data already lives in a database, query it directly with SQL rather than\n  exporting to CSV and parsing it again.",
-        0.8439
+        "I wrote the examples below in Python, JavaScript, and Java.",
+        0.9201
       ],
       [
         "This recipe fits when you're:\nBringing spreadsheet exports into a web app or API.",
         0.7726
       ],
       [
-        "JSON can hold numbers, booleans, null, arrays, and objects; it's not limited to text.",
-        0.7229
+        "If the data is already in a database, query it directly with SQL instead of\n  round-tripping through CSV.",
+        0.7497
       ],
       [
-        "If \ufeff shows up in your\n  keys, you've found the culprit.",
-        0.718
-      ],
-      [
-        "[Runnable companion code on GitHub](https://github.com/mathiaspaulenko/stack-practices-resources/tree/main/resources/recipes/data/convert-csv-to-json) \u2014\n  the companion repo for th",
-        0.6602
+        "I put the libraries I use most often in production into the table below.",
+        0.7327
       ],
       [
         "| Library / Tool | Role | Reference |\n| --- | --- | --- |\n| Python csv | Standard-library reader/writer | [docs.python.org/library/csv](https://docs.python.org/3/library/csv.html) ",
@@ -120,16 +117,16 @@
         0.6276
       ],
       [
-        "I usually convert dates\nto ISO 8601 strings and booleans from strings like \"true\" or \"false\" before\ncalling json.dump or JSON.stringify.",
-        0.6249
-      ],
-      [
         "CSV only stores text, so it's got no idea whether a value is a number, a\nboolean, or a date.",
         0.6177
       ],
       [
         "If you\nwant to go the other way, see [Convert JSON to CSV](/recipes/convert-json-to-csv/)\nand [Serialize and Deserialize Data](/recipes/serialize-deserialize-data/) for\nthe surroun",
         0.5883
+      ],
+      [
+        "JSON handles numbers, booleans, null, arrays, and objects;\nCSV doesn't.",
+        0.5879
       ],
       [
         "Check the JSON against a schema when the output structure has to be exact.",
@@ -140,52 +137,56 @@
         0.5694
       ],
       [
-        "A BOM is a few extra bytes (\\ufeff) that some editors and Excel add to the\nbeginning of a UTF-8 file.",
-        0.5638
-      ],
-      [
-        "Write JSON in chunks, or send rows straight to a database.",
-        0.5592
-      ],
-      [
-        "That artifact usually becomes part of the first column name.",
-        0.5236
-      ],
-      [
-        "PapaParse works in the browser with a string or File input.",
-        0.522
-      ],
-      [
-        "If the file is Parquet, Avro, or ORC, use the parser made for that binary format.",
-        0.5199
+        "For Parquet, Avro, or ORC, use the parser built for that binary format.",
+        0.5664
       ],
       [
         "I usually keep a small TYPE_MAP per column.",
         0.5182
       ],
       [
-        "I put the libraries I run into most often in production into the table below.",
-        0.5078
-      ],
-      [
-        "I open files with encoding='utf-8-sig' when I know the BOM is likely.",
-        0.5071
-      ],
-      [
         "A streaming parser reads one row at a time, so the whole file never has to live\nin memory.",
         0.5064
       ],
       [
-        "Loading a multi-gigabyte file into a list\n  will almost always hit an out-of-memory error.",
-        0.4926
-      ],
-      [
-        "Use dotted column names like user.name and user.email, then expand them in\ncode or with a library such as flat or pandas.json_normalize.",
-        0.4883
+        "Use dotted column names like user.name and user.email, then expand them in\ncode or with a library like flat or pandas.json_normalize.",
+        0.4829
       ],
       [
         "Use ISO 8601 strings and let the\n  consumer cast them back when needed.",
         0.4796
+      ],
+      [
+        "When I export from\nExcel, I also watch for a UTF-8 BOM at the start of the file, which can corrupt\nthe first header and make DictReader produce a key like \\ufeffid.",
+        0.4786
+      ],
+      [
+        "Open the\nfile with encoding='utf-8-sig' in Python or strip the BOM before parsing.",
+        0.4735
+      ],
+      [
+        "I open files with encoding='utf-8-sig' when a BOM is likely.",
+        0.4713
+      ],
+      [
+        "pandas is my first choice when the CSV has dates, mixed types, or needs a\npreview.",
+        0.4706
+      ],
+      [
+        "That mistake usually\n  triggers a rewrite request.",
+        0.4651
+      ],
+      [
+        "Map CSV headers to JSON keys with columns: true or DictReader; don't rely\n  on positions, because they can change between exports.",
+        0.4629
+      ],
+      [
+        "I cast dates to ISO 8601\nstrings and booleans from strings like \"true\" or \"false\" before the final\njson.dump or JSON.stringify.",
+        0.4614
+      ],
+      [
+        "Processing a CSV that's too big to load as a single object, one row at a time.",
+        0.46
       ]
     ],
     "diagnostics_sample": []
@@ -193,24 +194,25 @@
   {
     "label": "convert-csv-to-json-es",
     "model": "desklib",
-    "model_ai_pct": 36.2,
-    "ai_count": 13,
-    "human_count": 56,
-    "skipped_count": 3,
-    "total": 72,
+    "model_ai_pct": 33.5,
+    "ai_count": 11,
+    "human_count": 60,
+    "skipped_count": 2,
+    "total": 73,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 19.3,
-      "stddev": 18.9,
-      "cv": 0.98,
+      "mean": 18.7,
+      "stddev": 18.8,
+      "cv": 1.0,
       "verdict": "natural variation",
-      "sentence_count": 69,
+      "sentence_count": 71,
       "lengths": [
         19,
         22,
+        9,
         8,
-        32,
-        27,
+        29,
+        25,
         15,
         10,
         12,
@@ -221,12 +223,12 @@
         15,
         18,
         12,
-        30,
+        29,
         19,
-        19,
+        20,
         24,
         12,
-        12,
+        10,
         29,
         13,
         29,
@@ -237,7 +239,7 @@
         15,
         122,
         22,
-        6,
+        8,
         15,
         8,
         11,
@@ -245,26 +247,27 @@
         14,
         12,
         14,
-        11,
         9,
-        13,
+        9,
+        10,
         12,
-        14,
+        13,
         21,
         11,
         10,
-        7,
-        18,
+        8,
+        16,
         12,
         16,
         17,
         11,
         10,
-        12,
+        11,
+        6,
         18,
         19,
         23,
-        12,
+        11,
         20,
         18,
         29,
@@ -274,85 +277,69 @@
         11,
         14,
         13,
-        23
+        22
       ]
     },
     "top_ai_sentences": [
       [
-        "Cargar un CSV de varios gigabytes entero en memoria.",
-        0.9776
-      ],
-      [
-        "Esa es la raz\u00f3n principal\n  por la que me piden reescribir un script.",
-        0.888
-      ],
-      [
-        "Caste\u00e1 los tipos de forma expl\u00edcita.",
-        0.8577
-      ],
-      [
-        "Esta receta sirve cuando necesit\u00e1s:\nLlevar exports de spreadsheets a una app web o API.",
-        0.8371
-      ],
-      [
-        "Encontrar\u00e1s ejemplos abajo para Python, JavaScript y Java.",
-        0.7736
-      ],
-      [
-        "Cargar datos planos en MongoDB, Elasticsearch u otro document store.",
-        0.666
-      ],
-      [
-        "Ese artefacto termina siendo parte del nombre de la primera columna.",
-        0.6404
-      ],
-      [
-        "[C\u00f3digo complementario ejecutable en GitHub](https://github.com/mathiaspaulenko/stack-practices-resources/tree/main/resources/recipes/data/convert-csv-to-json) \u2014\n  el repositorio c",
-        0.6302
+        "[C\u00f3digo complementario en GitHub][companion] \u2014\n  el repositorio companion de esta receta.",
+        0.9393
       ],
       [
         "Si quer\u00e9s ir en el otro sentido, mir\u00e1\n[Convertir JSON a CSV](/recipes/convert-json-to-csv/) y\n[Serializar y Deserializar Datos](/recipes/serialize-deserialize-data/) para los\nconce",
-        0.6205
+        0.6801
+      ],
+      [
+        "[companion]: https://github.com/mathiaspaulenko/stack-practices-resources/tree/main/resources/recipes/data/convert-csv-to-json\n\n\n\n\n\nCSV no almacena tipos.",
+        0.6652
+      ],
+      [
+        "Uso esta receta cuando necesito:\nllevar exports de spreadsheets a una app web o API.",
+        0.6563
+      ],
+      [
+        "Subir un CSV de varios gigabytes entero a memoria.",
+        0.6301
       ],
       [
         "[Aplanar y Desanidar Objetos](/recipes/flatten-unflatten-objects/) \u2014 c\u00f3mo\n  convertir nombres de columna con puntos como user.name en JSON anidado.",
         0.6181
       ],
       [
-        "Si ves \ufeff en\n  tus claves, esa es la se\u00f1al.",
-        0.5645
-      ],
-      [
         "[Validar JSON Schema](/recipes/validate-json-schema/) \u2014 manten\u00e9 la salida\n  convertida bajo un contrato.",
         0.5589
       ],
       [
-        "Olvidar que JSON no tiene tipo date.",
-        0.5255
+        "llevar datos planos a MongoDB, Elasticsearch u otro document store.",
+        0.5249
+      ],
+      [
+        "PapaParse corre en el browser con un string o un input File.",
+        0.5189
+      ],
+      [
+        "Acordate de castear los tipos de forma expl\u00edcita.",
+        0.5103
+      ],
+      [
+        "Eleg\u00ed el que se ajuste a\ntu stack.",
+        0.5027
       ],
       [
         "Est\u00e1s procesando un flujo en vivo de registros.",
         0.4974
       ],
       [
-        "El\n  CSV real puede tener saltos de l\u00ednea dentro de celdas entre comillas siempre.",
-        0.4963
-      ],
-      [
         "| Herramienta / Librer\u00eda | Rol | Referencia |\n| --- | --- | --- |\n| csv de Python | Lector/escritor de la librer\u00eda est\u00e1ndar | [docs.python.org/library/csv](https://docs.python.org/",
         0.4959
       ],
       [
-        "Las comillas y los escapes son los lugares donde el line.split(',') rompe.",
-        0.4838
+        "Las comillas y los escapes son donde line.split(',') se rompe.",
+        0.4925
       ],
       [
         "[Convertir JSON a CSV](/recipes/convert-json-to-csv/) \u2014 la operaci\u00f3n inversa\n  cuando una herramienta downstream quiere salida de spreadsheet.",
         0.4811
-      ],
-      [
-        "Alimentar con datos CSV una librer\u00eda de gr\u00e1ficos del lado del cliente.",
-        0.4707
       ],
       [
         "RFC 4180 \u2014 la especificaci\u00f3n can\u00f3nica de CSV en\n  [datatracker.ietf.org/doc/html/rfc4180](https://datatracker.ietf.org/doc/html/rfc4180).",
@@ -363,16 +350,32 @@
         0.4336
       ],
       [
-        "Un BOM son unos bytes extra (\\ufeff) que algunos editores y Excel agregan al\nprincipio de un archivo UTF-8.",
-        0.4303
+        "Sete\u00e1 el delimiter del parser para que coincida con el archivo.",
+        0.4104
       ],
       [
-        "Sete\u00e1 la opci\u00f3n delimiter del parser para que coincida con el archivo.",
-        0.4001
+        "Suelo tener un\n  TYPE_MAP chico para cada columna.",
+        0.4003
       ],
       [
-        "PapaParse funciona en el browser con un string o un input File.",
-        0.3992
+        "Ese prefijo termina mezclado con el nombre de la\nprimera columna.",
+        0.3994
+      ],
+      [
+        "Abr\u00ed archivos con encoding='utf-8-sig' cuando un BOM es probable.",
+        0.3912
+      ],
+      [
+        "Si ves \ufeff en\n  tus claves, ah\u00ed est\u00e1 el BOM.",
+        0.3873
+      ],
+      [
+        "La tabla de abajo tiene las librer\u00edas que me cruzo m\u00e1s seguido en producci\u00f3n.",
+        0.3777
+      ],
+      [
+        "Un parser de streaming lee una fila a la vez, as\u00ed que el archivo nunca tiene que\nquedarse en memoria.",
+        0.3767
       ],
       [
         "CSV es el formato de exportaci\u00f3n por defecto de spreadsheets y bases de datos,\npero solo guarda texto plano.",

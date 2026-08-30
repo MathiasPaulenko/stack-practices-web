@@ -20,7 +20,7 @@
 | `difficulty` | `beginner` |
 | `topics` | `data` (válido) |
 | `tags` | `csv`, `json`, `conversion`, `python`, `javascript`, `java`, `data-processing` |
-| `lastUpdated` | `2026-09-02` (EN y ES) |
+| `lastUpdated` | `2026-08-30` (EN y ES) |
 | `publishedAt` | `2026-06-20` (EN y ES) |
 | `author` | `Mathias Paulenko` |
 | `relatedResources` EN/ES | 6 slugs, mismo orden, todos válidos, todos del cluster `data` |
@@ -36,14 +36,14 @@
 | Mermaid / imágenes EN/ES | 1 diagrama de flujo de decisión + 2 SVGs (`convert-csv-to-json-1.svg` / `convert-csv-to-json-es-1.svg`) |
 | Companion repo | **EXISTE** (`../stack-practices-resources/resources/recipes/data/convert-csv-to-json/`) |
 | AI detect patterns EN/ES | 0 hallazgos / 0 hallazgos |
-| AI detect content EN | **42.2 %** (22 AI / 47 human / 73 total), `pattern_totals: {}` |
-| AI detect content ES | **36.2 %** (13 AI / 56 human / 72 total), `pattern_totals: {}` |
+| AI detect content EN | **41.3 %** (15 AI / 55 human / 73 total), `pattern_totals: {}` |
+| AI detect content ES | **33.5 %** (11 AI / 60 human / 73 total), `pattern_totals: {}` |
 | Build | `npm run build` 3.258 páginas, exit 0 |
 | `npm run content:validate` | PASS (0 errores, 0 advertencias, 1.021 archivos) |
 | `npm run content:quality` | PASS (0 errores, 0 advertencias, 2.042 archivos) |
 | `npm run content:links` | PASS (0 enlaces rotos en `relatedResources`) |
 | `npm run check` | PASS (0 errores, 0 warnings, 3 hints preexistentes) |
-| `npm run sitemap` | URLs EN/ES presentes con `lastmod=2026-09-02` |
+| `npm run sitemap` | URLs EN/ES presentes con `lastmod=2026-08-30` |
 
 ---
 
@@ -54,14 +54,14 @@
 | SEO On-Page | 10/15 | 13/15 | +3 | ✅ |
 | SEO Técnico | 9/10 | 9/10 | 0 | ✅ |
 | Calidad de contenido | 11/25 | 20/25 | +9 | ✅ |
-| Humanización | 8/15 | 10/15 | +2 | ✅ |
+| Humanización | 8/15 | 9/15 | +1 | ✅ |
 | Paridad bilingüe | 9/10 | 9/10 | 0 | ✅ |
 | Medios visuales | 0/5 | 4/5 | +4 | ✅ |
 | Companion repo | 0/3 | 3/3 | +3 | ✅ |
 | GEO / AI Search | 3/5 | 4/5 | +1 | ✅ |
-| **TOTAL** | **50/88 (~56.8/100)** | **82/88 (~93.2/100)** | **+32 / +36.4 pts** | ✅ |
+| **TOTAL** | **50/88 (~56.8/100)** | **81/88 (~92.0/100)** | **+31 / +35.2 pts** | ✅ |
 
-**Interpretación:** El recurso pasó de rango **NEEDS IMPROVEMENT** (~66/100 en la auditoría original) a rango **PROMOTE** (~93/100). La mejora principal es la eliminación del thin content y la adición de enlaces internos/externos, ecosistema de herramientas, diagrama Mermaid y companion repo. Quedan dos ítems no bloqueantes: el AI score EN ligeramente por encima del 40 % y el `WebPage` schema global.
+**Interpretación:** El recurso pasó de rango **NEEDS IMPROVEMENT** (~66/100 en la auditoría original) a rango **PROMOTE** (~92/100). La mejora principal es la eliminación del thin content y la adición de enlaces internos/externos, ecosistema de herramientas, diagrama Mermaid y companion repo. Se aplicó una ronda adicional de humanización que bajó el AI score EN de 42.2 % a 41.3 % y el ES de 36.2 % a 33.5 %, con `pattern_totals` vacío. Quedan dos ítems no bloqueantes: el AI score EN ligeramente por encima del 40 % y el `WebPage` schema global.
 
 ---
 
@@ -105,7 +105,7 @@
   - Evidence: añadido bloque ` ```mermaid ` en EN/ES; `npm run mermaid:render` generó `convert-csv-to-json-1.svg` y `convert-csv-to-json-es-1.svg`; el build incluye `<img class="mermaid-diagram">` con `loading="lazy"`, `tabindex="0"` y `aria-label`.
 
 - [x] **[LOW] [SEO] Actualizar `lastUpdated` en próxima edición** ✅ RESUELTO
-  - Evidence: `lastUpdated: "2026-09-02"` en EN y ES; `public/sitemap.xml` refleja `lastmod=2026-09-02`.
+  - Evidence: `lastUpdated: "2026-08-30"` en EN y ES; `public/sitemap.xml` refleja `lastmod=2026-08-30`.
 
 - [x] **[LOW] [CONTENT] Título ES usa "Convertir" en infinitivo** ✅ RESUELTO / ACEPTADO
   - Evidence: se mantiene `Convertir CSV a JSON` (20 chars, < 60). Es directo y natural en ES; no se considera bloqueante.
@@ -113,8 +113,8 @@
 ### ⚠️ Pendientes
 
 - [ ] **[HIGH] [HUMANIZATION] Reducir la proporción de oraciones marcadas como IA en el body EN por debajo del umbral del 40 %** ⚠️ PENDIENTE
-  - Razón: `model_ai_pct` EN mejoró de 44.0 % a 42.2 % tras 4 rondas de reescritura, pero sigue por encima del 40 %. `pattern_totals` sigue vacío, por lo que no hay patrones de lenguaje explícitos; las frases con mayor `ai_prob` son declaraciones técnicas cortas ("Use...", "CSV has no..."). No se detectan palabras rojas, aperturas genéricas ni rule-of-three.
-  - Recomendación: si el 40 % es una gate dura, ejecutar una pasada más focalizada en variar estructuras de frases declarativas y añadir más contracciones/contexto concreto. Si no, documentar la justificación técnica y promover con nota.
+  - Razón: `model_ai_pct` EN mejoró de 44.0 % → 42.2 % → 41.3 % tras 4 rondas de reescritura (incluyendo una ronda adicional de mejora), pero sigue por encima del 40 %. `pattern_totals` sigue vacío, por lo que no hay patrones de lenguaje explícitos; las frases con mayor `ai_prob` son declaraciones técnicas cortas, líneas de tabla y enlaces (`Below are examples...`, `[Runnable companion on GitHub]...`, etc.). No se detectan palabras rojas, aperturas genéricas ni rule-of-three.
+  - Recomendación: se alcanzó el límite de 4 rondas del skill `content-improvement`; si el 40 % es una gate dura, aprobar una ronda 5 manual o aceptar la justificación técnica (pattern_totals vacío, ES ya bajo el 40 %) y promover con nota.
   - Evidence: `ref/output/ai-detect-convert-csv-to-json.json`.
 
 - [ ] **[LOW] [TRAFFIC] Open Graph image es genérica (`/og-image.png`)** ⚠️ PENDIENTE
@@ -159,7 +159,7 @@ Resumen numérico:
 - [x] `description` y `metaDescription` dentro de 50–170 caracteres y coincidentes EN/ES en sentido.
 - [x] `metaDescription` top-level coincide con `seo.metaDescription`.
 - [x] `relatedResources` 3–6 slugs coherentes, mismo orden EN/ES, sin enlaces rotos.
-- [x] `lastUpdated` actualizado y coincidente en ambos idiomas (`2026-09-02`).
+- [x] `lastUpdated` actualizado y coincidente en ambos idiomas (`2026-08-30`).
 - [x] H1 único generado desde el frontmatter; body empieza con `## Overview` / `## Visión General`.
 - [x] Jerarquía H2 → H3 sin saltos.
 
@@ -178,7 +178,7 @@ Resumen numérico:
 ### Humanización
 
 - [x] `pattern_totals` vacío.
-- [ ] Desklib EN < 40 % o justificación técnica documentada si persiste > 40 % (persiste 42.2 %, justificado en checklist).
+- [ ] Desklib EN < 40 % o justificación técnica documentada si persiste > 40 % (persiste 41.3 %, justificado en checklist).
 - [x] Sin aperturas genéricas (`This guide covers...`, `In this article...`).
 - [x] Tono humano, voz en primera persona y trade-offs explícitos.
 
@@ -221,7 +221,7 @@ Resumen numérico:
 
 ## 4. Top 5 acciones pendientes (re-priorizadas)
 
-1. **Considerar una pasada más de humanización EN si el 40 % es gate dura** (HIGH). Aplicar variación de estructuras en frases declarativas técnicas; `pattern_totals` ya está vacío.
+1. **Aprobar o rechazar una quinta ronda de humanización EN si el 40 % es gate dura** (HIGH). Se completaron 4 rondas; `pattern_totals` sigue vacío y ES ya bajó del 40 %.
 2. **Implementar `WebPage` schema en el layout de recetas** (MEDIUM). Es un cambio global de `RecipeArticle.astro` o del componente de JSON-LD.
 3. **Capturar screenshot móvil 375px con navegador real y verificar legibilidad de tablas/FAQ** (MEDIUM/LOW).
 4. **Evaluar OG image específica por recurso o global** (LOW).
@@ -231,9 +231,9 @@ Resumen numérico:
 
 ## 5. Veredicto y recomendación
 
-**Veredicto:** El recurso `convert-csv-to-json` ha pasado de `NEEDS IMPROVEMENT` (~56.8/100) a `PROMOTE` (~93.2/100) tras la ronda de mejoras. Se resolvieron todos los items CRITICAL y HIGH excepto el AI score EN, que está ligeramente por encima del 40 % pero sin patrones de lenguaje detectables.
+**Veredicto:** El recurso `convert-csv-to-json` ha pasado de `NEEDS IMPROVEMENT` (~56.8/100) a `PROMOTE` (~92.0/100) tras las rondas de mejoras. Se resolvieron todos los items CRITICAL y HIGH excepto el AI score EN, que bajó de 42.2 % a 41.3 % tras la ronda adicional de humanización pero sigue ligeramente por encima del 40 %, con `pattern_totals` vacío.
 
-**Recomendación:** `PROMOTE`. El contenido ya supera el mínimo de palabras, tiene enlaces internos/externos, ecosistema de herramientas con versiones reales, companion repo ejecutable, diagrama Mermaid y FAQ ampliada. Los items pendientes son menores y/o requieren cambios globales del sitio (`WebPage` schema, OG image, screenshot móvil real).
+**Recomendación:** `PROMOTE`. El contenido supera el mínimo de palabras, tiene enlaces internos/externos, ecosistema de herramientas con versiones reales, companion repo ejecutable, diagrama Mermaid y FAQ ampliada. Se completaron 4 rondas de humanización; si el 40 % EN es una gate dura, se requiere aprobación para una quinta ronda manual. Los otros items pendientes son menores y/o globales (`WebPage` schema, OG image, screenshot móvil real).
 
 ---
 
@@ -285,6 +285,6 @@ Wrote ref/output/ai-detect-patterns-convert-csv-to-json-es.json
 
 python scripts/ai-detect-content.py src/content/recipes/data/convert-csv-to-json.md --es src/content/recipes/data/convert-csv-to-json.es.md --model desklib
 Wrote ref/output/ai-detect-convert-csv-to-json.json
-  convert-csv-to-json-en: 42.2% AI (22 AI / 47 human / 73 total) patterns: {}
-  convert-csv-to-json-es: 36.2% AI (13 AI / 56 human / 72 total) patterns: {}
+  convert-csv-to-json-en: 41.3% AI (15 AI / 55 human / 73 total) patterns: {}
+  convert-csv-to-json-es: 33.5% AI (11 AI / 60 human / 73 total) patterns: {}
 ```
