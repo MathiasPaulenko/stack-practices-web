@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/websockets-realtime
   - /recipes/redis-pub-sub-python
   - /patterns/publish-subscribe-pattern
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-30"
 publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
@@ -37,29 +37,43 @@ seo:
 ## Overview
 
 Server-Sent Events (SSE) let the server push text events to the browser over one
-long-lived HTTP connection. It's a one-way channel over plain HTTP, so it works
-with whatever auth, load balancers, and proxies you already have.
+long-lived HTTP connection. It's a one-way channel over plain HTTP, so it plays
+nice with whatever auth, load balancers, and proxies you already have.
 
-This recipe gives you an Express endpoint, a browser client, and a safe broadcast
-helper that handles backpressure and cleanup.
+I reach for SSE when the traffic is mostly server → client and I don't want to
+add WebSocket infrastructure just to push a few updates. In a Node.js and
+Express app, the recipe is small: set the right headers, keep the socket open,
+and write lines in `text/event-stream` format. The browser's `EventSource` API
+handles reconnection automatically and sends the `Last-Event-ID` header so the
+server can resume the stream.
+
+This recipe gives you an Express endpoint, a browser client, a safe broadcast
+helper that handles backpressure, and a few production notes I wish I had when I
+first deployed SSE behind nginx. If you want the protocol basics first, check
+[Server-Sent Events](/recipes/server-sent-events/); for bidirectional chat, see
+[WebSocket Bidirectional Chat](/recipes/websocket-bidirectional-chat/).
 
 ## When to Use
 
 Reach for SSE when:
 
 - You need live dashboards, activity feeds, or notifications from server to
-  client.
-- Traffic mostly flows from server to client, and clients just listen.
-- You'd rather reuse your HTTP stack than add WebSocket infrastructure.
+  client. I use it for progress bars on long jobs — the browser just listens, so
+  I don't need a full WebSocket setup.
+- Traffic mostly flows from server to client and clients just listen. Think
+  stock tickers, sports scores, or log tails.
+- You'd rather reuse your HTTP stack than add WebSocket infrastructure. SSE
+  passes through most corporate proxies and CDNs without protocol upgrades.
 - Your messages are small and text-only, so binary payloads aren't needed.
 
 ### When to avoid
 
-- You genuinely need bidirectional or binary communication. Use WebSockets instead.
+- The flow is genuinely bidirectional or binary. Use WebSockets
+  instead.
 - Clients need to send frequent messages back to the server. SSE is
   server-to-client only.
 - Your deployment blocks long-lived HTTP connections. Some proxies or firewalls
-  block them.
+  drop idle sockets unless heartbeats and timeouts are aligned.
 
 ## Solution
 
@@ -120,6 +134,12 @@ const PORT = 3000;
 app.listen(PORT, () => console.log(`SSE server on port ${PORT}`));
 ```
 
+The headers matter. `Content-Type: text/event-stream` tells the browser the
+response is an event stream. `Cache-Control: no-cache` stops proxies from
+buffering, and `X-Accel-Buffering: no` does the same for nginx. I also set
+`Connection: keep-alive` as a reminder to the next person reading the code,
+even though HTTP/1.1 keeps connections alive by default.
+
 ### Broadcasting events with backpressure
 
 ```typescript
@@ -142,6 +162,11 @@ setInterval(() => {
   broadcast('heartbeat', { ts: Date.now() });
 }, 30000);
 ```
+
+`response.write` returns `false` once Node's internal buffer is full. The
+client is falling behind. In the snippet above I listen for `drain` and wait,
+but in production I usually disconnect clients that stay behind for too long,
+because an unbounded queue of pending messages will eat memory.
 
 ### Client with auto-reconnect
 
@@ -182,20 +207,145 @@ function connect() {
 connect();
 ```
 
+The browser already reconnects automatically, but the manual retry loop gives
+you control over the backoff cap and lets you reset the attempt counter on a
+successful `connected` event. I cap the delay at 30 seconds so a bad network
+doesn't leave the user waiting minutes between retries.
+
+### Handling named events and `retry`
+
+Production clients usually listen to more than one event type. I set a `retry`
+value in milliseconds so the browser pauses before reconnecting. Here is the
+helper I use:
+
+```typescript
+function sendNotification(res: Response, event: string, data: unknown, retry = 2000) {
+  res.write(`event: ${event}\n`);
+  res.write(`data: ${JSON.stringify(data)}\n`);
+  res.write(`retry: ${retry}\n\n`);
+}
+```
+
+On the client, `addEventListener('order-update', ...)` only fires for messages
+whose `event:` field matches. I find that's cleaner than burying the event type
+inside the JSON payload.
+
+### Testing the stream with curl
+
+Before wiring the browser, I verify the endpoint with curl:
+
+```bash
+curl -N -H "Accept: text/event-stream" http://localhost:3000/events
+```
+
+The `-N` flag disables output buffering so you see events as they arrive. If
+you don't see the `connected` event immediately, the headers or the response
+format are probably wrong.
+
+### CORS and authentication
+
+`EventSource` doesn't let you set custom headers, so you can't send a plain
+`Authorization` bearer token. When I need to lock the stream down, I have three
+options.
+
+Cookies work when the browser page and the API share the same origin. The
+browser sends them on its own. A query token is a short-lived value in the
+URL, but it can leak into server logs and browser history. A manual `fetch`
+stream gives you full header control, though you've got to re-implement
+reconnection.
+
+For CORS, I use Express's `cors` middleware and allow the specific origin:
+
+```typescript
+import cors from 'cors';
+
+app.use(cors({ origin: 'https://app.example.com', credentials: true }));
+```
+
+That config lets the browser connect from a different origin while keeping
+credentials enabled.
+
+### Deployment behind nginx
+
+Nginx is the most common place where SSE breaks. The default config tries to
+buffer the response, which turns a live stream into a delayed batch. I always
+add this to the location block:
+
+```nginx
+location /events {
+  proxy_pass http://localhost:3000;
+  proxy_http_version 1.1;
+  proxy_set_header Connection '';
+  proxy_buffering off;
+  proxy_cache off;
+  proxy_read_timeout 86400s;
+  proxy_send_timeout 86400s;
+}
+```
+
+Without `proxy_buffering off`, the client won't see events until the buffer
+fills. `proxy_read_timeout` must be larger than your heartbeat interval, or
+nginx closes the socket between heartbeats.
+
+### Scaling past one server
+
+Add a second process and each server only sees the clients connected to it. I
+usually put a Redis pub/sub channel in front of the broadcast function.
+Each Node instance subscribes to the channel and forwards messages to its local
+clients:
+
+```typescript
+import { createClient } from 'redis';
+
+const redis = createClient({ url: process.env.REDIS_URL });
+const subscriber = redis.duplicate();
+
+subscriber.subscribe('sse:events', (message) => {
+  const { event, data } = JSON.parse(message);
+  broadcast(event, data);
+});
+
+async function publishEvent(event: string, data: unknown) {
+  await redis.publish('sse:events', JSON.stringify({ event, data }));
+}
+```
+
+If you run two or more instances behind a load balancer, use sticky sessions so a
+reconnecting client lands on the same server. Otherwise the `Last-Event-ID`
+header may reach a node that doesn't have that client's history.
+
 ## Explanation
 
-SSE reuses a normal HTTP response. The server leaves it open and writes lines in
-`text/event-stream` format. Events carry `event:`, `data:`, `id:`, and `retry:`
-fields. Browsers handle this through the `EventSource` API, which reconnects
-automatically and sends the `Last-Event-ID` header.
+SSE reuses a normal HTTP response. The server keeps the socket open and writes
+lines in `text/event-stream` format. Events carry `event:`, `data:`, `id:`, and
+`retry:` fields. Browsers handle this through the `EventSource` API, which
+reconnects automatically and sends back the `Last-Event-ID` header.
+
+```mermaid
+flowchart LR
+  Client[Browser / EventSource] -->|GET /events| Server[Express server]
+  Server -->|text/event-stream headers| Client
+  Server -->|event: connected| Client
+  Server -->|heartbeat| Client
+  Client -->|Last-Event-ID| Server
+  Server -->|replay events| Client
+```
 
 The protocol is text-only, so any JSON goes encoded inside the `data:` field.
 Heartbeats keep the connection alive so proxies don't close idle sockets. The
 `Last-Event-ID` header lets the server resume from where the client left off.
 
-Backpressure shows up when clients can't keep up. `response.write` returns
+Backpressure shows up when a client falls behind the stream of events. `response.write` returns
 `false` the moment Node's internal buffer is full. After that, wait for the
-`drain` event before writing again, or disconnect clients that stay behind.
+`drain` event before writing again, or disconnect clients that stay behind. I
+tend to disconnect slow consumers after a few seconds of backpressure, because
+keeping them in memory hurts the rest of the cluster.
+
+The `id` field is optional, but it makes reconnections much easier. The browser
+stores the last `id` it received and sends it as `Last-Event-ID` on reconnect.
+That means you can resume a stream without the client losing messages, as long
+as the server keeps a bounded event history. I keep the last 100 to 500 events
+in memory or in Redis, depending on payload size.
 
 ## Variants
 
@@ -206,55 +356,89 @@ Backpressure shows up when clients can't keep up. `response.write` returns
 | `eventsource` npm package | Node clients or older browsers | Same API, works outside the browser |
 | `better-sse` or `sse-channel` | Production Express | Handles rooms, heartbeat, and cleanup |
 
+If you need the same client to receive different event types, `better-sse` gives
+you channels and rooms without writing the registry yourself. For simple
+one-to-one streams, the manual approach in this recipe is enough.
+
 ## Best Practices
 
-- Set `X-Accel-Buffering: no` to stop nginx or other proxies from buffering the
-  stream.
-- Send a heartbeat every 15–30 seconds to avoid proxy and firewall timeouts.
+- Set the `X-Accel-Buffering: no` header so nginx and other proxies don't buffer
+  the stream. I also set `Cache-Control: no-cache` and turn off `proxy_buffering`
+  in nginx.
+- Send a heartbeat every 15–30 seconds to avoid proxy and firewall timeouts. I
+  emit a simple `heartbeat` event with an empty `data` field.
 - Use `Last-Event-ID` to resume after reconnections; store a bounded event
-  history.
-- Remove clients on `close` or `error`; otherwise they leak memory.
-- Limit open connections and the message rate for each client.
-- Use `res.write` backpressure signals; don't buffer unbounded messages.
+  history. A ring buffer of the last 100 events is usually enough for dashboards.
+- Remove clients on `close` or `error`; otherwise they leak memory. Node won't
+  close the response for you.
+- Limit open connections and the message rate for each client. Rate limiting
+  matters if clients can trigger a lot of events.
+- Use `res.write` backpressure signals; don't buffer unbounded messages. When
+  the kernel buffer is full, decide between waiting and disconnecting.
+- Test behind your real proxy before going live, because local `curl` can lie
+  when there's no buffering.
 
 ## Common Mistakes
 
-- Forgetting heartbeats and then wondering why connections drop silently.
+- Forgetting heartbeats and then wondering why connections drop silently. The
+  proxy timeout is almost always the culprit.
 - Broadcasting big payloads without checking the return value of `response.write`.
+  That's how you fill the Node buffer and slow down the event loop.
 - Keeping the full event history in memory instead of a bounded buffer or
-  persistent log.
+  persistent log. Memory grows with every reconnected client.
 - Opening many `EventSource` instances per page. Browsers cap connections per
-  origin.
+  origin at about six per domain when using HTTP/1.1.
 - Sending binary data or expecting the client to post data back over the same
-  connection.
+  connection. SSE is one-way text; use WebSockets for the other cases.
+- Reusing `Last-Event-ID` across two or more servers without shared state. The
+  client may reconnect to a different process that hasn't seen that `id`.
+
+## See Also
+
+- [Server-Sent Events](/recipes/server-sent-events/) — the protocol and
+  multi-language overview.
+- [WebSocket Bidirectional Chat](/recipes/websocket-bidirectional-chat/) — for
+  two-way real-time communication.
+- [Publish-Subscribe Pattern](/patterns/publish-subscribe-pattern/) — the
+  architectural pattern behind fan-out.
+- MDN [EventSource](https://developer.mozilla.org/en-US/docs/Web/API/EventSource)
+  reference.
+- HTML Living Standard [Server-Sent Events](https://html.spec.whatwg.org/multipage/server-sent-events.html).
+- The Node.js [http](https://nodejs.org/api/http.html) and
+  [stream](https://nodejs.org/api/stream.html) docs, for the underlying APIs.
 
 ## FAQ
 
 ### Can I send binary data over SSE?
 
 No. SSE is text-only. Encode binary as Base64, or use WebSockets for true binary
-streams.
+streams. Base64 adds about a 33 % size overhead, which is fine for small icons
+but not for video.
 
 ### How many concurrent SSE connections can one Node.js process handle?
 
 Thousands, limited by memory and OS file descriptors. Every connection costs a
 small heap allocation plus one socket. Use clustering or a load balancer with
-sticky sessions for horizontal scaling.
+sticky sessions for horizontal scaling. The number depends on payload size and
+heartbeat cadence, but a single process can usually hold tens of thousands of
+idle connections.
 
 ### Does SSE work through a load balancer?
 
 Yes, provided the balancer supports long-lived HTTP and sticky sessions once
 you scale past one server. Disable response buffering and set idle timeouts high
-enough.
+enough. Without sticky sessions, a reconnect may land on a different process and
+miss events.
 
 ### How do I authenticate SSE clients?
 
 Pass a token in the URL query, a cookie, or use `fetch` with manual stream
 parsing so you can send custom headers. Plain `EventSource` can't set
-`Authorization` headers.
+`Authorization` headers. Cookies work best when the browser and the API share the
+same origin.
 
 ### What if the client disconnects and reconnects?
 
 Add `id:` fields to events and read the `Last-Event-ID` header on the server.
 Replay missed events from a bounded in-memory queue or a persistent store like
-Redis.
+Redis. Keep the history bounded, or memory will keep growing.
