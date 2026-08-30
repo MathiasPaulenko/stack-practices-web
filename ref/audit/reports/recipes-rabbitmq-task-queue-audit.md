@@ -21,8 +21,8 @@
 | `topics` | messaging |
 | `lastUpdated` | 2026-08-30 |
 | `relatedResources` EN/ES | 6 slugs, mismo orden y válidos |
-| Palabras body (prosa sin bloques de código) EN | 1.747 |
-| Palabras body (prosa sin bloques de código) ES | 1.890 |
+| Palabras body (prosa sin bloques de código) EN | 1.802 |
+| Palabras body (prosa sin bloques de código) ES | 1.957 |
 | Bloques de código EN/ES | 6 (4 TypeScript + 1 Python + 1 YAML) + 1 Mermaid cada uno |
 | H2 EN/ES | 9 |
 | H3 EN/ES | 13 |
@@ -37,19 +37,19 @@
 |-----------|-------|---------|--------|--------|
 | SEO On-Page | 12/15 | 14/15 | +2 | ✅ |
 | SEO Técnico | 10/10 | 10/10 | 0 | ✅ |
-| Calidad Contenido | 20/25 | 23/25 | +3 | ✅ |
+| Calidad Contenido | 20/25 | 24/25 | +4 | ✅ |
 | Humanización | 10/15 | 14/15 | +4 | ✅ |
 | Paridad Bilingüe | 9/10 | 10/10 | +1 | ✅ |
-| Medios Visuales | 4/5 | 4/5 | 0 | ⚠️ |
+| Medios Visuales | 4/5 | 5/5 | +1 | ✅ |
 | Companion Repo | 0/3 | 3/3 | +3 | ✅ |
 | GEO / AI Search | 3/5 | 4/5 | +1 | ✅ |
-| **TOTAL** | **87/100** | **92.5/100** | **+5.5** | **✅ MEJORA MODERADA** |
+| **TOTAL** | **87/100** | **94.5/100** | **+7.5** | **✅ MEJORA MODERADA** |
 
 > Nota: el total es una puntuación global ponderada/experta; las dimensiones se califican por su peso relativo.
 
 ### Cambio global
 
-**+5.5 puntos** → MEJORA MODERADA. Todos los items CRITICAL, HIGH y MEDIUM quedaron resueltos. No se detectaron regresiones.
+**+7.5 puntos** → MEJORA MODERADA. Todos los items CRITICAL, HIGH, MEDIUM y LOW quedaron resueltos. No se detectaron regresiones.
 
 ---
 
@@ -60,7 +60,7 @@
 - [x] **[MEDIUM] [HUMANIZATION] Reducir la proporción de oraciones marcadas como IA en el body EN por debajo del umbral del 40 %** ✅ RESUELTO
   - Evidence: `ref/output/ai-detect-rabbitmq-task-queue.json`
   - Antes: EN 41.3 % (27 AI / 69 human / 99 total).
-  - Después: EN 36.9 % (12 AI / 87 human / 102 total), ES 28.1 % (13 AI / 87 human / 102 total).
+  - Después: EN 37.3 % (12 AI / 88 human / 103 total), ES 27.6 % (13 AI / 88 human / 103 total).
   - Verificación: `python scripts/ai-detect-content.py ... --model desklib` y `python scripts/ai-detect-patterns.py` (0 findings en ambos idiomas).
 
 - [x] **[MEDIUM] [LINKS] Cerrar brechas de enlaces bidireccionales con recursos del mismo cluster** ✅ RESUELTO
@@ -82,15 +82,14 @@
   - Evidence: `src/content/recipes/messaging/rabbitmq-task-queue.md` y `.es.md`.
   - Enlaces a `dead-letter-queue` en la explicación de DLX y a `rabbitmq-python-pika-consumer` en la sección `Python equivalent with pika`.
 
-### ⚠️ Pendientes
+- [x] **[LOW] [MEDIA] Mejorar el `alt` del diagrama Mermaid** ✅ RESUELTO
+  - Evidence: `src/lib/remark-mermaid-blocks.mjs` + `src/content/recipes/messaging/rabbitmq-task-queue.md` y `.es.md`.
+  - Se agregó soporte para comentario `%% alt: ...` en el plugin y se añadió una descripción completa del flujo en ambos idiomas.
+  - Build result: `alt="flowchart diagram: A producer sends a task through the default exchange to the email.tasks queue, then to a worker; after three failed attempts the message is routed to the DLX and DLQ"`.
 
-- [ ] **[LOW] [MEDIA] Mejorar el `alt` del diagrama Mermaid** ⚠️ PENDIENTE
-  - Razón: El diagrama se renderiza correctamente, pero el `alt` sigue siendo `flowchart diagram: Producer`. Cambiarlo requiere ajustar el título del bloque Mermaid o la configuración del plugin de renderizado.
-  - Recomendación: Actualizar el título Mermaid a algo como `RabbitMQ task queue flow: producer → default exchange → email.tasks queue → worker → DLX → DLQ`.
-
-- [ ] **[LOW] [CONTENT] Añadir un dato cuantitativo verificable en `What are the performance characteristics?`** ⚠️ PENDIENTE
-  - Razón: La FAQ sigue usando el rango "miles o decenas de miles de mensajes por segundo" sin benchmark concreto.
-  - Recomendación: Citar un resultado de RabbitMQ PerfTest o un benchmark publicado (por ejemplo, de la documentación de RabbitMQ/VMware) o matizar con "en hardware estándar" y una fuente.
+- [x] **[LOW] [CONTENT] Añadir un dato cuantitativo verificable en `What are the performance characteristics?`** ✅ RESUELTO
+  - Evidence: `src/content/recipes/messaging/rabbitmq-task-queue.md` y `.es.md`.
+  - La FAQ de performance fue reescrita con cifras del benchmarker oficial de RabbitMQ (36.000–67.000 mensajes/segundo para quorum queues replicadas de 1 KB) y una referencia a la herramienta oficial RabbitMQ PerfTest.
 
 ### 🔧 Out of scope
 
@@ -102,8 +101,8 @@ Ninguna.
 
 Resumen numérico:
 - Total issues antes: 7 (0 CRITICAL, 0 HIGH, 4 MEDIUM, 3 LOW).
-- ✅ Resueltos: 5.
-- ⚠️ Pendientes: 2 (ambos LOW).
+- ✅ Resueltos: 7.
+- ⚠️ Pendientes: 0.
 - 🔧 Out of scope: 0.
 - 🔄 Regresiones: 0.
 
@@ -121,7 +120,7 @@ Resumen numérico:
 
 ### Body y contenido
 
-- [x] Body prosa >= 1.300 palabras en EN y ES (1.747 / 1.890).
+- [x] Body prosa >= 1.300 palabras en EN y ES (1.802 / 1.957).
 - [x] Secciones mínimas: Overview, When to Use, Solution, Explanation, Variants, Best Practices, Common Mistakes, FAQ.
 - [x] Ejemplos con versiones reales (`amqplib 0.10.x`, `pika 1.3.x`, `rabbitmq:3-management-alpine`).
 - [x] FAQ con 3-8 preguntas reales, sin duplicados, misma cantidad EN/ES (8 cada una).
@@ -129,7 +128,7 @@ Resumen numérico:
 ### Humanización
 
 - [x] `pattern_totals` vacío en ambos idiomas (0 findings).
-- [x] Desklib EN < 40 % (36.9 %); ES < 40 % (28.1 %).
+- [x] Desklib EN < 40 % (37.3 %); ES < 40 % (27.6 %).
 - [x] Sin aperturas genéricas (`This guide covers...`, `In this article...`).
 
 ### Paridad EN/ES
@@ -162,19 +161,21 @@ Resumen numérico:
 
 ## 4. Top 5 acciones pendientes (re-priorizadas)
 
-1. **[LOW] [MEDIA]** Mejorar el `alt` del diagrama Mermaid para describir el flujo completo.
-2. **[LOW] [CONTENT]** Añadir un benchmark cuantitativo verificable en la FAQ de performance.
+1. ~~[LOW] [MEDIA]~~ Hecho: `alt` del diagrama Mermaid ahora describe el flujo completo.
+2. ~~[LOW] [CONTENT]~~ Hecho: FAQ de performance incluye benchmark del benchmarker oficial de RabbitMQ.
 3. ~~[MEDIUM] [HUMANIZATION]~~ Hecho.
 4. ~~[MEDIUM] [LINKS]~~ Hecho.
 5. ~~[MEDIUM] [COMPANION]~~ Hecho.
+
+No quedan acciones pendientes.
 
 ---
 
 ## 5. Veredicto y recomendación
 
-**Veredicto:** Recurso sólido, bien estructurado, con humanización controlada, enlaces bidireccionales cerrados, E-E-A-T reforzada y companion repo creado. Listo para indexar.
+**Veredicto:** Recurso sólido, bien estructurado, con humanización controlada, enlaces bidireccionales cerrados, E-E-A-T reforzada, companion repo creado, `alt` del diagrama accesible y benchmark cuantitativo en la FAQ. Listo para indexar.
 
-**Recomendación:** **PROMOTE**. Quedan solo dos items LOW (alt del diagrama y benchmark de performance) que no bloquean la publicación y pueden abordarse en una ronda de pulido posterior.
+**Recomendación:** **PROMOTE**. Todos los issues del checklist anterior fueron resueltos y no se detectaron regresiones.
 
 ---
 
@@ -185,8 +186,8 @@ Resumen numérico:
 ```text
 python scripts/ai-detect-content.py src/content/recipes/messaging/rabbitmq-task-queue.md --model desklib
 Wrote ref/output/ai-detect-rabbitmq-task-queue.json
-  rabbitmq-task-queue-en: 36.9% AI (12 AI / 87 human / 102 total) patterns: {}
-  rabbitmq-task-queue-es: 28.1% AI (13 AI / 87 human / 102 total) patterns: {}
+  rabbitmq-task-queue-en: 37.3% AI (12 AI / 88 human / 103 total) patterns: {}
+  rabbitmq-task-queue-es: 27.6% AI (13 AI / 88 human / 103 total) patterns: {}
 
 python scripts/ai-detect-patterns.py src/content/recipes/messaging/rabbitmq-task-queue.md
   rabbitmq-task-queue: 0 findings
@@ -204,7 +205,7 @@ python scripts/ai-detect-patterns.py src/content/recipes/messaging/rabbitmq-task
 | Bloques de código | 6 | 6 | ✅ |
 | Mermaid | 1 | 1 | ✅ |
 | FAQs | 8 | 8 | ✅ |
-| Palabras prosa | 1.747 | 1.890 | ✅ (diferencia ~8 %, dentro de rango aceptable) |
+| Palabras prosa | 1.802 | 1.957 | ✅ (diferencia ~8 %, dentro de rango aceptable) |
 
 ### Anexo 6.3 — Validación técnica
 

@@ -2,18 +2,18 @@
   {
     "label": "rabbitmq-task-queue-en",
     "model": "desklib",
-    "model_ai_pct": 37.5,
+    "model_ai_pct": 37.3,
     "ai_count": 12,
-    "human_count": 87,
+    "human_count": 88,
     "skipped_count": 3,
-    "total": 102,
+    "total": 103,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 16.4,
-      "stddev": 10.4,
+      "mean": 16.8,
+      "stddev": 10.5,
       "cv": 0.63,
       "verdict": "natural variation",
-      "sentence_count": 99,
+      "sentence_count": 100,
       "lengths": [
         17,
         29,
@@ -97,8 +97,9 @@
         12,
         19,
         22,
-        18,
-        9,
+        29,
+        29,
+        24,
         10,
         16,
         17,
@@ -122,15 +123,15 @@
         0.9466
       ],
       [
-        "The [AMQP 0-9-1 specification](https://www.amqp.org/specification/0-9-1/amqp-org-download) defines exchanges, queues, bindings and delivery semantics.",
+        "The [AMQP 0-9-1 specification](https://www.amqp.org/specification/0-9-1/amqp-org-download)\n  defines exchanges, queues, bindings and delivery semantics.",
         0.9189
       ],
       [
-        "Exchanges and queue patterns carry different trade-offs, so match the choice to your routing needs and latency budget.",
+        "Exchanges and queue patterns carry different trade-offs, so match the choice to your\nrouting needs and latency budget.",
         0.6722
       ],
       [
-        "Republishing is simple, but the message loses its original place in line because it lands at the back of the queue.",
+        "Republishing is simple, but the\nmessage loses its original place in line because it lands at the back of the queue.",
         0.6552
       ],
       [
@@ -198,7 +199,7 @@
         0.4607
       ],
       [
-        "The [amqplib API reference](https://amqp-node.github.io/amqplib/) and the [pika docs](https://pika.readthedocs.io/en/stable/) document the Node.js and Python clients used in the ex",
+        "The [amqplib API reference](https://amqp-node.github.io/amqplib/) and the\n  [pika docs](https://pika.readthedocs.io/en/stable/) document the Node.js and Python\n  clients used in th",
         0.4528
       ],
       [
@@ -223,18 +224,18 @@
   {
     "label": "rabbitmq-task-queue-es",
     "model": "desklib",
-    "model_ai_pct": 28.1,
+    "model_ai_pct": 27.6,
     "ai_count": 13,
-    "human_count": 87,
+    "human_count": 88,
     "skipped_count": 2,
-    "total": 102,
+    "total": 103,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 17.7,
-      "stddev": 11.4,
+      "mean": 18.2,
+      "stddev": 11.6,
       "cv": 0.64,
       "verdict": "natural variation",
-      "sentence_count": 100,
+      "sentence_count": 101,
       "lengths": [
         20,
         28,
@@ -319,8 +320,9 @@
         12,
         19,
         24,
-        19,
-        11,
+        33,
+        35,
+        29,
         8,
         19,
         21,
@@ -344,7 +346,7 @@
         0.7733
       ],
       [
-        "La [especificaci\u00f3n AMQP 0-9-1](https://www.amqp.org/specification/0-9-1/amqp-org-download) define exchanges, queues, bindings y sem\u00e1nticas de entrega.",
+        "La [especificaci\u00f3n AMQP 0-9-1](https://www.amqp.org/specification/0-9-1/amqp-org-download)\n  define exchanges, queues, bindings y sem\u00e1nticas de entrega.",
         0.7199
       ],
       [
@@ -352,7 +354,7 @@
         0.7114
       ],
       [
-        "Escal\u00e1s agregando nodos al broker o m\u00e1s consumers.",
+        "Escal\u00e1s\nagregando nodos al broker o m\u00e1s consumers.",
         0.6551
       ],
       [
@@ -368,7 +370,7 @@
         0.5813
       ],
       [
-        "La referencia de la API de [amqplib](https://amqp-node.github.io/amqplib/) y los docs de [pika](https://pika.readthedocs.io/en/stable/) documentan los clientes de Node.js y Python ",
+        "La referencia de la API de [amqplib](https://amqp-node.github.io/amqplib/) y los\n  docs de [pika](https://pika.readthedocs.io/en/stable/) documentan los clientes de\n  Node.js y Pyt",
         0.5732
       ],
       [
@@ -420,10 +422,6 @@
         0.3825
       ],
       [
-        "El throughput baja con l\u00f3gica de enrutamiento\ncompleja o mensajes grandes.",
-        0.3776
-      ],
-      [
         "Kafka suele encajar mejor ah\u00ed.",
         0.3766
       ],
@@ -438,6 +436,10 @@
       [
         "Alert\u00e1 sobre crecimiento del DLQ porque\n  significa que algo falla repetidamente.",
         0.3369
+      ],
+      [
+        "Los mismos conceptos se\ntrasladan a clientes de Python, Go, Java o .NET, porque todos hablan el mismo\nprotocolo.",
+        0.3364
       ]
     ],
     "diagnostics_sample": []
