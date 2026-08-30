@@ -23,12 +23,11 @@ tags:
 relatedResources:
   - /recipes/rabbitmq-dead-letter-queue
   - /recipes/python-celery-task-queue
-  - /guides/complete-guide-graphql-federation
-  - /guides/complete-guide-graphql-federation
+  - /recipes/rabbitmq-task-queue
   - /recipes/kafka-spring-boot-stream-listener
   - /recipes/kafka-python-consumer-groups
   - /recipes/redis-pub-sub-python
-lastUpdated: "2026-07-03"
+lastUpdated: "2026-08-30"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
 seo:

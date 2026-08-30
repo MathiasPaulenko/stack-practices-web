@@ -23,12 +23,11 @@ tags:
 relatedResources:
   - /recipes/rabbitmq-python-pika-consumer
   - /recipes/database-query-result-caching
-  - /guides/complete-guide-graphql-federation
-  - /guides/complete-guide-graphql-federation
+  - /recipes/rabbitmq-task-queue
   - /recipes/event-sourcing-cqrs-pattern
   - /recipes/kafka-python-consumer-groups
   - /recipes/rabbitmq-dead-letter-queue
-lastUpdated: "2026-07-03"
+lastUpdated: "2026-08-30"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
 seo:

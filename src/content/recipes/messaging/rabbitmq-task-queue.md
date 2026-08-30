@@ -38,18 +38,18 @@ seo:
 
 ## Overview
 
-RabbitMQ is a battle-tested message broker that speaks AMQP, an open wire
-protocol with clients in most languages. Teams reach for it when a web request
+RabbitMQ is a message broker that uses AMQP, an open wire protocol with clients
+in most languages. Teams reach for it when a web request
 does too much work: instead of making the user wait, you hand the job to a
-worker process through a queue. AMQP gives you explicit control over routing, delivery guarantees, and
-persistence; that's why it fits task queues and request-reply (RPC) patterns
+worker process through a queue. AMQP is a wire protocol that lets you control routing, delivery guarantees and
+persistence directly, so task queues and request-reply (RPC) patterns fit it
 better than plain HTTP polling.
 
-This recipe's TypeScript examples use `amqplib` 0.10.x. The same concepts
+This recipe's TypeScript examples use [`amqplib`](https://amqp-node.github.io/amqplib/) 0.10.x. The same concepts
 transfer to Python, Go, Java, or .NET clients, because they all talk the same
-protocol. You
-will configure a durable task queue, add a dead-letter exchange for poison
-messages, cap retries with prefetch, and implement an RPC call with a temporary
+protocol. You'll
+configure a durable task queue, add a dead-letter exchange for poison
+messages, cap retries with prefetch and implement an RPC call through a temporary
 reply queue.
 
 ## When to Use
@@ -71,8 +71,8 @@ Avoid RabbitMQ for:
 
 - Streaming high-throughput event logs where replay and long retention matter.
   Kafka usually fits that case better. See [Event Streaming with Kafka](/recipes/kafka-event-streaming/).
-- Broadcasting to thousands of clients in real time. A WebSocket or pub-sub
-  broker is usually simpler.
+- Live updates to thousands of clients at once are usually simpler with a
+  WebSocket or pub-sub broker than with RabbitMQ.
 - Heavy batch workloads that take minutes per message without acknowledgments,
   because unacknowledged messages can exhaust broker memory.
 
@@ -236,11 +236,11 @@ volumes:
 
 ## Explanation
 
-AMQP routing rests on three primitives: exchanges, queues, and bindings. A
+Three primitives drive AMQP routing: exchanges, queues and bindings. A
 producer never sends directly to a queue; it sends to an exchange, and the
 exchange forwards the message to queues whose binding key matches the routing
-key. In this recipe we use a `direct` exchange and the default empty exchange
-for `sendToQueue`, which routes using the queue name as the routing key.
+key. This recipe uses a `direct` exchange plus the default empty exchange for
+`sendToQueue`; the empty exchange routes using the queue name as the routing key.
 
 ```mermaid
 flowchart LR
@@ -263,30 +263,28 @@ processing the first one. Task duration drives the right value: 5–10 is a reas
 CPU-bound work with fast workers, and you can raise it for IO-bound work that
 waits on network calls, but never beyond what the worker can handle.
 
-Dead-letter exchanges catch messages that can't be processed. A message lands in
-the DLQ when it's rejected without requeue, when it expires, or when it exceeds
-the queue's `x-max-delivery-count`. Operators get a dedicated place to inspect
-failures without blocking the main queue. Pair the DLQ
+A dead-letter exchange takes messages the consumer can't process and routes them
+to the DLQ for inspection. See [Dead Letter Queue](/recipes/dead-letter-queue/) for the full pattern. A message
+lands in the DLQ when it's rejected without requeue, when it expires, or when it exceeds
+the queue's `x-max-delivery-count`. This gives operators a focused place to
+inspect failures while the main queue keeps moving. Pair the DLQ
 with an `x-dead-letter-routing-key` so you can route different queues to
 different DLQs if your topology grows.
 
 The retry loop in the worker works by nacking the original message and then
-republishing it with an incremented `x-attempt` header. This works, but the
-republished message lands at the tail, so its place in line changes. For time-sensitive retries, set `x-message-ttl` on a separate delay queue or use
-a dedicated retry exchange.
+republishing it with an incremented `x-attempt` header. Republishing is simple, but the message loses its original place in line because it lands at the back of the queue. Time-sensitive retries need either a delay queue with `x-message-ttl` or a separate retry exchange.
 
 AMQP RPC relies on a temporary reply queue that's exclusive and auto-deleted.
 The client generates a `correlationId`, sends the request with `replyTo` set to
 that queue, and waits for a response whose `correlationId` matches. The server
-sends the same id back.
+echoes the same id back to the client.
 Because AMQP is asynchronous, the client wraps this in a promise with a timeout.
 Always close the connection or clean up the reply queue when the timeout fires,
 otherwise the broker accumulates stale queues.
 
 ## Variants
 
-The table below compares exchange types and queue patterns. Choose the one that
-fits your routing needs and latency budget.
+Exchanges and queue patterns carry different trade-offs, so match the choice to your routing needs and latency budget.
 
 | Approach | Best for | Trade-off |
 | --- | --- | --- |
@@ -303,7 +301,8 @@ several consumers, a `fanout` or `topic` exchange is the better choice.
 ### Python equivalent with `pika`
 
 The TypeScript examples use `amqplib`, and the same library is available for
-Node.js and browsers via bundles. The Python equivalent below uses `pika` 1.3.x.
+Node.js and browsers via bundles. The Python equivalent below uses `pika` 1.3.x for its synchronous
+[`BlockingConnection`](https://pika.readthedocs.io/en/stable/modules/adapters/blocking.html) API. See our [RabbitMQ consumer recipe with Python and Pika](/recipes/rabbitmq-python-pika-consumer/) for a deeper dive.
 
 ```python
 import pika
@@ -352,7 +351,7 @@ connection.close()
 - Declare both queues and exchanges as `durable` so the topology survives a
   broker restart. For messages that must not disappear, publish with
   `persistent: true` and never rely solely on queue durability.
-- For any queue that handles business-critical work, add a dedicated DLX and
+- Business-critical queues should each have a dedicated DLX and
   DLQ. Cap retries — three attempts is a common default — and route poison
   messages out of the retry loop.
 - Monitor queue depth, consumer count, and DLQ growth. A sudden depth spike
@@ -365,8 +364,8 @@ connection.close()
 ## Common Mistakes
 
 - If you forget to acknowledge a message, unacknowledged messages stay in the
-  broker's memory and can eventually exhaust it. Use manual ack, and call `ack`
-  only after the side effects are complete.
+  broker's memory and can eventually exhaust it. Ack manually, and only call
+  `ack` once the side effects finish.
 - Relying on auto-ack for long or fallible tasks is risky: a crash or exception
   causes the message to disappear rather than return to the queue.
 - Creating exclusive reply queues in RPC and never closing the connection or
@@ -376,8 +375,8 @@ connection.close()
   retries and move poison messages to a DLQ. Otherwise a bad message blocks the
   queue for valid messages behind it.
 - Publishing to a durable queue without `persistent: true` is a mistake. The
-  queue survives a restart, but the messages don't.
-- Neglecting consumer lag is a mistake. A single slow worker can stall the whole
+  queue structure survives a restart, but the messages inside it survive only if they were published as persistent.
+- Letting consumer lag grow is a mistake. A single slow worker can stall the whole
   pipeline if prefetch is too high or if tasks aren't idempotent. See [Message
   Idempotency](/recipes/message-idempotency/).
 
@@ -385,31 +384,31 @@ connection.close()
 
 ### How is this different from Kafka?
 
-RabbitMQ is a message broker that routes messages with low latency and flexible
-bindings. Kafka, by contrast, is an event log optimized for high throughput and
-replay. Kafka doesn't support request-reply natively and uses different
+RabbitMQ is a message broker; it routes messages quickly and with flexible
+bindings. Kafka, by contrast, is an event log built for high throughput and
+replay. Kafka has no native request-reply support and uses different
 delivery semantics.
 
 ### Should I use a direct or topic exchange?
 
 Use a `direct` exchange when the queue or routing key is exact. Use a `topic`
 exchange when pattern matching is needed, such as `orders.us.created` and
-`orders.eu.created` both matching `orders.*.created`.
+`orders.eu.created` both matching the `orders.*.created` pattern.
 
 ### Is this solution production-ready?
 
-You'll see these patterns in production, yet you still need monitoring,
-connection recovery, authentication, and TLS to fit your environment.
+These patterns work in production, but a real deployment still needs monitoring,
+connection recovery, authentication and TLS before they fit your environment.
 
 ### What are the performance characteristics?
 
 A typical RabbitMQ work queue can move thousands to tens of thousands of messages
 per second per node. Throughput drops with heavy routing logic or large
-messages. To scale, add more nodes or consumers.
+messages. You scale by adding more broker nodes or more consumers.
 
 ### How do I debug issues with this approach?
 
-The management UI on port 15672 gives you queue depth, consumer count, and
+Use the management UI on port 15672 to watch queue depth, consumer count and
 message rates. Then check consumer logs, confirm the connection is open, and make
 sure your DLQ isn't filling up.
 
@@ -417,16 +416,22 @@ sure your DLQ isn't filling up.
 
 A durable queue survives a broker restart, but it only stores the metadata of the
 queue, not the messages inside it. Persistent messages are written to disk, so
-they survive a restart. You need both: one keeps the queue structure, the other keeps the data.
+they survive a broker restart. You need both mechanisms: durable queues hold the structure, and persistent messages hold the data.
 
 ### Can I mix task queues and RPC on the same RabbitMQ cluster?
 
-Yes. RabbitMQ handles any pattern on a queue. Just keep the naming and routing
+Yes. RabbitMQ doesn't enforce a pattern on a queue, so you can run both. Just keep naming and routing
 separate so a task queue isn't accidentally consumed by an RPC server. Many teams run one vhost for events and another for RPC to isolate
 traffic.
 
 ### What happens if the RPC server is down?
 
-If the timeout fires, the client promise rejects. In a real service you should
+If the timeout expires, the client promise rejects. In a real service you should
 catch that error, log it, and possibly retry with a delay or fall back to a
 cached result. For idempotent calls, a bounded retry works well.
+
+## Further Reading
+
+- The [AMQP 0-9-1 specification](https://www.amqp.org/specification/0-9-1/amqp-org-download) defines exchanges, queues, bindings and delivery semantics.
+- The [RabbitMQ documentation](https://www.rabbitmq.com/docs) covers tutorials, production checklists and client libraries.
+- The [amqplib API reference](https://amqp-node.github.io/amqplib/) and the [pika docs](https://pika.readthedocs.io/en/stable/) document the Node.js and Python clients used in the examples.

@@ -38,15 +38,14 @@ seo:
 
 ## Visión General
 
-RabbitMQ es un broker de mensajes probado en producción que habla AMQP, un
+RabbitMQ es un broker de mensajes que usa AMQP, un
 protocolo abierto con clientes en la mayoría de los lenguajes. Los equipos lo
 usan cuando una request web hace demasiado trabajo: en lugar de hacer esperar al
-usuario, le pasan la tarea a un worker mediante una queue. AMQP te da control
-explícito sobre el enrutamiento, las garantías de entrega y la persistencia, por
-eso encaja mejor con task queues y patrones request-reply (RPC) que un HTTP
-polling simple.
+usuario, le pasan la tarea a un worker mediante una queue. AMQP es un protocolo wire que te permite controlar el enrutamiento, las garantías de entrega y la
+persistencia directamente, así que los task queues y patrones request-reply (RPC) encajan
+mejor que un HTTP polling simple.
 
-Esta receta usa TypeScript con `amqplib` 0.10.x. Los mismos conceptos se
+Esta receta usa TypeScript con [`amqplib`](https://amqp-node.github.io/amqplib/) 0.10.x. Los mismos conceptos se
 trasladan a clientes de Python, Go, Java o .NET, porque todos hablan el mismo
 protocolo. Vas a configurar una task queue durable, agregar un dead-letter
 exchange para mensajes problemáticos, limitar reintentos con prefetch e
@@ -73,8 +72,8 @@ Evitá RabbitMQ para:
 - Streaming de logs de eventos de alto throughput donde importan el replay y la
   retención larga. Kafka suele encajar mejor ahí. Consultá [Event Streaming with
   Kafka](/recipes/kafka-event-streaming/).
-- Transmitir a miles de clientes en tiempo real. Un broker pub-sub o WebSocket
-  suele ser más simple.
+- Transmitir actualizaciones en vivo a miles de clientes a la vez suele ser más simple con un
+  broker pub-sub o WebSocket que con RabbitMQ.
 - Cargas de batch pesadas que tardan minutos por mensaje sin acknowledgments,
   porque los mensajes no confirmados pueden agotar la memoria del broker.
 
@@ -238,11 +237,11 @@ volumes:
 
 ## Explicación
 
-El enrutamiento AMQP se construye sobre tres primitivas: exchanges, queues y
+Tres primitivas impulsan el enrutamiento AMQP: exchanges, queues y
 bindings. Un producer nunca envía directamente a una queue; envía a un exchange,
 y el exchange reenvía el mensaje a las queues cuya binding key coincida con la
-routing key. En esta receta usamos un exchange `direct` y un exchange vacío por
-defecto para `sendToQueue`, que enruta usando el nombre de la queue como routing
+routing key. Esta receta usa un exchange `direct` más el exchange vacío por
+defecto para `sendToQueue`; el exchange vacío enruta usando el nombre de la queue como routing
 key.
 
 ```mermaid
@@ -254,7 +253,7 @@ flowchart LR
     D --> DLQ[email.tasks.dlq]
 ```
 
-La durabilidad tiene dos niveles. Una queue durable se recrea después de un
+La durabilidad se divide en dos niveles: la queue y el mensaje. Una queue durable se recrea después de un
 restart del broker, pero eso solo no guarda los mensajes. Los mensajes también
 necesitan `persistent: true` (modo de entrega 2) para que el broker los escriba
 en disco. Si declarás una durable queue y enviás mensajes transient, la queue
@@ -267,29 +266,28 @@ tarea: para trabajo CPU-bound con workers rápidos, 5–10 es un punto de partid
 razonable; para trabajo IO-bound que espera llamadas de red, podés subirlo, pero
 nunca por encima de lo que un worker puede manejar sin ahogarse.
 
-Los dead-letter exchanges actúan como un acompañante para mensajes que no se
-pueden procesar. Un mensaje cae en el DLQ cuando se rechaza sin requeue, cuando
+Un dead-letter exchange toma mensajes que el consumer no puede procesar y los enruta
+al DLQ para inspección. Consultá [Dead Letter Queue](/recipes/dead-letter-queue/) para el patrón completo. Un mensaje cae en el DLQ cuando se rechaza sin requeue, cuando
 expira o cuando supera el `x-max-delivery-count` de la queue. Esto le da a los
-operadores un lugar claro para inspeccionar fallos sin bloquear la queue
-principal. Emparejá el DLQ con una `x-dead-letter-routing-key` para poder
+operadores un lugar enfocado para inspeccionar fallos mientras la queue
+principal sigue moviéndose. Emparejá el DLQ con una `x-dead-letter-routing-key` para poder
 enrutar distintas queues a distintos DLQs si tu topología crece.
 
 El ciclo de reintentos del worker funciona rechazando el mensaje original y
-republicándolo con un header `x-attempt` incrementado. Es simple, pero cambia la
-posición del mensaje en la queue porque el mensaje republicado va al final. Para
-reintentos sensibles al tiempo, usá un `x-message-ttl` en una delay queue
-separada o un exchange de reintentos dedicado.
+republicándolo con un header `x-attempt` incrementado. Republicar es simple, pero el mensaje
+pierde su lugar original en la queue porque cae al final. Los reintentos sensibles al tiempo necesitan una delay queue con
+`x-message-ttl` o un exchange de reintentos dedicado.
 
 El RPC sobre AMQP usa una reply queue exclusiva y auto-delete. El client genera
 un `correlationId`, envía la request con `replyTo` apuntando a esa queue y espera
-una respuesta cuyo `correlationId` coincida. El server repite el mismo id. Como
+una respuesta cuyo `correlationId` coincida. El server devuelve el mismo id al client. Como
 AMQP es asíncrono, el client envuelve esto en una promesa con timeout. Siempre
 cerrá la conexión o limpiá la reply queue cuando se dispare el timeout, porque
 si no el broker acumula queues obsoletas.
 
 ## Variantes
 
-La tabla de abajo compara tipos de exchange y patrones de queue. Elegí el que
+Los exchanges y patrones de queue tienen distintas contraprestaciones, así que elegí el que
 mejor se ajuste a tus necesidades de enrutamiento y presupuesto de latencia.
 
 | Enfoque | Ideal para | Contra |
@@ -308,7 +306,9 @@ opción.
 ### Equivalente en Python con `pika`
 
 Los ejemplos de TypeScript usan `amqplib`, y la misma librería está disponible
-para Node.js y navegadores mediante bundles. El ejemplo de abajo usa `pika` 1.3.x.
+para Node.js y navegadores mediante bundles. El ejemplo de abajo usa `pika` 1.3.x para su API
+síncrona de [`BlockingConnection`](https://pika.readthedocs.io/en/stable/modules/adapters/blocking.html).
+Consultá nuestra receta [RabbitMQ consumer con Python y Pika](/recipes/rabbitmq-python-pika-consumer/) para profundizar.
 
 ```python
 import pika
@@ -359,7 +359,7 @@ connection.close()
 - Declará queues y exchanges como `durable` para que la topología sobreviva un
   restart del broker. Para mensajes que no deben desaparecer, publicá con
   `persistent: true` y nunca confiés solo en la durabilidad de la queue.
-- Agregá un DLX y un DLQ dedicado a cualquier queue que maneje trabajo crítico.
+- Si una queue maneja trabajo crítico, dale su propio DLX y DLQ.
   Limitá los reintentos — tres intentos es un default común — y enrutá los
   mensajes problemáticos fuera del ciclo de reintentos.
 - Monitoreá queue depth, cantidad de consumers y crecimiento del DLQ. Un pico
@@ -373,8 +373,8 @@ connection.close()
 ## Errores Comunes
 
 - Si te olvidás de confirmar un mensaje, los mensajes no confirmados se quedan
-  en la memoria del broker y eventualmente pueden agotarla. Usá ack manual y
-  llamá a `ack` solo cuando los efectos secundarios estén completos.
+  en la memoria del broker y eventualmente pueden agotarla. Hacé ack manual y
+  llamá a `ack` solo cuando los efectos secundarios terminen.
 - Depender del auto-ack en tareas largas o fallibles es arriesgado: un crash o
   una excepción hacen que el mensaje desaparezca en lugar de volver a la queue.
 - Crear reply queues exclusivas en RPC y nunca cerrar la conexión o el canal es
@@ -384,8 +384,8 @@ connection.close()
   Siempre limitá los reintentos y mové los mensajes problemáticos a un DLQ. Si
   no, un mensaje malo bloquea la queue para los mensajes válidos detrás.
 - Publicar en una durable queue sin `persistent: true` activado es un error. La
-  queue sobrevive un restart, pero los mensajes no.
-- Descuidar el consumer lag es un error. Un worker lento puede parar todo el
+  estructura de la queue sobrevive un restart, pero los mensajes dentro no, a menos que sean persistentes.
+- Dejar crecer el consumer lag es un error. Un worker lento puede parar todo el
   pipeline si el prefetch es demasiado alto o si las tareas no son idempotentes.
   Consultá [Message Idempotency](/recipes/message-idempotency/).
 
@@ -393,32 +393,31 @@ connection.close()
 
 ### ¿En qué se diferencia de Kafka?
 
-RabbitMQ actúa como broker de mensajes con enrutamiento flexible y latencia baja
-por mensaje. Kafka, en cambio, funciona como un log de eventos pensado para alto
-throughput y replay. Kafka no soporta request-reply de forma nativa y usa
-distintas semánticas de entrega.
+RabbitMQ enruta mensajes rápidamente y con bindings flexibles. En cambio, Kafka
+funciona como un log de eventos pensado para alto throughput y replay. Kafka no
+tiene soporte nativo para request-reply y usa distintas semánticas de entrega.
 
 ### ¿Debería usar un direct o topic exchange?
 
 Usá un exchange `direct` cuando la queue o routing key son exactas. Usá un
 exchange `topic` cuando necesitás pattern matching, por ejemplo que
-`orders.us.created` y `orders.eu.created` coincidan con `orders.*.created`.
+`orders.us.created` y `orders.eu.created` coincidan con el patrón `orders.*.created`.
 
 ### ¿Esta solución está lista para producción?
 
-Estos patrones se usan comúnmente en producción, pero igual vas a querer
-monitoreo, recuperación de conexiones, autenticación y TLS para que coincida con
-tu entorno.
+Estos patrones funcionan en producción, pero un despliegue real todavía necesita
+monitoreo, recuperación de conexiones, autenticación y TLS antes de encajar en tu
+entorno.
 
 ### ¿Cuáles son las características de rendimiento?
 
 Una work queue típica puede mover miles o decenas de miles de mensajes por
 segundo por nodo en RabbitMQ. El throughput baja con lógica de enrutamiento
-compleja o mensajes grandes. Para escalar, agregás nodos o consumers.
+compleja o mensajes grandes. Escalás agregando nodos al broker o más consumers.
 
 ### ¿Cómo depuro problemas con este enfoque?
 
-La UI de management en el puerto 15672 te da queue depth, cantidad de consumers
+Usá la UI de management en el puerto 15672 para monitorear queue depth, cantidad de consumers
 y message rates. Revisá los logs del consumer, confirmá que la conexión esté
 abierta y asegurate de que tu DLQ no se esté llenando.
 
@@ -426,19 +425,25 @@ abierta y asegurate de que tu DLQ no se esté llenando.
 
 Una durable queue sobrevive un restart del broker, pero solo guarda los
 metadatos de la queue, no los mensajes que contiene. Los mensajes persistentes se
-escriben en disco, así que sobreviven un restart. Necesitás ambos: uno para la
-estructura de la queue y otro para los datos.
+escriben en disco, así que sobreviven un restart del broker. Necesitás ambos
+mecanismos: las queues durable almacenan la estructura y los mensajes persistentes almacenan los datos.
 
 ### ¿Puedo mezclar task queues y RPC en el mismo cluster de RabbitMQ?
 
-Sí. A RabbitMQ no le importa qué patrón uses en una queue. Solo mantené los
+Sí. RabbitMQ no impone un patrón particular en una queue, así que podés correr ambos. Solo mantené los
 nombres y el enrutamiento separados para que una task queue no sea consumida
 accidentalmente por un server RPC. Muchos equipos usan un vhost para eventos y
 otro para RPC para aislar el tráfico.
 
 ### ¿Qué pasa si el server RPC está caído?
 
-Si se dispara el timeout, la promesa del client rechaza. En un servicio real deberías
+Si vence el timeout, la promesa del client rechaza. En un servicio real deberías
 capturar ese error, loguearlo y posiblemente reintentar con un delay o caer en
 un resultado cacheado. Para llamadas idempotentes, un reintento acotado funciona
 bien.
+
+## Referencias
+
+- La [especificación AMQP 0-9-1](https://www.amqp.org/specification/0-9-1/amqp-org-download) define exchanges, queues, bindings y semánticas de entrega.
+- La [documentación de RabbitMQ](https://www.rabbitmq.com/docs) incluye tutoriales, checklists de producción y librerías cliente.
+- La referencia de la API de [amqplib](https://amqp-node.github.io/amqplib/) y los docs de [pika](https://pika.readthedocs.io/en/stable/) documentan los clientes de Node.js y Python usados en los ejemplos.
