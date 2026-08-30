@@ -21,7 +21,7 @@
 19. - [x] **go-rest-api-gin** (recipes) — 95.5/100 ✅ PROMOTE
 20. - [x] **llm-fine-tuning** (recipes) — 94.0/100 ✅ PROMOTE
 21. - [x] **complete-guide-modular-monolith** (guides) — 85.0/100 ✅ PROMOTE
-22. - [ ] **deep-clone-javascript** (recipes) — 94.9/100 ⚠️ FIX-THEN-PROMOTE
+22. - [x] **deep-clone-javascript** (recipes) — 95.5/100 ✅ PROMOTE (monitorear canibalización residual y AI EN >30% sin patrones)
 23. - [ ] **rabbitmq-task-queue** (recipes)
 24. - [ ] **partial-class-pattern** (patterns)
 25. - [ ] **convert-csv-to-json** (recipes)

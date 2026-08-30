@@ -1,10 +1,35 @@
 {
-  "EN": {
-    "file": "D:\\Codigo\\stack-practices-web\\src\\content\\recipes\\data\\deep-clone-javascript.md",
-    "words_no_code": 955,
-    "words_all_regex": 1636,
+  "resource": {
+    "contentType": "recipes",
+    "topic": "data",
+    "slug": "deep-clone-javascript"
+  },
+  "measured_at": "2026-08-30",
+  "lastUpdated": "2026-08-30",
+  "en": {
+    "file": "src\\content\\recipes\\data\\deep-clone-javascript.md",
+    "title": "Deep Clone in JavaScript: structuredClone vs lodash vs JSON",
+    "title_chars": 59,
+    "metaDescription": "Deep clone JavaScript objects with structuredClone, lodash, JSON.parse, and manual recursion. Includes Python and Java examples plus a decision matrix.",
+    "metaDescription_chars": 151,
+    "description": "Compare deep clone methods in JavaScript, Python and Java. Create independent copies of objects and arrays, handle circular references, Dates, Maps, Sets and typed arrays, and pick the right approach with a decision matrix.",
+    "description_chars": 223,
+    "lastUpdated": "2026-08-30",
+    "relatedResources": [
+      "/recipes/parse-json",
+      "/recipes/flatten-unflatten-objects",
+      "/recipes/call-rest-api",
+      "/recipes/date-formatting",
+      "/patterns/prototype-pattern-cloning",
+      "/recipes/deep-clone-structured"
+    ],
+    "relatedResources_count": 6,
+    "body_total_words_split": 1903,
+    "body_total_words_regex": 2001,
+    "prose_words_split": 1307,
+    "prose_words_regex": 1361,
     "h2_count": 9,
-    "h2_list": [
+    "h2": [
       "Overview",
       "When to Use",
       "Solution",
@@ -15,22 +40,24 @@
       "FAQ",
       "See Also"
     ],
-    "h3_count": 11,
-    "h3_list": [
+    "h3_count": 13,
+    "h3": [
       "`structuredClone` (recommended)",
       "`JSON.parse` (quick but limited)",
       "Manual recursive clone with circular reference support",
       "Lodash",
       "Python equivalent",
       "Java equivalent",
+      "Where this recipe fits",
       "Decision tree",
       "Why does `{...obj}` not create a deep copy?",
       "Does `structuredClone` preserve class instances?",
       "How do I deep clone in Node.js without dependencies?",
-      "How do I clone objects with getters and setters?"
+      "How do I clone objects with getters and setters?",
+      "Why does `JSON.parse(stringify(obj))` drop `Date` objects?"
     ],
-    "code_block_count": 7,
-    "code_languages": [
+    "code_blocks_count": 7,
+    "code_block_languages": [
       "javascript",
       "javascript",
       "javascript",
@@ -39,19 +66,35 @@
       "java",
       "mermaid"
     ],
-    "mermaid_blocks": 1,
-    "faq_count": 4,
-    "body_links_total": 15,
-    "body_links_internal": [
+    "mermaid_blocks_count": 1,
+    "faq_count": 5,
+    "faq_questions": [
+      "Why does `{...obj}` not create a deep copy?",
+      "Does `structuredClone` preserve class instances?",
+      "How do I deep clone in Node.js without dependencies?",
+      "How do I clone objects with getters and setters?",
+      "Why does `JSON.parse(stringify(obj))` drop `Date` objects?"
+    ],
+    "internal_links": [
       "/recipes/deep-clone-structured/",
       "/recipes/call-rest-api/",
       "/recipes/parse-json/",
       "/recipes/parse-json/",
+      "/recipes/deep-clone-structured/",
       "/recipes/call-rest-api/",
       "/patterns/prototype-pattern-cloning/",
       "/topics/data/"
     ],
-    "body_links_external": [
+    "internal_links_count": 8,
+    "internal_links_unique": [
+      "/patterns/prototype-pattern-cloning/",
+      "/recipes/call-rest-api/",
+      "/recipes/deep-clone-structured/",
+      "/recipes/parse-json/",
+      "/topics/data/"
+    ],
+    "internal_links_unique_count": 5,
+    "external_links": [
       "https://developer.mozilla.org/en-US/docs/Web/API/structuredClone",
       "https://lodash.com/docs/4.17.15#cloneDeep",
       "https://nodejs.org/api/v8.html#serialization-api",
@@ -60,15 +103,29 @@
       "https://nodejs.org/api/v8.html#serialization-api",
       "https://lodash.com/docs/4.17.15#cloneDeep"
     ],
-    "body_links_anchor": [
+    "external_links_count": 7,
+    "external_links_unique": [
+      "https://developer.mozilla.org/en-US/docs/Web/API/structuredClone",
+      "https://lodash.com/docs/4.17.15#cloneDeep",
+      "https://nodejs.org/api/globals.html#structuredclonevalue-options",
+      "https://nodejs.org/api/v8.html#serialization-api"
+    ],
+    "external_links_unique_count": 4,
+    "anchor_links": [
       "#variants"
     ],
-    "title": "Deep Clone in JavaScript: structuredClone vs lodash vs JSON",
-    "title_len": 59,
-    "metaDescription": "Deep clone JavaScript objects with structuredClone, lodash, JSON.parse, and manual recursion. Includes Python and Java examples plus a decision matrix.",
-    "metaDescription_len": 151,
-    "description": "Compare deep clone methods in JavaScript, Python and Java. Create independent copies of objects and arrays, handle circular references, Dates, Maps, Sets and typed arrays, and pick the right approach with a decision matrix.",
-    "description_len": 223,
+    "anchor_links_count": 1,
+    "em_dashes": 0
+  },
+  "es": {
+    "file": "src\\content\\recipes\\data\\deep-clone-javascript.es.md",
+    "title": "Deep Clone en JavaScript: structuredClone vs lodash vs JSON",
+    "title_chars": 59,
+    "metaDescription": "Clonación profunda en JavaScript con structuredClone, lodash, JSON.parse y recursión manual. Incluye ejemplos en Python y Java más una matriz de decisión.",
+    "metaDescription_chars": 154,
+    "description": "Compará métodos de clonación profunda en JavaScript, Python y Java. Creá copias independientes de objetos y arrays, manejá referencias circulares, Dates, Maps, Sets y typed arrays, y elegí el enfoque correcto con una matriz de decisión.",
+    "description_chars": 236,
+    "lastUpdated": "2026-08-30",
     "relatedResources": [
       "/recipes/parse-json",
       "/recipes/flatten-unflatten-objects",
@@ -77,16 +134,13 @@
       "/patterns/prototype-pattern-cloning",
       "/recipes/deep-clone-structured"
     ],
-    "lastUpdated": "2026-08-29",
-    "publishedAt": "2026-06-11",
-    "external_http_occurrences": 7
-  },
-  "ES": {
-    "file": "D:\\Codigo\\stack-practices-web\\src\\content\\recipes\\data\\deep-clone-javascript.es.md",
-    "words_no_code": 1007,
-    "words_all_regex": 1681,
+    "relatedResources_count": 6,
+    "body_total_words_split": 1988,
+    "body_total_words_regex": 2065,
+    "prose_words_split": 1383,
+    "prose_words_regex": 1420,
     "h2_count": 9,
-    "h2_list": [
+    "h2": [
       "Visión General",
       "Cuándo Usar",
       "Solución",
@@ -97,22 +151,24 @@
       "Preguntas Frecuentes",
       "Referencias"
     ],
-    "h3_count": 11,
-    "h3_list": [
+    "h3_count": 13,
+    "h3": [
       "`structuredClone` (recomendado)",
       "`JSON.parse` (rápido pero limitado)",
       "Clonación recursiva manual con soporte para referencias circulares",
       "Lodash",
       "Equivalente en Python",
       "Equivalente en Java",
+      "Dónde encaja esta receta",
       "Árbol de decisión",
       "¿Por qué `{...obj}` no crea una clonación profunda?",
       "¿`structuredClone` preserva instancias de clases?",
       "¿Cómo hago una clonación profunda en Node.js sin dependencias?",
-      "¿Cómo clono objetos con getters y setters?"
+      "¿Cómo clono objetos con getters y setters?",
+      "¿Por qué `JSON.parse(stringify(obj))` pierde los objetos `Date`?"
     ],
-    "code_block_count": 7,
-    "code_languages": [
+    "code_blocks_count": 7,
+    "code_block_languages": [
       "javascript",
       "javascript",
       "javascript",
@@ -121,19 +177,35 @@
       "java",
       "mermaid"
     ],
-    "mermaid_blocks": 1,
-    "faq_count": 4,
-    "body_links_total": 15,
-    "body_links_internal": [
+    "mermaid_blocks_count": 1,
+    "faq_count": 5,
+    "faq_questions": [
+      "¿Por qué `{...obj}` no crea una clonación profunda?",
+      "¿`structuredClone` preserva instancias de clases?",
+      "¿Cómo hago una clonación profunda en Node.js sin dependencias?",
+      "¿Cómo clono objetos con getters y setters?",
+      "¿Por qué `JSON.parse(stringify(obj))` pierde los objetos `Date`?"
+    ],
+    "internal_links": [
       "/recipes/deep-clone-structured/",
       "/recipes/call-rest-api/",
       "/recipes/parse-json/",
       "/recipes/parse-json/",
+      "/recipes/deep-clone-structured/",
       "/recipes/call-rest-api/",
       "/patterns/prototype-pattern-cloning/",
       "/topics/data/"
     ],
-    "body_links_external": [
+    "internal_links_count": 8,
+    "internal_links_unique": [
+      "/patterns/prototype-pattern-cloning/",
+      "/recipes/call-rest-api/",
+      "/recipes/deep-clone-structured/",
+      "/recipes/parse-json/",
+      "/topics/data/"
+    ],
+    "internal_links_unique_count": 5,
+    "external_links": [
       "https://developer.mozilla.org/en-US/docs/Web/API/structuredClone",
       "https://lodash.com/docs/4.17.15#cloneDeep",
       "https://nodejs.org/api/v8.html#serialization-api",
@@ -142,25 +214,71 @@
       "https://nodejs.org/api/v8.html#serialization-api",
       "https://lodash.com/docs/4.17.15#cloneDeep"
     ],
-    "body_links_anchor": [
+    "external_links_count": 7,
+    "external_links_unique": [
+      "https://developer.mozilla.org/en-US/docs/Web/API/structuredClone",
+      "https://lodash.com/docs/4.17.15#cloneDeep",
+      "https://nodejs.org/api/globals.html#structuredclonevalue-options",
+      "https://nodejs.org/api/v8.html#serialization-api"
+    ],
+    "external_links_unique_count": 4,
+    "anchor_links": [
       "#variantes"
     ],
-    "title": "Deep Clone en JavaScript: structuredClone vs lodash vs JSON",
-    "title_len": 59,
-    "metaDescription": "Clonación profunda en JavaScript con structuredClone, lodash, JSON.parse y recursión manual. Incluye ejemplos en Python y Java más una matriz de decisión.",
-    "metaDescription_len": 154,
-    "description": "Compará métodos de clonación profunda en JavaScript, Python y Java. Creá copias independientes de objetos y arrays, manejá referencias circulares, Dates, Maps, Sets y typed arrays, y elegí el enfoque correcto con una matriz de decisión.",
-    "description_len": 236,
-    "relatedResources": [
-      "/recipes/parse-json",
-      "/recipes/flatten-unflatten-objects",
-      "/recipes/call-rest-api",
-      "/recipes/date-formatting",
-      "/patterns/prototype-pattern-cloning",
-      "/recipes/deep-clone-structured"
-    ],
-    "lastUpdated": "2026-08-29",
-    "publishedAt": "2026-06-11",
-    "external_http_occurrences": 7
+    "anchor_links_count": 1,
+    "em_dashes": 0
+  },
+  "ai_detection": {
+    "model": "desklib",
+    "en": {
+      "model_ai_pct": 37.4,
+      "ai_count": 13,
+      "human_count": 69,
+      "skipped_count": 3,
+      "total": 85,
+      "pattern_totals": {}
+    },
+    "es": {
+      "model_ai_pct": 30.2,
+      "ai_count": 9,
+      "human_count": 74,
+      "skipped_count": 2,
+      "total": 85,
+      "pattern_totals": {}
+    },
+    "ai_pattern_findings_en": 0,
+    "ai_pattern_findings_es": 0
+  },
+  "validation": {
+    "content_quality": {
+      "errors": 0,
+      "warnings": 0,
+      "files_checked": 2042
+    },
+    "content_links": {
+      "broken": 0,
+      "indexed": 1021,
+      "files_checked": 1025
+    },
+    "content_validate": {
+      "errors": 0,
+      "warnings": 0,
+      "files_checked": 1021
+    },
+    "astro_check": {
+      "errors": 0,
+      "warnings": 0,
+      "hints": 3
+    },
+    "mermaid_render": {
+      "svgs_generated": 54
+    },
+    "build": {
+      "pages": 3258,
+      "exit_code": 0
+    },
+    "sitemap": {
+      "urls": 3256
+    }
   }
 }
