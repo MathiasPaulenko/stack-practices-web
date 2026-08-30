@@ -22,7 +22,8 @@
 20. - [x] **llm-fine-tuning** (recipes) — 94.0/100 ✅ PROMOTE
 21. - [x] **complete-guide-modular-monolith** (guides) — 85.0/100 ✅ PROMOTE
 22. - [x] **deep-clone-javascript** (recipes) — 95.5/100 ✅ PROMOTE (riesgos residuales documentados)
-23. - [x] **rabbitmq-task-queue** (recipes) — 92.5/100 ✅ PROMOTE (mejora full; IA EN 36.9%, ES 28.1%; companion creado; quedan LOW de alt del diagrama y benchmark cuantitativo)
+23. - [x] **rabbitmq-task-queue** (recipes) — 92.5/100 ✅ PROMOTE (mejora full; IA EN 36.9%,
+    ES 28.1%; companion creado; quedan LOW de alt del diagrama y benchmark cuantitativo)
 24. - [ ] **partial-class-pattern** (patterns)
 25. - [ ] **convert-csv-to-json** (recipes)
 26. - [ ] **server-sent-events-node** (recipes)

@@ -272,7 +272,10 @@ with an `x-dead-letter-routing-key` so you can route different queues to
 different DLQs if your topology grows.
 
 The retry loop in the worker works by nacking the original message and then
-republishing it with an incremented `x-attempt` header. Republishing is simple, but the message loses its original place in line because it lands at the back of the queue. Time-sensitive retries need either a delay queue with `x-message-ttl` or a separate retry exchange.
+republishing it with an incremented `x-attempt` header. Republishing is simple, but the
+message loses its original place in line because it lands at the back of the queue.
+Time-sensitive retries need either a delay queue with `x-message-ttl` or a separate
+retry exchange.
 
 AMQP RPC relies on a temporary reply queue that's exclusive and auto-deleted.
 The client generates a `correlationId`, sends the request with `replyTo` set to
@@ -284,7 +287,8 @@ otherwise the broker accumulates stale queues.
 
 ## Variants
 
-Exchanges and queue patterns carry different trade-offs, so match the choice to your routing needs and latency budget.
+Exchanges and queue patterns carry different trade-offs, so match the choice to your
+routing needs and latency budget.
 
 | Approach | Best for | Trade-off |
 | --- | --- | --- |
@@ -302,7 +306,9 @@ several consumers, a `fanout` or `topic` exchange is the better choice.
 
 The TypeScript examples use `amqplib`, and the same library is available for
 Node.js and browsers via bundles. The Python equivalent below uses `pika` 1.3.x for its synchronous
-[`BlockingConnection`](https://pika.readthedocs.io/en/stable/modules/adapters/blocking.html) API. See our [RabbitMQ consumer recipe with Python and Pika](/recipes/rabbitmq-python-pika-consumer/) for a deeper dive.
+[`BlockingConnection`](https://pika.readthedocs.io/en/stable/modules/adapters/blocking.html)
+API. See our [RabbitMQ consumer recipe with Python and Pika](/recipes/rabbitmq-python-pika-consumer/)
+for a deeper dive.
 
 ```python
 import pika
@@ -416,13 +422,14 @@ sure your DLQ isn't filling up.
 
 A durable queue survives a broker restart, but it only stores the metadata of the
 queue, not the messages inside it. Persistent messages are written to disk, so
-they survive a broker restart. You need both mechanisms: durable queues hold the structure, and persistent messages hold the data.
+they survive a broker restart. You need both mechanisms: durable queues hold the
+structure, and persistent messages hold the data.
 
 ### Can I mix task queues and RPC on the same RabbitMQ cluster?
 
-Yes. RabbitMQ doesn't enforce a pattern on a queue, so you can run both. Just keep naming and routing
-separate so a task queue isn't accidentally consumed by an RPC server. Many teams run one vhost for events and another for RPC to isolate
-traffic.
+Yes. RabbitMQ doesn't enforce a pattern on a queue, so you can run both. Just keep
+naming and routing separate so a task queue isn't accidentally consumed by an RPC
+server. Many teams run one vhost for events and another for RPC to isolate traffic.
 
 ### What happens if the RPC server is down?
 
@@ -432,6 +439,10 @@ cached result. For idempotent calls, a bounded retry works well.
 
 ## Further Reading
 
-- The [AMQP 0-9-1 specification](https://www.amqp.org/specification/0-9-1/amqp-org-download) defines exchanges, queues, bindings and delivery semantics.
-- The [RabbitMQ documentation](https://www.rabbitmq.com/docs) covers tutorials, production checklists and client libraries.
-- The [amqplib API reference](https://amqp-node.github.io/amqplib/) and the [pika docs](https://pika.readthedocs.io/en/stable/) document the Node.js and Python clients used in the examples.
+- The [AMQP 0-9-1 specification](https://www.amqp.org/specification/0-9-1/amqp-org-download)
+  defines exchanges, queues, bindings and delivery semantics.
+- The [RabbitMQ documentation](https://www.rabbitmq.com/docs) covers tutorials,
+  production checklists and client libraries.
+- The [amqplib API reference](https://amqp-node.github.io/amqplib/) and the
+  [pika docs](https://pika.readthedocs.io/en/stable/) document the Node.js and Python
+  clients used in the examples.

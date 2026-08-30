@@ -41,9 +41,10 @@ seo:
 RabbitMQ es un broker de mensajes que usa AMQP, un
 protocolo abierto con clientes en la mayoría de los lenguajes. Los equipos lo
 usan cuando una request web hace demasiado trabajo: en lugar de hacer esperar al
-usuario, le pasan la tarea a un worker mediante una queue. AMQP es un protocolo wire que te permite controlar el enrutamiento, las garantías de entrega y la
-persistencia directamente, así que los task queues y patrones request-reply (RPC) encajan
-mejor que un HTTP polling simple.
+usuario, le pasan la tarea a un worker mediante una queue. AMQP es un protocolo wire
+que te permite controlar el enrutamiento, las garantías de entrega y la persistencia
+directamente, así que los task queues y patrones request-reply (RPC) encajan mejor que
+un HTTP polling simple.
 
 Esta receta usa TypeScript con [`amqplib`](https://amqp-node.github.io/amqplib/) 0.10.x. Los mismos conceptos se
 trasladan a clientes de Python, Go, Java o .NET, porque todos hablan el mismo
@@ -267,7 +268,8 @@ razonable; para trabajo IO-bound que espera llamadas de red, podés subirlo, per
 nunca por encima de lo que un worker puede manejar sin ahogarse.
 
 Un dead-letter exchange toma mensajes que el consumer no puede procesar y los enruta
-al DLQ para inspección. Consultá [Dead Letter Queue](/recipes/dead-letter-queue/) para el patrón completo. Un mensaje cae en el DLQ cuando se rechaza sin requeue, cuando
+al DLQ para inspección. Consultá [Dead Letter Queue](/recipes/dead-letter-queue/) para
+el patrón completo. Un mensaje cae en el DLQ cuando se rechaza sin requeue, cuando
 expira o cuando supera el `x-max-delivery-count` de la queue. Esto le da a los
 operadores un lugar enfocado para inspeccionar fallos mientras la queue
 principal sigue moviéndose. Emparejá el DLQ con una `x-dead-letter-routing-key` para poder
@@ -444,6 +446,10 @@ bien.
 
 ## Referencias
 
-- La [especificación AMQP 0-9-1](https://www.amqp.org/specification/0-9-1/amqp-org-download) define exchanges, queues, bindings y semánticas de entrega.
-- La [documentación de RabbitMQ](https://www.rabbitmq.com/docs) incluye tutoriales, checklists de producción y librerías cliente.
-- La referencia de la API de [amqplib](https://amqp-node.github.io/amqplib/) y los docs de [pika](https://pika.readthedocs.io/en/stable/) documentan los clientes de Node.js y Python usados en los ejemplos.
+- La [especificación AMQP 0-9-1](https://www.amqp.org/specification/0-9-1/amqp-org-download)
+  define exchanges, queues, bindings y semánticas de entrega.
+- La [documentación de RabbitMQ](https://www.rabbitmq.com/docs) incluye tutoriales,
+  checklists de producción y librerías cliente.
+- La referencia de la API de [amqplib](https://amqp-node.github.io/amqplib/) y los
+  docs de [pika](https://pika.readthedocs.io/en/stable/) documentan los clientes de
+  Node.js y Python usados en los ejemplos.
