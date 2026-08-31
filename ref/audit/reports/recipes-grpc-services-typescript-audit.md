@@ -43,7 +43,7 @@
 | Enlaces externos en body EN/ES | 9 / 9 (6 en See Also + 3 en Best Practices/FAQ) |
 | Mermaid / imágenes EN/ES | 1 bloque / 1 SVG en cada idioma |
 | Companion repo | **Creado** (`../stack-practices-resources/resources/recipes/api/grpc-services-typescript/`) |
-| AI detect content EN/ES | **39.5 %** / **38.0 %** (23/64 y 24/65; `pattern_totals: {}`) |
+| AI detect content EN/ES | **39.4 %** / **38.0 %** (23/64 y 24/65; `pattern_totals: {}`) |
 | Build | `npm run build` → 3.260 páginas, exit 0 |
 | Sitemap | 3.258 URLs, 6.606 image entries, EN/ES con `lastmod=2026-08-31` |
 
@@ -114,7 +114,7 @@
 
 | Métrica | EN | ES |
 | --- | --- | --- |
-| `model_ai_pct` | **39.5 %** | **38.0 %** |
+| `model_ai_pct` | **39.4 %** | **38.0 %** |
 | `ai_count` / `human_count` | 23 / 64 | 24 / 65 |
 | `pattern_totals` | `{}` | `{}` |
 | Palabras rojas del listado canónico | 0 | 0 |
@@ -126,7 +126,7 @@
 | Primera persona | ✅ (52 instancias `I`/`my`) | ✅ (voseo + "Mantengo", "Mis", "Quiero", "Estoy") |
 | Paridad humanización EN/ES | WARNING (ES usa menos primera persona explícita, pero mantiene tono personal) | WARNING |
 
-> AI score bajó de 47.0 % → 39.5 % (EN) y 39.9 % → 38.0 % (ES), cruzando el umbral de 40 %. El patrón `pattern_totals` está vacío. Persisten algunas oraciones con probabilidad IA alta (especialmente definiciones de llamadas y celdas de la tabla Variants), pero el tono general es personal y los trade-offs son concretos.
+> AI score bajó de 47.0 % → 39.4 % (EN) y 39.9 % → 38.0 % (ES), cruzando el umbral de 40 %. El patrón `pattern_totals` está vacío. Persisten algunas oraciones con probabilidad IA alta (especialmente definiciones de llamadas y celdas de la tabla Variants), pero el tono general es personal y los trade-offs son concretos.
 
 #### 1.2.5 Paridad Bilingüe — 9/10 (ANTES: 9/10)
 
@@ -185,7 +185,7 @@
   - Evidence: `src/content/recipes/api/grpc-services-typescript.md` (~1,658 palabras) y `.es.md` (~1,566 palabras). Verificado con medición local.
 
 - [x] **[CRITICAL] [HUMANIZATION] Reducir `model_ai_pct` por debajo del 40 % en EN** ✅  
-  - Evidence: `ref/output/ai-detect-grpc-services-typescript.json`: EN 39.5 %, ES 38.0 %, `pattern_totals: {}`.
+  - Evidence: `ref/output/ai-detect-grpc-services-typescript.json`: EN 39.4 %, ES 38.0 %, `pattern_totals: {}`.
 
 - [x] **[CRITICAL] [CONTENT] Añadir ejemplo funcional de gRPC Health Checks** ✅  
   - Evidence: `src/content/recipes/api/grpc-services-typescript.md` sección `### 5. Health-check client` con `grpc-health-check`; companion incluye `src/health-client.ts`.
@@ -368,7 +368,7 @@ Ninguna. No se detectaron problemas nuevos introducidos por las mejoras.
 
 | Archivo | Contenido |
 | --- | --- |
-| `ref/output/ai-detect-grpc-services-typescript.json` | EN 39.5 %, ES 38.0 %, `pattern_totals: {}` |
+| `ref/output/ai-detect-grpc-services-typescript.json` | EN 39.4 %, ES 38.0 %, `pattern_totals: {}` |
 | `ref/output/ai-detect-patterns-grpc-services-typescript.json` | 0 findings |
 | `ref/output/ai-detect-patterns-grpc-services-typescript-es.json` | 0 findings |
 
