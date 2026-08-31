@@ -75,7 +75,8 @@ prometheus/client_golang v1.24.1 (Go) y prometheus_client 0.21.1 (Python).
 
 ## Solución
 
-El [repositorio companion](https://github.com/mathiaspaulenko/stack-practices-resources/tree/main/resources/recipes/observability/prometheus-api-monitoring) contiene ejemplos ejecutables en Node.js, Go y Python, más Docker Compose para testing local.
+El [repositorio companion](https://github.com/mathiaspaulenko/stack-practices-resources/tree/main/resources/recipes/observability/prometheus-api-monitoring)
+contiene ejemplos ejecutables en Node.js, Go y Python, más Docker Compose para testing local.
 
 ### Instrumentación con cliente Prometheus (Node.js)
 
