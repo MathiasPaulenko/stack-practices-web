@@ -55,7 +55,10 @@
 30. - [x] **grpc-services-typescript** (recipes) — 95/100 ✅ PROMOTE (body prosa
     ~1,658/1,566 palabras, AI EN 39.8% / ES 38.1%, 0 patrones; health-check, TLS y deadlines
     con código; Mermaid + SVGs EN/ES; companion creado; build 3.260 OK; re-auditoría escrita)
-31. - [ ] **pre-commit-hooks** (recipes)
+31. - [x] **pre-commit-hooks** (recipes) — 61/100 → 81/100 ✅ PROMOTE
+    (body prosa 1,512/1,527 EN/ES, AI EN 37.9% / ES 34.1%, pattern_totals vacío;
+    5 enlaces internos + 7 externos; Mermaid + SVGs EN/ES; companion repo con 10 archivos;
+    build 3,260 OK; 0 pendientes; 0 regresiones)
 32. - [ ] **message-idempotency** (recipes)
 33. - [ ] **vertical-slice-architecture-guide** (guides)
 34. - [ ] **prometheus-api-monitoring** (recipes)

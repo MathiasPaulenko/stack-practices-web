@@ -2,14 +2,14 @@
   {
     "label": "pre-commit-hooks-en",
     "model": "desklib",
-    "model_ai_pct": 38.1,
+    "model_ai_pct": 37.9,
     "ai_count": 22,
     "human_count": 65,
     "skipped_count": 0,
     "total": 87,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 16.6,
+      "mean": 16.5,
       "stddev": 14.8,
       "cv": 0.89,
       "verdict": "natural variation",
@@ -38,7 +38,7 @@
         8,
         12,
         11,
-        25,
+        24,
         13,
         13,
         27,
@@ -211,14 +211,14 @@
   {
     "label": "pre-commit-hooks-es",
     "model": "desklib",
-    "model_ai_pct": 34.4,
+    "model_ai_pct": 34.1,
     "ai_count": 16,
     "human_count": 74,
     "skipped_count": 0,
     "total": 90,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 16.4,
+      "mean": 16.3,
       "stddev": 15.0,
       "cv": 0.92,
       "verdict": "natural variation",
@@ -248,7 +248,7 @@
         9,
         9,
         13,
-        31,
+        26,
         14,
         15,
         26,
@@ -386,10 +386,6 @@
         0.4978
       ],
       [
-        "Las configuraciones de abajo est\u00e1n listas para copiar y pegar, pero el repo\ncompanion tiene el proyecto completo con todos los archivos de configuraci\u00f3n en\nun solo lugar: https://g",
-        0.4927
-      ],
-      [
         "[Git hooks documentation](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)\n[pre-commit framework](https://pre-commit.com/)\n[husky documentation](https://typicode.github.io",
         0.475
       ],
@@ -416,6 +412,10 @@
       [
         "Trabaj\u00e1s en un repositorio con muchos archivos binarios grandes.",
         0.438
+      ],
+      [
+        "CI todav\u00eda necesita los mismos checks sobre el c\u00f3digo completo.",
+        0.4298
       ]
     ],
     "diagnostics_sample": []
