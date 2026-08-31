@@ -68,7 +68,7 @@ This recipe shows how to define a service in Protocol Buffers, generate server a
 
 ### 1. Project setup
 
-A working gRPC TypeScript project needs the protobuf compiler, the gRPC Node.js runtime, the TypeScript generator and a small helper for health checks. My `package.json` looks like this:
+A working gRPC TypeScript project needs the protobuf compiler, the gRPC Node.js runtime, the TypeScript generator and a small helper for health checks. I keep the full project in the [stack-practices-resources repo](https://github.com/MathiasPaulenko/stack-practices-resources/tree/main/resources/recipes/api/grpc-services-typescript), but the `package.json` you need is right here:
 
 ```json
 // package.json

@@ -68,7 +68,7 @@ Esta receta muestra cómo definir un servicio en Protocol Buffers, generar códi
 
 ### 1. Configuración del proyecto
 
-Un proyecto gRPC TypeScript funcional necesita el compilador de protobuf, el runtime de gRPC para Node.js, el generador de TypeScript y un helper pequeño para health checks. Mi `package.json` se ve así:
+Un proyecto gRPC TypeScript funcional necesita el compilador de protobuf, el runtime de gRPC para Node.js, el generador de TypeScript y un helper pequeño para health checks. Guardo el proyecto completo en el [repositorio stack-practices-resources](https://github.com/MathiasPaulenko/stack-practices-resources/tree/main/resources/recipes/api/grpc-services-typescript), pero el `package.json` que necesitás está acá:
 
 ```json
 // package.json

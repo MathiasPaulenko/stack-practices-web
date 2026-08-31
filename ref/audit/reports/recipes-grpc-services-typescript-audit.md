@@ -43,7 +43,7 @@
 | Enlaces externos en body EN/ES | 9 / 9 (6 en See Also + 3 en Best Practices/FAQ) |
 | Mermaid / imágenes EN/ES | 1 bloque / 1 SVG en cada idioma |
 | Companion repo | **Creado** (`../stack-practices-resources/resources/recipes/api/grpc-services-typescript/`) |
-| AI detect content EN/ES | **39.8 %** / **38.1 %** (23/64 y 24/65; `pattern_totals: {}`) |
+| AI detect content EN/ES | **39.5 %** / **38.0 %** (23/64 y 24/65; `pattern_totals: {}`) |
 | Build | `npm run build` → 3.260 páginas, exit 0 |
 | Sitemap | 3.258 URLs, 6.606 image entries, EN/ES con `lastmod=2026-08-31` |
 
@@ -114,7 +114,7 @@
 
 | Métrica | EN | ES |
 | --- | --- | --- |
-| `model_ai_pct` | **39.8 %** | **38.1 %** |
+| `model_ai_pct` | **39.5 %** | **38.0 %** |
 | `ai_count` / `human_count` | 23 / 64 | 24 / 65 |
 | `pattern_totals` | `{}` | `{}` |
 | Palabras rojas del listado canónico | 0 | 0 |
@@ -126,7 +126,7 @@
 | Primera persona | ✅ (52 instancias `I`/`my`) | ✅ (voseo + "Mantengo", "Mis", "Quiero", "Estoy") |
 | Paridad humanización EN/ES | WARNING (ES usa menos primera persona explícita, pero mantiene tono personal) | WARNING |
 
-> AI score bajó de 47.0 % → 39.8 % (EN) y 39.9 % → 38.1 % (ES), cruzando el umbral de 40 %. El patrón `pattern_totals` está vacío. Persisten algunas oraciones con probabilidad IA alta (especialmente definiciones de llamadas y celdas de la tabla Variants), pero el tono general es personal y los trade-offs son concretos.
+> AI score bajó de 47.0 % → 39.5 % (EN) y 39.9 % → 38.0 % (ES), cruzando el umbral de 40 %. El patrón `pattern_totals` está vacío. Persisten algunas oraciones con probabilidad IA alta (especialmente definiciones de llamadas y celdas de la tabla Variants), pero el tono general es personal y los trade-offs son concretos.
 
 #### 1.2.5 Paridad Bilingüe — 9/10 (ANTES: 9/10)
 
@@ -185,7 +185,7 @@
   - Evidence: `src/content/recipes/api/grpc-services-typescript.md` (~1,658 palabras) y `.es.md` (~1,566 palabras). Verificado con medición local.
 
 - [x] **[CRITICAL] [HUMANIZATION] Reducir `model_ai_pct` por debajo del 40 % en EN** ✅  
-  - Evidence: `ref/output/ai-detect-grpc-services-typescript.json`: EN 39.8 %, ES 38.1 %, `pattern_totals: {}`.
+  - Evidence: `ref/output/ai-detect-grpc-services-typescript.json`: EN 39.5 %, ES 38.0 %, `pattern_totals: {}`.
 
 - [x] **[CRITICAL] [CONTENT] Añadir ejemplo funcional de gRPC Health Checks** ✅  
   - Evidence: `src/content/recipes/api/grpc-services-typescript.md` sección `### 5. Health-check client` con `grpc-health-check`; companion incluye `src/health-client.ts`.
@@ -241,11 +241,12 @@
 - [x] **[LOW] [HUMANIZATION] Revisar y eliminar transiciones rígidas en Explanation** ✅  
   - Evidence: `Explanation` usa primera persona y variedad de conectores; oraciones de apertura no son plantilla.
 
+- [x] **[LOW] [COMPANION] Añadir enlace explícito del recurso al companion repo en el body** ✅  
+  - Evidence: EN y ES añaden enlace al proyecto en el [repositorio stack-practices-resources](https://github.com/MathiasPaulenko/stack-practices-resources/tree/main/resources/recipes/api/grpc-services-typescript) cerca del bloque `package.json`.
+
 ### 2.2 ⚠️ Pendientes
 
-- [ ] **[LOW] [COMPANION] Añadir enlace explícito del recurso al companion repo en el body** ⚠️ PENDIENTE  
-  - Razón: El companion se creó y se referencia desde `source_urls` de `meta.json`, pero el recurso no contiene un enlace directo a `https://mathiaspaulenko.github.io/stack-practices-resources/` o a la carpeta raw.  
-  - Recomendación: Añadir 1-2 líneas cerca del `package.json` que digan "Descargá el proyecto completo del companion repo" con enlace. Esfuerzo Very Low.
+Ninguno.
 
 ### 2.3 🔧 Out of scope
 
@@ -319,13 +320,12 @@ Ninguna. No se detectaron problemas nuevos introducidos por las mejoras.
 
 ---
 
-## 4. Top 5 acciones pendientes
+## 4. Top 4 acciones pendientes
 
-1. **Añadir enlace explícito al companion repo desde el body del recurso** (LOW, effort Very Low) — mejora E-E-A-T y linkeado cruzado.
-2. **Capturar screenshot móvil a 375 px y verificar overflow** (LOW) — completar verificación visual.
-3. **Evaluar GSC/GA4 para queries "grpc typescript" / "grpc nodejs"** (LOW) — ajustar CTR cuando haya datos.
-4. **Considerar añadir benchmarks medidos de latencia/throughput vs REST/JSON** (MEDIUM) — elevaría Information gain a EXCEPTIONAL.
-5. **Añadir `speakable` schema** (MEDIUM) — fuera del scope del skill, requiere cambio en layout global.
+1. **Capturar screenshot móvil a 375 px y verificar overflow** (LOW) — completar verificación visual.
+2. **Evaluar GSC/GA4 para queries "grpc typescript" / "grpc nodejs"** (LOW) — ajustar CTR cuando haya datos.
+3. **Considerar añadir benchmarks medidos de latencia/throughput vs REST/JSON** (MEDIUM) — elevaría Information gain a EXCEPTIONAL.
+4. **Añadir `speakable` schema** (MEDIUM) — fuera del scope del skill, requiere cambio en layout global.
 
 ---
 
@@ -368,7 +368,7 @@ Ninguna. No se detectaron problemas nuevos introducidos por las mejoras.
 
 | Archivo | Contenido |
 | --- | --- |
-| `ref/output/ai-detect-grpc-services-typescript.json` | EN 39.8 %, ES 38.1 %, `pattern_totals: {}` |
+| `ref/output/ai-detect-grpc-services-typescript.json` | EN 39.5 %, ES 38.0 %, `pattern_totals: {}` |
 | `ref/output/ai-detect-patterns-grpc-services-typescript.json` | 0 findings |
 | `ref/output/ai-detect-patterns-grpc-services-typescript-es.json` | 0 findings |
 
