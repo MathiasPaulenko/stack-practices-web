@@ -1,0 +1,424 @@
+[
+  {
+    "label": "elasticsearch-aggregations-en",
+    "model": "desklib",
+    "model_ai_pct": 39.1,
+    "ai_count": 21,
+    "human_count": 69,
+    "skipped_count": 1,
+    "total": 91,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.6,
+      "stddev": 11.2,
+      "cv": 0.76,
+      "verdict": "natural variation",
+      "sentence_count": 90,
+      "lengths": [
+        19,
+        23,
+        21,
+        17,
+        23,
+        25,
+        5,
+        15,
+        11,
+        20,
+        6,
+        8,
+        8,
+        10,
+        14,
+        15,
+        19,
+        18,
+        19,
+        7,
+        15,
+        12,
+        7,
+        10,
+        20,
+        6,
+        10,
+        12,
+        21,
+        12,
+        11,
+        13,
+        15,
+        14,
+        26,
+        12,
+        14,
+        24,
+        9,
+        11,
+        14,
+        11,
+        8,
+        11,
+        15,
+        21,
+        11,
+        21,
+        20,
+        12,
+        24,
+        8,
+        15,
+        107,
+        25,
+        13,
+        9,
+        14,
+        11,
+        10,
+        9,
+        23,
+        12,
+        15,
+        10,
+        14,
+        6,
+        8,
+        9,
+        10,
+        8,
+        11,
+        12,
+        18,
+        16,
+        5,
+        8,
+        6,
+        19,
+        12,
+        12,
+        10,
+        14,
+        13,
+        15,
+        10,
+        14,
+        5,
+        25,
+        12
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "[Complete Guide to Elasticsearch Cluster Setup](/guides/complete-guide-elasticsearch-cluster-setup/) \u2014\n  when you want to scale from a single node to production.",
+        0.8118
+      ],
+      [
+        "I've used this pattern on product catalogs where the same request returns\nmatching products and facet counts for category, brand, and price range.",
+        0.8031
+      ],
+      [
+        "You can also enable slow_log for queries that exceed a threshold value.",
+        0.751
+      ],
+      [
+        "terms and cardinality are approximate, so don't expect exact counts.",
+        0.7157
+      ],
+      [
+        "During the shard-level phase, each shard handles its own documents and computes a partial result.",
+        0.6905
+      ],
+      [
+        "|| Aggregation | Use case | Key parameters |\n|| --- | --- | --- |\n|| terms | Count by category, brand, or status | field, size, shard_size |\n|| date_histogram | Time-series bucketi",
+        0.6218
+      ],
+      [
+        "[Full-Text Search](/recipes/full-text-search/) \u2014 for the query side of the same use case.",
+        0.6212
+      ],
+      [
+        "That margin is enough for most dashboards.",
+        0.6199
+      ],
+      [
+        "Use min_doc_count: 1 to drop empty buckets unless you actually need them.",
+        0.6188
+      ],
+      [
+        "You're building faceted search with category-level count filters.",
+        0.5996
+      ],
+      [
+        "With precision_threshold: 40000, Elasticsearch returns counts within 1% of the true value.",
+        0.5902
+      ],
+      [
+        "I cover both in Best Practices.",
+        0.5853
+      ],
+      [
+        "The request cache and eager global ordinals can speed up aggregations, but\nonly after the query itself is well structured.",
+        0.5813
+      ],
+      [
+        "Skipping the hits is faster when the documents themselves aren't needed.",
+        0.569
+      ],
+      [
+        "They run a second pass over the bucket list, so they push up CPU and memory\nusage on large time ranges.",
+        0.568
+      ],
+      [
+        "At 40000, Elasticsearch keeps the error below 1%, which is usually fine for dashboard metrics.",
+        0.5666
+      ],
+      [
+        "Your analytics dashboards need sub-second numbers across large document sets.",
+        0.5643
+      ],
+      [
+        "You need unique counts, top hits per bucket, or derivative metrics in the same request.",
+        0.5352
+      ],
+      [
+        "The query looks like a SQL join across several tables: aggregations stay\n  inside one index and can't span them.",
+        0.5259
+      ],
+      [
+        "It returns an after_key that you pass to the next request.",
+        0.5038
+      ],
+      [
+        "Nesting aggregations lets you answer multi-level questions: monthly revenue per\ncategory, average price per price range, or percentile latency per region.",
+        0.5029
+      ],
+      [
+        "If you need exact unique counts, use a\nterms aggregation with a large enough size, though it will consume more\nmemory.",
+        0.4953
+      ],
+      [
+        "[Elasticsearch Aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html) \u2014\n  official reference.",
+        0.4836
+      ],
+      [
+        "Aggregations run in two main phases: a shard-level phase and a reduce phase.",
+        0.465
+      ],
+      [
+        "This mapping is what makes the .keyword subfield examples work.",
+        0.4645
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "elasticsearch-aggregations-es",
+    "model": "desklib",
+    "model_ai_pct": 33.4,
+    "ai_count": 19,
+    "human_count": 69,
+    "skipped_count": 1,
+    "total": 89,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 16.1,
+      "stddev": 11.7,
+      "cv": 0.72,
+      "verdict": "natural variation",
+      "sentence_count": 88,
+      "lengths": [
+        13,
+        27,
+        24,
+        21,
+        28,
+        22,
+        9,
+        14,
+        12,
+        24,
+        5,
+        12,
+        8,
+        17,
+        12,
+        16,
+        11,
+        18,
+        21,
+        10,
+        16,
+        21,
+        12,
+        20,
+        8,
+        11,
+        13,
+        25,
+        32,
+        19,
+        17,
+        15,
+        25,
+        13,
+        12,
+        27,
+        11,
+        9,
+        15,
+        10,
+        10,
+        10,
+        16,
+        18,
+        11,
+        23,
+        22,
+        15,
+        18,
+        12,
+        16,
+        110,
+        28,
+        12,
+        9,
+        15,
+        13,
+        16,
+        9,
+        21,
+        12,
+        14,
+        11,
+        14,
+        7,
+        8,
+        10,
+        10,
+        10,
+        13,
+        13,
+        17,
+        18,
+        5,
+        8,
+        6,
+        20,
+        14,
+        13,
+        13,
+        17,
+        13,
+        23,
+        11,
+        18,
+        5,
+        25,
+        10
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "[Full-Text Search](/recipes/full-text-search/) \u2014 para el lado de consultas del mismo caso de uso.",
+        0.7596
+      ],
+      [
+        "Tus dashboards en tiempo real necesitan n\u00fameros en menos de un segundo sobre grandes conjuntos de documentos.",
+        0.7344
+      ],
+      [
+        "La mayor\u00eda de los ejemplos apuntan a Elasticsearch 8.x.",
+        0.7332
+      ],
+      [
+        "Las agregaciones se ejecutan en dos fases principales: una fase a nivel de shard\ny una fase de reduce.",
+        0.6409
+      ],
+      [
+        "La agregaci\u00f3n composite tambi\u00e9n es la forma m\u00e1s segura de paginar.",
+        0.6346
+      ],
+      [
+        "[Composite aggregation](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-composite-aggregation.html) \u2014\n  documentaci\u00f3n oficial para pagina",
+        0.6247
+      ],
+      [
+        "La cardinalidad usa HyperLogLog++ para conteos aproximados de valores\ndistintos.",
+        0.5891
+      ],
+      [
+        "Durante la fase a nivel de shard, cada shard calcula un\nresultado parcial sobre sus propios documentos.",
+        0.5885
+      ],
+      [
+        "Con\n40.000, Elasticsearch mantiene el error menor al 1%, que normalmente alcanza para\nm\u00e9tricas de dashboard.",
+        0.5623
+      ],
+      [
+        "Cuando necesit\u00e1s conteos, sumas o percentiles de un \u00edndice de Elasticsearch,\nus\u00e1s agregaciones.",
+        0.5506
+      ],
+      [
+        "Quer\u00e9s agrupar series temporales y anidar estad\u00edsticas como suma, promedio o\n  percentiles.",
+        0.546
+      ],
+      [
+        "Anidar agregaciones te permite responder preguntas de varios niveles: ingresos\nmensuales por categor\u00eda, precio promedio por rango de precio, o percentiles de\nlatencia por regi\u00f3n.",
+        0.5358
+      ],
+      [
+        "[Complete Guide to Elasticsearch Cluster Setup](/guides/complete-guide-elasticsearch-cluster-setup/) \u2014\n  cuando est\u00e9s listo para escalar de un nodo a producci\u00f3n.",
+        0.5151
+      ],
+      [
+        "Cubierto ambos en Mejores Pr\u00e1cticas.",
+        0.5132
+      ],
+      [
+        "[Cardinality aggregation](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-cardinality-aggregation.html) \u2014\n  detalles de precision_thresh",
+        0.5116
+      ],
+      [
+        "Paginar resultados grandes de terms sin composite.",
+        0.5059
+      ],
+      [
+        "Anidarlas te permite construir series temporales, percentiles y res\u00famenes\nfacetados sin tener que enviar datos a un job por lotes aparte.",
+        0.5056
+      ],
+      [
+        "Aument\u00e1 shard_size, us\u00e1 composite para conteos m\u00e1s exactos, o sub\u00ed\nprecision_threshold para mejorar la precisi\u00f3n de cardinalidad.",
+        0.5035
+      ],
+      [
+        "Con un precision_threshold de\n40.000, Elasticsearch promete conteos dentro del 1% del valor real, suficiente\npara la mayor\u00eda de los dashboards.",
+        0.5005
+      ],
+      [
+        "Devuelve un\nafter_key que pas\u00e1s en la siguiente petici\u00f3n.",
+        0.4926
+      ],
+      [
+        "Para el lado de\ndocumentos, mir\u00e1 [Cursor-Based Pagination with PostgreSQL](/recipes/cursor-pagination-postgresql/).",
+        0.4913
+      ],
+      [
+        "Este mapping es el que hace funcionar los ejemplos con subcampo .keyword.",
+        0.4755
+      ],
+      [
+        "Para conteos, agrupaciones y filtros, us\u00e1 el subcampo .keyword,\nque se guarda como un solo token no analizado.",
+        0.4718
+      ],
+      [
+        "[Elasticsearch Aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html) \u2014\n  referencia oficial.",
+        0.4672
+      ],
+      [
+        "Necesit\u00e1s conteos \u00fanicos, los documentos m\u00e1s relevantes por bucket o m\u00e9tricas\n  derivadas desde una sola petici\u00f3n.",
+        0.446
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
