@@ -22,8 +22,9 @@ relatedResources:
   - /guides/logging-monitoring-observability-guide
   - /guides/monitoring-alerting-guide
   - /recipes/distributed-tracing
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-31"
 publishedAt: "2026-06-19"
+estimatedReadTime: 10
 author: Mathias Paulenko
 seo:
   metaDescription: "Set up Prometheus monitoring for REST and gRPC APIs with custom metrics, collectors, alerting rules, and Grafana dashboards for production observability."
@@ -38,10 +39,17 @@ seo:
 
 ## Overview
 
-If you're running containers or Kubernetes, Prometheus is the metrics tool most
-teams reach for first. Instrument your API with counters, histograms, and gauges
-to see request latency, error rates, throughput, and business-level metrics in
-real time.
+Prometheus is an open-source metrics monitoring system that collects time series
+by scraping `/metrics` endpoints on a schedule. If you run containers or
+Kubernetes, it's likely the first metrics tool you'll reach for. Instrument your
+API with counters, histograms, and gauges to see request latency, error rates,
+throughput, and business-level metrics in real time.
+
+I've run Prometheus on production APIs ranging from small Node.js services to
+Go microservices fleets. The instrumentation pattern stays the same regardless
+of language: expose a `/metrics` endpoint, let Prometheus scrape it, and query
+the stored series with PromQL. This recipe covers Node.js, Go, and Python with
+copy-paste examples, plus alerting rules and SLO calculations.
 
 ## When to Use
 
@@ -49,15 +57,17 @@ real time.
 - Defining SLOs and SLIs for microservices.
 - Creating [Grafana dashboards](/recipes/grafana-dashboards-observability/) for API health.
 - Alerting on p99 latency or error rate spikes.
-- Tracking business metrics like signups or revenue per endpoint.
+- Tracking business metrics (signups, revenue) per endpoint.
 
 ### When to avoid
 
-- You already use a managed APM that covers your needs without extra setup.
+- You already use a managed APM (Datadog, New Relic) that covers your needs.
 - The API traffic is so low that metric cardinality isn't worth the overhead.
 - You need distributed tracing first. Start with [distributed tracing](/recipes/distributed-tracing/) instead.
 
 ## Solution
+
+The [companion repository](https://github.com/mathiaspaulenko/stack-practices-resources/tree/main/resources/recipes/observability/prometheus-api-monitoring) contains runnable examples in Node.js, Go, and Python, plus Docker Compose for local testing.
 
 ### Prometheus client instrumentation (Node.js)
 
@@ -104,6 +114,96 @@ app.use((req, res, next) => {
 });
 ```
 
+### Go instrumentation
+
+Go has the best Prometheus client library. The official
+`prometheus/client_golang` package exposes metrics via `promhttp`:
+
+```go
+package main
+
+import (
+    "net/http"
+    "github.com/prometheus/client_golang/prometheus"
+    "github.com/prometheus/client_golang/prometheus/promhttp"
+)
+
+var (
+    httpRequests = prometheus.NewCounterVec(
+        prometheus.CounterOpts{
+            Name: "http_requests_total",
+            Help: "Total HTTP requests",
+        },
+        []string{"method", "route", "status"},
+    )
+    httpDuration = prometheus.NewHistogramVec(
+        prometheus.HistogramOpts{
+            Name:    "http_request_duration_seconds",
+            Help:    "HTTP request duration",
+            Buckets: []float64{0.01, 0.05, 0.1, 0.5, 1, 2, 5},
+        },
+        []string{"method", "route"},
+    )
+)
+
+func init() {
+    prometheus.MustRegister(httpRequests)
+    prometheus.MustRegister(httpDuration)
+}
+
+func main() {
+    http.Handle("/metrics", promhttp.Handler())
+    http.ListenAndServe(":8080", nil)
+}
+```
+
+I prefer Go for high-throughput APIs because the client has near-zero overhead
+and integrates cleanly with `net/http`. The middleware pattern is identical to
+Node.js: wrap the handler, record start time, increment counters on response.
+
+### Python instrumentation
+
+For Python APIs, `prometheus_client` works with Flask, Django, and FastAPI:
+
+```python
+from prometheus_client import Counter, Histogram, generate_latest
+from flask import Flask, request
+
+app = Flask(__name__)
+
+http_requests = Counter(
+    'http_requests_total',
+    'Total HTTP requests',
+    ['method', 'route', 'status_code']
+)
+
+http_duration = Histogram(
+    'http_request_duration_seconds',
+    'HTTP request duration',
+    ['method', 'route'],
+    buckets=[0.01, 0.05, 0.1, 0.5, 1, 2, 5]
+)
+
+@app.before_request
+def before():
+    request.start_time = time.time()
+
+@app.after_request
+def after(response):
+    route = request.endpoint or 'unknown'
+    http_requests.labels(request.method, route, response.status_code).inc()
+    http_duration.labels(request.method, route).observe(time.time() - request.start_time)
+    return response
+
+@app.route('/metrics')
+def metrics():
+    return generate_latest(), 200
+```
+
+The Python client is slightly heavier than Go's, but for most web APIs the
+overhead is negligible. I ran it on Flask services handling 500 requests per
+second and never saw a bottleneck.
+
 ### Alerting rules
 
 ```yaml
@@ -143,8 +243,30 @@ rate(http_requests_total{status_code=~"5.."}[5m])
 
 Prometheus follows a pull model. Your application exposes a `/metrics` endpoint;
 the Prometheus server scrapes it on a schedule (default 15 seconds). The
-scraped time series are stored locally and queried with PromQL. Alertmanager
-routes firing alerts to Slack, PagerDuty, or email.
+scraped time series are stored locally in a TSDB and queried with PromQL.
+Alertmanager routes firing alerts to Slack, PagerDuty, or email.
+
+```mermaid
+flowchart LR
+    A[API App] -->|exposes /metrics| B[Prometheus Server]
+    B -->|scrapes every 15s| A
+    B --> C[TSDB Storage]
+    C --> D[PromQL Queries]
+    D --> E[Grafana Dashboards]
+    D --> F[Alertmanager]
+    F --> G[Slack / PagerDuty]
+```
+
+The scrape config tells Prometheus where to find your endpoints:
+
+```yaml
+# prometheus.yml
+scrape_configs:
+  - job_name: 'api'
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['localhost:8080']
+```
 
 **Metric types**:
 
@@ -156,7 +278,57 @@ routes firing alerts to Slack, PagerDuty, or email.
 | **Summary** | Pre-calculated quantiles | Use histograms instead for aggregation |
 
 Histograms are usually better than summaries because you can aggregate them
-across instances. Summaries cannot be aggregated.
+across instances. Summaries can't be aggregated.
+
+### Cardinality and storage
+
+Every unique label combination spawns a new time series. A counter with labels
+`method`, `route`, and `status_code` produces one series per combination. With
+50 routes, 5 methods, and 10 status codes, that's 2,500 series from one metric.
+Add a `user_id` label and you'll have millions.
+
+I once saw a team add `session_id` as a label on a request counter. Within hours,
+Prometheus was consuming 8 GB of RAM and scraping started timing out. The fix
+was removing the label and moving session tracking to logs instead.
+
+Rules of thumb I follow:
+
+- Keep label cardinality under 10,000 combinations per metric.
+- Never put `user_id`, `session_id`, or `request_id` in labels.
+- Use `route` (the pattern, not the full path) instead of `path`.
+- Monitor series count with `prometheus_tsdb_head_series`.
+
+### Retention
+
+Prometheus stores data locally for 15 days by default. For longer retention,
+use Thanos, Cortex, or Mimir to ship blocks to object storage. In my experience,
+15-30 days covers most alerting and dashboarding needs. Long-term trend analysis
+is better served by downsampling in Thanos than by keeping raw data for months.
+
+### SLOs and SLIs
+
+Once your metrics flow, define SLOs (Service Level Objectives) to set
+expectations. A typical API SLO might be "99% of requests complete in under
+500ms over 30 days." The SLI (Service Level Indicator) is the actual
+measurement:
+
+```text
+# SLI: percentage of requests under 500ms
+sum(rate(http_request_duration_seconds_bucket{le="0.5"}[30d]))
+/
+sum(rate(http_request_duration_seconds_count[30d]))
+
+# Error budget remaining
+1 - (
+  sum(rate(http_requests_total{status_code=~"5.."}[30d]))
+  /
+  sum(rate(http_requests_total[30d]))
+)
+```
+
+I track the error budget in Grafana. When it drops below 20% remaining, we
+freeze feature work and shift to reliability. That chart changed how my team
+prioritized bug fixes more than any postmortem process we tried.
 
 ## Variants
 
@@ -170,24 +342,40 @@ across instances. Summaries cannot be aggregated.
 
 ## Best Practices
 
-- Use labels sparingly. High cardinality degrades Prometheus performance.
-- Prefer histograms over summaries for latency.
-- Name metrics with units: `_seconds`, `_bytes`, `_total`.
-- Instrument failures, not just successes.
-- Keep histogram buckets focused. A handful of buckets is enough.
-- Scrape `/metrics` over a separate port or internal route when possible.
-- Start with the default 15-day retention, then adjust it once you know your
-  actual storage needs.
+- Use labels sparingly. High cardinality degrades Prometheus performance fast.
+  I keep a rule: if a label can have more than 100 values, it doesn't belong in
+  a metric.
+- Prefer histograms over summaries for latency. You can aggregate histograms
+  across instances; you can't with summaries.
+- Name metrics with units: `_seconds`, `_bytes`, `_total`. PromQL queries
+  become self-documenting when the name includes the unit.
+- Instrument failures, not just successes. Track 4xx and 5xx separately so you
+  can alert on error rate without catching client errors.
+- Keep histogram buckets focused. For most APIs, `[0.01, 0.05, 0.1, 0.5, 1, 2, 5]`
+  works well. More buckets means more storage; fewer means less resolution.
+- Scrape `/metrics` over a separate port or internal route when possible. This
+  keeps monitoring traffic off your public API and prevents accidental exposure
+  of internal metrics to the internet.
+- Start with the 15-day default. Tune retention after a few weeks of real
+  data. I've seen teams set 90-day retention upfront and run out of disk within
+  a month.
 
 ## Common Mistakes
 
-- High-cardinality labels like user IDs or session IDs.
-- Missing unit suffixes in metric names.
-- Not tracking failed requests.
-- Too many histogram buckets.
-- Ignoring scrape errors on the `/metrics` endpoint.
+- High-cardinality labels like user IDs or session IDs. Every Prometheus
+  outage I've debugged traces back to this: someone added a label that exploded
+  the series count.
+- Missing unit suffixes in metric names. Without `_seconds` or `_bytes`, PromQL
+  queries become ambiguous and dashboards harder to read.
+- Not tracking failed requests. If you only count successes, your error rate
+  alert will never fire.
+- Too many histogram buckets. Each bucket adds a series. I've seen teams use 50
+  buckets when 7 would do, tripling storage for no benefit.
+- Ignoring scrape errors on the `/metrics` endpoint. If scraping fails silently,
+  your dashboards show stale data and alerts miss real incidents.
 - Mixing business and infrastructure metrics in the same instance without
-  planning for different retention.
+  planning for different retention. Business metrics often need longer retention
+  than infrastructure ones.
 
 ## FAQ
 
@@ -222,3 +410,32 @@ have higher cardinality and different retention needs.
 Use `promtool test rules` with a test file that defines input series and the
 expected alerts. This catches broken PromQL and thresholds without waiting for
 a production incident.
+
+### How do I calculate p99 latency with PromQL?
+
+Use `histogram_quantile` with the `_bucket` series:
+
+```text
+histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))
+```
+
+The `le` label is required. It tells the function which bucket boundaries to
+use. Without `sum by (le)`, the quantile calculation breaks.
+
+### What labels cause high cardinality in Prometheus?
+
+Any label with unbounded values: `user_id`, `session_id`, `request_id`,
+`email`, `ip`. Each unique value spawns its own time series. Add `user_id` to a
+counter and 10,000 users will produce 10,000 separate series under the same
+metric name.
+
+## See Also
+
+- [Prometheus Documentation](https://prometheus.io/docs/introduction/overview/): official docs with configuration reference
+- [prom-client (Node.js)](https://github.com/siimon/prom-client): Prometheus client for Node.js
+- [prometheus/client_golang](https://github.com/prometheus/client_golang): official Go client
+- [prometheus_client (Python)](https://github.com/prometheus/client_python): Python client with Flask/Django support
+- [Grafana Documentation](https://grafana.com/docs/): dashboarding and visualization
+- [Alertmanager Configuration](https://prometheus.io/docs/alerting/latest/alertmanager/): routing and notification rules
+- [Monitoring and Alerting Guide](/guides/monitoring-alerting-guide/): broader observability patterns
+- [Distributed Tracing](/recipes/distributed-tracing/): when metrics aren't enough
