@@ -2,7 +2,7 @@
   {
     "label": "message-idempotency-en",
     "model": "desklib",
-    "model_ai_pct": 42.3,
+    "model_ai_pct": 42.7,
     "ai_count": 30,
     "human_count": 74,
     "skipped_count": 13,
@@ -127,7 +127,7 @@
         0.9822
       ],
       [
-        "UPDATE inventory SET quantity = 10 WHERE id = 1 sets an absolute value instead of decrementing it, and INSERT ...",
+        "UPDATE inventory SET quantity = 10 WHERE id = 1 sets an absolute value instead of decrementing it, and\nINSERT ...",
         0.9404
       ],
       [
@@ -135,7 +135,7 @@
         0.8825
       ],
       [
-        "Internal: [Event-Driven Microservices](/recipes/event-driven-microservices/) and [Dead Letter Queue](/recipes/dead-letter-queue/).",
+        "Internal: [Event-Driven Microservices](/recipes/event-driven-microservices/) and\n  [Dead Letter Queue](/recipes/dead-letter-queue/).",
         0.7914
       ],
       [
@@ -143,7 +143,7 @@
         0.7776
       ],
       [
-        "It won't remove duplicates caused by your application sending the same event twice, and it doesn't work across partitions.",
+        "It won't remove\nduplicates caused by your application sending the same event twice, and it doesn't work across partitions.",
         0.7415
       ],
       [
@@ -155,7 +155,7 @@
         0.7214
       ],
       [
-        "I try to use this one whenever I can because it avoids an extra round-trip and is the cheapest option.",
+        "I try to use this one whenever I can because it avoids an\nextra round-trip and is the cheapest option.",
         0.7184
       ],
       [
@@ -163,11 +163,11 @@
         0.6869
       ],
       [
-        "That's the kind of problem idempotency is designed to stop.",
+        "That's the kind of problem idempotency\nis designed to stop.",
         0.686
       ],
       [
-        "I keep coming back to this pattern in production; it works with Kafka, RabbitMQ, SQS or any other broker I have tried.",
+        "I keep coming back to this pattern in production; it works with\nKafka, RabbitMQ, SQS or any other broker I have tried.",
         0.6518
       ],
       [
@@ -179,7 +179,7 @@
         0.6295
       ],
       [
-        "If the consumer dies in the middle, the next consumer can pick the message up again.",
+        "If the consumer dies in the middle, the next consumer can\npick the message up again.",
         0.6014
       ],
       [
@@ -187,7 +187,7 @@
         0.6004
       ],
       [
-        "If you commit the offset before storing the result, a duplicate can still run.",
+        "If you commit the offset before\n  storing the result, a duplicate can still run.",
         0.5656
       ],
       [
@@ -195,11 +195,11 @@
         0.5614
       ],
       [
-        "I prefer to reject and let the retry loop handle it, because a duplicate charge is usually worse than a few minutes of delay.",
+        "I prefer to reject and let the\nretry loop handle it, because a duplicate charge is usually worse than a few minutes of delay.",
         0.5601
       ],
       [
-        "When the message already has a stored result, I return it instead of calling the side effect again.",
+        "When the message already has a stored result,\nI return it instead of calling the side effect again.",
         0.5594
       ],
       [
@@ -207,11 +207,11 @@
         0.5515
       ],
       [
-        "If you store the result but fail to commit the offset, the consumer will reprocess the message and find the key already present.",
+        "If you store the result but fail to commit the offset, the\n  consumer will reprocess the message and find the key already present.",
         0.5478
       ],
       [
-        "I put both the message ID and the result in the same record, so every service checks the same key before it acts.",
+        "I put both\nthe message ID and the result in the same record, so every service checks the same key before it acts.",
         0.5426
       ],
       [
@@ -219,7 +219,7 @@
         0.5256
       ],
       [
-        "If Redis goes down, the consumer has to decide: reject the message and wait for the broker to retry, or process it and accept the risk of a duplicate.",
+        "If Redis goes down, the\nconsumer has to decide: reject the message and wait for the broker to retry, or process it and accept the risk of a\nduplicate.",
         0.5219
       ]
     ],
@@ -228,18 +228,18 @@
   {
     "label": "message-idempotency-es",
     "model": "desklib",
-    "model_ai_pct": 37.3,
-    "ai_count": 29,
-    "human_count": 86,
-    "skipped_count": 9,
-    "total": 124,
+    "model_ai_pct": 36.1,
+    "ai_count": 26,
+    "human_count": 81,
+    "skipped_count": 11,
+    "total": 118,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 16.6,
-      "stddev": 15.4,
-      "cv": 0.93,
+      "mean": 18.5,
+      "stddev": 15.9,
+      "cv": 0.86,
       "verdict": "natural variation",
-      "sentence_count": 115,
+      "sentence_count": 107,
       "lengths": [
         28,
         11,
@@ -248,7 +248,7 @@
         9,
         18,
         21,
-        6,
+        8,
         8,
         12,
         41,
@@ -262,48 +262,48 @@
         7,
         14,
         24,
-        8,
+        11,
         20,
         19,
-        16,
+        21,
         29,
-        16,
+        15,
         16,
         11,
         12,
         24,
-        13,
-        10,
+        15,
+        16,
         32,
         17,
         18,
-        19,
-        5,
-        19,
-        18,
-        10,
-        10,
-        18,
-        7,
-        7,
-        21,
-        16,
-        8,
-        37,
-        11,
-        20,
-        13,
-        24,
-        13,
+        22,
         6,
         17,
+        19,
+        19,
+        12,
+        6,
+        21,
         7,
+        18,
+        16,
         16,
         12,
+        24,
+        14,
+        24,
+        19,
+        29,
+        17,
+        22,
+        7,
+        16,
+        7,
         18,
         19,
         12,
-        164,
+        159,
         19,
         6,
         16,
@@ -312,152 +312,144 @@
         26,
         15,
         18,
-        9,
-        17,
+        10,
+        20,
         5,
         12,
         11,
         25,
         14,
-        17,
-        11,
-        22,
-        12,
-        20,
-        10,
+        34,
+        38,
+        43,
+        44,
+        30,
         24,
-        13,
-        22,
-        10,
-        33,
-        17,
-        20,
+        39,
         10,
         22,
         18,
         18,
         13,
-        7,
+        13,
         10,
         12,
         5,
+        14,
         13,
-        12,
         18,
         15,
         9,
-        5,
+        15,
         11,
         9,
         24,
-        16,
-        8,
-        9,
+        17,
+        20,
         18,
-        10,
-        16
+        7
       ]
     },
     "top_ai_sentences": [
       [
-        "No pod\u00e9s garantizar que un mensaje haya sido procesado exactamente una vez sin una \u00fanica fuente de verdad.",
+        "No pod\u00e9s garantizar que\nun mensaje haya sido procesado exactamente una vez sin una \u00fanica fuente de verdad.",
         0.9852
       ],
       [
-        "Ese es el da\u00f1o que previene la idempotencia en mensajes.",
+        "Yo las mantengo m\u00e1s que la ventana m\u00e1xima de redelivery que espero ver.",
+        0.9808
+      ],
+      [
+        "Ese es el da\u00f1o que previene la idempotencia en\nmensajes.",
         0.9696
       ],
       [
-        "Es una decisi\u00f3n de dise\u00f1o en tu consumer.",
-        0.8939
+        "En la pr\u00e1ctica encontr\u00e9 tres caminos.",
+        0.8682
       ],
       [
-        "Tu consumer todav\u00eda necesita su propio store de dedup.",
+        "UPDATE inventory SET quantity = 10 WHERE id = 1 fija un valor absoluto en lugar de decrementarlo, y\nINSERT ...",
+        0.8597
+      ],
+      [
+        "Tu consumer todav\u00eda\nnecesita su propio store de dedup.",
         0.8277
-      ],
-      [
-        "Hay tres caminos para lograrlo.",
-        0.7861
-      ],
-      [
-        "[Kafka idempotent producer documentation](https://kafka.apache.org/documentation/#producerconfigs_enable.idempotence)\n[Redis SET command](https://redis.io/commands/set/)\n[PostgreSQ",
-        0.7853
-      ],
-      [
-        "M\u00e1s que tu ventana m\u00e1xima de redelivery.",
-        0.7763
-      ],
-      [
-        "Es la opci\u00f3n m\u00e1s barata cuando aplica.",
-        0.7736
       ],
       [
         "Aplic\u00e1 TTL al store de deduplicaci\u00f3n.",
         0.7572
       ],
       [
-        "**Deduplicaci\u00f3n con un store externo.** Verific\u00e1 una clave en Redis o base de datos antes de hacer el trabajo.",
-        0.743
+        "Es una\ndecisi\u00f3n que tom\u00e1s dentro del consumer.",
+        0.7376
       ],
       [
         "El duplicado no era un bug en la l\u00f3gica de negocio.",
         0.7357
       ],
       [
-        "Cuando la base de datos ya es la fuente de verdad, guardar el registro de deduplicaci\u00f3n en la misma transacci\u00f3n que el side effect es la opci\u00f3n m\u00e1s segura.",
+        "Cuando la base de datos ya es la fuente de verdad, guardar el registro de deduplicaci\u00f3n en la misma transacci\u00f3n que el\nside effect es la opci\u00f3n m\u00e1s segura.",
         0.6751
+      ],
+      [
+        "Yo inserto el ID del mensaje y la actualizaci\u00f3n de negocio dentro de una\ntransacci\u00f3n.",
+        0.6549
       ],
       [
         "El consumer solo fija un valor, como status = shipped.",
         0.6464
       ],
       [
-        "El consumer tiene que elegir.",
-        0.6447
+        "No es una feature que el broker tenga.",
+        0.6299
       ],
       [
-        "UPDATE inventory SET quantity = 10 WHERE id = 1 fija un valor absoluto en lugar de decrementarlo.",
-        0.6349
+        "Busco algo estable y \u00fanico.",
+        0.6285
       ],
       [
-        "Verific\u00e1 lo mismo en tu propio c\u00f3digo, y corr\u00e9 los mismos chequeos en un job de reconciliaci\u00f3n.",
-        0.6342
+        "El store de deduplicaci\u00f3n agrega latencia, costo y un nuevo punto de falla, as\u00ed que el compromiso es real.",
+        0.6235
       ],
       [
-        "No es una feature del broker.",
-        0.6266
-      ],
-      [
-        "SQS FIFO tiene una ventana de deduplicaci\u00f3n de cinco minutos.",
-        0.6116
-      ],
-      [
-        "La clave tiene que ser \u00fanica y estable.",
-        0.603
-      ],
-      [
-        "El consumer inserta el ID del mensaje y la actualizaci\u00f3n de negocio dentro de una transacci\u00f3n.",
-        0.5938
-      ],
-      [
-        "Es el patr\u00f3n m\u00e1s com\u00fan y funciona con cualquier broker.",
-        0.5922
+        "Verifico lo mismo en el c\u00f3digo del consumer y vuelvo a correr\n  los mismos chequeos en un job de reconciliaci\u00f3n.",
+        0.6028
       ],
       [
         "ON CONFLICT DO NOTHING simplemente salta duplicados.",
         0.5897
       ],
       [
+        "El consumer tiene que elegir una de esas dos opciones, y ambas tienen un costo.",
+        0.589
+      ],
+      [
         "Eso ya es idempotente por s\u00ed solo.",
         0.5831
       ],
       [
-        "El store de deduplicaci\u00f3n agrega latencia, costo y un nuevo punto de falla.",
-        0.5657
+        "Internos: [Event-Driven Microservices](/recipes/event-driven-microservices/) y\n  [Dead Letter Queue](/recipes/dead-letter-queue/).",
+        0.5756
       ],
       [
-        "La \u00fanica protecci\u00f3n es la clave de deduplicaci\u00f3n guardada fuera del consumer.",
-        0.5552
+        "Ning\u00fan broker puede darte exactly-once entre particiones.",
+        0.5723
+      ],
+      [
+        "La \u00fanica protecci\u00f3n es una clave de deduplicaci\u00f3n guardada\nfuera del consumer.",
+        0.558
+      ],
+      [
+        "Me aseguro de que la clave de deduplicaci\u00f3n sea \u00fanica y estable.",
+        0.5576
+      ],
+      [
+        "El cliente de Redis puede setear una clave solo si no existe y darle expiraci\u00f3n en una sola llamada.",
+        0.5374
+      ],
+      [
+        "El store\nnecesita un TTL; yo mantengo las claves entre 24 y 72 horas, m\u00e1s que la ventana de redelivery del broker.",
+        0.5263
       ]
     ],
     "diagnostics_sample": []
