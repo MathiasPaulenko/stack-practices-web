@@ -15782,7 +15782,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/grpc-services-typescript/</loc>
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/grpc-services-typescript/" />
@@ -24758,6 +24758,21 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/prompt-engineering/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/prompt-engineering/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/prompt-engineering/" />
+    <image:image>
+      <image:loc>https://stackpractices.com/kofi3.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://stackpractices.com/og-image.png</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/tags/protobuf/</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/protobuf/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/protobuf/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/protobuf/" />
     <image:image>
       <image:loc>https://stackpractices.com/kofi3.png</image:loc>
     </image:image>
@@ -36782,7 +36797,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/grpc-services-typescript/</loc>
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/grpc-services-typescript/" />
@@ -45758,6 +45773,21 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/prompt-engineering/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/prompt-engineering/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/prompt-engineering/" />
+    <image:image>
+      <image:loc>https://stackpractices.com/kofi3.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://stackpractices.com/og-image.png</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/protobuf/</loc>
+    <lastmod>2026-08-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/protobuf/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/protobuf/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/protobuf/" />
     <image:image>
       <image:loc>https://stackpractices.com/kofi3.png</image:loc>
     </image:image>

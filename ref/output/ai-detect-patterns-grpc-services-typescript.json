@@ -1,0 +1,31 @@
+[
+  {
+    "label": "grpc-services-typescript",
+    "total_sentences": 90,
+    "pattern_totals": {
+      "missing_contraction": 2
+    },
+    "findings": [
+      {
+        "sentence": "**Bidirectional streaming** opens one stream where the client and the server can both write and read whenever they have data.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "they have",
+            "suggestion": "use 'they've'"
+          }
+        ]
+      },
+      {
+        "sentence": "I used to create a fresh client for every request and could not figure out why latency was high until I saw that it kills HTTP/2 connection reuse and adds setup time.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "could not",
+            "suggestion": "use 'couldn't'"
+          }
+        ]
+      }
+    ]
+  }
+]

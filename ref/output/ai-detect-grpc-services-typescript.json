@@ -1,0 +1,422 @@
+[
+  {
+    "label": "grpc-services-typescript-en",
+    "model": "desklib",
+    "model_ai_pct": 39.8,
+    "ai_count": 23,
+    "human_count": 64,
+    "skipped_count": 2,
+    "total": 89,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 17.5,
+      "stddev": 12.9,
+      "cv": 0.74,
+      "verdict": "natural variation",
+      "sentence_count": 87,
+      "lengths": [
+        10,
+        22,
+        23,
+        14,
+        39,
+        18,
+        22,
+        11,
+        16,
+        16,
+        15,
+        16,
+        27,
+        11,
+        8,
+        26,
+        23,
+        19,
+        28,
+        17,
+        14,
+        23,
+        21,
+        12,
+        18,
+        16,
+        8,
+        25,
+        16,
+        14,
+        12,
+        10,
+        17,
+        16,
+        16,
+        20,
+        18,
+        24,
+        22,
+        17,
+        6,
+        15,
+        21,
+        27,
+        122,
+        11,
+        7,
+        13,
+        20,
+        12,
+        15,
+        13,
+        31,
+        14,
+        13,
+        13,
+        10,
+        20,
+        6,
+        13,
+        8,
+        17,
+        5,
+        12,
+        15,
+        18,
+        9,
+        29,
+        11,
+        14,
+        9,
+        15,
+        10,
+        16,
+        10,
+        15,
+        11,
+        12,
+        14,
+        18,
+        12,
+        14,
+        12,
+        21,
+        16,
+        25,
+        30
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Spinning up a brand-new client for each request.",
+        0.7823
+      ],
+      [
+        "| Call type | Use case | Key API | Overhead |\n| --- | --- | --- | --- |\n| Unary | Single request/response | client.getUser(req, callback) | One HTTP/2 stream |\n| Server streaming |",
+        0.7368
+      ],
+      [
+        "**Unary calls** send one request and wait for one response, just like a normal REST call.",
+        0.6753
+      ],
+      [
+        "I reach for gRPC once my services start moving high-volume traffic between internal [microservices](/patterns/ambassador-pattern-services/), because that's where the binary payload",
+        0.6608
+      ],
+      [
+        "Get or generate certificates for the server and the CA, then use grpc.ServerCredentials.createSsl on the server and grpc.credentials.createSsl on the client.",
+        0.6491
+      ],
+      [
+        "**Bidirectional streaming** opens one stream where the client and the server can both write and read whenever they've got data.",
+        0.6409
+      ],
+      [
+        "They map cleanly to a request/response API, so they're the easiest place to start.",
+        0.5853
+      ],
+      [
+        "When I need a new field, I grab the next free number in the message.",
+        0.5765
+      ],
+      [
+        "I have seen a dropped connection crash the process because I forgot to handle those events, or slowly leak memory.",
+        0.5731
+      ],
+      [
+        "**Health checks** through the gRPC Health Checking Protocol give Kubernetes, load balancers and mesh sidecars a standard endpoint without leaking business logic.",
+        0.562
+      ],
+      [
+        "**Server streaming** starts with one request; the server then keeps sending messages.",
+        0.5539
+      ],
+      [
+        "I keep it in its own file so the probe can run without dragging in the business client.",
+        0.5493
+      ],
+      [
+        "In production, I get certificates from an internal CA or a managed service I trust, then I don't have to think about self-signed certs again.",
+        0.5467
+      ],
+      [
+        "Set an absolute deadline on the client: client.getUser(req, { deadline: Date.now() + 5000 }, callback).",
+        0.5464
+      ],
+      [
+        "**Client streaming** sends many messages from the client; the server responds once after the stream ends.",
+        0.5384
+      ],
+      [
+        "I read until the server closes the stream with end().",
+        0.5369
+      ],
+      [
+        "Only call createInsecure() on my own laptop; never in a cluster.",
+        0.5364
+      ],
+      [
+        "Set an absolute deadline on every call.",
+        0.5362
+      ],
+      [
+        "I use this for logs and event feeds where I want to read at my own pace.",
+        0.5336
+      ],
+      [
+        "Once a field number is in use, leave it alone.",
+        0.5258
+      ],
+      [
+        "I need human-readable payloads for debugging or sharing with third parties.",
+        0.5097
+      ],
+      [
+        "For local testing, a self-signed certificate is plenty; it saves me from provisioning a real CA.",
+        0.507
+      ],
+      [
+        "In production, I get certificates from an internal CA or a managed service I trust, then I never have to think about self-signed certs again.",
+        0.5061
+      ],
+      [
+        "It works well for chat, real-time games or event pipelines where both sides need a persistent half-duplex channel.",
+        0.4956
+      ],
+      [
+        "Changing a field number or type in a .proto file after it's shipped.",
+        0.4955
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "grpc-services-typescript-es",
+    "model": "desklib",
+    "model_ai_pct": 38.1,
+    "ai_count": 24,
+    "human_count": 65,
+    "skipped_count": 2,
+    "total": 91,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 16.5,
+      "stddev": 13.6,
+      "cv": 0.82,
+      "verdict": "natural variation",
+      "sentence_count": 89,
+      "lengths": [
+        15,
+        21,
+        24,
+        15,
+        43,
+        19,
+        10,
+        11,
+        15,
+        16,
+        16,
+        17,
+        11,
+        9,
+        9,
+        10,
+        29,
+        27,
+        18,
+        14,
+        18,
+        16,
+        24,
+        22,
+        18,
+        14,
+        7,
+        7,
+        13,
+        10,
+        16,
+        12,
+        12,
+        17,
+        18,
+        17,
+        14,
+        21,
+        26,
+        28,
+        11,
+        11,
+        16,
+        20,
+        12,
+        16,
+        130,
+        6,
+        7,
+        15,
+        21,
+        11,
+        16,
+        14,
+        16,
+        16,
+        13,
+        16,
+        10,
+        10,
+        7,
+        19,
+        6,
+        20,
+        6,
+        15,
+        10,
+        19,
+        11,
+        11,
+        15,
+        11,
+        14,
+        11,
+        15,
+        10,
+        13,
+        12,
+        8,
+        15,
+        11,
+        14,
+        16,
+        13,
+        14,
+        12,
+        21,
+        18,
+        36
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "El **server streaming** empieza con un request; el servidor sigue enviando mensajes.",
+        0.9429
+      ],
+      [
+        "Crear un cliente nuevo por request.",
+        0.9372
+      ],
+      [
+        "Lo mantengo en su propio archivo para poder correrlo sin el cliente de negocio.",
+        0.9337
+      ],
+      [
+        "El **client streaming** env\u00eda muchos mensajes desde el cliente; el servidor responde una vez que termina el stream.",
+        0.8862
+      ],
+      [
+        "Sete\u00e1 un deadline absoluto en cada llamada.",
+        0.7498
+      ],
+      [
+        "El paquete grpc-health-check agrega el servicio grpc.health.v1.Health a un servidor Node.js.",
+        0.7308
+      ],
+      [
+        "Reus\u00e1 el mismo cliente as\u00ed HTTP/2 lleva varias llamadas a la vez y el costo de setup se mantiene bajo.",
+        0.7293
+      ],
+      [
+        "Cada tipo de llamada se ajusta a una forma distinta de trabajo.",
+        0.6915
+      ],
+      [
+        "Un cliente de health check separado es lo que usan los load balancers y los probes de Kubernetes.",
+        0.6833
+      ],
+      [
+        "Agreg\u00e1 nuevos campos con el pr\u00f3ximo n\u00famero disponible.",
+        0.6652
+      ],
+      [
+        "JSON sobre HTTP sigue siendo el default m\u00e1s seguro ah\u00ed.",
+        0.6379
+      ],
+      [
+        "Para verificaciones manuales, grpcurl es la forma m\u00e1s r\u00e1pida de enviar un request.",
+        0.6345
+      ],
+      [
+        "createInsecure() es solo para desarrollo local.",
+        0.6336
+      ],
+      [
+        "Quiero contratos fuertemente tipados y no quiero mantener stubs de cliente y servidor a mano.",
+        0.6212
+      ],
+      [
+        "Las **llamadas unarias** env\u00edan un request y esperan un response.",
+        0.6189
+      ],
+      [
+        "REST con JSON es f\u00e1cil de debuggear, pero cada request paga un payload de texto, un parser y un handshake HTTP/1.1.",
+        0.6152
+      ],
+      [
+        "Devolver excepciones planas desde los handlers.",
+        0.6098
+      ],
+      [
+        "La API es p\u00fablica y debe ser llamada directamente desde navegadores.",
+        0.6073
+      ],
+      [
+        "Necesito payloads legibles para debuggear o compartir con terceros.",
+        0.5691
+      ],
+      [
+        "Los navegadores no pueden leer los trailers de HTTP/2 de gRPC.",
+        0.5447
+      ],
+      [
+        "En producci\u00f3n, us\u00e1 certificados emitidos por una CA interna o un servicio administrado.",
+        0.532
+      ],
+      [
+        "Propagalo a trav\u00e9s de metadata as\u00ed los servicios downstream no pierden tiempo con trabajo expirado.",
+        0.5198
+      ],
+      [
+        "Tambi\u00e9n agrego la variante operativa principal: si la conexi\u00f3n est\u00e1 protegida con TLS o es insegura.",
+        0.5123
+      ],
+      [
+        "Llamar a gRPC directamente desde un navegador.",
+        0.5072
+      ],
+      [
+        "Propagalo a trav\u00e9s de metadata y controlalo en el servidor.",
+        0.4973
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

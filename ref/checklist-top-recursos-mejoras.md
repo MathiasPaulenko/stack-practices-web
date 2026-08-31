@@ -52,7 +52,9 @@
     ~2150/2165 palabras, AI EN 39.5% / ES 37.4%, 0 patrones; Mermaid + companion;
     alt text Mermaid corregido; enlaces internos balanceados EN/ES; build 3.258 OK;
     typo ES corregido y rebuild)
-30. - [ ] **grpc-services-typescript** (recipes)
+30. - [ ] **grpc-services-typescript** (recipes) — 60/100 FIX-THEN-PROMOTE (body prosa
+    ~843/750 palabras, AI EN 47.0% / ES 39.9%, 0 patrones; sin health-check code, sin
+    diagrama Mermaid, sin companion; build 3.258 OK; requiere expansión + humanización)
 31. - [ ] **pre-commit-hooks** (recipes)
 32. - [ ] **message-idempotency** (recipes)
 33. - [ ] **vertical-slice-architecture-guide** (guides)
