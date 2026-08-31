@@ -2,176 +2,225 @@
   {
     "label": "message-idempotency-en",
     "model": "desklib",
-    "model_ai_pct": 47.6,
-    "ai_count": 23,
-    "human_count": 32,
-    "skipped_count": 5,
-    "total": 60,
+    "model_ai_pct": 42.3,
+    "ai_count": 30,
+    "human_count": 74,
+    "skipped_count": 13,
+    "total": 117,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 11.9,
-      "stddev": 12.5,
-      "cv": 1.05,
+      "mean": 17.8,
+      "stddev": 14.6,
+      "cv": 0.82,
       "verdict": "natural variation",
-      "sentence_count": 55,
+      "sentence_count": 104,
       "lengths": [
-        6,
-        9,
-        18,
-        12,
-        6,
-        8,
-        7,
+        23,
         10,
-        12,
-        6,
-        9,
-        11,
-        17,
-        7,
-        15,
-        10,
-        11,
         20,
+        10,
+        7,
+        11,
+        18,
+        7,
+        11,
+        42,
+        14,
+        19,
+        13,
+        16,
+        16,
+        24,
+        12,
+        6,
+        15,
+        24,
+        15,
+        20,
+        20,
+        19,
+        25,
+        12,
+        16,
+        11,
+        11,
+        19,
+        16,
+        13,
+        25,
+        13,
+        19,
+        21,
+        8,
+        15,
+        18,
+        22,
+        15,
+        21,
+        7,
+        20,
+        18,
+        14,
+        11,
+        25,
+        16,
+        21,
+        17,
+        29,
+        15,
+        21,
         7,
         15,
-        8,
-        11,
-        12,
-        10,
-        100,
-        10,
-        13,
-        6,
-        10,
+        7,
+        15,
         17,
-        8,
-        8,
+        11,
+        147,
+        17,
+        15,
+        10,
+        11,
+        22,
+        11,
+        16,
+        9,
+        15,
         5,
         8,
-        6,
-        6,
         9,
-        9,
-        13,
-        11,
-        10,
+        23,
+        14,
+        32,
+        29,
+        37,
+        39,
+        27,
+        21,
+        32,
         8,
         17,
-        8,
         14,
-        11,
-        6,
+        30,
+        15,
+        14,
         10,
         14,
-        7,
-        13,
-        7,
-        8,
-        9,
-        15
+        6,
+        15,
+        14,
+        12,
+        12,
+        17,
+        15,
+        11,
+        11,
+        24,
+        16,
+        23,
+        16,
+        7
       ]
     },
     "top_ai_sentences": [
       [
-        "There are three ways to get there.",
-        0.979
+        "In practice I have found three different approaches.",
+        0.9822
       ],
       [
-        "This recipe shows how to do it with Redis, PostgreSQL and\nKafka.",
-        0.924
+        "UPDATE inventory SET quantity = 10 WHERE id = 1 sets an absolute value instead of decrementing it, and INSERT ...",
+        0.9404
       ],
       [
-        "UPDATE inventory SET quantity = 10 WHERE id = 1 sets a value instead of\n   decrementing it, and INSERT ...",
-        0.9099
+        "The consumer has to pick one of those two options, and both have a cost.",
+        0.8825
       ],
       [
-        "Verify the same thing\n  in your own code.",
-        0.8844
+        "Internal: [Event-Driven Microservices](/recipes/event-driven-microservices/) and [Dead Letter Queue](/recipes/dead-letter-queue/).",
+        0.7914
       ],
       [
-        "Using non-unique fields, such as timestamps, as idempotency keys.",
-        0.8549
+        "It isn't a feature the broker has.",
+        0.7776
       ],
       [
-        "Kafka's idempotent producer comes close, but only within a single\npartition.",
-        0.7176
+        "It won't remove duplicates caused by your application sending the same event twice, and it doesn't work across partitions.",
+        0.7415
       ],
       [
-        "orderId is easier to understand than a\n  random message UUID.",
-        0.6877
+        "Feel free to copy the snippets below and adapt them to whichever stack you're running.",
+        0.7249
       ],
       [
-        "Use a business key whenever possible.",
-        0.6867
+        "I want something stable and unique.",
+        0.7214
       ],
       [
-        "The key has to be **unique and stable**.",
-        0.6568
+        "I try to use this one whenever I can because it avoids an extra round-trip and is the cheapest option.",
+        0.7184
       ],
       [
-        "**Deduplication with an external store.** Look up a Redis or database key\n   before doing work.",
-        0.6251
+        "The duplicate had nothing to do with the business logic.",
+        0.6869
       ],
       [
-        "**Broker-level idempotency.** Kafka's idempotent producer deduplicates retries\n   per partition, so the application needs fewer checks.",
-        0.6235
+        "That's the kind of problem idempotency is designed to stop.",
+        0.686
       ],
       [
-        "Don't assume the broker gives you exactly-once delivery.",
-        0.6165
+        "I keep coming back to this pattern in production; it works with Kafka, RabbitMQ, SQS or any other broker I have tried.",
+        0.6518
       ],
       [
-        "Longer than your maximum redelivery window.",
-        0.6139
+        "With Java's Kafka consumer, the code decides exactly when the offset gets committed.",
+        0.6386
       ],
       [
-        "Store the message ID and the result.",
-        0.5817
+        "If the consumer rejects the message, the broker will retry it.",
+        0.6295
       ],
       [
-        "**Natural idempotency.** Design the operation itself to be safe when repeated.",
-        0.5702
+        "If the consumer dies in the middle, the next consumer can pick the message up again.",
+        0.6014
       ],
       [
-        "If the message already has a business key like\norderId or paymentId, use it.",
-        0.565
+        "In some cases the operation can be written so that repeating it does no harm.",
+        0.6004
+      ],
+      [
+        "If you commit the offset before storing the result, a duplicate can still run.",
+        0.5656
+      ],
+      [
+        "I insert the message ID and the business update inside one transaction.",
+        0.5614
+      ],
+      [
+        "I prefer to reject and let the retry loop handle it, because a duplicate charge is usually worse than a few minutes of delay.",
+        0.5601
+      ],
+      [
+        "When the message already has a stored result, I return it instead of calling the side effect again.",
+        0.5594
       ],
       [
         "The consumer just sets a fixed value, such as status = shipped.",
         0.5515
       ],
       [
-        "Your broker only guarantees at-least-once delivery.",
-        0.5482
+        "If you store the result but fail to commit the offset, the consumer will reprocess the message and find the key already present.",
+        0.5478
       ],
       [
-        "A hash of the message content, though collisions are possible.",
-        0.538
+        "I put both the message ID and the result in the same record, so every service checks the same key before it acts.",
+        0.5426
       ],
       [
-        "Every service checks the\nsame key before acting.",
-        0.5299
+        "No broker can give you cross-partition exactly-once.",
+        0.5256
       ],
       [
-        "A key set without a result means the message\n  crashed mid-flight; delete it or reprocess it carefully.",
-        0.5254
-      ],
-      [
-        "Use a centralized deduplication store, like Redis or DynamoDB, that every\nconsumer checks.",
-        0.5168
-      ],
-      [
-        "Your broker already gives you exactly-once semantics for your use case.",
-        0.5094
-      ],
-      [
-        "Store the result so duplicates can return the same answer.",
-        0.4577
-      ],
-      [
-        "A duplicate charge, shipment or email would do real damage.",
-        0.4454
+        "If Redis goes down, the consumer has to decide: reject the message and wait for the broker to retry, or process it and accept the risk of a duplicate.",
+        0.5219
       ]
     ],
     "diagnostics_sample": []
@@ -179,178 +228,236 @@
   {
     "label": "message-idempotency-es",
     "model": "desklib",
-    "model_ai_pct": 41.4,
-    "ai_count": 17,
-    "human_count": 40,
-    "skipped_count": 4,
-    "total": 61,
+    "model_ai_pct": 37.3,
+    "ai_count": 29,
+    "human_count": 86,
+    "skipped_count": 9,
+    "total": 124,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 12.5,
-      "stddev": 13.7,
-      "cv": 1.09,
+      "mean": 16.6,
+      "stddev": 15.4,
+      "cv": 0.93,
       "verdict": "natural variation",
-      "sentence_count": 57,
+      "sentence_count": 115,
       "lengths": [
+        28,
+        11,
+        17,
+        10,
         9,
-        14,
+        18,
         21,
-        10,
         6,
-        9,
-        9,
-        10,
+        8,
+        12,
+        41,
+        13,
+        24,
+        14,
+        18,
+        18,
+        24,
         10,
         7,
+        14,
+        24,
         8,
-        11,
+        20,
+        19,
         16,
+        29,
+        16,
+        16,
+        11,
+        12,
+        24,
+        13,
+        10,
+        32,
+        17,
+        18,
+        19,
         5,
         19,
-        11,
+        18,
         10,
-        20,
+        10,
+        18,
         7,
-        22,
+        7,
+        21,
+        16,
         8,
+        37,
         11,
-        13,
-        11,
-        110,
-        10,
-        6,
-        13,
-        5,
-        10,
         20,
-        10,
-        5,
-        12,
-        8,
-        6,
-        9,
-        8,
-        14,
         13,
-        11,
-        10,
+        24,
+        13,
+        6,
+        17,
+        7,
+        16,
+        12,
+        18,
         19,
-        9,
-        10,
         12,
-        7,
-        10,
+        164,
+        19,
+        6,
+        16,
+        12,
         5,
-        14,
-        7,
+        26,
         15,
+        18,
+        9,
+        17,
+        5,
+        12,
+        11,
+        25,
+        14,
+        17,
+        11,
+        22,
+        12,
+        20,
+        10,
+        24,
+        13,
+        22,
+        10,
+        33,
+        17,
+        20,
+        10,
+        22,
+        18,
+        18,
+        13,
+        7,
+        10,
+        12,
+        5,
+        13,
+        12,
+        18,
+        15,
+        9,
+        5,
+        11,
+        9,
+        24,
+        16,
         8,
         9,
-        12,
-        9,
-        11
+        18,
+        10,
+        16
       ]
     },
     "top_ai_sentences": [
       [
-        "Los de base de\ndatos tardan unos pocos milisegundos.",
-        0.9682
+        "No pod\u00e9s garantizar que un mensaje haya sido procesado exactamente una vez sin una \u00fanica fuente de verdad.",
+        0.9852
       ],
       [
-        "Usar campos no \u00fanicos, como timestamps, de idempotency keys.",
-        0.8578
+        "Ese es el da\u00f1o que previene la idempotencia en mensajes.",
+        0.9696
       ],
       [
-        "Esta receta muestra\nc\u00f3mo hacerlo con Redis, PostgreSQL y Kafka.",
-        0.789
+        "Es una decisi\u00f3n de dise\u00f1o en tu consumer.",
+        0.8939
+      ],
+      [
+        "Tu consumer todav\u00eda necesita su propio store de dedup.",
+        0.8277
       ],
       [
         "Hay tres caminos para lograrlo.",
         0.7861
       ],
       [
+        "[Kafka idempotent producer documentation](https://kafka.apache.org/documentation/#producerconfigs_enable.idempotence)\n[Redis SET command](https://redis.io/commands/set/)\n[PostgreSQ",
+        0.7853
+      ],
+      [
         "M\u00e1s que tu ventana m\u00e1xima de redelivery.",
         0.7763
+      ],
+      [
+        "Es la opci\u00f3n m\u00e1s barata cuando aplica.",
+        0.7736
       ],
       [
         "Aplic\u00e1 TTL al store de deduplicaci\u00f3n.",
         0.7572
       ],
       [
-        "UPDATE inventory SET quantity = 10 WHERE id = 1 fija un valor en lugar de\n   decrementarlo, y INSERT ...",
-        0.749
-      ],
-      [
-        "**Deduplicaci\u00f3n con un store externo.** Verific\u00e1 una clave en Redis o base de\n   datos antes de hacer el trabajo.",
+        "**Deduplicaci\u00f3n con un store externo.** Verific\u00e1 una clave en Redis o base de datos antes de hacer el trabajo.",
         0.743
       ],
       [
-        "Llamar side effects no idempotentes, como enviar un email, dentro del camino de\n  procesamiento.",
-        0.6756
+        "El duplicado no era un bug en la l\u00f3gica de negocio.",
+        0.7357
       ],
       [
-        "El producer\nidempotente de Kafka se acerca dentro de una sola partici\u00f3n.",
-        0.6613
+        "Cuando la base de datos ya es la fuente de verdad, guardar el registro de deduplicaci\u00f3n en la misma transacci\u00f3n que el side effect es la opci\u00f3n m\u00e1s segura.",
+        0.6751
       ],
       [
         "El consumer solo fija un valor, como status = shipped.",
         0.6464
       ],
       [
-        "ON CONFLICT DO NOTHING simplemente salta\n   duplicados.",
+        "El consumer tiene que elegir.",
+        0.6447
+      ],
+      [
+        "UPDATE inventory SET quantity = 10 WHERE id = 1 fija un valor absoluto en lugar de decrementarlo.",
+        0.6349
+      ],
+      [
+        "Verific\u00e1 lo mismo en tu propio c\u00f3digo, y corr\u00e9 los mismos chequeos en un job de reconciliaci\u00f3n.",
+        0.6342
+      ],
+      [
+        "No es una feature del broker.",
+        0.6266
+      ],
+      [
+        "SQS FIFO tiene una ventana de deduplicaci\u00f3n de cinco minutos.",
+        0.6116
+      ],
+      [
+        "La clave tiene que ser \u00fanica y estable.",
+        0.603
+      ],
+      [
+        "El consumer inserta el ID del mensaje y la actualizaci\u00f3n de negocio dentro de una transacci\u00f3n.",
+        0.5938
+      ],
+      [
+        "Es el patr\u00f3n m\u00e1s com\u00fan y funciona con cualquier broker.",
+        0.5922
+      ],
+      [
+        "ON CONFLICT DO NOTHING simplemente salta duplicados.",
         0.5897
       ],
       [
-        "Eso ya es idempotente\n  por s\u00ed solo.",
+        "Eso ya es idempotente por s\u00ed solo.",
         0.5831
       ],
       [
-        "**Idempotencia a nivel de broker.** El producer idempotente de Kafka\n   deduplica reintentos por partici\u00f3n, reduciendo la necesidad de chequeos en la\n   aplicaci\u00f3n.",
-        0.5406
+        "El store de deduplicaci\u00f3n agrega latencia, costo y un nuevo punto de falla.",
+        0.5657
       ],
       [
-        "La clave tiene que ser **\u00fanica y estable**.",
-        0.5323
-      ],
-      [
-        "Permitir retries antes de que el lock de deduplicaci\u00f3n se libere.",
-        0.5074
-      ],
-      [
-        "La deduplicaci\u00f3n evita que un mensaje se procese dos veces.",
-        0.5029
-      ],
-      [
-        "Lo que\ns\u00ed pod\u00e9s construir es **exactly-once processing** con idempotencia.",
-        0.4997
-      ],
-      [
-        "**Idempotencia natural.** Dise\u00f1\u00e1 la operaci\u00f3n para que sea segura repetirla.",
-        0.4701
-      ],
-      [
-        "Prefer\u00ed una business key como orderId o\npaymentId si ya est\u00e1 en el mensaje.",
-        0.4586
-      ],
-      [
-        "Guardar las claves de deduplicaci\u00f3n solo en memoria.",
-        0.4579
-      ],
-      [
-        "Un identificador estable y \u00fanico.",
-        0.4466
-      ],
-      [
-        "Un cobro, env\u00edo o email duplicado causar\u00eda un da\u00f1o real.",
-        0.4346
-      ],
-      [
-        "Cada servicio\nverifica la misma clave antes de actuar.",
-        0.4277
-      ],
-      [
-        "Corr\u00e9 los mismos chequeos en c\u00f3digo que esper\u00e1s del broker.",
-        0.4244
+        "La \u00fanica protecci\u00f3n es la clave de deduplicaci\u00f3n guardada fuera del consumer.",
+        0.5552
       ]
     ],
     "diagnostics_sample": []
