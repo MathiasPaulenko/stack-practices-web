@@ -17,11 +17,11 @@ tags:
 relatedResources:
   - /recipes/full-text-search
   - /recipes/mongodb-crud-mongoose
-  - /recipes/metrics-collection
-  - /recipes/pagination
+  - /recipes/database-views-materialized
+  - /recipes/cursor-pagination-postgresql
   - /guides/complete-guide-elasticsearch-cluster-setup
   - /guides/full-text-search-guide
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-30"
 publishedAt: "2026-06-18"
 author: Mathias Paulenko
 seo:
@@ -46,12 +46,27 @@ en grupos con agregaciones de métrica que calculan valores dentro de cada grupo
 Anidarlas te permite construir series temporales, percentiles y resúmenes
 facetados sin tener que enviar datos a un job por lotes aparte.
 
+He usado este patrón en catálogos de productos donde la misma petición devuelve
+los productos coincidentes y los conteos de facetas por categoría, marca y rango
+de precio. Sin agregaciones, necesitarías una segunda
+consulta o un job por lotes, y las facetas quedarían obsoletas para cuando
+lleguen a la UI.
+
+La mayoría de los ejemplos apuntan a Elasticsearch 8.x. También funcionan en
+7.10+, pero `date_histogram` cambió de `interval` a `calendar_interval` entre
+versiones mayores. La documentación oficial mantiene
+una referencia completa de agregaciones en
+[Elasticsearch Aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html).
+
+El request cache y los global ordinals precargados pueden acelerar aún más las
+agregaciones, pero solo ayudan cuando la consulta misma está bien estructurada.
+Cubierto ambos en Mejores Prácticas.
+
 ## Cuándo Usar
 
 - Estás armando búsqueda facetada con filtros de conteo a nivel de categoría. La
   parte de consultas está en [Full-Text Search](/recipes/full-text-search/).
-- Tus dashboards de analítica en tiempo real necesitan agregaciones en menos de
-  un segundo sobre grandes conjuntos de documentos.
+- Tus dashboards en tiempo real necesitan números en menos de un segundo sobre grandes conjuntos de documentos.
 - Querés agrupar series temporales y anidar estadísticas como suma, promedio o
   percentiles.
 - Necesitás conteos únicos, los documentos más relevantes por bucket o métricas
@@ -59,7 +74,7 @@ facetados sin tener que enviar datos a un job por lotes aparte.
 
 ### Cuándo evitar
 
-- Tu consulta se parece a un join multi-tabla de SQL entre distintos índices.
+- Tu consulta parece un join multi-tabla de SQL entre distintos índices.
 - El campo que querés agregar no está indexado o es un campo `text` tokenizado
   sin un subcampo `.keyword`.
 - Necesitás conteos exactos sobre campos de cardinalidad muy alta; preferí
@@ -334,6 +349,34 @@ GET /orders/_search
 }
 ```
 
+### Mapping para agregación por keyword
+
+```json
+PUT /products
+{
+  "mappings": {
+    "properties": {
+      "category": {
+        "type": "text",
+        "fields": {
+          "keyword": { "type": "keyword" }
+        }
+      },
+      "brand": {
+        "type": "text",
+        "fields": {
+          "keyword": { "type": "keyword" }
+        }
+      }
+    }
+  }
+}
+```
+
+Este mapping es el que hace funcionar los ejemplos con subcampo `.keyword`.
+Elasticsearch analiza el campo `text` para búsqueda, pero almacena el hermano
+`keyword` como un solo token para agrupar y ordenar.
+
 ## Explicación
 
 Las agregaciones de bucket dividen documentos en grupos. `terms` y `range` son
@@ -342,38 +385,72 @@ agregaciones de bucket; `date_histogram` divide por tiempo. Las métricas como
 
 Anidar agregaciones te permite responder preguntas de varios niveles: ingresos
 mensuales por categoría, precio promedio por rango de precio, o percentiles de
-latencia por región. Con `size: 0` le decís a Elasticsearch que ignore los hits
-de búsqueda y devuelva solo los resultados de las agregaciones, lo que es mucho
-más rápido cuando no necesitás los documentos individuales.
+latencia por región. Con `size: 0` le decís a Elasticsearch que ignore los hits de búsqueda y
+devuelva solo los resultados de las agregaciones, lo que es más rápido cuando no
+necesitás los documentos individuales.
+
+```mermaid
+flowchart LR
+    A[Petición de búsqueda] --> B[Consulta / filtro<br>reduce documentos]
+    B --> C[Agregaciones de bucket<br>agrupan documentos]
+    C --> D[Agregaciones de métrica<br>calculan valores]
+    D --> E[Agregaciones pipeline<br>derivan de buckets]
+    E --> F[JSON de resultado]
+```
+
+Las agregaciones se ejecutan en dos fases principales: una fase a nivel de shard
+y una fase de reduce. Durante la fase a nivel de shard, cada shard calcula un
+resultado parcial sobre sus propios documentos. En la fase de reduce, el nodo coordinador une esos parciales en la
+respuesta final. Por eso `size: 0` es tan efectivo: evitás el fetch y merge de
+los hits reales y solo transportás los resultados compactos de las agregaciones.
+
+La agregación `terms` es aproximada porque usa una cola de prioridad por shard.
+Elasticsearch devuelve `doc_count_error_upper_bound` para que puedas juzgar cuánto
+puede desviarse el conteo. Si los conteos exactos importan, aumentá `shard_size`
+(el valor por defecto es igual a `size`) o pasá a `composite`, que recorre los
+valores de documento en orden.
+
+La agregación `composite` también es la forma más segura de paginar. Devuelve un
+`after_key` que pasás en la siguiente petición. A diferencia de `terms` con
+`from`, el `after_key` es estable mientras se indexan nuevos documentos. Para el lado de
+documentos, mirá [Cursor-Based Pagination with PostgreSQL](/recipes/cursor-pagination-postgresql/).
+
+Las métricas suelen ser exactas, pero `cardinality` no lo es. Usa HyperLogLog++
+para estimar valores distintos con un `precision_threshold` configurable. Con
+40.000, Elasticsearch mantiene el error menor al 1%, que normalmente alcanza para
+métricas de dashboard. Si necesitás conteos únicos exactos, usá una agregación `terms` con
+un `size` suficientemente grande, aunque consume más memoria.
+
+Las agregaciones pipeline como `derivative` y `moving_avg` son poderosas pero
+caras. Hacen una segunda pasada sobre la lista de buckets, así que aumentan el
+uso de CPU y memoria en rangos de tiempo grandes. Yo las evito en dashboards con
+cientos de buckets y prefiero calcular las tendencias en la capa de aplicación
+cuando es posible.
 
 Los campos de texto se analizan y tokenizan, así que no se pueden agregar
 directamente. Para conteos, agrupaciones y filtros, usá el subcampo `.keyword`,
 que se guarda como un solo token no analizado.
 
-La agregación `composite` devuelve una clave por bucket y un `after_key` para
-paginar. Mantiene la memoria acotada y nunca saltea buckets, lo que la convierte
-en la forma más segura de recorrer grandes conjuntos de resultados de
-agregación. Para el lado de documentos, mirá [Pagination](/recipes/pagination/).
-
 `post_filter` aplica filtros de búsqueda después de que las agregaciones se
 computan. Usalo cuando querés que el usuario filtre resultados pero conserve los
 conteos originales de las facetas.
 
-Las agregaciones pipeline como `derivative` y `moving_avg` leen valores de otros
-buckets. Sirven para análisis de series temporales, pero obligan a un segundo
-paso y aumentan el consumo de CPU y memoria.
-
 ## Variantes
 
-| Agregación | Caso de uso | Parámetros clave |
-| --- | --- | --- |
-| `terms` | Contar por categoría, marca o estado | `field`, `size`, `shard_size` |
-| `date_histogram` | Agrupación de series temporales | `field`, `calendar_interval` |
-| `range` | Bandas predefinidas como rangos de precio | `ranges` |
-| `composite` | Paginar sobre claves de alta cardinalidad | `sources`, `size`, `after` |
-| `cardinality` | Conteos únicos aproximados | `precision_threshold` |
-| `top_hits` | Mejor documento por bucket | `size`, `sort`, `_source` |
-| `filter` | Sub-agregaciones condicionales | consulta `filter` |
+|| Agregación | Caso de uso | Parámetros clave |
+|| --- | --- | --- |
+|| `terms` | Contar por categoría, marca o estado | `field`, `size`, `shard_size` |
+|| `date_histogram` | Agrupación de series temporales | `field`, `calendar_interval` |
+|| `range` | Bandas predefinidas como rangos de precio | `ranges` |
+|| `composite` | Paginar sobre claves de alta cardinalidad | `sources`, `size`, `after` |
+|| `cardinality` | Conteos únicos aproximados | `precision_threshold` |
+|| `top_hits` | Mejor documento por bucket | `size`, `sort`, `_source` |
+|| `filter` | Sub-agregaciones condicionales | consulta `filter` |
+
+Usá esta tabla como referencia rápida, no como reemplazo de los ejemplos.
+`terms` y `date_histogram` cubren la mayoría de los casos diarios, mientras que
+`composite` es la elección correcta cuando necesitás stream de buckets en lugar
+de devolver un top-N.
 
 ## Mejores Prácticas
 
@@ -387,6 +464,13 @@ paso y aumentan el consumo de CPU y memoria.
   los conteos de las agregaciones.
 - Ajustá `precision_threshold` en `cardinality` para equilibrar memoria y
   precisión.
+- Seteá un `shard_size` realista en `terms` cuando necesitás conteos más
+  cercanos a exactos; yo empiezo con `5 * size` y mido.
+- Usá `min_doc_count: 1` para evitar buckets vacíos salvo que los necesites
+  explícitamente.
+- Cacheá agregaciones costosas con el
+  [request cache](https://www.elastic.co/guide/en/elasticsearch/reference/current/shard-request-cache.html)
+  cuando los datos subyacentes no cambien seguido.
 
 ## Errores Comunes
 
@@ -396,6 +480,26 @@ paso y aumentan el consumo de CPU y memoria.
 - Paginar resultados grandes de `terms` sin `composite`.
 - Olvidar que `terms` y `cardinality` devuelven conteos aproximados.
 - Ejecutar agregaciones pipeline pesadas sobre rangos de tiempo muy grandes.
+- Usar `from` en una agregación `terms` y obtener resultados inestables.
+- Ignorar `doc_count_error_upper_bound` y tratar los conteos de `terms` como
+  exactos.
+- Ejecutar `top_hits` sin `sort`, lo que hace que el documento devuelto sea
+  impredecible.
+
+## Ver También
+
+- [Full-Text Search](/recipes/full-text-search/) — para el lado de consultas del mismo caso de uso.
+- [Complete Guide to Elasticsearch Cluster Setup](/guides/complete-guide-elasticsearch-cluster-setup/) —
+  cuando estés listo para escalar de un nodo a producción.
+- [Database Views and Materialized Views](/recipes/database-views-materialized/) —
+  una alternativa a agregaciones en tiempo real cuando los resultados
+  precomputados alcanzan.
+- [Elasticsearch Aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html) —
+  referencia oficial.
+- [Composite aggregation](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-composite-aggregation.html) —
+  documentación oficial para paginación profunda.
+- [Cardinality aggregation](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-cardinality-aggregation.html) —
+  detalles de `precision_threshold`.
 
 ## Preguntas Frecuentes
 
@@ -412,9 +516,9 @@ que los hits devueltos son filtrados.
 
 ### ¿Las agregaciones de Elasticsearch son exactas en datasets grandes?
 
-`terms` y `cardinality` son aproximadas. Aumentá `shard_size`, usá `composite`
-para conteos más exactos, o subí `precision_threshold` para mejorar la
-precisión de cardinalidad.
+`terms` y `cardinality` son aproximadas, así que no las trates como conteos
+exactos. Aumentá `shard_size`, usá `composite` para conteos más exactos, o subí
+`precision_threshold` para mejorar la precisión de cardinalidad.
 
 ### ¿Por qué usar `composite` en lugar de `terms` para paginar?
 
@@ -427,3 +531,11 @@ los buckets puede cambiar a medida que se indexan datos.
 Una agregación `filter` agrega un bucket dentro del árbol de agregaciones.
 `post_filter` se aplica solo a los hits de búsqueda, así que los valores de las
 agregaciones no cambian.
+
+### ¿Cómo debuggeo agregaciones lentas?
+
+Empezá con la
+[Profile API](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-profile.html).
+Divide cada fase de la agregación en `collect`, `build_aggregation` y `reduce`,
+así podés ver si la lentitud está en el shard o en el reduce. También podés
+habilitar `slow_log` para consultas que superen un umbral.

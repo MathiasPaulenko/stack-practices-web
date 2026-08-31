@@ -17,11 +17,11 @@ tags:
 relatedResources:
   - /recipes/full-text-search
   - /recipes/mongodb-crud-mongoose
-  - /recipes/metrics-collection
-  - /recipes/pagination
+  - /recipes/database-views-materialized
+  - /recipes/cursor-pagination-postgresql
   - /guides/complete-guide-elasticsearch-cluster-setup
   - /guides/full-text-search-guide
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-30"
 publishedAt: "2026-06-18"
 author: Mathias Paulenko
 seo:
@@ -46,21 +46,31 @@ with metric aggregations that compute values inside each group. Nest them to
 build time-series, percentiles, and faceted summaries without shipping data to a
 separate batch job.
 
+I've used this pattern on product catalogs where the same request returns
+matching products and facet counts for category, brand, and price range. Without aggregations, you would need a second query or a batch job, and
+the facets would be stale by the time they reach the UI.
+
+Most examples target Elasticsearch 8.x. They also work on 7.10+, but
+`date_histogram` switched from `interval` to `calendar_interval` between major
+versions. The official docs keep a complete aggregation reference at
+[Elasticsearch Aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html).
+
+The request cache and eager global ordinals can speed up aggregations, but
+only after the query itself is well structured. I cover both in Best Practices.
+
 ## When to Use
 
 - You're building faceted search with category-level count filters. The query
   side is covered in [Full-Text Search](/recipes/full-text-search/).
-- Your analytics dashboards have to return numbers in under a second over large
-  document sets.
+- Your analytics dashboards need sub-second numbers across large document sets.
 - You want to bucket time series and nest statistics like sum, average, or
   percentiles.
-- You need unique counts, top hits per bucket, or derivative metrics inside the
-  same request.
+- You need unique counts, top hits per bucket, or derivative metrics in the same request.
 
 ### When to avoid
 
-- The query reads like a SQL join across several tables: aggregations stay
-  inside one index and won't span across them.
+- The query looks like a SQL join across several tables: aggregations stay
+  inside one index and can't span them.
 - The field you want to aggregate isn't indexed, or it's a tokenized `text`
   field with no `.keyword` subfield.
 - You need exact counts over very high-cardinality fields; prefer `composite`
@@ -276,8 +286,7 @@ GET /orders/_search
 
 Cardinality uses HyperLogLog++ for approximate distinct counts. The
 `precision_threshold` trades accuracy for memory: higher values are more
-accurate but consume more heap. With `precision_threshold: 40000`, Elasticsearch returns counts within 1% of the
-true value. That margin is good enough for most dashboards.
+accurate but consume more heap. With `precision_threshold: 40000`, Elasticsearch returns counts within 1% of the true value. That margin is enough for most dashboards.
 
 ### Top hits per bucket
 
@@ -334,6 +343,33 @@ GET /orders/_search
 }
 ```
 
+### Mapping for keyword aggregation
+
+```json
+PUT /products
+{
+  "mappings": {
+    "properties": {
+      "category": {
+        "type": "text",
+        "fields": {
+          "keyword": { "type": "keyword" }
+        }
+      },
+      "brand": {
+        "type": "text",
+        "fields": {
+          "keyword": { "type": "keyword" }
+        }
+      }
+    }
+  }
+}
+```
+
+This mapping is what makes the `.keyword` subfield examples work. Elasticsearch analyzes the `text` field for search, but stores the `keyword`
+sibling as a single token for grouping and sorting.
+
 ## Explanation
 
 Bucket aggregations split documents into groups. `terms` and `range` are bucket
@@ -343,39 +379,69 @@ aggregations; `date_histogram` splits by time. Metric aggregations like `sum`,
 Nesting aggregations lets you answer multi-level questions: monthly revenue per
 category, average price per price range, or percentile latency per region. Set
 `size: 0` and Elasticsearch skips the hits, returning only aggregation results.
-Skipping the hits is much faster when you don't actually need the documents.
+Skipping the hits is faster when the documents themselves aren't needed.
+
+```mermaid
+flowchart LR
+    A[Search request] --> B[Query / filter<br>narrows documents]
+    B --> C[Bucket aggregations<br>group documents]
+    C --> D[Metric aggregations<br>compute values]
+    D --> E[Pipeline aggregations<br>derive from buckets]
+    E --> F[Result JSON]
+```
+
+Aggregations run in two main phases: a shard-level phase and a reduce phase. During the shard-level phase, each shard handles its own documents and computes a partial result. In the reduce phase, the
+coordinating node merges those partials into the final response. This design is
+why `size: 0` is so effective: you skip the fetch and merge of the actual hits
+and only ship the compact aggregation results.
+
+The `terms` aggregation is approximate because it uses a per-shard priority
+queue. Elasticsearch returns `doc_count_error_upper_bound` so you can judge how
+much the count may be off. If exact counts matter, increase `shard_size` (the
+default is the same as `size`) or switch to `composite`, which walks the
+doc-values in sorted order.
+
+For pagination, `composite` is the safest aggregation to use. It returns an `after_key` that you pass to the next request. Unlike `terms` with `from`, the `after_key` is
+stable while new documents are being indexed. For the document side of paging,
+see [Cursor-Based Pagination with PostgreSQL](/recipes/cursor-pagination-postgresql/).
+
+Metric aggregations are generally exact, but `cardinality` isn't. It uses
+HyperLogLog++ to estimate distinct counts with a configurable
+`precision_threshold`. At `40000`, Elasticsearch keeps the error below 1%, which is usually fine for dashboard metrics. If you need exact unique counts, use a
+`terms` aggregation with a large enough `size`, though it will consume more
+memory.
+
+Pipeline aggregations such as `derivative` and `moving_avg` are powerful but
+costly. They run a second pass over the bucket list, so they push up CPU and memory
+usage on large time ranges. I avoid them for dashboards with hundreds of
+buckets and prefer to compute trends in the application layer when possible.
 
 Text fields are analyzed and tokenized, so they can't be aggregated directly.
 For counts, groupings, and filters, use the `.keyword` subfield: that sibling is
 stored as a single unanalyzed token, which is exactly what aggregations need.
 
-The `composite` aggregation returns a key per bucket and an `after_key` for
-pagination. It keeps memory bounded and never skips buckets, so it's the safest
-way to scan large aggregation result sets. For the document side of paging,
-see [Pagination](/recipes/pagination/).
-
 `post_filter` applies search filters after aggregations are computed. Use it
 when users filter results but you want to keep the original facet counts.
 
-Pipeline aggregations such as `derivative` and `moving_avg` read values from
-other buckets. Pipelines fit time-series analysis, but they force a second pass and drive up
-CPU and memory usage.
-
 ## Variants
 
-| Aggregation | Use case | Key parameters |
-| --- | --- | --- |
-| `terms` | Count by category, brand, or status | `field`, `size`, `shard_size` |
-| `date_histogram` | Time-series bucketing | `field`, `calendar_interval` |
-| `range` | Predefined bands such as price tiers | `ranges` |
-| `composite` | Paginating over high-cardinality keys | `sources`, `size`, `after` |
-| `cardinality` | Approximate unique counts | `precision_threshold` |
-| `top_hits` | Best document per bucket | `size`, `sort`, `_source` |
-| `filter` | Conditional sub-aggregations | `filter` query |
+|| Aggregation | Use case | Key parameters |
+|| --- | --- | --- |
+|| `terms` | Count by category, brand, or status | `field`, `size`, `shard_size` |
+|| `date_histogram` | Time-series bucketing | `field`, `calendar_interval` |
+|| `range` | Predefined bands such as price tiers | `ranges` |
+|| `composite` | Paginating over high-cardinality keys | `sources`, `size`, `after` |
+|| `cardinality` | Approximate unique counts | `precision_threshold` |
+|| `top_hits` | Best document per bucket | `size`, `sort`, `_source` |
+|| `filter` | Conditional sub-aggregations | `filter` query |
+
+Use this table as a quick reference, not as a replacement for the examples.
+`terms` and `date_histogram` cover most day-to-day use cases, while `composite`
+is the right choice when you need to stream buckets instead of returning a top-N.
 
 ## Best Practices
 
-- Set `size: 0` when you only need aggregations, not search hits.
+- Set `size: 0` when you only need aggregations and not the search hits.
 - Aggregate on `keyword` subfields, not on analyzed `text` fields.
 - Switch to `composite` when an aggregation could return more than a few
   thousand buckets.
@@ -384,6 +450,12 @@ CPU and memory usage.
 - Use `post_filter` to filter returned results without changing aggregation
   counts.
 - Tune `precision_threshold` on `cardinality` to balance memory and accuracy.
+- Set a realistic `shard_size` for `terms` when counts need to be closer to
+  exact; I usually start with `5 * size` and measure.
+- Use `min_doc_count: 1` to drop empty buckets unless you actually need them.
+- Cache expensive aggregation requests with the
+  [request cache](https://www.elastic.co/guide/en/elasticsearch/reference/current/shard-request-cache.html)
+  when the underlying data doesn't change often.
 
 ## Common Mistakes
 
@@ -393,6 +465,24 @@ CPU and memory usage.
 - Paginating large `terms` results without `composite`.
 - Forgetting that `terms` and `cardinality` return approximate counts.
 - Running heavy pipeline aggregations on very large time ranges.
+- Using `from` on a `terms` aggregation and getting unstable results.
+- Ignoring `doc_count_error_upper_bound` and treating `terms` counts as exact.
+- Running `top_hits` without a `sort`, which makes the returned document
+  unpredictable.
+
+## See Also
+
+- [Full-Text Search](/recipes/full-text-search/) — for the query side of the same use case.
+- [Complete Guide to Elasticsearch Cluster Setup](/guides/complete-guide-elasticsearch-cluster-setup/) —
+  when you want to scale from a single node to production.
+- [Database Views and Materialized Views](/recipes/database-views-materialized/) —
+  an alternative to real-time aggregations when precomputed results are enough.
+- [Elasticsearch Aggregations](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations.html) —
+  official reference.
+- [Composite aggregation](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-composite-aggregation.html) —
+  official docs for deep pagination.
+- [Cardinality aggregation](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-metrics-cardinality-aggregation.html) —
+  details on `precision_threshold`.
 
 ## FAQ
 
@@ -409,9 +499,9 @@ The aggregations see the full query, while the returned hits are filtered.
 
 ### Are Elasticsearch aggregations exact on large datasets?
 
-Remember that `terms` and `cardinality` are approximate, not exact counts. Increase `shard_size`, use
-`composite` for exact counts, or raise `precision_threshold` to improve
-cardinality accuracy.
+`terms` and `cardinality` are approximate, so don't expect exact counts.
+Increase `shard_size`, use `composite` for exact counts, or raise
+`precision_threshold` to improve cardinality accuracy.
 
 ### Why should I use `composite` instead of `terms` for pagination?
 
@@ -423,3 +513,11 @@ change as data is indexed.
 
 A `filter` aggregation adds a bucket under the aggregation tree. `post_filter`
 applies only to the search hits, so the aggregation values stay the same.
+
+### How do I debug slow aggregation queries?
+
+Start with the
+[Profile API](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-profile.html).
+It breaks each aggregation phase into `collect`, `build_aggregation`, and
+`reduce` times, so you can see whether the slowness is at the shard or reduce
+level. You can also enable `slow_log` for queries that exceed a threshold value.
