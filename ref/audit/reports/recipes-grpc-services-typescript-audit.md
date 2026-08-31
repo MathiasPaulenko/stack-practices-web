@@ -160,7 +160,7 @@
 - Archivos listados en `files` existen (`package.json`, `tsconfig.json`, `proto/user.proto`, `src/server.ts`, `src/client.ts`, `src/health-client.ts`, `.env.example`, `README.md`, `README.es.md`).
 - `README.md` y `README.es.md` presentes con instrucciones de ejecución.
 - `node scripts/build-catalog.js` ejecutado correctamente en el repo hermano.
-- Enlace cruzado: recurso menciona el companion en el cuerpo? **No explícito en el body**; el companion referencia al recurso vía `source_urls`. Se recomienda añadir un enlace al companion en la sección `See Also` o cerca del `package.json` en próxima iteración (LOW).
+- Enlace cruzado: recurso menciona el companion en el cuerpo? **Sí**, en la sección `### 1. Project setup` / `### 1. Configuración del proyecto` con un enlace al [repositorio stack-practices-resources](https://github.com/MathiasPaulenko/stack-practices-resources) y la ruta relativa.
 
 #### 1.2.8 GEO / AI Search — 4/5 (ANTES: 3/5)
 
