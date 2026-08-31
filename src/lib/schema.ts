@@ -98,6 +98,10 @@ export function techArticle(opts: {
     headline: opts.headline,
     description: opts.description,
     url: withSlash(`${SITE.url}${opts.url}`),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': withSlash(`${SITE.url}${opts.url}`),
+    },
     inLanguage: opts.locale,
     educationalLevel: educationalLevel(opts.difficulty),
     ...(opts.section && { articleSection: opts.section }),
