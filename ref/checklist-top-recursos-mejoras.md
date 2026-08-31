@@ -40,14 +40,11 @@
 27. - [x] **python-airflow-dag-scheduling** (recipes) — 82.5/88 PROMOTE (post-mejoras adicionales)
     (body prosa 2495/2466 EN/ES, AI EN 39.2% / ES 34.3%, pattern_totals vacío;
     7 enlaces externos, companion repo con 3 DAGs extras; build 3258 OK; 0 regresiones)
-    (body prosa 669/638 EN/ES, AI EN 42.3%, ES 34.9%; sin diagramas ni companion;
-    thin content y humanización EN son los bloqueos principales)
-28. - [x] **elasticsearch-aggregations** (recipes) — 100/100 PROMOTE (post-mejoras pendientes;
+28. - [x] **elasticsearch-aggregations** (recipes) — 100/100 ✅ PROMOTE (commits/push completados;
     WebPage schema añadido en `RecipeArticle.astro`, verificación móvil 375×812 px con
     screenshot; body prosa 1319/1407 EN/ES, AI EN 39.1% / ES 33.4%, pattern_totals vacío;
     diagrama Mermaid + SVGs EN/ES; companion repo en Python/JS + Docker Compose; 5 enlaces
-    internos + 6 oficiales; build 3258 OK, 0 issues pendientes, 0 regresiones; listo para
-    commit/push a ambos repos)
+    internos + 6 oficiales; build 3260 OK, 0 issues pendientes, 0 regresiones)
 29. - [x] **password-hashing** (recipes) — 95/100 ✅ PROMOTE (body prosa
     ~2150/2165 palabras, AI EN 39.5% / ES 37.4%, 0 patrones; Mermaid + companion;
     alt text Mermaid corregido; enlaces internos balanceados EN/ES; build 3.258 OK;
