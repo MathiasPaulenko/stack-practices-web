@@ -1,0 +1,430 @@
+[
+  {
+    "label": "prometheus-api-monitoring-en",
+    "model": "desklib",
+    "model_ai_pct": 45.0,
+    "ai_count": 34,
+    "human_count": 57,
+    "skipped_count": 5,
+    "total": 96,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.7,
+      "stddev": 11.1,
+      "cv": 0.81,
+      "verdict": "natural variation",
+      "sentence_count": 91,
+      "lengths": [
+        18,
+        15,
+        21,
+        15,
+        24,
+        16,
+        8,
+        6,
+        6,
+        8,
+        7,
+        13,
+        13,
+        5,
+        5,
+        17,
+        7,
+        25,
+        17,
+        27,
+        16,
+        5,
+        17,
+        14,
+        9,
+        83,
+        9,
+        13,
+        15,
+        8,
+        14,
+        14,
+        13,
+        13,
+        8,
+        11,
+        5,
+        9,
+        14,
+        11,
+        17,
+        12,
+        32,
+        14,
+        16,
+        64,
+        6,
+        19,
+        6,
+        10,
+        7,
+        10,
+        5,
+        16,
+        12,
+        9,
+        11,
+        18,
+        5,
+        9,
+        15,
+        8,
+        18,
+        6,
+        13,
+        12,
+        5,
+        15,
+        7,
+        14,
+        14,
+        9,
+        7,
+        16,
+        11,
+        8,
+        8,
+        7,
+        19,
+        7,
+        11,
+        9,
+        16,
+        12,
+        11,
+        9,
+        8,
+        10,
+        8,
+        18,
+        48
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "| Language | Library | Notes |\n| --- | --- | --- |\n| Node.js | prom-client | Built-in registry; works with Express, Fastify |\n| Go | prometheus/client_golang | Official client; bes",
+        0.899
+      ],
+      [
+        "The scrape config tells Prometheus where to find your endpoints:\n\n\n\n**Metric types**:\n\n| Type | Use for | Example |\n| --- | --- | --- |\n| **Counter** | Monotonically increasing val",
+        0.8923
+      ],
+      [
+        "For most APIs, [0.01, 0.05, 0.1, 0.5, 1, 2, 5]\n  works well.",
+        0.7642
+      ],
+      [
+        "Each bucket adds a series.",
+        0.7565
+      ],
+      [
+        "With\n50 routes, 5 methods, and 10 status codes, that's 2,500 series from one metric.",
+        0.7411
+      ],
+      [
+        "I ran it on Flask services handling 500 requests per\nsecond and never saw a bottleneck.",
+        0.7353
+      ],
+      [
+        "This\n  keeps monitoring traffic off your public API and prevents accidental exposure\n  of internal metrics to the internet.",
+        0.7265
+      ],
+      [
+        "Start with the 15-day default.",
+        0.7123
+      ],
+      [
+        "Prometheus stores data locally for 15 days by default.",
+        0.676
+      ],
+      [
+        "More buckets means more storage; fewer means less resolution.",
+        0.6685
+      ],
+      [
+        "Name metrics with units: _seconds, _bytes, _total.",
+        0.6675
+      ],
+      [
+        "I once saw a team add session_id as a label on a request counter.",
+        0.6488
+      ],
+      [
+        "They often\nhave higher cardinality and different retention needs.",
+        0.6375
+      ],
+      [
+        "Add a user_id label and you'll have millions.",
+        0.6226
+      ],
+      [
+        "I've run Prometheus on production APIs ranging from small Node.js services to\nGo microservices fleets.",
+        0.5965
+      ],
+      [
+        "[Prometheus Documentation](https://prometheus.io/docs/introduction/overview/): official docs with configuration reference\n[prom-client (Node.js)](https://github.com/siimon/prom-cli",
+        0.5932
+      ],
+      [
+        "Setting up monitoring for REST or gRPC APIs.",
+        0.5864
+      ],
+      [
+        "You need distributed tracing first.",
+        0.5779
+      ],
+      [
+        "You already use a managed APM (Datadog, New Relic) that covers your needs.",
+        0.5744
+      ],
+      [
+        "Prometheus is an open-source metrics monitoring system that collects time series\nby scraping /metrics endpoints on a schedule.",
+        0.5652
+      ],
+      [
+        "That chart changed how my team\nprioritized bug fixes more than any postmortem process we tried.",
+        0.5597
+      ],
+      [
+        "In my experience,\n15-30 days covers most alerting and dashboarding needs.",
+        0.557
+      ],
+      [
+        "High-cardinality labels like user IDs or session IDs.",
+        0.544
+      ],
+      [
+        "Use histogram_quantile with the _bucket series:\n\n\n\nThe le label is required.",
+        0.544
+      ],
+      [
+        "Use Prometheus for metrics, Loki for logs, and Jaeger for traces.",
+        0.5407
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "prometheus-api-monitoring-es",
+    "model": "desklib",
+    "model_ai_pct": 38.7,
+    "ai_count": 25,
+    "human_count": 68,
+    "skipped_count": 3,
+    "total": 96,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.1,
+      "stddev": 11.7,
+      "cv": 0.78,
+      "verdict": "natural variation",
+      "sentence_count": 93,
+      "lengths": [
+        22,
+        19,
+        22,
+        18,
+        27,
+        21,
+        7,
+        6,
+        8,
+        10,
+        10,
+        12,
+        14,
+        7,
+        17,
+        8,
+        28,
+        22,
+        36,
+        13,
+        6,
+        16,
+        14,
+        10,
+        86,
+        18,
+        10,
+        13,
+        18,
+        9,
+        15,
+        14,
+        14,
+        15,
+        8,
+        12,
+        7,
+        9,
+        16,
+        15,
+        19,
+        14,
+        20,
+        15,
+        18,
+        9,
+        69,
+        9,
+        16,
+        6,
+        9,
+        7,
+        12,
+        5,
+        18,
+        6,
+        14,
+        9,
+        14,
+        15,
+        17,
+        17,
+        10,
+        16,
+        9,
+        17,
+        13,
+        5,
+        5,
+        13,
+        8,
+        16,
+        14,
+        13,
+        7,
+        15,
+        11,
+        9,
+        9,
+        16,
+        22,
+        10,
+        11,
+        9,
+        18,
+        13,
+        11,
+        10,
+        10,
+        11,
+        8,
+        20,
+        58
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Los histograms agrupan datos y permiten agregaci\u00f3n entre instancias.",
+        0.9485
+      ],
+      [
+        "Nombr\u00e1 m\u00e9tricas con unidades: _seconds, _bytes, _total.",
+        0.8328
+      ],
+      [
+        "La configuraci\u00f3n de scrape le dice a Prometheus d\u00f3nde encontrar tus endpoints:\n\n\n\n**Tipos de m\u00e9tricas**:\n\n| Tipo | Uso | Ejemplo |\n| --- | --- | --- |\n| **Counter** | Valores que c",
+        0.7996
+      ],
+      [
+        "Prometheus usa un modelo de pull.",
+        0.7757
+      ],
+      [
+        "Si\nest\u00e1s corriendo contenedores o Kubernetes, es la herramienta a la que la\nmayor\u00eda de los equipos recurre primero.",
+        0.762
+      ],
+      [
+        "El tr\u00e1fico es tan bajo que la cardinalidad de m\u00e9tricas no justifica la\n  sobrecarga.",
+        0.7397
+      ],
+      [
+        "Sin sum by (le), el c\u00e1lculo de cuantil se rompe.",
+        0.7259
+      ],
+      [
+        "Para la mayor\u00eda de las APIs uso\n  [0.01, 0.05, 0.1, 0.5, 1, 2, 5].",
+        0.7028
+      ],
+      [
+        "Alert\u00e1s sobre picos de latencia p99 o tasas de error.",
+        0.6978
+      ],
+      [
+        "Esta es la causa\n  n\u00famero uno de problemas de rendimiento de Prometheus que vi en producci\u00f3n.",
+        0.6914
+      ],
+      [
+        "El an\u00e1lisis de tendencias a largo plazo se sirve mejor downsamplando\nen Thanos que manteniendo datos crudos por meses.",
+        0.6551
+      ],
+      [
+        "Con\n50 rutas, 5 m\u00e9todos y 10 c\u00f3digos de estado, lleg\u00e1s a 2.500 series de una sola\nm\u00e9trica.",
+        0.6472
+      ],
+      [
+        "Demasiados buckets en el histogram.",
+        0.6112
+      ],
+      [
+        "La alta cardinalidad degrada el rendimiento de\n  Prometheus r\u00e1pido.",
+        0.5875
+      ],
+      [
+        "Ignorar errores de scraping en el endpoint /metrics.",
+        0.5787
+      ],
+      [
+        "Prefer\u00ed histograms sobre summaries para latencia.",
+        0.5743
+      ],
+      [
+        "Suelen tener\nm\u00e1s cardinalidad y distintas necesidades de retenci\u00f3n.",
+        0.5732
+      ],
+      [
+        "Go tiene la mejor librer\u00eda cliente de Prometheus.",
+        0.5713
+      ],
+      [
+        "Grafana\npuede unificar los tres en un solo panel.",
+        0.5563
+      ],
+      [
+        "Tu aplicaci\u00f3n expone un endpoint\n/metrics; el servidor de Prometheus lo recolecta peri\u00f3dicamente (predeterminado\n15 segundos).",
+        0.5238
+      ],
+      [
+        "Labels de alta cardinalidad como IDs de usuario o sesi\u00f3n.",
+        0.519
+      ],
+      [
+        "Cualquier label con valores no acotados: user_id, session_id,\nrequest_id, email, ip.",
+        0.5174
+      ],
+      [
+        "Encontr\u00e9 que 15-30 d\u00edas alcanzan para la mayor\u00eda de las necesidades de alertas\ny paneles.",
+        0.5169
+      ],
+      [
+        "Us\u00e1 histogram_quantile con las series _bucket:\n\n\n\nEl label le es obligatorio.",
+        0.5121
+      ],
+      [
+        "Para retenci\u00f3n\nm\u00e1s larga, us\u00e1 Thanos, Cortex o Mimir para enviar bloques a almacenamiento de\nobjetos.",
+        0.5076
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

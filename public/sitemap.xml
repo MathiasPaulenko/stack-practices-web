@@ -2747,7 +2747,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/docs/penetration-test-template/</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/penetration-test-template/" />
@@ -6302,7 +6302,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/docs/penetration-test-template/</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/docs/penetration-test-template/" />
@@ -7397,7 +7397,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/guides/clean-architecture-guide/</loc>
-    <lastmod>2026-06-24</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/clean-architecture-guide/" />
@@ -10202,7 +10202,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/guides/vertical-slice-architecture-guide/</loc>
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/vertical-slice-architecture-guide/" />
@@ -12692,7 +12692,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/patterns/repository-pattern/</loc>
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/repository-pattern/" />
@@ -17432,7 +17432,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/prometheus-api-monitoring/</loc>
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/prometheus-api-monitoring/" />
@@ -17492,7 +17492,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/python-airflow-dag-scheduling/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/python-airflow-dag-scheduling/" />
@@ -18872,7 +18872,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/server-sent-events-node/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/server-sent-events-node/" />
@@ -28412,7 +28412,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/guides/clean-architecture-guide/</loc>
-    <lastmod>2026-06-24</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/clean-architecture-guide/" />
@@ -31217,7 +31217,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/guides/vertical-slice-architecture-guide/</loc>
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/guides/vertical-slice-architecture-guide/" />
@@ -33707,7 +33707,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/patterns/repository-pattern/</loc>
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/patterns/repository-pattern/" />
@@ -38447,7 +38447,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/prometheus-api-monitoring/</loc>
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/prometheus-api-monitoring/" />
@@ -38507,7 +38507,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/python-airflow-dag-scheduling/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/python-airflow-dag-scheduling/" />
@@ -39887,7 +39887,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/server-sent-events-node/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/server-sent-events-node/" />
