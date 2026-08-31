@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/cron-jobs
   - /recipes/python-celery-task-queue
   - /guides/complete-guide-apache-airflow
-lastUpdated: "2026-08-30"
+lastUpdated: "2026-08-31"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
@@ -417,7 +417,7 @@ original task failure and make the logs harder to read.
 ## Explanation
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Developer writes DAG file] --> B[Scheduler parses DAG]
     B --> C{DagRun created}
     C --> D[Task queued]
@@ -607,14 +607,37 @@ business schedules that skip holidays or use fiscal calendars. The
 [Airflow docs on DAG scheduling](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html#scheduling)
 explain both options.
 
+### Why doesn't my DAG show up in the Airflow UI?
+
+The scheduler needs to parse the DAG file before it appears. I check three things
+first: the file is in the `dags/` folder configured by `dags_folder`, the Python
+file has no import errors (run `python -c "import dags.your_file"` to test), and
+the scheduler is running (`airflow scheduler`). A DAG with a `start_date` in the
+future also won't show a run until that date arrives. If the file parses but the
+DAG is paused, the UI shows it with a paused toggle — unpause it from the detail
+page or with `airflow dags unpause your_dag_id`.
+
+### How do I prevent overlapping runs of the same DAG?
+
+I set `max_active_runs=1` in the DAG constructor. This tells the scheduler that
+only one `DagRun` can be active at a time, so if a run takes longer than its
+schedule interval the next one waits. This matters for pipelines where each run
+depends on the previous run's output, like daily aggregations that read
+yesterday's partition. Without it, a slow run and a fast schedule can produce
+overlapping runs that corrupt each other's data.
+
 ## See Also
 
 - [Apache Airflow: the complete guide](/guides/complete-guide-apache-airflow/) —
   architecture, deployment, and operators in depth.
 - [Python Pandas ETL pipeline](/recipes/python-pandas-etl-pipeline/) — a focused
   example of loading and transforming data with pandas.
-- [Cron jobs](/recipes/cron-jobs/) — when a single scheduled script is enough.
 - [Python Celery task queue](/recipes/python-celery-task-queue/) — distributed
   task execution without the DAG abstraction.
+- [Runnable companion repo](https://mathiaspaulenko.github.io/stack-practices-resources/) —
+  the full DAG files, sensors, branching, and dynamic mapping examples ready to run
+  with Docker Compose.
 - [Apache Airflow documentation](https://airflow.apache.org/docs/apache-airflow/stable/index.html) —
   the official reference for operators, sensors, and the TaskFlow API.
+- [Astronomer Airflow guide](https://www.astronomer.io/guides/) — production patterns
+  for executors, pools, and DAG authoring at scale.

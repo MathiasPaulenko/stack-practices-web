@@ -22,7 +22,7 @@ tags:
   - background-jobs
 relatedResources:
   - /recipes/rabbitmq-python-pika-consumer
-  - /recipes/database-query-result-caching
+  - /recipes/python-airflow-dag-scheduling
   - /recipes/rabbitmq-task-queue
   - /recipes/event-sourcing-cqrs-pattern
   - /recipes/kafka-python-consumer-groups

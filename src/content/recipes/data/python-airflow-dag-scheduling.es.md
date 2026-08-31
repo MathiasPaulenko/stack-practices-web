@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/cron-jobs
   - /recipes/python-celery-task-queue
   - /guides/complete-guide-apache-airflow
-lastUpdated: "2026-08-30"
+lastUpdated: "2026-08-31"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
@@ -413,7 +413,7 @@ original de la tarea.
 ## Explicación
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Desarrollador escribe archivo DAG] --> B[Scheduler parsea DAG]
     B --> C{DagRun creado}
     C --> D[Tarea encolada]
@@ -506,9 +506,11 @@ fuera de Airflow.
 - Mantené las tareas idempotentes. Re-ejecutar la misma fecha debería dar el mismo
   resultado, así que usá particiones o semántica de sobreescritura.
 - Seteá `max_active_runs=1` para pipelines que no pueden solaparse, como agregaciones
-  diarias que dependen de la corrida anterior.
+  diarias que dependen de la corrida anterior. Yo lo seteo siempre que una corrida
+  necesite la salida de la anterior.
 - Empujá datos chicos por XCom; para datos grandes, escribí en un archivo o almacenamiento
-  de objetos y pasá el path. La base de datos de metadatos es para estado, no storage.
+  de objetos y pasá el path. Yo trato la base de datos de metadatos como estado, no como
+  storage.
 - Preferí la TaskFlow API para DAGs nuevos si estás en Airflow 2.0 o posterior. La
   sintaxis es más limpia y maneja el XCom plumbing, pero los valores de retorno
   todavía viajan por XCom detrás de escena.
@@ -529,18 +531,20 @@ fuera de Airflow.
 - Escribir tareas no idempotentes que agregan datos duplicados al reintentar. Las
   re-ejecuciones no deben crear filas o archivos duplicados.
 - Usar `PythonOperator` para todo en lugar de operators especializados. Un `BashOperator` o
-  `DockerOperator` suele ser mejor para scripts de shell o herramientas containerizadas.
+  `DockerOperator` suele ser mejor para scripts de shell o herramientas containerizadas, y
+  me ahorra envolver todo en Python.
 - Usar un `start_date` dinámico como `datetime.now()`. Airflow compara el `start_date`
   con el intervalo de schedule, y un `start_date` móvil produce corridas inesperadas.
-  Mantenelo estático y determinístico.
+  Yo lo mantengo estático y determinístico.
 - Usar `depends_on_past=True` sin entender que una sola corrida pasada faltante o fallida
-  bloquea la corrida actual. Solo lo habilito cuando la lógica de negocio genuinamente
+  bloquea la corrida actual. Yo solo lo habilito cuando la lógica de negocio genuinamente
   necesita la salida del intervalo anterior.
 - Correr el scheduler y el web server en la misma máquina en producción sin separar la base
   de datos de metadatos. SQLite sirve para pruebas locales pero no sobrevive a procesos
   concurrentes de scheduler y web server.
-- Olvidarse de setear `on_failure_callback` o una notificación en pipelines críticos. Sin
-  eso, un DAG fallado puede quedar desapercibido hasta que el dashboard se vea desactualizado.
+- Olvidarse de setear `on_failure_callback` o una notificación en pipelines críticos. Si
+  yo lo salteo, un DAG fallado puede quedar desapercibido hasta que el dashboard se vea
+  desactualizado.
 
 ## Preguntas Frecuentes
 
@@ -598,14 +602,37 @@ para calendarios de negocio que saltan feriados o usan calendarios fiscales. La
 [documentación de Airflow sobre scheduling](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html#scheduling)
 explica ambas opciones.
 
+### ¿Por qué mi DAG no aparece en la UI de Airflow?
+
+El scheduler tiene que parsear el archivo del DAG antes de que aparezca. Reviso tres
+cosas primero: el archivo está en la carpeta `dags/` configurada por `dags_folder`,
+el archivo Python no tiene errores de importación (corrí `python -c "import dags.your_file"`
+para probarlo) y el scheduler está corriendo (`airflow scheduler`). Un DAG con
+`start_date` en el futuro tampoco muestra corridas hasta que llegue esa fecha. Si el
+archivo parsea pero el DAG está pausado, la UI lo muestra con un toggle de pausa —
+despausálo desde la página de detalle o con `airflow dags unpause your_dag_id`.
+
+### ¿Cómo evito que se solapen corridas del mismo DAG?
+
+Seteo `max_active_runs=1` en el constructor del DAG. Eso le dice al scheduler que
+solo un `DagRun` puede estar activo a la vez, así que si una corrida tarda más que
+su intervalo de schedule la siguiente espera. Esto importa para pipelines donde cada
+corrida depende de la salida de la anterior, como agregaciones diarias que leen la
+partición de ayer. Sin eso, una corrida lenta y un schedule rápido pueden producir
+corridas solapadas que corrompen los datos entre sí.
+
 ## Ver También
 
 - [Apache Airflow: la guía completa](/es/guides/complete-guide-apache-airflow/) —
   arquitectura, despliegue y operators en profundidad.
 - [Pipeline ETL con Python y Pandas](/es/recipes/python-pandas-etl-pipeline/) — un ejemplo
   enfocado de carga y transformación de datos con pandas.
-- [Cron jobs](/es/recipes/cron-jobs/) — para cuando un script programado simple es suficiente.
 - [Cola de tareas con Python Celery](/es/recipes/python-celery-task-queue/) — ejecución
   distribuida de tareas sin la abstracción del DAG.
+- [Companion repo ejecutable](https://mathiaspaulenko.github.io/stack-practices-resources/) —
+  los archivos DAG completos, sensors, branching y dynamic mapping listos para correr
+  con Docker Compose.
 - [Documentación oficial de Apache Airflow](https://airflow.apache.org/docs/apache-airflow/stable/index.html) —
   la referencia oficial para operators, sensors y la TaskFlow API.
+- [Guía de Airflow de Astronomer](https://www.astronomer.io/guides/) — patrones de
+  producción para executors, pools y autoría de DAGs a escala.

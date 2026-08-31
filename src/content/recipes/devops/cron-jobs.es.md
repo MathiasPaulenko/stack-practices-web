@@ -19,7 +19,7 @@ tags:
   - ci-cd
   - deployment
 relatedResources:
-  - /recipes/docker-basics
+  - /recipes/python-airflow-dag-scheduling
   - /recipes/git-workflow
   - /patterns/observer-pattern
   - /recipes/python-schedule-periodic-tasks
