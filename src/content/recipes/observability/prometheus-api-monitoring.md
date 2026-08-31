@@ -51,6 +51,9 @@ of language: expose a `/metrics` endpoint, let Prometheus scrape it, and query
 the stored series with PromQL. This recipe covers Node.js, Go, and Python with
 copy-paste examples, plus alerting rules and SLO calculations.
 
+Tested with Prometheus 3.13.2 LTS, prom-client 15.1.3 (Node.js),
+prometheus/client_golang v1.24.1 (Go), and prometheus_client 0.21.1 (Python).
+
 ## When to Use
 
 - Setting up monitoring for REST or gRPC APIs.
@@ -201,8 +204,8 @@ def metrics():
 ```
 
 The Python client is slightly heavier than Go's, but for most web APIs the
-overhead is negligible. I ran it on Flask services handling 500 requests per
-second and never saw a bottleneck.
+overhead is negligible. I ran it on Flask services at 500 requests per second
+without hitting any bottleneck.
 
 ### Alerting rules
 
@@ -302,8 +305,8 @@ Rules of thumb I follow:
 
 Prometheus stores data locally for 15 days by default. For longer retention,
 use Thanos, Cortex, or Mimir to ship blocks to object storage. In my experience,
-15-30 days covers most alerting and dashboarding needs. Long-term trend analysis
-is better served by downsampling in Thanos than by keeping raw data for months.
+15-30 days covers most alerting and dashboarding needs. For long-term trend
+analysis, downsample in Thanos rather than keeping raw data for months.
 
 ### SLOs and SLIs
 
@@ -351,14 +354,14 @@ prioritized bug fixes more than any postmortem process we tried.
   become self-documenting when the name includes the unit.
 - Instrument failures, not just successes. Track 4xx and 5xx separately so you
   can alert on error rate without catching client errors.
-- Keep histogram buckets focused. For most APIs, `[0.01, 0.05, 0.1, 0.5, 1, 2, 5]`
-  works well. More buckets means more storage; fewer means less resolution.
-- Scrape `/metrics` over a separate port or internal route when possible. This
-  keeps monitoring traffic off your public API and prevents accidental exposure
-  of internal metrics to the internet.
-- Start with the 15-day default. Tune retention after a few weeks of real
-  data. I've seen teams set 90-day retention upfront and run out of disk within
-  a month.
+- Keep histogram buckets focused. The bucket set `[0.01, 0.05, 0.1, 0.5, 1, 2, 5]`
+  covers most API latency distributions. Add more buckets and you pay in storage;
+  use fewer and you lose resolution.
+- Scrape `/metrics` over a separate port or internal route when possible. That
+  way monitoring traffic stays off your public API and internal metrics don't
+  leak to the internet.
+- Start with the 15-day default and adjust from there. I've seen teams set
+  90-day retention upfront and run out of disk within a month.
 
 ## Common Mistakes
 

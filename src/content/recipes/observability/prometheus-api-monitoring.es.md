@@ -53,6 +53,9 @@ Prometheus lo recolecte, y consultá las series almacenadas con PromQL. Esta
 receta cubre Node.js, Go y Python con ejemplos para copiar y pegar, más reglas
 de alerta y cálculos de SLO.
 
+Probado con Prometheus 3.13.2 LTS, prom-client 15.1.3 (Node.js),
+prometheus/client_golang v1.24.1 (Go) y prometheus_client 0.21.1 (Python).
+
 ## Cuándo Usar
 
 - Configurás monitoreo para APIs REST o gRPC.
