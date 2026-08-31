@@ -2,170 +2,208 @@
   {
     "label": "pre-commit-hooks-en",
     "model": "desklib",
-    "model_ai_pct": 44.2,
-    "ai_count": 18,
-    "human_count": 31,
-    "skipped_count": 1,
-    "total": 50,
+    "model_ai_pct": 38.1,
+    "ai_count": 22,
+    "human_count": 65,
+    "skipped_count": 0,
+    "total": 87,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 13.3,
-      "stddev": 13.2,
-      "cv": 0.99,
+      "mean": 16.6,
+      "stddev": 14.8,
+      "cv": 0.89,
       "verdict": "natural variation",
-      "sentence_count": 49,
+      "sentence_count": 87,
       "lengths": [
+        14,
+        15,
+        12,
+        20,
+        20,
+        12,
+        30,
+        26,
+        12,
+        15,
+        11,
+        17,
+        14,
+        30,
+        12,
+        10,
+        14,
+        8,
+        8,
+        7,
+        8,
+        12,
+        11,
+        25,
+        13,
+        13,
+        27,
+        13,
+        33,
+        23,
+        25,
+        11,
+        15,
+        8,
+        15,
+        12,
+        13,
+        17,
         18,
         15,
+        34,
         17,
+        25,
+        11,
+        140,
+        11,
+        14,
+        16,
+        15,
+        10,
+        11,
+        15,
+        6,
+        9,
+        8,
+        9,
+        11,
+        11,
+        16,
+        16,
+        10,
         12,
-        12,
+        18,
+        24,
+        17,
+        10,
+        22,
+        13,
+        21,
+        18,
+        7,
         11,
         10,
         19,
-        15,
-        7,
-        8,
-        17,
-        15,
-        8,
-        14,
-        12,
-        13,
-        10,
+        9,
         21,
-        11,
-        11,
-        25,
-        11,
-        97,
-        8,
-        14,
-        15,
-        8,
-        10,
-        11,
-        6,
-        9,
-        7,
-        9,
-        7,
-        5,
-        6,
-        11,
-        7,
-        10,
         12,
-        6,
+        17,
         7,
-        5,
+        14,
         6,
         12,
         8,
         33,
-        11
+        11,
+        19,
+        20
       ]
     },
     "top_ai_sentences": [
-      [
-        "This recipe shows how to set up hooks\nfor Python, JavaScript and Java using three common approaches.",
-        0.9608
-      ],
-      [
-        "A pre-commit hook is a script that runs between git commit and the moment the\ncommit is created.",
-        0.9444
-      ],
-      [
-        "Align ESLint and Prettier with\n  eslint-config-prettier.",
-        0.8543
-      ],
-      [
-        "That's the reason the same checks should still run in CI.",
-        0.7908
-      ],
-      [
-        "**Native hooks** allow any project to run a custom shell script.",
-        0.7653
-      ],
       [
         "Yes: use git commit --no-verify (or -n) when you really need to.",
         0.7613
       ],
       [
-        "Document --no-verify for emergencies, but require review when someone uses\n  it.",
-        0.7376
+        "The repository has many large binary files that don't benefit from linting.",
+        0.739
       ],
       [
-        "Follow up\nwith a cleanup commit.",
-        0.6982
+        "A **native hook** lets any project run a custom shell script before the commit is written, which is a good fit for Java, Go or C++ projects that already rely on a build tool.",
+        0.7214
       ],
       [
-        "If the script exits with a\nnon-zero status, Git aborts the commit.",
+        "The project hasn't agreed on a shared formatter or linter.",
+        0.683
+      ],
+      [
+        "If the script exits with a non-zero status, Git aborts the commit.",
         0.6687
       ],
       [
-        "It turns a quick commit into a long\n  wait.",
-        0.6557
+        "If the script exits with a non-zero status, Git aborts the commit.",
+        0.6687
       ],
       [
-        "They're the first line of defense\n  rather than the last.",
-        0.6509
+        "[Git hooks documentation](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)\n[pre-commit framework](https://pre-commit.com/)\n[husky documentation](https://typicode.github.io",
+        0.6528
       ],
       [
-        "Hooks are a convenience, not the\n  final gate.",
+        "Your checks take more than a few seconds.",
+        0.652
+      ],
+      [
+        "When a tool is set to fix and exit 0, it looks like the commit passed even if it changed files.",
+        0.6474
+      ],
+      [
+        "The hook is the first line of defense, not the last.",
+        0.6279
+      ],
+      [
+        "Hooks are a convenience, not the final gate.",
         0.616
       ],
       [
-        "Run the same checks in CI as well.",
-        0.5728
+        "CI still needs the same checks on the full codebase.",
+        0.6074
       ],
       [
-        "You want to catch small issues locally before CI fails.",
-        0.5426
+        "Some tools, like lint-staged, can do this with the --allow-empty or --follow-symbolic-links options; otherwise, add the fixed files manually.",
+        0.5789
       ],
       [
-        "You want to keep style consistent without waiting for every PR review.",
-        0.5376
+        "Run pre-commit run --all-files to see what the hook modified, then git add those files and commit again.",
+        0.5738
       ],
       [
-        "It handles many languages and installs the tools it needs.",
-        0.5216
+        "Make sure the virtual environment is active, or install with pipx install pre-commit so the binary is on the system PATH.",
+        0.5712
+      ],
+      [
+        "I use it in polyglot teams where the same repository has Python, Go and JavaScript.",
+        0.5648
+      ],
+      [
+        "A pre-commit hook is an executable script that runs between git commit and the moment Git creates the commit object.",
+        0.528
+      ],
+      [
+        "The hooks themselves live in .git/hooks/, which isn't tracked.",
+        0.5263
       ],
       [
         "Unit tests under 10 seconds are fine.",
         0.5212
       ],
       [
+        "The Python pre-commit package installs and runs hooks from a single YAML file.",
+        0.5202
+      ],
+      [
+        "For Maven, the git-build-hook-maven-plugin can install tracked hooks from a git-hooks/ directory during the build, so the team gets the hook automatically after mvn install.",
+        0.5197
+      ],
+      [
         "You're replacing CI gates with local hooks.",
         0.5159
       ],
       [
-        "New clones will skip them without warning.",
-        0.4989
+        "The prepare script in package.json makes sure the hook is installed on every npm install.",
+        0.4863
       ],
       [
-        "Letting formatters fight each other.",
-        0.4973
+        "You want a shared style without waiting for every pull request review.",
+        0.4712
       ],
       [
-        "A hook in .git/hooks/pre-commit is an executable script.",
-        0.4456
-      ],
-      [
-        "It gives fast, local feedback on linting, formatting, tests\nand security before anything reaches CI.",
-        0.4329
-      ],
-      [
-        "Treating hooks as a replacement for CI.",
-        0.3859
-      ],
-      [
-        "Never commit directly into\n.git/hooks/, which isn't tracked.",
-        0.3717
-      ],
-      [
-        "The **pre-commit** framework (Python) installs and runs hooks from a single\n  YAML file.",
-        0.3636
+        "That's the reason the same checks should still run in [CI/CD](/recipes/cicd-pipeline-setup/).",
+        0.4559
       ]
     ],
     "diagnostics_sample": []
@@ -173,170 +211,211 @@
   {
     "label": "pre-commit-hooks-es",
     "model": "desklib",
-    "model_ai_pct": 40.1,
-    "ai_count": 17,
-    "human_count": 32,
-    "skipped_count": 2,
-    "total": 51,
+    "model_ai_pct": 34.4,
+    "ai_count": 16,
+    "human_count": 74,
+    "skipped_count": 0,
+    "total": 90,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 13.8,
-      "stddev": 13.2,
-      "cv": 0.96,
+      "mean": 16.4,
+      "stddev": 15.0,
+      "cv": 0.92,
       "verdict": "natural variation",
-      "sentence_count": 49,
+      "sentence_count": 90,
       "lengths": [
-        20,
-        19,
         15,
-        15,
-        11,
-        8,
-        13,
+        16,
+        14,
+        26,
+        23,
+        14,
+        21,
+        27,
+        12,
         18,
-        15,
+        12,
+        17,
         9,
-        9,
-        16,
-        16,
+        25,
         8,
+        11,
+        9,
+        16,
+        7,
+        9,
+        9,
+        9,
+        9,
+        13,
+        31,
+        14,
+        15,
+        26,
+        14,
+        37,
+        23,
+        27,
         15,
         14,
+        8,
+        17,
+        14,
         13,
-        9,
+        14,
         21,
+        15,
         12,
-        13,
+        16,
+        17,
         25,
         9,
-        100,
-        8,
+        145,
+        12,
         14,
+        16,
         18,
         6,
         11,
         12,
         7,
         8,
-        7,
-        12,
-        5,
-        6,
+        8,
         10,
-        7,
+        13,
+        11,
+        15,
+        13,
         9,
+        11,
+        18,
+        27,
+        16,
+        10,
+        21,
+        16,
+        20,
+        19,
         6,
         11,
         11,
-        7,
+        20,
+        9,
+        24,
+        6,
+        11,
+        10,
+        11,
+        15,
         8,
         13,
         10,
-        14,
-        20,
-        12
+        32,
+        12,
+        15,
+        20
       ]
     },
     "top_ai_sentences": [
       [
-        "Un pre-commit hook es un script que corre entre git commit y el momento en que\nel commit se crea.",
-        0.8538
+        "El hook sin una regla solo agrega fricci\u00f3n y ense\u00f1a a la gente a usar --no-verify.",
+        0.9045
       ],
       [
-        "Clones nuevos los saltear\u00e1n silenciosamente.",
-        0.7717
+        "Esta receta muestra c\u00f3mo configurar hooks para Python, JavaScript y Java con los tres enfoques m\u00e1s comunes que uso en producci\u00f3n.",
+        0.8882
+      ],
+      [
+        "El hook es la primera l\u00ednea de defensa, no la \u00faltima.",
+        0.8175
+      ],
+      [
+        "Agreg\u00e1 un hook de gitleaks o trufflehog a la misma .pre-commit-config.yaml o a lint-staged:\n\n\n\n\n\nUs\u00e1 un hook commit-msg con commitlint:\n\n\n\n\n\nEl hook cambi\u00f3 la copia de trabajo pero",
+        0.7733
       ],
       [
         "S\u00ed: git commit --no-verify (o -n).",
         0.7687
       ],
       [
-        "Verificar todo el repo en cada commit.",
-        0.7662
-      ],
-      [
-        "Esta receta muestra c\u00f3mo configurar\nhooks para Python, JavaScript y Java con tres enfoques comunes.",
-        0.7408
-      ],
-      [
-        "Para gitleaks:\n\n\n\n\n\nUs\u00e1 un hook commit-msg con commitlint:\n\n\n\n\n\nEl hook cambi\u00f3 la copia de trabajo pero no re-stagen\u00f3 el archivo.",
-        0.7394
-      ],
-      [
-        "Cualquier cosa\nm\u00e1s lenta pertenece a CI.",
-        0.7191
-      ],
-      [
-        "Git lo ejecuta\ndespu\u00e9s de que escrib\u00eds git commit y antes de escribir el commit.",
-        0.6609
-      ],
-      [
-        "Funciona cross-language y se encarga de instalar las\n  herramientas.",
-        0.6355
-      ],
-      [
-        "Hooks reproducibles\n  significan menos \"a m\u00ed me funciona\".",
+        "Hooks reproducibles significan menos \"a m\u00ed me funciona\".",
         0.6137
       ],
       [
-        "Quer\u00e9s detectar problemas peque\u00f1os localmente en lugar de esperar a que falle\n  CI.",
-        0.5856
-      ],
-      [
-        "Los hooks son una\n  conveniencia, no la puerta final.",
+        "Los hooks son una conveniencia, no la puerta final.",
         0.5855
       ],
       [
-        "Son la primera l\u00ednea de defensa, no la\n  \u00faltima.",
-        0.5637
+        "Los hooks lentos son lo primero que todos saltean.",
+        0.5833
       ],
       [
-        "Quer\u00e9s forzar estilo sin depender \u00fanicamente de revisiones de pull request.",
-        0.5341
+        "Quer\u00e9s un estilo compartido sin depender \u00fanicamente de revisiones de pull request.",
+        0.5527
       ],
       [
-        "Tu equipo sigue commiteando c\u00f3digo que falla los checks de lint o formato en\n  CI.",
-        0.5248
+        "El proyecto no tiene un formatter o linter compartido.",
+        0.5524
       ],
       [
-        "Para Maven, el plugin git-build-hook-maven-plugin puede instalar hooks\nrastreados desde un directorio git-hooks/ durante el build.",
-        0.5136
+        "Si una herramienta est\u00e1 configurada para arreglar y salir con 0, parecer\u00e1 que el commit pas\u00f3 aunque haya modificado archivos.",
+        0.5508
+      ],
+      [
+        "Fijate en cu\u00e1ntas herramientas est\u00e1n encadenadas.",
+        0.5383
+      ],
+      [
+        "Para Maven, el plugin git-build-hook-maven-plugin puede instalar hooks rastreados desde un directorio git-hooks/ durante el build, as\u00ed el equipo obtiene el hook autom\u00e1ticamente des",
+        0.5299
+      ],
+      [
+        "Lo uso en equipos pol\u00edglotas donde el mismo repo tiene Python, Go y JavaScript.",
+        0.5121
+      ],
+      [
+        "Tus checks tardan m\u00e1s de unos segundos.",
+        0.5003
       ],
       [
         "Est\u00e1s reemplazando las puertas de CI con hooks locales.",
         0.5001
       ],
       [
-        "Si el script\ntermina con un status distinto de cero, el commit se aborta.",
-        0.4725
+        "Un hook local de treinta segundos podr\u00eda haber detenido el commit en su teclado.",
+        0.4978
       ],
       [
-        "Necesit\u00e1s escanear secretos o vulnerabilidades en cada commit.",
-        0.4252
+        "Las configuraciones de abajo est\u00e1n listas para copiar y pegar, pero el repo\ncompanion tiene el proyecto completo con todos los archivos de configuraci\u00f3n en\nun solo lugar: https://g",
+        0.4927
       ],
       [
-        "Tests unitarios que terminen en menos de 10 segundos est\u00e1n bien.",
-        0.4247
+        "[Git hooks documentation](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)\n[pre-commit framework](https://pre-commit.com/)\n[husky documentation](https://typicode.github.io",
+        0.475
       ],
       [
-        "Usalo solo para emergencias y hac\u00e9 un\ncommit de limpieza despu\u00e9s.",
-        0.4184
+        "Quer\u00e9s una l\u00ednea base consistente en todo el equipo.",
+        0.459
       ],
       [
-        "Los hooks locales atrapan errores temprano; CI\n  es la puerta final.",
-        0.3937
+        "Tu proyecto ya tiene un formatter y linter.",
+        0.4581
       ],
       [
-        "Configur\u00e1 la\nherramienta para re-stagenar autom\u00e1ticamente o volv\u00e9 a ejecutar git add.",
-        0.3826
+        "Esto es \u00fatil para Java, Go o proyectos C++ que ya tienen una herramienta de build.",
+        0.4522
       ],
       [
-        "Guard\u00e1 la configuraci\u00f3n de hooks en el repo.",
-        0.3712
+        "Rot\u00e1 credenciales inmediatamente si un secreto se cuela a trav\u00e9s de un --no-verify.",
+        0.4494
       ],
       [
-        "El proyecto no tiene un formatter o linter compartido; el hook solo agrega\n  fricci\u00f3n sin una regla clara.",
-        0.3339
+        "Un pre-commit hook detiene el commit solo si su c\u00f3digo de salida es distinto de cero.",
+        0.4386
+      ],
+      [
+        "Trabaj\u00e1s en un repositorio con muchos archivos binarios grandes.",
+        0.438
       ]
     ],
     "diagnostics_sample": []
