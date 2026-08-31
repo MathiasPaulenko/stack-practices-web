@@ -58,19 +58,23 @@ function deriveSlug(filePath) {
 
 function generateAltText(code) {
   const lines = code.trim().split(/\r?\n/);
-  const firstLine = lines[0] || 'diagram';
 
   // Allow an explicit accessible description via a `%% alt: ...` Mermaid comment.
+  // If provided, use it as the full alt text without extra prefixes.
   const altComment = lines.find((line) => /^\s*%%\s*alt:\s*(.+)$/.test(line));
   if (altComment) {
     const match = altComment.match(/^\s*%%\s*alt:\s*(.+)$/);
     const alt = match?.[1]?.trim();
     if (alt) {
-      return `${firstLine.split(/\s/)[0]} diagram: ${alt}`;
+      return alt;
     }
   }
 
-  const secondLine = lines[1] || '';
+  // Skip leading Mermaid comments when looking for the diagram type and title.
+  const nonCommentLines = lines.filter((line) => !/^\s*%%/.test(line));
+  const firstLine = nonCommentLines[0] || 'diagram';
+  const secondLine = nonCommentLines[1] || '';
+
   const desc = secondLine
     .replace(/^\s*[A-Z]\[/, '')
     .replace(/^\s*[A-Z]\{/, '')
