@@ -59,7 +59,9 @@
     (body prosa 1,512/1,527 EN/ES, AI EN 37.9% / ES 34.1%, pattern_totals vacío;
     5 enlaces internos + 7 externos; Mermaid + SVGs EN/ES; companion repo con 10 archivos;
     build 3,260 OK; 0 pendientes; 0 regresiones)
-32. - [ ] **message-idempotency** (recipes)
+32. - [ ] **message-idempotency** (recipes) — 68/100 FIX-THEN-PROMOTE
+    (body prosa 707/755 EN/ES, AI EN 47.6% / ES 41.4%; sin enlaces internos ni
+    externos; thin content y humanización son bloqueos críticos; 0 regresiones)
 33. - [ ] **vertical-slice-architecture-guide** (guides)
 34. - [ ] **prometheus-api-monitoring** (recipes)
 35. - [ ] **docker-network-isolation** (recipes)

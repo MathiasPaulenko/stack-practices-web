@@ -1,0 +1,358 @@
+[
+  {
+    "label": "message-idempotency-en",
+    "model": "desklib",
+    "model_ai_pct": 47.6,
+    "ai_count": 23,
+    "human_count": 32,
+    "skipped_count": 5,
+    "total": 60,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 11.9,
+      "stddev": 12.5,
+      "cv": 1.05,
+      "verdict": "natural variation",
+      "sentence_count": 55,
+      "lengths": [
+        6,
+        9,
+        18,
+        12,
+        6,
+        8,
+        7,
+        10,
+        12,
+        6,
+        9,
+        11,
+        17,
+        7,
+        15,
+        10,
+        11,
+        20,
+        7,
+        15,
+        8,
+        11,
+        12,
+        10,
+        100,
+        10,
+        13,
+        6,
+        10,
+        17,
+        8,
+        8,
+        5,
+        8,
+        6,
+        6,
+        9,
+        9,
+        13,
+        11,
+        10,
+        8,
+        17,
+        8,
+        14,
+        11,
+        6,
+        10,
+        14,
+        7,
+        13,
+        7,
+        8,
+        9,
+        15
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "There are three ways to get there.",
+        0.979
+      ],
+      [
+        "This recipe shows how to do it with Redis, PostgreSQL and\nKafka.",
+        0.924
+      ],
+      [
+        "UPDATE inventory SET quantity = 10 WHERE id = 1 sets a value instead of\n   decrementing it, and INSERT ...",
+        0.9099
+      ],
+      [
+        "Verify the same thing\n  in your own code.",
+        0.8844
+      ],
+      [
+        "Using non-unique fields, such as timestamps, as idempotency keys.",
+        0.8549
+      ],
+      [
+        "Kafka's idempotent producer comes close, but only within a single\npartition.",
+        0.7176
+      ],
+      [
+        "orderId is easier to understand than a\n  random message UUID.",
+        0.6877
+      ],
+      [
+        "Use a business key whenever possible.",
+        0.6867
+      ],
+      [
+        "The key has to be **unique and stable**.",
+        0.6568
+      ],
+      [
+        "**Deduplication with an external store.** Look up a Redis or database key\n   before doing work.",
+        0.6251
+      ],
+      [
+        "**Broker-level idempotency.** Kafka's idempotent producer deduplicates retries\n   per partition, so the application needs fewer checks.",
+        0.6235
+      ],
+      [
+        "Don't assume the broker gives you exactly-once delivery.",
+        0.6165
+      ],
+      [
+        "Longer than your maximum redelivery window.",
+        0.6139
+      ],
+      [
+        "Store the message ID and the result.",
+        0.5817
+      ],
+      [
+        "**Natural idempotency.** Design the operation itself to be safe when repeated.",
+        0.5702
+      ],
+      [
+        "If the message already has a business key like\norderId or paymentId, use it.",
+        0.565
+      ],
+      [
+        "The consumer just sets a fixed value, such as status = shipped.",
+        0.5515
+      ],
+      [
+        "Your broker only guarantees at-least-once delivery.",
+        0.5482
+      ],
+      [
+        "A hash of the message content, though collisions are possible.",
+        0.538
+      ],
+      [
+        "Every service checks the\nsame key before acting.",
+        0.5299
+      ],
+      [
+        "A key set without a result means the message\n  crashed mid-flight; delete it or reprocess it carefully.",
+        0.5254
+      ],
+      [
+        "Use a centralized deduplication store, like Redis or DynamoDB, that every\nconsumer checks.",
+        0.5168
+      ],
+      [
+        "Your broker already gives you exactly-once semantics for your use case.",
+        0.5094
+      ],
+      [
+        "Store the result so duplicates can return the same answer.",
+        0.4577
+      ],
+      [
+        "A duplicate charge, shipment or email would do real damage.",
+        0.4454
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "message-idempotency-es",
+    "model": "desklib",
+    "model_ai_pct": 41.4,
+    "ai_count": 17,
+    "human_count": 40,
+    "skipped_count": 4,
+    "total": 61,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.5,
+      "stddev": 13.7,
+      "cv": 1.09,
+      "verdict": "natural variation",
+      "sentence_count": 57,
+      "lengths": [
+        9,
+        14,
+        21,
+        10,
+        6,
+        9,
+        9,
+        10,
+        10,
+        7,
+        8,
+        11,
+        16,
+        5,
+        19,
+        11,
+        10,
+        20,
+        7,
+        22,
+        8,
+        11,
+        13,
+        11,
+        110,
+        10,
+        6,
+        13,
+        5,
+        10,
+        20,
+        10,
+        5,
+        12,
+        8,
+        6,
+        9,
+        8,
+        14,
+        13,
+        11,
+        10,
+        19,
+        9,
+        10,
+        12,
+        7,
+        10,
+        5,
+        14,
+        7,
+        15,
+        8,
+        9,
+        12,
+        9,
+        11
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Los de base de\ndatos tardan unos pocos milisegundos.",
+        0.9682
+      ],
+      [
+        "Usar campos no \u00fanicos, como timestamps, de idempotency keys.",
+        0.8578
+      ],
+      [
+        "Esta receta muestra\nc\u00f3mo hacerlo con Redis, PostgreSQL y Kafka.",
+        0.789
+      ],
+      [
+        "Hay tres caminos para lograrlo.",
+        0.7861
+      ],
+      [
+        "M\u00e1s que tu ventana m\u00e1xima de redelivery.",
+        0.7763
+      ],
+      [
+        "Aplic\u00e1 TTL al store de deduplicaci\u00f3n.",
+        0.7572
+      ],
+      [
+        "UPDATE inventory SET quantity = 10 WHERE id = 1 fija un valor en lugar de\n   decrementarlo, y INSERT ...",
+        0.749
+      ],
+      [
+        "**Deduplicaci\u00f3n con un store externo.** Verific\u00e1 una clave en Redis o base de\n   datos antes de hacer el trabajo.",
+        0.743
+      ],
+      [
+        "Llamar side effects no idempotentes, como enviar un email, dentro del camino de\n  procesamiento.",
+        0.6756
+      ],
+      [
+        "El producer\nidempotente de Kafka se acerca dentro de una sola partici\u00f3n.",
+        0.6613
+      ],
+      [
+        "El consumer solo fija un valor, como status = shipped.",
+        0.6464
+      ],
+      [
+        "ON CONFLICT DO NOTHING simplemente salta\n   duplicados.",
+        0.5897
+      ],
+      [
+        "Eso ya es idempotente\n  por s\u00ed solo.",
+        0.5831
+      ],
+      [
+        "**Idempotencia a nivel de broker.** El producer idempotente de Kafka\n   deduplica reintentos por partici\u00f3n, reduciendo la necesidad de chequeos en la\n   aplicaci\u00f3n.",
+        0.5406
+      ],
+      [
+        "La clave tiene que ser **\u00fanica y estable**.",
+        0.5323
+      ],
+      [
+        "Permitir retries antes de que el lock de deduplicaci\u00f3n se libere.",
+        0.5074
+      ],
+      [
+        "La deduplicaci\u00f3n evita que un mensaje se procese dos veces.",
+        0.5029
+      ],
+      [
+        "Lo que\ns\u00ed pod\u00e9s construir es **exactly-once processing** con idempotencia.",
+        0.4997
+      ],
+      [
+        "**Idempotencia natural.** Dise\u00f1\u00e1 la operaci\u00f3n para que sea segura repetirla.",
+        0.4701
+      ],
+      [
+        "Prefer\u00ed una business key como orderId o\npaymentId si ya est\u00e1 en el mensaje.",
+        0.4586
+      ],
+      [
+        "Guardar las claves de deduplicaci\u00f3n solo en memoria.",
+        0.4579
+      ],
+      [
+        "Un identificador estable y \u00fanico.",
+        0.4466
+      ],
+      [
+        "Un cobro, env\u00edo o email duplicado causar\u00eda un da\u00f1o real.",
+        0.4346
+      ],
+      [
+        "Cada servicio\nverifica la misma clave antes de actuar.",
+        0.4277
+      ],
+      [
+        "Corr\u00e9 los mismos chequeos en c\u00f3digo que esper\u00e1s del broker.",
+        0.4244
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
