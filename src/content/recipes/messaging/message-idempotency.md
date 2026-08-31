@@ -49,13 +49,14 @@ seo:
 ## Overview
 
 Last year I watched a payment service charge a customer twice because a consumer crashed between processing the message
-and committing the offset. The duplicate had nothing to do with the business logic. It was a duplicate delivery that the
-consumer happily processed again because it had no memory of the first attempt. That's the kind of problem idempotency
-is designed to stop.
+and committing the offset. The duplicate wasn't a business-logic bug. It was a duplicate delivery that the consumer
+happily processed again because it had no memory of the first attempt. That's the kind of problem idempotency is meant
+to stop.
 
 Most message brokers only promise at-least-once delivery. Retries, consumer rebalances, producer failures and network
 hiccups all create duplicates. Idempotency means processing the same message twice leaves the system in the same state
-as processing it once. It isn't a feature the broker has. You make that decision inside the consumer, not in the broker.
+as processing it once. The broker doesn't provide that feature. You make that decision inside the consumer, not in the
+broker.
 
 In this recipe I will walk through the three setups I actually run in production: Redis for fast payment webhooks,
 PostgreSQL for financial ledgers where the database is already the source of truth, and Kafka for stream processing
@@ -74,15 +75,15 @@ where retry semantics matter. Each one has trade-offs, and none of them pretend 
 
 ### When to avoid
 
-- The consumer just sets a fixed value, such as `status = shipped`. That's naturally idempotent without extra work.
+- The consumer just sets a fixed value, such as `status = 'shipped'`. That's naturally idempotent without extra work.
 - Duplicate processing is harmless, such as refreshing a cache that already has the correct TTL.
 - Your broker gives you exactly-once semantics for your use case, such as SQS FIFO with deduplication IDs, and you're
   willing to accept its limits.
 
 ## Solution
 
-Feel free to copy the snippets below and adapt them to whichever stack you're running. The companion repo has runnable
-versions of each one, including the `docker-compose.yml` needed to start Redis, PostgreSQL and Kafka locally.
+You can copy the snippets below and adapt them to your stack. The companion repo has runnable versions of each one,
+including the `docker-compose.yml` needed to start Redis, PostgreSQL and Kafka locally.
 
 ### Redis idempotency key (Node.js)
 
@@ -121,8 +122,8 @@ async function processPayment(message) {
 
 ### PostgreSQL deduplication table
 
-When the database is already the source of truth, keeping the deduplication record in the same transaction as the side
-effect is the safest choice. I insert the message ID and the business update inside one transaction.
+When the database is already the source of truth, I keep the deduplication record in the same transaction as the side
+effect. I insert both the message ID and the business update in the same transaction.
 
 ```sql
 CREATE TABLE processed_messages (
@@ -160,8 +161,8 @@ valid and the duplicate is silently dropped.
 ### Python Kafka consumer with Redis deduplication
 
 This is the same Redis pattern wrapped around a Kafka consumer. The critical part is that the deduplication check and
-the offset commit both happen after the side effect succeeds. If the consumer dies in the middle, the next consumer can
-pick the message up again.
+the offset commit both happen after the side effect succeeds. If the consumer dies mid-message, the next consumer picks
+it up again.
 
 ```python
 import json
@@ -197,8 +198,8 @@ for message in consumer:
 
 ### Java Kafka consumer with manual commits
 
-With Java's Kafka consumer, the code decides exactly when the offset gets committed. The example below checks a Redis
-key before doing work, then commits the offset only after the side effect and the result storage both succeed.
+Java's Kafka consumer lets the code decide exactly when to commit the offset. The example below checks a Redis key
+before doing work, then commits the offset only after the side effect and the result storage both succeed.
 
 ```java
 Properties props = new Properties();
@@ -235,8 +236,8 @@ while (true) {
 
 ### Kafka idempotent producer (Java)
 
-Kafka's idempotent producer removes duplicates caused by producer retries within a single partition. It won't remove
-duplicates caused by your application sending the same event twice, and it doesn't work across partitions.
+Kafka's idempotent producer removes duplicates caused by producer retries within a single partition. It doesn't remove
+duplicates when your application sends the same event twice, and it doesn't work across partitions.
 
 ```java
 Properties props = new Properties();
@@ -256,25 +257,24 @@ producer.send(new ProducerRecord<>("orders", orderId, payload));
 ## Explanation
 
 A consumer is idempotent when processing the same message twice leaves the system in the same state as processing it
-once. In practice I have found three different approaches.
+once. I usually pick one of three approaches, depending on where I want to pay the cost of the check.
 
 ### Deduplication with an external store
 
-I always look up the Redis or database key before I touch the side effect. When the message already has a stored result,
-I return it instead of calling the side effect again. I keep coming back to this pattern in production; it works with
-Kafka, RabbitMQ, SQS or any other broker I have tried.
+I always look up the Redis or database key before I touch the side effect. When a message already has a stored result, I
+return the stored result instead of calling the side effect again. I keep coming back to this pattern in production; it
+has worked with Kafka, RabbitMQ, SQS and any other broker I have tried.
 
 ### Natural idempotency
 
-In some cases the operation can be written so that repeating it does no harm. Consider this SQL update.
-`UPDATE inventory SET quantity = 10 WHERE id = 1` sets an absolute value instead of decrementing it, and
-`INSERT ... ON CONFLICT DO NOTHING` just skips duplicates. I try to use this one whenever I can because it avoids an
-extra round-trip and is the cheapest option.
+In some cases the operation is safe to repeat. The statement `UPDATE inventory SET quantity = 10 WHERE id = 1` sets an
+absolute value instead of decrementing it, and `INSERT ... ON CONFLICT DO NOTHING` just skips duplicates. I reach for
+this one whenever I can because it avoids an extra round-trip, and it's usually the cheapest option.
 
 ### Broker-level idempotency
 
 Kafka's idempotent producer removes duplicates from retries inside one partition, so the application has fewer checks to
-do. RabbitMQ doesn't have the same guarantee, so consumers there always need their own deduplication.
+do. RabbitMQ doesn't have the same guarantee, so consumers there always need their own deduplication store.
 
 ```mermaid
 %% alt: Idempotent message processing flow from broker to consumer
@@ -294,14 +294,14 @@ of the message content with a collision-resistant algorithm. I prefer business k
 a hash can hide duplicates the producer actually intended to be different.
 
 The deduplication store adds latency, cost and a new point of failure, so the trade-off is real. If Redis goes down, the
-consumer has to decide: reject the message and wait for the broker to retry, or process it and accept the risk of a
+consumer must choose: reject the message and wait for the broker to retry, or process it and accept the risk of a
 duplicate. I also make sure the same check runs in CI and in a reconciliation job. The store needs a TTL; I keep keys
-for 24 to 72 hours, which is longer than the broker's redelivery window. For Kafka, the relevant setting is
+for 24 to 72 hours, which is longer than the broker's redelivery window. For Kafka, you want
 `offsets.retention.minutes`. For SQS, it's the visibility timeout times the maximum number of retries plus a buffer.
 
-No broker can give you cross-partition exactly-once. Kafka's idempotent producer only deduplicates retries for a single
-producer session and a single partition. If your consumer reads from several partitions, a rebalance can still move
-partition ownership and cause reprocessing. The only protection is a deduplication key stored outside the consumer.
+You can't get exactly-once across partitions from any broker. Kafka's idempotent producer only deduplicates retries for
+a single producer session and a single partition. If your consumer reads from several partitions, a rebalance can still
+move partition ownership and cause reprocessing. The only protection is a deduplication key stored outside the consumer.
 
 ## Variants
 
@@ -326,12 +326,12 @@ partition ownership and cause reprocessing. The only protection is a deduplicati
   UUID, especially when you're staring at a production log at 2 a.m.
 - Handle the `processing` state. A key set without a result means the message crashed mid-flight. Delete it or reprocess
   it carefully, and only after making sure the side effect didn't complete.
-- I don't assume the broker gives me exactly-once delivery. I make the same check in the consumer code and again in a
+- I never assume the broker gives me exactly-once delivery. I make the same check in the consumer code and again in a
   reconciliation job.
 - Clean up expired deduplication records. TTLs or cron jobs prevent unbounded storage growth.
 - Keep the dedup check and the offset commit together. If you store the result but fail to commit the offset, the
-  consumer will reprocess the message and find the key already present. That is safe. If you commit the offset before
-  storing the result, a duplicate can still run.
+  consumer reprocesses the message and finds the key already present. That is safe. If you commit the offset before you
+  store the result, a duplicate can still run.
 
 ## Common Mistakes
 
@@ -367,13 +367,13 @@ idempotent.
 
 ### How long should I keep deduplication keys?
 
-I set the TTL longer than the maximum redelivery window I expect to see. For Kafka, use `offsets.retention.minutes`. For
-SQS, use `visibility timeout × max retries + buffer`. I usually start with 24 hours and increase it if I see late
+I keep the TTL longer than the maximum redelivery window I expect to see. For Kafka, use `offsets.retention.minutes`.
+For SQS, use `visibility timeout × max retries + buffer`. I usually start with 24 hours and increase it if I see late
 duplicates.
 
 ### What makes a good idempotency key?
 
-I want something stable and unique. When the message already has a business key like `orderId` or `paymentId`, I use it.
+My key has to be stable and unique. When the message already has a business key like `orderId` or `paymentId`, I use it.
 Otherwise I generate a UUID at publish time and propagate it through every retry.
 
 ### Can I trust Kafka's idempotent producer across partitions?
@@ -384,14 +384,14 @@ Kafka can't cover rebalances or a consumer restart.
 
 ### What happens if the deduplication store goes down?
 
-The consumer has to pick one of those two options, and both have a cost. If it processes the message without the check,
-duplicates are possible. If the consumer rejects the message, the broker will retry it. I prefer to reject and let the
-retry loop handle it, because a duplicate charge is usually worse than a few minutes of delay.
+The consumer has to choose one of those two options, and neither is free. If it processes the message without the check,
+duplicates are possible. If the consumer rejects the message, the broker sends it again. I would rather reject and have
+the retry loop handle it, because a duplicate charge usually costs more than a few minutes of delay.
 
 ### How do I handle idempotency across multiple services?
 
-Pick a centralized deduplication store that every consumer can check, such as Redis, PostgreSQL or DynamoDB. I put both
-the message ID and the result in the same record, so every service checks the same key before it acts. If you need
+Pick a centralized deduplication store that every consumer can check, such as Redis, PostgreSQL or DynamoDB. I put the
+message ID and the result in the same record, so every service checks the same key before it acts. If you need
 cross-service transactions, consider an [event-driven microservices](/recipes/event-driven-microservices/) pattern with
 a [dead-letter queue](/recipes/dead-letter-queue/) for failures.
 
@@ -402,5 +402,5 @@ a [dead-letter queue](/recipes/dead-letter-queue/) for failures.
 - [PostgreSQL INSERT ... ON CONFLICT](https://www.postgresql.org/docs/current/sql-insert.html).
 - [AWS SQS FIFO docs](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html).
 - [RabbitMQ consumer acknowledgements](https://www.rabbitmq.com/docs/confirms).
-- Internal: [Event-Driven Microservices](/recipes/event-driven-microservices/) and
-  [Dead Letter Queue](/recipes/dead-letter-queue/).
+- [Event-Driven Microservices](/recipes/event-driven-microservices/).
+- [Dead Letter Queue](/recipes/dead-letter-queue/).

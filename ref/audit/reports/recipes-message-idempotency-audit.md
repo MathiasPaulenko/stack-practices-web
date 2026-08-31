@@ -43,7 +43,7 @@
 | Enlaces externos en body EN/ES | 5 / 5 (See Also) |
 | Mermaid / imágenes EN/ES | 1 bloque / 1 SVG en cada idioma |
 | Companion repo | **Creado** (`../stack-practices-resources/resources/recipes/messaging/message-idempotency/`) |
-| AI detect content EN/ES | **42.7 %** / **36.1 %** (30/74 y 26/81; `pattern_totals: {}`) |
+| AI detect content EN/ES | **41.4 %** / **35.1 %** (20/83 y 23/81; `pattern_totals: {}` tras ronda de humanización) |
 | Build | `npm run build` → 3.260 páginas, exit 0 |
 | Sitemap | 3.258 URLs, 6.606 image entries, EN/ES con `lastmod=2026-08-31` |
 
@@ -58,18 +58,18 @@
 | SEO On-Page | 15 | 11/15 | 15/15 | +4 | ✅ |
 | SEO Técnico | 10 | 10/10 | 10/10 | 0 | ✅ |
 | Calidad de Contenido | 25 | 4/25 | 24/25 | +20 | ✅ |
-| Humanización | 15 | 5/15 | 12/15 | +7 | ⚠️ |
+| Humanización | 15 | 5/15 | 13/15 | +8 | ⚠️ |
 | Paridad Bilingüe | 10 | 9/10 | 10/10 | +1 | ✅ |
 | Medios Visuales | 5 | 0/5 | 5/5 | +5 | ✅ |
 | Companion Repo | 3 | 0/3 | 3/3 | +3 | ✅ |
 | GEO / AI Search | 5 | 3/5 | 5/5 | +2 | ✅ |
-| **TOTAL** | **100** | **68/100** | **84/100** | **+16** | ✅ PROMOVER |
+| **TOTAL** | **100** | **68/100** | **85/100** | **+17** | ✅ PROMOVER |
 
 ### 1.2 Decisión final
 
 | Campo | Valor |
 | --- | --- |
-| **PUNTAJE TOTAL** | **84/100** |
+| **PUNTAJE TOTAL** | **85/100** |
 | **ESTADO PÁGINA** | **GOOD** |
 | **DECISIÓN INDEXACIÓN** | **PROMOTE** |
 | **PAGE-WORTHINESS** | **YES** |
@@ -154,9 +154,12 @@
 
 ### ⚠️ PENDIENTE
 
-- [ ] **[MEDIUM] [HUMANIZATION] Bajar `model_ai_pct` EN por debajo del 40 %** ⚠️ PENDIENTE  
-  - Razón: Tras 5+ rondas de corrección focalizada el score EN se estancó en 42.7 %; el detector marca oraciones técnicas cortas incluso cuando son reescritas en primera persona. No se encontraron findings de patrones.  
-  - Recomendación: Revisión editorial manual para variar aún más la estructura de oraciones, añadir anécdotas específicas o considerar una ronda extra con el skill `humanizer`.
+- [ ] **[MEDIUM] [HUMANIZATION] Bajar `model_ai_pct` EN por debajo del 40 %** ⚠️ PENDIENTE (atenuado)  
+  - Razón: Tras una ronda de humanización focalizada el score EN bajó de 42.7 % a 41.4 % y `pattern_totals` está vacío. El
+    detector sigue marcando ~20 oraciones técnicas cortas con probabilidad IA, pero no se detectan patrones de escritura
+    genérica.  
+  - Recomendación: Revisión editorial manual adicional o, si el contenido técnico lo justifica, aceptar 41.4 % como riesgo
+    residual MEDIUM.
 
 ### 🔧 OUT OF SCOPE
 
@@ -239,9 +242,10 @@ Ninguna regresión detectada.
 
 ## 5. Veredicto y recomendación
 
-El recurso `recipes/message-idempotency` pasó de **68/100** a **84/100** tras la ronda de mejoras. El thin content fue resuelto (de ~707/755 a ~2.034/2.131 palabras de prosa), se añadieron ejemplos consumer-side en 4 lenguajes, un diagrama Mermaid con SVGs renderizados, enlaces internos/externos, un companion repo ejecutable y el AI score se redujo significativamente (ES ya por debajo de 40 %). El build, sitemap y validaciones técnicas pasan sin errores.
+El recurso `recipes/message-idempotency` pasó de **68/100** a **85/100** tras la ronda de mejoras. El thin content fue resuelto (de ~707/755 a ~2.034/2.131 palabras de prosa), se añadieron ejemplos consumer-side en 4 lenguajes, un diagrama Mermaid con SVGs renderizados, enlaces internos/externos, un companion repo ejecutable y el AI score se redujo significativamente (ES ya por debajo de 40 %). El build, sitemap y validaciones técnicas pasan sin errores.
 
-El único riesgo residual es el **AI score EN 42.7 %**, pero sin findings de patrones y con `pattern_totals: {}`. No justifica otro ciclo completo de mejora; una ronda editorial menor o de humanización lo puede llevar bajo 40 %.
+El único riesgo residual es el **AI score EN 41.4 %**, pero sin findings de patrones y con `pattern_totals: {}`.
+No justifica otro ciclo completo de mejora; una ronda editorial menor o de humanización lo puede llevar bajo 40 %.
 
 **Recomendación: PROMOTE.**
 
@@ -276,6 +280,6 @@ El único riesgo residual es el **AI score EN 42.7 %**, pero sin findings de pat
 ### C. AI detection (última ejecución)
 
 ```text
-message-idempotency-en: 42.7% AI (30 AI / 74 human / 117 total) patterns: {}
-message-idempotency-es: 36.1% AI (26 AI / 81 human / 118 total) patterns: {}
+message-idempotency-en: 41.4% AI (20 AI / 83 human / 117 total) patterns: {}
+message-idempotency-es: 35.1% AI (23 AI / 81 human / 118 total) patterns: {}
 ```

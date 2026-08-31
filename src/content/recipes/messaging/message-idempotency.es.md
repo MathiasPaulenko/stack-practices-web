@@ -50,14 +50,13 @@ seo:
 ## Visión General
 
 Hace un año vi cómo un servicio de pagos cobraba dos veces a un cliente porque un consumer se cayó entre procesar el
-mensaje y commitear el offset. El duplicado no era un bug en la lógica de negocio. Era una entrega duplicada que el
-consumer procesó de nuevo porque no tenía memoria del primer intento. Ese es el daño que previene la idempotencia en
-mensajes.
+mensaje y commitear el offset. El duplicado no era un bug de lógica de negocio. Era una entrega duplicada que el
+consumer procesó de nuevo porque no tenía memoria del primer intento. Ese es el daño que previene la idempotencia.
 
 La mayoría de los message brokers prometen at-least-once delivery. Los retries, los rebalances de consumers, los fallos
 del producer y los problemas de red generan mensajes duplicados. La idempotencia significa que procesar el mismo mensaje
-dos veces deja al sistema en el mismo estado que procesarlo una vez. No es una feature que el broker tenga. Es una
-decisión que tomás dentro del consumer.
+dos veces deja al sistema en el mismo estado que procesarlo una vez. El broker no te da esa feature. Es una decisión que
+tomás dentro del consumer.
 
 Esta receta muestra cómo construir consumers idempotentes con Redis, PostgreSQL y Kafka. Yo usé el patrón de Redis para
 webhooks de pagos de alto throughput, el de PostgreSQL para ledgers financieros donde la base ya es la fuente de verdad,
@@ -77,7 +76,7 @@ pretende que el exactly-once delivery sea gratis.
 
 ### Cuándo evitarlo
 
-- El consumer solo fija un valor, como `status = shipped`. Eso ya es idempotente por sí solo.
+- El consumer solo fija un valor, como `status = 'shipped'`. Eso ya es idempotente por sí solo.
 - Procesar duplicados es inofensivo, como actualizar una cache que ya tiene el TTL correcto.
 - Tu broker te da exactly-once semantics para tu caso de uso, como SQS FIFO con deduplication IDs, y estás dispuesto a
   aceptar sus límites.
@@ -124,9 +123,8 @@ async function processPayment(message) {
 
 ### Tabla de deduplicación en PostgreSQL
 
-Cuando la base de datos ya es la fuente de verdad, guardar el registro de deduplicación en la misma transacción que el
-side effect es la opción más segura. Yo inserto el ID del mensaje y la actualización de negocio dentro de una
-transacción.
+Cuando la base de datos ya es la fuente de verdad, guardo el registro de deduplicación en la misma transacción que el
+side effect. Yo inserto el ID del mensaje y la actualización de negocio en la misma transacción.
 
 ```sql
 CREATE TABLE processed_messages (
@@ -164,8 +162,8 @@ válida y el duplicado se descarta silenciosamente.
 ### Consumer de Kafka en Python con deduplicación en Redis
 
 Es el mismo patrón de Redis envuelto en un consumer de Kafka. La parte crítica es que el check de deduplicación y el
-commit del offset pasan ambos después de que el side effect tenga éxito. Si el consumer se cae antes de terminar, el
-siguiente consumer puede reintentar el mensaje.
+commit del offset pasan ambos después de que el side effect tenga éxito. Si el consumer se cae en medio del mensaje, el
+siguiente consumer lo retoma.
 
 ```python
 import json
@@ -201,8 +199,8 @@ for message in consumer:
 
 ### Consumer de Kafka en Java con commits manuales
 
-Con el consumer de Kafka en Java, el código decide exactamente cuándo se commitea el offset. El ejemplo de abajo chequea
-una clave de Redis antes de hacer el trabajo, y commitea el offset solo después de que el side effect y el
+El consumer de Kafka en Java deja que el código decida exactamente cuándo commitear el offset. El ejemplo de abajo
+chequea una clave de Redis antes de hacer el trabajo, y commitea el offset solo después de que el side effect y el
 almacenamiento del resultado tengan éxito.
 
 ```java
@@ -261,7 +259,7 @@ producer.send(new ProducerRecord<>("orders", orderId, payload));
 ## Explicación
 
 Un consumer es idempotente cuando procesar el mismo mensaje dos veces deja al sistema en el mismo estado que procesarlo
-una vez. En la práctica encontré tres caminos.
+una vez. En la práctica elijo uno de tres caminos, dependiendo de dónde quiero pagar el costo del chequeo.
 
 ### Deduplicación con un store externo
 
@@ -271,10 +269,9 @@ producción; funciona con Kafka, RabbitMQ, SQS o cualquier otro broker.
 
 ### Idempotencia natural
 
-A veces podés escribir la operación para que repetirla no haga daño. Tomá este update SQL como ejemplo.
-`UPDATE inventory SET quantity = 10 WHERE id = 1` fija un valor absoluto en lugar de decrementarlo, y
-`INSERT ... ON CONFLICT DO NOTHING` simplemente salta duplicados. Intento usar este enfoque siempre que puedo porque
-evita un round-trip extra y es la opción más barata.
+A veces la operación es segura de repetir. La sentencia `UPDATE inventory SET quantity = 10 WHERE id = 1` fija un valor
+absoluto en lugar de decrementarlo, y `INSERT ... ON CONFLICT DO NOTHING` simplemente salta duplicados. Intento usar
+este enfoque siempre que puedo porque evita un round-trip extra y suele ser la opción más barata.
 
 ### Idempotencia a nivel de broker
 
@@ -301,33 +298,33 @@ un hash puede ocultar duplicados que el producer en realidad intentó que sean d
 El store de deduplicación agrega latencia, costo y un nuevo punto de falla, así que el compromiso es real. Si Redis está
 caído, el consumer tiene que decidir: rechaza el mensaje y espera a que el broker reintente, o lo procesa y acepta el
 riesgo de un duplicado. También me aseguro de que el mismo chequeo corra en CI y en un job de reconciliación. El store
-necesita un TTL; yo mantengo las claves entre 24 y 72 horas, más que la ventana de redelivery del broker. Para Kafka, el
-setting relevante es `offsets.retention.minutes`. Para SQS, es el visibility timeout multiplicado por la cantidad máxima
-de retries más un buffer.
+necesita un TTL; yo mantengo las claves entre 24 y 72 horas, más que la ventana de redelivery del broker. Para Kafka,
+querés `offsets.retention.minutes`. Para SQS, es el visibility timeout multiplicado por la cantidad máxima de retries
+más un buffer.
 
-Ningún broker puede darte exactly-once entre particiones. El producer idempotente de Kafka solo deduplica reintentos
-para una sola sesión de producer y una sola partición. Si tu consumer lee de varias particiones, un rebalance puede
-mover la propiedad de la partición y causar reprocessamiento. La única protección es una clave de deduplicación guardada
-fuera del consumer.
+No podés conseguir exactly-once entre particiones con ningún broker. El producer idempotente de Kafka solo deduplica
+reintentos para una sola sesión de producer y una sola partición. Si tu consumer lee de varias particiones, un rebalance
+puede mover la propiedad de la partición y causar reprocessamiento. La única protección es una clave de deduplicación
+guardada fuera del consumer.
 
 ## Variantes
 
-| Enfoque | Ideal para | Compromiso |
-| --- | --- | --- |
-| Redis `SET NX` | Alto throughput | Pérdida de datos si Redis falla antes de persistir |
-| Índice único en base de datos | Datos financieros o críticos | Más lento; requiere round-trip a la base |
-| Idempotencia natural | Actualizaciones de estado simples | Requiere diseñar la operación para que sea segura |
-| Kafka idempotent producer | Stream processing | Exactly-once por partición, no entre particiones |
-| RabbitMQ manual ack con dedup | Queue workers | El consumer debe manejar el store de dedup |
-| SQS FIFO deduplication ID | Pipelines serverless | Ventana de deduplicación de cinco minutos |
-| DynamoDB conditional write | Stacks polyglot en AWS | Lecturas eventualmente consistentes |
-| Bloom filter | Pre-filtro eficiente en memoria | Puede dar falsos positivos |
+| Enfoque                       | Ideal para                        | Compromiso                                         |
+| ----------------------------- | --------------------------------- | -------------------------------------------------- |
+| Redis `SET NX`                | Alto throughput                   | Pérdida de datos si Redis falla antes de persistir |
+| Índice único en base de datos | Datos financieros o críticos      | Más lento; requiere round-trip a la base           |
+| Idempotencia natural          | Actualizaciones de estado simples | Requiere diseñar la operación para que sea segura  |
+| Kafka idempotent producer     | Stream processing                 | Exactly-once por partición, no entre particiones   |
+| RabbitMQ manual ack con dedup | Queue workers                     | El consumer debe manejar el store de dedup         |
+| SQS FIFO deduplication ID     | Pipelines serverless              | Ventana de deduplicación de cinco minutos          |
+| DynamoDB conditional write    | Stacks polyglot en AWS            | Lecturas eventualmente consistentes                |
+| Bloom filter                  | Pre-filtro eficiente en memoria   | Puede dar falsos positivos                         |
 
 ## Mejores Prácticas
 
 - Guardá el resultado del procesamiento, no solo un flag. Devolver el mismo resultado ante duplicados hace al sistema
   predecible y ayuda a los callers que esperan una respuesta.
-- Aplicá TTL al store de deduplicación. Mantené las claves entre 24 y 72 horas, más que la ventana de redelivery del
+- Ponele TTL al store de deduplicación. Mantené las claves entre 24 y 72 horas, más que la ventana de redelivery del
   broker. Ventanas más largas cuestan más storage; ventanas más cortas dejan pasar duplicados.
 - Usá business keys cuando podás. `orderId` es más fácil de razonar que un UUID de mensaje aleatorio, especialmente
   cuando estás mirando un log de producción a las 2 de la mañana.
@@ -367,32 +364,32 @@ estado final es el mismo que si se hubiera procesado una vez. Usualmente funcion
 
 ### ¿Por qué el exactly-once delivery es imposible en sistemas distribuidos?
 
-Una red, un proceso o un disco pueden fallar en cualquier punto entre el broker y el consumer. No podés garantizar que
-un mensaje haya sido procesado exactamente una vez sin una única fuente de verdad. El objetivo práctico es el
-exactly-once processing, que conseguís haciendo el consumer idempotente.
+Una red, un proceso o un disco pueden fallar en cualquier punto entre el broker y el consumer. Con eso en mente, no
+podés garantizar que un mensaje haya sido procesado exactamente una vez sin una única fuente de verdad. El objetivo
+práctico es el exactly-once processing, que conseguís haciendo el consumer idempotente.
 
 ### ¿Cuánto tiempo debería conservar las claves de deduplicación?
 
-Yo las mantengo más que la ventana máxima de redelivery que espero ver. Para Kafka, usá `offsets.retention.minutes`.
-Para SQS, usá `visibility timeout × max retries + buffer`. Yo suelo empezar con 24 horas y aumentar si veo duplicados
-tardíos.
+Yo las mantengo más tiempo que la ventana máxima de redelivery que espero ver. Para Kafka, usá
+`offsets.retention.minutes`. Para SQS, usá `visibility timeout × max retries + buffer`. Yo suelo empezar con 24 horas y
+aumentar si veo duplicados tardíos.
 
 ### ¿Qué hace una buena idempotency key?
 
-Busco algo estable y único. Cuando el mensaje ya tiene una business key como `orderId` o `paymentId`, la uso. Si no,
-genero un UUID al publicar y lo propago en cada retry.
+Mi clave tiene que ser estable y única. Cuando el mensaje ya tiene una business key como `orderId` o `paymentId`, la
+uso. Si no, genero un UUID al publicar y lo propago en cada retry.
 
 ### ¿Puedo confiar en el producer idempotente de Kafka entre particiones?
 
 No. El producer idempotente de Kafka deduplica reintentos dentro de una sola sesión de producer y una sola partición. No
 previene el reprocessamiento después de un rebalance del consumer o un restart del producer. Tu consumer todavía
-necesita su propio store de dedup.
+necesita su propio store de deduplicación.
 
 ### ¿Qué pasa si el store de deduplicación se cae?
 
-El consumer tiene que elegir una de esas dos opciones, y ambas tienen un costo. Si procesa el mensaje sin el chequeo,
-los duplicados son posibles. Si rechaza el mensaje, el broker va a reintentar. Yo prefiero rechazar y dejar que el loop
-de retry lo maneje, porque un cobro duplicado suele ser peor que unos minutos de demora.
+El consumer tiene que elegir una de esas dos opciones, y ninguna es gratis. Si procesa el mensaje sin el chequeo, los
+duplicados son posibles. Si rechaza el mensaje, el broker lo reenvía. Prefiero rechazar y dejar que el loop de retry lo
+maneje, porque un cobro duplicado suele costar más que unos minutos de demora.
 
 ### ¿Cómo manejo idempotencia entre varios servicios?
 
@@ -409,5 +406,5 @@ necesitás transacciones entre servicios, considerá un patrón de
 - [PostgreSQL INSERT ... ON CONFLICT](https://www.postgresql.org/docs/current/sql-insert.html).
 - [AWS SQS FIFO docs](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html).
 - [RabbitMQ consumer acknowledgements](https://www.rabbitmq.com/docs/confirms).
-- Internos: [Event-Driven Microservices](/recipes/event-driven-microservices/) y
-  [Dead Letter Queue](/recipes/dead-letter-queue/).
+- [Event-Driven Microservices](/recipes/event-driven-microservices/).
+- [Dead Letter Queue](/recipes/dead-letter-queue/).
