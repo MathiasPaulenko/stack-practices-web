@@ -8,6 +8,7 @@ import {
   techArticle,
   breadcrumbList,
   faqPage,
+  webPage,
 } from '../lib/schema';
 import type { Locale } from '../config/site';
 
@@ -60,6 +61,12 @@ const dateModified = lastUpdated.toISOString();
 const datePublished = effectivePublishedAt.toISOString();
 
 const jsonLd: Record<string, unknown>[] = [
+  webPage({
+    name: title,
+    description: metaDescription,
+    url: structuredDataPath,
+    locale: localeTag,
+  }),
   techArticle({
     headline: title,
     description: metaDescription,
