@@ -65,9 +65,9 @@ A pre-commit hook is an executable script that runs between `git commit` and the
 
 ## Solution
 
-The configurations below are copy-paste ready, but the companion repo has the
-full runnable project with every config file in one place:
-`https://github.com/MathiasPaulenko/stack-practices-resources` under
+The configurations below are copy-paste ready, but the
+[companion repo](https://github.com/MathiasPaulenko/stack-practices-resources)
+has the full runnable project with every config file in one place under
 `resources/recipes/devops/pre-commit-hooks`.
 
 ### Python — the pre-commit framework

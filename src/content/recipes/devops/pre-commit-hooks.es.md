@@ -65,10 +65,10 @@ Un pre-commit hook es un script ejecutable que corre entre `git commit` y el mom
 
 ## Solución
 
-Las configuraciones de abajo están listas para copiar y pegar, pero el repo
-companion tiene el proyecto completo con todos los archivos de configuración en
-un solo lugar: `https://github.com/MathiasPaulenko/stack-practices-resources`
-bajo `resources/recipes/devops/pre-commit-hooks`.
+Las configuraciones de abajo están listas para copiar y pegar, pero el
+[repo companion](https://github.com/MathiasPaulenko/stack-practices-resources)
+tiene el proyecto completo con todos los archivos de configuración bajo
+`resources/recipes/devops/pre-commit-hooks`.
 
 ### Python — el framework pre-commit
 
