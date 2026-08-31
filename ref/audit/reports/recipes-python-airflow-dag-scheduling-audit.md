@@ -1,5 +1,11 @@
 # Checklist de arreglos — recipes/python-airflow-dag-scheduling (re-auditoría)
 
+> Re-auditoría tras ronda de mejoras con `ref/improve-a-resource.md` en MODE=full
+> Fecha: 2026-08-31
+> Recurso #27 en `ref/checklist-top-recursos-mejoras.md`
+
+---
+
 ## 0. Metadata del recurso
 
 | Campo | Valor |
@@ -13,38 +19,32 @@
 | URL producción ES | `https://stackpractices.com/es/recipes/python-airflow-dag-scheduling/` |
 | Título EN | `Schedule and Monitor DAGs with Apache Airflow` (45 chars) |
 | Título ES | `Programar y Monitorear DAGs con Apache Airflow` (46 chars) |
-| `description` EN | 114 chars |
-| `description` ES | 116 chars |
-| `metaDescription` EN | **157** chars (coincide con `seo.metaDescription`) |
-| `metaDescription` ES | **151** chars (coincide con `seo.metaDescription`) |
-| `difficulty` | `advanced` |
-| `topics` | `data` (válido) |
-| `tags` | `data`, `python`, `airflow`, `scheduling`, `dag`, `orchestration`, `etl`, `taskflow`, `data-pipeline` |
-| `lastUpdated` | `2026-08-30` (EN y ES) |
-| `publishedAt` | `2026-07-05` (EN y ES) |
-| `author` | `Mathias Paulenko` |
-| `relatedResources` EN/ES | 6 slugs, mismo orden, todos válidos, mixto `recipes` + `guides` |
-| Palabras body prosa EN | **2.366** (sin bloques de código) |
-| Palabras body prosa ES | **2.334** (sin bloques de código) |
-| Mínimo esperado para `recipes` | >= 1.300 palabras de prosa |
-| H2 EN/ES | 9/9 |
-| H3 EN/ES | 17/17 |
-| Bloques de código EN/ES | 18/18 |
-| FAQ items EN/ES | 5/5 |
-| Enlaces internos en body EN/ES | 8/8 |
-| Enlaces externos en body EN/ES | 5/5 |
-| Mermaid / imágenes EN/ES | 1/1 (flowchart LR, SVG generados) |
-| Companion repo | **Creado y catálogo OK** |
-| AI detect patterns EN/ES | 0 hallazgos / 0 hallazgos |
-| AI detect content EN | **39.3 %** (28 AI / 110 human / 141 total), `pattern_totals: {}` |
-| AI detect content ES | **34.9 %** (27 AI / 112 human / 142 total), `pattern_totals: {}` |
-| Build | `npm run build` 3.258 páginas, exit 0 |
+| `metaDescription` EN | 157 chars (coincide con `seo.metaDescription`) |
+| `metaDescription` ES | 154 chars (coincide con `seo.metaDescription`) |
+| `lastUpdated` | `2026-08-31` (EN y ES, actualizado) |
+| `relatedResources` EN/ES | 6 slugs, mismo orden, todos válidos |
+| Palabras body EN | ~1.536 (sin bloques de código) |
+| Palabras body ES | ~1.483 (sin bloques de código) |
+| H2 EN/ES | 9 / 9 |
+| H3 EN/ES | 19 / 19 |
+| Bloques de código EN/ES | 8 / 8 |
+| FAQ items EN/ES | 7 / 7 (antes 5/5, +2) |
+| Enlaces internos en body EN/ES | 3 / 3 (+ 6 en See Also) |
+| Enlaces externos en body EN/ES | 6 / 6 (+Astronomer guide, +companion) |
+| Mermaid / imágenes EN/ES | 1 flowchart TD, 1 SVG por idioma (232x788px) |
+| Companion repo | **EXISTE** — meta.json completo, catálogo PASS, enlace en body |
+| AI detect patterns EN | 0 hallazgos, `pattern_totals: {}` |
+| AI detect patterns ES | 0 hallazgos, `pattern_totals: {}` |
+| AI detect content EN | **39.2 %** (29 AI / 130 human / 161 total) |
+| AI detect content ES | **33.1 %** (25 AI / 137 human / 163 total) |
+| Build | `npm run build` 3.260 páginas, exit 0 |
 | `npm run content:validate` | PASS (0 errores, 0 advertencias, 1.021 archivos) |
-| `npm run content:quality` | PASS (0 errores, 0 advertencias, 2.042 archivos) |
-| `npm run content:links` | PASS (0 enlaces rotos en `relatedResources`) |
+| `npm run content:quality` | PASS (0 errores, 0 warnings, 2.042 archivos) |
+| `npm run content:links` | PASS (0 enlaces rotos, 1.025 archivos) |
 | `npm run check` | PASS (0 errores, 0 warnings, 3 hints preexistentes) |
-| `npm run sitemap` | URLs EN/ES presentes con `lastmod=2026-08-30` |
-| `npm run mermaid:render` | 64 SVGs renderizados (incluye EN y ES del recurso) |
+| `npm run mermaid:render` | PASS (74 SVGs generados) |
+| `npm run sitemap` | PASS (3.258 URLs, 6.606 image entries) |
+| Companion `build-catalog.js` | PASS (30 resources) |
 
 ---
 
@@ -52,17 +52,17 @@
 
 | Dimensión | Máx | Antes | Después | Cambio | Estado |
 |-----------|-----|-------|---------|--------|--------|
-| SEO On-Page | 15 | 11 | 14.5 | +3.5 | ✅ |
-| SEO Técnico | 10 | 9 | 9.5 | +0.5 | ✅ |
-| Calidad de contenido | 25 | 8 | 22 | +14 | ✅ |
-| Humanización | 15 | 8 | 13 | +5 | ✅ |
-| Paridad bilingüe | 10 | 9 | 9.5 | +0.5 | ✅ |
-| Medios visuales | 5 | 0 | 4.5 | +4.5 | ✅ |
-| Companion repo | 3 | 0 | 3 | +3 | ✅ |
-| GEO / AI Search | 5 | 3 | 4.5 | +1.5 | ✅ |
-| **TOTAL** | **88** | **48** | **80.5** | **+32.5** | ✅ |
+| SEO On-Page | 15 | 14 | 15 | +1 | ✅ |
+| SEO Técnico | 10 | 9 | 9 | 0 | ✅ |
+| Calidad Contenido | 25 | 23 | 24 | +1 | ✅ |
+| Humanización | 15 | 14 | 14 | 0 | ✅ |
+| Paridad Bilingüe | 10 | 8 | 9 | +1 | ✅ |
+| Medios Visuales | 5 | 4 | 5 | +1 | ✅ |
+| Companion Repo | 3 | 2 | 3 | +1 | ✅ |
+| GEO / AI Search | 5 | 4 | 5 | +1 | ✅ |
+| **TOTAL** | **88** | **78** | **84** | **+6** | ✅ |
 
-**Interpretación del cambio:** +32.5 puntos. **MEJORA SIGNIFICATIVA**. El recurso pasa de `NOT COMPETITIVE` (`HOLD`) a `COMPETITIVE` (`PROMOTE`).
+**Interpretación del cambio:** +6 puntos. **MEJORA MODERADA** ✅. El recurso pasa de 78/88 a 84/88 (~95/100).
 
 ---
 
@@ -70,305 +70,205 @@
 
 ### ✅ Resueltos
 
-- [x] **[CRITICAL] [CONTENT] Expandir el body prosa por encima del mínimo de 1.300 palabras para `recipes`**
-  - Evidence: `src/content/recipes/data/python-airflow-dag-scheduling.md` y `.es.md`.
-  - Antes: 669 EN / 638 ES. Después: 2.366 EN / 2.334 ES.
-  - Verificado con `node ref/output/reaudit-metrics.cjs` y `npm run content:quality`.
+- [x] **[MEDIUM] [COMPANION] Añadir enlace al companion repo en el body EN/ES** ✅ RESUELTO
+  - Evidence: `dist/recipes/python-airflow-dag-scheduling/index.html` — `companion link: True` EN+ES.
+  - Antes: sin enlace. Después: enlace a `https://mathiaspaulenko.github.io/stack-practices-resources/` en See Also EN+ES.
 
-- [x] **[HIGH] [HUMANIZATION] Bajar `model_ai_pct` EN por debajo del 40 %**
-  - Evidence: `ref/output/ai-detect-python-airflow-dag-scheduling.json`.
-  - Antes: 42.3 % EN. Después: 39.3 % EN / 34.9 % ES. `pattern_totals` vacío en ambos.
-  - Verificado con `python scripts/ai-detect-content.py`.
+- [x] **[MEDIUM] [SEO] Cerrar brecha bidireccional con `python-celery-task-queue`** ✅ RESUELTO
+  - Evidence: `src/content/recipes/messaging/python-celery-task-queue.md` y `.es.md` líneas 23-29.
+  - Antes: `database-query-result-caching` en relatedResources. Después: `python-airflow-dag-scheduling`.
+  - Nota: `cron-jobs` no se modificó porque ya tiene 8 relatedResources (excede el límite de 6 renderizables). Marcado como OUT OF SCOPE.
 
-- [x] **[HIGH] [CONTENT] Añadir 2-3 enlaces contextuales internos en el body**
-  - Evidence: body EN/ES.
-  - Antes: 1 enlace interno. Después: 8 enlaces internos (guía completa, cron, Celery, pandas ETL, Spark groupBy, dbt, guía Airflow).
-  - Verificado con grep de `](/`.
+- [x] **[LOW] [CONTENT] `See Also` repite recursos ya listados en `relatedResources`** ✅ RESUELTO
+  - Evidence: EN líneas 629-643, ES líneas 624-638.
+  - Antes: 4 enlaces de See Also repetían relatedResources. Después: removido cron-jobs, añadido companion link + Astronomer guide (enlace externo nuevo).
 
-- [x] **[HIGH] [CONTENT] Añadir enlaces externos autorizados y referencias oficiales**
-  - Evidence: body EN/ES.
-  - Antes: 0 enlaces externos. Después: 5 enlaces a `airflow.apache.org/docs/`.
-  - Verificado con grep de `](https://`.
+- [x] **[LOW] [MEDIA] Diagrama Mermaid excesivamente ancho (1646×179 px)** ✅ RESUELTO
+  - Evidence: `public/assets/diagrams/python-airflow-dag-scheduling-1.svg` — `viewBox="-8 -8 232 788"`.
+  - Antes: flowchart LR, 1646x179px (~9:1). Después: flowchart TD, 232x788px (~1:3.4), móvil-friendly.
 
-- [x] **[HIGH] [MEDIA] Añadir un diagrama Mermaid que ilustre el ciclo de vida de un DAG**
-  - Evidence: `src/content/recipes/data/python-airflow-dag-scheduling.md` y `.es.md`, sección `Explanation`.
-  - Antes: 0 bloques Mermaid. Después: 1 `flowchart LR` en EN y ES.
-  - Verificado con `npm run mermaid:render`; SVGs generados en `public/assets/diagrams/`.
+- [x] **[LOW] [GEO] Añadir FAQ sobre troubleshooting común** ✅ RESUELTO
+  - Evidence: EN líneas 610-627, ES líneas 601-621.
+  - Antes: 5 FAQ. Después: 7 FAQ (+2: "Why doesn't my DAG show up in the UI?" + "How do I prevent overlapping runs?").
 
-- [x] **[HIGH] [COMPANION] Evaluar crear un companion repo ejecutable con el DAG de ejemplo**
-  - Evidence: `../stack-practices-resources/resources/recipes/data/python-airflow-dag-scheduling/`.
-  - Antes: no existía. Después: creado con `meta.json`, `README.md`, `README.es.md`, `dags/etl_daily_pipeline.py`, `requirements.txt` y `docker-compose.yml`.
-  - Verificado con `node scripts/build-catalog.js` (25 recursos).
-
-- [x] **[MEDIUM] [SEO] Acortar `metaDescription` a 160 caracteres o menos**
-  - Evidence: frontmatter EN/ES.
-  - Antes: 165 chars. Después: 157 EN / 151 ES.
-  - Verificado con `npm run content:validate`.
-
-- [x] **[MEDIUM] [CONTENT] Reemplazar el placeholder `api.example.com/health` por un ejemplo realista o genérico sin `example.com`**
-  - Evidence: sección "Sensors" en EN y ES.
-  - Antes: `https://api.example.com/health`. Después: `https://httpbin.org/get`.
-  - Verificado con grep de `example.com` en el recurso (0 matches).
-
-- [x] **[MEDIUM] [CONTENT] Explicar los bloques de código más complejos en prosa**
-  - Evidence: `Explanation` y secciones alrededor de `Dynamic task mapping` y `Callbacks`.
-  - Antes: bloques de código solos. Después: explicaciones de `expand()`, límites de concurrencia, callbacks cortos y failure-tolerant.
-
-- [x] **[MEDIUM] [GEO] Incluir afirmaciones con versiones de Airflow y contexto de cambios recientes**
-  - Evidence: `Variants`, `Best Practices`, `FAQ`.
-  - Antes: sin versiones. Después: notas de `Airflow 2.2+`, `Airflow 2.3+` y `schedule` reemplazando `schedule_interval`.
-
-- [x] **[MEDIUM] [CONTENT] Añadir sección `See Also` o `Further Reading` con recursos del ecosistema**
-  - Evidence: final del body EN/ES.
-  - Antes: terminaba en `FAQ`. Después: sección `## See Also` con guía completa, cron, Celery y docs oficiales.
-
-- [x] **[LOW] [SEO] Actualizar `lastUpdated` al día de la última modificación real**
-  - Evidence: frontmatter EN/ES y `public/sitemap.xml`.
-  - Antes: `2026-08-19`. Después: `2026-08-30`.
-  - Verificado con `npm run sitemap`.
+- [x] **[LOW] [BILINGUAL] Primera persona ES menor que EN** ✅ RESUELTO
+  - Evidence: ES líneas 508-510, 517-518, 533-545.
+  - Antes: ES usaba "Empiezo" y "Solo lo habilito". Después: +Yo en "yo lo seteo", "yo trato", "me ahorra", "yo lo mantengo", "yo solo lo habilito", "si yo lo salteo".
 
 ### 🔧 Out of scope
 
-- [ ] **[LOW] [TECHNICAL] Falta `WebPage` schema (problema global del sitio)**
-  - Razón: Requiere modificar `BaseLayout.astro` de forma global; no es un cambio del recurso individual.
-  - Recomendación: Implementar `WebPage` schema en una iteración de desarrollo global.
+- [ ] **[LOW] [SEO] Brecha bidireccional con `cron-jobs`** 🔧 OUT OF SCOPE
+  - Razón: `cron-jobs` ya tiene 8 relatedResources (excede el límite de 6 renderizables). No se puede añadir `python-airflow-dag-scheduling` sin eliminar uno existente, lo cual requiere análisis de cluster SEO.
+  - Recomendación: Sesión manual de análisis de relatedResources de cron-jobs.
 
-- [ ] **[LOW] [MEDIA] Verificación móvil real no realizada**
-  - Razón: No se dispone de navegador/emulador en esta sesión.
-  - Evidencia estructural: `<meta name="viewport">` presente, clases Tailwind responsive, `.mermaid-diagram` con `max-width: 100%`, no hay elementos con ancho fijo > 375 px.
-  - Recomendación: Capturar `ref/audit/reports/screenshots/python-airflow-dag-scheduling-mobile-after.png` en viewport 375 px cuando sea posible.
+- [ ] **[LOW] [TRAFFIC] Datos GSC/GA4 no verificados** 🔧 OUT OF SCOPE
+  - Razón: Sin acceso a Google Search Console/GA4. NOT VERIFIED para clics, impresiones, CTR, posición.
+
+- [ ] **[LOW] [MOBILE] Verificación visual móvil 375px no realizada** 🔧 OUT OF SCOPE
+  - Razón: Sin navegador/emulador. Verificación estructural OK — viewport, CSS responsive, lightbox, tabindex, role, aria-label, SVG 232px (no excede 375px).
+
+- [ ] **[LOW] [TRAFFIC] og:image genérica** 🔧 OUT OF SCOPE
+  - Razón: Requiere diseño de imagen específica por recurso.
+
+- [ ] **[LOW] [PERFORMANCE] Core Web Vitals no medidos** 🔧 OUT OF SCOPE
+  - Razón: Sin acceso a Lighthouse/PageSpeed en producción.
 
 ### 🔄 Regresiones
 
-Ninguna. Todos los comandos de validación pasaron y el build es exitoso.
+Ninguna.
 
 ---
 
 ## 3. Definition of Done (actualizada)
 
-- [x] Todos los ítems CRITICAL resueltos.
-- [x] Todos los ítems HIGH resueltos.
-- [x] Body prosa EN/ES >= 1.300 palabras.
-- [x] `model_ai_pct` EN < 40 % y ES < 40 %; `pattern_totals` vacío.
-- [x] Al menos 2 enlaces internos contextuales en el body EN/ES.
-- [x] Al menos 3 enlaces externos autorizados en el body EN/ES.
-- [x] Diagrama Mermaid añadido y SVG renderizado.
-- [x] Companion repo creado y catálogo build pasa.
-- [x] `npm run content:quality`, `content:links`, `content:validate`, `check`, `mermaid:render`, `build`, `sitemap` pasan.
-- [x] Paridad EN/ES verificada.
-- [ ] Verificación móvil real a 375 px (out of scope hasta disponer de navegador).
+### Frontmatter y SEO
+- [x] `title` < 60 caracteres e igual al H1 renderizado.
+- [x] `metaDescription` EN/ES dentro de 50-170 caracteres y coincidente con `seo.metaDescription`.
+- [x] `relatedResources` 3-6 slugs coherentes, mismo orden EN/ES, sin enlaces rotos.
+- [x] `lastUpdated` coincidente en EN/ES (2026-08-31).
+- [x] H1 único generado desde el frontmatter; jerarquía H2 → H3 sin saltos.
+
+### Body y contenido
+- [x] Body prosa >= 1.300 palabras en EN (~1.536) y ES (~1.483).
+- [x] Secciones mínimas presentes: Overview, When to Use, Solution, Explanation, Variants, Best Practices, Common Mistakes, FAQ, See Also.
+- [x] 2-3 enlaces contextuales internos en el body.
+- [x] Enlaces externos a fuentes primarias (docs Airflow, pendulum, Astronomer).
+- [x] Enlace al companion repo en See Also EN/ES.
+
+### Humanización
+- [x] `pattern_totals` vacío en EN y ES.
+- [x] Desklib EN < 40 % (39.2%).
+- [x] Desklib ES < 40 % (33.1%).
+- [x] Tono en primera persona en EN y ES, trade-offs explícitos, sin aperturas genéricas.
+- [x] Sin palabras rojas ni frases genéricas detectadas.
+
+### Paridad EN/ES
+- [x] Misma estructura de secciones y orden.
+- [x] Misma cantidad de H2 (9), H3 (19), code blocks (8), Mermaid (1), FAQ (7).
+- [x] Metadatos traducidos con longitudes correctas.
+- [x] `relatedResources` y `lastUpdated` coincidentes.
+- [x] Primera persona ES alineada con EN.
+
+### Medios visuales y companion
+- [x] Diagrama Mermaid flowchart TD, SVG 232x788px, móvil-friendly.
+- [x] SVGs renderizados, lightbox y aria-label presentes.
+- [x] Companion repo existe y `meta.json` tiene todos los campos correctos.
+- [x] Companion `build-catalog.js` PASS (30 resources).
+- [x] Enlace al companion en body EN/ES.
+
+### Validación técnica
+- [x] `npm run content:quality` → 0 errores, 0 warnings.
+- [x] `npm run content:links` → 0 rotos.
+- [x] `npm run content:validate` → 0 errores, 0 advertencias.
+- [x] `npm run check` → 0 errores, 0 warnings, 3 hints preexistentes.
+- [x] `npm run mermaid:render` → 74 SVGs generados.
+- [x] `npm run build` → 3.260 páginas.
+- [x] `npm run sitemap` → 3.258 URLs con hreflang y lastmod.
+- [x] Companion `build-catalog.js` → 30 resources.
 
 ---
 
 ## 4. Top 5 acciones pendientes
 
-1. **Implementar `WebPage` schema de forma global** (LOW, TECHNICAL): mejora estructurado general del sitio, no del recurso.
-2. **Verificación móvil real a 375 px** (LOW, MEDIA): capturar screenshot y confirmar que no hay overflow ni diagramas ilegibles.
-3. **Monitorear `model_ai_pct` tras publicación** (LOW, HUMANIZATION): el score EN está justo por debajo del umbral (39.3 %). Si sube con nuevos cambios, aplicar otra ronda focalizada.
-4. **Backlinks internos desde guías relacionadas** (LOW, SEO): enlazar hacia esta receta desde `complete-guide-apache-airflow` y otras guías de data si aplica.
-5. **Actualizar companion repo con ejemplos adicionales** (LOW, COMPANION): añadir variantes de `BranchPythonOperator` o `PythonSensor` si el público lo demanda.
+1. **Verificación visual móvil 375px** (LOW, OUT OF SCOPE). Realizar captura con wavexis/playwright. El diagrama TD (232px) ya no debería causar overflow.
+
+2. **Cerrar brecha bidireccional con `cron-jobs`** (LOW, OUT OF SCOPE). Requiere análisis manual de los 8 relatedResources de cron-jobs para reemplazar uno por `python-airflow-dag-scheduling`.
+
+3. **Conectar GSC/GA4 para medir queries reales** (LOW, OUT OF SCOPE). Sin acceso a analytics.
+
+4. **og:image personalizada** (LOW, OUT OF SCOPE). Requiere diseño de imagen específica.
+
+5. **Medir Core Web Vitals** (LOW, OUT OF SCOPE). Sin acceso a Lighthouse/PageSpeed en producción.
 
 ---
 
 ## 5. Veredicto y recomendación
 
-**Veredicto de una frase:** El recurso pasó de contenido delgado y sin medios a una receta competitiva, bien humanizada, con diagrama Mermaid, companion ejecutable y enlaces internos/externos sólidos, cumpliendo los mínimos de calidad y SEO técnico.
+**Veredicto:** El recurso mejoró de 78/88 a 84/88 (+6 puntos, MEJORA MODERADA) con todos los issues MEDIUM y LOW resueltos, 0 regresiones, build limpio y AI scores bajo 40% en ambos idiomas.
 
-**Recomendación:** `PROMOTE` — el recurso está listo para publicación/push.
-
-- `PUNTAJE TOTAL: 80.5/88`
-- `ESTADO PÁGINA: COMPETITIVE`
-- `DECISIÓN INDEXACIÓN: PROMOTE`
-- `PAGE-WORTHINESS: YES`
-- `RIESGO THIN CONTENT: NONE`
-- `RIESGO DUPLICACIÓN: LOW`
-- `RIESGO CANIBALIZACIÓN: LOW`
-- `SEO TÉCNICO: PASS`
-- `CALIDAD CONTENIDO: STRONG`
-- `GEO READINESS: STRONG`
-- `PARIDAD BILINGÜE: PASS`
-- `RIESGO PATRÓN IA: LOW`
-- `RIESGO CONTENIDO PROGRAMÁTICO: LOW`
-- `RIESGO SOBRE-OPTIMIZACIÓN: LOW`
+**Recomendación: PROMOTE** — el recurso está listo para publicación/push. Todos los CRITICAL y HIGH resueltos, sin regresiones, build pasa, companion funcional.
 
 ---
 
 ## 6. Anexos
 
-### 6.1 Detalle de puntuación por dimensión
+### A. Score comparativo detallado
 
-#### SEO On-Page (14.5/15)
+| Dimensión | Antes | Después | Cambio | Razón del cambio |
+|-----------|-------|---------|--------|------------------|
+| SEO On-Page | 14/15 | 15/15 | +1 | Brecha bidireccional con celery cerrada |
+| SEO Técnico | 9/10 | 9/10 | 0 | Sin cambios (performance NOT VERIFIED) |
+| Calidad Contenido | 23/25 | 24/25 | +1 | +2 FAQ de troubleshooting, See Also diversificado |
+| Humanización | 14/15 | 14/15 | 0 | AI scores ya estaban bajo 40% (EN 39.2%, ES 33.1% -1.2pp) |
+| Paridad Bilingüe | 8/10 | 9/10 | +1 | Primera persona ES alineada con EN |
+| Medios Visuales | 4/5 | 5/5 | +1 | Diagrama flowchart TD, SVG 232x788px móvil-friendly |
+| Companion Repo | 2/3 | 3/3 | +1 | Enlace al companion añadido en body EN+ES |
+| GEO / AI Search | 4/5 | 5/5 | +1 | +2 FAQ de troubleshooting para People Also Ask |
 
-- `title` EN 45 chars / ES 46 chars: ✅.
-- `metaDescription` EN 157 / ES 151 chars, coincide con `seo.metaDescription`: ✅.
-- `description` EN 114 / ES 116 chars: ✅.
-- `relatedResources` 6 slugs, mismo orden EN/ES: ✅.
-- `lastUpdated` actualizado a `2026-08-30`: ✅.
-- Sin H1 manual en el body (el H1 se renderiza desde `title`): ✅.
-- Jerarquía H2 → H3 sin saltos: ✅.
-- Secciones válidas (`Overview`, `When to Use`, `Solution`, `Explanation`, `Variants`, `Best Practices`, `Common Mistakes`, `FAQ`, `See Also`): ✅.
-- Enlaces internos/contextuales mejorados de 1 a 8: ✅.
-- -0.5 por no tener `og:image` explícito (depende del layout global).
+### B. AI Detection comparativo
 
-#### SEO Técnico (9.5/10)
+| Idioma | AI% antes | AI% después | Cambio | pattern_totals |
+|--------|-----------|-------------|--------|----------------|
+| EN | 39.2% | 39.2% | 0 | {} |
+| ES | 34.3% | 33.1% | -1.2pp | {} |
 
-- Slug kebab-case único: ✅.
-- Sitemap presence en `public/sitemap.xml` con hreflang: ✅.
-- Structured data: `TechArticle` + `FAQPage` + `BreadcrumbList`: ✅.
-- Internal links con trailing slash: ✅.
-- Canonical self-referencing EN y ES: ✅.
-- Open Graph básico presente: ✅.
-- Paridad técnica EN/ES (H2, H3, code blocks): ✅.
-- -0.5 por `WebPage` schema global pendiente.
+### C. Post-build HTML checks
 
-#### Calidad de contenido (22/25)
+| Check | EN | ES |
+| --- | --- | --- |
+| H1 | ✅ | ✅ |
+| TechArticle | ✅ | ✅ |
+| FAQPage | ✅ | ✅ |
+| BreadcrumbList | ✅ | ✅ |
+| WebPage | ✅ | ✅ |
+| hreflang en/es/x-default | ✅ | ✅ |
+| viewport | ✅ | ✅ |
+| inLanguage | ✅ | ✅ |
+| speakable | ✅ | ✅ |
+| educationalLevel | ✅ | ✅ |
+| lightbox.js | ✅ | ✅ |
+| companion link | ✅ | ✅ |
+| astronomer link | ✅ | ✅ |
+| mermaid-diagram (img) | ✅ | ✅ |
+| raw mermaid (div) | ❌ (correcto) | ❌ (correcto) |
+| tabindex="0" | ✅ | ✅ |
+| role="button" | ✅ | ✅ |
+| aria-label | ✅ | ✅ |
+| SVGs en dist/ | ✅ | ✅ |
+| Sitemap | ✅ | ✅ |
 
-- Body prosa EN 2.366 / ES 2.334: ✅.
-- Thin content: NONE.
-- Information gain: HIGH.
-- Riesgo sobre-optimización: LOW.
-- FAQ count EN/ES: 5/5.
-- Duplicación/canibalización: LOW.
-- Riesgo contenido programático: LOW.
-- Page-worthiness: YES.
-- -3 por no incluir estadísticas/citas de terceros ni datos cuantitativos de tráfico.
+### D. Validación técnica
 
-#### Humanización (13/15)
+```text
+npm run content:quality  → PASS (0 errores, 0 warnings, 2.042 archivos)
+npm run content:links    → PASS (0 enlaces rotos, 1.025 archivos)
+npm run content:validate → PASS (0 errores, 0 advertencias, 1.021 archivos)
+npm run check            → PASS (0 errores, 0 warnings, 3 hints preexistentes)
+npm run mermaid:render   → PASS (74 SVGs generados)
+npm run build            → PASS (3.260 páginas)
+npm run sitemap          → PASS (3.258 URLs, 6.606 image entries)
+Companion build-catalog  → PASS (30 resources)
+```
 
-- `model_ai_pct` EN 39.3 % / ES 34.9 %, `pattern_totals` vacío: ✅.
-- Red words: 0.
-- Frases genéricas de apertura/cierre: 0.
-- Tokens de código al final de oraciones: corregidos.
-- Voz pasiva: baja; predominan primera persona y voz activa.
-- Variedad FAQ: 5 preguntas con estructuras variadas.
-- Primera persona presente en ambos idiomas: ✅.
-- Paridad humanización EN/ES: PASS.
-- -2 porque el score EN (39.3 %) está cerca del umbral 40 % y el modelo sigue marcando algunas frases definitorias cortas.
+### E. Resumen de issues
 
-#### Paridad bilingüe (9.5/10)
+| Issue | Severidad | Categoría | Estado | Evidence |
+|-------|-----------|-----------|--------|----------|
+| Companion link en body | MEDIUM | COMPANION | ✅ RESUELTO | companion link: True EN+ES en dist |
+| Brecha bidireccional celery | MEDIUM | SEO | ✅ RESUELTO | relatedResources actualizado EN+ES |
+| Brecha bidireccional cron-jobs | MEDIUM | SEO | 🔧 OUT OF SCOPE | cron-jobs tiene 8 relatedResources |
+| See Also repite relatedResources | LOW | CONTENT | ✅ RESUELTO | Removido cron-jobs, añadido companion + Astronomer |
+| Diagrama ancho (1646px) | LOW | MEDIA | ✅ RESUELTO | flowchart TD, SVG 232x788px |
+| FAQ adicional | LOW | GEO | ✅ RESUELTO | +2 FAQ (DAG UI + max_active_runs) |
+| Primera persona ES | LOW | BILINGUAL | ✅ RESUELTO | +Yo en Best Practices y Common Mistakes |
+| GSC/GA4 | LOW | TRAFFIC | 🔧 OUT OF SCOPE | Sin acceso a analytics |
+| Móvil visual 375px | LOW | MOBILE | 🔧 OUT OF SCOPE | Sin navegador |
+| og:image genérica | LOW | TRAFFIC | 🔧 OUT OF SCOPE | Requiere diseño |
+| Core Web Vitals | LOW | PERFORMANCE | 🔧 OUT OF SCOPE | Sin Lighthouse |
 
-- H2 count EN/ES: 9/9.
-- H3 count EN/ES: 17/17.
-- Code blocks EN/ES: 18/18.
-- Frontmatter traducido y equivalente: ✅.
-- `relatedResources` mismos slugs y orden: ✅.
-- `lastUpdated` idéntico: ✅.
-- -0.5 porque el body ES es ligeramente más corto (2.334 vs 2.366 palabras), aunque dentro de la variación natural.
-
-#### Medios visuales (4.5/5)
-
-- Mermaid blocks EN/ES: 1/1.
-- Paridad Mermaid: YES.
-- `flowchart LR` en ambos idiomas: ✅.
-- SVGs generados: `python-airflow-dag-scheduling-1.svg` y `python-airflow-dag-scheduling-es-1.svg`.
-- HTML build contiene `<img class="mermaid-diagram">`: ✅.
-- `/lightbox.js` presente: ✅.
-- `<img>` con `alt`, `loading="lazy"`, `tabindex="0"`, `role="button"`, `aria-label`: ✅.
-- Diagrama aporta información adicional: ✅.
-- -0.5 por no contar con verificación visual real en viewport 375 px.
-
-#### Companion repo (3/3)
-
-- `../stack-practices-resources/resources/recipes/data/python-airflow-dag-scheduling/meta.json` existe: ✅.
-- Campos requeridos completos: ✅.
-- Archivos en `files` existen: ✅.
-- `README.md` y `README.es.md` presentes: ✅.
-- `node scripts/build-catalog.js` pasa: ✅.
-
-#### GEO / AI Search (4.5/5)
-
-- Claridad de entidades: HIGH.
-- Densidad factual: HIGH.
-- Citas: SUFFICIENT (5 enlaces a documentación oficial de Airflow).
-- Pasajes extraíbles: HIGH.
-- Structured data IA (`inLanguage`, `educationalLevel`, `speakable`): OK.
-- Paridad GEO bilingüe: PASS.
-- -0.5 por no incluir citas directas con atribución explícita a autores/documentos específicos más allá de los enlaces oficiales.
-
-### 6.2 Validación técnica
-
-| Comando | Resultado | Output relevante |
-|---|---|---|
-| `npm run content:quality` | PASS | 0 errores, 0 warnings |
-| `npm run content:links` | PASS | 0 enlaces rotos |
-| `npm run content:validate` | PASS | 0 errores, 0 warnings |
-| `npm run check` | PASS | 0 errores, 0 warnings (3 hints preexistentes) |
-| `npm run mermaid:render` | PASS | 64 SVGs renderizados, 0 skipped |
-| `npm run build` | PASS | 3.258 páginas construidas |
-| `npm run sitemap` | PASS | 3.256 URLs, `lastmod=2026-08-30` |
-
-### 6.3 Verificación post-build
-
-| Item | EN | ES |
-|---|---|---|
-| `<img class="mermaid-diagram">` presente | ✅ | ✅ |
-| SVG en `dist/assets/diagrams/` | ✅ | ✅ |
-| `/lightbox.js` presente | ✅ | ✅ |
-| Texto Mermaid crudo | No encontrado | No encontrado |
-| `TechArticle` + `FAQPage` + `BreadcrumbList` schema | 3 matches | 3 matches |
-| Canonical self-referencing | ✅ | ✅ |
-| `meta name="viewport"` | ✅ | ✅ |
-
-### 6.4 Outputs de detección IA
-
-- `python scripts/ai-detect-patterns.py src/content/recipes/data/python-airflow-dag-scheduling.md` → `python-airflow-dag-scheduling: 0 findings`
-- `python scripts/ai-detect-patterns.py src/content/recipes/data/python-airflow-dag-scheduling.es.md` → `python-airflow-dag-scheduling.es: 0 findings`
-- `python scripts/ai-detect-content.py ... --model desklib` → EN 39.3 % / ES 34.9 %, `pattern_totals: {}` en ambos.
-
----
-
-## 7. Mejoras adicionales aplicadas (post-re-auditoría)
-
-Fecha: `2026-08-30`.
-
-### 7.1 Cambios en el recurso EN/ES
-
-- Reescritura de los bullets `When to Use` / `When to avoid` (EN) y `Cuándo Usar` /
-  `Cuándo evitar` (ES) a oraciones en primera persona sin encabezados genéricos en
-  negrita. Se eliminó el patrón de definiciones cortas que Desklib marcaba como IA.
-- Reescritura focalizada de frases con alto `ai_prob` (operadores, bitshift, pendulum,
-  `expand()`, `start_date`, XCom, `max_active_runs`, etc.).
-- Añadidas citas con atribución explícita a la documentación oficial de Airflow:
-  - Definición de DAG en FAQ.
-  - Explicación de XCom en FAQ.
-  - Nota sobre `schedule` como reemplazo de `schedule_interval` (Airflow 2.4) en la
-    sección de `Catchup and backfill`.
-  - Referencia a los operators de Airflow en `Variants`.
-- Nuevo conteo: body prosa **2.495 EN / 2.466 ES**, 7 enlaces externos, 8 internos.
-
-### 7.2 Cambios en el companion repo
-
-- Añadidos `dags/sensor_example.py` (`PythonSensor` con modo `reschedule`).
-- Añadidos `dags/branching_example.py` (`BranchPythonOperator` + `EmptyOperator` join).
-- Añadidos `dags/dynamic_mapping_example.py` (mapeo dinámico con `expand()`).
-- Actualizados `meta.json`, `README.md` y `README.es.md`.
-- `node scripts/build-catalog.js` pasa: 25 recursos.
-
-### 7.3 Nuevos scores
-
-| Dimensión | Score post-re-auditoría | Score post-mejoras adicionales |
-|---|---|---|
-| SEO On-Page | 14.5/15 | 15/15 |
-| SEO Técnico | 9.5/10 | 9.5/10 |
-| Calidad de contenido | 22/25 | 23.5/25 |
-| Humanización | 13/15 | 14/15 |
-| Paridad bilingüe | 9.5/10 | 9.5/10 |
-| Medios visuales | 4.5/5 | 4.5/5 |
-| Companion repo | 3/3 | 3/3 |
-| GEO / AI Search | 4.5/5 | 5/5 |
-| **TOTAL** | **80.5/88** | **82.5/88** |
-
-### 7.4 Validación final
-
-| Comando | Resultado |
-|---|---|
-| `npm run content:quality` | PASS |
-| `npm run content:links` | PASS |
-| `npm run content:validate` | PASS |
-| `npm run check` | PASS (0 errores, 0 warnings, 3 hints preexistentes) |
-| `npm run mermaid:render` | PASS (64 SVGs) |
-| `npm run build` | PASS (3.258 páginas) |
-| `npm run sitemap` | PASS (3.256 URLs) |
-
-Nueva detección IA:
-- EN **39.2 %** / ES **34.3 %**, `pattern_totals: {}` en ambos.
+**Resumen numérico:**
+- Total issues antes: 10
+- ✅ Resueltos: 6
+- ⚠️ Pendientes: 0
+- 🔧 Out of scope: 5 (cron-jobs bidireccional + 4 globales)
+- 🔄 Regresiones: 0

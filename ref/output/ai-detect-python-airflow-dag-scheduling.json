@@ -3,17 +3,17 @@
     "label": "python-airflow-dag-scheduling-en",
     "model": "desklib",
     "model_ai_pct": 39.2,
-    "ai_count": 26,
-    "human_count": 124,
+    "ai_count": 29,
+    "human_count": 130,
     "skipped_count": 2,
-    "total": 152,
+    "total": 161,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 16.2,
+      "mean": 16.5,
       "stddev": 10.0,
-      "cv": 0.62,
+      "cv": 0.6,
       "verdict": "natural variation",
-      "sentence_count": 150,
+      "sentence_count": 159,
       "lengths": [
         28,
         24,
@@ -160,10 +160,19 @@
         18,
         20,
         9,
+        11,
+        36,
+        17,
+        30,
+        7,
+        28,
+        20,
+        18,
         12,
         15,
-        10,
         12,
+        20,
+        14,
         14
       ]
     },
@@ -185,6 +194,10 @@
         0.7993
       ],
       [
+        "This matters for pipelines where each run\ndepends on the previous run's output, like daily aggregations that read\nyesterday's partition.",
+        0.7758
+      ],
+      [
         "XCom is short for cross-communication.",
         0.7362
       ],
@@ -195,6 +208,10 @@
       [
         "I use pendulum to set a timezone-aware start date.",
         0.716
+      ],
+      [
+        "This tells the scheduler that\nonly one DagRun can be active at a time, so if a run takes longer than its\nschedule interval the next one waits.",
+        0.709
       ],
       [
         "Writing start_date=datetime.now() or any other dynamic value.",
@@ -245,6 +262,10 @@
         0.5639
       ],
       [
+        "The scheduler needs to parse the DAG file before it appears.",
+        0.5574
+      ],
+      [
         "Airflow gave me a place to define the pipeline, schedule it, retry failed tasks,\nand see the state of every run in one UI.",
         0.5547
       ],
@@ -255,18 +276,6 @@
       [
         "I use Airflow when tasks are idempotent and can be retried.",
         0.5412
-      ],
-      [
-        "The timeout parameter is important: without\nit, a missing file can leave a sensor\nrunning forever.",
-        0.5258
-      ],
-      [
-        "For long waits, pick\nreschedule mode to avoid consuming a worker for hours.",
-        0.511
-      ],
-      [
-        "If a task fails,\n  Airflow reruns it for the same execution date and expects the same result.",
-        0.5103
       ]
     ],
     "diagnostics_sample": []
@@ -274,18 +283,18 @@
   {
     "label": "python-airflow-dag-scheduling-es",
     "model": "desklib",
-    "model_ai_pct": 34.3,
-    "ai_count": 26,
-    "human_count": 125,
-    "skipped_count": 2,
-    "total": 153,
+    "model_ai_pct": 33.1,
+    "ai_count": 25,
+    "human_count": 137,
+    "skipped_count": 1,
+    "total": 163,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 16.0,
+      "mean": 16.3,
       "stddev": 10.1,
-      "cv": 0.63,
+      "cv": 0.62,
       "verdict": "natural variation",
-      "sentence_count": 151,
+      "sentence_count": 162,
       "lengths": [
         35,
         24,
@@ -387,8 +396,9 @@
         12,
         17,
         17,
+        13,
         20,
-        11,
+        13,
         14,
         22,
         9,
@@ -404,15 +414,16 @@
         10,
         9,
         9,
-        14,
+        21,
+        6,
+        16,
         6,
         16,
         16,
-        15,
         21,
         16,
         10,
-        15,
+        17,
         21,
         27,
         15,
@@ -433,11 +444,20 @@
         19,
         24,
         9,
+        13,
+        36,
+        15,
+        31,
+        7,
+        30,
+        23,
+        19,
         12,
         18,
-        11,
         16,
-        16
+        19,
+        16,
+        18
       ]
     },
     "top_ai_sentences": [
@@ -464,10 +484,6 @@
       [
         "Eso importa porque Airflow reintenta tareas.",
         0.8448
-      ],
-      [
-        "La base de datos de metadatos es para estado, no storage.",
-        0.8169
       ],
       [
         "La llamada expand() crea una instancia de tarea por archivo.",
@@ -538,8 +554,12 @@
         0.5418
       ],
       [
-        "Sin\n  eso, un DAG fallado puede quedar desapercibido hasta que el dashboard se vea desactualizado.",
-        0.5239
+        "Lo uso cuando la cantidad de archivos de entrada es desconocida hasta\nel momento de ejecuci\u00f3n.",
+        0.5155
+      ],
+      [
+        "Si\n  yo lo salteo, un DAG fallado puede quedar desapercibido hasta que el dashboard se vea\n  desactualizado.",
+        0.514
       ]
     ],
     "diagnostics_sample": []
