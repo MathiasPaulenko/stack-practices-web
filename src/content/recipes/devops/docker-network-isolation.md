@@ -22,8 +22,9 @@ relatedResources:
   - /recipes/docker-image-vulnerability-scan
   - /recipes/docker-secrets-management
   - /recipes/docker-basics
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-09-03"
 publishedAt: "2026-07-02"
+estimatedReadTime: 6
 author: Mathias Paulenko
 seo:
   metaDescription: "Secure Docker containers with custom bridge, internal and overlay networks. Isolate services, block unauthorized inter-container traffic, and bind ports safely."
@@ -38,10 +39,12 @@ seo:
 
 ## Overview
 
-By default, Docker puts containers on the bridge network and lets them reach each
-other. That's a security risk: a compromised container can probe or attack the
-others on the same host. This recipe shows how to isolate services with custom
-networks, internal networks, and port binding rules.
+Docker network isolation is the practice of segmenting containers into separate
+virtual networks to control which services can communicate with each other. By
+default, Docker puts containers on the [bridge network](/recipes/docker-basics/)
+and lets them reach each other. That's a security risk: a compromised container
+can probe or attack the others on the same host. This recipe shows how to
+isolate services with custom networks, internal networks, and port binding rules.
 
 ## When to Use
 
@@ -113,6 +116,14 @@ docker run -d --name db --network backend-net my-db
 
 ### Docker Compose with network isolation
 
+For a full dev/prod split, see the
+[docker-compose dev/prod split recipe](/recipes/docker-compose-dev-prod-split/).
+The [Docker Compose networking docs](https://docs.docker.com/compose/networking/)
+cover the full syntax. A runnable version of this example is in the
+[companion repository](https://mathiaspaulenko.github.io/stack-practices-resources/resources/recipes/devops/docker-network-isolation/).
+
+```yaml
+
 ```yaml
 # docker-compose.yml
 services:
@@ -140,6 +151,7 @@ services:
       - backend
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
+    # See the docker health check recipe for healthcheck details
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 10s
@@ -169,6 +181,9 @@ docker run -d -p 0.0.0.0:80:80 --name web nginx:alpine
 
 ### Inspect and test connectivity
 
+Use [health checks](/recipes/docker-health-check-configuration/) alongside
+network inspection to catch connectivity issues early.
+
 ```bash
 # List networks
 docker network ls
@@ -184,19 +199,106 @@ docker exec api curl -f http://db:5432
 docker network disconnect backend-net api
 ```
 
+### Overlay network with Docker Swarm
+
+When your services span multiple hosts, bridge networks no longer work. You
+need an overlay network, which creates encrypted VXLAN tunnels between hosts.
+
+```bash
+# Initialize Swarm on the manager node
+docker swarm init --advertise-addr 10.0.0.10
+
+# Join from a worker node (copy the token from swarm init output)
+docker swarm join --token SWMTKN-... 10.0.0.10:2377
+
+# Create an overlay network across the cluster
+docker network create --driver overlay --attachable my-overlay
+
+# Run a service on the overlay network
+docker service create --name api --network my-overlay --replicas 3 my-api
+
+# Or run a standalone container on the overlay (Swarm 1.12+)
+docker run -d --name debug --network my-overlay alpine sleep 3600
+```
+
+The `--attachable` flag lets standalone containers join the overlay. Without it,
+only Swarm services can use the network. Overlay traffic between hosts is
+encrypted by default with AES-GCM when you pass `--opt encrypted`.
+
+### Debugging DNS resolution
+
+When containers can't reach each other by name, the problem is usually DNS.
+Custom bridge networks have an embedded DNS server, but the default bridge does
+not. I've wasted hours on this before learning to check DNS first.
+
+```bash
+# Check DNS from inside a container
+docker exec -it api sh
+/ # nslookup db
+/ # getent hosts db
+
+# If DNS fails, check which networks the container is on
+docker inspect api --format '{{json .NetworkSettings.Networks}}' | jq .
+
+# Test raw connectivity without DNS
+docker exec api ping <db-container-ip>
+
+# Common causes:
+# 1. Containers on different networks (DNS won't resolve)
+# 2. Container on the default bridge (no embedded DNS)
+# 3. Network alias typo in docker-compose.yml
+```
+
+### Network pruning
+
+Unused networks accumulate fast. I prune them weekly on dev machines and
+monthly on production hosts after verifying nothing depends on them.
+
+```bash
+# List all networks with their containers
+docker network ls
+docker network ls --filter "dangling=true"
+
+# Remove a single unused network
+docker network rm backend-net
+
+# Remove all unused networks (not referenced by any container)
+docker network prune -f
+
+# On production, be explicit — never use prune without -f in scripts
+docker network prune --filter "until=24h" -f
+```
+
 ## Explanation
 
 Docker networks isolate at the data link layer. A container in one network can't
 start a conversation with a container in another network. Docker embeds a DNS
-server inside custom bridge networks, so names only resolve there.
+server inside custom bridge networks, so names only resolve there. See the
+[Docker networking documentation](https://docs.docker.com/network/) for the full
+reference.
 
 **Network types**:
+
+```mermaid
+%% alt: Network isolation topology — web on frontend-net, api on both, db on internal backend-net
+flowchart LR
+    Internet[Internet] --> Web[web container]
+    Web -->|frontend-net| API[api container]
+    API -->|backend-net internal| DB[(postgres db)]
+    API -.->|no path| DB2[other services]
+    Web -.->|blocked| DB
+```
+
+The diagram shows a typical three-tier setup: the web container sits on
+`frontend-net` and can reach the API. The API joins both networks, so it can
+reach the database on `backend-net` (which is `internal: true`). The web
+container cannot reach the database directly because they share no network.
 
 | Type | Scope | Internet | Use for |
 | --- | --- | --- | --- |
 | **bridge** | Single host | Yes | Default/custom single-host networking |
 | **internal** | Single host | No | Databases and private services |
-| **overlay** | Multi-host | Yes | Docker Swarm across hosts |
+| **overlay** | Multi-host | Yes | [Docker Swarm](https://docs.docker.com/network/overlay/) across hosts |
 | **host** | Single host | Yes | Performance-critical, no isolation |
 | **macvlan** | Single host | Yes | Direct IP on the physical network |
 
@@ -220,6 +322,79 @@ networks:
 
 Other containers can then reach it as `database` or `postgres.internal`.
 
+### How Docker enforces isolation under the hood
+
+Docker uses iptables rules on the host to enforce network boundaries. Each
+custom bridge network gets its own subnet and a chain of filter rules. When you
+create a network with `--internal`, Docker drops the FORWARD chain rules that
+allow outbound traffic from that subnet.
+
+```bash
+# See the iptables rules Docker creates for a network
+sudo iptables -L DOCKER-ISOLATION-STAGE-1 -n -v
+sudo iptables -L DOCKER-ISOLATION-STAGE-2 -n -v
+
+# Each custom network gets a subnet (default 172.18.0.0/16, 172.19.0.0/16, ...)
+docker network inspect backend-net --format '{{range .IPAM.Config}}{{.Subnet}}{{end}}'
+```
+
+The `DOCKER-ISOLATION-STAGE-1` and `STAGE-2` chains are what prevent containers
+on different networks from talking to each other. If you ever see traffic
+crossing networks unexpectedly, check these chains first. I once spent a day
+debugging "how is the web container reaching the database" only to find that
+someone had manually added an iptables ACCEPT rule that bypassed Docker's
+isolation.
+
+### Docker Compose profiles for environment isolation
+
+Compose profiles let you start different sets of services from the same
+`docker-compose.yml`. This is useful when you want a debug stack and a
+production stack with different network topologies.
+
+```yaml
+# docker-compose.yml
+services:
+  web:
+    image: nginx:alpine
+    profiles: ["prod", "debug"]
+    networks: [frontend]
+
+  api:
+    build: .
+    profiles: ["prod", "debug"]
+    networks: [frontend, backend]
+
+  db:
+    image: postgres:16-alpine
+    profiles: ["prod", "debug"]
+    networks: [backend]
+
+  debug-tools:
+    image: nicolaka/netshoot
+    profiles: ["debug"]
+    networks: [frontend, backend]
+    # Only runs with --profile debug, can reach both networks
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+    internal: true
+```
+
+```bash
+# Start production stack
+docker compose --profile prod up -d
+
+# Start debug stack (includes debug-tools container)
+docker compose --profile debug up -d
+```
+
+The `debug-tools` container joins both networks, so you can run `nslookup`,
+`tcpdump`, and `curl` from inside it to diagnose connectivity issues without
+installing tools in your production containers.
+
 ## Variants
 
 | Approach | Use when | Trade-off |
@@ -233,10 +408,16 @@ Other containers can then reach it as `database` or `postgres.internal`.
 
 ## Best Practices
 
-- Never use the default bridge network in production. Create custom networks.
+Follow [Docker's security best practices](https://docs.docker.com/engine/security/)
+alongside these recommendations.
+
+- Never use the default bridge network in production. I create custom networks
+  for every project, even single-container ones.
 - Use `internal: true` for backend networks with databases or private services.
 - Connect containers to only the networks they need.
 - Bind database ports to `127.0.0.1` only. Never expose databases on `0.0.0.0`.
+  Use [Docker secrets management](/recipes/docker-secrets-management/) for
+  passwords instead of environment variables when possible.
 - Define segmentation in `docker-compose.yml` so you can version it.
 - Inspect networks regularly with `docker network inspect` and prune unused
   networks.
@@ -290,3 +471,16 @@ more than one host. Overlay uses VXLAN tunnels and supports encryption.
 Almost never for services that handle untrusted traffic. Use it only for
 performance-critical, trusted workloads where you can't pay the bridge NAT
 overhead.
+
+## See Also
+
+- [Docker networking overview](https://docs.docker.com/network/) — official
+  reference for bridge, overlay, macvlan and host networking.
+- [Docker Compose networking](https://docs.docker.com/compose/networking/) —
+  network configuration in `docker-compose.yml`.
+- [Docker security guide](https://docs.docker.com/engine/security/) —
+  container runtime security, seccomp, AppArmor and capabilities.
+- [CIS Docker Benchmark](https://www.cisecurity.org/benchmark/docker) —
+  industry-standard hardening checklist for Docker deployments.
+- [Docker overlay networks](https://docs.docker.com/network/overlay/) —
+  multi-host networking with VXLAN tunnels for Swarm clusters.

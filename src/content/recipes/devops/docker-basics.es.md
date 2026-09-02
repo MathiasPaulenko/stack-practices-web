@@ -18,17 +18,13 @@ tags:
   - ci-cd
   - automation
 relatedResources:
-  - /recipes/git-workflow
-  - /recipes/call-rest-api
-  - /recipes/environment-variables
+  - /recipes/docker-network-isolation
   - /recipes/immutable-infrastructure
-  - /recipes/ansible-playbook
-  - /recipes/cron-jobs
+  - /recipes/environment-variables
   - /recipes/github-actions
-  - /recipes/secret-management
-  - /recipes/setup-ci-gitlab-pipelines
+  - /recipes/ansible-playbook
   - /recipes/setup-ssl-certificates
-lastUpdated: "2026-06-10"
+lastUpdated: "2026-09-03"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
 seo:
