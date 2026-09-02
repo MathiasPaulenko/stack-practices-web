@@ -1,0 +1,151 @@
+[
+  {
+    "label": "vertical-slice-architecture-guide.es",
+    "total_sentences": 253,
+    "pattern_totals": {
+      "formal_verb": 14
+    },
+    "findings": [
+      {
+        "sentence": "La Arquitectura por Slices Verticales es un estilo de organizaci\u00f3n de c\u00f3digo\ncentrado en features que agrupa todo el c\u00f3digo de una funcionalidad \u2014 comando,\nhandler, validador y endpoint \u2014 en una sola carpeta.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Cuando optimiz\u00e1s para la cohesi\u00f3n de features,\noptimiz\u00e1s para lo que realmente cambia: la feature en s\u00ed.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Ten\u00e9s un equipo mediano a grande donde m\u00faltiples desarrolladores trabajan en\n  features diferentes simult\u00e1neamente.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Est\u00e1s trabajando con un framework que pelea con la organizaci\u00f3n por features.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Cada feature es autocontenida y t\u00edpicamente incluye:\n\n| Componente | Prop\u00f3sito |\n| --- | --- |\n| **Command/Query** | Modelo de entrada (DTO) |\n| **Handler** | L\u00f3gica de negocio de la feature |\n| **Validator** | Reglas de validaci\u00f3n de entrada |\n| **Endpoint/Controller** | Punto de entrada HTTP o de mensajer\u00eda |\n| **Response** | Modelo de salida (DTO) |\n\nNo todas las features necesitan los cinco componentes.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Despu\u00e9s de dos semanas, vas a haber migrado 10-15 features y\nla estructura por capas va a estar mayormente vac\u00eda.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "| Arquitectura | Organiza por | Fortalezas | Debilidades | Ideal para |\n| --- | --- | --- | --- | --- |\n| **Vertical Slice** | Feature | Alta cohesi\u00f3n, pocos conflictos de merge, navegaci\u00f3n f\u00e1cil | Puede duplicar infraestructura si no ten\u00e9s cuidado | APIs medianas a grandes con features independientes |\n| **[Layered](/es/guides/layered-architecture-guide/)** | Preocupaci\u00f3n t\u00e9cnica | Separaci\u00f3n clara, familiar para la mayor\u00eda de los equipos | Baja cohesi\u00f3n de feature, navegaci\u00f3n cross-layer | Apps chicas a medianas con dominio compartido |\n| **[Clean Architecture](/es/guides/clean-architecture-guide/)** | Direcci\u00f3n de dependencias | N\u00facleo testeable, independencia del framework | Puede ser ceremonioso, muchas interfaces | Dominios complejos donde la direcci\u00f3n de dependencias importa |\n| **[Onion Architecture](/es/guides/onion-architecture-guide/)** | Direcci\u00f3n de dependencias (conc\u00e9ntrica) | Similar a Clean, enfatiza interfaces | Mismas preocupaciones de ceremonia que Clean | Aplicaciones domain-heavy |\n| **Hexagonal** | Ports y adapters | Infraestructura intercambiable, n\u00facleo testeable | Puede sobre-abstraer apps simples | Apps con m\u00faltiples canales de entrega (web, CLI, mensajer\u00eda) |\n\nTrabaj\u00e9 en proyectos que usaron cada una de estas.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Para la mayor\u00eda de las aplicaciones de negocio,\nlas features cambian m\u00e1s seguido que las estrategias de acceso a datos, as\u00ed que\nVertical Slice gana en el eje que m\u00e1s importa.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Vertical\nSlice brilla cuando ten\u00e9s suficientes features como para que la organizaci\u00f3n\nrealmente importe.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "La arquitectura funciona mejor cuando los equipos se organizan alrededor de\nfeatures, no de capas.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "En este caso, o\nreorganiz\u00e1s los equipos alrededor de features o te qued\u00e1s con arquitectura por\ncapas que matchea tu estructura de equipo.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "La arquitectura no fuerza la estructura del equipo, pero hace que la\nestructura basada en features sea natural y la basada en capas sea inc\u00f3moda.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "CQRS separa lecturas de escrituras, y\nVertical Slice separa features naturalmente.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Para features CRUD simples, CQRS agrega ceremonia sin\nvalor.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      }
+    ]
+  }
+]

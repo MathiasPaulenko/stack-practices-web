@@ -25,9 +25,8 @@ relatedResources:
   - /guides/layered-architecture-guide
   - /guides/solid-principles-guide
   - /patterns/dependency-injection-pattern
-  - /guides/cqrs-guide
-  - /guides/modular-monolith-guide
-lastUpdated: "2026-06-24"
+  - /guides/vertical-slice-architecture-guide
+lastUpdated: "2026-08-31"
 publishedAt: "2026-06-24"
 author: Mathias Paulenko
 seo:

@@ -1,0 +1,1070 @@
+[
+  {
+    "label": "vertical-slice-architecture-guide-en",
+    "model": "desklib",
+    "model_ai_pct": 46.8,
+    "ai_count": 93,
+    "human_count": 136,
+    "skipped_count": 10,
+    "total": 239,
+    "pattern_totals": {
+      "formal_verb": 15,
+      "vague_abstraction": 1
+    },
+    "text_metrics": {
+      "mean": 15.8,
+      "stddev": 11.8,
+      "cv": 0.75,
+      "verdict": "natural variation",
+      "sentence_count": 229,
+      "lengths": [
+        27,
+        17,
+        14,
+        16,
+        15,
+        16,
+        20,
+        16,
+        14,
+        28,
+        7,
+        15,
+        21,
+        18,
+        13,
+        15,
+        8,
+        15,
+        27,
+        33,
+        18,
+        8,
+        19,
+        9,
+        9,
+        16,
+        8,
+        17,
+        10,
+        8,
+        12,
+        14,
+        14,
+        17,
+        9,
+        15,
+        15,
+        62,
+        16,
+        15,
+        16,
+        15,
+        7,
+        10,
+        7,
+        22,
+        5,
+        13,
+        7,
+        24,
+        14,
+        12,
+        15,
+        7,
+        17,
+        6,
+        12,
+        10,
+        14,
+        28,
+        7,
+        23,
+        7,
+        22,
+        13,
+        16,
+        18,
+        11,
+        14,
+        13,
+        15,
+        9,
+        9,
+        15,
+        12,
+        8,
+        17,
+        17,
+        21,
+        16,
+        5,
+        11,
+        16,
+        11,
+        13,
+        21,
+        17,
+        24,
+        19,
+        31,
+        14,
+        6,
+        16,
+        15,
+        6,
+        9,
+        17,
+        17,
+        16,
+        13,
+        16,
+        17,
+        8,
+        6,
+        10,
+        17,
+        9,
+        18,
+        14,
+        20,
+        12,
+        10,
+        14,
+        7,
+        13,
+        24,
+        9,
+        10,
+        13,
+        16,
+        17,
+        7,
+        16,
+        9,
+        11,
+        19,
+        160,
+        18,
+        21,
+        11,
+        10,
+        16,
+        9,
+        16,
+        26,
+        16,
+        22,
+        22,
+        9,
+        7,
+        10,
+        9,
+        23,
+        26,
+        20,
+        15,
+        8,
+        15,
+        17,
+        11,
+        15,
+        24,
+        8,
+        14,
+        19,
+        10,
+        10,
+        17,
+        23,
+        21,
+        14,
+        23,
+        10,
+        13,
+        10,
+        13,
+        12,
+        11,
+        18,
+        16,
+        18,
+        10,
+        21,
+        15,
+        12,
+        19,
+        34,
+        12,
+        18,
+        17,
+        27,
+        19,
+        8,
+        22,
+        11,
+        5,
+        6,
+        6,
+        10,
+        15,
+        24,
+        7,
+        17,
+        8,
+        21,
+        22,
+        9,
+        12,
+        15,
+        12,
+        9,
+        6,
+        36,
+        5,
+        7,
+        18,
+        13,
+        9,
+        21,
+        20,
+        14,
+        32,
+        20,
+        8,
+        14,
+        18,
+        19,
+        16,
+        26,
+        22,
+        14,
+        22,
+        15,
+        10,
+        11,
+        20,
+        25,
+        9,
+        34
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "The two aren't at odds with each other.",
+        0.9681
+      ],
+      [
+        "The\ncomparison below is what I wish I'd had when deciding which one fit each\nproject I worked on.",
+        0.9296
+      ],
+      [
+        "One feature folder per endpoint won't help a project\n  that already fits in a handful of files.",
+        0.8681
+      ],
+      [
+        "When\nyou optimize for feature cohesion, you optimize for the thing that actually\nchanges \u2014 the feature itself.",
+        0.8533
+      ],
+      [
+        "If GetProductById and GetProductList share the same handler logic,\n  they don't need separate folders.",
+        0.8423
+      ],
+      [
+        "The query file moves from Queries/GetProductByIdQuery.cs over to\nFeatures/Products/GetProductById/GetProductByIdQuery.cs.",
+        0.8411
+      ],
+      [
+        "\"Get\nproduct by ID\" is a good candidate: one query, one handler, one endpoint.",
+        0.8167
+      ],
+      [
+        "The architecture works best when teams are organized around features, not\nlayers.",
+        0.8099
+      ],
+      [
+        "I've found that naming matters a lot.",
+        0.8098
+      ],
+      [
+        "Moving to slices forced us to\nconfront this because we had to decide what to move and what to leave behind.",
+        0.8041
+      ],
+      [
+        "Understanding this flow helps you debug issues and design new\nslices correctly.",
+        0.798
+      ],
+      [
+        "Pick one primary organization per application.",
+        0.7853
+      ],
+      [
+        "I've watched this play out on real projects.",
+        0.7818
+      ],
+      [
+        "They pair well, but you don't have to use both.",
+        0.7746
+      ],
+      [
+        "Choose one, learn\nit properly, and don't switch back and forth.",
+        0.7734
+      ],
+      [
+        "When\nyou need to change \"Create Order\", all the relevant files sit in one folder.",
+        0.7714
+      ],
+      [
+        "Each feature is self-contained and typically includes:\n\n| Component | Purpose |\n| --- | --- |\n| **Command/Query** | Input model (DTO) |\n| **Handler** | Business logic for the featu",
+        0.7657
+      ],
+      [
+        "Vertical Slice is one of several ways to organize application code.",
+        0.7603
+      ],
+      [
+        "Each team could deploy\nindependently because their code was isolated.",
+        0.7592
+      ],
+      [
+        "All four operations needed the same\ndomain model.",
+        0.7559
+      ],
+      [
+        "If tests break, it's usually\nbecause they were testing the service class directly rather than the behavior.",
+        0.75
+      ],
+      [
+        "In a\nlayered architecture, you've got a Controllers folder, a Services folder, and a\nRepositories folder.",
+        0.7486
+      ],
+      [
+        "I first tried this approach on a .NET API that had grown to 40+ controllers\nspread across three layer projects.",
+        0.7443
+      ],
+      [
+        "Start with a feature that's got clear boundaries and minimal dependencies.",
+        0.7435
+      ],
+      [
+        "This separation is what keeps slices thin and consistent \u2014 you don't\nrepeat boilerplate in every handler.",
+        0.7406
+      ]
+    ],
+    "diagnostics_sample": [
+      {
+        "sentence": "Your team is big enough that several developers work on different features at\n  the same time.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Create Features/Products/GetProductById/ and move the relevant code from the\nlayered structure into the new folder.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "The query file moves from Queries/GetProductByIdQuery.cs over to\nFeatures/Products/GetProductById/GetProductByIdQuery.cs.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "After two weeks, you'll have migrated 10-15 features and\nthe layered structure will be mostly empty.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "I group CreateOrder,\n  GetOrderById, and CancelOrder under Features/Orders/ because they share\n  the same aggregate root.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "I've seen teams try to keep the old\n  Controllers/ folder alongside Features/ \u2014 it never ends well.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "| Architecture | Organizes by | Strengths | Weaknesses | Best for |\n| --- | --- | --- | --- | --- |\n| **Vertical Slice** | Feature | High cohesion, low merge co",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          },
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      },
+      {
+        "sentence": "In\nVertical Slice, you add one folder under Features/ and everything for that\nfeature lives there.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "For most business applications, features change more often than\ndata access strategies, so Vertical Slice wins on the axis that matters most.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Vertical Slice shines when you've got enough features\nthat the organization actually matters.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "The architecture works best when teams are organized around features, not\nlayers.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "In the e-commerce example above, the Orders team owned Features/Orders/, the\nProducts team owned Features/Products/, and so on.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "In this case, either reorganize teams\naround features or stick with layered architecture that matches your team\nstructure.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "CQRS separates reads from writes, and\nVertical Slice naturally separates features.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "For simple CRUD features, CQRS adds ceremony without value.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "vertical-slice-architecture-guide-es",
+    "model": "desklib",
+    "model_ai_pct": 34.5,
+    "ai_count": 46,
+    "human_count": 187,
+    "skipped_count": 7,
+    "total": 240,
+    "pattern_totals": {
+      "formal_verb": 20
+    },
+    "text_metrics": {
+      "mean": 17.0,
+      "stddev": 13.2,
+      "cv": 0.78,
+      "verdict": "natural variation",
+      "sentence_count": 233,
+      "lengths": [
+        34,
+        18,
+        14,
+        16,
+        11,
+        19,
+        24,
+        18,
+        16,
+        36,
+        11,
+        18,
+        23,
+        18,
+        17,
+        18,
+        6,
+        17,
+        28,
+        40,
+        19,
+        8,
+        22,
+        9,
+        9,
+        14,
+        8,
+        6,
+        21,
+        11,
+        9,
+        12,
+        14,
+        19,
+        17,
+        12,
+        12,
+        14,
+        71,
+        19,
+        17,
+        19,
+        16,
+        6,
+        10,
+        8,
+        22,
+        5,
+        13,
+        9,
+        26,
+        16,
+        13,
+        16,
+        10,
+        18,
+        7,
+        12,
+        12,
+        15,
+        34,
+        7,
+        24,
+        8,
+        28,
+        14,
+        20,
+        17,
+        11,
+        14,
+        12,
+        16,
+        7,
+        5,
+        8,
+        16,
+        11,
+        8,
+        18,
+        17,
+        30,
+        15,
+        5,
+        12,
+        20,
+        10,
+        17,
+        25,
+        19,
+        26,
+        20,
+        40,
+        15,
+        6,
+        15,
+        14,
+        10,
+        10,
+        16,
+        18,
+        15,
+        19,
+        16,
+        16,
+        10,
+        6,
+        10,
+        16,
+        9,
+        19,
+        17,
+        19,
+        11,
+        11,
+        14,
+        8,
+        13,
+        21,
+        9,
+        9,
+        16,
+        15,
+        19,
+        7,
+        15,
+        10,
+        14,
+        21,
+        176,
+        18,
+        24,
+        11,
+        10,
+        17,
+        9,
+        15,
+        28,
+        17,
+        31,
+        28,
+        11,
+        9,
+        12,
+        11,
+        29,
+        31,
+        25,
+        15,
+        10,
+        13,
+        19,
+        13,
+        18,
+        25,
+        9,
+        14,
+        21,
+        10,
+        10,
+        18,
+        23,
+        18,
+        15,
+        25,
+        9,
+        14,
+        12,
+        12,
+        15,
+        15,
+        19,
+        18,
+        25,
+        10,
+        26,
+        20,
+        13,
+        24,
+        19,
+        17,
+        14,
+        23,
+        22,
+        30,
+        25,
+        6,
+        26,
+        14,
+        6,
+        7,
+        7,
+        11,
+        13,
+        25,
+        7,
+        18,
+        8,
+        22,
+        24,
+        11,
+        13,
+        13,
+        11,
+        9,
+        6,
+        39,
+        5,
+        6,
+        18,
+        13,
+        9,
+        23,
+        22,
+        15,
+        33,
+        21,
+        7,
+        13,
+        19,
+        6,
+        18,
+        16,
+        28,
+        26,
+        18,
+        25,
+        21,
+        7,
+        11,
+        20,
+        26,
+        9,
+        42
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Una carpeta de feature por endpoint no va a ayudar a\n  un proyecto que ya entra en un pu\u00f1ado de archivos.",
+        0.9765
+      ],
+      [
+        "El patr\u00f3n es agn\u00f3stico al lenguaje.",
+        0.946
+      ],
+      [
+        "Esto se enforcea a trav\u00e9s de interfaces e inversi\u00f3n de control.",
+        0.9272
+      ],
+      [
+        "El patr\u00f3n que veo\nconsistentemente es que la arquitectura importa menos que la disciplina del\nequipo al seguirla.",
+        0.9124
+      ],
+      [
+        "Quer\u00e9s minimizar conflictos de merge entre equipos de funcionalidades.",
+        0.9056
+      ],
+      [
+        "La query pasa de\nQueries/GetProductByIdQuery.cs a\nFeatures/Products/GetProductById/GetProductByIdQuery.cs.",
+        0.8918
+      ],
+      [
+        "Cuando necesit\u00e1s cambiar \"Crear Orden\", todos los archivos\nrelevantes est\u00e1n ah\u00ed.",
+        0.8463
+      ],
+      [
+        "La organizaci\u00f3n no est\u00e1 lista para que un equipo se haga cargo de un slice de\n  punta a punta.",
+        0.7957
+      ],
+      [
+        "Repet\u00ed con la siguiente feature.",
+        0.7777
+      ],
+      [
+        "Los dos no est\u00e1n en conflicto.",
+        0.7749
+      ],
+      [
+        "Eleg\u00ed una organizaci\u00f3n principal por aplicaci\u00f3n.",
+        0.7735
+      ],
+      [
+        "La estructura de carpetas dice \"esto es una\nfeature\" pero la estructura del equipo dice \"esto requiere tres equipos\".",
+        0.7718
+      ],
+      [
+        "La arquitectura funciona mejor cuando los equipos se organizan alrededor de\nfeatures, no de capas.",
+        0.7701
+      ],
+      [
+        "Cada feature reusa el mismo modelo de dominio masivo.",
+        0.7261
+      ],
+      [
+        "El handler se enfoca solo en la\nl\u00f3gica de negocio.",
+        0.7104
+      ],
+      [
+        "Para\nuna app CRUD con cinco endpoints, las capas son m\u00e1s simples.",
+        0.702
+      ],
+      [
+        "Las cuatro operaciones necesitaban el mismo\nmodelo de dominio.",
+        0.7003
+      ],
+      [
+        "En ese punto, pod\u00e9s\neliminar los proyectos de capas vac\u00edos.",
+        0.6951
+      ],
+      [
+        "La base de c\u00f3digo es peque\u00f1a.",
+        0.6836
+      ],
+      [
+        "El handler depende de una interface IOrderRepository, y la\nimplementaci\u00f3n vive en el mismo slice.",
+        0.6789
+      ],
+      [
+        "Logging va primero para capturar\ncada request incluso si la validaci\u00f3n falla.",
+        0.6696
+      ],
+      [
+        "Los desarrolladores naturalmente empezaron a co-ubicar\nc\u00f3digo porque la estructura del equipo lo premiaba.",
+        0.6688
+      ],
+      [
+        "Cada equipo pod\u00eda deployar independientemente porque su c\u00f3digo estaba\naislado.",
+        0.6529
+      ],
+      [
+        "Cuando una empresa pas\u00f3 de equipos por capa a\nequipos por feature, la base de c\u00f3digo gradualmente migr\u00f3 de capas a vertical sin\nuna migraci\u00f3n formal.",
+        0.6469
+      ],
+      [
+        "La Ley de Conway dice que los sistemas dise\u00f1ados por una organizaci\u00f3n van a\nespejar la estructura de comunicaci\u00f3n de esa organizaci\u00f3n.",
+        0.6384
+      ]
+    ],
+    "diagnostics_sample": [
+      {
+        "sentence": "La Arquitectura por Slices Verticales es un estilo de organizaci\u00f3n de c\u00f3digo\ncentrado en features que agrupa todo el c\u00f3digo de una funcionalidad \u2014 comando,\nhand",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Cuando optimiz\u00e1s para la cohesi\u00f3n de features,\noptimiz\u00e1s para lo que realmente cambia \u2014 la feature en s\u00ed.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Ten\u00e9s un equipo mediano a grande donde m\u00faltiples desarrolladores trabajan en\n  features diferentes simult\u00e1neamente.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Est\u00e1s trabajando con un framework que pelea con la organizaci\u00f3n por features.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Cada feature es autocontenida y t\u00edpicamente incluye:\n\n| Componente | Prop\u00f3sito |\n| --- | --- |\n| **Command/Query** | Modelo de entrada (DTO) |\n| **Handler** | L",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Cre\u00e1 Features/Products/GetProductById/ y mov\u00e9 el c\u00f3digo relevante de la\nestructura por capas a la nueva carpeta.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "La query pasa de\nQueries/GetProductByIdQuery.cs a\nFeatures/Products/GetProductById/GetProductByIdQuery.cs.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Despu\u00e9s de dos semanas, vas a haber migrado 10-15 features y\nla estructura por capas va a estar mayormente vac\u00eda.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Yo agrupo CreateOrder,\n  GetOrderById y CancelOrder bajo Features/Orders/ porque comparten el\n  mismo aggregate root.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Vi equipos intentar mantener la carpeta\n  vieja de Controllers/ junto con Features/ \u2014 nunca termina bien.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "| Arquitectura | Organiza por | Fortalezas | Debilidades | Ideal para |\n| --- | --- | --- | --- | --- |\n| **Vertical Slice** | Feature | Alta cohesi\u00f3n, pocos co",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "En Vertical Slice, agreg\u00e1s una carpeta bajo Features/ y todo para esa feature\nvive ah\u00ed.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Para la mayor\u00eda de las aplicaciones de negocio,\nlas features cambian m\u00e1s seguido que las estrategias de acceso a datos, as\u00ed que\nVertical Slice gana en el eje qu",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Vertical Slice brilla cuando\nten\u00e9s suficientes features como para que la organizaci\u00f3n realmente importe.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "La arquitectura funciona mejor cuando los equipos se organizan alrededor de\nfeatures, no de capas.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "En el ejemplo de e-commerce de arriba, el equipo de Orders era due\u00f1o de\nFeatures/Orders/, el equipo de Products era due\u00f1o de Features/Products/, y\nas\u00ed.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "En este caso, o\nreorganiz\u00e1s los equipos alrededor de features o te qued\u00e1s con arquitectura por\ncapas que matchea tu estructura de equipo.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "La arquitectura no fuerza la estructura del equipo, pero hace que la\nestructura basada en features sea natural y la basada en capas sea inc\u00f3moda.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "CQRS separa lecturas de escrituras, y\nVertical Slice separa features naturalmente.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Para features CRUD simples, CQRS agrega ceremonia sin\nvalor.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      }
+    ]
+  }
+]

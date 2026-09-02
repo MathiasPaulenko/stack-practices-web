@@ -1,0 +1,107 @@
+[
+  {
+    "label": "vertical-slice-architecture-guide",
+    "total_sentences": 252,
+    "pattern_totals": {
+      "formal_verb": 9,
+      "vague_abstraction": 1
+    },
+    "findings": [
+      {
+        "sentence": "Your team is big enough that several developers work on different features at\n  the same time.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "After two weeks, you'll have migrated 10-15 features and\nthe layered structure will be mostly empty.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "| Architecture | Organizes by | Strengths | Weaknesses | Best for |\n| --- | --- | --- | --- | --- |\n| **Vertical Slice** | Feature | High cohesion, low merge conflicts, easy navigation | Can duplicate infrastructure if not careful | Medium-to-large APIs with independent features |\n| **[Layered](/guides/layered-architecture-guide/)** | Technical concern | Clear separation, familiar to most teams | Low feature cohesion, cross-layer navigation | Small-to-medium apps with shared domain |\n| **[Clean Architecture](/guides/clean-architecture-guide/)** | Dependency direction | Testable core, framework independence | Can be ceremony-heavy, lots of interfaces | Complex domains where dependency direction matters |\n| **[Onion Architecture](/guides/onion-architecture-guide/)** | Dependency direction (concentric) | Similar to Clean, emphasizes interfaces | Same ceremony concerns as Clean | Domain-heavy applications |\n| **Hexagonal** | Ports and adapters | Swappable infrastructure, testable core | Can over-abstract simple apps | Apps with multiple delivery channels (web, CLI, messaging) |\n\nI've worked on projects that used each of these.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          },
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      },
+      {
+        "sentence": "For most business applications, features change more often than\ndata access strategies, so Vertical Slice wins on the axis that matters most.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "Vertical Slice shines when you've\ngot enough features that the organization actually matters.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "The architecture works best when teams are organized around features, not\nlayers.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "In this case, either reorganize teams\naround features or stick with layered architecture that matches your team\nstructure.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "CQRS separates reads from writes, and\nVertical Slice naturally separates features.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      },
+      {
+        "sentence": "For simple CRUD features, CQRS adds ceremony without value.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      }
+    ]
+  }
+]
