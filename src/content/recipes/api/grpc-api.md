@@ -6,33 +6,33 @@ description: "Implement a gRPC API with Protocol Buffers. Covers service definit
 metaDescription: "Implement a gRPC API with Protocol Buffers. Covers service definition, code generation, client/server examples in Python, Java, and Go."
 difficulty: intermediate
 topics:
-  - api
+ - api
 tags:
-  - api
-  - microservices
-  - rest
-  - http
-  - backend
+ - api
+ - microservices
+ - rest
+ - http
+ - backend
 relatedResources:
-  - /recipes/grpc-services-typescript
-  - /recipes/api-versioning
-  - /recipes/call-rest-api
-  - /recipes/server-sent-events
-  - /docs/api-documentation
-  - /guides/rest-api-design-guide
+ - /recipes/grpc-services-typescript
+ - /recipes/api-versioning
+ - /recipes/call-rest-api
+ - /recipes/server-sent-events
+ - /docs/api-documentation
+ - /guides/rest-api-design-guide
 lastUpdated: "2026-09-03"
 publishedAt: "2026-06-13"
 estimatedReadTime: 11
 author: Mathias Paulenko
 seo:
-  metaDescription: "Implement a gRPC API with Protocol Buffers. Covers service definition, code generation, client/server examples in Python, Java, and Go."
-  keywords:
-    - grpc api
-    - protocol buffers
-    - grpc tutorial
-    - grpc python
-    - grpc java
-    - grpc streaming
+ metaDescription: "Implement a gRPC API with Protocol Buffers. Covers service definition, code generation, client/server examples in Python, Java, and Go."
+ keywords:
+ - grpc api
+ - protocol buffers
+ - grpc tutorial
+ - grpc python
+ - grpc java
+ - grpc streaming
 ---
 ## Overview
 
@@ -64,7 +64,7 @@ Uses [grpcio](https://grpc.io/docs/languages/python/) and
 # message HelloRequest { string name = 1; }
 # message HelloResponse { string message = 1; }
 # service Greeter {
-#   rpc SayHello (HelloRequest) returns (HelloResponse);
+# rpc SayHello (HelloRequest) returns (HelloResponse);
 # }
 
 import grpc
@@ -73,21 +73,21 @@ import service_pb2
 import service_pb2_grpc
 
 class GreeterServicer(service_pb2_grpc.GreeterServicer):
-    def SayHello(self, request, context):
-        return service_pb2.HelloResponse(
-            message=f"Hello, {request.name}!"
-        )
+ def SayHello(self, request, context):
+ return service_pb2.HelloResponse(
+ message=f"Hello, {request.name}!"
+ )
 
-    def StreamGreetings(self, request_iterator, context):
-        for req in request_iterator:
-            yield service_pb2.HelloResponse(message=f"Streamed: {req.name}")
+ def StreamGreetings(self, request_iterator, context):
+ for req in request_iterator:
+ yield service_pb2.HelloResponse(message=f"Streamed: {req.name}")
 
 def serve():
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    service_pb2_grpc.add_GreeterServicer_to_server(GreeterServicer(), server)
-    server.add_insecure_port("[::]:50051")
-    server.start()
-    server.wait_for_termination()
+ server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+ service_pb2_grpc.add_GreeterServicer_to_server(GreeterServicer(), server)
+ server.add_insecure_port("[::]:50051")
+ server.start()
+ server.wait_for_termination()
 
 # Client
 channel = grpc.insecure_channel("localhost:50051")
@@ -110,26 +110,26 @@ const packageDefinition = protoLoader.loadSync('service.proto');
 const proto = grpc.loadPackageDefinition(packageDefinition).greeter;
 
 function sayHello(call, callback) {
-  callback(null, { message: `Hello, ${call.request.name}` });
+ callback(null, { message: `Hello, ${call.request.name}` });
 }
 
 function streamGreetings(call) {
-  call.on('data', (req) => {
-    call.write({ message: `Streamed: ${req.name}` });
-  });
-  call.on('end', () => call.end());
+ call.on('data', (req) => {
+ call.write({ message: `Streamed: ${req.name}` });
+ });
+ call.on('end', () => call.end());
 }
 
 const server = new grpc.Server();
 server.addService(proto.Greeter.service, { sayHello, streamGreetings });
 server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
-  server.start();
+ server.start();
 });
 
 // Client
 const client = new proto.Greeter('localhost:50051', grpc.credentials.createInsecure());
 client.sayHello({ name: 'World' }, (err, response) => {
-  console.log(response.message);
+ console.log(response.message);
 });
 ```
 
@@ -144,30 +144,30 @@ import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 
 public class GreeterServer {
-    public static void main(String[] args) throws Exception {
-        Server server = ServerBuilder.forPort(50051)
-            .addService(new GreeterImpl())
-            .build()
-            .start();
-        server.awaitTermination();
-    }
+ public static void main(String[] args) throws Exception {
+ Server server = ServerBuilder.forPort(50051)
+ .addService(new GreeterImpl())
+ .build()
+ .start();
+ server.awaitTermination();
+ }
 
-    static class GreeterImpl extends GreeterGrpc.GreeterImplBase {
-        @Override
-        public void sayHello(HelloRequest req, StreamObserver<HelloResponse> responseObserver) {
-            HelloResponse reply = HelloResponse.newBuilder()
-                .setMessage("Hello, " + req.getName())
-                .build();
-            responseObserver.onNext(reply);
-            responseObserver.onCompleted();
-        }
-    }
+ static class GreeterImpl extends GreeterGrpc.GreeterImplBase {
+ @Override
+ public void sayHello(HelloRequest req, StreamObserver<HelloResponse> responseObserver) {
+ HelloResponse reply = HelloResponse.newBuilder()
+ .setMessage("Hello, " + req.getName())
+ .build();
+ responseObserver.onNext(reply);
+ responseObserver.onCompleted();
+ }
+ }
 }
 
 // Client
 ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051)
-    .usePlaintext()
-    .build();
+ .usePlaintext()
+ .build();
 GreeterGrpc.GreeterBlockingStub stub = GreeterGrpc.newBlockingStub(channel);
 HelloResponse response = stub.sayHello(HelloRequest.newBuilder().setName("World").build());
 System.out.println(response.getMessage());
@@ -184,16 +184,16 @@ stubs.
 ```mermaid
 %% alt: gRPC contract-first workflow — .proto schema generates stubs for Python, JS, and Java that communicate over HTTP/2
 flowchart LR
-    Proto[".proto schema"] --> Protoc["protoc codegen"]
-    Protoc --> PyStubs["Python stubs"]
-    Protoc --> JsStubs["JS stubs"]
-    Protoc --> JavaStubs["Java stubs"]
-    PyStubs --> Server["gRPC Server"]
-    JsStubs --> Client1["gRPC Client"]
-    JavaStubs --> Client2["gRPC Client"]
-    Server --> HTTP2["HTTP/2 + Protobuf"]
-    Client1 --> HTTP2
-    Client2 --> HTTP2
+ Proto[".proto schema"] --> Protoc["protoc codegen"]
+ Protoc --> PyStubs["Python stubs"]
+ Protoc --> JsStubs["JS stubs"]
+ Protoc --> JavaStubs["Java stubs"]
+ PyStubs --> Server["gRPC Server"]
+ JsStubs --> Client1["gRPC Client"]
+ JavaStubs --> Client2["gRPC Client"]
+ Server --> HTTP2["HTTP/2 + Protobuf"]
+ Client1 --> HTTP2
+ Client2 --> HTTP2
 ```
 
 **Unary RPC**: one request, one response. Simplest mode; equivalent to a REST POST.
@@ -327,17 +327,17 @@ Benchmarks run on Node.js 20, single core, 1KB payload, 100 concurrent streams. 
 ## See Also
 
 - [Companion repository — runnable examples](https://mathiaspaulenko.github.io/stack-practices-resources/resources/recipes/api/grpc-api/)
-  in Python, JavaScript, and Java.
+ in Python, JavaScript, and Java.
 - [gRPC official documentation](https://grpc.io/docs/) — language-specific guides,
-  quickstarts, and API reference.
+ quickstarts, and API reference.
 - [Protocol Buffers language guide](https://protobuf.dev/programming-guides/proto3/)
-  — proto3 syntax, field types, and backward compatibility rules.
+ — proto3 syntax, field types, and backward compatibility rules.
 - [OpenTelemetry gRPC semantic conventions](https://opentelemetry.io/docs/specs/semconv/rpc/grpc/)
-  — standardized attributes for gRPC tracing and metrics.
+ — standardized attributes for gRPC tracing and metrics.
 - [Connect-RPC](https://connect.build/) — protocol that supports both gRPC and
-  standard HTTP/1.1 JSON, useful for browser clients without a proxy.
+ standard HTTP/1.1 JSON, useful for browser clients without a proxy.
 - [Envoy gRPC-Web filter](https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/grpc_web_filter)
-  — proxy configuration for browser-facing gRPC services.
+ — proxy configuration for browser-facing gRPC services.
 
 ## FAQ
 
