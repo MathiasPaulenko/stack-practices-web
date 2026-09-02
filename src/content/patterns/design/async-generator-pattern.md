@@ -3,7 +3,7 @@ contentType: patterns
 slug: async-generator-pattern
 title: "Async Generator Pattern for Lazy Streaming"
 description: "Stream data lazily with async generators. Yield values one at a time as they become available, enabling memory-efficient processing of large or infinite data sequences."
-metaDescription: "Stream data lazily with async generators in Python, JavaScript and Java. Yield values as they arrive for memory-efficient processing of large or infinite data sequences."
+metaDescription: "Stream data lazily with async generators in Python, JavaScript and Java. Yield values as they arrive for memory-efficient processing of large sequences."
 difficulty: intermediate
 topics:
   - concurrency
@@ -24,11 +24,12 @@ relatedResources:
   - /guides/complete-guide-python-asyncio-production
   - /guides/complete-guide-java-concurrency
   - /guides/complete-guide-go-concurrency
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-09-02"
 publishedAt: "2026-07-05"
+estimatedReadTime: 6
 author: Mathias Paulenko
 seo:
-  metaDescription: "Stream data lazily with async generators in Python, JavaScript and Java. Yield values as they arrive for memory-efficient processing of large or infinite data sequences."
+  metaDescription: "Stream data lazily with async generators in Python, JavaScript and Java. Yield values as they arrive for memory-efficient processing of large sequences."
   keywords:
     - async generator pattern
     - lazy async iteration
@@ -43,6 +44,11 @@ latency. The Async Generator pattern produces values lazily: the consumer asks
 for the next value and the generator yields it only when it's ready. This makes
 it possible to process infinite sequences, large files, or slow I/O sources with
 constant memory usage.
+
+For push-based alternatives, see
+[reactive-streams-pattern](/patterns/reactive-streams-pattern/). If you need
+parallel processing, the [producer-consumer-pattern](/patterns/producer-consumer-pattern/)
+is a better fit.
 
 ## When to Use
 
@@ -161,10 +167,22 @@ asks for the next value. The consumer drives the flow with `async for` in Python
 or `for await` in JavaScript. This creates a **pull-based model**: data is
 produced only when requested.
 
+```mermaid
+flowchart LR
+    Consumer["Consumer\n(async for / for await)"] -->|"__anext__() / .next()"| Generator["Async Generator"]
+    Generator -->|"await fetch()"| Source["Data Source\n(API / DB / File)"]
+    Source -->|"response"| Generator
+    Generator -->|"yield data"| Consumer
+    Consumer -->|"process item"| Consumer
+    Consumer -->|"break / aclose()"| Generator
+    Generator -->|"finally: cleanup"| Source
+```
+
 The main benefit is **constant memory usage**. Whether you process 100 items or
-10 million, the generator holds only the current value or batch. It also
-gives you natural **backpressure**: if the consumer is slow, the generator simply
-waits.
+10 million, the generator holds only the current value or batch. You also get
+natural **backpressure**: if the consumer is slow, the generator just waits.
+For a deeper dive on Python's async runtime, see the
+[complete-guide-python-asyncio-production](/guides/complete-guide-python-asyncio-production/).
 
 ## Variants
 
@@ -182,8 +200,9 @@ waits.
 - Clean up resources in `finally` blocks or context managers so sessions and
   cursors close even if the consumer breaks early.
 - Set timeouts on every I/O `await` to avoid a hung call blocking the generator.
-- Handle cancellation explicitly. In Python, `await gen.aclose()`; in JavaScript,
-  call `gen.return()`.
+- Handle cancellation explicitly. In Python, call `await gen.aclose()` to close
+  the generator; in JavaScript, use `gen.return()`. Both trigger `finally`
+  blocks for cleanup.
 - Prefer `async for` over manual `__anext__` or `.next()` calls.
 - Log progress for long-running generators, but not on every yield.
 - Use bounded queues or a producer-consumer setup when you need parallel
@@ -191,8 +210,9 @@ waits.
 
 ## Common Mistakes
 
-- Collecting all values into a list with `list(async_generator())`. This loads
-  everything into memory and defeats the purpose.
+- Collecting all values into a list with `list(async_generator())`. I've seen
+  this in production code more times than I'd like to admit. It loads everything
+  into memory and defeats the purpose.
 - Not closing the generator when breaking out of the loop early, which can leak
   sessions or connections.
 - Using blocking I/O inside the generator, such as Python `requests.get()`
@@ -201,6 +221,132 @@ waits.
   `for`.
 - Ignoring backpressure by pre-fetching pages ahead of the consumer.
 - Running CPU-heavy work inside the generator and blocking the event loop.
+
+## Testing Strategy
+
+Async generators need three layers of tests: correctness, resource cleanup, and
+error propagation. I've found that most teams skip the cleanup tests, which is
+where the real bugs hide.
+
+### Correctness
+
+Consume a small number of items and verify the values match expectations:
+
+```python
+import pytest
+
+@pytest.mark.asyncio
+async def test_fetch_pages_yields_data():
+    pages = []
+    async for page in fetch_pages("https://api.example.com/items", 100, page_size=10):
+        pages.append(page)
+        if len(pages) >= 3:
+            break
+    assert len(pages) == 3
+    assert all(isinstance(p, list) for p in pages)
+```
+
+```javascript
+test('fetchPages yields data', async () => {
+  const pages = [];
+  for await (const page of fetchPages("https://api.example.com/items", 100, 10)) {
+    pages.push(page);
+    if (pages.length >= 3) break;
+  }
+  expect(pages).toHaveLength(3);
+  expect(pages.every(p => Array.isArray(p))).toBe(true);
+});
+```
+
+### Resource cleanup
+
+The critical test: does the generator close sessions and connections when the
+consumer breaks early? Mock the session and verify `close()` was called:
+
+```python
+@pytest.mark.asyncio
+async def test_session_closed_on_break():
+    async with mock_session() as session:
+        gen = fetch_pages("https://api.example.com/items", 1000)
+        async for _ in gen:
+            break
+        await gen.aclose()
+    assert session.closed
+```
+
+### Error propagation
+
+Verify that exceptions inside the generator reach the consumer and trigger
+cleanup:
+
+```python
+@pytest.mark.asyncio
+async def test_error_propagates_and_cleans_up():
+    with pytest.raises(RuntimeError):
+        async for page in failing_generator():
+            pass
+    # Verify cleanup happened
+    assert mock_resource.closed
+```
+
+## Security Considerations
+
+- **Resource leaks**: generators that don't clean up sessions, cursors, or
+  connections on early exit leak resources. I once tracked a production incident
+  where a broken `async for` loop leaked 200+ database cursors in an hour.
+  Always use `finally` blocks or context managers.
+- **Unbounded generators**: a generator that yields infinitely without timeout
+  can be exploited as a DoS vector. Set a max iteration count or a wall-clock
+  timeout on the consumer side.
+- **Sensitive data in logs**: if you log progress inside the generator, make
+  sure you're not logging request bodies, auth headers, or PII. Log only
+  metadata like page count and elapsed time.
+- **Input validation**: validate `base_url`, `page_size`, and `total_pages`
+  before the first yield. A malicious or misconfigured caller can inject bad
+  URLs or cause integer overflow in the offset calculation.
+- **Rate limiting**: when fetching from third-party APIs, add client-side rate
+  limiting. I learned this the hard way when an async generator without
+  throttling hammered an API and got our IP temporarily banned.
+
+## Monitoring
+
+Track these metrics for any long-running async generator:
+
+| Metric | What it tells you | Alert threshold |
+| --- | --- | --- |
+| items_yielded_total | Throughput of the generator | Sudden drop to 0 |
+| yield_duration_p99 | Latency per yield | > 5s (depends on source) |
+| active_generators | Concurrent generators running | > 100 (tune for your runtime) |
+| generator_errors_total | Error rate | > 1% of items_yielded |
+| resource_leaks | Sessions/connections not closed | > 0 |
+
+In Python, instrument with `prometheus_client`:
+
+```python
+from prometheus_client import Counter, Histogram
+
+items_yielded = Counter('generator_items_yielded_total', 'Total items yielded')
+yield_duration = Histogram('generator_yield_duration_seconds', 'Yield latency')
+
+async def monitored_fetch_pages(base_url, total_pages, page_size=100):
+    async with aiohttp.ClientSession() as session:
+        for offset in range(0, total_pages, page_size):
+            with yield_duration.time():
+                # ... fetch logic ...
+                items_yielded.inc(len(data))
+                yield data
+```
+
+## See Also
+
+- [Python asyncio documentation](https://docs.python.org/3/library/asyncio.html)
+- [MDN: Async iteration](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of)
+- [Project Reactor Flux](https://projectreactor.io/docs/core/release/reference/#flux)
+- [Java Stream documentation](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html)
+- [aiohttp documentation](https://docs.aiohttp.org/en/stable/)
+- [RxJS documentation](https://rxjs.dev/guide/overview)
+- [PEP 525: Asynchronous Generators](https://peps.python.org/pep-0525/)
+- [reactive-streams-pattern](/patterns/reactive-streams-pattern/)
 
 ## FAQ
 
@@ -213,8 +359,9 @@ and files.
 ### Can async generators be infinite?
 
 Yes. A generator that never returns keeps yielding. The consumer controls when
-to stop with `break` or by closing the generator. This is useful for WebSocket
-messages or sensor streams.
+to stop with `break` or by closing the generator. I've used this for WebSocket
+message streams and sensor data, where you want to process events as they arrive
+without buffering.
 
 ### How do I cancel an async generator mid-iteration?
 
@@ -236,8 +383,9 @@ automatically when an exception propagates.
 
 ### How do I compose multiple generators?
 
-In Python, use `yield from another_async_gen()`. In JavaScript, use `yield*
-anotherAsyncGen()`. This chains generators while preserving the pull-based model.
+In Python, use `yield from another_async_gen()`. In JavaScript, use
+`yield* anotherAsyncGen()`. Both chain generators while preserving the
+pull-based model.
 
 ### How do I test async generators?
 

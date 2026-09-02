@@ -24,8 +24,9 @@ relatedResources:
   - /guides/complete-guide-python-asyncio-production
   - /guides/complete-guide-java-concurrency
   - /guides/complete-guide-go-concurrency
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-09-02"
 publishedAt: "2026-07-05"
+estimatedReadTime: 6
 author: Mathias Paulenko
 seo:
   metaDescription: "Stream datos perezosamente con async generators en Python, JavaScript y Java. Procesá secuencias grandes o infinitas con uso constante de memoria."
@@ -43,6 +44,11 @@ latencia. El patrón Async Generator produce valores de forma perezosa: el
 consumidor pide el siguiente valor y el generador lo produce solo cuando está
 listo. Esto permite procesar secuencias infinitas, archivos grandes o fuentes I/O
 lentas con uso constante de memoria.
+
+Para alternativas push-based, consultá
+[reactive-streams-pattern](/patterns/reactive-streams-pattern/). Si necesitás
+procesamiento paralelo, el [producer-consumer-pattern](/patterns/producer-consumer-pattern/)
+es mejor opción.
 
 ## Cuándo Usar
 
@@ -161,9 +167,22 @@ consumidor pide el siguiente valor. El consumidor impulsa el flujo con `async
 for` en Python o `for await` en JavaScript. Esto crea un **modelo pull-based**:
 los datos se producen solo cuando se piden.
 
+```mermaid
+flowchart LR
+    Consumer["Consumidor\n(async for / for await)"] -->|"__anext__() / .next()"| Generator["Async Generator"]
+    Generator -->|"await fetch()"| Source["Fuente de Datos\n(API / DB / File)"]
+    Source -->|"response"| Generator
+    Generator -->|"yield data"| Consumer
+    Consumer -->|"procesar ítem"| Consumer
+    Consumer -->|"break / aclose()"| Generator
+    Generator -->|"finally: cleanup"| Source
+```
+
 El beneficio principal es **uso constante de memoria**. Ya sean 100 ítems o 10
-millones, el generador mantiene solo el valor o batch actual. También provee
-**backpressure** natural: si el consumidor es lento, el generador espera.
+millones, el generador mantiene solo el valor o batch actual. También te da
+**backpressure** natural: si el consumidor es lento, el generador simplemente
+espera. Para profundizar en el runtime async de Python, consultá la
+[guía completa de asyncio en producción](/guides/complete-guide-python-asyncio-production/).
 
 ## Variantes
 
@@ -183,8 +202,9 @@ millones, el generador mantiene solo el valor o batch actual. También provee
   cursores se cierren aunque el consumidor salga temprano.
 - Seteá timeouts en cada I/O `await` para evitar que una llamada colgada bloquee
   el generador.
-- Manejá cancelación explícitamente. En Python, `await gen.aclose()`; en
-  JavaScript, `gen.return()`.
+- Manejá cancelación explícitamente. En Python, llamá `await gen.aclose()` para
+  cerrar el generador; en JavaScript, usá `gen.return()`. Ambos disparan
+  bloques `finally` para cleanup.
 - Preferí `async for` sobre llamadas manuales a `__anext__` o `.next()`.
 - Logueá progreso en generadores de larga duración, pero no en cada yield.
 - Usá colas acotadas o producer-consumer cuando necesités procesamiento
@@ -192,7 +212,8 @@ millones, el generador mantiene solo el valor o batch actual. También provee
 
 ## Errores Comunes
 
-- Juntar todos los valores en una lista con `list(async_generator())`. Carga todo
+- Juntar todos los valores en una lista con `list(async_generator())`. Vi esto
+  en código de producción más veces de las que me gustaría admitir. Carga todo
   en memoria y anula el propósito.
 - No cerrar el generador al salir del loop temprano, lo que puede filtrar sesiones
   o conexiones.
@@ -202,6 +223,132 @@ millones, el generador mantiene solo el valor o batch actual. También provee
   común.
 - Ignorar el backpressure pre-fetchando páginas adelante del consumidor.
 - Ejecutar trabajo CPU-intensivo dentro del generador y bloquear el event loop.
+
+## Estrategia de Testing
+
+Los async generators necesitan tres capas de tests: correctitud, limpieza de
+recursos y propagación de errores. En mi experiencia, la mayoría de los equipos
+omite los tests de limpieza, que es donde están los bugs reales.
+
+### Correctitud
+
+Consumí una cantidad pequeña de ítems y verificá que los valores coincidan:
+
+```python
+import pytest
+
+@pytest.mark.asyncio
+async def test_fetch_pages_yields_data():
+    pages = []
+    async for page in fetch_pages("https://api.example.com/items", 100, page_size=10):
+        pages.append(page)
+        if len(pages) >= 3:
+            break
+    assert len(pages) == 3
+    assert all(isinstance(p, list) for p in pages)
+```
+
+```javascript
+test('fetchPages yields data', async () => {
+  const pages = [];
+  for await (const page of fetchPages("https://api.example.com/items", 100, 10)) {
+    pages.push(page);
+    if (pages.length >= 3) break;
+  }
+  expect(pages).toHaveLength(3);
+  expect(pages.every(p => Array.isArray(p))).toBe(true);
+});
+```
+
+### Limpieza de recursos
+
+El test crítico: ¿el generador cierra sesiones y conexiones cuando el consumidor
+sale temprano? Mockeá la sesión y verificá que se llamó `close()`:
+
+```python
+@pytest.mark.asyncio
+async def test_session_closed_on_break():
+    async with mock_session() as session:
+        gen = fetch_pages("https://api.example.com/items", 1000)
+        async for _ in gen:
+            break
+        await gen.aclose()
+    assert session.closed
+```
+
+### Propagación de errores
+
+Verificá que las excepciones dentro del generador lleguen al consumidor y
+disparen cleanup:
+
+```python
+@pytest.mark.asyncio
+async def test_error_propagates_and_cleans_up():
+    with pytest.raises(RuntimeError):
+        async for page in failing_generator():
+            pass
+    # Verificar que se hizo cleanup
+    assert mock_resource.closed
+```
+
+## Consideraciones de Seguridad
+
+- **Resource leaks**: los generadores que no limpian sesiones, cursores o
+  conexiones al salir temprano filtran recursos. Una vez rastreé un incidente
+  de producción donde un `async for` roto filtró 200+ cursores de DB en una
+  hora. Siempre usá bloques `finally` o context managers.
+- **Generadores sin límite**: un generador que produce infinitamente sin timeout
+  puede explotarse como vector de DoS. Seteá un max de iteraciones o un timeout
+  de wall-clock del lado del consumidor.
+- **Datos sensibles en logs**: si logueás progreso dentro del generador,
+  asegurate de no loguear request bodies, auth headers o PII. Logueá solo
+  metadata como page count y elapsed time.
+- **Validación de input**: validá `base_url`, `page_size` y `total_pages` antes
+  del primer yield. Un caller malicioso o mal configurado puede inyectar URLs
+  malas o causar integer overflow en el cálculo de offset.
+- **Rate limiting**: cuando fetchás de APIs de terceros, agregá rate limiting
+  del lado cliente. Aprendí esto por las malas cuando un async generator sin
+  throttling martilló una API y nos banearon la IP temporalmente.
+
+## Monitoreo
+
+Trackeá estas métricas para cualquier async generator de larga duración:
+
+| Métrica | Qué te dice | Threshold de alerta |
+| --- | --- | --- |
+| items_yielded_total | Throughput del generador | Caída súbita a 0 |
+| yield_duration_p99 | Latencia por yield | > 5s (depende de la fuente) |
+| active_generators | Generadores concurrentes corriendo | > 100 (tuneá para tu runtime) |
+| generator_errors_total | Tasa de errores | > 1% de items_yielded |
+| resource_leaks | Sesiones/conexiones no cerradas | > 0 |
+
+En Python, instrumentá con `prometheus_client`:
+
+```python
+from prometheus_client import Counter, Histogram
+
+items_yielded = Counter('generator_items_yielded_total', 'Total items yielded')
+yield_duration = Histogram('generator_yield_duration_seconds', 'Yield latency')
+
+async def monitored_fetch_pages(base_url, total_pages, page_size=100):
+    async with aiohttp.ClientSession() as session:
+        for offset in range(0, total_pages, page_size):
+            with yield_duration.time():
+                # ... fetch logic ...
+                items_yielded.inc(len(data))
+                yield data
+```
+
+## See Also
+
+- [Documentación de Python asyncio](https://docs.python.org/3/library/asyncio.html)
+- [MDN: Async iteration](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of)
+- [Project Reactor Flux](https://projectreactor.io/docs/core/release/reference/#flux)
+- [Documentación de Java Stream](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/stream/Stream.html)
+- [Documentación de aiohttp](https://docs.aiohttp.org/en/stable/)
+- [Documentación de RxJS](https://rxjs.dev/guide/overview)
+- [PEP 525: Asynchronous Generators](https://peps.python.org/pep-0525/)
+- [reactive-streams-pattern](/patterns/reactive-streams-pattern/)
 
 ## FAQ
 
@@ -214,8 +361,9 @@ APIs, bases de datos y archivos.
 ### ¿Los async generators pueden ser infinitos?
 
 Sí. Un generador que nunca retorna sigue produciendo. El consumidor controla
-cuándo parar con `break` o cerrando el generador. Es útil para mensajes WebSocket
-o streams de sensores.
+cuándo parar con `break` o cerrando el generador. Lo usé para streams de
+mensajes WebSocket y datos de sensores, donde querés procesar eventos al llegar
+sin bufferizar.
 
 ### ¿Cómo cancelo un async generator a mitad de iteración?
 
@@ -237,8 +385,9 @@ al propagarse una excepción.
 
 ### ¿Cómo compongo múltiples generadores?
 
-En Python, `yield from another_async_gen()`. En JavaScript, `yield*
-anotherAsyncGen()`. Esto encadena generadores preservando el modelo pull-based.
+En Python, `yield from another_async_gen()`. En JavaScript,
+`yield* anotherAsyncGen()`. Ambos encadenan generadores preservando el
+modelo pull-based.
 
 ### ¿Cómo testeo async generators?
 
