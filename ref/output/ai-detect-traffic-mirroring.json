@@ -1,0 +1,420 @@
+[
+  {
+    "label": "traffic-mirroring-en",
+    "model": "desklib",
+    "model_ai_pct": 40.7,
+    "ai_count": 29,
+    "human_count": 58,
+    "skipped_count": 11,
+    "total": 98,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 17.5,
+      "stddev": 22.6,
+      "cv": 1.3,
+      "verdict": "natural variation",
+      "sentence_count": 87,
+      "lengths": [
+        22,
+        21,
+        10,
+        10,
+        14,
+        10,
+        9,
+        10,
+        15,
+        11,
+        12,
+        9,
+        13,
+        73,
+        19,
+        10,
+        10,
+        11,
+        16,
+        12,
+        8,
+        9,
+        8,
+        16,
+        24,
+        7,
+        17,
+        13,
+        21,
+        85,
+        11,
+        15,
+        5,
+        11,
+        13,
+        10,
+        6,
+        5,
+        14,
+        14,
+        7,
+        8,
+        7,
+        6,
+        8,
+        6,
+        6,
+        5,
+        25,
+        19,
+        16,
+        9,
+        29,
+        11,
+        42,
+        12,
+        13,
+        10,
+        17,
+        13,
+        12,
+        19,
+        14,
+        16,
+        12,
+        7,
+        109,
+        14,
+        15,
+        7,
+        170,
+        5,
+        9,
+        8,
+        9,
+        13,
+        13,
+        15,
+        7,
+        13,
+        16,
+        20,
+        8,
+        16,
+        19,
+        16,
+        39
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "[AWS VPC Traffic Mirroring documentation](https://docs.aws.amazon.com/vpc/latest/mirroring/what-is-traffic-mirroring.html)\n[Nginx mirror module documentation](https://nginx.org/en/",
+        0.7769
+      ],
+      [
+        "Mirroring traffic to a public staging endpoint without authentication,\n  which is how production data and credentials end up exposed.",
+        0.6355
+      ],
+      [
+        "When data leaks, this log is the difference\n  between a 20-minute fix and a 3-day investigation.",
+        0.6108
+      ],
+      [
+        "**State isolation**: keep the staging database completely separate from\n  production, no shared tables or connection strings.",
+        0.6084
+      ],
+      [
+        "I've seen\nteams accidentally double-charge customers because they mirrored a payment\nendpoint without idempotency keys.",
+        0.6039
+      ],
+      [
+        "Monitor both the mirror infrastructure and the staging target separately from\nproduction:\n\n| Metric | What it tells you | Alert threshold |\n| --- | --- | --- |\n| mirror_requests_to",
+        0.6025
+      ],
+      [
+        "Application-level setups can filter by URL, method, and headers\neasily.",
+        0.6016
+      ],
+      [
+        "Use idempotency keys for all mutating\n  endpoints.",
+        0.6015
+      ],
+      [
+        "Mirroring health checks and monitoring probes.",
+        0.5969
+      ],
+      [
+        "**No public staging endpoints**: the mirror target must not be publicly\n  accessible.",
+        0.5891
+      ],
+      [
+        "For single-proxy\narchitectures, Nginx is the simpler pick.",
+        0.5872
+      ],
+      [
+        "**Operational cost**: running full-scale staging gets pricey.",
+        0.5775
+      ],
+      [
+        "If\n  staging needs auth, use a separate token exchange or a service account\n  dedicated to mirror traffic.",
+        0.5722
+      ],
+      [
+        "Use async fire-and-forget for application-level mirrors.",
+        0.5515
+      ],
+      [
+        "But you get to see\nhow your system handles actual request patterns, headers, and payloads, which\nsynthetic tests simply can't replicate.",
+        0.5511
+      ],
+      [
+        "**Filtering**: strip health checks, static assets, and monitoring probes\n  before mirroring to avoid skewing staging metrics.",
+        0.5468
+      ],
+      [
+        "Use private subnets, VPN, or Transit Gateway.",
+        0.5432
+      ],
+      [
+        "Synthetic load tests miss the messy complexity of real-world requests.",
+        0.5411
+      ],
+      [
+        "And if you can't isolate side effects, forget it.",
+        0.5359
+      ],
+      [
+        "AWS Traffic Mirroring works within the same VPC.",
+        0.5246
+      ],
+      [
+        "**Staging isolation**: never let staging share databases, caches, or\n  third-party accounts with production.",
+        0.5225
+      ],
+      [
+        "Mirrored traffic can trigger alerts, so\n  use separate thresholds and dashboards.",
+        0.5217
+      ],
+      [
+        "First, check that the mirror target actually receives requests.",
+        0.5215
+      ],
+      [
+        "Not until you've validated idempotency, isolated state, disabled side effects,\nand confirmed the mirror target can handle the load.",
+        0.5203
+      ],
+      [
+        "**Cost**: network-level mirroring at high percentages saturates ENI\n  bandwidth.",
+        0.5191
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "traffic-mirroring-es",
+    "model": "desklib",
+    "model_ai_pct": 30.5,
+    "ai_count": 13,
+    "human_count": 74,
+    "skipped_count": 11,
+    "total": 98,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 19.9,
+      "stddev": 24.5,
+      "cv": 1.23,
+      "verdict": "natural variation",
+      "sentence_count": 87,
+      "lengths": [
+        24,
+        24,
+        16,
+        13,
+        19,
+        10,
+        10,
+        11,
+        17,
+        13,
+        17,
+        10,
+        15,
+        77,
+        19,
+        15,
+        13,
+        11,
+        18,
+        11,
+        11,
+        17,
+        12,
+        20,
+        27,
+        10,
+        26,
+        21,
+        26,
+        92,
+        14,
+        14,
+        6,
+        13,
+        13,
+        11,
+        8,
+        8,
+        16,
+        15,
+        6,
+        9,
+        8,
+        7,
+        9,
+        8,
+        7,
+        27,
+        21,
+        15,
+        9,
+        30,
+        20,
+        45,
+        14,
+        14,
+        13,
+        17,
+        18,
+        13,
+        22,
+        14,
+        21,
+        13,
+        7,
+        119,
+        16,
+        20,
+        7,
+        187,
+        10,
+        12,
+        5,
+        8,
+        11,
+        13,
+        13,
+        17,
+        8,
+        15,
+        18,
+        20,
+        10,
+        22,
+        17,
+        16,
+        41
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Las escrituras del mirror corrompen el estado de producci\u00f3n,\ny ese es un mal d\u00eda para todos.",
+        0.9624
+      ],
+      [
+        "Mirror de health checks y probes de monitoreo.",
+        0.8553
+      ],
+      [
+        "Las escrituras del\n  mirror corrompen datos de producci\u00f3n.",
+        0.8066
+      ],
+      [
+        "Mirror de\nPOSTs o pagos no idempotentes causa side effects reales.",
+        0.7985
+      ],
+      [
+        "Valid\u00e1s una nueva versi\u00f3n de servicio contra tr\u00e1fico de producci\u00f3n antes del\n  cutover.",
+        0.7829
+      ],
+      [
+        "S\u00ed, pero aumenta la latencia.",
+        0.6513
+      ],
+      [
+        "**Latencia**: nunca dejes que el mirror bloquee las respuestas de producci\u00f3n.",
+        0.6288
+      ],
+      [
+        "Mirror de CSS, JS e im\u00e1genes desperdicia recursos y\n  distorsiona m\u00e9tricas.",
+        0.6242
+      ],
+      [
+        "Para arquitecturas de single-proxy,\nNginx es la opci\u00f3n m\u00e1s simple.",
+        0.62
+      ],
+      [
+        "Consideraciones clave:\n**Idempotencia**: los POST/PUT mirror deben ser seguros de repetir.",
+        0.5828
+      ],
+      [
+        "**Costo operativo**: correr staging a escala completa se pone caro.",
+        0.5684
+      ],
+      [
+        "Las configs a nivel aplicaci\u00f3n permiten filtrar por URL, m\u00e9todo y\nheaders f\u00e1cilmente.",
+        0.5181
+      ],
+      [
+        "Agrega ruido a las anal\u00edticas\n  de staging.",
+        0.5088
+      ],
+      [
+        "En mi experiencia, la misconfiguraci\u00f3n de firewall\nes la causa de la mayor\u00eda de los failures de setup de mirror.",
+        0.4619
+      ],
+      [
+        "Los tests sint\u00e9ticos de load testing no capturan la complejidad messy de\n  requests del mundo real.",
+        0.4541
+      ],
+      [
+        "Cobrar dos veces a un cliente porque se mirror\u00f3 el\n  pago es un riesgo real.",
+        0.4449
+      ],
+      [
+        "**Audit logging**: logue\u00e1 cada mirror session con start time, porcentaje,\n  filter rules y target.",
+        0.4318
+      ],
+      [
+        "Desactiv\u00e1 efectos salientes en el target: webhooks, emails, APIs de terceros y\n  push notifications.",
+        0.4214
+      ],
+      [
+        "Cuando hay data leakage, este log es la diferencia\n  entre un fix de 20 minutos y una investigaci\u00f3n de 3 d\u00edas.",
+        0.4146
+      ],
+      [
+        "[Documentaci\u00f3n de AWS VPC Traffic Mirroring](https://docs.aws.amazon.com/vpc/latest/mirroring/what-is-traffic-mirroring.html)\n[Documentaci\u00f3n del m\u00f3dulo Nginx mirror](https://nginx.",
+        0.4111
+      ],
+      [
+        "El tr\u00e1fico mirror puede disparar\n  alertas, as\u00ed que us\u00e1 umbrales y dashboards separados.",
+        0.4107
+      ],
+      [
+        "AWS Traffic Mirroring funciona dentro del mismo\nVPC.",
+        0.4092
+      ],
+      [
+        "Us\u00e1 async fire-and-forget para mirrors a nivel aplicaci\u00f3n.",
+        0.4051
+      ],
+      [
+        "Mirror de tr\u00e1fico a un endpoint de staging p\u00fablico sin autenticaci\u00f3n, que\n  es c\u00f3mo datos de producci\u00f3n y credenciales terminan expuestos.",
+        0.369
+      ],
+      [
+        "Los mirrors a nivel aplicaci\u00f3n deber\u00edan ser async fire-and-forget con timeouts\ncortos.",
+        0.3524
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
