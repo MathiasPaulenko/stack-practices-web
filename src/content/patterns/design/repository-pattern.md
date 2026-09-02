@@ -19,10 +19,10 @@ relatedResources:
   - /patterns/repository-pattern-typescript
   - /patterns/factory-pattern
   - /patterns/dependency-injection-pattern
-  - /patterns/adapter-pattern-api
+  - /guides/vertical-slice-architecture-guide
   - /guides/layered-architecture-guide
   - /guides/domain-driven-design-guide
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-31"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
 seo:

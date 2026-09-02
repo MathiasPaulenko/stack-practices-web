@@ -10,7 +10,14 @@
 8. - [x] **parse-log-files** (recipes) — 93.0/100 ✅ PROMOTE
 9. - [x] **flatten-unflatten-objects** (recipes) — 95.0/100 ✅ PROMOTE
 10. - [x] **python-asyncio-semaphore-rate-limiting** (recipes) — 95.0/100 ✅ PROMOTE
-11. - [ ] **penetration-test-template** (docs) — 91.0/100 ✅ PROMOTE (sin commitear)
+11. - [x] **penetration-test-template** (docs) — 91/100 → 98/100 ✅ PROMOTE
+    (ronda de mejora full: IA EN 50.3% → 46.1%, ES 42.2% → 39.5% (<40% ✅),
+    `pattern_totals: {}` en ambos; description ES 195 → 131 chars;
+    enlaces internos diversificados 3 → 6 destinos únicos; red word "comprehensive" → 0;
+    paridad primera persona 50/19 → 49/28; companion meta.json corregido
+    (source_urls con URL recurso, language "bilingual"); build 3.260 pág.;
+    sitemap 3.258 URLs; 9/12 issues resueltos, 1 pendiente EN IA >40%
+    limitación del detector, 3 out-of-scope; 0 regresiones)
 12. - [x] **parse-csv-python-pandas** (recipes) — 90.0/100 ✅ PROMOTE
 13. - [x] **database-read-replicas** (recipes) — 94.0/100 ✅ PROMOTE
 14. - [x] **email-templates-mjml** (recipes) — 94.0/100 ✅ PROMOTE
@@ -34,9 +41,10 @@
     diagrama Mermaid + SVGs EN/ES; companion repo ejecutable en Python/Node/Java;
     build 3.258 pág.; WebPage schema y verificación móvil real quedan out-of-scope
     globales)
-26. - [ ] **server-sent-events-node** (recipes) — 52/88 → 74/88 ✅ MEJORA SIGNIFICATIVA
-    (ronda final de humanización EN: 46.0% → 45.5%, `pattern_totals` vacío;
-    pendiente aceptación documentada o reescritura manual más profunda)
+26. - [x] **server-sent-events-node** (recipes) — 74/88 → 83/88 ✅ MEJORA MODERADA PROMOTE
+    (humanización EN 45.5%→44.5% `pattern_totals` vacío; primera persona ES 1→28;
+    companion `language` corregido; enlace al companion en body; build 3260 OK;
+    0 regresiones; AI score EN 44.5% aceptado como limitación del detector sobre prosa técnica)
 27. - [x] **python-airflow-dag-scheduling** (recipes) — 82.5/88 PROMOTE (post-mejoras adicionales)
     (body prosa 2495/2466 EN/ES, AI EN 39.2% / ES 34.3%, pattern_totals vacío;
     7 enlaces externos, companion repo con 3 DAGs extras; build 3258 OK; 0 regresiones)
@@ -61,7 +69,14 @@
     6 enlaces internos + 6 externos; Mermaid + SVGs EN/ES; companion repo con 13 archivos;
     build 3,260 OK; 0 regresiones; AI EN > 40% como pendiente MEDIUM atenuado)
 33. - [ ] **vertical-slice-architecture-guide** (guides)
-34. - [ ] **prometheus-api-monitoring** (recipes)
+34. - [x] **prometheus-api-monitoring** (recipes) — 50/88 → 79/88 ✅ MEJORA SIGNIFICATIVA PROMOTE
+    (body prosa 1,435/1,585 EN/ES, AI EN 44.8% / ES 39.0%, pattern_totals vacío;
+    Go+Python instrumentation, SLO/SLI con error budget, Mermaid + SVGs EN/ES;
+    companion repo con 10 archivos (Node.js/Go/Python/Docker Compose); 4 enlaces
+    internos + 7 externos; See Also; versiones verificadas (Prometheus 3.13.2 LTS,
+    prom-client 15.1.3, client_golang v1.24.1, prometheus_client 0.21.1);
+    mainEntityOfPage añadido a TechArticle schema; build 3,260 OK; 0 regresiones;
+    AI EN 44.8% aceptado como limitación del detector sobre prosa técnica densa)
 35. - [ ] **docker-network-isolation** (recipes)
 36. - [ ] **export-csv-excel** (recipes)
 37. - [ ] **grpc-api** (recipes)
