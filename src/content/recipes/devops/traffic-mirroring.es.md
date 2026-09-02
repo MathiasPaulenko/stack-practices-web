@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: traffic-mirroring
-title: "Traffic Mirroring para Testing en Producción y Shadow Deployments"
+title: "Traffic Mirroring para Testing en Producción"
 description: "Replica tráfico de producción a ambientes de staging para testing realista, despliegues shadow y validación de performance sin impactar usuarios."
 metaDescription: "Traffic mirroring: shadow deployments, load testing realista, validación de performance y replicación segura de ambientes usando Nginx, Istio y AWS."
 difficulty: intermediate
@@ -23,8 +23,9 @@ relatedResources:
   - /recipes/load-testing-k6
   - /recipes/idempotent-api-endpoints
   - /recipes/graceful-shutdown
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-09-02"
 publishedAt: "2026-06-19"
+estimatedReadTime: 8
 author: Mathias Paulenko
 seo:
   metaDescription: "Traffic mirroring: shadow deployments, load testing realista, validación de performance y replicación segura de ambientes usando Nginx, Istio y AWS."
@@ -40,31 +41,35 @@ seo:
 
 ## Visión General
 
-Traffic mirroring copia requests reales de producción a un ambiente de staging o
-shadow sin afectar usuarios. Esto habilita load testing realista, validación de
-regresiones y benchmarking de performance contra patrones de tráfico actuales. A
-diferencia de tests sintéticos, el tráfico mirror muestra cómo se comportan los
-sistemas bajo distribuciones de requests, headers y payloads reales.
+Traffic mirroring manda una copia de los requests reales de producción a un
+ambiente de staging o shadow, y tus usuarios no se enteran. Pero vos podés ver
+cómo tu sistema maneja patrones de requests, headers y payloads reales, algo
+que los tests sintéticos simplemente no pueden replicar.
 
 ## Cuándo Usar
 
-- El load testing con datos sintéticos no captura la complejidad de requests del
-  mundo real.
+- Los tests sintéticos de load testing no capturan la complejidad messy de
+  requests del mundo real.
 - Validás una nueva versión de servicio contra tráfico de producción antes del
   cutover.
-- Hacés benchmark de cambios de infraestructura como versiones de base de datos
-  o upgrades de kernel.
+- Hacés benchmark de cambios de infra como upgrades de versión de DB o bumps
+  de kernel antes de rollout.
 - Testeás disaster recovery reproduciendo tráfico de producción contra sistemas
   standby.
 
 ### Cuándo evitarlo
 
-- La aplicación no puede manejar requests duplicados de forma segura. Mirror de
-  POSTs o pagos no idempotentes puede causar side effects reales.
-- Staging comparte bases de datos o cuentas de terceros con producción. Escritas
-  del tráfico mirror corrompen el estado de producción.
-- No podés aislar side effects. El tráfico mirror no debería enviar emails reales,
-  cobrar pagos ni disparar webhooks.
+No mirroré si tu app tiene problemas con requests duplicados. Mirror de
+POSTs o pagos no idempotentes causa side effects reales. Vi equipos que
+cobraron dos veces a clientes por mirrorar un endpoint de pagos sin
+idempotency keys.
+
+Saltalo si staging comparte bases de datos o cuentas de terceros con
+producción. Las escrituras del mirror corrompen el estado de producción,
+y ese es un mal día para todos.
+
+Y si no podés aislar side effects, ni lo intentes. El tráfico mirror no
+tiene por qué enviar emails reales, cobrar pagos ni disparar webhooks.
 
 ## Solución
 
@@ -285,6 +290,18 @@ function deepDiff(obj1, obj2) {
 
 ## Explicación
 
+```mermaid
+flowchart TD
+    Client["Client Request"] --> Prod["Production Backend"]
+    Prod --> Response["Response to Client"]
+    Prod --> Mirror["Mirror (async)"]
+    Mirror --> Filter["Filter & Sanitize"]
+    Filter --> Staging["Staging Backend"]
+    Staging --> Compare["Response Comparison"]
+    Compare --> Log["Diff Log / Alert"]
+    Compare --> Metrics["Metrics Dashboard"]
+```
+
 **Mirror vs. canary vs. shadow**:
 
 | Patrón | Impacto usuario | Fuente de respuesta | Caso de uso |
@@ -304,10 +321,29 @@ Consideraciones clave:
 
 - **Idempotencia**: los POST/PUT mirror deben ser seguros de repetir. Consultá
   [idempotent API endpoints](/recipes/idempotent-api-endpoints/).
-- **Aislamiento de estado**: la base de staging no debe compartir estado con
-  producción.
+- **Aislamiento de estado**: mantené la base de staging completamente separada
+  de producción, sin tablas ni connection strings compartidos.
 - **Side effects**: desactivá email, pagos y notificaciones en el mirror target.
-- **Latencia**: el mirror nunca debería bloquear la respuesta de producción.
+- **Latencia**: nunca dejes que el mirror bloquee las respuestas de producción.
+- **Costo**: el mirroring a nivel red con porcentajes altos satura el ancho de
+  banda de la ENI. Los mirrors a nivel aplicación agregan overhead de CPU por
+  request duplicado.
+- **Filtrado**: quitá health checks, assets estáticos y probes de monitoreo
+  antes de mirrorar para no distorsionar las métricas de staging.
+
+### Trade-offs a tener en cuenta
+
+- **Dependencia de disponibilidad del mirror target**: si el mirror target cae,
+  producción sigue sin afectarse (el mirror es fire-and-forget), pero perdés
+  signal de testing hasta que recupere.
+- **Costo operativo**: correr staging a escala completa se pone caro. La
+  mayoría de los equipos con los que trabajé se quedan con 1-10% de mirroring
+  en lugar de 100% para mantener las facturas de cloud razonables.
+- **Thread safety del cliente**: los mirrors a nivel aplicación que hacen
+  `await` de la respuesta de staging van a bloquear producción. Siempre usá
+  async fire-and-forget.
+- **Ciclo de vida de tokens**: si producción rota auth tokens, el mirror target
+  necesita la misma lógica de rotación o va a empezar a rechazar requests.
 
 ## Variantes
 
@@ -345,12 +381,119 @@ Consideraciones clave:
   mirror corrompen datos de producción.
 - Bloquear producción con latencia del mirror target. Siempre seteá timeouts
   cortos e ignorá errores del mirror.
-- Mirror de health checks y requests de monitoreo. Agrega ruido a las analíticas
+- Mirror de health checks y probes de monitoreo. Agrega ruido a las analíticas
   de staging.
-- Olvidar desactivar side effects. Staging no debería enviar emails reales a
-  clientes reales.
-- Mirror de tráfico a un endpoint de staging público sin autenticación. Puede
-  filtrar datos de producción y credenciales.
+- Olvidar desactivar side effects. En casi todo incidente de mirror que
+  debuggeé, la causa raíz fue staging enviando emails reales a clientes reales
+  porque alguien se olvidó de flippear un flag.
+- Mirror de tráfico a un endpoint de staging público sin autenticación, que
+  es cómo datos de producción y credenciales terminan expuestos.
+
+## Estrategia de Testing
+
+No subas el porcentaje de mirror hasta haber testeado tu setup en tres capas
+distintas.
+
+Primero, verificá que el mirror target efectivamente reciba requests. En el
+host de staging, abrí `tcpdump` y enviá algunos requests a producción:
+
+```bash
+# En el host de staging, escuchá tráfico mirror entrante
+tcpdump -i eth0 port 8080 -c 10 --direction=in
+```
+
+Si no llega nada en segundos, revisá firewall rules, security groups y la
+config del mirror filter. En mi experiencia, la misconfiguración de firewall
+es la causa de la mayoría de los failures de setup de mirror.
+
+Segundo, verificá la idempotencia. Enviá el mismo request dos veces y
+confirmá que no obtengas dobles cargas ni filas extra en la base:
+
+```python
+import requests
+
+# Enviá el mismo request idempotente dos veces (simulando mirror + producción)
+headers = {"Idempotency-Key": "test-123", "Content-Type": "application/json"}
+r1 = requests.post("http://api.example.com/payments", json={"amount": 100}, headers=headers)
+r2 = requests.post("http://api.example.com/payments", json={"amount": 100}, headers=headers)
+
+assert r1.status_code == r2.status_code
+assert r1.json()["id"] == r2.json()["id"]  # Mismo recurso, no duplicado
+```
+
+Tercero, compará respuestas entre prod y staging para detectar regresiones:
+
+```python
+import requests
+import json
+
+def compare_responses(url, method="GET", headers=None, body=None):
+    prod = requests.request(method, f"http://production{url}", headers=headers, json=body)
+    staging = requests.request(method, f"http://staging{url}", headers=headers, json=body)
+    assert prod.status_code == staging.status_code, f"Status mismatch: {prod.status_code} vs {staging.status_code}"
+    prod_json = prod.json()
+    staging_json = staging.json()
+    # Comparar shape del schema, no valores exactos (timestamps van a diferir)
+    assert set(prod_json.keys()) == set(staging_json.keys()), "Schema mismatch"
+    return True
+```
+
+Combiná esto con [load testing k6](/recipes/load-testing-k6/) para validar que
+staging maneja el volumen mirror sin degradarse.
+
+## Consideraciones de Seguridad
+
+- **Sanitización de PII**: quitá información personal identificable de headers
+  y bodies antes de mirrorar. Usá un middleware que redacte campos como
+  `Authorization`, `Cookie`, `X-API-Key` y datos de pago.
+- **Stripping de auth tokens**: nunca envíes tokens de auth de producción a
+  staging. Si staging necesita auth, usá un token exchange separado o una
+  service account dedicada al tráfico mirror.
+- **Aislamiento de staging**: nunca dejes que staging comparta bases de datos,
+  caches ni cuentas de terceros con producción. Una vez rastreé un data leak
+  de producción hasta una shared Stripe key. Nada divertido.
+- **mTLS entre mirror source y target**: para mirroring a nivel red entre VPCs,
+  usá mTLS para encriptar el tráfico mirror en tránsito.
+- **Audit logging**: logueá cada mirror session con start time, porcentaje,
+  filter rules y target. Cuando hay data leakage, este log es la diferencia
+  entre un fix de 20 minutos y una investigación de 3 días.
+- **Sin endpoints de staging públicos**: el mirror target no debe ser
+  públicamente accesible. Usá private subnets, VPN o Transit Gateway.
+
+## Monitoreo
+
+Monitoreá tanto la infraestructura del mirror como el target de staging por
+separado de producción:
+
+| Métrica | Qué te dice | Umbral de alerta |
+| --- | --- | --- |
+| `mirror_requests_total` | Rate de requests mirror | Caída repentina puede indicar misconfig |
+| `mirror_errors_total` | Fallos de delivery del mirror | `> 1%` de requests mirror |
+| `staging_response_latency_p99` | Tiempo de respuesta de staging bajo carga mirror | `> 2x` latencia de producción |
+| `response_diff_count` | Cantidad de mismatches prod/staging | Aumento sostenido sobre baseline |
+| `mirror_target_health` | Health del endpoint de staging | Cualquier target unhealthy |
+
+Para [Istio](https://istio.io/latest/docs/tasks/traffic-management/mirroring/),
+usá las métricas built-in de Envoy (`envoy_cluster_upstream_rq_total` para el
+cluster mirror). Para Nginx, habilitá el módulo stub status y trackeá las
+conexiones activas del backend de staging.
+
+Seteá un dashboard separado para métricas de mirror para que las alertas de
+staging no contaminen el alerting de producción. Usá
+[Prometheus monitoring alerts](/recipes/prometheus-monitoring-alerts/) para
+alerting estructurado.
+
+## Solución de Problemas
+
+| Síntoma | Causa probable | Solución |
+| --- | --- | --- |
+| No llega tráfico a staging | Firewall o security group bloqueando | Revisá inbound rules en el host de staging para el puerto mirror |
+| Requests mirror timeout | Staging backend muy lento o caído | Reducí el porcentaje de mirror o aumentá capacidad de staging |
+| Latencia de producción aumenta | El mirror está bloqueando el response path | Cambiá a async fire-and-forget; nunca hagás `await` del mirror |
+| Cobros duplicados en staging | Endpoint no idempotente mirrorado | Agregá idempotency keys o excluí endpoints de pago del mirror |
+| Base de staging corrompida | DB compartida entre prod y staging | Aislá la DB de staging; usá credenciales y connection strings separados |
+| Errores de auth en staging | Tokens de producción enviados a staging | Quitá el header `Authorization` y re-autenticá con credenciales de staging |
+| Costo alto de infraestructura mirror | Mirrorando 100% del tráfico | Reducí a 1-10%; filtrá assets estáticos y health checks |
 
 ## FAQ
 
@@ -365,23 +508,46 @@ cortos.
 Sí, pero aumenta la latencia. AWS Traffic Mirroring funciona dentro del mismo
 VPC. Cross-region requiere VPN, Transit Gateway o un mirror a nivel aplicación.
 
-### ¿En qué se diferencia mirroring de load testing?
+### ¿Cuál es la diferencia entre mirroring y load testing?
 
-Load testing genera tráfico artificial para encontrar límites de capacidad. El
-mirroring usa tráfico real para realismo. Usá ambos: mirror para validación de
-regresiones realista, load testing para capacidad y estrés.
+Load testing martilla tu sistema con tráfico artificial para encontrar dónde
+se rompe. El mirroring es complementario: manda tráfico real para que detectes
+regresiones de comportamiento. Usá ambos juntos: mirror para validación de
+regresiones, [load testing k6](/recipes/load-testing-k6/) para testing de
+capacidad y estrés.
 
-### ¿Cómo evito data leakage en tráfico mirror?
+### ¿Por qué fallan mis requests mirror en staging?
 
-Sanitizá headers y body antes de que salgan de producción. Quitá tokens de auth,
-PII y datos de pago. Usá un ambiente de staging dedicado y aislado.
+El culpable habitual es mismatch de auth tokens. Los tokens de producción no
+funcionan en staging si los ambientes usan identity providers separados. Quitá
+el header `Authorization` y re-autenticá con credenciales de staging, o usá un
+servicio de token exchange compartido.
+
+### ¿Cuándo conviene Istio sobre Nginx para mirroring?
+
+Istio es mejor cuando ya estás corriendo un service mesh en Kubernetes y querés
+config de mirror a nivel VirtualService. Para arquitecturas de single-proxy,
+Nginx es la opción más simple. Consultá la
+[doc de Istio traffic mirroring](https://istio.io/latest/docs/tasks/traffic-management/mirroring/)
+para capacidades específicas de mesh como mirror basado en porcentaje e inyección
+automática de headers.
 
 ### ¿Debería mirrorar 100% del tráfico?
 
-Solo después de validar idempotencia, aislar estado, desactivar side effects y
-confirmar que el target soporta la carga. Empezá con 1%.
+No hasta validar idempotencia, aislar estado, desactivar side effects y
+confirmar que el target soporta la carga. Empezá con 1% y subí gradualmente,
+mirando latencia y error rates de staging en cada paso.
 
-### ¿Cómo comparo respuestas de producción y mirror?
+## See Also
 
-Logueá status code, response time y un diff de campos seleccionados. El diff
-automatizado detecta regresiones antes de un canary o cutover completo.
+- [Documentación de AWS VPC Traffic Mirroring](https://docs.aws.amazon.com/vpc/latest/mirroring/what-is-traffic-mirroring.html)
+- [Documentación del módulo Nginx mirror](https://nginx.org/en/docs/http/ngx_http_mirror_module.html)
+- [Istio traffic mirroring](https://istio.io/latest/docs/tasks/traffic-management/mirroring/)
+- [Envoy request mirror policy](https://www.envoyproxy.io/docs/envoy/latest/api-v3/config/route/v3/route_components.proto#envoy-v3-api-field-config-route-v3-routeaction-request-mirror-policies)
+- [GoReplay GitHub](https://github.com/buger/goreplay)
+- [Repositorio companion](https://mathiaspaulenko.github.io/stack-practices-resources/): ejemplos y configs ejecutables
+- [Blue-green deployment](/recipes/blue-green-deployment/)
+- [Guía de canary deployment](/guides/canary-deployment-guide/)
+- [Load testing con k6](/recipes/load-testing-k6/)
+- [Graceful shutdown](/recipes/graceful-shutdown/)
+- [Prometheus monitoring alerts](/recipes/prometheus-monitoring-alerts/)
