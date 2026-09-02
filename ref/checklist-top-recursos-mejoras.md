@@ -91,7 +91,13 @@
     companion repo (Python/JS/Java + sanitization + READMEs); See Also; estimatedReadTime: 6;
     keywords alineados 8=8 (EN 10→8, ES 5→8); oración definitoria; build 3.260 OK;
     1 pendiente LOW bidireccionalidad 3/6; 0 regresiones)
-37. - [ ] **grpc-api** (recipes)
+37. - [x] **grpc-api** (recipes) — 44/88 → 83/88 ✅ PROMOTE
+    (REWRITE: eliminadas 4 secciones template AI, Troubleshooting reescrito con
+    problemas reales de gRPC, 30+ acentos ES corregidos, H2 asimetría 20/21→22/22,
+    9 contractions EN corregidas, 196 double spaces eliminados, Mermaid flowchart
+    + SVGs EN/ES, companion repo (12 archivos, 3 lenguajes), 6 enlaces externos,
+    See Also con 6 refs específicas, estimatedReadTime: 11, keywords 3→6;
+    AI patterns 9→3 (falsos positivos); build 3.260 OK; 0 pendientes; 0 regresiones)
 38. - [ ] **handle-errors** (recipes)
 39. - [ ] **python-secrets-management-vault** (recipes)
 40. - [ ] **traffic-mirroring** (recipes)
