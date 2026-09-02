@@ -68,7 +68,9 @@
     (body prosa 2,034/2,131 EN/ES, AI EN 41.4% / ES 35.1%, pattern_totals vacío;
     6 enlaces internos + 6 externos; Mermaid + SVGs EN/ES; companion repo con 13 archivos;
     build 3,260 OK; 0 regresiones; AI EN > 40% como pendiente MEDIUM atenuado)
-33. - [ ] **vertical-slice-architecture-guide** (guides)
+33. - [x] **vertical-slice-architecture-guide** (guides) — audit + mejora full + companion
+    (Mermaid + SVGs EN/ES; companion repo .NET 8 con vertical slice completo;
+    build 3.260 OK; 0 regresiones; commits y push completados)
 34. - [x] **prometheus-api-monitoring** (recipes) — 50/88 → 79/88 ✅ MEJORA SIGNIFICATIVA PROMOTE
     (body prosa 1,435/1,585 EN/ES, AI EN 44.8% / ES 39.0%, pattern_totals vacío;
     Go+Python instrumentation, SLO/SLI con error budget, Mermaid + SVGs EN/ES;
@@ -77,8 +79,18 @@
     prom-client 15.1.3, client_golang v1.24.1, prometheus_client 0.21.1);
     mainEntityOfPage añadido a TechArticle schema; build 3,260 OK; 0 regresiones;
     AI EN 44.8% aceptado como limitación del detector sobre prosa técnica densa)
-35. - [ ] **docker-network-isolation** (recipes)
-36. - [ ] **export-csv-excel** (recipes)
+35. - [x] **docker-network-isolation** (recipes) — 61/88 → 84/88 ✅ PROMOTE
+    (body prosa 1.384/1.423 EN/ES, AI 0 findings EN+ES; 4 enlaces internos + 10 externos;
+    Mermaid flowchart + SVGs EN/ES; companion repo (docker-compose, Dockerfile, nginx,
+    init-db, READMEs); See Also; estimatedReadTime: 6; bidireccionalidad 6/6
+    (docker-basics relatedResources trim 10→6); build 3.260 OK; 0 pendientes; 0 regresiones)
+36. - [x] **export-csv-excel** (recipes) — 59/88 → 83/88 ✅ PROMOTE
+    (body prosa 1.297/1.348 EN/ES, AI 0 findings EN+ES; +526 palabras (CSV injection
+    sanitization 3 lenguajes, SXSSF sliding window, Express endpoint completo, benchmark);
+    4 enlaces internos + 5 externos; Mermaid flowchart in-memory vs streaming + SVGs EN/ES;
+    companion repo (Python/JS/Java + sanitization + READMEs); See Also; estimatedReadTime: 6;
+    keywords alineados 8=8 (EN 10→8, ES 5→8); oración definitoria; build 3.260 OK;
+    1 pendiente LOW bidireccionalidad 3/6; 0 regresiones)
 37. - [ ] **grpc-api** (recipes)
 38. - [ ] **handle-errors** (recipes)
 39. - [ ] **python-secrets-management-vault** (recipes)
