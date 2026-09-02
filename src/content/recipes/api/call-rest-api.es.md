@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/handle-cors
   - /recipes/middleware
   - /recipes/rest-api-design
-  - /patterns/adapter-pattern-api
+  - /recipes/grpc-api
 lastUpdated: "2026-08-25"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko

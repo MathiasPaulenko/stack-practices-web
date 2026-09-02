@@ -18,7 +18,7 @@ tags:
 relatedResources:
   - /recipes/api-versioning
   - /recipes/call-rest-api
-  - /recipes/handle-cors
+  - /recipes/grpc-api
   - /recipes/handle-errors
   - /recipes/real-time-notifications
   - /recipes/websocket-server
