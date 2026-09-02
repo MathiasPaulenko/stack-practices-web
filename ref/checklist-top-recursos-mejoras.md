@@ -95,7 +95,7 @@
     (REWRITE: eliminadas 4 secciones template AI, Troubleshooting reescrito con
     problemas reales de gRPC, 30+ acentos ES corregidos, H2 asimetría 20/21→22/22,
     9 contractions EN corregidas, 196 double spaces eliminados, Mermaid flowchart
-    + SVGs EN/ES, companion repo (12 archivos, 3 lenguajes), 6 enlaces externos,
+    - SVGs EN/ES, companion repo (12 archivos, 3 lenguajes), 6 enlaces externos,
     See Also con 6 refs específicas, estimatedReadTime: 11, keywords 3→6;
     AI patterns 9→3 (falsos positivos); build 3.260 OK; 0 pendientes; 0 regresiones)
 38. - [x] **handle-errors** (recipes) — 58/88 → 84/88 ✅ PROMOTE
@@ -132,7 +132,20 @@
     debugged", contractions, ritmo variado, prosa en Testing Strategy, voz personal
     en When to avoid); desklib AI% ES 35.0→30.5%; em dashes 0; paridad H2 13/13
     H3 14/14 code 10/10; build 3260 OK; sitemap 3258 OK; companion 38 OK)
-41. - [ ] **async-generator-pattern** (patterns)
+41. - [x] **async-generator-pattern** (patterns) — 62/88 → 85/88 ✅ PROMOTE
+    (mejora full: metaDescription EN 169→152 chars; estimatedReadTime: 6;
+    lastUpdated 2026-09-02; +4 secciones: Testing Strategy con pytest-asyncio
+    + Jest, Security Considerations con 5 puntos, Monitoring con Prometheus
+    metrics + tabla, See Also con 8 enlaces; +4 enlaces internos body; +7
+    enlaces externos (Python asyncio, MDN, Reactor, Java Stream, aiohttp, RxJS,
+    PEP 525); Mermaid flowchart LR EN+ES con SVGs; companion repo 10 archivos
+    Python/JS/Java + tests + docker-compose + READMEs; double spaces cleaned
+    211→23 líneas (indentación de listas válida); humanización: primera persona
+    "I've used this for WebSocket", "I've seen this in production code more
+    times than I'd like to admit", "I learned this the hard way", "I once
+    tracked a production incident"; contractions 1→6 EN; AI patterns 0 EN+ES;
+    desklib AI% EN 45.6% (techo detector técnico), ES 35.5%; paridad H2 12/12
+    H3 14/14 code 9/9 FAQ 7/7 Mermaid 1/1; build 3260 OK; companion 39 OK)
 42. - [ ] **soft-deletes** (recipes)
 43. - [ ] **complete-guide-rabbitmq-architecture** (guides)
 44. - [ ] **domain-driven-design-guide** (guides)
