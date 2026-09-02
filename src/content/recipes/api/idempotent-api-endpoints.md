@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/rate-limiting
   - /recipes/rest-api-design
   - /recipes/api-versioning
-  - /recipes/handle-cors
+  - /recipes/traffic-mirroring
 lastUpdated: "2026-08-19"
 publishedAt: "2026-06-11"
 author: Mathias Paulenko

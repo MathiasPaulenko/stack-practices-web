@@ -20,7 +20,7 @@ relatedResources:
   - /guides/testing-strategy-guide
   - /recipes/api-mocking
   - /docs/api-testing-strategy-template
-  - /docs/load-test-report-template
+  - /recipes/traffic-mirroring
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
 author: Mathias Paulenko

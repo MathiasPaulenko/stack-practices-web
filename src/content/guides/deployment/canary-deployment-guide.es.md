@@ -27,7 +27,7 @@ relatedResources:
   - /guides/sre-practices-guide
   - /guides/observability-guide
   - /guides/cost-optimization-cloud-guide
-  - /docs/environment-configuration-template
+  - /recipes/traffic-mirroring
 lastUpdated: "2026-06-25"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
