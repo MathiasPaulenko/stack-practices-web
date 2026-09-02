@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: grpc-api
-title: API gRPC con Protocol Buffers
-description: Implementa una API gRPC con Protocol Buffers. Cubre definición de servicios, generación de código y ejemplos cliente/servidor en Python, Java y Go.
-metaDescription: Implementa una API gRPC con Protocol Buffers. Cubre definición de servicios, generación de código y ejemplos cliente/servidor en Python, Java y Go.
+title: "API gRPC con Protocol Buffers"
+description: "Implementa una API gRPC con Protocol Buffers. Cubre definición de servicios, generación de código y ejemplos cliente/servidor en Python, Java y Go."
+metaDescription: "Implementa una API gRPC con Protocol Buffers. Cubre definición de servicios, generación de código y ejemplos cliente/servidor en Python, Java y Go."
 difficulty: intermediate
 topics:
   - api
@@ -14,26 +14,34 @@ tags:
   - http
   - backend
 relatedResources:
+  - /recipes/grpc-services-typescript
+  - /recipes/api-versioning
+  - /recipes/call-rest-api
   - /recipes/server-sent-events
   - /docs/api-documentation
   - /guides/rest-api-design-guide
-  - /recipes/api-versioning
-  - /recipes/call-rest-api
-  - /recipes/grpc-services-typescript
-  - /recipes/rest-api-design
-lastUpdated: "2026-08-10"
+lastUpdated: "2026-09-03"
 publishedAt: "2026-06-13"
+estimatedReadTime: 11
 author: Mathias Paulenko
 seo:
-  metaDescription: Implementa una API gRPC con Protocol Buffers. Cubre definición de servicios, generación de código y ejemplos cliente/servidor en Python, Java y Go.
+  metaDescription: "Implementa una API gRPC con Protocol Buffers. Cubre definición de servicios, generación de código y ejemplos cliente/servidor en Python, Java y Go."
   keywords:
     - api grpc
     - protocol buffers
     - tutorial grpc
+    - grpc python
+    - grpc java
+    - grpc streaming
 ---
 ## Visión General
 
-gRPC es un framework RPC de alto rendimiento que usa Protocol Buffers para serialización y HTTP/2 para transporte. Es mucho más rápido que REST para comunicación entre servicios, soporta streaming bidireccional y genera stubs de cliente/servidor desde una sola definición de esquema. El siguiente enfoque cubre definir un archivo `.proto`, implementar servicios unarios y de streaming, y agregar interceptores para preocupaciones transversales.
+gRPC es un framework RPC de alto rendimiento que usa Protocol Buffers para
+serialización y HTTP/2 para transporte. Es mucho más rápido que REST para
+comunicación entre servicios, soporta streaming bidireccional y genera stubs
+de cliente/servidor desde una sola definición de esquema. El siguiente enfoque
+cubre definir un archivo `.proto`, implementar servicios unarios y de
+streaming, y agregar interceptores para preocupaciones transversales.
 
 ## Cuándo Usar
 
@@ -46,6 +54,9 @@ Usa este recurso cuando:
 ## Solución
 
 ### Python
+
+Usa [grpcio](https://grpc.io/docs/languages/python/) y
+[grpcio-tools](https://pypi.org/project/grpcio-tools/) para generación de código.
 
 ```python
 # service.proto
@@ -87,6 +98,9 @@ print(response.message)
 
 ### JavaScript
 
+Usa [@grpc/grpc-js](https://www.npmjs.com/package/@grpc/grpc-js) y
+[@grpc/proto-loader](https://www.npmjs.com/package/@grpc/proto-loader).
+
 ```javascript
 // Servidor (Node.js con @grpc/grpc-js)
 const grpc = require('@grpc/grpc-js');
@@ -120,6 +134,8 @@ client.sayHello({ name: 'World' }, (err, response) => {
 ```
 
 ### Java
+
+Usa [grpc-java](https://grpc.io/docs/languages/java/) con el transporte Netty.
 
 ```java
 // Definición de servicio + servidor
@@ -160,7 +176,25 @@ channel.shutdown();
 
 ## Explicación
 
-Los flujos de trabajo gRPC son contract-first: defines un esquema `.proto`, luego generas código para cualquier lenguaje soportado. El código generado maneja serialización (formato binario Protocol Buffers), transporte por cable (HTTP/2) y stubs de cliente/servidor.
+Los flujos de trabajo gRPC son contract-first: defines un esquema `.proto`,
+luego generas código para cualquier lenguaje soportado. El código generado
+maneja serialización (formato binario Protocol Buffers), transporte por cable
+(HTTP/2) y stubs de cliente/servidor.
+
+```mermaid
+%% alt: flujo contract-first de gRPC — el esquema .proto genera stubs para Python, JS y Java que se comunican vía HTTP/2
+flowchart LR
+    Proto[".proto esquema"] --> Protoc["protoc codegen"]
+    Protoc --> PyStubs["stubs Python"]
+    Protoc --> JsStubs["stubs JS"]
+    Protoc --> JavaStubs["stubs Java"]
+    PyStubs --> Server["servidor gRPC"]
+    JsStubs --> Client1["cliente gRPC"]
+    JavaStubs --> Client2["cliente gRPC"]
+    Server --> HTTP2["HTTP/2 + Protobuf"]
+    Client1 --> HTTP2
+    Client2 --> HTTP2
+```
 
 **RPC unario**: una petición, una respuesta. Modo más simple; equivalente a un POST REST.
 **Streaming del servidor**: una petición, muchas respuestas. Útil para feeds en vivo o resultados paginados.
@@ -184,7 +218,7 @@ Los flujos de trabajo gRPC son contract-first: defines un esquema `.proto`, lueg
 
 ## Lo que Funciona
 
-1. Versiona tus archivos `.proto` y nunca elimines o renumeroes campos existentes
+1. Versiona tus archivos `.proto` y nunca elimines o renumeres campos existentes
 2. Usa interceptores ([middleware](/patterns/chain-of-responsibility-middleware/)) para preocupaciones transversales: auth, logging, reintentos
 3. Establece deadlines/timeouts en cada llamada RPC para prevenir bloqueos en cascada
 4. Usa health checks `grpc.health.v1` para probes de readiness de Kubernetes
@@ -198,120 +232,111 @@ Los flujos de trabajo gRPC son contract-first: defines un esquema `.proto`, lueg
 4. **Ignorar flow control de HTTP/2** — transmitir demasiado rápido puede bloquear; el backpressure es tu amigo
 5. **Sin balanceo de carga** — las conexiones gRPC son persistentes; usa LB del lado del cliente o un service mesh
 
-## Cuando No Usar Este Enfoque
+## Cuándo No Usar Este Enfoque
 
 - **APIs para navegador**: gRPC requiere HTTP/2 que los navegadores no pueden hablar directamente.
-- **APIs CRUD simples**: REST es mas simple de debuggear y documentar.
-- **Equipos sin experiencia protobuf**: el lenguaje de schema .  proto tiene una curva de aprendizaje.   Si tu equipo es pequeno y publica rapido, REST con OpenAPI puede ser mas productivo.
-- **APIs con cambios de schema frecuentes**: las reglas de compatibilidad de protobuf requieren numeracion cuidadosa de campos.   Si tu schema cambia semanalmente, REST basado en JSON ofrece mas flexibilidad.
-- **Herramientas internas de bajo trafico**: la ventaja de performance de gRPC (serializacion binaria, streams multiplexados) importa a escala.   Para herramientas internas con <100 req/s, REST es mas simple de operar.
+- **APIs CRUD simples**: REST es más simple de depurar y documentar.
+- **Equipos sin experiencia protobuf**: el lenguaje de esquema `.proto` tiene una curva de aprendizaje. Si tu equipo es pequeño y publica rápido, REST con OpenAPI puede ser más productivo.
+- **APIs con cambios de esquema frecuentes**: las reglas de compatibilidad de protobuf requieren numeración cuidadosa de campos. Si tu esquema cambia semanalmente, REST basado en JSON ofrece más flexibilidad.
+- **Herramientas internas de bajo tráfico**: la ventaja de rendimiento de gRPC (serialización binaria, streams multiplexados) importa a escala. Para herramientas internas con <100 req/s, REST es más simple de operar.
 
 ## Benchmarks de Rendimiento
 
-| Metrica | gRPC (protobuf) | REST (JSON) | Mejora |
+| Métrica | gRPC (protobuf) | REST (JSON) | Mejora |
 |---------|-----------------|-------------|--------|
-| Tamano payload (1KB) | 280 bytes | 680 bytes | 2.4x mas pequeno |
-| Serializacion (10K objs) | 12ms | 85ms | 7x mas rapido |
-| Deserializacion (10K objs) | 8ms | 72ms | 9x mas rapido |
+| Tamaño payload (1KB) | 280 bytes | 680 bytes | 2.4x más pequeño |
+| Serialización (10K objs) | 12ms | 85ms | 7x más rápido |
+| Deserialización (10K objs) | 8ms | 72ms | 9x más rápido |
 | Throughput (1KB, 1 conn) | 18,000 req/s | 6,500 req/s | 2.8x mayor |
-| Memoria por conexion | 32KB | 128KB | 4x menos |
+| Memoria por conexión | 32KB | 128KB | 4x menos |
 | Latencia p99 (localhost) | 0.8ms | 2.1ms | 2.6x menor |
 
-Benchmarks en Node.js 20, single core, payload 1KB, 100 streams concurrentes. Resultados reales varian segun tamano de payload, red y complejidad de serializacion.
+Benchmarks en Node.js 20, single core, payload 1KB, 100 streams concurrentes. Los resultados reales varían según tamaño de payload, red y complejidad de serialización.
 
 ## Estrategia de Testing
 
-- **Unit test mensajes protobuf**: verifica que la serializacion round-trip funcione correctamente.
-- **Integration test con servidor gRPC in-process**: levanta un grpc.  js.
-- **Contract test con grpcurl**: Service/Method para verificar que el servidor responde correctamente.   Anade estos como smoke tests en CI.
-- **Load test con ghz**: usa ghz --insecure --total 10000 --concurrency 50 localhost:50051 package.
+- **Unit test mensajes protobuf**: verifica que la serialización round-trip funcione correctamente.
+- **Integration test con servidor gRPC in-process**: levanta un `grpc.Server` en el setup del test, crea un cliente conectado a él, y prueba llamadas RPC end-to-end sin overhead de red.
+- **Contract test con [grpcurl](https://github.com/fullstorydev/grpcurl)**: usa `grpcurl -plaintext -d '{"id": 1}' localhost:50051 package.Service/Method` para verificar que el servidor responde correctamente. Añade estos como smoke tests en CI.
+- **Load test con [ghz](https://github.com/bojand/ghz)**: usa `ghz --insecure --total 10000 --concurrency 50 localhost:50051 package.Service/Method` para medir throughput y latencia bajo carga.
 - **Test deadline propagation**: verifica que los deadlines del cliente se propaguen al servidor y que el servidor cancele el trabajo cuando el deadline expira.
-- **Test streaming backpressure**: envia un stream grande y verifica que el cliente aplique backpressure en lugar de bufferizar todo en memoria.
+- **Test streaming backpressure**: envía un stream grande y verifica que el cliente aplique backpressure en lugar de bufferizar todo en memoria.
 
-## Estimacion de Costos
+## Estimación de Costos
 
-- **Costo de desarrollo**: +20% vs REST debido a toolchain protobuf, code generation y training del equipo.   Costo one-time amortizado sobre el lifetime del API.
-- **Costo de infraestructura**: -30% CPU y -50% bandwidth vs REST a escala.   Para 10M req/dia, gRPC ahorra ~/mes en bandwidth y ~/mes en compute (3 instancias vs 5).
-- **Compilacion protobuf**: anade 5-10 segundos a CI builds.
-- **Herramientas de monitoring**: gRPC requiere herramientas de observabilidad especializadas (grpc-zpages, OpenTelemetry gRPC interceptor).   Presupuesta -100/mes para infraestructura de monitoring a escala produccion.
-- **gRPC-Web proxy**: si se necesitan clientes de navegador, anade Envoy proxy (~/mes para una instancia pequena).   Esto offseta algunos de los ahorros de infraestructura.
+- **Costo de desarrollo**: aproximadamente +20% vs REST debido al toolchain protobuf, generación de código y training del equipo. Costo one-time amortizado sobre el lifetime del API.
+- **Costo de infraestructura**: gRPC típicamente reduce CPU y bandwidth vs REST a escala. El formato binario y los streams multiplexados significan menos bytes en el cable y menos conexiones.
+- **Compilación protobuf**: añade 5-10 segundos a CI builds.
+- **Herramientas de monitoring**: gRPC requiere herramientas de observabilidad especializadas (grpc-zpages, OpenTelemetry gRPC interceptor).
+- **gRPC-Web proxy**: si se necesitan clientes de navegador, añade Envoy proxy. Esto compensa parte de los ahorros de infraestructura.
 
-## Monitoring y Observabilidad
+## Monitoreo y Observabilidad
 
-- **Trackear latencia RPC por metodo**: Metodos lentos (>100ms p95) indican bottlenecks de base de datos o serializacion pesada.
-- **Monitorear stream connection count**: Setea alertas para >1000 streams concurrentes por instancia, que pueden exhaustar file descriptors o memoria.
-- **Trackear deadline exceeded errors**: cuenta status codes DEADLINE_EXCEEDED por metodo.   Una tasa alta indica handlers lentos o deadlines demasiado agresivos del cliente.
-- **Monitorear tiempo de serializacion protobuf**: para mensajes grandes (>100KB), la serializacion puede tomar >10ms.
-- **Trackear health del connection pool**: los clientes gRPC mantienen conexiones persistentes.   Reconexiones frecuentes indican inestabilidad de red o server restarts.
+- **Trackear latencia RPC por método**: monitorea p50, p95 y p99 de latencia para cada método gRPC. Métodos lentos (>100ms p95) indican bottlenecks de base de datos o serialización pesada.
+- **Monitorear stream connection count**: trackea conexiones de streaming activas por servidor. Setea alertas para >1000 streams concurrentes por instancia, que pueden agotar file descriptors o memoria.
+- **Trackear deadline exceeded errors**: cuenta status codes `DEADLINE_EXCEEDED` por método. Una tasa alta indica handlers lentos o deadlines demasiado agresivos del cliente.
+- **Monitorear tiempo de serialización protobuf**: para mensajes grandes (>100KB), la serialización puede tomar >10ms.
+- **Trackear health del connection pool**: los clientes gRPC mantienen conexiones persistentes. Reconexiones frecuentes indican inestabilidad de red o reinicios del servidor.
 
-## Deployment Checklist
+## Checklist de Deployment
 
-- [ ] Configurar max message size (default 4MB puede ser demasiado grande o pequena)
+- [ ] Configurar max message size (default 4MB puede ser demasiado grande o pequeña)
 - [ ] Setear deadlines en cada client RPC call (no waits infinitos)
 - [ ] Habilitar keepalive pings para detectar dead connections
-- [ ] Configurar health checks (grpc.health.v1) para Kubernetes readiness probes
+- [ ] Configurar health checks (`grpc.health.v1`) para Kubernetes readiness probes
 - [ ] Setear client-side load balancing (round_robin o least_connection)
-- [ ] Habilitar TLS/mTLS para todas las conexiones de produccion
+- [ ] Habilitar TLS/mTLS para todas las conexiones de producción
 - [ ] Configurar interceptors para auth, logging y metrics
-- [ ] Setear OpenTelemetry tracing para distributed tracing entre servicios
+- [ ] Setear [OpenTelemetry tracing](https://opentelemetry.io/docs/specs/semconv/rpc/grpc/) para distributed tracing entre servicios
 - [ ] Testear backward compatibility corriendo clientes viejos contra servidores nuevos
 - [ ] Documentar .proto files en un repositorio compartido o schema registry
 
 ## Consideraciones de Seguridad
 
-- **TLS por defecto**: Usa mTLS para autenticacion service-to-service.   Nunca corras gRPC sin TLS fuera de desarrollo local.
-- **Protobuf field injection**: nunca construyas mensajes protobuf desde raw user input sin validacion.   La deserializacion de protobuf puede triggerear code paths inesperados en nested message types.   Valida todos los campos explicitamente.
-- **gRPC reflection en produccion**: deshabilita reflection (grpc.  reflection.  v1alpha) en produccion para prevenir que atacantes descubran todos los servicios y metodos disponibles.   Habilita solo en staging para debugging.
-- **Stream hijacking**: un cliente malicioso puede abrir muchas streaming connections y mantenerlas abiertas, exhaustando recursos del servidor.   Setea max_concurrent_streams y max_connection_idle en el servidor.
-- **Metadata header injection**: los metadatos gRPC son HTTP/2 headers.   Valida todos los valores de metadata contra header injection attacks.   No pases raw user input en metadata keys o values.
-- **ReDoS via protobuf parsing**: mensajes protobuf deeply nested pueden causar stack overflows durante deserializacion.   Setea max_recursion_depth en el parser y rechaza mensajes que excedan el limite.
-- **gRPC channel credential leakage**: si channel credentials se loguean o se incluyen en error messages, atacantes pueden reusarlos.   Nunca loguees channel credentials, interceptors o metadata con auth tokens.
-- **Resource exhaustion via large messages**: mensajes protobuf pueden ser hasta 64MB por defecto.   Un cliente malicioso puede enviar muchos mensajes grandes para exhaustar memoria del servidor.   Setea max_receive_message_length a 4MB.
-- **Unauthenticated health checks**: el servicio gRPC health check es unauthenticated por defecto.   Si se expone externamente, atacantes pueden probeear server health sin credenciales.   Bind health checks a un internal port.
-- **Connection draining on shutdown**: al apagar un servidor gRPC, draina conexiones activas gracefulmente.  tryShutdown() en lugar de server.  forceShutdown() para permitir que in-flight RPCs completen.
-- **Interceptor order of execution**: los interceptors se ejecutan en chain order.   Si auth se pone despues de logging, las peticiones unauthenticated se loguean con metadata completa.   Placea auth interceptors primero en el chain.
-- **Protobuf unknown field abuse**: protobuf preserva unknown fields por defecto.   Atacantes pueden enviar mensajes con unknown fields conteniendo payloads grandes.   Setea discard_unknown_fields en el parser.
-- **gRPC channel reuse across requests**: un channel compartido puede leakear connection state entre peticiones si interceptors mutan metadata.   Crea per-request channels para operaciones sensibles.
+- **TLS por defecto**: gRPC usa HTTP/2 que requiere TLS en la mayoría de entornos de producción. Nunca corras gRPC sin TLS fuera de desarrollo local.
+- **Protobuf field injection**: nunca construyas mensajes protobuf desde raw user input sin validación. La deserialización de protobuf puede disparar code paths inesperados en nested message types. Valida todos los campos explícitamente.
+- **gRPC reflection en producción**: deshabilita reflection (`grpc.reflection.v1alpha`) en producción para prevenir que atacantes descubran todos los servicios y métodos disponibles. Habilita solo en staging para debugging.
+- **Stream hijacking**: un cliente malicioso puede abrir muchas streaming connections y mantenerlas abiertas, agotando recursos del servidor. Setea `max_concurrent_streams` y `max_connection_idle` en el servidor.
+- **Metadata header injection**: los metadatos gRPC son HTTP/2 headers. Valida todos los valores de metadata contra header injection attacks. No pases raw user input en metadata keys o values.
+- **ReDoS vía protobuf parsing**: mensajes protobuf con anidamiento profundo pueden causar stack overflows durante la deserialización. Setea `max_recursion_depth` en el parser y rechaza mensajes que excedan el límite. Esto es especialmente importante para input no confiable.
+- **gRPC channel credential leakage**: si channel credentials se loguean o se incluyen en error messages, atacantes pueden reusarlos. Nunca loguees channel credentials, interceptors o metadata con auth tokens.
+- **Resource exhaustion vía mensajes grandes**: mensajes protobuf pueden ser hasta 64MB por defecto. Un cliente malicioso puede enviar muchos mensajes grandes para agotar memoria del servidor. Setea `max_receive_message_length` a 4MB y rechaza mensajes más grandes a nivel transporte.
+- **Unauthenticated health checks**: el servicio gRPC health check es unauthenticated por defecto. Si se expone externamente, atacantes pueden sondear server health sin credenciales. Bind health checks a un internal port o requiere autenticación para el health service.
+- **Connection draining on shutdown**: al apagar un servidor gRPC, drena conexiones activas gracefully. Usa `tryShutdown()` en lugar de `server.forceShutdown()` para permitir que in-flight RPCs completen. Un shutdown súbito causa errores en cliente y retry storms.
+- **Interceptor order of execution**: los interceptors se ejecutan en chain order. Si auth se pone después de logging, las peticiones unauthenticated se loguean con metadata completa. Coloca auth interceptors primero en el chain para prevenir que data sensible llegue a interceptors downstream.
+- **Protobuf unknown field abuse**: protobuf preserva unknown fields por defecto. Atacantes pueden enviar mensajes con unknown fields conteniendo payloads grandes. Setea `discard_unknown_fields` en el parser para strippear unknown fields y prevenir memory bloat.
+- **gRPC channel reuse across requests**: un channel compartido puede leakear connection state entre peticiones si interceptors mutan metadata. Crea per-request channels para operaciones sensibles o asegúrate que los interceptors sean stateless.
 - **Server-side streaming memory pressure**: server streaming RPCs que yield muchos mensajes pueden acumular memoria si el cliente es lento.
-- **Protobuf enum abuse**: los enums de protobuf no se validan en el servidor por defecto.   Los clientes pueden enviar valores enum arbitrarios.   Valida valores enum explicitamente en el handler.
-- **TLS certificate rotation**: los channels gRPC cachean TLS connections.   Cuando los certificados rotan, las conexiones existentes pueden usar certs stale.   Setea max_connection_age para forzar reconnection periodica.
-- **gRPC-Web CORS misconfiguration**: gRPC-Web requiere CORS headers.   Si CORS es demasiado permisivo, atacantes pueden hacer cross-origin gRPC calls.   Restringe CORS a trusted origins solo.
-- **gRPC compression bomb**: los clientes pueden enviar mensajes highly compressed que decompressan a payloads enormes.   Setea max_receive_message_length despues de decompression y limita compression ratio.
-- **Channel target spoofing**: si los channel targets se construyen desde user input, atacantes pueden redirigir gRPC calls a servidores maliciosos.   Hardcodea channel targets o valida contra una allowlist.
-- **gRPC channel idle timeout**: los channels idle mantienen TCP connections abiertas.   Setea idle_timeout a 30 segundos para cerrar conexiones no usadas y liberar recursos.
-- **gRPC channel idle timeout safety**: asegurate que idle_timeout este configurado para prevenir zombie connections de acumularse en servicios long-running.
+- **Protobuf enum abuse**: los enums de protobuf no se validan en el servidor por defecto. Los clientes pueden enviar valores enum arbitrarios. Valida valores enum explícitamente en el handler y rechaza valores desconocidos.
+- **TLS certificate rotation**: los channels gRPC cachean TLS connections. Cuando los certificados rotan, las conexiones existentes pueden usar certs stale. Setea `max_connection_age` para forzar reconexión periódica y pick up nuevos certificados.
+- **gRPC-Web CORS misconfiguration**: gRPC-Web requiere CORS headers. Si CORS es demasiado permisivo (ej: `Access-Control-Allow-Origin: *` con credentials), atacantes pueden hacer cross-origin gRPC calls. Restringe CORS a trusted origins únicamente.
+- **gRPC compression bomb**: los clientes pueden enviar mensajes altamente comprimidos que se descomprimen a payloads enormes. Setea `max_receive_message_length` después de descompresión y limita el compression ratio.
+- **Channel target spoofing**: si los channel targets se construyen desde user input, atacantes pueden redirigir gRPC calls a servidores maliciosos. Hardcodea channel targets o valida contra una allowlist.
 
+## Solución de Problemas
 
+- **`DEADLINE_EXCEEDED` errors**: el deadline del cliente expiró antes de que el servidor respondiera. Verifica si el handler del servidor es lento (query de base de datos, cómputo pesado) o si el deadline del cliente es demasiado agresivo. Usa `grpc-zpages` para inspeccionar latencia por método.
+- **`UNAVAILABLE` o transport errors**: el servidor no es alcanzable. Verifica el host:port, confirma que el proceso del servidor está corriendo, y revisa que las reglas de firewall permitan tráfico HTTP/2 en el puerto gRPC (típicamente 50051).
+- **Protobuf version mismatch**: si cliente y servidor fueron generados desde diferentes versiones de `.proto`, la deserialización puede fallar silenciosamente o producir resultados incorrectos. Pinea las versiones de `protoc` y las bibliotecas gRPC en CI y publica los `.proto` en un schema registry compartido.
+- **gRPC-Web proxy misconfiguration**: si los clientes de navegador reciben `HTTP 1.1 204` o errores CORS, el Envoy proxy no está forwardeando correctamente. Verifica que el Envoy gRPC-Web filter esté configurado y que los CORS headers estén seteados en el proxy, no en el servidor gRPC.
+- **Stream cancellation**: si un streaming RPC se detiene mid-stream, el cliente puede haber cancelado la llamada (el usuario navegó fuera) o el deadline expiró. Maneja `context.cancelled` en el servidor para limpiar recursos.
+- **Max message size exceeded**: si obtienes `RESOURCE_EXHAUSTED` con mensajes grandes, aumenta `max_receive_message_length` en cliente y servidor, o cambia a streaming para payloads grandes.
+- **Connection accumulation**: si `netstat` muestra muchas conexiones `ESTABLISHED` al mismo servidor, el client channel no está reusando conexiones. Asegúrate de usar un solo channel compartido por servidor, no crear un channel nuevo por petición.
 
+## Ver También
 
-
-
-## Referencia Rápida
-
-- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
-- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
-- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
-
-## Lectura Adicional
-
-- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
-- **Guías relacionadas**: explora las guías de api y microservices para profundizar.
-- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
-- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
-
-## Notas de Producción
-
-- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
-- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
-- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
-- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
-
-## Puntos Clave
-
-- **Aplica implementar una api grpc con protocol buffers** cuando necesites una solución práctica para tu caso de uso.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+- [Repositorio companion — ejemplos ejecutables](https://mathiaspaulenko.github.io/stack-practices-resources/resources/recipes/api/grpc-api/)
+  en Python, JavaScript y Java.
+- [Documentación oficial de gRPC](https://grpc.io/docs/) — guías por lenguaje,
+  quickstarts y referencia de API.
+- [Guía del lenguaje Protocol Buffers](https://protobuf.dev/programming-guides/proto3/)
+  — sintaxis proto3, tipos de campos y reglas de backward compatibility.
+- [Convenciones semánticas de OpenTelemetry para gRPC](https://opentelemetry.io/docs/specs/semconv/rpc/grpc/)
+  — atributos estandarizados para tracing y métricas de gRPC.
+- [Connect-RPC](https://connect.build/) — protocolo que soporta tanto gRPC como
+  HTTP/1.1 JSON estándar, útil para clientes de navegador sin proxy.
+- [Envoy gRPC-Web filter](https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/grpc_web_filter)
+  — configuración de proxy para servicios gRPC orientados al navegador.
 
 ## Preguntas Frecuentes
 
@@ -326,23 +351,3 @@ No. gRPC sobresale en microservicios internos. Para APIs públicas y clientes de
 ### ¿Cómo manejo autenticación?
 
 Los metadatos gRPC (headers) transportan tokens. Adjunta un interceptor en el cliente para inyectar metadatos `authorization`, y en el servidor para validarlos. Consulta [Checklist de Seguridad de APIs](/guides/api-security-checklist-guide/) para patrones de autenticación. Los patrones estándar de JWT o API key funcionan sin cambios.
-- **gRPC channel idle timeout extra safety**: verifica que idle_timeout este configurado en todos los servicios long-running para prevenir zombie connections.
-
-## Troubleshooting
-
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers.   Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths.   Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.   Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles.
-
-## Errores Comunes en Producción
-
-- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
-- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
-- Codificar valores fijos que deberían ser configurables por entorno.
-- Olvidar agregar logging y monitoreo en cada paso.
-- Desplegar sin plan de rollback ni estrategia de backup probada.
-- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
-- No documentar la versión y configuración usadas en producción.
-- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

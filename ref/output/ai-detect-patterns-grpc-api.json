@@ -1,0 +1,41 @@
+[
+  {
+    "label": "grpc-api",
+    "total_sentences": 130,
+    "pattern_totals": {
+      "vague_abstraction": 3
+    },
+    "findings": [
+      {
+        "sentence": "Use this resource when:\nYou need low-latency, strongly typed service-to-service communication\nYour architecture relies on streaming (server push, client push, or bidirectional)\nYou want automatic client library generation across multiple languages\nYou're building [microservices](/patterns/ambassador-pattern-services/) where JSON parsing overhead is a bottleneck\n\n\n\n\n\nUses [grpcio](https://grpc.io/docs/languages/python/) and\n[grpcio-tools](https://pypi.org/project/grpcio-tools/) for code generation.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      },
+      {
+        "sentence": "**Low-traffic internal tools**: gRPC's performance advantage (binary serialization, multiplexed streams) matters at scale.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      },
+      {
+        "sentence": "The binary format and multiplexed streams mean fewer bytes on the wire and fewer connections.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,31 @@
+[
+  {
+    "label": "grpc-api.es",
+    "total_sentences": 128,
+    "pattern_totals": {
+      "vague_abstraction": 2
+    },
+    "findings": [
+      {
+        "sentence": "**Herramientas internas de bajo tr\u00e1fico**: la ventaja de rendimiento de gRPC (serializaci\u00f3n binaria, streams multiplexados) importa a escala.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      },
+      {
+        "sentence": "El formato binario y los streams multiplexados significan menos bytes en el cable y menos conexiones.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      }
+    ]
+  }
+]
