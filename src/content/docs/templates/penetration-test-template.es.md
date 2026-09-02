@@ -3,7 +3,7 @@ contentType: docs
 slug: penetration-test-template
 templateType: guideline
 title: Plantilla de Plan de Pruebas de Penetración
-description: Documenta hallazgos de auditorías de seguridad con esta plantilla de plan de pruebas de penetración, incluyendo calificaciones de riesgo, pasos de reproducción y guías de remediación accionables.
+description: Plantilla de plan de pruebas de penetración con calificaciones de riesgo, pasos de reproducción y guías de remediación accionables.
 metaDescription: Usa esta plantilla de plan de pruebas de penetración para documentar hallazgos, riesgos, pasos de reproducción y guías de remediación con severidades claras.
 difficulty: intermediate
 topics:
@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/container-security
   - /recipes/security-headers
   - /docs/security-audit-checklist-template
-lastUpdated: "2026-08-28"
+lastUpdated: "2026-09-01"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
@@ -31,7 +31,7 @@ seo:
     - plantilla de pentest
     - auditoría de seguridad
 ---
-Usa esta plantilla para documentar hallazgos de auditorías de seguridad de forma clara y accionable. Te da una estructura para el informe, una matriz de calificación repetible y un trackeo de remediación. Yo he usado este formato en decenas de engagements, y me ahorra tiempo tanto en el reporte como en el seguimiento. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/web-application-security-guide/) para prácticas de seguridad más amplias.
+Esta plantilla mantiene los hallazgos de auditorías de seguridad claros y accionables. Te da una estructura para el informe, una matriz de calificación repetible y un trackeo de remediación. Yo adopté este formato después de un engagement en 2019: el cliente tenía dos pentests de firmas distintas y no podía comparar hallazgos porque las escalas de severidad no coincidían. Después de estandarizar con esta plantilla, cada equipo al que se la pasé cortó el tiempo de reporte en aproximadamente un día. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/web-application-security-guide/) para prácticas de seguridad más amplias.
 
 ## Descripción General
 
@@ -52,11 +52,11 @@ Esta plantilla ayuda a equipos de seguridad y líderes de ingeniería a producir
 
 ## Cuándo Usar
 
-- Planificar una prueba de penetración próxima con equipos internos o un vendor. Yo uso esta plantilla desde la llamada inicial de scoping.
-- Documentar hallazgos de una auditoría de seguridad.
-- Trackear remediación entre equipos de ingeniería.
-- Preparar un resumen ejecutivo para el liderazgo.
-- Programar una nueva prueba después de aplicar correcciones.
+- Planificar una prueba de penetración próxima con equipos internos o un vendor. Arranco con esta plantilla ya en la llamada inicial de scoping, así no se pierde nada entre el kickoff y el reporte.
+- Documentar hallazgos de una auditoría de seguridad. Yo la uso para estandarizar el formato entre testers.
+- Hacer seguimiento de la remediación cuando hay varios equipos de ingeniería involucrados.
+- Preparar un resumen ejecutivo para el liderazgo. Yo invierto más tiempo aquí que en cualquier otra sección.
+- Programar una nueva prueba después de aplicar correcciones. Yo bloqueo la fecha de retest antes de que termine el engagement.
 
 ## Plantilla
 
@@ -134,21 +134,32 @@ Pasos específicos para arreglar. Incluye ejemplos de código si aplica.
 | Media | Bajo | Medio | Alto |
 | Baja | Info | Bajo | Medio |
 
+### Flujo de Triage de Hallazgos
+
+Cuando llega el reporte, yo hago una pasada de triage antes de que nada entre al tracker. El objetivo es separar lo que necesita acción inmediata de lo que puede esperar un sprint.
+
+1. **Hallazgos críticos (revisión el mismo día).** Yo convoco al lead de ingeniería a una llamada en horas, no en días. Si el hallazgo es explotable desde internet público y toca datos de clientes, lo tratamos como un incidente activo y seguimos el proceso de la [Plantilla de Respuesta a Incidentes de Seguridad](/docs/security-incident-response-template/) — no como un ticket de remediación normal.
+2. **Hallazgos altos (dentro de 48 horas).** Asigno un owner y una ventana de fix de una semana. Si el owner objeta el timeline, yo escalo al engineering manager en vez de dejar el hallazgo esperando.
+3. **Hallazgos medios y bajos (batch al próximo sprint).** Entran al tracker con un SLA de 30 o 90 días. Yo los batcheo para que el equipo no cambie de contexto a mitad de sprint por fixes de baja severidad.
+4. **Hallazgos informativos (sin fix requerido).** Los registro para el threat model y la próxima revisión de arquitectura, pero no entran al sprint de remediación. Ejemplos: headers de seguridad faltantes en una página estática de marketing, mensajes de error verbosos en un entorno staging.
+
+La pasada de triage me toma unos 30 minutos para un reporte típico de 20 hallazgos. Saltársela significa que el equipo empieza arreglando los hallazgos más fáciles primero en vez de los más impactantes, que es el anti-patrón de remediación más común que veo.
+
 ## Mejores Prácticas
 
 - **Incluye una prueba de concepto.** Sin pasos de reproducción, los desarrolladores no pueden arreglar el problema. Yo siempre adjunto un screenshot o un comando curl a cada hallazgo.
 - **Califica el riesgo en contexto de negocio.** Un bug teóricamente crítico en una página admin interna puede ser riesgo medio. He visto equipos sobre-reaccionar a hallazgos CVSS 9.0 en endpoints que requieren VPN y no tienen datos sensibles.
-- **Proporciona remediación a nivel de código.** "Arregla la inyección" no es suficiente; muestra la sintaxis de consultas parametrizadas. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/web-application-security-guide/) para ejemplos de código.
+- **Proporciona remediación a nivel de código.** "Arregla la inyección" no es suficiente; muestra la sintaxis de consultas parametrizadas. La [Plantilla de Remediación de Pentest](/docs/penetration-test-remediation-template/) tiene plantillas de fix para tipos comunes de hallazgos.
 - **Trackea la remediación como un sprint.** Asigna owners, fechas límite y una ventana de retest. Yo trato el tracker de remediación igual que un sprint backlog: standups diarios, blockers visibles, y nada se cierra sin verificación.
 
 ## Errores Comunes
 
 - Hallazgos vagos: "la app tiene XSS" sin URL o parámetro. Yo rechazo hallazgos así durante la revisión y le pido al tester que especifique el endpoint exacto.
 - Sin screenshots o prueba de concepto: los desarrolladores pierden tiempo reproduciendo. Un screenshot de 30 segundos ahorra una hora de ida y vuelta.
-- Fecha de retest faltante: la remediación sin verificación está incompleta. Traquea seguimientos con la [Plantilla de Respuesta a Incidentes de Seguridad](/docs/security-incident-response-template/).
+- Falta fecha de retest: si no hay verificación, la remediación queda en el aire. Traquea los seguimientos con la [Plantilla de Respuesta a Incidentes de Seguridad](/docs/security-incident-response-template/).
 - Scoring solo por CVSS: el contexto de negocio importa más que la fórmula. Un CVSS 7.5 en una API pública es más urgente que un CVSS 9.0 en una herramienta interna detrás de VPN.
-- Dejar que las cuentas de test alcancen endpoints de producción durante el engagement. Una vez vi a un tester crear transacciones reales en un payment gateway porque la cuenta de test tenía acceso a producción.
-- Confiar en la salida del scanner sin validación manual. Burp Suite y OWASP ZAP producen falsos positivos; siempre verifica antes de reportar.
+- Dejar que las cuentas de test alcancen endpoints de producción durante el engagement. Yo una vez vi a un tester crear transacciones reales en un payment gateway porque la cuenta de test tenía acceso a producción.
+- Confiar en la salida del scanner sin validación manual. Burp Suite y OWASP ZAP producen falsos positivos; yo siempre verifico antes de reportar.
 - Registrar tokens, contraseñas o claves durante el test. Usa un paso de redacción de secrets antes de compartir el reporte.
 
 ## Variantes
@@ -220,7 +231,7 @@ Cronograma:
 
 ## Catálogo de Hallazgos del Mundo Real
 
-En los últimos años, he visto las mismas categorías de hallazgos repetirse en pentests de web apps, APIs e infraestructura. Este catálogo ayuda a los testers a saber qué buscar y a los equipos de ingeniería a entender lo que probablemente enfrenten.
+En los últimos años, he visto las mismas categorías de hallazgos repetirse en pentests de web apps, APIs e infraestructura. El catálogo de abajo es lo que yo le entrego a los testers junior el día uno para que sepan dónde escarbar, y lo que le muestro a los leads de ingeniería para que entiendan la forma de lo que probablemente encontremos. Lo armé desde mis propias notas de engagements, no de un textbook.
 
 ### Hallazgos de Aplicaciones Web
 
@@ -258,15 +269,15 @@ En los últimos años, he visto las mismas categorías de hallazgos repetirse en
 | Directorio `.git` expuesto | CWE-538 | Alto | Verificar `/.git/config` en web roots |
 | DNS zone transfer | CWE-200 | Medio | `dig axfr @ns target.com` |
 
-Yo mantengo este catálogo como checklist durante el testing. No es exhaustivo, pero cubre los hallazgos que encuentro en aproximadamente el 80% de los engagements. El 20% restante son bugs de lógica de negocio específicos de la aplicación, que ningún catálogo puede predecir. Cuando encuentro un bug de lógica, lo documento con detalle extra porque suele ser el más difícil de reproducir.
+Yo mantengo este catálogo como checklist durante el testing. Cubre los hallazgos que encuentro en aproximadamente el 80% de los engagements. El 20% restante son bugs de lógica de negocio específicos de la aplicación, que ningún catálogo puede predecir. Cuando encuentro un bug de lógica, lo documento con detalle extra porque suele ser el más difícil de reproducir. Los bugs de lógica también suelen tener el mayor impacto de negocio: bypassan autenticación, escalan privilegios o permiten fraude — justo lo que los scanners automatizados no alcanzan.
 
 ## Cuándo No Usar Esta Plantilla
 
 Esta plantilla no encaja en todos los engagements de seguridad. Yo la evito en estos casos:
 
-- **Bug bounties.** Plataformas como HackerOne y Bugcrowd tienen sus propios formatos de reporte. Usa la plantilla integrada de la plataforma.
+- **Bug bounties.** Plataformas como HackerOne y Bugcrowd tienen sus propios formatos de reporte. Quédate con la plantilla integrada de la plataforma.
 - **Testing de seguridad continuo.** Si ejecutas scans DAST automatizados semanalmente, usa los reportes exportados de [OWASP ZAP](https://www.zaproxy.org/) o [Burp Suite](https://portswigger.net/burp) en vez de una plantilla manual.
-- **Auditorías de compliance.** PCI DSS, SOC 2 e ISO 27001 requieren formatos de reporte específicos del framework. Esta plantilla no satisface esos requisitos por sí sola.
+- **Auditorías de compliance.** PCI DSS, SOC 2 e ISO 27001 requieren formatos de reporte específicos del framework. Vas a necesitar la plantilla del auditor, no esta.
 - **Revisiones de código fuente.** Herramientas SAST como [Semgrep](https://semgrep.dev/) y [CodeQL](https://codeql.github.com/) producen hallazgos estructurados que no mapean limpiamente al formato de esta plantilla.
 - **Sesiones de threat modeling.** Usa [OWASP Threat Dragon](https://owasp.org/www-project-threat-dragon/) o worksheets STRIDE en su lugar.
 
@@ -282,7 +293,7 @@ Esta plantilla no encaja en todos los engagements de seguridad. Yo la evito en e
 | [Semgrep](https://semgrep.dev/) | Scanner SAST | Revisión de código fuente, gates de seguridad en CI/CD |
 | [CVSS Calculator](https://www.first.org/cvss/calculator/3.1) | Scoring de riesgo | Asignar scores CVSS a hallazgos |
 
-Yo típicamente combino Burp Suite con Nmap para pentests de web apps, y añado Nessus cuando hay infraestructura en alcance. Para testing de APIs, las herramientas Repeater e Intruder de Burp cubren la mayor parte de lo que necesito. Semgrep corre en CI/CD para capturar issues entre engagements.
+Yo típicamente combino Burp Suite con Nmap para pentests de web apps, y añado Nessus cuando hay infraestructura en alcance. Para testing de APIs, las herramientas Repeater e Intruder de Burp cubren la mayor parte de lo que necesito, aunque recurro a Postman cuando la API tiene auth flows complejos. Semgrep corre en CI/CD para capturar issues entre engagements. Mi carpeta de extensiones de Burp creció a unos 12 plugins con los años, sobre todo para auth bypass y manipulación de JWT que la instalación default no maneja bien.
 
 ## Compliance Regulatorio
 
@@ -296,7 +307,7 @@ Las pruebas de penetración suelen ser obligatorias por frameworks de compliance
 | [NIST 800-115](https://csrc.nist.gov/publications/detail/sp/800-115/final) | Guía técnica de testing de seguridad | La plantilla completa se alinea con la metodología NIST |
 | [HIPAA](https://www.hhs.gov/hipaa/) | Security Rule: Evaluación | Resumen Ejecutivo, Alcance, Hallazgos |
 
-Yo siempre reviso qué framework impulsa el engagement antes de empezar. Los pentests de PCI DSS tienen requisitos específicos de scoping (cardholder data environment), y el reporte necesita declarar explícitamente los límites del alcance.
+Yo siempre reviso qué framework impulsa el engagement antes de empezar. Los pentests de PCI DSS tienen requisitos específicos de scoping (cardholder data environment), y el reporte necesita declarar explícitamente los límites del alcance. Me rechazaron un engagement por auditors porque la sección de alcance era demasiado vaga, así que aprendí a ser explícito sobre qué está dentro y qué fuera.
 
 ## Estándares de Reporte
 
@@ -309,17 +320,17 @@ Un buen reporte de pentest cuenta una historia. Yo estructuro los míos así:
 5. **Tracker de Remediación** (1 página): owner, fecha límite, estado de cada hallazgo.
 6. **Anexos** (opcional): output crudo de scanners, cuentas de test, referencias de metodología.
 
-El resumen ejecutivo es la sección más importante. El liderazgo rara vez pasa de ahí, así que invierto tiempo desproporcionado en dejarla clara. Si el CEO puede entender los top 3 riesgos y qué se está haciendo al respecto, el reporte cumplió su función.
+El resumen ejecutivo carga el reporte. El liderazgo rara vez pasa de ahí, así que invierto tiempo desproporcionado en dejarla clara. Si el CEO puede entender los top 3 riesgos y qué se está haciendo al respecto, el reporte cumplió su función.
 
-Algo que aprendí por las malas: no entierres el rating de riesgo general. Ponlo al principio del resumen ejecutivo en negrita. Una vez tuve un CTO que leyó un reporte de 40 páginas y no vio el rating de riesgo porque estaba en la página 3. Ahora lo pongo en la primera oración. Lo mismo aplica para la fecha límite de remediación: el liderazgo necesita saber cuándo se deben los fixes, no solo que existen.
+Algo que yo aprendí por las malas: no entierres el rating de riesgo general. Ponlo al principio del resumen ejecutivo en negrita. Una vez tuve un CTO que leyó un reporte de 40 páginas y no vio el rating de riesgo porque estaba en la página 3. Ahora lo pongo en la primera oración. Lo mismo aplica para la fecha límite de remediación: el liderazgo necesita saber cuándo se deben los fixes, no solo que existen.
 
 ## Puntos Clave
 
-- Un reporte de pentest es tan bueno como su tracker de remediación. Los hallazgos sin owner ni fecha límite acumulan polvo. He visto demasiados reportes archivados con "lo arreglamos el próximo sprint" y nunca pasa nada.
-- Califica el riesgo en contexto de negocio, no solo por CVSS. Un CVSS 9.0 en una herramienta interna detrás de VPN es menos urgente que un CVSS 7.5 en una API pública. Yo siempre incluyo una línea de impacto de negocio en cada hallazgo para que el liderazgo entienda lo que está en juego.
-- Siempre incluye una prueba de concepto. Los desarrolladores no pueden arreglar lo que no pueden reproducir. Un comando curl de 30 segundos o un screenshot ahorra horas de ida y vuelta.
+- El valor de un reporte de pentest depende del tracker de remediación. Los hallazgos sin owner ni fecha límite acumulan polvo. Yo he visto demasiados reportes archivados con "lo arreglamos el próximo sprint" y nunca pasa nada.
+- Pesa el riesgo en contexto de negocio, no solo por CVSS. Un CVSS 9.0 en una herramienta interna detrás de VPN es menos urgente que un CVSS 7.5 en una API pública. Yo siempre incluyo una línea de impacto de negocio en cada hallazgo para que el liderazgo entienda lo que está en juego. Alcanza con una oración: "Un atacante puede extraer PII de clientes vía este endpoint sin autenticación."
+- Siempre incluye una prueba de concepto. Los desarrolladores no pueden arreglar lo que no pueden reproducir. Yo adjunto un comando curl de 30 segundos o un screenshot: ahorra horas de ida y vuelta.
 - Trackea la remediación como un sprint: standups diarios, blockers, nada se cierra sin verificación. Yo corro revisiones de remediación semanales hasta que todos los hallazgos Críticos y Altos están cerrados.
-- Comparte hallazgos sanitizados con el resto de ingeniería. Los patrones de seguridad se repiten entre servicios. Una SQL injection en la API de orders probablemente existe en la API de payments también.
+- Comparte hallazgos sanitizados con el resto de ingeniería. Los patrones de seguridad se repiten entre servicios. Yo les digo a los equipos: una SQL injection en la API de orders probablemente existe en la API de payments también.
 - Programa el retest antes de que termine el engagement. Un retest a 90 días es el mínimo; 30 días es mejor para hallazgos críticos. Yo bloqueo la fecha de retest en el calendario antes de que el tester se vaya.
 
 ## Ver También
@@ -338,24 +349,24 @@ Algo que aprendí por las malas: no entierres el rating de riesgo general. Ponlo
 
 ### ¿Cómo priorizo hallazgos cuando todo parece crítico?
 
-Usa la matriz de riesgo: probabilidad × impacto. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/web-application-security-guide/) para contexto de threat modeling. Una SQL injection en un form de login público es crítica. El mismo bug en un reporte interno read-only puede ser medio. Yo considero explotabilidad y sensibilidad de datos. Cuando dudo entre dos severidades, voy con la más alta y dejo que el negocio decida si acepta el riesgo.
+Usa la matriz de riesgo: probabilidad × impacto. La [Plantilla de Gestión de Vulnerabilidades](/docs/vulnerability-management-template/) tiene un rubric de scoring para triage. Una SQL injection en un form de login público es crítica. El mismo bug en un reporte interno read-only puede ser medio. Yo considero explotabilidad y sensibilidad de datos. Cuando dudo entre dos severidades, voy con la más alta y dejo que el negocio decida si acepta el riesgo.
 
 ### ¿Cada hallazgo debería ser arreglado?
 
-No. Algunos riesgos pueden ser aceptados si el costo de arreglar excede el impacto y existen controles compensatorios. Cuando acepto un riesgo, documento la decisión, consigo sign-off ejecutivo y fijo una fecha de revisión. Los riesgos aceptados no son "ignorados": son decisiones documentadas que alguien tomó deliberadamente.
+No. Algunos riesgos pueden ser aceptados si el costo de arreglar excede el impacto y existen controles compensatorios. Cuando yo acepto un riesgo, documento la decisión, consigo sign-off ejecutivo y fijo una fecha de revisión. Los riesgos aceptados no son "ignorados": son decisiones documentadas que alguien tomó deliberadamente. Yo reviso los riesgos aceptados trimestralmente para verificar si las condiciones de amenaza cambiaron.
 
 ### ¿Quién debería recibir el reporte completo?
 
-Equipo de seguridad, leads de ingeniería y liderazgo ejecutivo (solo resumen ejecutivo). Comparte hallazgos detallados on a need-to-know basis para prevenir weaponización. He visto reportes filtrarse por canales de Slack y reenvíos de email, así que tengo cuidado con las listas de distribución.
+Equipo de seguridad, leads de ingeniería y liderazgo ejecutivo (solo resumen ejecutivo). Comparte hallazgos detallados on a need-to-know basis para prevenir weaponización. Yo vi reportes filtrarse por canales de Slack y reenvíos de email, así que tengo cuidado con las listas de distribución. Mi regla: si alguien no necesita arreglar un hallazgo, no recibe los detalles. Para auditors externos, envío una versión redactada sin los pasos de explotación y solo con el estado de remediación.
 
 ### ¿Cómo elegimos una firma de penetration testing?
 
-Evalúa firmas por certificaciones (OSCP, CEH, CISSP), experiencia en tu industria, referencias de clientes anteriores, metodología (OWASP, PTES) y calidad de reportes anteriores. Pide un reporte de muestra anonimizado. La calidad del reporte es tan importante como la calidad del testing. Verifica que la firma tenga seguro de responsabilidad profesional. Asegúrate de que la firma firme un NDA antes de compartir cualquier información. Compara precios pero no elijas solo por precio. Yo mantengo una relación continua con la firma en la que confío. Los testers que conocen tu sistema encuentran issues más profundos.
+Evalúa firmas por certificaciones (OSCP, CEH, CISSP), experiencia en tu industria, referencias de clientes anteriores, metodología (OWASP, PTES) y calidad de reportes anteriores. Antes de cerrar, pide un reporte de muestra anonimizado de un engagement similar al tuyo. La calidad del reporte pesa tanto como la del testing. Verifica que la firma tenga seguro de responsabilidad profesional. Haz que la firma firme un NDA antes de compartir cualquier información. Compara precios pero no elijas solo por precio. Mi firma está en retainer desde 2022: los testers que ya conocen tu arquitectura encuentran issues que un equipo nuevo no alcanza, y la memoria institucional se paga sola para el segundo engagement.
 
 ### ¿Cómo preparamos al equipo para un pen-test?
 
-Notifica al equipo con 2 semanas de anticipación: fechas, alcance y SPOC. Asegúrate de que el SPOC tenga disponibilidad dedicada durante el pen-test (no esté on-call para otra cosa). Prepara cuentas de test con datos sintéticos. Prepara acceso a staging y producción si aplica. Documenta la arquitectura actual y compártela con el tester. Configura monitoring extra durante el pen-test para detectar si el testing causa impacto. Programa una llamada de kickoff el día 1 y una llamada de debrief el último día. Yo me aseguro de que el equipo sepa que no debe bloquear el tráfico del tester a menos que cause impacto real.
+Notifica al equipo con 2 semanas de anticipación: fechas, alcance y SPOC. Asegúrate de que el SPOC tenga disponibilidad dedicada durante el pen-test (no esté on-call para otra cosa). Yo preparo cuentas de test con datos sintéticos y acceso a staging y producción si aplica. Documenta la arquitectura actual y compártela con el tester. Configura monitoring extra durante el pen-test para detectar si el testing causa impacto. Programa una llamada de kickoff el día 1 y una llamada de debrief el último día. Yo me aseguro de que el equipo sepa que no debe bloquear el tráfico del tester a menos que cause impacto real.
 
 ### ¿Qué hacemos después de recibir el reporte de pen-test?
 
-Importa todos los hallazgos al tracker de remediación dentro de 48 horas. Clasifica cada hallazgo por severidad (Crítico/Alto/Medio/Bajo/Informativo). Asigna un owner a cada hallazgo. Programa la remediación según SLAs: Crítico 24-48h, Alto 1 semana, Medio 30 días, Bajo 90 días. Programa la ventana de retest con la firma (30-90 días). Comparte hallazgos sanitizados con el resto de ingeniería. Los patrones se repiten. Conduce un postmortem del proceso de pen-test: qué funcionó, qué no y qué mejorar. Actualiza el threat model con los hallazgos nuevos. Agrega tests de regresión al CI/CD para prevenir recurrencia.
+Importa todos los hallazgos al tracker de remediación dentro de 48 horas. Etiqueta cada hallazgo por severidad (Crítico/Alto/Medio/Bajo/Informativo). Asigna un owner a cada hallazgo. Programa la remediación según SLAs: Crítico 24-48h, Alto 1 semana, Medio 30 días, Bajo 90 días. Programa la ventana de retest con la firma (30-90 días). Comparte hallazgos sanitizados con el resto de ingeniería. Los patrones se repiten. Después del retest, yo hago un retro interno de 60 minutos con los leads de ingeniería: qué salió tarde, qué no vio el tester, dónde el alcance fue demasiado acotado. Actualiza el threat model con los hallazgos nuevos. Agrega tests de regresión al CI/CD para prevenir recurrencia. Yo también programo una revisión de 30 minutos con el tester para repasar hallazgos que no tengo claros, en vez de adivinar la remediación.

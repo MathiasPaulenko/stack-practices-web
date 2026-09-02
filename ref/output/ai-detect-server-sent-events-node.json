@@ -2,18 +2,18 @@
   {
     "label": "server-sent-events-node-en",
     "model": "desklib",
-    "model_ai_pct": 45.5,
-    "ai_count": 36,
-    "human_count": 73,
-    "skipped_count": 6,
-    "total": 115,
+    "model_ai_pct": 44.5,
+    "ai_count": 41,
+    "human_count": 87,
+    "skipped_count": 5,
+    "total": 133,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 14.6,
-      "stddev": 10.1,
-      "cv": 0.69,
+      "mean": 17.5,
+      "stddev": 10.8,
+      "cv": 0.62,
       "verdict": "natural variation",
-      "sentence_count": 109,
+      "sentence_count": 128,
       "lengths": [
         17,
         21,
@@ -21,6 +21,7 @@
         24,
         19,
         33,
+        14,
         17,
         16,
         22,
@@ -33,100 +34,122 @@
         10,
         6,
         13,
+        7,
         11,
         14,
         23,
+        16,
         9,
         5,
         33,
-        29,
         19,
+        29,
+        39,
         10,
         13,
         19,
-        13,
-        23,
-        17,
+        36,
+        29,
+        40,
         16,
         12,
         13,
         7,
         20,
-        15,
+        16,
+        17,
         26,
+        18,
         9,
         17,
-        20,
-        15,
+        30,
+        23,
+        22,
+        25,
         14,
         13,
-        37,
         14,
-        6,
+        15,
+        23,
+        43,
+        18,
         12,
         8,
-        16,
-        13,
-        11,
-        13,
+        24,
+        18,
+        23,
+        24,
         12,
         10,
         16,
         23,
-        11,
+        18,
+        25,
         15,
         22,
-        17,
+        29,
         98,
-        12,
+        42,
         14,
-        11,
+        24,
         12,
-        11,
+        23,
         11,
         13,
         10,
         7,
+        11,
         10,
         11,
         8,
         11,
         17,
+        10,
         9,
         8,
+        17,
         10,
-        13,
         15,
-        6,
-        6,
-        13,
         15,
         10,
-        10,
+        6,
         13,
+        15,
+        10,
+        10,
+        20,
         8,
         8,
         8,
         5,
         10,
-        11,
+        12,
+        19,
         18,
+        34,
         8,
-        10,
+        18,
         12,
         22,
+        30,
         16,
-        9,
+        17,
         14,
+        27,
         22,
-        6,
-        13,
+        11,
+        25,
         13,
         14,
-        9
+        14,
+        26
       ]
     },
     "top_ai_sentences": [
+      [
+        "The headers matter more than you'd think.",
+        0.911
+      ],
       [
         "The server keeps the socket open and writes\nlines in text/event-stream format.",
         0.9043
@@ -136,20 +159,28 @@
         0.8921
       ],
       [
-        "When I need to lock the stream down, I have three\noptions.",
-        0.863
+        "When I need to lock the stream down, I've got three\noptions.",
+        0.8794
       ],
       [
-        "Cookies work best when the browser and the API share the\nsame origin.",
-        0.8519
+        "If you don't see the connected event\nright away, the headers or the response format are probably wrong \u2014 I usually\ncheck the response headers with curl -I first to confirm\nContent-",
+        0.8611
       ],
       [
         "For CORS, I use Express's cors middleware and allow the specific origin:\n\n\n\nThat config lets the browser connect from a different origin while keeping\ncredentials enabled.",
         0.8464
       ],
       [
+        "I\n  emit a simple heartbeat event with an empty data field \u2014 anything longer\n  than 30s risks getting cut off by corporate firewalls.",
+        0.8264
+      ],
+      [
         "Here is the\nhelper I use:\n\n\n\nOn the client, addEventListener('order-update', ...) only fires for messages\nwhose event: field matches.",
         0.8171
+      ],
+      [
+        "I always do a final test through nginx before\n  shipping.",
+        0.8031
       ],
       [
         "Cookies work when the browser page and the API share the same origin.",
@@ -160,11 +191,19 @@
         0.7329
       ],
       [
+        "The browser's EventSource API handles reconnection on its own\nand sends back the Last-Event-ID header so you can resume the stream without\nlosing anything.",
+        0.719
+      ],
+      [
         "[WebSocket Bidirectional Chat](/recipes/websocket-bidirectional-chat/) \u2014 for\n  two-way real-time communication.",
         0.7182
       ],
       [
-        "Content-Type: text/event-stream tells the browser the\nresponse is an event stream.",
+        "I find that cleaner than burying the event type\ninside the JSON payload, because then the browser does the filtering for you\ninstead of your code having to inspect every message an",
+        0.718
+      ],
+      [
+        "Content-Type: text/event-stream\ntells the browser the response is an event stream.",
         0.6899
       ],
       [
@@ -172,20 +211,20 @@
         0.6865
       ],
       [
-        "The id field is optional, but it makes reconnections much easier.",
-        0.6726
+        "Every connection costs a\nsmall heap allocation plus one socket, and those add up faster than you'd\nexpect.",
+        0.6673
       ],
       [
-        "I also set Cache-Control: no-cache and turn off proxy_buffering\n  in nginx.",
-        0.6663
-      ],
-      [
-        "I\n  emit a simple heartbeat event with an empty data field.",
-        0.6576
+        "Before wiring the browser, I verify the endpoint with curl:\n\n\n\nThe -N flag disables output buffering so you see events as they arrive\ninstead of getting a delayed chunk.",
+        0.6639
       ],
       [
         "Production clients usually listen to more than one event type.",
         0.6572
+      ],
+      [
+        "Each Node instance subscribes to the channel and forwards messages to its local\nclients.",
+        0.6404
       ],
       [
         "I set a retry\nvalue in milliseconds so the browser pauses before reconnecting.",
@@ -196,69 +235,63 @@
         0.6071
       ],
       [
-        "Browsers handle this through the EventSource API, which\nreconnects automatically and sends back the Last-Event-ID header.",
-        0.5736
+        "I've seen production servers bleed memory for days\n  because of this.",
+        0.5884
       ],
       [
-        "SSE reuses a normal HTTP response.",
-        0.5717
+        "The protocol is text-only, so any JSON you send gets encoded inside the data:\nfield as a string.",
+        0.5818
       ],
       [
         "Your messages are small and text-only, so binary payloads aren't needed.",
         0.5655
-      ],
-      [
-        "Node won't\n  close the response for you.",
-        0.564
-      ],
-      [
-        "For simple\none-to-one streams, the manual approach in this recipe is enough.",
-        0.5634
-      ],
-      [
-        "Think\n  stock tickers, sports scores, or log tails.",
-        0.5625
-      ],
-      [
-        "A query token is a short-lived value in the\nURL, but it can leak into server logs and browser history.",
-        0.5622
-      ],
-      [
-        "Nginx is the most common place where SSE breaks.",
-        0.5612
       ]
     ],
-    "diagnostics_sample": []
+    "diagnostics_sample": [
+      {
+        "sentence": "Open one and multiplex.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      }
+    ]
   },
   {
     "label": "server-sent-events-node-es",
     "model": "desklib",
-    "model_ai_pct": 36.1,
-    "ai_count": 22,
-    "human_count": 87,
+    "model_ai_pct": 35.6,
+    "ai_count": 26,
+    "human_count": 101,
     "skipped_count": 4,
-    "total": 113,
-    "pattern_totals": {},
+    "total": 131,
+    "pattern_totals": {
+      "vague_abstraction": 1
+    },
     "text_metrics": {
-      "mean": 15.7,
-      "stddev": 10.5,
-      "cv": 0.67,
+      "mean": 16.4,
+      "stddev": 9.9,
+      "cv": 0.61,
       "verdict": "natural variation",
-      "sentence_count": 109,
+      "sentence_count": 127,
       "lengths": [
         20,
         20,
-        24,
+        25,
         25,
         22,
         36,
         18,
         18,
-        14,
+        18,
+        15,
         13,
-        11,
+        21,
         12,
-        13,
+        16,
         11,
         7,
         5,
@@ -268,31 +301,37 @@
         15,
         15,
         19,
-        22,
+        23,
         11,
         6,
-        34,
+        35,
         29,
-        19,
+        20,
+        14,
         11,
-        34,
+        35,
         16,
-        27,
+        12,
+        28,
+        18,
         18,
         17,
-        8,
+        9,
         15,
         23,
         18,
-        28,
+        19,
+        29,
+        21,
         10,
         20,
-        21,
+        22,
+        18,
         18,
         16,
-        14,
+        15,
         39,
-        18,
+        25,
         5,
         11,
         9,
@@ -304,71 +343,78 @@
         12,
         18,
         20,
+        19,
         7,
         15,
         21,
-        19,
+        20,
         100,
         13,
+        17,
         14,
-        9,
+        26,
         13,
-        14,
+        25,
         10,
         12,
         11,
         9,
+        11,
         13,
         11,
         12,
         12,
         21,
+        15,
         14,
         9,
+        22,
         11,
-        13,
+        15,
         18,
-        8,
+        16,
         7,
         13,
+        5,
         14,
         11,
         10,
-        13,
+        20,
         10,
         10,
         9,
         5,
         6,
+        12,
         11,
         21,
+        20,
         9,
         11,
         12,
         25,
+        21,
         20,
         13,
         14,
+        16,
         19,
         7,
-        17,
+        13,
         14,
         16,
-        12
+        12,
+        15
       ]
     },
     "top_ai_sentences": [
       [
-        "Las cookies son la opci\u00f3n m\u00e1s limpia cuando la p\u00e1gina del\nbrowser y el servidor comparten origen.",
-        0.8653
+        "El tipo de\nnotas que me habr\u00edan ahorrado un fin de semana de debugging de timeouts de proxy.",
+        0.9672
       ],
       [
-        "Uso un evento heartbeat simple con un payload vac\u00edo, con\n  data: {} como contenido.",
-        0.8581
-      ],
-      [
-        "En la pr\u00e1ctica elijo una de tres\nopciones.",
-        0.8475
+        "En la pr\u00e1ctica yo elijo una de tres\nopciones.",
+        0.932
       ],
       [
         "El servidor la mantiene abierta y escribe\nl\u00edneas en formato text/event-stream.",
@@ -377,10 +423,6 @@
       [
         "[Server-Sent Events](/recipes/server-sent-events/) \u2014 el protocolo y la\n  vista general multi-lenguaje.",
         0.7804
-      ],
-      [
-        "El\n  cliente puede reconectar a un proceso diferente que no vio ese id.",
-        0.7739
       ],
       [
         "Los clientes necesitan enviar mensajes frecuentes al servidor.",
@@ -403,8 +445,16 @@
         0.6754
       ],
       [
+        "Yo lo seteo en 86400s (24 horas)\npara que el socket se mantenga abierto durante toda la sesi\u00f3n.",
+        0.6751
+      ],
+      [
         "Server-Sent Events (SSE) permite que el servidor env\u00ede eventos de texto al\nbrowser a trav\u00e9s de una conexi\u00f3n HTTP persistente.",
         0.6445
+      ],
+      [
+        "Yo uso cookies cuando la p\u00e1gina del\nbrowser y el servidor comparten origen.",
+        0.6387
       ],
       [
         "Esa\nes la se\u00f1al de backpressure.",
@@ -435,6 +485,18 @@
         0.5626
       ],
       [
+        "Abr\u00ed una\n  y hac\u00e9 multiplexing.",
+        0.5568
+      ],
+      [
+        "As\u00ed se llena el buffer de Node y se frena el event loop\n  para todos.",
+        0.5508
+      ],
+      [
+        "Yo solo voy por el camino de fetch cuando\nnecesito headers Authorization y las cookies no son una opci\u00f3n.",
+        0.5156
+      ],
+      [
         "Tus mensajes son chicos y de texto; no necesit\u00e1s payloads binarios.",
         0.5142
       ],
@@ -445,20 +507,19 @@
       [
         "El header Content-Type: text/event-stream le dice al\nbrowser que est\u00e1 viendo un stream de eventos.",
         0.5069
-      ],
-      [
-        "El tr\u00e1fico fluye principalmente de servidor a cliente, y los clientes solo\n  escuchan.",
-        0.4849
-      ],
-      [
-        "Los eventos traen campos event:,\ndata:, id: y retry:.",
-        0.4818
-      ],
-      [
-        "En una app de Node.js y Express, la receta es corta: sete\u00e1 los\nheaders correctos, manten\u00e9 la respuesta abierta y escrib\u00ed l\u00edneas en formato\ntext/event-stream.",
-        0.4763
       ]
     ],
-    "diagnostics_sample": []
+    "diagnostics_sample": [
+      {
+        "sentence": "Abr\u00ed una\n  y hac\u00e9 multiplexing.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      }
+    ]
   }
 ]

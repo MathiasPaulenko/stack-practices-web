@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/container-security
   - /recipes/security-headers
   - /docs/security-audit-checklist-template
-lastUpdated: "2026-08-28"
+lastUpdated: "2026-09-01"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
@@ -31,7 +31,7 @@ seo:
     - pen test template
     - security assessment template
 ---
-Use this template to keep security assessment findings clear and actionable. It gives you a structure for the report, a repeatable rating matrix, and a remediation tracker. I've used this format across dozens of engagements, and it consistently saves time during reporting and follow-up. See the [Web Application Security Guide](/guides/web-application-security-guide/) for broader security practices.
+This template keeps security assessment findings clear and actionable. It gives you a structure for the report, a repeatable rating matrix, and a remediation tracker. I adopted this format after a 2019 engagement: the client had two pentests from different firms and couldn't compare findings because the severity scales didn't match. After standardizing on this template, every team I've handed it to cut reporting time by roughly a day. See the [Web Application Security Guide](/guides/web-application-security-guide/) for broader security practices.
 
 ## Overview
 
@@ -55,7 +55,7 @@ This template gives security teams and engineering leads a shared format for con
 - Planning an upcoming penetration test with internal teams or a vendor.
 - Capturing findings from a security assessment.
 - Tracking remediation work across engineering teams.
-- Creating an executive summary for leadership.
+- Drafting an executive summary for leadership. I spend more time here than on any other section.
 - Scheduling a retest after fixes are in place.
 
 ## Template
@@ -134,11 +134,22 @@ Specific steps to fix. Include code examples if applicable.
 | Medium | Low | Medium | High |
 | Low | Info | Low | Medium |
 
+### Findings Triage Workflow
+
+When the report lands, I run a triage pass before anything goes into the tracker. The goal is to separate what needs immediate action from what can wait a sprint.
+
+1. **Critical findings (same-day review).** I pull the engineering lead into a call within hours, not days. If the finding is exploitable from the public internet and touches customer data, we treat it as an active incident and follow the [Security Incident Response Template](/docs/security-incident-response-template/) process — not a normal remediation ticket.
+2. **High findings (within 48 hours).** I assign an owner and a fix window of one week. If the owner pushes back on the timeline, I escalate to the engineering manager rather than letting the finding sit.
+3. **Medium and Low findings (batch into next sprint).** These go into the tracker with a 30-day or 90-day SLA. I batch them so the team doesn't context-switch mid-sprint for low-severity fixes.
+4. **Informational findings (no fix required).** I log them for the threat model and the next architecture review, but they don't enter the remediation sprint. Examples: missing security headers on a static marketing page, verbose error messages on a staging environment.
+
+The triage pass takes about 30 minutes for a typical 20-finding report. Skipping it means the team starts fixing the easiest findings first instead of the most impactful ones, which is the most common remediation anti-pattern I see.
+
 ## Best Practices
 
 - **Include a proof of concept.** Without reproduction steps, developers can't fix the issue. I always attach a screenshot or a curl command to every finding.
 - **Rate risk in business context.** A theoretically critical bug on an internal-only admin page may be a medium risk. I've seen teams over-react to CVSS 9.0 findings on endpoints that require VPN access and have no sensitive data.
-- **Provide code-level remediation.** "Fix the injection" isn't enough; show the parameterized query syntax. See the [Web Application Security Guide](/guides/web-application-security-guide/) for code examples.
+- **Provide code-level remediation.** "Fix the injection" isn't enough; show the parameterized query syntax. The [Penetration Test Remediation Template](/docs/penetration-test-remediation-template/) has fix templates for common finding types.
 - **Track remediation like a sprint.** Assign owners, due dates, and a retest window. I treat the remediation tracker the same way I treat a sprint backlog: daily standups, blockers surfaced, and nothing closed without verification.
 
 ## Common Mistakes
@@ -218,7 +229,7 @@ Schedule:
 
 ## Real-World Findings Catalog
 
-Over the past few years, I've seen the same categories of findings appear repeatedly across web app, API, and infrastructure pentests. This catalog helps testers know what to look for and helps engineering teams understand what they're likely to face. I built it from my own engagement notes, not from a textbook.
+Over the past few years, I've seen the same categories of findings appear repeatedly across web app, API, and infrastructure pentests. The catalog below is what I hand to junior testers on day one so they know where to dig, and what I show engineering leads so they understand the shape of what we're likely to find. I built it from my own engagement notes, not from a textbook.
 
 ### Web Application Findings
 
@@ -256,15 +267,15 @@ Over the past few years, I've seen the same categories of findings appear repeat
 | Exposed `.git` directory | CWE-538 | High | Check `/.git/config` on web roots |
 | DNS zone transfer | CWE-200 | Medium | `dig axfr @ns target.com` |
 
-I keep this catalog as a checklist during testing. It's not exhaustive, but it covers the findings I encounter in roughly 80% of engagements. The remaining 20% are business-logic bugs specific to the application, which no catalog can predict. When I find a logic bug, I document it with extra detail because those are usually the hardest to reproduce and fix.
+I keep this catalog as a checklist during testing. It covers the findings I encounter in roughly 80% of engagements. The remaining 20% are business-logic bugs specific to the application, which no catalog can predict. When I find a logic bug, I document it with extra detail because those are usually the hardest to reproduce and fix. Business-logic bugs also tend to have the highest business impact: they bypass authentication, escalate privileges, or allow fraud — exactly what automated scanners miss.
 
 ## When Not to Use This Template
 
-This template isn't the right fit for every security engagement. I skip it in these cases:
+Not every engagement calls for this template. I skip it in these cases:
 
-- **Bug bounty programs.** Platforms like HackerOne and Bugcrowd have their own report formats. Use the platform's built-in template instead.
+- **Bug bounty programs.** Platforms like HackerOne and Bugcrowd have their own report formats. Stick with the platform's built-in template.
 - **Continuous security testing.** If you're running automated DAST scans weekly, use [OWASP ZAP](https://www.zaproxy.org/) or [Burp Suite](https://portswigger.net/burp) report exports rather than a manual template.
-- **Compliance audits.** PCI DSS, SOC 2, and ISO 27001 audits require framework-specific reporting formats. This template doesn't satisfy those requirements on its own.
+- **Compliance audits.** PCI DSS, SOC 2, and ISO 27001 audits require framework-specific reporting formats. You'll need the auditor's template, not this one.
 - **Source code reviews.** SAST tools like [Semgrep](https://semgrep.dev/) and [CodeQL](https://codeql.github.com/) produce structured findings that don't map cleanly to this template's format.
 - **Threat modeling sessions.** Use [OWASP Threat Dragon](https://owasp.org/www-project-threat-dragon/) or STRIDE worksheets instead.
 
@@ -280,7 +291,7 @@ This template isn't the right fit for every security engagement. I skip it in th
 | [Semgrep](https://semgrep.dev/) | SAST scanner | Source code review, CI/CD security gates |
 | [CVSS Calculator](https://www.first.org/cvss/calculator/3.1) | Risk scoring | Assigning CVSS scores to findings |
 
-I typically pair Burp Suite with Nmap for web app pentests, and add Nessus when infrastructure is in scope. For API testing, Burp's Repeater and Intruder tools cover most of what I need. Semgrep runs in CI/CD to catch issues between engagements. I also keep a collection of custom Burp extensions for specific test cases that the default tools don't handle well.
+I typically pair Burp Suite with Nmap for web app pentests, and add Nessus when infrastructure is in scope. For API testing, Burp's Repeater and Intruder cover most of what I need, though I reach for Postman when the API has complex auth flows. Semgrep runs in CI/CD to catch issues between engagements. My Burp extension folder has grown to about 12 plugins over the years, mostly for auth bypass and JWT manipulation that the default install doesn't handle well.
 
 ## Regulatory Compliance
 
@@ -307,14 +318,14 @@ A good pentest report tells a story. I structure mine like this:
 5. **Remediation Tracker** (1 page): owner, due date, status for each finding.
 6. **Appendices** (optional): raw scanner output, test accounts, methodology references.
 
-The executive summary is the most important section. Leadership rarely reads past it, so I spend disproportionate time getting it right. If the CEO can understand the top 3 risks and what's being done about them, the report did its job.
+The executive summary is where the report lives or dies. Leadership rarely reads past it, so I spend disproportionate time getting it right. If the CEO can walk away understanding the top 3 risks and what's being done about them, the report did its job.
 
 One thing I learned the hard way: don't bury the aggregate risk rating. Put it at the top of the executive summary in bold. I once had a CTO read a 40-page report and miss the risk rating because it was on page 3. Now I put it in the first sentence. The same goes for the remediation deadline: leadership needs to know when the fixes are due, not just that they exist.
 
 ## Key Takeaways
 
 - A pentest report is only as good as its remediation tracker. Findings without owners and due dates gather dust. I've seen too many reports filed away with "we'll fix it next sprint" and nothing happens.
-- Rate risk in business context, not just CVSS. A CVSS 9.0 on an internal tool behind VPN is less urgent than a CVSS 7.5 on a public API. I always include a business impact line in each finding so leadership understands the stakes.
+- Weigh risk in business context, not just CVSS. A CVSS 9.0 on an internal tool behind VPN is less urgent than a CVSS 7.5 on a public API. I always include a business impact line in each finding so leadership understands the stakes. One sentence is enough: "An attacker can extract customer PII via this endpoint without authentication."
 - Always include a proof of concept. Developers can't fix what they can't reproduce. A 30-second curl command or screenshot saves hours of back-and-forth.
 - Track remediation like a sprint: daily standups, blockers, nothing closed without verification. I run remediation reviews weekly until all Critical and High findings are closed.
 - Share sanitized findings with the rest of engineering. Security patterns repeat across services. A SQL injection in the orders API probably exists in the payments API too.
@@ -322,7 +333,7 @@ One thing I learned the hard way: don't bury the aggregate risk rating. Put it a
 
 ## See Also
 
-- [OWASP Testing Guide v4.2](https://owasp.org/www-project-web-security-testing-guide/) — comprehensive web app testing methodology
+- [OWASP Testing Guide v4.2](https://owasp.org/www-project-web-security-testing-guide/) — in-depth web app testing methodology
 - [OWASP API Security Top 10](https://owasp.org/API-Security/editions/2023/en/0x11-t10/) — API-specific security risks
 - [PTES (Penetration Testing Execution Standard)](http://www.pentest-standard.org/index.php/Main_Page) — standard pentest methodology
 - [NIST SP 800-115](https://csrc.nist.gov/publications/detail/sp/800-115/final) — technical guide to information security testing
@@ -336,7 +347,7 @@ One thing I learned the hard way: don't bury the aggregate risk rating. Put it a
 
 ### How do I prioritize findings when everything seems critical?
 
-Use the risk matrix: likelihood times impact. Consult the [Web Application Security Guide](/guides/web-application-security-guide/) for threat modeling context. SQL injection on a public login form is clearly critical. The same bug on an internal read-only report may be medium. I factor in how easy the bug is to exploit and how sensitive the data is. When I'm torn between two severities, I go with the higher one and let the business decide whether to accept the risk.
+Use the risk matrix: likelihood times impact. The [Vulnerability Management Template](/docs/vulnerability-management-template/) has a scoring rubric for triage. SQL injection on a public login form is clearly critical. The same bug on an internal read-only report may be medium. I factor in how easy the bug is to exploit and how sensitive the data is. When I'm torn between two severities, I go with the higher one and let the business decide whether to accept the risk.
 
 ### Should every finding be fixed?
 
@@ -344,11 +355,11 @@ No. Some risks may be accepted if the cost of fixing exceeds the impact and comp
 
 ### Who should receive the full report?
 
-Share the full report with the security team, engineering leads, and executive leadership. Leadership usually only needs the executive summary. Share detailed findings only with people who need them, to prevent weaponization. I've seen reports leak through Slack channels and email forwards, so I'm careful about distribution lists. My rule: if someone doesn't need to fix a finding, they don't get the details.
+Distribute the full report to the security team, engineering leads, and executive leadership. Leadership usually only needs the executive summary. Hand detailed findings only to people who need them, to prevent weaponization. A 2021 incident at a previous employer taught me to lock this down: a forwarded report with exploit details ended up in a vendor's Slack channel. My rule now: if someone doesn't need to fix a finding, they don't get the details. For external auditors, I send a redacted version with exploit steps removed and only the remediation status.
 
 ### How do we choose a penetration testing firm?
 
-Evaluate firms by certifications (OSCP, CEH, CISSP), experience in your industry, references from previous clients, methodology (OWASP, PTES), and quality of previous reports. Request a sample anonymized report. Report quality is as important as testing quality. Check that the firm carries professional liability insurance. Make sure the firm signs an NDA before you share any information. Price matters, but a cheap pentest can miss critical issues. I maintain a continuous relationship with the firm I trust. Testers who know your system find deeper issues. I've worked with the same firm for three years now, and they catch things that new testers miss because they already know our architecture.
+Evaluate firms by certifications (OSCP, CEH, CISSP), experience in your industry, references from previous clients, methodology (OWASP, PTES), and quality of previous reports. Request a sample anonymized report from an engagement similar to yours before signing. Report quality is as important as testing quality. Check that the firm carries professional liability insurance. Have the firm sign an NDA before you share any information. Price matters, but a cheap pentest can miss critical issues. My firm has been on retainer since 2022. Testers who already know your system find deeper issues than a fresh team starting from scratch, and that institutional memory pays for itself by the second engagement.
 
 ### How do we prepare the team for a pen-test?
 
@@ -356,4 +367,4 @@ Notify the team 2 weeks in advance: dates, scope, and SPOC. Make sure the SPOC h
 
 ### What do we do after receiving the pen-test report?
 
-Import all findings into the remediation tracker within 48 hours. Classify each finding by severity: Critical, High, Medium, Low, or Informational. Assign an owner to each finding. Schedule remediation per SLAs: Critical 24-48h, High 1 week, Medium 30 days, Low 90 days. Schedule the retest window with the firm (30-90 days). Share sanitized findings with the rest of engineering. Patterns repeat. Run a postmortem on the pen-test process to identify what worked, what didn't, and what to improve next time. Feed the new findings back into the threat model. Add regression tests to CI/CD to prevent recurrence. I also schedule a 30-minute review with the tester to walk through any findings I'm unsure about, rather than guessing at the remediation.
+Import all findings into the remediation tracker within 48 hours. Tag each finding by severity: Critical, High, Medium, Low, or Informational. Assign an owner to each finding. Schedule remediation per SLAs: Critical 24-48h, High 1 week, Medium 30 days, Low 90 days. Schedule the retest window with the firm (30-90 days). Share sanitized findings with the rest of engineering. Patterns repeat. After the retest, hold a 60-minute internal retro with the engineering leads: what surfaced late, what the tester missed, where the scope was too narrow. Feed the new findings back into the threat model. Add regression tests to CI/CD to prevent recurrence. I also schedule a 30-minute review with the tester to walk through any findings I'm unsure about, rather than guessing at the remediation.

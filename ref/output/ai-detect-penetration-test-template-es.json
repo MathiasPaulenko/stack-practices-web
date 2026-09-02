@@ -1,0 +1,252 @@
+[
+  {
+    "label": "penetration-test-template.es-en",
+    "model": "desklib",
+    "model_ai_pct": 42.2,
+    "ai_count": 38,
+    "human_count": 90,
+    "skipped_count": 3,
+    "total": 131,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 20.7,
+      "stddev": 42.5,
+      "cv": 2.05,
+      "verdict": "natural variation",
+      "sentence_count": 128,
+      "lengths": [
+        15,
+        17,
+        21,
+        14,
+        21,
+        19,
+        16,
+        12,
+        10,
+        7,
+        6,
+        7,
+        8,
+        101,
+        12,
+        20,
+        18,
+        18,
+        12,
+        15,
+        21,
+        10,
+        17,
+        11,
+        12,
+        10,
+        11,
+        13,
+        21,
+        13,
+        22,
+        9,
+        13,
+        8,
+        12,
+        92,
+        9,
+        9,
+        9,
+        20,
+        22,
+        445,
+        16,
+        18,
+        19,
+        10,
+        19,
+        7,
+        26,
+        17,
+        9,
+        22,
+        14,
+        141,
+        19,
+        9,
+        11,
+        120,
+        23,
+        8,
+        20,
+        15,
+        13,
+        13,
+        12,
+        12,
+        8,
+        15,
+        21,
+        13,
+        8,
+        25,
+        7,
+        22,
+        12,
+        9,
+        15,
+        11,
+        21,
+        22,
+        6,
+        10,
+        15,
+        14,
+        16,
+        8,
+        8,
+        16,
+        9,
+        15,
+        16,
+        101,
+        13,
+        11,
+        11,
+        7,
+        20,
+        17,
+        16,
+        13,
+        12,
+        10,
+        21,
+        23,
+        6,
+        12,
+        9,
+        13,
+        8,
+        12,
+        10,
+        12,
+        17,
+        7,
+        8,
+        9,
+        13,
+        16,
+        22,
+        12,
+        6,
+        6,
+        16,
+        10,
+        8,
+        14,
+        8,
+        9
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Yo uso esta plantilla desde la llamada inicial de scoping.",
+        0.9428
+      ],
+      [
+        "Pide un reporte de muestra anonimizado.",
+        0.9364
+      ],
+      [
+        "Fecha de retest faltante: la remediaci\u00f3n sin verificaci\u00f3n est\u00e1 incompleta.",
+        0.9172
+      ],
+      [
+        "Trackear remediaci\u00f3n entre equipos de ingenier\u00eda.",
+        0.8468
+      ],
+      [
+        "Un reporte de pentest es tan bueno como su tracker de remediaci\u00f3n.",
+        0.7816
+      ],
+      [
+        "**Auditor\u00edas de compliance.** PCI DSS, SOC 2 e ISO 27001 requieren formatos de reporte espec\u00edficos del framework.",
+        0.7633
+      ],
+      [
+        "Califica el riesgo en contexto de negocio, no solo por CVSS.",
+        0.761
+      ],
+      [
+        "Ahora lo pongo en la primera oraci\u00f3n.",
+        0.7513
+      ],
+      [
+        "bash\ncurl \"https://example.com/api/v1/users?id=1 OR 1=1\"\n\n\n\n\n\n| ID | Hallazgo | Owner | Fecha L\u00edmite | Estado |\n|----|----------|-------|--------------|--------|\n| 001 | SQL Inject",
+        0.7403
+      ],
+      [
+        "Yo considero explotabilidad y sensibilidad de datos.",
+        0.7403
+      ],
+      [
+        "Usa un paso de redacci\u00f3n de secrets antes de compartir el reporte.",
+        0.7362
+      ],
+      [
+        "El mismo bug en un reporte interno read-only puede ser medio.",
+        0.7307
+      ],
+      [
+        "Preparar un resumen ejecutivo para el liderazgo.",
+        0.7283
+      ],
+      [
+        "Aseg\u00farate de que la firma firme un NDA antes de compartir cualquier informaci\u00f3n.",
+        0.7269
+      ],
+      [
+        "El resumen ejecutivo es la secci\u00f3n m\u00e1s importante.",
+        0.726
+      ],
+      [
+        "**Alcance y Metodolog\u00eda** (1-2 p\u00e1ginas): qu\u00e9 se teste\u00f3, qu\u00e9 no, herramientas usadas, per\u00edodo de testing.",
+        0.7071
+      ],
+      [
+        "**Proporciona remediaci\u00f3n a nivel de c\u00f3digo.** \"Arregla la inyecci\u00f3n\" no es suficiente; muestra la sintaxis de consultas parametrizadas.",
+        0.6964
+      ],
+      [
+        "Esta plantilla no encaja en todos los engagements de seguridad.",
+        0.6809
+      ],
+      [
+        "Yo mantengo una relaci\u00f3n continua con la firma en la que conf\u00edo.",
+        0.679
+      ],
+      [
+        "Importa todos los hallazgos al tracker de remediaci\u00f3n dentro de 48 horas.",
+        0.6675
+      ],
+      [
+        "Para cloud, IAM y network policies son lo primero.",
+        0.6665
+      ],
+      [
+        "Los hallazgos sin owner ni fecha l\u00edmite acumulan polvo.",
+        0.6498
+      ],
+      [
+        "Programa la ventana de retest con la firma (30-90 d\u00edas).",
+        0.6482
+      ],
+      [
+        "Esta plantilla no satisface esos requisitos por s\u00ed sola.",
+        0.636
+      ],
+      [
+        "Programa una llamada de kickoff el d\u00eda 1 y una llamada de debrief el \u00faltimo d\u00eda.",
+        0.629
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

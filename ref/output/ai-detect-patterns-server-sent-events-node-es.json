@@ -1,8 +1,21 @@
 [
   {
     "label": "server-sent-events-node.es",
-    "total_sentences": 47,
-    "pattern_totals": {},
-    "findings": []
+    "total_sentences": 131,
+    "pattern_totals": {
+      "vague_abstraction": 1
+    },
+    "findings": [
+      {
+        "sentence": "Abr\u00ed una\n  y hac\u00e9 multiplexing.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      }
+    ]
   }
 ]
