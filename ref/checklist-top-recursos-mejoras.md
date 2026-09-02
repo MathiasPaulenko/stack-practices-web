@@ -98,9 +98,40 @@
     + SVGs EN/ES, companion repo (12 archivos, 3 lenguajes), 6 enlaces externos,
     See Also con 6 refs específicas, estimatedReadTime: 11, keywords 3→6;
     AI patterns 9→3 (falsos positivos); build 3.260 OK; 0 pendientes; 0 regresiones)
-38. - [ ] **handle-errors** (recipes)
-39. - [ ] **python-secrets-management-vault** (recipes)
-40. - [ ] **traffic-mirroring** (recipes)
+38. - [x] **handle-errors** (recipes) — 58/88 → 84/88 ✅ PROMOTE
+    (body prosa 2.101/2.327 EN/ES, AI 0 findings EN+ES; +1.387/+1.539 palabras
+    (RFC 7807 fields, extension fields, content negotiation, HTTP status mapping,
+    testing strategy pytest+Jest, security considerations, monitoring, performance,
+    troubleshooting); 5 enlaces internos + 7 externos (RFC 7807, RFC 9457, MDN,
+    FastAPI, Spring, OpenAPI, companion); Mermaid flowchart TD decision tree
+    + SVGs EN/ES; companion repo (10 archivos: Python/JS/Java + tests + READMEs);
+    See Also con 7 refs; estimatedReadTime: 8; FAQ 4 estructuras distintas;
+    double spaces 75/73→0/0; tabla Variants trim 5→4 cols (sin overflow móvil);
+    build 3.260 OK; 0 pendientes; 0 regresiones)
+39. - [x] **python-secrets-management-vault** (recipes) — 55/88 → 85/88 ✅ PROMOTE
+    (thin content 703/785→1834/2062 palabras; +5 secciones: Testing Strategy con pytest
+    fixture, Security Considerations con 5 puntos, Troubleshooting tabla 6 filas, Monitoring
+    con telemetry HCL + 5 métricas Prometheus + timed_read logging, See Also 11 enlaces;
+    Mermaid flowchart TD EN+ES con SVGs renderizados; companion repo 13 archivos Python +
+    tests + docker-compose + READMEs con enlace cruzado en See Also; 16 enlaces externos
+    (Vault docs, hvac, OWASP, NIST, telemetry, audit); 4 enlaces internos body; título ES
+    acortado 60→46 chars; estimatedReadTime: 11; FAQ 6 estructuras variadas; 12 contractions
+    corregidas EN; lastUpdated 2026-09-02; paridad H2 12/12 H3 18/18 code 15/15; AI patterns
+    0 EN+ES; build 3260 OK; companion build-catalog 37 OK; 0 pendientes; 0 regresiones)
+40. - [x] **traffic-mirroring** (recipes) — 85/88 PROMOTE
+    (mejora full + humanización profunda: títulos EN 40 chars + ES 44 chars ≤60;
+    body 1615/1826 vs 1300 mín; 8 enlaces externos AWS/Nginx/Istio/Envoy/GoReplay;
+    reciprocidad 6/6; 9 enlaces internos body; Mermaid flowchart TD EN+ES con
+    SVGs; companion repo 10 archivos nginx/istio/envoy/goreplay/test/docker-compose
+    + READMEs; estimatedReadTime: 8; FAQ 6 estructuras variadas; lastUpdated
+    2026-09-02; metaDescription 148 chars; secciones Testing Strategy/Security/
+    Monitoring/Troubleshooting/See Also; trade-offs sub-section; AI patterns 0
+    EN+ES; desklib AI% EN 47.0→40.7% (15+ humanizaciones con skill humanize-writing:
+    primera persona, anécdotas "I've seen teams double-charge", "I once traced a
+    data leak to a shared Stripe key", "In nearly every mirror incident I've
+    debugged", contractions, ritmo variado, prosa en Testing Strategy, voz personal
+    en When to avoid); desklib AI% ES 35.0→30.5%; em dashes 0; paridad H2 13/13
+    H3 14/14 code 10/10; build 3260 OK; sitemap 3258 OK; companion 38 OK)
 41. - [ ] **async-generator-pattern** (patterns)
 42. - [ ] **soft-deletes** (recipes)
 43. - [ ] **complete-guide-rabbitmq-architecture** (guides)
