@@ -26,7 +26,8 @@ relatedResources:
   - /recipes/rabbitmq-dead-letter-queue
   - /patterns/circuit-breaker-pattern
   - /patterns/retry-pattern
-lastUpdated: "2026-08-19"
+estimatedReadTime: 8
+lastUpdated: "2026-09-03"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
@@ -50,6 +51,12 @@ exchange flexibles, entrega confiable y un set rico de opciones de queue. Esta g
 la arquitectura core, tipos de exchange, patrones de routing, capacidades de
 queue, clustering y mejores prácticas de producción.
 
+Para patrones relacionados, consultá [rabbitmq-dead-letter-queue](/recipes/rabbitmq-dead-letter-queue/)
+para manejo de poison messages, [circuit-breaker-pattern](/patterns/circuit-breaker-pattern/)
+para resiliencia de consumers, y nuestra [complete-guide-kafka-production](/guides/complete-guide-kafka-production/)
+cuando necesites streaming en vez de routing de mensajes.
+queue, clustering y mejores prácticas de producción.
+
 ## Cuándo Usar
 
 - Necesitás routing flexible de mensajes: direct, topic, fanout o headers
@@ -69,6 +76,21 @@ queue, clustering y mejores prácticas de producción.
 
 ## Arquitectura
 
+```mermaid
+flowchart LR
+    Producer --> Exchange
+    Exchange -->|"direct: key == binding"| Queue1["Queue A"]
+    Exchange -->|"topic: pattern match"| Queue2["Queue B"]
+    Exchange -->|"fanout: broadcast"| Queue3["Queue C"]
+    Exchange -->|"headers: match headers"| Queue4["Queue D"]
+    Queue1 --> Consumer1["Consumer"]
+    Queue2 --> Consumer2["Consumer"]
+    Queue3 --> Consumer3["Consumer"]
+    Queue4 --> Consumer4["Consumer"]
+    Queue1 -->|"reject/nack"| DLX["Dead Letter Exchange"]
+    DLX --> DLQ["Dead Letter Queue"]
+```
+
 ### Componentes clave
 
 ```text
@@ -85,10 +107,10 @@ Producer → Exchange → (Binding + Routing Key) → Queue → Consumer
 - **Queue**: un buffer que almacena mensajes hasta que los consumers los
   procesen.
 - **Binding**: un link entre un exchange y una queue con una regla de routing.
-- **Routing key**: un string que el exchange usa para decidir qué queue recibe el
+- **Routing key**: un string que el exchange revisa para decidir qué queue recibe el
   mensaje.
-- **Connection**: una conexión TCP entre un client y el broker.
-- **Channel**: una conexión virtual dentro de una conexión. Los channels son virtuales, así que una conexión TCP lleva todos los channels que
+- **Connection**: el link TCP que tu cliente abre con el broker.
+- **Channel**: una conexión virtual dentro de una conexión TCP. Los channels son baratos, así que una conexión TCP lleva todos los channels que
   un proceso necesita.
 
 ## Tipos de Exchange
@@ -472,6 +494,97 @@ for queue in response.json():
 - Olvidar ack o nack, dejando crecer el conteo de unacked.
 - Usar classic mirrored queues en vez de quorum queues en clusters nuevos.
 - No dimensionar el cluster en memoria y disco, causando pausas por flow control.
+
+## Estrategia de Testing
+
+Los consumers de RabbitMQ necesitan tres categorías de tests: correctitud del
+procesamiento de mensajes, comportamiento de retry y dead-letter, e
+idempotencia. En mi experiencia, los equipos testean el happy path pero saltan
+los flujos de retry y DLX — y ahí es donde se esconden los bugs de producción.
+
+### Acknowledgment del consumer
+
+Testeá que tu consumer ackee en éxito y nackee en fallo:
+
+```python
+def test_consumer_acks_on_success(mock_channel):
+    method = type('Method', (), {'delivery_tag': 1})()
+    process_message(mock_channel, method, None, '{"order_id": 123}')
+    mock_channel.basic_ack.assert_called_once_with(delivery_tag=1)
+
+def test_consumer_nacks_on_failure(mock_channel):
+    method = type('Method', (), {'delivery_tag': 1})()
+    process_message(mock_channel, method, None, 'invalid json')
+    mock_channel.basic_nack.assert_called_once_with(delivery_tag=1, requeue=False)
+```
+
+### Flujo de dead letter
+
+Testeá que los mensajes rechazados terminen en la cola DLX:
+
+```python
+def test_poison_message_goes_to_dlx(rabbitmq_connection):
+    channel = rabbitmq_connection.channel()
+    channel.queue_declare(queue="test_dlx", arguments={
+        "x-dead-letter-exchange": "test_dlx_exchange",
+        "x-dead-letter-routing-key": "dead"
+    })
+    channel.basic_publish(exchange="", routing_key="test_dlx", body="poison")
+    # Trigger rejection
+    # Assert message appears in dead letter queue
+    method, _, body = channel.basic_get(queue="dead", auto_ack=True)
+    assert body == b"poison"
+```
+
+### Idempotencia
+
+Los consumers deben manejar mensajes duplicados gracefulmente. Trackeá los IDs
+procesados:
+
+```python
+def test_idempotent_consumer(redis_client):
+    processor = IdempotentConsumer(redis_client)
+    message = {"id": "msg-123", "payload": "data"}
+
+    result1 = processor.process(message)
+    result2 = processor.process(message)  # duplicado
+
+    assert result1 is True
+    assert result2 is True  # sin side effects, retorna success
+    assert redis_client.exists("processed:msg-123")
+```
+
+## Consideraciones de Seguridad
+
+- **TLS para todo el tráfico**: habilitá TLS para conexiones de clientes y
+  tráfico inter-broker. RabbitMQ soporta TLS termination en el puerto 5671.
+  Nunca corras producción con AMQP plaintext en el puerto 5672.
+- **Autenticación**: usá SASL PLAIN o EXTERNAL (certificados x509) para auth
+  de clientes. Evitá el usuario guest por defecto en producción — deshabilitalo
+  completamente.
+- **Permisos por virtual host**: scopeá los permisos de usuario por vhost. Un
+  usuario con acceso a `orders-vhost` no debería ver `payments-vhost`. Usá
+  `rabbitmqctl set_permissions` para restringir acceso de configure, write y
+  read.
+- **Seguridad de red**: poné RabbitMQ detrás de una red privada. Solo exponé
+  el management plugin (puerto 15672) a través de una VPN o bastion host. Vi
+  a equipos exponer la UI de management a internet "por conveniencia" — no lo
+  hagas.
+- **Gestión de credenciales**: guardá las credenciales de conexión en un secret
+  manager (Vault, AWS Secrets Manager), no en variables de entorno o archivos
+  de config commiteados a git. Rotá las credenciales regularmente.
+- **Rate limiting**: configurá `channel_max` y límites de conexión por usuario
+  para prevenir agotamiento de recursos por clientes mal comportados.
+
+## See Also
+
+- [Documentación de RabbitMQ](https://www.rabbitmq.com/documentation.html)
+- [Especificación AMQP 0-9-1](https://www.rabbitmq.com/amqp-0-9-1-quickref.html)
+- [Cliente Python pika](https://pypi.org/project/pika/)
+- [Guía de Quorum Queues](https://www.rabbitmq.com/quorum-queues.html)
+- [Guía de Clustering RabbitMQ](https://www.rabbitmq.com/clustering.html)
+- [rabbitmq-dead-letter-queue](/recipes/rabbitmq-dead-letter-queue/)
+- [retry-pattern](/patterns/retry-pattern/)
 
 ## FAQ
 
