@@ -23,7 +23,7 @@ relatedResources:
   - /patterns/strategy-pattern
   - /patterns/ambassador-pattern-services
   - /patterns/back-pressure-pattern
-  - /patterns/cache-aside-pattern
+  - /guides/complete-guide-rabbitmq-architecture
   - /patterns/graceful-degradation-pattern
   - /patterns/retry-pattern
   - /patterns/saga-pattern

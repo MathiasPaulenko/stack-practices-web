@@ -20,7 +20,7 @@ tags:
 relatedResources:
   - /recipes/rabbitmq-python-pika-consumer
   - /recipes/python-celery-task-queue
-  - /guides/complete-guide-graphql-federation
+  - /guides/complete-guide-rabbitmq-architecture
   - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"

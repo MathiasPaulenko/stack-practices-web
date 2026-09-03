@@ -20,7 +20,7 @@ relatedResources:
   - /patterns/circuit-breaker-pattern
   - /patterns/timeout-pattern
   - /patterns/bulkhead-pattern
-  - /patterns/cache-aside-pattern
+  - /guides/complete-guide-rabbitmq-architecture
   - /patterns/saga-pattern
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
