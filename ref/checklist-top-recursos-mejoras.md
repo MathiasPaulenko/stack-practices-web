@@ -10,14 +10,7 @@
 8. - [x] **parse-log-files** (recipes) — 93.0/100 ✅ PROMOTE
 9. - [x] **flatten-unflatten-objects** (recipes) — 95.0/100 ✅ PROMOTE
 10. - [x] **python-asyncio-semaphore-rate-limiting** (recipes) — 95.0/100 ✅ PROMOTE
-11. - [x] **penetration-test-template** (docs) — 91/100 → 98/100 ✅ PROMOTE
-    (ronda de mejora full: IA EN 50.3% → 46.1%, ES 42.2% → 39.5% (<40% ✅),
-    `pattern_totals: {}` en ambos; description ES 195 → 131 chars;
-    enlaces internos diversificados 3 → 6 destinos únicos; red word "comprehensive" → 0;
-    paridad primera persona 50/19 → 49/28; companion meta.json corregido
-    (source_urls con URL recurso, language "bilingual"); build 3.260 pág.;
-    sitemap 3.258 URLs; 9/12 issues resueltos, 1 pendiente EN IA >40%
-    limitación del detector, 3 out-of-scope; 0 regresiones)
+11. - [x] **penetration-test-template** (docs) — 98/100 ✅ PROMOTE
 12. - [x] **parse-csv-python-pandas** (recipes) — 90.0/100 ✅ PROMOTE
 13. - [x] **database-read-replicas** (recipes) — 94.0/100 ✅ PROMOTE
 14. - [x] **email-templates-mjml** (recipes) — 94.0/100 ✅ PROMOTE
@@ -28,127 +21,29 @@
 19. - [x] **go-rest-api-gin** (recipes) — 95.5/100 ✅ PROMOTE
 20. - [x] **llm-fine-tuning** (recipes) — 94.0/100 ✅ PROMOTE
 21. - [x] **complete-guide-modular-monolith** (guides) — 85.0/100 ✅ PROMOTE
-22. - [x] **deep-clone-javascript** (recipes) — 95.5/100 ✅ PROMOTE (riesgos residuales documentados)
-23. - [x] **rabbitmq-task-queue** (recipes) — 94.5/100 ✅ PROMOTE (mejora full completada;
-    IA EN 37.3%, ES 27.6%; companion creado; alt del diagrama y benchmark resueltos)
-24. - [x] **partial-class-pattern** (patterns) — 76/100 → 80/91 (~88/100) ✅ PROMOTE
-    (body prosa 1.562/1.669 EN/ES; AI EN 37.8%, ES 35.7%; diagrama Mermaid
-    añadido; companion repo ejecutable en C#; verificación móvil 375px OK;
-    build 3.258 pág.; 0 pendientes)
-25. - [x] **convert-csv-to-json** (recipes) — ~92/100 ✅ PROMOTE
-    (ronda de mejora de humanización: IA EN 41.3%, ES 33.5% con
-    `pattern_totals: {};` 4 rondas completadas; body prosa ~1.400 palabras EN/ES;
-    diagrama Mermaid + SVGs EN/ES; companion repo ejecutable en Python/Node/Java;
-    build 3.258 pág.; WebPage schema y verificación móvil real quedan out-of-scope
-    globales)
-26. - [x] **server-sent-events-node** (recipes) — 74/88 → 83/88 ✅ MEJORA MODERADA PROMOTE
-    (humanización EN 45.5%→44.5% `pattern_totals` vacío; primera persona ES 1→28;
-    companion `language` corregido; enlace al companion en body; build 3260 OK;
-    0 regresiones; AI score EN 44.5% aceptado como limitación del detector sobre prosa técnica)
-27. - [x] **python-airflow-dag-scheduling** (recipes) — 82.5/88 PROMOTE (post-mejoras adicionales)
-    (body prosa 2495/2466 EN/ES, AI EN 39.2% / ES 34.3%, pattern_totals vacío;
-    7 enlaces externos, companion repo con 3 DAGs extras; build 3258 OK; 0 regresiones)
-28. - [x] **elasticsearch-aggregations** (recipes) — 100/100 ✅ PROMOTE (commits/push completados;
-    WebPage schema añadido en `RecipeArticle.astro`, verificación móvil 375×812 px con
-    screenshot; body prosa 1319/1407 EN/ES, AI EN 39.1% / ES 33.4%, pattern_totals vacío;
-    diagrama Mermaid + SVGs EN/ES; companion repo en Python/JS + Docker Compose; 5 enlaces
-    internos + 6 oficiales; build 3260 OK, 0 issues pendientes, 0 regresiones)
-29. - [x] **password-hashing** (recipes) — 95/100 ✅ PROMOTE (body prosa
-    ~2150/2165 palabras, AI EN 39.5% / ES 37.4%, 0 patrones; Mermaid + companion;
-    alt text Mermaid corregido; enlaces internos balanceados EN/ES; build 3.258 OK;
-    typo ES corregido y rebuild)
-30. - [x] **grpc-services-typescript** (recipes) — 95/100 ✅ PROMOTE (body prosa
-    ~1,658/1,566 palabras, AI EN 39.8% / ES 38.1%, 0 patrones; health-check, TLS y deadlines
-    con código; Mermaid + SVGs EN/ES; companion creado; build 3.260 OK; re-auditoría escrita)
-31. - [x] **pre-commit-hooks** (recipes) — 61/100 → 81/100 ✅ PROMOTE
-    (body prosa 1,512/1,527 EN/ES, AI EN 37.9% / ES 34.1%, pattern_totals vacío;
-    5 enlaces internos + 7 externos; Mermaid + SVGs EN/ES; companion repo con 10 archivos;
-    build 3,260 OK; 0 pendientes; 0 regresiones)
-32. - [x] **message-idempotency** (recipes) — 68/100 → 85/100 ✅ PROMOTE
-    (body prosa 2,034/2,131 EN/ES, AI EN 41.4% / ES 35.1%, pattern_totals vacío;
-    6 enlaces internos + 6 externos; Mermaid + SVGs EN/ES; companion repo con 13 archivos;
-    build 3,260 OK; 0 regresiones; AI EN > 40% como pendiente MEDIUM atenuado)
-33. - [x] **vertical-slice-architecture-guide** (guides) — audit + mejora full + companion
-    (Mermaid + SVGs EN/ES; companion repo .NET 8 con vertical slice completo;
-    build 3.260 OK; 0 regresiones; commits y push completados)
-34. - [x] **prometheus-api-monitoring** (recipes) — 50/88 → 79/88 ✅ MEJORA SIGNIFICATIVA PROMOTE
-    (body prosa 1,435/1,585 EN/ES, AI EN 44.8% / ES 39.0%, pattern_totals vacío;
-    Go+Python instrumentation, SLO/SLI con error budget, Mermaid + SVGs EN/ES;
-    companion repo con 10 archivos (Node.js/Go/Python/Docker Compose); 4 enlaces
-    internos + 7 externos; See Also; versiones verificadas (Prometheus 3.13.2 LTS,
-    prom-client 15.1.3, client_golang v1.24.1, prometheus_client 0.21.1);
-    mainEntityOfPage añadido a TechArticle schema; build 3,260 OK; 0 regresiones;
-    AI EN 44.8% aceptado como limitación del detector sobre prosa técnica densa)
-35. - [x] **docker-network-isolation** (recipes) — 61/88 → 84/88 ✅ PROMOTE
-    (body prosa 1.384/1.423 EN/ES, AI 0 findings EN+ES; 4 enlaces internos + 10 externos;
-    Mermaid flowchart + SVGs EN/ES; companion repo (docker-compose, Dockerfile, nginx,
-    init-db, READMEs); See Also; estimatedReadTime: 6; bidireccionalidad 6/6
-    (docker-basics relatedResources trim 10→6); build 3.260 OK; 0 pendientes; 0 regresiones)
-36. - [x] **export-csv-excel** (recipes) — 59/88 → 83/88 ✅ PROMOTE
-    (body prosa 1.297/1.348 EN/ES, AI 0 findings EN+ES; +526 palabras (CSV injection
-    sanitization 3 lenguajes, SXSSF sliding window, Express endpoint completo, benchmark);
-    4 enlaces internos + 5 externos; Mermaid flowchart in-memory vs streaming + SVGs EN/ES;
-    companion repo (Python/JS/Java + sanitization + READMEs); See Also; estimatedReadTime: 6;
-    keywords alineados 8=8 (EN 10→8, ES 5→8); oración definitoria; build 3.260 OK;
-    1 pendiente LOW bidireccionalidad 3/6; 0 regresiones)
-37. - [x] **grpc-api** (recipes) — 44/88 → 83/88 ✅ PROMOTE
-    (REWRITE: eliminadas 4 secciones template AI, Troubleshooting reescrito con
-    problemas reales de gRPC, 30+ acentos ES corregidos, H2 asimetría 20/21→22/22,
-    9 contractions EN corregidas, 196 double spaces eliminados, Mermaid flowchart
-    - SVGs EN/ES, companion repo (12 archivos, 3 lenguajes), 6 enlaces externos,
-    See Also con 6 refs específicas, estimatedReadTime: 11, keywords 3→6;
-    AI patterns 9→3 (falsos positivos); build 3.260 OK; 0 pendientes; 0 regresiones)
-38. - [x] **handle-errors** (recipes) — 58/88 → 84/88 ✅ PROMOTE
-    (body prosa 2.101/2.327 EN/ES, AI 0 findings EN+ES; +1.387/+1.539 palabras
-    (RFC 7807 fields, extension fields, content negotiation, HTTP status mapping,
-    testing strategy pytest+Jest, security considerations, monitoring, performance,
-    troubleshooting); 5 enlaces internos + 7 externos (RFC 7807, RFC 9457, MDN,
-    FastAPI, Spring, OpenAPI, companion); Mermaid flowchart TD decision tree
-    + SVGs EN/ES; companion repo (10 archivos: Python/JS/Java + tests + READMEs);
-    See Also con 7 refs; estimatedReadTime: 8; FAQ 4 estructuras distintas;
-    double spaces 75/73→0/0; tabla Variants trim 5→4 cols (sin overflow móvil);
-    build 3.260 OK; 0 pendientes; 0 regresiones)
-39. - [x] **python-secrets-management-vault** (recipes) — 55/88 → 85/88 ✅ PROMOTE
-    (thin content 703/785→1834/2062 palabras; +5 secciones: Testing Strategy con pytest
-    fixture, Security Considerations con 5 puntos, Troubleshooting tabla 6 filas, Monitoring
-    con telemetry HCL + 5 métricas Prometheus + timed_read logging, See Also 11 enlaces;
-    Mermaid flowchart TD EN+ES con SVGs renderizados; companion repo 13 archivos Python +
-    tests + docker-compose + READMEs con enlace cruzado en See Also; 16 enlaces externos
-    (Vault docs, hvac, OWASP, NIST, telemetry, audit); 4 enlaces internos body; título ES
-    acortado 60→46 chars; estimatedReadTime: 11; FAQ 6 estructuras variadas; 12 contractions
-    corregidas EN; lastUpdated 2026-09-02; paridad H2 12/12 H3 18/18 code 15/15; AI patterns
-    0 EN+ES; build 3260 OK; companion build-catalog 37 OK; 0 pendientes; 0 regresiones)
-40. - [x] **traffic-mirroring** (recipes) — 85/88 PROMOTE
-    (mejora full + humanización profunda: títulos EN 40 chars + ES 44 chars ≤60;
-    body 1615/1826 vs 1300 mín; 8 enlaces externos AWS/Nginx/Istio/Envoy/GoReplay;
-    reciprocidad 6/6; 9 enlaces internos body; Mermaid flowchart TD EN+ES con
-    SVGs; companion repo 10 archivos nginx/istio/envoy/goreplay/test/docker-compose
-    + READMEs; estimatedReadTime: 8; FAQ 6 estructuras variadas; lastUpdated
-    2026-09-02; metaDescription 148 chars; secciones Testing Strategy/Security/
-    Monitoring/Troubleshooting/See Also; trade-offs sub-section; AI patterns 0
-    EN+ES; desklib AI% EN 47.0→40.7% (15+ humanizaciones con skill humanize-writing:
-    primera persona, anécdotas "I've seen teams double-charge", "I once traced a
-    data leak to a shared Stripe key", "In nearly every mirror incident I've
-    debugged", contractions, ritmo variado, prosa en Testing Strategy, voz personal
-    en When to avoid); desklib AI% ES 35.0→30.5%; em dashes 0; paridad H2 13/13
-    H3 14/14 code 10/10; build 3260 OK; sitemap 3258 OK; companion 38 OK)
-41. - [x] **async-generator-pattern** (patterns) — 62/88 → 85/88 ✅ PROMOTE
-    (mejora full: metaDescription EN 169→152 chars; estimatedReadTime: 6;
-    lastUpdated 2026-09-02; +4 secciones: Testing Strategy con pytest-asyncio
-    + Jest, Security Considerations con 5 puntos, Monitoring con Prometheus
-    metrics + tabla, See Also con 8 enlaces; +4 enlaces internos body; +7
-    enlaces externos (Python asyncio, MDN, Reactor, Java Stream, aiohttp, RxJS,
-    PEP 525); Mermaid flowchart LR EN+ES con SVGs; companion repo 10 archivos
-    Python/JS/Java + tests + docker-compose + READMEs; double spaces cleaned
-    211→23 líneas (indentación de listas válida); humanización: primera persona
-    "I've used this for WebSocket", "I've seen this in production code more
-    times than I'd like to admit", "I learned this the hard way", "I once
-    tracked a production incident"; contractions 1→6 EN; AI patterns 0 EN+ES;
-    desklib AI% EN 45.6% (techo detector técnico), ES 35.5%; paridad H2 12/12
-    H3 14/14 code 9/9 FAQ 7/7 Mermaid 1/1; build 3260 OK; companion 39 OK)
-42. - [ ] **soft-deletes** (recipes)
-43. - [ ] **complete-guide-rabbitmq-architecture** (guides)
-44. - [ ] **domain-driven-design-guide** (guides)
+22. - [x] **deep-clone-javascript** (recipes) — 95.5/100 ✅ PROMOTE
+23. - [x] **rabbitmq-task-queue** (recipes) — 94.5/100 ✅ PROMOTE
+24. - [x] **partial-class-pattern** (patterns) — 88/100 ✅ PROMOTE
+25. - [x] **convert-csv-to-json** (recipes) — 92/100 ✅ PROMOTE
+26. - [x] **server-sent-events-node** (recipes) — 83/88 ✅ PROMOTE
+27. - [x] **python-airflow-dag-scheduling** (recipes) — 82.5/88 ✅ PROMOTE
+28. - [x] **elasticsearch-aggregations** (recipes) — 100/100 ✅ PROMOTE
+29. - [x] **password-hashing** (recipes) — 95/100 ✅ PROMOTE
+30. - [x] **grpc-services-typescript** (recipes) — 95/100 ✅ PROMOTE
+31. - [x] **pre-commit-hooks** (recipes) — 81/100 ✅ PROMOTE
+32. - [x] **message-idempotency** (recipes) — 85/100 ✅ PROMOTE
+33. - [x] **vertical-slice-architecture-guide** (guides) — 85/88 ✅ PROMOTE
+34. - [x] **prometheus-api-monitoring** (recipes) — 79/88 ✅ PROMOTE
+35. - [x] **docker-network-isolation** (recipes) — 84/88 ✅ PROMOTE
+36. - [x] **export-csv-excel** (recipes) — 83/88 ✅ PROMOTE
+37. - [x] **grpc-api** (recipes) — 83/88 ✅ PROMOTE
+38. - [x] **handle-errors** (recipes) — 84/88 ✅ PROMOTE
+39. - [x] **python-secrets-management-vault** (recipes) — 85/88 ✅ PROMOTE
+40. - [x] **traffic-mirroring** (recipes) — 85/88 ✅ PROMOTE
+41. - [x] **async-generator-pattern** (patterns) — 85/88 ✅ PROMOTE
+42. - [x] **soft-deletes** (recipes) — 87/88 ✅ PROMOTE
+43. - [x] **complete-guide-rabbitmq-architecture** (guides) — 85/88 ✅ PROMOTE
+44. - [x] **domain-driven-design-guide** (guides) — 80/88 ✅ PROMOTE
 45. - [ ] **idempotent-consumer-pattern** (patterns)
 46. - [ ] **circuit-breaker-with-monitoring-pattern** (patterns)
 47. - [ ] **idempotent-api-endpoints** (recipes)
