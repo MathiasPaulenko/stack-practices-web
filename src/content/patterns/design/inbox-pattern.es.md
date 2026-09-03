@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/outbox-pattern
   - /patterns/saga-pattern
   - /patterns/event-sourcing-pattern
+  - /patterns/idempotent-consumer-pattern
 lastUpdated: "2026-06-25"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
