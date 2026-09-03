@@ -18,18 +18,18 @@ tags:
   - javascript
   - java
 relatedResources:
+  - /patterns/circuit-breaker-with-monitoring-pattern
   - /patterns/proxy-pattern
   - /patterns/observer-pattern
   - /patterns/strategy-pattern
-  - /patterns/ambassador-pattern-services
   - /patterns/back-pressure-pattern
-  - /guides/complete-guide-rabbitmq-architecture
-  - /patterns/graceful-degradation-pattern
   - /patterns/retry-pattern
+  - /patterns/graceful-degradation-pattern
   - /patterns/saga-pattern
   - /patterns/scheduler-agent-supervisor-pattern
   - /patterns/throttling-pattern
   - /patterns/timeout-pattern
+  - /patterns/ambassador-pattern-services
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko

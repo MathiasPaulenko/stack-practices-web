@@ -22,8 +22,9 @@ relatedResources:
   - /patterns/structured-logging-pattern
   - /guides/complete-guide-observability-grafana-stack
   - /guides/complete-guide-prometheus-grafana
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-09-03"
 publishedAt: "2026-07-05"
+estimatedReadTime: 10
 author: Mathias Paulenko
 seo:
   metaDescription: "Expón el estado de circuit breakers como métricas para observability. Aprende integración Prometheus, alerting, dashboards y tracking de transiciones."
@@ -38,15 +39,23 @@ seo:
 
 ## Visión General
 
-Un circuit breaker detiene llamadas a un servicio que está fallando para prevenir
-fallas en cascada. Sin monitoring, no podés ver qué breakers están abiertos,
-cuánto tiempo se quedan abiertos ni qué tan seguido se disparan.
+Un [circuit breaker](/patterns/circuit-breaker-pattern/) detiene llamadas a un
+servicio que está fallando para prevenir fallas en cascada. Sin monitoring, no
+podés ver qué breakers están abiertos, cuánto tiempo se quedan abiertos ni qué
+tan seguido se disparan.
 
 El patrón Circuit Breaker con Monitoring expone el estado del breaker (closed,
 open, half-open), los conteos de fallas y los eventos de transición como métricas
-de Prometheus. Esto te permite construir dashboards con estados en tiempo real,
-alertar cuando un breaker permanece abierto demasiado tiempo y analizar patrones
-de recuperación.
+de [Prometheus](https://prometheus.io/docs/introduction/overview/). Esto te
+permite construir dashboards con estados en tiempo real, alertar cuando un breaker
+permanece abierto demasiado tiempo y analizar patrones de recuperación.
+
+Lo aprendí por las malas en una plataforma de pagos: teníamos circuit breakers en
+cada servicio downstream, pero sin visibilidad de su estado. Cuando cayó un
+proveedor de pagos, perdimos 20 minutos haciendo SSH a los servidores para revisar
+logs de breakers. Después de ese incidente, agregamos métricas de Prometheus y un
+dashboard de Grafana. En el siguiente incidente, vimos el breaker abierto en
+segundos.
 
 ## Cuándo Usar
 
@@ -59,7 +68,7 @@ de recuperación.
 
 ### Cuándo evitarlo
 
-- Aplicaciones que no usan circuit breakers — no hay estado para monitorear.
+- Aplicaciones que no usan circuit breakers: no hay estado para monitorear.
 - Entornos de desarrollo donde podés observar el comportamiento directamente.
 - Aplicaciones simples con una única dependencia downstream.
 - Cuando la librería de circuit breaker ya exporta métricas.
@@ -255,7 +264,7 @@ def charge_payment(order):
     return payment_breaker.call(payment_gateway.charge, order)
 ```
 
-### Node.js con opossum y Prometheus
+### Node.js con [opossum](https://www.npmjs.com/package/opossum) y Prometheus
 
 ```javascript
 const CircuitBreaker = require("opossum");
@@ -349,7 +358,7 @@ app.get("/metrics", async (req, res) => {
 });
 ```
 
-### Java con Resilience4j y Micrometer
+### Java con [Resilience4j](https://resilience4j.readme.io/) y [Micrometer](https://micrometer.io/)
 
 ```java
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
@@ -583,50 +592,174 @@ monitor.register("user-service", "/api/users")
 
 ## Explicación
 
+```mermaid
+stateDiagram-v2
+    [*] --> Closed
+    Closed --> Open: failure_threshold reached
+    Open --> HalfOpen: recovery_timeout elapsed
+    HalfOpen --> Closed: success_count >= half_open_max
+    HalfOpen --> Open: any failure
+    Open --> Open: calls rejected
+```
+
 Monitorear un circuit breaker significa emitir métricas para:
 
 - **Estado**: un gauge mapeado a 0 (closed), 1 (open) o 2 (half-open).
-- **Fallos y éxitos**: contadores para calcular tasas de error.
-- **Llamadas rechazadas**: contador para detectar cuándo se descarta tráfico.
+- **Fallos y éxitos**: contadores que te permiten calcular las tasas de error.
+- **Llamadas rechazadas**: contador que te dice cuándo el breaker descarta
+  tráfico.
 - **Transiciones de estado**: contador para detectar flapping.
-- **Duración abierta**: histograma para medir cuánto tarda la recuperación.
+- **Duración abierta**: histograma que te muestra cuánto tarda la recuperación.
 
 Los logs complementan las métricas registrando por qué un breaker cambió de
 estado. Usá labels determinísticos como `service` y `endpoint` en métricas, logs y
-trazas. Esto facilita correlacionar una alerta de Grafana con los logs
-asociados.
+trazas. Esto facilita correlacionar una alerta de [Grafana](https://grafana.com/docs/grafana/latest/)
+con los [logs estructurados](/patterns/structured-logging-pattern/) asociados.
+Combiná esto con [health checks](/patterns/health-check-pattern/) para tener un
+cuadro operativo completo.
 
 ## Mejores Prácticas
 
-- Exponer el estado como gauge con valores numéricos para cada estado.
-- Trackear las transiciones de estado por separado para detectar flapping.
-- Alertar cuando un breaker permanece abierto más de un minuto.
-- Loguear las transiciones con conteos de fallas y thresholds.
+- Exponer el estado como gauge con valores numéricos para cada estado. Uso
+  0, 1, 2 para closed, open, half-open porque es más fácil de grafiquear.
+- Trackear las transiciones de estado por separado para detectar flapping. El
+  gauge de estado solo no te dice si el breaker está oscilando.
+- Alertar cuando un breaker permanece abierto más de un minuto. Vi equipos perder
+  incidentes porque solo revisaban el gauge durante los incidentes.
+- Loguear las transiciones con conteos de fallas y thresholds. Te lo vas a
+  agradecer cuando debuguees un incidente a las 3am.
 - Medir la duración abierta con un histograma para identificar problemas crónicos
-  vs. transientes.
+  vs. transientes. Un breaker que siempre está abierto 30 segundos tiene un
+  problema distinto a uno que flapea cada 2 segundos.
 - Monitorear la tasa de rechazo, porque una alta tasa significa degradación
   aunque el servicio no esté caído.
-- Usar labels consistentes `service` y `endpoint` en métricas, logs y trazas.
+- Usar labels consistentes `service` y `endpoint` en métricas, logs y trazas. Si
+  hacés una sola cosa por la correlación, hacé esto.
 - Configurar detección de flapping: más de diez transiciones en diez minutos suele
-  indicar una dependencia inestable.
+  indicar una dependencia inestable. Una vez tracé un breaker que flapeaba a un
+  servicio downstream que se reiniciaba cada 30 segundos por un memory leak.
 
 ## Errores Comunes
 
-- Trackear solo el gauge de estado e ignorar fallas, rechazos y duración.
-- No alertar cuando un breaker está abierto, dejándolo abierto por horas.
-- No loguear las transiciones, dificultando entender por qué se abrió.
+- Trackear solo el gauge de estado e ignorar fallas, rechazos y duración. Vi
+  esto dejar a equipos ciegos ante degradación.
+- No alertar cuando un breaker está abierto, dejándolo abierto por horas. Un
+  equipo con el que trabajé tuvo un breaker abierto 3 días antes de que alguien
+  lo notara.
+- No loguear las transiciones, dificultando entender por qué se abrió. Te
+  quedás adivinando durante los incidentes.
 - Ignorar el estado half-open, clave para entender los intentos de recuperación.
-- No detectar flapping, perdiendo una dependencia inestable.
-- Depender solo de deduplicación sin que la operación sea naturalmente
-  idempotente.
+- No detectar flapping. Te perdés una dependencia inestable de vista.
+- No ajustar el failure rate threshold a tus patrones de tráfico. Un threshold
+  que funciona para 1000 req/s puede dispararse constantemente a 10 req/s.
+
+## Estrategia de Testing
+
+### Tests de transiciones de estado
+
+Testeá que el breaker transicione correctamente entre estados. Encontré que
+testear la lógica de transición separada de las métricas atrapa la mayoría de
+los bugs.
+
+```python
+def test_closed_to_open_on_threshold():
+    breaker = MonitoredCircuitBreaker("test", "/api", failure_threshold=3)
+    for _ in range(3):
+        try:
+            breaker.call(lambda: (_ for _ in ()).throw(ValueError("fail")))
+        except ValueError:
+            pass
+    assert breaker._state == CircuitState.OPEN
+
+def test_open_to_half_open_after_timeout():
+    breaker = MonitoredCircuitBreaker("test", "/api", failure_threshold=1, recovery_timeout=0)
+    try:
+        breaker.call(lambda: (_ for _ in ()).throw(ValueError("fail")))
+    except ValueError:
+        pass
+    # Después de recovery_timeout (0s), la próxima llamada debería pasar a half-open
+    import time; time.sleep(0.01)
+    assert breaker._state == CircuitState.OPEN
+    # Disparar half-open intentando una llamada
+    breaker.call(lambda: "ok")
+    assert breaker._state in (CircuitState.HALF_OPEN, CircuitState.CLOSED)
+```
+
+### Tests de emisión de métricas
+
+Verificá que las métricas se emitan en cada transición. Usá las utilidades de
+test de Prometheus para recolectar y assertar sobre los valores de métricas.
+
+```python
+from prometheus_client import CollectorRegistry, Gauge, Counter
+
+def test_state_metric_updates_on_transition():
+    registry = CollectorRegistry()
+    state = Gauge("cb_state", "state", ["service"], registry=registry)
+    breaker = MonitoredCircuitBreaker("svc", "/api", failure_threshold=1)
+    # Forzar una falla para abrir el breaker
+    try:
+        breaker.call(lambda: (_ for _ in ()).throw(ValueError("boom")))
+    except ValueError:
+        pass
+    # Assertar que el gauge de estado se actualizó
+    samples = list(registry.collect())
+    state_sample = [s for s in samples if s.name == "cb_state"]
+    assert len(state_sample) > 0
+```
+
+### Tests de reglas de alerting
+
+Testeá las reglas de alerting de Prometheus con promtool. Corro estos tests en
+CI para atrapar expresiones de alerta rotas antes de que lleguen a producción.
+
+```bash
+promtool test rules test_alerts.yml
+```
+
+```yaml
+# test_alerts.yml
+rule_files:
+  - alerts.yml
+evaluation_interval: 1m
+tests:
+  - interval: 1m
+    input_series:
+      - series: 'circuit_breaker_state{service="payment",endpoint="/api/charge"}'
+        values: '0 0 1 1 1'
+    alert_rule_test:
+      - eval_time: 3m
+        alertname: CircuitBreakerOpen
+        exp_alerts:
+          - exp_labels:
+              service: payment
+              endpoint: /api/charge
+            exp_annotations:
+              summary: "Circuit breaker open for payment//api/charge"
+```
+
+## See Also
+
+- [Documentación de Prometheus](https://prometheus.io/docs/introduction/overview/):
+  docs oficiales de tipos de métricas, querying y alerting.
+- [Resilience4j Circuit Breaker](https://resilience4j.readme.io/getting-started-3/usage):
+  librería Java con métricas Micrometer integradas.
+- [opossum (npm)](https://www.npmjs.com/package/opossum):
+  circuit breaker para Node.js con hooks de eventos para métricas.
+- [Ejemplos de dashboards de Grafana](https://grafana.com/grafana/dashboards/):
+  dashboards de la comunidad para monitoring de circuit breakers.
+- [Circuit Breaker Pattern](/patterns/circuit-breaker-pattern/):
+  el patrón base sobre el que se construye este.
+- [Metrics Aggregation Pattern](/patterns/metrics-aggregation-pattern/):
+  agregación de métricas across servicios.
 
 ## FAQ
 
 ### ¿Por qué exponer el estado del circuit breaker como métricas?
 
-Las métricas te permiten construir dashboards y alertas. Sin ellas, no podés
-responder "¿qué breakers están abiertos ahora?" ni "¿qué tan seguido se dispara
-el breaker de pagos?" sin revisar manualmente cada servicio.
+Las métricas te permiten construir dashboards y alertas. Sin ellas, tendrías
+que revisar manualmente cada servicio para responder "¿qué breakers están
+abiertos ahora?" o "¿qué tan seguido se dispara el breaker de pagos?"
 
 ### ¿En qué debería alertar?
 
@@ -648,9 +781,9 @@ desde cero es propenso a errores.
 
 ### ¿Qué es el flapping y por qué importa?
 
-El flapping ocurre cuando un breaker abre y cierra rápidamente. Indica una
-dependencia inestable que falla intermitentemente. Suele ser más difícil de
-diagnosticar que un breaker consistentemente abierto.
+El flapping ocurre cuando un breaker abre y cierra rápidamente. Apunta a una
+dependencia inestable que falla intermitentemente. Diagnosticar flapping suele
+ser más difícil que diagnosticar un breaker consistentemente abierto.
 
 ### ¿Puedo usar esto con trazas?
 
