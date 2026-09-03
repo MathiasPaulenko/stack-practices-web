@@ -21,7 +21,7 @@ relatedResources:
   - /patterns/dependency-injection-pattern
   - /guides/vertical-slice-architecture-guide
   - /guides/layered-architecture-guide
-  - /recipes/soft-deletes
+  - /guides/domain-driven-design-guide
 lastUpdated: "2026-08-31"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
