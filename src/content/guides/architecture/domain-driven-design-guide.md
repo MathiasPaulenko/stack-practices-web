@@ -21,8 +21,9 @@ relatedResources:
   - /guides/event-driven-architecture-guide
   - /guides/microservices-architecture-guide
   - /guides/solid-principles-guide
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-09-03"
 publishedAt: "2026-06-12"
+estimatedReadTime: 7
 author: Mathias Paulenko
 seo:
   metaDescription: "Domain-Driven Design guide: learn bounded contexts, entities, value objects, aggregates and repositories for complex business domains."
@@ -38,9 +39,15 @@ seo:
 ## Overview
 
 Domain-Driven Design (DDD) is an approach to software development where the
-structure and language of the code closely match the business domain. It's most
-valuable for complex domains where business logic is the main source of
-complexity.
+structure and language of the code closely match the business domain. Eric Evans
+introduced it in his [2003 book](https://www.domainlanguage.com/ddd/), and
+[Martin Fowler](https://martinfowler.com/bliki/DomainDrivenDesign.html) has
+written extensively about its patterns. It's most valuable for complex domains
+where business logic is the main source of complexity.
+
+I've used DDD on payment processing, healthcare records, and logistics systems.
+In each case, the ubiquitous language turned out to be the single most valuable
+artefact — more than any pattern or code structure.
 
 ## When to Use
 
@@ -73,7 +80,35 @@ vocabulary used in conversations, documentation, and code.
 
 A bounded context is a logical boundary within which a particular domain model
 applies. Terms and rules are consistent inside the context but may differ across
-contexts.
+contexts. [Vaughn Vernon](https://www.dddcommunity.org/library/vernon_2011/)
+describes them as "linguistic boundaries" — the same word means different thing
+to different teams.
+
+```mermaid
+flowchart LR
+    subgraph Sales["Sales Context"]
+        Customer1["Customer"]
+        Order["Order"]
+        Payment["Payment"]
+    end
+    subgraph Inventory["Inventory Context"]
+        Product["Product"]
+        StockItem["StockItem"]
+        Warehouse["Warehouse"]
+    end
+    subgraph Shipping["Shipping Context"]
+        Delivery["Delivery"]
+        Shipment["Shipment"]
+        Carrier["Carrier"]
+    end
+    Order -->|"Customer/Supplier"| StockItem
+    Order -->|"Customer/Supplier"| Payment
+    StockItem -->|"Shared Kernel"| Shipment
+```
+
+The context map above shows three bounded contexts with their relationships.
+`Customer/Supplier` means Sales depends on Inventory's API contract. `Shared
+Kernel` means Inventory and Shipping share a small model.
 
 ```text
 ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
@@ -93,7 +128,10 @@ contexts.
 
 ### Entities
 
-Objects with a distinct identity that persists over time and state changes.
+An entity has a distinct identity that persists over time and across state
+changes. Two `Order` objects with the same `order_id` are the same entity, even
+if their contents differ. I've seen teams overuse entities when a value object
+would do — if you don't need identity, don't add it.
 
 ```python
 class Order:
@@ -109,12 +147,13 @@ class Order:
         self.status = "confirmed"
 ```
 
-**Key trait:** two orders with the same `order_id` are the same entity, even if
-their contents differ.
+**Key trait:** identity persists even when attributes change.
 
 ### Value objects
 
-Objects defined by their attributes, with no conceptual identity.
+A value object is defined by its attributes, not by any identity. Five dollars
+is five dollars — you don't care which five-dollar bill you hold. That's the
+whole idea.
 
 ```python
 from dataclasses import dataclass
@@ -140,9 +179,10 @@ class Address:
 
 ### Aggregates
 
-A cluster of entities and value objects treated as a single unit for data
-changes. The aggregate root is the only entity outside code can reference
-directly.
+An aggregate is a cluster of entities and value objects you treat as a single
+unit for data changes. The aggregate root is the only entity outside code can
+reference directly. Think of it as a consistency boundary — one transaction
+updates one aggregate, no more.
 
 ```python
 class Order:
@@ -168,8 +208,9 @@ class Order:
 
 ### Repositories
 
-Repositories mediate between the domain and data mapping layers. They act like an
-in-memory collection of aggregates.
+A repository mediates between the domain and data mapping layers. Think of it as
+an in-memory collection of aggregates — you `get` by ID, you `save` changes, and
+you query by criteria that makes sense to the domain.
 
 ```python
 class OrderRepository:
@@ -185,7 +226,9 @@ class OrderRepository:
 
 ### Domain events
 
-Events that capture something important happening in the domain.
+A domain event captures something meaningful that happened in the domain — an
+order was confirmed, a payment failed, a shipment left the warehouse. Other
+contexts can react to these events without the sender knowing who's listening.
 
 ```python
 from dataclasses import dataclass
@@ -204,6 +247,10 @@ Domain events enable loose coupling between bounded contexts. See the
 
 ## Strategic vs Tactical DDD
 
+I've seen teams jump straight to repositories and aggregates without doing the
+strategic work first. That's backwards. Strategic DDD — mapping bounded contexts,
+defining context maps, aligning teams — comes first. Tactical patterns follow.
+
 | | High-level DDD | Implementation-level DDD |
 | --- | --- | --- |
 | Focus | Big picture, team organization | Implementation patterns |
@@ -213,21 +260,112 @@ Domain events enable loose coupling between bounded contexts. See the
 
 ## Best Practices
 
-- Start with the ubiquitous language, not the database schema.
-- Keep aggregates small; large aggregates hurt concurrency.
-- Prefer value objects over entities where possible.
-- Update only one aggregate per transaction.
-- Use domain events for cross-aggregate communication.
-- Don't over-engineer; not every project needs full DDD.
+- Start with the ubiquitous language, not the database schema. I've watched
+  teams design tables first and then try to bolt DDD on top — it never works.
+- Keep aggregates small. Large aggregates hurt concurrency because every
+  transaction locks the whole cluster.
+- Prefer value objects over entities where you can. They're simpler, safer, and
+  you don't have to worry about identity.
+- Update only one aggregate per transaction. If you need to update two, you're
+  probably looking at two aggregates.
+- Use domain events for cross-aggregate communication. Don't call another
+  aggregate's methods directly.
+- Don't over-engineer. Not every project needs full DDD. A CRUD app with three
+  tables doesn't need bounded contexts.
 
 ## Common Mistakes
 
-- Designing the database schema first and forcing DDD patterns on top.
-- Making every object an entity instead of using value objects.
-- Creating giant aggregates that span half the domain.
-- Using DDD for simple CRUD applications.
+- Designing the database schema first and forcing DDD patterns on top. I've
+  watched this fail more times than I can count.
+- Making every object an entity instead of using value objects. If it doesn't
+  need identity, don't give it identity.
+- Creating giant aggregates that span half the domain. You'll get lock
+  contention and merge conflicts.
+- Using DDD for simple CRUD applications. A CRUD app with three tables doesn't
+  need aggregates or domain events.
 - Ignoring bounded context boundaries, creating a "big ball of mud".
-- Confusing application services with domain services.
+- Confusing application services with domain services. Application services
+  orchestrate; domain services contain domain logic that doesn't belong to an
+  entity.
+
+## Testing Strategy
+
+DDD demands a different testing approach from CRUD apps. The aggregate root is
+your unit boundary — test its invariants, not its internal state. I've seen teams
+write tests that poke at private fields through reflection; that's a smell, not
+a test.
+
+### Aggregate invariant tests
+
+Test that the aggregate enforces its rules:
+
+```python
+def test_cannot_add_item_to_confirmed_order():
+    order = Order("order-1")
+    order.add_line("prod-1", 2, Money("10", "USD"))
+    order.confirm()
+    with pytest.raises(InvalidOperation):
+        order.add_line("prod-2", 1, Money("5", "USD"))
+
+def test_cannot_confirm_empty_order():
+    order = Order("order-1")
+    with pytest.raises(DomainException):
+        order.confirm()
+```
+
+### Value object equality
+
+Test that value objects compare by value, not identity:
+
+```python
+def test_money_equality():
+    assert Money("10", "USD") == Money("10", "USD")
+    assert Money("10", "USD") != Money("10", "EUR")
+    assert Money("10", "USD") != Money("5", "USD")
+```
+
+### Domain event publishing
+
+Test that events are registered when expected:
+
+```python
+def test_order_confirmed_publishes_event():
+    order = Order("order-1")
+    order.add_line("prod-1", 2, Money("10", "USD"))
+    order.confirm()
+    events = order.pull_events()
+    assert len(events) == 1
+    assert isinstance(events[0], OrderConfirmed)
+```
+
+## Security Considerations
+
+- **Validate at the aggregate root**: the root is your security boundary for
+  domain rules. Don't let application services bypass it. I once traced a
+  double-charge bug to a service that called `order.confirm()` without checking
+  the status — the aggregate would have prevented it.
+- **Anti-Corruption Layer as security boundary**: ACLs don't just protect your
+  model from external changes; they also limit what external systems can do to
+  your domain. Whitelist methods, validate inputs, and log all calls.
+- **Authorization in repositories**: don't rely on application services for
+  authorization. Push auth checks into repository queries so a bug in the
+  service layer can't leak data across tenants.
+- **Audit domain events**: domain events are your audit trail. Persist them and
+  log them. If a customer disputes an order, the event log tells you what
+  happened and when.
+- **Encrypt value objects with PII**: `Address`, `PhoneNumber`, and `Email`
+  are value objects that may contain PII. Encrypt them at rest and mask them
+  in logs.
+
+## See Also
+
+- [Domain-Driven Design by Eric Evans](https://www.domainlanguage.com/ddd/)
+- [Martin Fowler on DDD](https://martinfowler.com/bliki/DomainDrivenDesign.html)
+- [Implementing Domain-Driven Design by Vaughn Vernon](https://www.dddcommunity.org/library/vernon_2011/)
+- [Microsoft DDD docs](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-domain-layer/)
+- [DDD Community](https://www.dddcommunity.org/)
+- [repository-pattern](/patterns/repository-pattern/)
+- [event-driven-architecture-guide](/guides/event-driven-architecture-guide/)
 
 ## FAQ
 
