@@ -39,11 +39,11 @@ seo:
 
 ## Overview
 
-Soft deletes mark records as deleted without actually removing them. This
-preserves data for auditing, recovery, and referential integrity while keeping
-deleted records invisible to normal application queries. The following shows
-soft deletes with timestamp flags, filtered queries, unique indexes, purge jobs,
-and restore flows in Python, JavaScript, and Java.
+Soft deletes mark records as deleted without actually removing them. This keeps
+data available for auditing, recovery, and referential integrity, while hiding
+deleted records from normal application queries. Below we cover soft deletes
+with timestamp flags, filtered queries, unique indexes, purge jobs, and restore
+flows in Python, JavaScript, and Java.
 
 For related patterns, see [database-indexing](/recipes/database-indexing/) for
 partial index strategies and [repository-pattern](/patterns/repository-pattern/)
@@ -51,11 +51,11 @@ for integrating soft deletes into your data access layer.
 
 ## When to Use
 
-- Users need to recover accidentally deleted data. See
+- Users accidentally delete data and need to get it back. See
   [Database Transactions](/recipes/database-transactions/) for rollback patterns.
-- You must maintain audit trails for compliance (GDPR, HIPAA, SOC2).
+- Compliance requirements (GDPR, HIPAA, SOC2) demand audit trails.
 - Foreign key constraints make hard deletes difficult or risky.
-- You want to show a "trash" or "recycle bin" UI.
+- Your product needs a "trash" or "recycle bin" feature.
 
 ### When to avoid
 
@@ -63,8 +63,7 @@ for integrating soft deletes into your data access layer.
   enough for GDPR erasure; you still need a purge or anonymization step.
 - Tables with extremely high write volume where deleted rows would bloat storage
   and backups. Use a short retention window and aggressive purging.
-- Data without any recovery or audit requirement. A real `DELETE` is simpler and
-  cheaper.
+- Data without any recovery or audit requirement. Just use a real `DELETE`.
 
 ## Solution
 
@@ -269,8 +268,8 @@ keeps storage and backups from growing forever.
 - Schedule periodic hard deletes after your retention period. GDPR erasure
   requires actual deletion or anonymization.
 - Log hard deletes to an audit table or event stream when you finally purge.
-- Test the restore flow. A soft delete is only useful if users can recover from a
-  trash UI.
+- Test the restore flow. A soft delete only pays off if users can recover from
+  a trash UI.
 - Use partial indexes on active records to keep indexes small and fast:
 
 ```sql
@@ -374,18 +373,18 @@ def test_purge_only_old_records(session):
   hard-deletes or anonymizes records after that window. I once saw a company
   fail a GDPR audit because their soft-deleted rows sat in production for 3
   years without any purge.
-- **PII in soft-deleted rows**: soft-deleted records still contain personal
-  data. Apply the same access controls to soft-deleted rows as active ones.
-  Don't assume "deleted" means "invisible to admins."
+- **PII in soft-deleted rows**: soft-deleted records still hold personal data.
+  Apply the same access controls to soft-deleted rows as active ones. Don't
+  assume "deleted" means "invisible to admins."
 - **Audit logging**: log who soft-deleted what and when. The `deleted_at`
-  column tells you when, but not who. Add a `deleted_by` column or write to a
-  separate audit table.
+  column tells you when, but not who did it. Add a `deleted_by` column or
+  write to a separate audit table.
 - **Access control**: restrict who can query soft-deleted records (e.g.,
-  `paranoid: false` in Sequelize, `session.query` without filter in SQLAlchemy).
-  Only admins or compliance teams should see deleted data.
+  `paranoid: false` in Sequelize, `session.query` without filter in
+  SQLAlchemy). Only admins or compliance teams should see deleted data.
 - **Anonymization**: for GDPR erasure, consider anonymizing PII columns at
-  soft-delete time instead of keeping them until purge. This reduces risk if
-  the purge job fails.
+  soft-delete time instead of keeping them until purge. That way, if the purge
+  job fails, the personal data is already gone.
 
 ## Monitoring
 

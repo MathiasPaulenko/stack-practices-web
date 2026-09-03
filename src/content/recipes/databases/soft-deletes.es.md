@@ -39,10 +39,10 @@ seo:
 ## Visión General
 
 Los soft deletes marcan registros como eliminados sin removerlos realmente de la
-base de datos. Esto preserva datos para auditoría, recuperación e integridad
-referencial mientras mantiene los registros eliminados invisibles para consultas
-normales de la aplicación. A continuación se implementan soft deletes con
-columnas timestamp, consultas filtradas, índices únicos, purge jobs y flujos de
+base de datos. Esto mantiene los datos disponibles para auditoría, recuperación
+e integridad referencial, mientras oculta los registros eliminados de las
+consultas normales de la aplicación. Abajo cubrimos soft deletes con columnas
+timestamp, consultas filtradas, índices únicos, purge jobs y flujos de
 recuperación en Python, JavaScript y Java.
 
 Para patrones relacionados, consultá [database-indexing](/recipes/database-indexing/)
@@ -52,13 +52,13 @@ en tu capa de acceso a datos.
 
 ## Cuándo Usar
 
-- Los usuarios necesitan recuperar datos eliminados accidentalmente. Consultá
+- Los usuarios borran datos accidentalmente y necesitan recuperarlos. Consultá
   [Database Transactions](/recipes/database-transactions/) para patrones de
   rollback.
-- Debés mantener auditorías para compliance (GDPR, HIPAA, SOC2).
+- Requerimientos de compliance (GDPR, HIPAA, SOC2) exigen audit trails.
 - Las restricciones de clave foránea hacen que los hard deletes sean difíciles o
   riesgosos.
-- Querés mostrar una UI de papelera o reciclaje.
+- Tu producto necesita una feature de papelera o reciclaje.
 
 ### Cuándo evitarlo
 
@@ -68,8 +68,8 @@ en tu capa de acceso a datos.
 - Tablas con volumen de escritura muy alto donde las filas eliminadas inflarían
   el almacenamiento y los backups. Usá una ventana de retención corta y purgado
   agresivo.
-- Datos sin necesidad de recuperación ni auditoría. Un `DELETE` real es más
-  simple y barato.
+- Datos sin necesidad de recuperación ni auditoría. Usá un `DELETE` real
+  directamente.
 
 ## Solución
 
@@ -274,8 +274,8 @@ GDPR y evita que el almacenamiento y backups crezcan sin control.
 - Programá hard deletes periódicos después del período de retención. El derecho
   de olvido del GDPR requiere eliminación o anonimización real.
 - Logueá hard deletes a una tabla de auditoría o event stream al purgar.
-- Testeá el flujo de restauración. El soft delete solo sirve si los usuarios
-  pueden recuperar desde una UI de papelera.
+- Testeá el flujo de restauración. El soft delete solo vale la pena si los
+  usuarios pueden recuperar desde una UI de papelera.
 - Usá índices parciales sobre registros activos para mantenerlos chicos y rápidos:
 
 ```sql
@@ -381,18 +381,19 @@ def test_purge_only_old_records(session):
   que hard-deletee o anonimice registros después de esa ventana. Una vez vi a
   una empresa fallar una auditoría GDPR porque sus filas soft-deleted
   permanecieron en producción 3 años sin ningún purge.
-- **PII en filas soft-deleted**: los registros soft-deleted siguen conteniendo
+- **PII en filas soft-deleted**: los registros soft-deleted siguen teniendo
   datos personales. Aplicá los mismos controles de acceso a filas soft-deleted
   que a las activas. No asumas que "borrado" significa "invisible para admins".
 - **Audit logging**: registrá quién soft-deleteó qué y cuándo. La columna
-  `deleted_at` te dice cuándo, pero no quién. Agregá una columna `deleted_by` o
-  escribí a una tabla de auditoría separada.
+  `deleted_at` te dice cuándo, pero no quién lo hizo. Agregá una columna
+  `deleted_by` o escribí a una tabla de auditoría separada.
 - **Control de acceso**: restringí quién puede consultar registros soft-deleted
   (ej: `paranoid: false` en Sequelize, `session.query` sin filtro en
-  SQLAlchemy). Solo admins o equipos de compliance deberían ver datos borrados.
+  SQLAlchemy). Solo admins o equipos de compliance deberían ver datos
+  borrados.
 - **Anonimización**: para el olvido GDPR, considerá anonimizar columnas PII al
-  momento del soft delete en vez de mantenerlas hasta el purge. Reduce el riesgo
-  si el purge job falla.
+  momento del soft delete en vez de mantenerlas hasta el purge. Así, si el
+  purge job falla, los datos personales ya no están.
 
 ## Monitoreo
 
