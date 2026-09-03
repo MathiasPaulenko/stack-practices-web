@@ -1,0 +1,401 @@
+[
+  {
+    "label": "idempotent-api-endpoints-en",
+    "model": "desklib",
+    "model_ai_pct": 50.7,
+    "ai_count": 43,
+    "human_count": 33,
+    "skipped_count": 2,
+    "total": 78,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.7,
+      "stddev": 9.6,
+      "cv": 0.76,
+      "verdict": "natural variation",
+      "sentence_count": 76,
+      "lengths": [
+        15,
+        18,
+        5,
+        23,
+        17,
+        17,
+        19,
+        11,
+        9,
+        10,
+        8,
+        12,
+        12,
+        17,
+        16,
+        12,
+        20,
+        15,
+        11,
+        31,
+        9,
+        8,
+        8,
+        9,
+        14,
+        6,
+        5,
+        21,
+        8,
+        85,
+        19,
+        5,
+        14,
+        14,
+        11,
+        10,
+        7,
+        13,
+        13,
+        11,
+        7,
+        22,
+        9,
+        10,
+        11,
+        10,
+        10,
+        12,
+        7,
+        11,
+        7,
+        11,
+        13,
+        7,
+        10,
+        12,
+        16,
+        9,
+        15,
+        11,
+        11,
+        10,
+        10,
+        11,
+        7,
+        12,
+        11,
+        6,
+        19,
+        8,
+        13,
+        10,
+        8,
+        5,
+        6,
+        8
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "**Duplicate requests**: send the same request twice with the same key.",
+        0.8647
+      ],
+      [
+        "Don't reuse a key for a different operation.",
+        0.8465
+      ],
+      [
+        "I've included working examples in\nPython (FastAPI), JavaScript (Express), and Java (Spring Boot) so you can copy\nthem directly.",
+        0.8463
+      ],
+      [
+        "[IETF Idempotency-Key Header Draft](https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/):\n  proposed standard for the Idempotency-Key header.",
+        0.8431
+      ],
+      [
+        "This recipe covers how to build idempotent endpoints with idempotency keys,\nnatural key constraints, and state checks.",
+        0.8332
+      ],
+      [
+        "The **processing** state is what stops two concurrent requests from running the\nsame operation twice.",
+        0.8253
+      ],
+      [
+        "Creating webhook receivers that may deliver the same event more than once.",
+        0.8174
+      ],
+      [
+        "One wins, the other gets 409 Conflict.",
+        0.8151
+      ],
+      [
+        "In distributed\nsystems where networks fail, timeouts happen, and clients retry, this matters\nmore than you'd expect.",
+        0.7916
+      ],
+      [
+        "GET, HEAD, PUT, DELETE, and OPTIONS are all idempotent by HTTP spec.",
+        0.7811
+      ],
+      [
+        "I've\n  made this mandatory for every endpoint that creates or transfers money, after\n  the triple-charge incident I mentioned earlier.",
+        0.771
+      ],
+      [
+        "Don't use incrementing integers or timestamps: they\n  collide across clients and defeat the purpose.",
+        0.7665
+      ],
+      [
+        "I've seen this cause\n  duplicate charges in production: two parallel requests both pass the key check\n  before either writes the processing marker.",
+        0.7658
+      ],
+      [
+        "When a second request arrives mid-flight,\nthe server returns 409 Conflict.",
+        0.7047
+      ],
+      [
+        "This works when\nthe key maps directly to a record.",
+        0.6985
+      ],
+      [
+        "Using idempotency keys on GET requests, which are already idempotent.",
+        0.6822
+      ],
+      [
+        "Use UUID v4 for keys.",
+        0.6655
+      ],
+      [
+        "A 24-hour TTL is common for financial\noperations.",
+        0.6474
+      ],
+      [
+        "The store should treat it as a fresh request.",
+        0.6367
+      ],
+      [
+        "Each catches a different class of bug.",
+        0.6204
+      ],
+      [
+        "Rate limiting prevents too many\nrequests.",
+        0.6175
+      ],
+      [
+        "I once watched a payment system charge a customer three times for the same order.",
+        0.6147
+      ],
+      [
+        "Test idempotency with three scenarios: duplicate requests, concurrent requests,\nand TTL expiry.",
+        0.5905
+      ],
+      [
+        "Don't accept arbitrary strings: a UUID v4 keeps the store clean.",
+        0.5864
+      ],
+      [
+        "Implementing retry logic where the same request may be sent several times.",
+        0.5783
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "idempotent-api-endpoints-es",
+    "model": "desklib",
+    "model_ai_pct": 37.6,
+    "ai_count": 19,
+    "human_count": 60,
+    "skipped_count": 1,
+    "total": 80,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.9,
+      "stddev": 10.4,
+      "cv": 0.75,
+      "verdict": "natural variation",
+      "sentence_count": 79,
+      "lengths": [
+        17,
+        23,
+        8,
+        25,
+        21,
+        18,
+        17,
+        11,
+        12,
+        10,
+        10,
+        12,
+        14,
+        12,
+        14,
+        19,
+        18,
+        16,
+        20,
+        16,
+        15,
+        29,
+        13,
+        8,
+        10,
+        11,
+        18,
+        8,
+        7,
+        23,
+        9,
+        96,
+        20,
+        6,
+        13,
+        17,
+        12,
+        10,
+        8,
+        15,
+        16,
+        11,
+        7,
+        22,
+        12,
+        10,
+        11,
+        10,
+        10,
+        14,
+        8,
+        12,
+        11,
+        11,
+        10,
+        9,
+        10,
+        11,
+        17,
+        8,
+        15,
+        13,
+        13,
+        12,
+        11,
+        14,
+        9,
+        12,
+        11,
+        7,
+        21,
+        10,
+        7,
+        13,
+        9,
+        9,
+        6,
+        6,
+        9
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "S\u00ed, con constraints de base de datos.",
+        0.8506
+      ],
+      [
+        "PATCH\ndepende de la sem\u00e1ntica del patch.",
+        0.7404
+      ],
+      [
+        "[IETF Idempotency-Key Header Draft](https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/):\n  propuesta de est\u00e1ndar para el header Idempotency-Key.",
+        0.7127
+      ],
+      [
+        "Operaciones sin efectos secundarios o sin riesgo de retry rara vez justifican\n  el almacenamiento y la l\u00f3gica adicional.",
+        0.6827
+      ],
+      [
+        "Veinticuatro\n  horas funciona para pagos; menos para operaciones menos cr\u00edticas.",
+        0.6569
+      ],
+      [
+        "POST es\nla excepci\u00f3n principal: POSTs repetidos suelen crear m\u00faltiples recursos.",
+        0.6534
+      ],
+      [
+        "[RFC 7231: Sem\u00e1ntica HTTP](https://datatracker.ietf.org/doc/html/rfc7231#section-4.2.2):\n  definiciones oficiales de safety e idempotency de m\u00e9todos HTTP.",
+        0.6274
+      ],
+      [
+        "**Requests duplicados**: envi\u00e1 el mismo request dos veces con la misma clave.",
+        0.6057
+      ],
+      [
+        "Para operaciones\nmulti-paso, un store dedicado es m\u00e1s claro.",
+        0.5916
+      ],
+      [
+        "GET, HEAD, PUT, DELETE y OPTIONS son todos idempotentes por spec HTTP.",
+        0.5812
+      ],
+      [
+        "El\nsegundo llamado debe devolver la respuesta cacheada con cached: true.",
+        0.5784
+      ],
+      [
+        "**Requests concurrentes**: dispar\u00e1 dos requests simult\u00e1neos con la misma clave.",
+        0.5596
+      ],
+      [
+        "Crear receptores de webhooks que pueden entregar el mismo evento m\u00e1s de una\n  vez.",
+        0.5507
+      ],
+      [
+        "Crear receptores de webhooks que pueden entregar el mismo evento m\u00e1s de una\n  vez.",
+        0.5507
+      ],
+      [
+        "De lo\ncontrario, la clave queda bloqueada.",
+        0.5324
+      ],
+      [
+        "Usar UUID v4 para las claves.",
+        0.5156
+      ],
+      [
+        "Si\nejecuta la operaci\u00f3n nuevamente, tu verificaci\u00f3n de clave est\u00e1 rota.",
+        0.5131
+      ],
+      [
+        "Un TTL de 24 horas es com\u00fan para operaciones\nfinancieras.",
+        0.5062
+      ],
+      [
+        "Verificar la idempotency key sin bloqueo at\u00f3mico.",
+        0.5048
+      ],
+      [
+        "El servidor lo verifica para detectar requests\nduplicados y devolver la respuesta cacheada en lugar de ejecutar la operaci\u00f3n\nnuevamente.",
+        0.4965
+      ],
+      [
+        "Ambos significan que\n  el recurso ya no existe, que es lo que el cliente necesita.",
+        0.475
+      ],
+      [
+        "**Expiraci\u00f3n de TTL**: sete\u00e1 un TTL corto en tests (1 segundo), esper\u00e1, y\nenvi\u00e1 la misma clave.",
+        0.4676
+      ],
+      [
+        "[AWS API Gateway Idempotency](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-idempotency.html):\n  soporte managed de idempotency para APIs de AWS.",
+        0.4667
+      ],
+      [
+        "Incluyo ejemplos\nfuncionales en Python (FastAPI), JavaScript (Express) y Java (Spring Boot) para\nque los copies directamente.",
+        0.4649
+      ],
+      [
+        "La idempotencia evita efectos secundarios duplicados.",
+        0.4631
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
