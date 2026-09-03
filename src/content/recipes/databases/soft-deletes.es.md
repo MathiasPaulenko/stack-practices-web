@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: soft-deletes
-title: "Implementa borrado lógico en bases de datos con Python, JS y Java"
+title: "Borrado Lógico en Bases de Datos con Python, JS y Java"
 description: "Aprende a implementar borrado lógico (soft deletes) en Python, JavaScript y Java. Ejemplos con columnas flag, consultas filtradas y eliminación permanente."
 metaDescription: "Implementa borrado lógico en bases de datos con Python, JavaScript y Java. Usá columnas flag, consultas filtradas, índices únicos, purge jobs y recuperación."
 difficulty: beginner
@@ -23,8 +23,9 @@ relatedResources:
   - /recipes/database-query-result-caching
   - /patterns/repository-pattern
   - /patterns/unit-of-work-pattern
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-09-02"
 publishedAt: "2026-06-11"
+estimatedReadTime: 7
 author: Mathias Paulenko
 seo:
   metaDescription: "Implementa borrado lógico en bases de datos con Python, JavaScript y Java. Usá columnas flag, consultas filtradas, índices únicos, purge jobs y recuperación."
@@ -43,6 +44,11 @@ referencial mientras mantiene los registros eliminados invisibles para consultas
 normales de la aplicación. A continuación se implementan soft deletes con
 columnas timestamp, consultas filtradas, índices únicos, purge jobs y flujos de
 recuperación en Python, JavaScript y Java.
+
+Para patrones relacionados, consultá [database-indexing](/recipes/database-indexing/)
+para estrategias de índices parciales y
+[repository-pattern](/patterns/repository-pattern/) para integrar soft deletes
+en tu capa de acceso a datos.
 
 ## Cuándo Usar
 
@@ -235,6 +241,14 @@ Los soft deletes agregan una columna `deleted_at` (o `is_deleted`). En vez de
 `DELETE FROM`, ejecutás `UPDATE ... SET deleted_at = NOW()`. Las consultas
 estándar agregan `WHERE deleted_at IS NULL` para excluir las filas soft-deleted.
 
+```mermaid
+flowchart LR
+    Active["Registro Activo\ndeleted_at = NULL"] -->|"UPDATE deleted_at = NOW()"| Soft["Soft Deleted\ndeleted_at = timestamp"]
+    Soft -->|"UPDATE deleted_at = NULL"| Active
+    Soft -->|"Purge job\n(retención expirada)"| Purged["Hard Deleted\nfila removida"]
+    Soft -->|"Query admin\n(paranoid: false)"| Visible["Visible para admins"]
+```
+
 Esto te da datos recuperables, claves foráneas preservadas y un audit trail
 automático. El costo son tablas más grandes, índices únicos especiales y una
 estrategia de purgado para eliminación real.
@@ -284,6 +298,141 @@ CREATE INDEX idx_orders_active_user ON orders (user_id) WHERE deleted_at IS NULL
   filtrarlos.
 - Hacer soft delete de datos que deberían hard-deletearse inmediatamente, como
   datos de usuario bajo un pedido de olvido del GDPR.
+
+## Estrategia de Testing
+
+Los soft deletes necesitan tres categorías de tests: filtrado de visibilidad,
+flujos de restauración y correctitud del purge. En mi experiencia, los equipos
+testean el soft delete en sí pero saltan los tests de restore y purge — ahí
+están los bugs reales.
+
+### Filtrado de visibilidad
+
+Verificá que los registros soft-deleted no aparezcan en consultas por defecto:
+
+```python
+def test_soft_deleted_user_excluded_from_visible(session):
+    user = User(email="test@example.com")
+    session.add(user)
+    session.commit()
+
+    user.soft_delete()
+    session.commit()
+
+    visible = User.query_visible(session).all()
+    assert user not in visible
+    assert len(visible) == 0
+```
+
+```javascript
+test('soft-deleted user excluded from findAll', async () => {
+  const user = await User.create({ email: 'test@example.com' });
+  await user.destroy(); // paranoid soft delete
+
+  const visible = await User.findAll();
+  expect(visible).toHaveLength(0);
+});
+```
+
+### Flujo de restauración
+
+Testeá que restaurar un registro soft-deleted lo traiga de vuelta y maneje
+registros relacionados:
+
+```python
+def test_restore_user_and_posts(session):
+    user = User(email="test@example.com")
+    session.add(user)
+    session.commit()
+
+    user.soft_delete()
+    session.commit()
+
+    # Restaurar
+    restored = restore_user(session, user.id)
+    assert restored.deleted_at is None
+    assert User.query_visible(session).filter_by(id=user.id).one()
+```
+
+### Correctitud del purge
+
+Verificá que los purge jobs solo remuevan registros más allá del período de
+retención:
+
+```python
+def test_purge_only_old_records(session):
+    old_user = User(email="old@example.com")
+    old_user.deleted_at = datetime.datetime.utcnow() - datetime.timedelta(days=31)
+    recent_user = User(email="recent@example.com")
+    recent_user.deleted_at = datetime.datetime.utcnow() - datetime.timedelta(days=5)
+    session.add_all([old_user, recent_user])
+    session.commit()
+
+    purge_old_soft_deletes(session, days=30)
+
+    assert session.query(User).filter_by(email="old@example.com").first() is None
+    assert session.query(User).filter_by(email="recent@example.com").first() is not None
+```
+
+## Consideraciones de Seguridad
+
+- **Compliance GDPR**: el soft delete solo no satisface el derecho al olvido
+  (Artículo 17). Necesitás un período de retención documentado y un purge job
+  que hard-deletee o anonimice registros después de esa ventana. Una vez vi a
+  una empresa fallar una auditoría GDPR porque sus filas soft-deleted
+  permanecieron en producción 3 años sin ningún purge.
+- **PII en filas soft-deleted**: los registros soft-deleted siguen conteniendo
+  datos personales. Aplicá los mismos controles de acceso a filas soft-deleted
+  que a las activas. No asumas que "borrado" significa "invisible para admins".
+- **Audit logging**: registrá quién soft-deleteó qué y cuándo. La columna
+  `deleted_at` te dice cuándo, pero no quién. Agregá una columna `deleted_by` o
+  escribí a una tabla de auditoría separada.
+- **Control de acceso**: restringí quién puede consultar registros soft-deleted
+  (ej: `paranoid: false` en Sequelize, `session.query` sin filtro en
+  SQLAlchemy). Solo admins o equipos de compliance deberían ver datos borrados.
+- **Anonimización**: para el olvido GDPR, considerá anonimizar columnas PII al
+  momento del soft delete en vez de mantenerlas hasta el purge. Reduce el riesgo
+  si el purge job falla.
+
+## Monitoreo
+
+Trackeá estas métricas para que los soft deletes no degraden el performance:
+
+| Métrica | Qué te dice | Threshold de alerta |
+| --- | --- | --- |
+| soft_deleted_rows_total | Cantidad de filas soft-deleted por tabla | > 20% del total |
+| purge_job_success_rate | Si el purge job corrió exitosamente | < 100% |
+| purge_job_duration | Cuánto tarda el purge job | > 30 min |
+| query_latency_active | Latencia de queries sobre filas activas | p99 > 200ms |
+| storage_growth_rate | Crecimiento mensual de datos soft-deleted | > 10% mes-a-mes |
+
+En Python, instrumentá con `prometheus_client`:
+
+```python
+from prometheus_client import Gauge, Counter
+
+soft_deleted_count = Gauge('soft_deleted_rows_total', 'Soft-deleted rows', ['table'])
+purge_success = Counter('purge_job_total', 'Purge job runs', ['status'])
+
+def monitored_purge(session, days=30):
+    try:
+        purged = purge_old_soft_deletes(session, days)
+        soft_deleted_count.labels(table='users').dec(purged)
+        purge_success.labels(status='success').inc()
+    except Exception:
+        purge_success.labels(status='failure').inc()
+        raise
+```
+
+## See Also
+
+- [Documentación de PostgreSQL partial indexes](https://www.postgresql.org/docs/current/indexes-partial.html)
+- [SQLAlchemy ORM querying](https://docs.sqlalchemy.org/en/20/orm/queryguide/)
+- [Sequelize paranoid models](https://sequelize.org/docs/v6/core-concepts/paranoid/)
+- [Hibernate @Filter annotation](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#pc-filter)
+- [GDPR Artículo 17 — Derecho al olvido](https://gdpr-info.eu/art-17-gdpr/)
+- [database-transactions](/recipes/database-transactions/)
+- [database-migrations-safely](/recipes/database-migrations-safely/)
 
 ## FAQ
 
