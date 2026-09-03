@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/active-record-pattern
   - /patterns/composite-entity-pattern
   - /patterns/identity-map-pattern
+  - /recipes/soft-deletes
 lastUpdated: "2026-06-25"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko

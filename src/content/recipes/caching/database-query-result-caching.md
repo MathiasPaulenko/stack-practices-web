@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/python-redis-cache-decorator
   - /recipes/python-django-cache-framework
   - /guides/complete-guide-api-versioning-strategies
-  - /guides/complete-guide-react-performance-optimization
+  - /recipes/soft-deletes
   - /recipes/python-httpx-cache-responses
   - /recipes/python-celery-task-queue
 lastUpdated: "2026-07-03"
