@@ -47,9 +47,9 @@ seo:
 
 RabbitMQ es un message broker open-source que usa AMQP (Advanced Message
 Queuing Protocol). Rutea mensajes entre producers y consumers con tipos de
-exchange flexibles, entrega confiable y un set rico de opciones de queue. Esta guía cubre
-la arquitectura core, tipos de exchange, patrones de routing, capacidades de
-queue, clustering y mejores prácticas de producción.
+exchange flexibles, entrega confiable y un montón de opciones de queue. Acá
+cubrimos la arquitectura core, tipos de exchange, patrones de routing,
+capacidades de queue, clustering y mejores prácticas de producción.
 
 Para patrones relacionados, consultá [rabbitmq-dead-letter-queue](/recipes/rabbitmq-dead-letter-queue/)
 para manejo de poison messages, [circuit-breaker-pattern](/patterns/circuit-breaker-pattern/)
@@ -148,7 +148,7 @@ channel.basic_publish(
 
 ### Topic exchange
 
-Rutea mensajes basado en patrones de routing key. `*` matchea una palabra; `#`
+Rutea mensajes matcheando patrones de routing key. `*` matchea una palabra; `#`
 matchea cero o más palabras.
 
 ```python
@@ -245,7 +245,7 @@ channel.queue_declare(queue="task_queue", auto_delete=True)
 
 ### Dead letter exchange
 
-Mensajes que expiran, son rechazados o exceden límites de largo van a un dead
+Mensajes que expiran, reciben rechazo o exceden límites de largo van a un dead
 letter exchange.
 
 ```python
@@ -286,7 +286,7 @@ channel.basic_publish(
 
 ### Work queue (competing consumers)
 
-Múltiples consumers comparten una queue. Cada mensaje es procesado por exactamente
+Múltiples consumers comparten una queue. Cada mensaje va a exactamente
 un consumer.
 
 ```python
@@ -420,8 +420,8 @@ except pika.exceptions.UnroutableError:
 channel.basic_qos(prefetch_count=10)
 ```
 
-Muy bajo subutiliza el consumer. Muy alto causa distribución injusta. La mayoría
-de workloads funcionan bien entre 10 y 100, dependiendo del tiempo de procesamiento.
+Muy bajo y subutilizás el consumer. Muy alto y obtenés distribución injusta. La mayoría
+de workloads funciona bien entre 10 y 100, dependiendo del tiempo de procesamiento.
 
 ### Connection y channel management
 
@@ -557,7 +557,7 @@ def test_idempotent_consumer(redis_client):
 ## Consideraciones de Seguridad
 
 - **TLS para todo el tráfico**: habilitá TLS para conexiones de clientes y
-  tráfico inter-broker. RabbitMQ soporta TLS termination en el puerto 5671.
+  tráfico inter-broker. RabbitMQ puede terminar TLS en el puerto 5671.
   Nunca corras producción con AMQP plaintext en el puerto 5672.
 - **Autenticación**: usá SASL PLAIN o EXTERNAL (certificados x509) para auth
   de clientes. Evitá el usuario guest por defecto en producción — deshabilitalo
@@ -573,8 +573,8 @@ def test_idempotent_consumer(redis_client):
 - **Gestión de credenciales**: guardá las credenciales de conexión en un secret
   manager (Vault, AWS Secrets Manager), no en variables de entorno o archivos
   de config commiteados a git. Rotá las credenciales regularmente.
-- **Rate limiting**: configurá `channel_max` y límites de conexión por usuario
-  para prevenir agotamiento de recursos por clientes mal comportados.
+- **Rate limiting**: capá `channel_max` y límites de conexión por usuario para
+  que clientes mal comportados no agoten los recursos.
 
 ## See Also
 
@@ -598,8 +598,8 @@ routing complejo.
 ### ¿Qué diferencia hay entre quorum queues y mirrored queues?
 
 Las quorum queues usan consenso Raft para replicación y mayor consistencia. Las
-mirrored queues usan un modelo master-slave. Las quorum queues son recomendadas
-para deployments nuevos; las classic mirrored están deprecadas.
+mirrored queues usan un modelo master-slave. Recomendamos quorum queues para
+deployments nuevos; las classic mirrored quedaron deprecadas.
 
 ### ¿Cómo manejo poison messages?
 

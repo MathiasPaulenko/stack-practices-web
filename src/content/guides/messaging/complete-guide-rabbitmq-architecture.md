@@ -47,8 +47,8 @@ seo:
 
 RabbitMQ is an open-source message broker that speaks AMQP (Advanced Message
 Queuing Protocol). It routes messages between producers and consumers with
-flexible exchange types, reliable delivery, and a rich set of queue options. This guide
-covers the core architecture, exchange types, routing patterns, queue
+flexible exchange types, reliable delivery, and plenty of queue options. Here
+we'll cover the core architecture, exchange types, routing patterns, queue
 capabilities, clustering, and production best practices.
 
 For related patterns, see [rabbitmq-dead-letter-queue](/recipes/rabbitmq-dead-letter-queue/)
@@ -102,7 +102,7 @@ Producer → Exchange → (Binding + Routing Key) → Queue → Consumer
 ```
 
 - **Exchange**: receives messages from producers and routes them to queues.
-- **Queue**: a FIFO buffer that holds messages until a consumer picks them up.
+- **Queue**: a FIFO buffer holding messages until a consumer picks them up.
 - **Binding**: a link between an exchange and a queue with a routing rule.
 - **Routing key**: a string the exchange checks to decide which queue gets the
   message.
@@ -145,7 +145,7 @@ channel.basic_publish(
 
 ### Topic exchange
 
-Routes messages based on routing key patterns. `*` matches one word; `#` matches
+Routes messages by matching routing key patterns. `*` matches one word; `#` matches
 zero or more words.
 
 ```python
@@ -241,7 +241,7 @@ channel.queue_declare(queue="task_queue", auto_delete=True)
 
 ### Dead letter exchange
 
-Messages that expire, are rejected, or exceed queue length limits go to a dead
+Messages that expire, get rejected, or exceed queue length limits go to a dead
 letter exchange.
 
 ```python
@@ -282,7 +282,7 @@ channel.basic_publish(
 
 ### Work queue (competing consumers)
 
-Several consumers share a queue. Each message is processed by exactly one
+Several consumers share a queue. Each message goes to exactly one
 consumer.
 
 ```python
@@ -416,8 +416,9 @@ except pika.exceptions.UnroutableError:
 channel.basic_qos(prefetch_count=10)
 ```
 
-Too low underutilizes the consumer. Too high causes unfair distribution. I find
-that most workloads land between 10 and 100, depending on processing time.
+Set it too low and you underutilize the consumer. Too high and you get unfair
+distribution. I find that most workloads land between 10 and 100, depending on
+processing time.
 
 ### Connection and channel management
 
@@ -471,7 +472,7 @@ for queue in response.json():
 - Enable publisher confirms for producers that must not lose messages.
 - Tune `prefetch_count` for the consumer workload.
 - Prefer quorum queues for high availability in new deployments.
-- For production, run a cluster of at least 3 nodes.
+- For production, you want at least 3 cluster nodes — not fewer.
 - Reuse long-lived connections and open a channel for each publisher or consumer.
 - Set heartbeats and blocked connection timeouts.
 - Use TLS for client and inter-broker traffic.
@@ -481,7 +482,7 @@ for queue in response.json():
 
 ## Common Mistakes
 
-- Opening a new connection for every message. Connections are expensive; channels aren't.
+- Opening a fresh connection for every single message. Connections cost a lot; channels don't.
 - Leaving `prefetch_count` too high, causing one consumer to hoard messages.
 - Not configuring publisher confirms and losing messages on broker failure.
 - Sending very large messages through RabbitMQ. Use an object store for payloads.
@@ -551,7 +552,7 @@ def test_idempotent_consumer(redis_client):
 ## Security Considerations
 
 - **TLS for all traffic**: enable TLS for client connections and inter-broker
-  traffic. RabbitMQ supports TLS termination on port 5671. Never run production
+  traffic. RabbitMQ can terminate TLS on port 5671. Never run production
   with plaintext AMQP on port 5672.
 - **Authentication**: use SASL PLAIN or EXTERNAL (x509 certificates) for client
   auth. Avoid the default guest user in production — disable it entirely.
@@ -564,8 +565,8 @@ def test_idempotent_consumer(redis_client):
 - **Credential management**: store connection credentials in a secret manager
   (Vault, AWS Secrets Manager), not in environment variables or config files
   committed to git. Rotate credentials regularly.
-- **Rate limiting**: set `channel_max` and connection limits per user to
-  stop misbehaving clients from exhausting resources.
+- **Rate limiting**: cap `channel_max` and connection limits per user so
+  misbehaving clients can't exhaust resources.
 
 ## See Also
 
@@ -589,13 +590,13 @@ complex routing.
 ### What is the difference between quorum queues and mirrored queues?
 
 Quorum queues use Raft consensus for replication and stronger consistency.
-Mirrored queues use a master-slave model. Quorum queues are recommended for new
-RabbitMQ deployments; classic mirrored queues are deprecated.
+Mirrored queues use a master-slave model. We recommend quorum queues for new
+RabbitMQ deployments; classic mirrored queues have been deprecated.
 
 ### How do I handle poison messages?
 
 Set up a dead letter exchange. Configure the queue with `x-dead-letter-exchange`.
-When a message is rejected without requeue, expires, or exceeds the max delivery
+When a message gets rejected without requeue, expires, or exceeds the max delivery
 count, it goes to the DLX. Monitor the dead letter queue and investigate.
 
 ### What is prefetch count and how should I set it?

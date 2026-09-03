@@ -2,23 +2,23 @@
   {
     "label": "complete-guide-rabbitmq-architecture-en",
     "model": "desklib",
-    "model_ai_pct": 46.0,
-    "ai_count": 33,
-    "human_count": 56,
+    "model_ai_pct": 45.0,
+    "ai_count": 34,
+    "human_count": 55,
     "skipped_count": 6,
     "total": 95,
     "pattern_totals": {
       "missing_contraction": 1
     },
     "text_metrics": {
-      "mean": 12.0,
+      "mean": 12.1,
       "stddev": 11.8,
-      "cv": 0.99,
+      "cv": 0.98,
       "verdict": "natural variation",
       "sentence_count": 89,
       "lengths": [
         13,
-        20,
+        18,
         17,
         24,
         11,
@@ -31,7 +31,7 @@
         6,
         12,
         10,
-        13,
+        12,
         13,
         14,
         10,
@@ -46,27 +46,27 @@
         6,
         16,
         5,
-        8,
+        7,
         10,
         5,
         6,
-        5,
-        5,
+        9,
+        7,
         14,
         113,
         10,
         10,
         6,
         9,
-        10,
+        12,
         12,
         6,
         7,
         6,
         8,
         9,
-        7,
-        5,
+        8,
+        6,
         10,
         10,
         6,
@@ -90,12 +90,12 @@
         13,
         14,
         23,
-        16,
+        15,
         27,
         22,
         10,
         6,
-        13,
+        14,
         6,
         5,
         19,
@@ -110,47 +110,31 @@
     },
     "top_ai_sentences": [
       [
-        "**Rate limiting**: set channel_max and connection limits per user to\n  stop misbehaving clients from exhausting resources.",
-        0.8804
+        "Here\nwe'll cover the core architecture, exchange types, routing patterns, queue\ncapabilities, clustering, and production best practices.",
+        0.7971
       ],
       [
-        "For production, run a cluster of at least 3 nodes.",
-        0.8356
+        "**Rate limiting**: cap channel_max and connection limits per user so\n  misbehaving clients can't exhaust resources.",
+        0.7709
       ],
       [
-        "Opening a new connection for every message.",
-        0.8268
+        "For production, you want at least 3 cluster nodes \u2014 not fewer.",
+        0.7466
       ],
       [
-        "This guide\ncovers the core architecture, exchange types, routing patterns, queue\ncapabilities, clustering, and production best practices.",
-        0.7846
+        "**Queue**: a FIFO buffer holding messages until a consumer picks them up.",
+        0.7232
       ],
       [
-        "**Queue**: a FIFO buffer that holds messages until a consumer picks them up.",
-        0.7722
-      ],
-      [
-        "RabbitMQ supports TLS termination on port 5671.",
-        0.7537
-      ],
-      [
-        "Too low underutilizes the consumer.",
-        0.7396
-      ],
-      [
-        "It routes messages between producers and consumers with\nflexible exchange types, reliable delivery, and a rich set of queue options.",
-        0.7109
-      ],
-      [
-        "Routes messages based on routing key patterns.",
-        0.6895
+        "Opening a fresh connection for every single message.",
+        0.7208
       ],
       [
         "RabbitMQ is an open-source message broker that speaks AMQP (Advanced Message\nQueuing Protocol).",
         0.6864
       ],
       [
-        "I find\nthat most workloads land between 10 and 100, depending on processing time.",
+        "I find that most workloads land between 10 and 100, depending on\nprocessing time.",
         0.6656
       ],
       [
@@ -166,12 +150,12 @@
         0.6617
       ],
       [
-        "Use an object store for payloads.",
-        0.6597
+        "It routes messages between producers and consumers with\nflexible exchange types, reliable delivery, and plenty of queue options.",
+        0.6603
       ],
       [
-        "Too high causes unfair distribution.",
-        0.655
+        "Use an object store for payloads.",
+        0.6597
       ],
       [
         "Quorum queues give you replicated, durable queues with Raft consensus.",
@@ -190,8 +174,20 @@
         0.6263
       ],
       [
+        "Routes messages by matching routing key patterns.",
+        0.6247
+      ],
+      [
         "Durable queues survive broker restarts.",
         0.6232
+      ],
+      [
+        "RabbitMQ can terminate TLS on port 5671.",
+        0.6218
+      ],
+      [
+        "Each message goes to exactly one\nconsumer.",
+        0.6176
       ],
       [
         "Routes based on message headers instead of routing keys.",
@@ -202,12 +198,16 @@
         0.6087
       ],
       [
-        "Each message is processed by exactly one\nconsumer.",
-        0.6038
-      ],
-      [
         "Monitor queue depth, consumer count, and memory usage.",
         0.5931
+      ],
+      [
+        "**Exchange**: receives messages from producers and routes them to queues.",
+        0.5884
+      ],
+      [
+        "**Routing key**: a string the exchange checks to decide which queue gets the\n  message.",
+        0.582
       ]
     ],
     "diagnostics_sample": [
@@ -236,9 +236,9 @@
   {
     "label": "complete-guide-rabbitmq-architecture-es",
     "model": "desklib",
-    "model_ai_pct": 38.6,
-    "ai_count": 25,
-    "human_count": 67,
+    "model_ai_pct": 38.3,
+    "ai_count": 26,
+    "human_count": 66,
     "skipped_count": 4,
     "total": 96,
     "pattern_totals": {},
@@ -250,8 +250,8 @@
       "sentence_count": 92,
       "lengths": [
         13,
-        21,
-        21,
+        20,
+        20,
         27,
         7,
         11,
@@ -272,7 +272,7 @@
         9,
         17,
         13,
-        8,
+        7,
         10,
         10,
         11,
@@ -280,12 +280,12 @@
         7,
         16,
         5,
-        8,
+        7,
         11,
         6,
         6,
-        5,
-        5,
+        6,
+        6,
         15,
         117,
         10,
@@ -329,7 +329,7 @@
         27,
         11,
         7,
-        13,
+        11,
         5,
         5,
         17,
@@ -365,10 +365,6 @@
         0.7186
       ],
       [
-        "**Rate limiting**: configur\u00e1 channel_max y l\u00edmites de conexi\u00f3n por usuario\n  para prevenir agotamiento de recursos por clientes mal comportados.",
-        0.6894
-      ],
-      [
         "Payloads de mensajes muy grandes.",
         0.6817
       ],
@@ -401,16 +397,12 @@
         0.6203
       ],
       [
-        "Muy bajo subutiliza el consumer.",
-        0.6189
-      ],
-      [
         "RabbitMQ es un message broker open-source que usa AMQP (Advanced Message\nQueuing Protocol).",
         0.598
       ],
       [
-        "La mayor\u00eda\nde workloads funcionan bien entre 10 y 100, dependiendo del tiempo de procesamiento.",
-        0.5922
+        "La mayor\u00eda\nde workloads funciona bien entre 10 y 100, dependiendo del tiempo de procesamiento.",
+        0.5801
       ],
       [
         "**Connection**: el link TCP que tu cliente abre con el broker.",
@@ -429,8 +421,20 @@
         0.558
       ],
       [
+        "**Rate limiting**: cap\u00e1 channel_max y l\u00edmites de conexi\u00f3n por usuario para\n  que clientes mal comportados no agoten los recursos.",
+        0.5455
+      ],
+      [
         "Las durable queues sobreviven reinicios del broker.",
         0.5387
+      ],
+      [
+        "RabbitMQ puede terminar TLS en el puerto 5671.",
+        0.5383
+      ],
+      [
+        "Muy bajo y subutiliz\u00e1s el consumer.",
+        0.534
       ],
       [
         "Kafka es mejor para streaming y retenci\u00f3n larga.",
@@ -439,10 +443,6 @@
       [
         "Las quorum queues proveen queues replicadas y durables con consenso Raft.",
         0.5108
-      ],
-      [
-        "Tracke\u00e1 los IDs\nprocesados:\n**TLS para todo el tr\u00e1fico**: habilit\u00e1 TLS para conexiones de clientes y\n  tr\u00e1fico inter-broker.",
-        0.5094
       ]
     ],
     "diagnostics_sample": []
