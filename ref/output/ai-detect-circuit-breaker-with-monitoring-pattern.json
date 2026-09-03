@@ -1,0 +1,402 @@
+[
+  {
+    "label": "circuit-breaker-with-monitoring-pattern-en",
+    "model": "desklib",
+    "model_ai_pct": 44.3,
+    "ai_count": 27,
+    "human_count": 51,
+    "skipped_count": 1,
+    "total": 79,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 11.6,
+      "stddev": 5.0,
+      "cv": 0.43,
+      "verdict": "somewhat uniform",
+      "sentence_count": 78,
+      "lengths": [
+        13,
+        19,
+        20,
+        23,
+        24,
+        16,
+        11,
+        10,
+        9,
+        8,
+        9,
+        11,
+        8,
+        11,
+        8,
+        7,
+        8,
+        20,
+        10,
+        11,
+        7,
+        9,
+        10,
+        13,
+        14,
+        10,
+        11,
+        17,
+        7,
+        12,
+        9,
+        13,
+        8,
+        10,
+        12,
+        19,
+        15,
+        11,
+        9,
+        16,
+        21,
+        12,
+        8,
+        12,
+        15,
+        12,
+        6,
+        11,
+        7,
+        10,
+        13,
+        8,
+        14,
+        9,
+        12,
+        6,
+        14,
+        10,
+        9,
+        10,
+        9,
+        9,
+        7,
+        7,
+        37,
+        7,
+        10,
+        8,
+        9,
+        13,
+        15,
+        6,
+        7,
+        9,
+        9,
+        11,
+        8,
+        18
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "**Rejected calls**: a counter that shows when the breaker drops traffic.",
+        0.8664
+      ],
+      [
+        "This gives you dashboards for real-time breaker states, alerts when breakers\nstay open too long, and data to watch recovery patterns over time.",
+        0.7529
+      ],
+      [
+        "Metrics let you build dashboards and alerts.",
+        0.7468
+      ],
+      [
+        "**Open duration**: a histogram tracking how long recovery takes.",
+        0.7095
+      ],
+      [
+        "Monitoring a circuit breaker means emitting metrics for:\n**State**: a gauge mapped to 0 (closed), 1 (open), or 2 (half-open).",
+        0.7064
+      ],
+      [
+        "Without monitoring, you can't see which\nbreakers are open, how often they trip, or how long they stay open.",
+        0.6965
+      ],
+      [
+        "Development environments where you can observe behavior directly.",
+        0.677
+      ],
+      [
+        "[Metrics Aggregation Pattern](/patterns/metrics-aggregation-pattern/):\n  aggregating metrics across services.",
+        0.6741
+      ],
+      [
+        "**Failures and successes**: counters so you can calculate error rates.",
+        0.6627
+      ],
+      [
+        "If you do one thing for correlation, do this.",
+        0.6421
+      ],
+      [
+        "[Prometheus Documentation](https://prometheus.io/docs/introduction/overview/):\n  official docs for metric types, querying, and alerting.",
+        0.6357
+      ],
+      [
+        "The next\noutage, we saw the open breaker within seconds.",
+        0.6343
+      ],
+      [
+        "You end up guessing during incidents.",
+        0.6332
+      ],
+      [
+        "Use the Prometheus test\nutilities to collect and assert on metric values.",
+        0.6299
+      ],
+      [
+        "[Grafana Dashboard Examples](https://grafana.com/grafana/dashboards/):\n  community dashboards for circuit breaker monitoring.",
+        0.6159
+      ],
+      [
+        "I've seen this leave teams blind to degradation.",
+        0.6146
+      ],
+      [
+        "Expose state as a gauge with numeric values for each state.",
+        0.6065
+      ],
+      [
+        "[Circuit Breaker Pattern](/patterns/circuit-breaker-pattern/):\n  the base pattern this builds on.",
+        0.6052
+      ],
+      [
+        "**State transitions**: a counter to detect flapping.",
+        0.5977
+      ],
+      [
+        "I've seen teams miss outages\n  because they only checked the gauge during incidents.",
+        0.5868
+      ],
+      [
+        "[Resilience4j Circuit Breaker](https://resilience4j.readme.io/getting-started-3/usage):\n  Java library with built-in Micrometer metrics.",
+        0.5765
+      ],
+      [
+        "This makes it easy to correlate a [Grafana](https://grafana.com/docs/grafana/latest/)\nalert with the matching [structured logs](/patterns/structured-logging-pattern/).",
+        0.5764
+      ],
+      [
+        "It points to an unstable\ndependency that intermittently fails.",
+        0.571
+      ],
+      [
+        "Use\ndeterministic labels such as service and endpoint across metrics, logs, and\ntraces.",
+        0.5487
+      ],
+      [
+        "Incident response to quickly identify a failing dependency.",
+        0.5232
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "circuit-breaker-with-monitoring-pattern-es",
+    "model": "desklib",
+    "model_ai_pct": 42.0,
+    "ai_count": 25,
+    "human_count": 53,
+    "skipped_count": 3,
+    "total": 81,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.5,
+      "stddev": 4.9,
+      "cv": 0.39,
+      "verdict": "somewhat uniform",
+      "sentence_count": 78,
+      "lengths": [
+        16,
+        20,
+        27,
+        23,
+        23,
+        19,
+        13,
+        10,
+        10,
+        8,
+        9,
+        12,
+        9,
+        11,
+        9,
+        7,
+        9,
+        20,
+        12,
+        11,
+        7,
+        10,
+        13,
+        12,
+        12,
+        11,
+        11,
+        14,
+        10,
+        13,
+        10,
+        12,
+        9,
+        12,
+        12,
+        19,
+        17,
+        11,
+        10,
+        16,
+        21,
+        12,
+        8,
+        11,
+        18,
+        10,
+        6,
+        11,
+        7,
+        11,
+        13,
+        8,
+        17,
+        9,
+        16,
+        9,
+        17,
+        12,
+        9,
+        12,
+        14,
+        12,
+        8,
+        8,
+        34,
+        9,
+        11,
+        9,
+        11,
+        13,
+        15,
+        6,
+        9,
+        10,
+        8,
+        12,
+        10,
+        18
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Te perd\u00e9s una dependencia inestable de vista.",
+        0.9976
+      ],
+      [
+        "Exponer el estado como gauge con valores num\u00e9ricos para cada estado.",
+        0.8767
+      ],
+      [
+        "Aplicaciones que no usan circuit breakers: no hay estado para monitorear.",
+        0.8249
+      ],
+      [
+        "Cuando la librer\u00eda de circuit breaker ya exporta m\u00e9tricas.",
+        0.8182
+      ],
+      [
+        "**Duraci\u00f3n abierta**: histograma que te muestra cu\u00e1nto tarda la recuperaci\u00f3n.",
+        0.7925
+      ],
+      [
+        "[Ejemplos de dashboards de Grafana](https://grafana.com/grafana/dashboards/):\n  dashboards de la comunidad para monitoring de circuit breakers.",
+        0.7877
+      ],
+      [
+        "La mayor\u00eda expone hooks para m\u00e9tricas.",
+        0.7664
+      ],
+      [
+        "En el siguiente incidente, vimos el breaker abierto en\nsegundos.",
+        0.7247
+      ],
+      [
+        "Monitorear un circuit breaker significa emitir m\u00e9tricas para:\n**Estado**: un gauge mapeado a 0 (closed), 1 (open) o 2 (half-open).",
+        0.7123
+      ],
+      [
+        "Trackear las transiciones de estado por separado para detectar flapping.",
+        0.7017
+      ],
+      [
+        "Las m\u00e9tricas de circuit\nbreaker reportan si tus dependencias est\u00e1n saludables.",
+        0.7002
+      ],
+      [
+        "Entornos de desarrollo donde pod\u00e9s observar el comportamiento directamente.",
+        0.6968
+      ],
+      [
+        "**Transiciones de estado**: contador para detectar flapping.",
+        0.6943
+      ],
+      [
+        "[Metrics Aggregation Pattern](/patterns/metrics-aggregation-pattern/):\n  agregaci\u00f3n de m\u00e9tricas across servicios.",
+        0.6667
+      ],
+      [
+        "Microservicios con m\u00faltiples dependencias downstream protegidas por breakers.",
+        0.6622
+      ],
+      [
+        "**Llamadas rechazadas**: contador que te dice cu\u00e1ndo el breaker descarta\n  tr\u00e1fico.",
+        0.6509
+      ],
+      [
+        "Verific\u00e1 que las m\u00e9tricas se emitan en cada transici\u00f3n.",
+        0.6477
+      ],
+      [
+        "**Fallos y \u00e9xitos**: contadores que te permiten calcular las tasas de error.",
+        0.646
+      ],
+      [
+        "Medir la duraci\u00f3n abierta con un histograma para identificar problemas cr\u00f3nicos\n  vs.",
+        0.5598
+      ],
+      [
+        "Respuesta a incidentes para identificar r\u00e1pidamente una dependencia fallante.",
+        0.5479
+      ],
+      [
+        "Loguear las transiciones con conteos de fallas y thresholds.",
+        0.5436
+      ],
+      [
+        "Si\n  hac\u00e9s una sola cosa por la correlaci\u00f3n, hac\u00e9 esto.",
+        0.521
+      ],
+      [
+        "Las m\u00e9tricas te permiten construir dashboards y alertas.",
+        0.5162
+      ],
+      [
+        "Tasa de rechazo mayor a 10 por segundo: advertencia.",
+        0.516
+      ],
+      [
+        "Monitorear la tasa de rechazo, porque una alta tasa significa degradaci\u00f3n\n  aunque el servicio no est\u00e9 ca\u00eddo.",
+        0.5027
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
