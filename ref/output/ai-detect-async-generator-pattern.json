@@ -2,18 +2,18 @@
   {
     "label": "async-generator-pattern-en",
     "model": "desklib",
-    "model_ai_pct": 46.3,
-    "ai_count": 28,
-    "human_count": 47,
+    "model_ai_pct": 43.6,
+    "ai_count": 22,
+    "human_count": 51,
     "skipped_count": 5,
-    "total": 80,
+    "total": 78,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 14.9,
-      "stddev": 17.2,
-      "cv": 1.16,
+      "mean": 15.1,
+      "stddev": 17.4,
+      "cv": 1.15,
       "verdict": "natural variation",
-      "sentence_count": 75,
+      "sentence_count": 73,
       "lengths": [
         12,
         23,
@@ -28,18 +28,17 @@
         13,
         6,
         15,
-        7,
-        8,
-        5,
+        17,
+        19,
         8,
         8,
         18,
         15,
-        11,
+        15,
         7,
         17,
         14,
-        11,
+        9,
         107,
         20,
         14,
@@ -49,7 +48,6 @@
         10,
         19,
         8,
-        13,
         9,
         17,
         13,
@@ -58,16 +56,16 @@
         9,
         11,
         13,
-        16,
+        13,
         27,
         36,
         19,
         7,
-        16,
+        13,
         13,
         22,
         9,
-        11,
+        12,
         17,
         11,
         21,
@@ -75,7 +73,7 @@
         20,
         7,
         13,
-        21,
+        7,
         5,
         5,
         7,
@@ -94,18 +92,6 @@
     },
     "top_ai_sentences": [
       [
-        "I've used this for WebSocket\nmessage streams and sensor data, where you want to process events as they arrive\nwithout buffering.",
-        0.9636
-      ],
-      [
-        "The data source is already in memory.",
-        0.9524
-      ],
-      [
-        "I've found that most teams skip the cleanup tests, which is\nwhere the real bugs hide.",
-        0.8664
-      ],
-      [
         "**Rate limiting**: when fetching from third-party APIs, add client-side rate\n  limiting.",
         0.8207
       ],
@@ -114,16 +100,12 @@
         0.8112
       ],
       [
-        "I've seen\n  this in production code more times than I'd like to admit.",
-        0.7347
-      ],
-      [
-        "For a deeper dive on Python's async runtime, see the\n[complete-guide-python-asyncio-production](/guides/complete-guide-python-asyncio-production/).",
-        0.7227
-      ],
-      [
         "Collecting all values into a list with list(async_generator()).",
         0.718
+      ],
+      [
+        "**Input validation**: always check base_url, page_size, and total_pages\n  before the first yield.",
+        0.716
       ],
       [
         "In Python, use yield from another_async_gen().",
@@ -138,28 +120,20 @@
         0.6943
       ],
       [
-        "The consumer needs random access.",
-        0.6928
+        "For more on Python's async runtime, see the\n[complete-guide-python-asyncio-production](/guides/complete-guide-python-asyncio-production/).",
+        0.6897
       ],
       [
-        "**Input validation**: validate base_url, page_size, and total_pages\n  before the first yield.",
-        0.6799
+        "If your data source already fits in memory, skip the generator and use a\n  regular for loop.",
+        0.6877
       ],
       [
-        "The main benefit is **constant memory usage**.",
-        0.6733
+        "**Unbounded generators**: a generator that yields infinitely without timeout\n  becomes a DoS vector.",
+        0.6787
       ],
       [
         "In JavaScript, call await gen.return().",
         0.6589
-      ],
-      [
-        "**Unbounded generators**: a generator that yields infinitely without timeout\n  can be exploited as a DoS vector.",
-        0.6501
-      ],
-      [
-        "Use a regular generator or a for loop.",
-        0.6282
       ],
       [
         "Async generators need three layers of tests: correctness, resource cleanup, and\nerror propagation.",
@@ -174,6 +148,10 @@
         0.6094
       ],
       [
+        "The core benefit is **constant memory usage**.",
+        0.5853
+      ],
+      [
         "The generator closes\nautomatically when an exception propagates.",
         0.5686
       ],
@@ -182,7 +160,7 @@
         0.5657
       ],
       [
-        "Whether you process 100 items or\n10 million, the generator holds only the current value or batch.",
+        "Whether you process 100 items\nor 10 million, the generator holds only the current value or batch.",
         0.5474
       ],
       [
@@ -190,8 +168,28 @@
         0.5314
       ],
       [
-        "It loads everything\n  into memory and defeats the purpose.",
-        0.5275
+        "If you need\nparallel processing, the [producer-consumer-pattern](/patterns/producer-consumer-pattern/)\nis a better fit.",
+        0.5111
+      ],
+      [
+        "**Sensitive data in logs**: if you log progress inside the generator, make\n  sure you're not logging request bodies, auth headers, or PII.",
+        0.5107
+      ],
+      [
+        "Filtering, mapping, merging, and splitting are\n  easier with reactive streams like RxJS or Project Reactor.",
+        0.5083
+      ],
+      [
+        "If you need to jump around and access elements by index, generators won't\n  help \u2014 they only go forward.",
+        0.495
+      ],
+      [
+        "Set timeouts on every I/O await to avoid a hung call blocking the generator.",
+        0.4877
+      ],
+      [
+        "Loading an entire dataset into memory causes out-of-memory errors and high\nlatency.",
+        0.4837
       ]
     ],
     "diagnostics_sample": []
@@ -199,18 +197,18 @@
   {
     "label": "async-generator-pattern-es",
     "model": "desklib",
-    "model_ai_pct": 35.5,
-    "ai_count": 15,
-    "human_count": 57,
+    "model_ai_pct": 33.2,
+    "ai_count": 12,
+    "human_count": 58,
     "skipped_count": 8,
-    "total": 80,
+    "total": 78,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 16.0,
-      "stddev": 18.8,
-      "cv": 1.17,
+      "mean": 16.4,
+      "stddev": 18.9,
+      "cv": 1.16,
       "verdict": "natural variation",
-      "sentence_count": 72,
+      "sentence_count": 70,
       "lengths": [
         13,
         24,
@@ -225,14 +223,13 @@
         15,
         5,
         16,
-        8,
-        7,
-        5,
+        17,
+        19,
         9,
         10,
         19,
         15,
-        13,
+        15,
         8,
         16,
         14,
@@ -246,7 +243,6 @@
         12,
         17,
         9,
-        14,
         8,
         16,
         12,
@@ -255,16 +251,16 @@
         8,
         11,
         16,
-        20,
+        16,
         26,
         38,
         20,
         7,
-        16,
+        17,
         14,
         20,
         9,
-        12,
+        13,
         19,
         14,
         20,
@@ -272,7 +268,7 @@
         26,
         7,
         11,
-        19,
+        8,
         8,
         10,
         14,
@@ -288,20 +284,12 @@
     },
     "top_ai_sentences": [
       [
-        "La fuente de datos ya est\u00e1 en memoria.",
-        0.9244
-      ],
-      [
-        "El consumidor necesita acceso aleatorio.",
-        0.8689
+        "**Generadores sin l\u00edmite**: un generador que produce infinitamente sin timeout\n  se convierte en un vector de DoS.",
+        0.8469
       ],
       [
         "Logue\u00e1 solo\n  metadata como page count y elapsed time.",
         0.7497
-      ],
-      [
-        "**Generadores sin l\u00edmite**: un generador que produce infinitamente sin timeout\n  puede explotarse como vector de DoS.",
-        0.7269
       ],
       [
         "Logue\u00e1 progreso en generadores de larga duraci\u00f3n, pero no en cada yield.",
@@ -322,10 +310,6 @@
       [
         "En Python, llam\u00e1 await gen.aclose() para\n  cerrar el generador; en JavaScript, us\u00e1 gen.return().",
         0.5676
-      ],
-      [
-        "**Validaci\u00f3n de input**: valid\u00e1 base_url, page_size y total_pages antes\n  del primer yield.",
-        0.5519
       ],
       [
         "El generador se cierra autom\u00e1ticamente\nal propagarse una excepci\u00f3n.",
@@ -360,16 +344,12 @@
         0.4859
       ],
       [
-        "Lo us\u00e9 para streams de\nmensajes WebSocket y datos de sensores, donde quer\u00e9s procesar eventos al llegar\nsin bufferizar.",
-        0.4738
-      ],
-      [
-        "En mi experiencia, la mayor\u00eda de los equipos\nomite los tests de limpieza, que es donde est\u00e1n los bugs reales.",
-        0.4532
-      ],
-      [
         "Sete\u00e1 timeouts en cada I/O await para evitar que una llamada colgada bloquee\n  el generador.",
         0.4479
+      ],
+      [
+        "**Validaci\u00f3n de input**: siempre cheque\u00e1 base_url, page_size y\n  total_pages antes del primer yield.",
+        0.4214
       ],
       [
         "Un generador que nunca retorna sigue produciendo.",
@@ -386,6 +366,22 @@
       [
         "**Rate limiting**: cuando fetch\u00e1s de APIs de terceros, agreg\u00e1 rate limiting\n  del lado cliente.",
         0.395
+      ],
+      [
+        "Fetch de APIs paginadas a trav\u00e9s de una interfaz de iteraci\u00f3n limpia.",
+        0.3926
+      ],
+      [
+        "Carga\n  todo en memoria y anula el prop\u00f3sito.",
+        0.3859
+      ],
+      [
+        "\u00datil para mensajes WebSocket\no streams de sensores.",
+        0.38
+      ],
+      [
+        "En Python, yield from another_async_gen().",
+        0.3703
       ]
     ],
     "diagnostics_sample": []

@@ -65,8 +65,10 @@ is a better fit.
   computation blocks it. Use worker threads or processes instead.
 - Complex stream composition. Filtering, mapping, merging, and splitting are
   easier with reactive streams like RxJS or Project Reactor.
-- The data source is already in memory. Use a regular generator or a `for` loop.
-- The consumer needs random access. Generators are sequential.
+- If your data source already fits in memory, skip the generator and use a
+  regular `for` loop.
+- If you need to jump around and access elements by index, generators won't
+  help — they only go forward.
 
 ## Solution
 
@@ -164,8 +166,8 @@ Java Streams are lazy but not truly async. For non-blocking async iteration, use
 
 An async generator pauses execution at each `yield` and resumes when the consumer
 asks for the next value. The consumer drives the flow with `async for` in Python
-or `for await` in JavaScript. This creates a **pull-based model**: data is
-produced only when requested.
+or `for await` in JavaScript. This creates a **pull-based model**: the generator
+only produces data when someone asks for it.
 
 ```mermaid
 flowchart LR
@@ -178,10 +180,10 @@ flowchart LR
     Generator -->|"finally: cleanup"| Source
 ```
 
-The main benefit is **constant memory usage**. Whether you process 100 items or
-10 million, the generator holds only the current value or batch. You also get
-natural **backpressure**: if the consumer is slow, the generator just waits.
-For a deeper dive on Python's async runtime, see the
+The core benefit is **constant memory usage**. Whether you process 100 items
+or 10 million, the generator holds only the current value or batch. You also
+get natural **backpressure**: if the consumer is slow, the generator just
+waits. For more on Python's async runtime, see the
 [complete-guide-python-asyncio-production](/guides/complete-guide-python-asyncio-production/).
 
 ## Variants
@@ -210,9 +212,8 @@ For a deeper dive on Python's async runtime, see the
 
 ## Common Mistakes
 
-- Collecting all values into a list with `list(async_generator())`. I've seen
-  this in production code more times than I'd like to admit. It loads everything
-  into memory and defeats the purpose.
+- Collecting all values into a list with `list(async_generator())`. This loads
+  everything into memory and defeats the purpose.
 - Not closing the generator when breaking out of the loop early, which can leak
   sessions or connections.
 - Using blocking I/O inside the generator, such as Python `requests.get()`
@@ -225,8 +226,8 @@ For a deeper dive on Python's async runtime, see the
 ## Testing Strategy
 
 Async generators need three layers of tests: correctness, resource cleanup, and
-error propagation. I've found that most teams skip the cleanup tests, which is
-where the real bugs hide.
+error propagation. Most teams skip the cleanup tests — that's where the real
+bugs hide. Don't be that team.
 
 ### Correctness
 
@@ -296,12 +297,12 @@ async def test_error_propagates_and_cleans_up():
   where a broken `async for` loop leaked 200+ database cursors in an hour.
   Always use `finally` blocks or context managers.
 - **Unbounded generators**: a generator that yields infinitely without timeout
-  can be exploited as a DoS vector. Set a max iteration count or a wall-clock
-  timeout on the consumer side.
+  becomes a DoS vector. Set a max iteration count or a wall-clock timeout on
+  the consumer side.
 - **Sensitive data in logs**: if you log progress inside the generator, make
   sure you're not logging request bodies, auth headers, or PII. Log only
   metadata like page count and elapsed time.
-- **Input validation**: validate `base_url`, `page_size`, and `total_pages`
+- **Input validation**: always check `base_url`, `page_size`, and `total_pages`
   before the first yield. A malicious or misconfigured caller can inject bad
   URLs or cause integer overflow in the offset calculation.
 - **Rate limiting**: when fetching from third-party APIs, add client-side rate
@@ -359,9 +360,8 @@ and files.
 ### Can async generators be infinite?
 
 Yes. A generator that never returns keeps yielding. The consumer controls when
-to stop with `break` or by closing the generator. I've used this for WebSocket
-message streams and sensor data, where you want to process events as they arrive
-without buffering.
+to stop with `break` or by closing the generator. Useful for WebSocket messages
+or sensor streams.
 
 ### How do I cancel an async generator mid-iteration?
 

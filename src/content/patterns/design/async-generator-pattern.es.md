@@ -65,8 +65,10 @@ es mejor opción.
   que trabajo pesado lo bloquea. Usá worker threads o procesos.
 - Composición compleja de streams. Filtrar, mapear, mergear y splitear es más
   fácil con reactive streams como RxJS o Project Reactor.
-- La fuente de datos ya está en memoria. Usá un generador regular o un `for`.
-- El consumidor necesita acceso aleatorio. Los generadores son secuenciales.
+- Si tu fuente de datos ya entra en memoria, saltate el generador y usá un `for`
+  directamente.
+- Si necesitás saltar y acceder a elementos por índice, los generadores no te
+  sirven — solo van hacia adelante.
 
 ## Solución
 
@@ -165,7 +167,7 @@ bloqueante async, usá `Flux` de [Project Reactor](https://projectreactor.io/).
 Un async generator pausa la ejecución en cada `yield` y se reanuda cuando el
 consumidor pide el siguiente valor. El consumidor impulsa el flujo con `async
 for` en Python o `for await` en JavaScript. Esto crea un **modelo pull-based**:
-los datos se producen solo cuando se piden.
+el generador solo produce datos cuando alguien se los pide.
 
 ```mermaid
 flowchart LR
@@ -178,10 +180,10 @@ flowchart LR
     Generator -->|"finally: cleanup"| Source
 ```
 
-El beneficio principal es **uso constante de memoria**. Ya sean 100 ítems o 10
-millones, el generador mantiene solo el valor o batch actual. También te da
+El beneficio central es **uso constante de memoria**. Ya sean 100 ítems o
+10 millones, el generador mantiene solo el valor o batch actual. También te da
 **backpressure** natural: si el consumidor es lento, el generador simplemente
-espera. Para profundizar en el runtime async de Python, consultá la
+espera. Para más sobre el runtime async de Python, mirá la
 [guía completa de asyncio en producción](/guides/complete-guide-python-asyncio-production/).
 
 ## Variantes
@@ -212,9 +214,8 @@ espera. Para profundizar en el runtime async de Python, consultá la
 
 ## Errores Comunes
 
-- Juntar todos los valores en una lista con `list(async_generator())`. Vi esto
-  en código de producción más veces de las que me gustaría admitir. Carga todo
-  en memoria y anula el propósito.
+- Juntar todos los valores en una lista con `list(async_generator())`. Carga
+  todo en memoria y anula el propósito.
 - No cerrar el generador al salir del loop temprano, lo que puede filtrar sesiones
   o conexiones.
 - Usar I/O bloqueante dentro del generador, como `requests.get()` en vez de
@@ -227,8 +228,8 @@ espera. Para profundizar en el runtime async de Python, consultá la
 ## Estrategia de Testing
 
 Los async generators necesitan tres capas de tests: correctitud, limpieza de
-recursos y propagación de errores. En mi experiencia, la mayoría de los equipos
-omite los tests de limpieza, que es donde están los bugs reales.
+recursos y propagación de errores. La mayoría de los equipos omite los tests
+de limpieza — ahí están los bugs reales. No seas ese equipo.
 
 ### Correctitud
 
@@ -298,14 +299,14 @@ async def test_error_propagates_and_cleans_up():
   de producción donde un `async for` roto filtró 200+ cursores de DB en una
   hora. Siempre usá bloques `finally` o context managers.
 - **Generadores sin límite**: un generador que produce infinitamente sin timeout
-  puede explotarse como vector de DoS. Seteá un max de iteraciones o un timeout
+  se convierte en un vector de DoS. Seteá un max de iteraciones o un timeout
   de wall-clock del lado del consumidor.
 - **Datos sensibles en logs**: si logueás progreso dentro del generador,
   asegurate de no loguear request bodies, auth headers o PII. Logueá solo
   metadata como page count y elapsed time.
-- **Validación de input**: validá `base_url`, `page_size` y `total_pages` antes
-  del primer yield. Un caller malicioso o mal configurado puede inyectar URLs
-  malas o causar integer overflow en el cálculo de offset.
+- **Validación de input**: siempre chequeá `base_url`, `page_size` y
+  `total_pages` antes del primer yield. Un caller malicioso o mal configurado
+  puede inyectar URLs malas o causar integer overflow en el cálculo de offset.
 - **Rate limiting**: cuando fetchás de APIs de terceros, agregá rate limiting
   del lado cliente. Aprendí esto por las malas cuando un async generator sin
   throttling martilló una API y nos banearon la IP temporalmente.
@@ -361,9 +362,8 @@ APIs, bases de datos y archivos.
 ### ¿Los async generators pueden ser infinitos?
 
 Sí. Un generador que nunca retorna sigue produciendo. El consumidor controla
-cuándo parar con `break` o cerrando el generador. Lo usé para streams de
-mensajes WebSocket y datos de sensores, donde querés procesar eventos al llegar
-sin bufferizar.
+cuándo parar con `break` o cerrando el generador. Útil para mensajes WebSocket
+o streams de sensores.
 
 ### ¿Cómo cancelo un async generator a mitad de iteración?
 
