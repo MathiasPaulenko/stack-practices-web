@@ -1,0 +1,21 @@
+[
+  {
+    "label": "complete-guide-rabbitmq-architecture",
+    "total_sentences": 95,
+    "pattern_totals": {
+      "missing_contraction": 1
+    },
+    "findings": [
+      {
+        "sentence": "A user with\n  access to  should not see .",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "should not",
+            "suggestion": "use 'shouldn't'"
+          }
+        ]
+      }
+    ]
+  }
+]
