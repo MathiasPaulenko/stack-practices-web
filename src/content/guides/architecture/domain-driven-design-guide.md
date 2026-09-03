@@ -47,7 +47,7 @@ where business logic is the main source of complexity.
 
 I've used DDD on payment processing, healthcare records, and logistics systems.
 In each case, the ubiquitous language turned out to be the single most valuable
-artefact — more than any pattern or code structure.
+artefact, more than any pattern or code structure.
 
 ## When to Use
 
@@ -81,7 +81,7 @@ vocabulary used in conversations, documentation, and code.
 A bounded context is a logical boundary within which a particular domain model
 applies. Terms and rules are consistent inside the context but may differ across
 contexts. [Vaughn Vernon](https://www.dddcommunity.org/library/vernon_2011/)
-describes them as "linguistic boundaries" — the same word means different thing
+describes them as "linguistic boundaries." The same word means different thing
 to different teams.
 
 ```mermaid
@@ -131,7 +131,7 @@ Kernel` means Inventory and Shipping share a small model.
 An entity has a distinct identity that persists over time and across state
 changes. Two `Order` objects with the same `order_id` are the same entity, even
 if their contents differ. I've seen teams overuse entities when a value object
-would do — if you don't need identity, don't add it.
+would do. If you don't need identity, don't add it.
 
 ```python
 class Order:
@@ -151,8 +151,8 @@ class Order:
 
 ### Value objects
 
-A value object is defined by its attributes, not by any identity. Five dollars
-is five dollars — you don't care which five-dollar bill you hold. That's the
+A value object has attributes but no identity. Five dollars
+is five dollars; you don't care which five-dollar bill you hold. That's the
 whole idea.
 
 ```python
@@ -181,7 +181,7 @@ class Address:
 
 An aggregate is a cluster of entities and value objects you treat as a single
 unit for data changes. The aggregate root is the only entity outside code can
-reference directly. Think of it as a consistency boundary — one transaction
+reference directly. Think of it as a consistency boundary: one transaction
 updates one aggregate, no more.
 
 ```python
@@ -209,7 +209,7 @@ class Order:
 ### Repositories
 
 A repository mediates between the domain and data mapping layers. Think of it as
-an in-memory collection of aggregates — you `get` by ID, you `save` changes, and
+an in-memory collection of aggregates. You `get` by ID, you `save` changes, and
 you query by criteria that makes sense to the domain.
 
 ```python
@@ -226,8 +226,8 @@ class OrderRepository:
 
 ### Domain events
 
-A domain event captures something meaningful that happened in the domain — an
-order was confirmed, a payment failed, a shipment left the warehouse. Other
+A domain event captures something meaningful that happened in the domain: an
+order got confirmed, a payment failed, a shipment left the warehouse. Other
 contexts can react to these events without the sender knowing who's listening.
 
 ```python
@@ -248,8 +248,8 @@ Domain events enable loose coupling between bounded contexts. See the
 ## Strategic vs Tactical DDD
 
 I've seen teams jump straight to repositories and aggregates without doing the
-strategic work first. That's backwards. Strategic DDD — mapping bounded contexts,
-defining context maps, aligning teams — comes first. Tactical patterns follow.
+strategic work first. That's backwards. Strategic DDD (mapping bounded contexts,
+defining context maps, aligning teams) comes first. Tactical patterns follow.
 
 | | High-level DDD | Implementation-level DDD |
 | --- | --- | --- |
@@ -261,7 +261,7 @@ defining context maps, aligning teams — comes first. Tactical patterns follow.
 ## Best Practices
 
 - Start with the ubiquitous language, not the database schema. I've watched
-  teams design tables first and then try to bolt DDD on top — it never works.
+  teams design tables first and then try to bolt DDD on top. It never works.
 - Keep aggregates small. Large aggregates hurt concurrency because every
   transaction locks the whole cluster.
 - Prefer value objects over entities where you can. They're simpler, safer, and
@@ -291,7 +291,7 @@ defining context maps, aligning teams — comes first. Tactical patterns follow.
 ## Testing Strategy
 
 DDD demands a different testing approach from CRUD apps. The aggregate root is
-your unit boundary — test its invariants, not its internal state. I've seen teams
+your unit boundary. Test its invariants, not its internal state. I've seen teams
 write tests that poke at private fields through reflection; that's a smell, not
 a test.
 
@@ -326,7 +326,7 @@ def test_money_equality():
 
 ### Domain event publishing
 
-Test that events are registered when expected:
+Test that the aggregate registers events when expected:
 
 ```python
 def test_order_confirmed_publishes_event():
@@ -343,7 +343,7 @@ def test_order_confirmed_publishes_event():
 - **Validate at the aggregate root**: the root is your security boundary for
   domain rules. Don't let application services bypass it. I once traced a
   double-charge bug to a service that called `order.confirm()` without checking
-  the status — the aggregate would have prevented it.
+  the status. The aggregate would have prevented it.
 - **Anti-Corruption Layer as security boundary**: ACLs don't just protect your
   model from external changes; they also limit what external systems can do to
   your domain. Whitelist methods, validate inputs, and log all calls.
@@ -404,7 +404,7 @@ impact, then expand. See the
 
 ### What tools do I need for DDD?
 
-No specific tool is required. Use your programming language, unit tests, and
+You don't need any specific tool. Use your programming language, unit tests, and
 collaboration with domain experts. See the
 [design patterns guide](/guides/design-patterns-guide/) and
 [repository pattern](/patterns/repository-pattern/).

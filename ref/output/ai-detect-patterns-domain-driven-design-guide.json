@@ -1,7 +1,7 @@
 [
   {
     "label": "domain-driven-design-guide",
-    "total_sentences": 106,
+    "total_sentences": 111,
     "pattern_totals": {
       "ai_slop": 2
     },
@@ -17,7 +17,7 @@
         ]
       },
       {
-        "sentence": "Strategic DDD \u2014 mapping bounded contexts,\ndefining context maps, aligning teams \u2014 comes first.",
+        "sentence": "Strategic DDD (mapping bounded contexts,\ndefining context maps, aligning teams) comes first.",
         "findings": [
           {
             "pattern": "ai_slop",

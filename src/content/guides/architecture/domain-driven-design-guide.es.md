@@ -46,7 +46,7 @@ escrito extensivamente sobre sus patrones. Es más valioso para dominios complej
 donde la lógica de negocio es la principal fuente de complejidad.
 
 He usado DDD en procesamiento de pagos, registros de salud y sistemas de logística.
-En cada caso, el lenguaje ubicuo resultó ser el artefacto más valioso — más que
+En cada caso, el lenguaje ubicuo resultó ser el artefacto más valioso, más que
 cualquier patrón o estructura de código.
 
 ## Cuándo Usar
@@ -56,6 +56,9 @@ cualquier patrón o estructura de código.
 - Los expertos de dominio están disponibles para colaborar con desarrolladores.
 - El proyecto es lo suficientemente grande como para justificar el overhead de
   modelado.
+
+Si tu app tiene tres tablas y dos endpoints CRUD, no necesitás DDD. Pero si te
+ves dibujando diagramas en pizarras con expertos de dominio, probablemente sí.
 
 ### Cuándo evitarlo
 
@@ -68,7 +71,8 @@ cualquier patrón o estructura de código.
 ### Lenguaje ubicuo
 
 El equipo (desarrolladores, expertos de dominio, product managers) acuerda un
-vocabulario compartido que se usa en conversaciones, documentación y código.
+vocabulario compartido que se usa en conversaciones, documentación y código. Este
+es el paso que más equipos se saltan, y el que más daño hace cuando se ignora.
 
 **Ejemplos:**
 
@@ -82,7 +86,7 @@ vocabulario compartido que se usa en conversaciones, documentación y código.
 Un bounded context es un límite lógico dentro del cual aplica un modelo de dominio
 particular. Los términos y reglas son consistentes dentro del contexto pero pueden
 diferir entre contextos. [Vaughn Vernon](https://www.dddcommunity.org/library/vernon_2011/)
-los describe como "límites lingüísticos" — la misma palabra significa cosas
+los describe como "límites lingüísticos." La misma palabra significa cosas
 distintas para distintos equipos.
 
 ```mermaid
@@ -132,7 +136,7 @@ El context map de arriba muestra tres bounded contexts con sus relaciones.
 Una entidad tiene una identidad distinta que persiste a través del tiempo y los
 cambios de estado. Dos objetos `Order` con el mismo `order_id` son la misma
 entidad, incluso si sus contenidos difieren. Vi a equipos sobreusar entidades
-cuando un value object alcanzaría — si no necesitás identidad, no la agregues.
+cuando un value object alcanzaría. Si no necesitás identidad, no la agregues.
 
 ```python
 class Order:
@@ -153,7 +157,7 @@ class Order:
 ### Value objects
 
 Un value object se define por sus atributos, no por ninguna identidad. Cinco
-pesos son cinco pesos — no te importa qué billete de cinco pesos tenés. Esa es
+pesos son cinco pesos; no te importa qué billete de cinco pesos tenés. Esa es
 toda la idea.
 
 ```python
@@ -174,16 +178,19 @@ class Address:
 
 **Rasgos clave:**
 
-- Inmutables; cambiar atributos crea un nuevo value object.
+- Inmutables: cambiar atributos crea un nuevo value object.
 - Intercambiables si los atributos coinciden (`$5 == $5`).
 - Sin lifecycle; pueden crearse y descartarse libremente.
+
+Usá value objects por defecto. Solo promové a entidad cuando necesités identidad
+de verdad. Es más fácil de razonar y de testear.
 
 ### Aggregates
 
 Un aggregate es un cluster de entidades y value objects que tratás como una
 unidad para cambios de datos. El aggregate root es la única entidad que el código
 externo puede referenciar directamente. Pensalo como un boundary de consistencia
-— una transacción actualiza un aggregate, no más.
+: una transacción actualiza un aggregate, no más.
 
 ```python
 class Order:
@@ -210,7 +217,7 @@ class Order:
 ### Repositories
 
 Un repository media entre el dominio y la capa de persistencia. Pensalo como
-una colección en memoria de aggregates — hacés `get` por ID, guardás cambios con
+una colección en memoria de aggregates. Hacés `get` por ID, guardás cambios con
 `save`, y query por criterios que tengan sentido para el dominio.
 
 ```python
@@ -227,7 +234,7 @@ class OrderRepository:
 
 ### Domain events
 
-Un domain event captura algo significativo que ocurrió en el dominio — una orden
+Un domain event captura algo significativo que ocurrió en el dominio: una orden
 fue confirmada, un pago falló, un envío salió del depósito. Otros contexts pueden
 reaccionar a estos eventos sin que el emisor sepa quién está escuchando.
 
@@ -249,8 +256,8 @@ la [guía de arquitectura event-driven](/guides/event-driven-architecture-guide/
 ## Estratégico vs Táctico
 
 Vi a equipos saltar directo a repositories y aggregates sin hacer el trabajo
-estratégico primero. Eso está al revés. DDD estratégico — mapear bounded contexts,
-definir context maps, alinear equipos — va primero. Los patrones tácticos siguen.
+estratégico primero. Eso está al revés. DDD estratégico (mapear bounded contexts,
+definir context maps, alinear equipos) va primero. Los patrones tácticos siguen.
 
 | | DDD estratégico | DDD táctico |
 | --- | --- | --- |
@@ -262,7 +269,7 @@ definir context maps, alinear equipos — va primero. Los patrones tácticos sig
 ## Mejores Prácticas
 
 - Empezar por el lenguaje ubicuo, no por el esquema de base de datos. Vi a
-  equipos diseñar tablas primero y después intentar enchufar DDD encima — nunca
+  equipos diseñar tablas primero y después intentar enchufar DDD encima. Nunca
   funciona.
 - Mantener los aggregates pequeños. Los aggregates grandes lastran concurrencia
   porque cada transacción lockea todo el cluster.
@@ -293,7 +300,7 @@ definir context maps, alinear equipos — va primero. Los patrones tácticos sig
 ## Estrategia de Testing
 
 DDD demanda un enfoque de testing distinto al de apps CRUD. El aggregate root es
-tu unit boundary — testéá sus invariantes, no su estado interno. Vi a equipos
+tu unit boundary. Testéá sus invariantes, no su estado interno. Vi a equipos
 escribir tests que acceden a campos privados con reflection; eso es un smell, no
 un test.
 
@@ -345,7 +352,7 @@ def test_order_confirmed_publishes_event():
 - **Validar en el aggregate root**: el root es tu boundary de seguridad para
   reglas de dominio. No dejes que los application services lo bypassen. Una vez
   tracé un bug de doble cobro a un servicio que llamaba `order.confirm()` sin
-  chequear el status — el aggregate lo habría prevenido.
+  chequear el status. El aggregate lo habría prevenido.
 - **Anti-Corruption Layer como boundary de seguridad**: los ACLs no solo
   protegen tu modelo de cambios externos; también limitan qué pueden hacer los
   sistemas externos a tu dominio. Whitelisté métodos, validá inputs y logeá
