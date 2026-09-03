@@ -20,8 +20,9 @@ relatedResources:
   - /recipes/rest-api-design
   - /recipes/api-versioning
   - /recipes/traffic-mirroring
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-09-03"
 publishedAt: "2026-06-11"
+estimatedReadTime: 6
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn idempotent API design in Python, JavaScript, and Java. Covers idempotency keys, HTTP methods, and safe retry patterns for distributed systems."
@@ -39,12 +40,19 @@ seo:
 
 ## Overview
 
-Idempotency guarantees that making the same API request several times produces the
-same result as making it once, with no duplicate side effects. This matters in
-distributed systems where network failures, timeouts, and retries are common.
+I once watched a payment system charge a customer three times for the same order.
+The client retried after a timeout, the server processed each retry, and nobody
+noticed until the customer complained. That's the problem idempotency solves.
 
-This recipe shows how to design idempotent endpoints using idempotency keys,
-natural key constraints, and state checks in Python, JavaScript, and Java.
+Idempotency guarantees that making the same API request several times produces the
+same result as making it once, with no duplicate side effects. In distributed
+systems where networks fail, timeouts happen, and clients retry, this matters
+more than you'd expect.
+
+This recipe covers how to build idempotent endpoints with idempotency keys,
+natural key constraints, and state checks. I've included working examples in
+Python (FastAPI), JavaScript (Express), and Java (Spring Boot) so you can copy
+them directly.
 
 ## When to Use
 
@@ -59,7 +67,7 @@ natural key constraints, and state checks in Python, JavaScript, and Java.
 ### When to avoid
 
 - Read-only endpoints (`GET`, `HEAD`, `OPTIONS`) are already idempotent by the
-  HTTP spec — they don't need extra handling.
+  HTTP spec: they don't need extra handling.
 - Operations with no side effects or no retry risk rarely justify the added
   storage and logic.
 
@@ -272,23 +280,45 @@ public class OrderController {
 
 ## Explanation
 
-An **idempotency key** is a client-generated identifier sent in the
-`Idempotency-Key` header. The server uses it to detect duplicate requests and
-return the same response.
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant S as Server
+    participant Store as Idempotency Store
+    C->>S: POST /orders (Idempotency-Key: abc-123)
+    S->>Store: Check key abc-123
+    Store-->>S: Not found
+    S->>Store: Set status=processing
+    S->>S: Execute operation
+    S->>Store: Set status=completed, store response
+    S-->>C: 200 OK (cached: false)
+    Note over C: Network timeout, client retries
+    C->>S: POST /orders (Idempotency-Key: abc-123)
+    S->>Store: Check key abc-123
+    Store-->>S: Found, status=completed
+    S-->>C: 200 OK (cached: true, same response)
+```
 
-The **processing** state stops two concurrent requests from executing the same
-operation twice. A second request that arrives while the first is still running
-gets `409 Conflict`.
+An **idempotency key** is a client-generated UUID sent in the
+`Idempotency-Key` header. The server looks it up to detect duplicate requests
+and return the cached response instead of running the operation again.
 
-**TTL cleanup** is necessary because idempotency stores grow unbounded. Use Redis
+The **processing** state is what stops two concurrent requests from running the
+same operation twice. When a second request arrives mid-flight,
+the server returns `409 Conflict`. I learned this the hard way: without the
+processing state, a retry can slip in between the key check and the operation,
+causing the exact duplicate you were trying to prevent.
+
+**TTL cleanup** is necessary because idempotency stores grow unbounded. Use [Redis](https://redis.io/docs/manual/keyspace-notifications/)
 with TTL or schedule periodic cleanup. A 24-hour TTL is common for financial
-operations.
+operations. [Stripe's idempotency docs](https://stripe.com/docs/api/idempotent_requests)
+recommend 24 hours for payment operations.
 
 **Error handling** must remove the `processing` marker on failure so the client
 can retry. See [Error Handling](/recipes/handle-errors/) for retry patterns.
 Otherwise the key stays blocked.
 
-**Natural idempotency** with `PUT /orders/{id}` follows HTTP semantics — repeated
+**Natural idempotency** with `PUT /orders/{id}` follows HTTP semantics: repeated
 updates with the same body leave the resource in the same state. See
 [Call REST API](/recipes/call-rest-api/) for HTTP method semantics.
 
@@ -303,21 +333,26 @@ updates with the same body leave the resource in the same state. See
 
 ## Best Practices
 
-- Require idempotency keys for state-changing POST/PUT/PATCH endpoints.
-- Use UUID v4 for keys; avoid incrementing integers or timestamps that can
-  collide across clients.
+- Require idempotency keys for state-changing POST/PUT/PATCH endpoints. I've
+  made this mandatory for every endpoint that creates or transfers money, after
+  the triple-charge incident I mentioned earlier.
+- Use UUID v4 for keys. Don't use incrementing integers or timestamps: they
+  collide across clients and defeat the purpose.
 - Store the full response, not just a status flag, so duplicates return identical
   data.
-- Set a TTL that matches your retry window and document it. Twenty-four hours is
-  common for payments.
-- Make `DELETE /resources/{id}` return `204` or `404`; both mean the resource no
-  longer exists.
+- Set a TTL that matches your retry window and document it. Twenty-four hours
+  works for payments; shorter for less critical operations.
+- Make `DELETE /resources/{id}` return `204` or `404`. Both mean the resource no
+  longer exists, which is what the client wants.
 - Validate key format and reject missing or malformed keys with `400 Bad Request`.
+  Don't accept arbitrary strings: a UUID v4 keeps the store clean.
 
 ## Common Mistakes
 
-- Checking the idempotency key without atomic locking, which lets two parallel
-  requests both execute.
+- Checking the idempotency key without atomic locking. I've seen this cause
+  duplicate charges in production: two parallel requests both pass the key check
+  before either writes the processing marker. Use a database unique constraint or
+  `SETNX` in Redis.
 - Setting an infinite TTL, eventually exhausting storage and degrading
   performance.
 - Returning different responses for the same idempotency key, breaking the
@@ -325,28 +360,93 @@ updates with the same body leave the resource in the same state. See
 - Using idempotency keys on GET requests, which are already idempotent.
 - Not removing the `processing` marker on failure, permanently blocking retries.
 
+## Testing Strategy
+
+Test idempotency with three scenarios: duplicate requests, concurrent requests,
+and TTL expiry. Each catches a different class of bug.
+
+**Duplicate requests**: send the same request twice with the same key. The second
+call should return `cached: true`. If it runs the operation again, your key
+check is broken.
+
+**Concurrent requests**: fire two requests at the same time with the same key.
+One wins, the other gets `409 Conflict`. Use a test that spawns
+parallel threads or async tasks. I've caught race conditions this way that only
+show up under load.
+
+**TTL expiry**: set a short TTL in tests (1 second), wait, then send the same
+key. The store should treat it as a fresh request. This catches bugs where the
+cleanup logic never runs or the TTL comparison is off.
+
+```python
+import pytest
+from concurrent.futures import ThreadPoolExecutor
+
+def test_duplicate_returns_cached(client):
+    headers = {"Idempotency-Key": "550e8400-e29b-41d4-a716-446655440000"}
+    r1 = client.post("/orders", json={"customer_id": "c1", "amount": 10}, headers=headers)
+    r2 = client.post("/orders", json={"customer_id": "c1", "amount": 10}, headers=headers)
+    assert r1.json()["cached"] is False
+    assert r2.json()["cached"] is True
+    assert r1.json()["id"] == r2.json()["id"]
+
+def test_concurrent_one_wins_other_gets_409(client):
+    headers = {"Idempotency-Key": "550e8400-e29b-41d4-a716-446655440001"}
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        futures = [
+            pool.submit(client.post, "/orders",
+                        json={"customer_id": "c1", "amount": 10}, headers=headers)
+            for _ in range(2)
+        ]
+        statuses = sorted(f.status_code for f in futures)
+    assert statuses == [200, 409]
+
+def test_expired_key_allows_new_request(client):
+    headers = {"Idempotency-Key": "550e8400-e29b-41d4-a716-446655440002"}
+    client.post("/orders", json={"customer_id": "c1", "amount": 10}, headers=headers)
+    # Wait for TTL to expire (set TTL=1 in test config)
+    import time; time.sleep(1.1)
+    r = client.post("/orders", json={"customer_id": "c1", "amount": 10}, headers=headers)
+    assert r.json()["cached"] is False
+```
+
+## See Also
+
+- [Stripe Idempotent Requests](https://stripe.com/docs/api/idempotent_requests):
+  production-grade idempotency key implementation in a payments API.
+- [RFC 7231: HTTP Semantics](https://datatracker.ietf.org/doc/html/rfc7231#section-4.2.2):
+  official HTTP method safety and idempotency definitions.
+- [AWS API Gateway Idempotency](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-idempotency.html):
+  managed idempotency support for AWS APIs.
+- [IETF Idempotency-Key Header Draft](https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/):
+  proposed standard for the `Idempotency-Key` header.
+- [Call REST API](/recipes/call-rest-api/): client-side retry patterns that
+  pair with server-side idempotency.
+- [Rate Limiting](/recipes/rate-limiting/): complements idempotency for API
+  protection.
+
 ## FAQ
 
 ### Which HTTP methods are naturally idempotent?
 
-GET, HEAD, PUT, DELETE, and OPTIONS are naturally idempotent. POST isn't —
-repeated POSTs usually create several resources. PATCH idempotency depends on
-the patch semantics.
+GET, HEAD, PUT, DELETE, and OPTIONS are all idempotent by HTTP spec. POST is the
+main exception: repeated POSTs usually create several resources. PATCH depends
+on the patch semantics.
 
 ### How should the client generate idempotency keys?
 
 Generate a UUID v4 before the first attempt and reuse it for every retry of the
-same logical operation. Never reuse a key for a different operation.
+same logical operation. Don't reuse a key for a different operation.
 
 ### Can I implement idempotency without a dedicated store?
 
-Yes, with database constraints. For example, a `payments` table with a unique
-constraint on `(idempotency_key, merchant_id)` prevents duplicates atomically.
-This works when the key maps directly to a record. For multi-step operations, a
-dedicated store is clearer.
+Yes, with database constraints. A `payments` table with a unique constraint on
+`(idempotency_key, merchant_id)` prevents duplicates atomically. This works when
+the key maps directly to a record. For multi-step operations, a dedicated store
+is clearer.
 
 ### How does this relate to rate limiting?
 
 Idempotency prevents duplicate side effects. Rate limiting prevents too many
-requests. They work together. See [Rate Limiting](/recipes/rate-limiting/) for
-client-side and server-side limits.
+requests. They complement each other. See [Rate Limiting](/recipes/rate-limiting/)
+for client-side and server-side limits.

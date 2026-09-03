@@ -18,11 +18,11 @@ tags:
  - fastapi
  - express
 relatedResources:
+ - /recipes/idempotent-api-endpoints
  - /recipes/call-rest-api
  - /recipes/input-validation
  - /recipes/api-versioning
  - /recipes/api-logging-audit
- - /recipes/api-documentation-openapi
  - /guides/rest-api-design-guide
 estimatedReadTime: 8
 lastUpdated: "2026-09-04"

@@ -14,10 +14,10 @@ tags:
   - backend
   - web-services
 relatedResources:
+  - /recipes/idempotent-api-endpoints
   - /recipes/parse-json
   - /recipes/handle-errors
   - /recipes/handle-cors
-  - /recipes/middleware
   - /recipes/rest-api-design
   - /recipes/grpc-api
 lastUpdated: "2026-08-25"
