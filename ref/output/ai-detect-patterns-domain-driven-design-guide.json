@@ -1,8 +1,31 @@
 [
   {
     "label": "domain-driven-design-guide",
-    "total_sentences": 84,
-    "pattern_totals": {},
-    "findings": []
+    "total_sentences": 106,
+    "pattern_totals": {
+      "ai_slop": 2
+    },
+    "findings": [
+      {
+        "sentence": "I've seen teams jump straight to repositories and aggregates without doing the\nstrategic work first.",
+        "findings": [
+          {
+            "pattern": "ai_slop",
+            "match": "strategic",
+            "suggestion": "replace with plain English"
+          }
+        ]
+      },
+      {
+        "sentence": "Strategic DDD \u2014 mapping bounded contexts,\ndefining context maps, aligning teams \u2014 comes first.",
+        "findings": [
+          {
+            "pattern": "ai_slop",
+            "match": "strategic",
+            "suggestion": "replace with plain English"
+          }
+        ]
+      }
+    ]
   }
 ]
