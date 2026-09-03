@@ -1,0 +1,379 @@
+[
+  {
+    "label": "soft-deletes-en",
+    "model": "desklib",
+    "model_ai_pct": 40.7,
+    "ai_count": 22,
+    "human_count": 43,
+    "skipped_count": 3,
+    "total": 68,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 16.4,
+      "stddev": 20.5,
+      "cv": 1.25,
+      "verdict": "natural variation",
+      "sentence_count": 65,
+      "lengths": [
+        10,
+        18,
+        22,
+        20,
+        7,
+        6,
+        10,
+        9,
+        10,
+        9,
+        16,
+        14,
+        8,
+        7,
+        7,
+        8,
+        8,
+        11,
+        13,
+        15,
+        19,
+        13,
+        105,
+        14,
+        8,
+        7,
+        14,
+        14,
+        22,
+        10,
+        12,
+        10,
+        8,
+        22,
+        13,
+        20,
+        14,
+        25,
+        46,
+        18,
+        22,
+        10,
+        11,
+        15,
+        9,
+        11,
+        18,
+        9,
+        17,
+        8,
+        143,
+        10,
+        8,
+        5,
+        11,
+        8,
+        10,
+        15,
+        17,
+        12,
+        6,
+        10,
+        6,
+        13,
+        17
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Instead of DELETE\nFROM, you run UPDATE ...",
+        0.9211
+      ],
+      [
+        "You must maintain audit trails for compliance (GDPR, HIPAA, SOC2).",
+        0.8326
+      ],
+      [
+        "**Access control**: restrict who can query soft-deleted records (e.g.,\n  paranoid: false in Sequelize, session.query without filter in SQLAlchemy).",
+        0.7973
+      ],
+      [
+        "This\npreserves data for auditing, recovery, and referential integrity while keeping\ndeleted records invisible to normal application queries.",
+        0.7763
+      ],
+      [
+        "GDPR Article 17 grants the right to erasure.",
+        0.7603
+      ],
+      [
+        "You want to show a \"trash\" or \"recycle bin\" UI.",
+        0.7487
+      ],
+      [
+        "Users need to recover accidentally deleted data.",
+        0.7133
+      ],
+      [
+        "This reduces risk if\n  the purge job fails.",
+        0.6969
+      ],
+      [
+        "A soft delete is only useful if users can recover from a\n  trash UI.",
+        0.6878
+      ],
+      [
+        "**PII in soft-deleted rows**: soft-deleted records still contain personal\n  data.",
+        0.684
+      ],
+      [
+        "A real DELETE is simpler and\n  cheaper.",
+        0.6592
+      ],
+      [
+        "The deleted_at\n  column tells you when, but not who.",
+        0.6046
+      ],
+      [
+        "Also restore related records if your\nbusiness logic requires it.",
+        0.5955
+      ],
+      [
+        "Data without any recovery or audit requirement.",
+        0.5869
+      ],
+      [
+        "This is required for GDPR and\nkeeps storage and backups from growing forever.",
+        0.5814
+      ],
+      [
+        "For related patterns, see [database-indexing](/recipes/database-indexing/) for\npartial index strategies and [repository-pattern](/patterns/repository-pattern/)\nfor integrating soft",
+        0.5752
+      ],
+      [
+        "Soft delete alone isn't sufficient.",
+        0.5701
+      ],
+      [
+        "The following shows\nsoft deletes with timestamp flags, filtered queries, unique indexes, purge jobs,\nand restore flows in Python, JavaScript, and Java.",
+        0.5522
+      ],
+      [
+        "I've found that teams often test the soft delete\nitself but skip the restore and purge tests \u2014 those are where the real bugs\nhide.",
+        0.5194
+      ],
+      [
+        "This gives you recoverable data, preserved foreign keys, and an automatic audit\ntrail.",
+        0.5154
+      ],
+      [
+        "Only admins or compliance teams should see deleted data.",
+        0.5151
+      ],
+      [
+        "Apply the same access controls to soft-deleted rows as active ones.",
+        0.514
+      ],
+      [
+        "Set deleted_at to NULL and commit.",
+        0.4859
+      ],
+      [
+        "Use partial indexes on active records to keep indexes small and fast:\nRun purge jobs during low-traffic windows and VACUUM (PostgreSQL) afterward.",
+        0.4736
+      ],
+      [
+        "**Anonymization**: for GDPR erasure, consider anonymizing PII columns at\n  soft-delete time instead of keeping them until purge.",
+        0.4123
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "soft-deletes-es",
+    "model": "desklib",
+    "model_ai_pct": 37.7,
+    "ai_count": 17,
+    "human_count": 51,
+    "skipped_count": 1,
+    "total": 69,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 17.1,
+      "stddev": 20.5,
+      "cv": 1.2,
+      "verdict": "natural variation",
+      "sentence_count": 68,
+      "lengths": [
+        15,
+        21,
+        24,
+        23,
+        7,
+        7,
+        8,
+        14,
+        8,
+        12,
+        17,
+        17,
+        9,
+        7,
+        8,
+        9,
+        8,
+        13,
+        13,
+        17,
+        20,
+        15,
+        108,
+        17,
+        9,
+        11,
+        13,
+        5,
+        15,
+        24,
+        12,
+        12,
+        11,
+        11,
+        8,
+        24,
+        13,
+        20,
+        18,
+        25,
+        53,
+        19,
+        22,
+        11,
+        13,
+        8,
+        8,
+        9,
+        12,
+        19,
+        10,
+        21,
+        8,
+        145,
+        10,
+        10,
+        7,
+        12,
+        8,
+        14,
+        18,
+        19,
+        13,
+        6,
+        11,
+        5,
+        12,
+        15
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Us\u00e1 una ventana de retenci\u00f3n corta y purgado\n  agresivo.",
+        0.9123
+      ],
+      [
+        "El costo son tablas m\u00e1s grandes, \u00edndices \u00fanicos especiales y una\nestrategia de purgado para eliminaci\u00f3n real.",
+        0.9005
+      ],
+      [
+        "**PII en filas soft-deleted**: los registros soft-deleted siguen conteniendo\n  datos personales.",
+        0.8662
+      ],
+      [
+        "En vez de\nDELETE FROM, ejecut\u00e1s UPDATE ...",
+        0.8075
+      ],
+      [
+        "El art\u00edculo 17 del GDPR otorga el derecho al olvido.",
+        0.7704
+      ],
+      [
+        "Datos sin necesidad de recuperaci\u00f3n ni auditor\u00eda.",
+        0.7549
+      ],
+      [
+        "El soft delete solo sirve si los usuarios\n  pueden recuperar desde una UI de papelera.",
+        0.7197
+      ],
+      [
+        "No tener estrategia de purgado, dejando datos soft-deleted acumularse para\n  siempre.",
+        0.705
+      ],
+      [
+        "Si posts pertenecen a\n  users, decid\u00ed si borrar un usuario tambi\u00e9n soft-deleta sus posts e\n  implementalo de forma uniforme en la capa de servicio.",
+        0.6769
+      ],
+      [
+        "Envolver todo en una transacci\u00f3n.",
+        0.6601
+      ],
+      [
+        "Quer\u00e9s mostrar una UI de papelera o reciclaje.",
+        0.6329
+      ],
+      [
+        "Deb\u00e9s mantener auditor\u00edas para compliance (GDPR, HIPAA, SOC2).",
+        0.6245
+      ],
+      [
+        "Los usuarios necesitan recuperar datos eliminados accidentalmente.",
+        0.6063
+      ],
+      [
+        "Tambi\u00e9n para datos de alta rotaci\u00f3n y no\nsensibles que inflar\u00edan las tablas.",
+        0.605
+      ],
+      [
+        "Implementalo en la capa de servicio o repositorio.",
+        0.5792
+      ],
+      [
+        "Consultar registros borrados por defecto porque el ORM no est\u00e1 configurado para\n  filtrarlos.",
+        0.5755
+      ],
+      [
+        "Un DELETE real es m\u00e1s\n  simple y barato.",
+        0.5059
+      ],
+      [
+        "Agreg\u00e1 una columna deleted_by o\n  escrib\u00ed a una tabla de auditor\u00eda separada.",
+        0.4953
+      ],
+      [
+        "Cuando los datos no tienen valor de recuperaci\u00f3n o auditor\u00eda, o cuando un usuario\no regulador solicita el olvido.",
+        0.4872
+      ],
+      [
+        "El hard delete es requerido por ley o por solicitud del usuario.",
+        0.4713
+      ],
+      [
+        "Teste\u00e1 el flujo de restauraci\u00f3n.",
+        0.4536
+      ],
+      [
+        "Logue\u00e1 hard deletes a una tabla de auditor\u00eda o event stream al purgar.",
+        0.4331
+      ],
+      [
+        "Esto preserva datos para auditor\u00eda, recuperaci\u00f3n e integridad\nreferencial mientras mantiene los registros eliminados invisibles para consultas\nnormales de la aplicaci\u00f3n.",
+        0.4194
+      ],
+      [
+        "Deb\u00e9s hard deletear o anonimizar despu\u00e9s de un per\u00edodo de retenci\u00f3n\ndocumentado.",
+        0.417
+      ],
+      [
+        "Esto bloquea valores\nactivos duplicados pero permite m\u00faltiples filas soft-deleted.",
+        0.4141
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
