@@ -1,0 +1,408 @@
+[
+  {
+    "label": "repository-pattern-en",
+    "model": "desklib",
+    "model_ai_pct": 48.1,
+    "ai_count": 35,
+    "human_count": 46,
+    "skipped_count": 5,
+    "total": 86,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.3,
+      "stddev": 9.5,
+      "cv": 0.71,
+      "verdict": "natural variation",
+      "sentence_count": 81,
+      "lengths": [
+        17,
+        19,
+        16,
+        20,
+        6,
+        25,
+        8,
+        14,
+        13,
+        10,
+        9,
+        12,
+        11,
+        22,
+        26,
+        22,
+        7,
+        21,
+        7,
+        8,
+        17,
+        14,
+        27,
+        15,
+        6,
+        7,
+        10,
+        10,
+        10,
+        12,
+        13,
+        10,
+        14,
+        12,
+        86,
+        17,
+        5,
+        8,
+        14,
+        11,
+        11,
+        12,
+        5,
+        16,
+        11,
+        7,
+        9,
+        10,
+        14,
+        5,
+        14,
+        8,
+        9,
+        9,
+        12,
+        10,
+        9,
+        14,
+        7,
+        14,
+        12,
+        25,
+        8,
+        14,
+        11,
+        13,
+        13,
+        12,
+        14,
+        12,
+        13,
+        11,
+        9,
+        8,
+        18,
+        11,
+        11,
+        13,
+        16,
+        12,
+        6
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "For integration tests, use a real database instance (or a test container like\nTestcontainers).",
+        0.9868
+      ],
+      [
+        "For small projects with few components it may add unnecessary complexity.",
+        0.9683
+      ],
+      [
+        "These tests run fast and cover every branch.",
+        0.8793
+      ],
+      [
+        "The\ntests didn't change at all.",
+        0.8605
+      ],
+      [
+        "[Repository Pattern with TypeScript Generics](/patterns/repository-pattern-typescript/):\n  a type-safe generic implementation of this pattern.",
+        0.8595
+      ],
+      [
+        "The pattern splits data access into two layers:\n**Repository Interface**: defines what operations are available, such as\n  find, save, and delete, without exposing how they're impl",
+        0.8562
+      ],
+      [
+        "This keeps consistency boundaries clear and stops partial updates from\nviolating invariants.",
+        0.8266
+      ],
+      [
+        "Here's how the pieces fit together: the interface defines the contract,\nconcrete implementations handle storage, and services depend only on the\ninterface.",
+        0.8205
+      ],
+      [
+        "For example, OrderRepository manages Order and its OrderLine items\ntogether.",
+        0.8162
+      ],
+      [
+        "[Martin Fowler: Repository Pattern](https://martinfowler.com/eaaCatalog/repository.html):\n  the original description from Patterns of Enterprise Application Architecture.",
+        0.7479
+      ],
+      [
+        "You don't need an OrderLineRepository because OrderLine is always\naccessed through its parent Order.",
+        0.7474
+      ],
+      [
+        "See\n  [Unit of Work](/patterns/repository-pattern-typescript/) for the pattern.",
+        0.7352
+      ],
+      [
+        "The key question is: will you ever need to test the service without the\ndatabase?",
+        0.7229
+      ],
+      [
+        "Prototypes where the extra layer adds more friction than it's worth.",
+        0.6927
+      ],
+      [
+        "In practice the terms are often\nused interchangeably.",
+        0.685
+      ],
+      [
+        "**Concrete Repository**: uses a specific storage mechanism, such as SQL,\n  MongoDB, a REST API, or an in-memory Map, to implement the interface.",
+        0.6798
+      ],
+      [
+        "I've used this pattern on projects where the team needed to swap MySQL for\nPostgreSQL mid-project.",
+        0.6621
+      ],
+      [
+        "The repository pattern adds a layer of abstraction.",
+        0.6518
+      ],
+      [
+        "I've seen\nteams add repositories \"for future flexibility\" and then never swap the\ndatabase.",
+        0.6444
+      ],
+      [
+        "If no, active record is simpler.",
+        0.6273
+      ],
+      [
+        "[Active Record Pattern](/patterns/active-record-pattern/): the alternative\n  approach that mixes data access and domain logic.",
+        0.6254
+      ],
+      [
+        "**Repository mapping**: use a real database, verify that rows map to domain\n  objects correctly.",
+        0.618
+      ],
+      [
+        "| Variant | Use case | Trade-off |\n| --- | --- | --- |\n| [Generic Repository](/patterns/repository-pattern-typescript/) | CRUD for any entity with TypeScript generics | Less duplic",
+        0.6039
+      ],
+      [
+        "A findAll call looks\ninnocent but might load 100,000 rows.",
+        0.6009
+      ],
+      [
+        "Tests run in milliseconds and are deterministic.",
+        0.5888
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "repository-pattern-es",
+    "model": "desklib",
+    "model_ai_pct": 43.4,
+    "ai_count": 28,
+    "human_count": 53,
+    "skipped_count": 5,
+    "total": 86,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.0,
+      "stddev": 10.4,
+      "cv": 0.69,
+      "verdict": "natural variation",
+      "sentence_count": 81,
+      "lengths": [
+        23,
+        21,
+        17,
+        23,
+        5,
+        24,
+        13,
+        17,
+        15,
+        13,
+        11,
+        15,
+        12,
+        25,
+        28,
+        22,
+        9,
+        23,
+        9,
+        8,
+        18,
+        16,
+        28,
+        17,
+        7,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        9,
+        15,
+        14,
+        95,
+        19,
+        5,
+        10,
+        11,
+        16,
+        13,
+        15,
+        16,
+        12,
+        7,
+        14,
+        10,
+        16,
+        8,
+        14,
+        10,
+        9,
+        8,
+        12,
+        12,
+        9,
+        19,
+        8,
+        16,
+        16,
+        27,
+        9,
+        19,
+        17,
+        13,
+        14,
+        13,
+        16,
+        13,
+        15,
+        16,
+        13,
+        8,
+        24,
+        6,
+        10,
+        10,
+        12,
+        17,
+        11,
+        6
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Para tests de integraci\u00f3n, levanto una base de datos real o un test container\ncomo Testcontainers.",
+        0.9742
+      ],
+      [
+        "Si tu repositorio tiene\n  if sobre reglas de negocio, esas reglas pertenecen al servicio.",
+        0.9264
+      ],
+      [
+        "Si inyect\u00e1s la clase concreta, perdiste todo el punto del patr\u00f3n.",
+        0.8858
+      ],
+      [
+        "Meter l\u00f3gica de negocio dentro de los repositorios.",
+        0.8297
+      ],
+      [
+        "El patr\u00f3n no depende del storage.",
+        0.7993
+      ],
+      [
+        "Si no, active record es m\u00e1s simple.",
+        0.7736
+      ],
+      [
+        "Un Repository es de m\u00e1s alto nivel y trabaja con aggregates de dominio.",
+        0.7389
+      ],
+      [
+        "La l\u00f3gica de negocio depende solo de la interfaz.",
+        0.7323
+      ],
+      [
+        "Una desventaja: los repositorios pueden ocultar costos de performance.",
+        0.7318
+      ],
+      [
+        "Est\u00e1s desacoplando la l\u00f3gica de negocio de la implementaci\u00f3n de acceso a\n  datos.",
+        0.7276
+      ],
+      [
+        "La l\u00f3gica de acceso a datos est\u00e1 dispersa y necesita un \u00fanico lugar.",
+        0.7056
+      ],
+      [
+        "Por ejemplo, OrderRepository maneja Order y sus OrderLine\njuntos.",
+        0.7041
+      ],
+      [
+        "Un\n  repositorio por aggregate root, no uno para todo.",
+        0.7031
+      ],
+      [
+        "Usar transacciones cuando dos o m\u00e1s operaciones del repositorio deban ser\n  at\u00f3micas.",
+        0.6925
+      ],
+      [
+        "Ignorar transacciones entre operaciones que deber\u00edan ser at\u00f3micas.",
+        0.6657
+      ],
+      [
+        "Los tests corren en milisegundos y son\ndetermin\u00edsticos.",
+        0.6415
+      ],
+      [
+        "El Patr\u00f3n Repository es un patr\u00f3n de dise\u00f1o arquitectural que media entre la\ncapa de dominio y las capas de mapeo de datos.",
+        0.6408
+      ],
+      [
+        "Cargar m\u00e1s datos de los necesarios porque la abstracci\u00f3n oculta el costo.",
+        0.6404
+      ],
+      [
+        "Filtrar detalles del ORM en los servicios devolviendo objetos espec\u00edficos de\n  base de datos.",
+        0.6172
+      ],
+      [
+        "Los tests no cambiaron nada.",
+        0.6115
+      ],
+      [
+        "**Mapeo del repositorio**: us\u00e1 una base de datos real, verific\u00e1 que las filas\n  mapeen a objetos de dominio correctamente.",
+        0.6073
+      ],
+      [
+        "Estos tests deben ser r\u00e1pidos y cubrir cada rama.",
+        0.5604
+      ],
+      [
+        "Ver [Unit of Work](/patterns/repository-pattern-typescript/) para\n  el patr\u00f3n.",
+        0.5546
+      ],
+      [
+        "[Martin Fowler: Repository Pattern](https://martinfowler.com/eaaCatalog/repository.html):\n  la descripci\u00f3n original de Patterns of Enterprise Application Architecture.",
+        0.5538
+      ],
+      [
+        "**Manejo de errores**: verific\u00e1 que los errores de base de datos se traduzcan\n  a excepciones de dominio.",
+        0.5441
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

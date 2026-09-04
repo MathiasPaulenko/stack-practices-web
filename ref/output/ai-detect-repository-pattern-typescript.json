@@ -1,0 +1,421 @@
+[
+  {
+    "label": "repository-pattern-typescript-en",
+    "model": "desklib",
+    "model_ai_pct": 47.9,
+    "ai_count": 38,
+    "human_count": 49,
+    "skipped_count": 2,
+    "total": 89,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.6,
+      "stddev": 7.2,
+      "cv": 0.58,
+      "verdict": "natural variation",
+      "sentence_count": 87,
+      "lengths": [
+        11,
+        19,
+        14,
+        19,
+        6,
+        18,
+        10,
+        9,
+        8,
+        8,
+        10,
+        9,
+        14,
+        11,
+        16,
+        7,
+        7,
+        17,
+        23,
+        10,
+        9,
+        14,
+        12,
+        6,
+        8,
+        17,
+        14,
+        27,
+        15,
+        6,
+        11,
+        26,
+        20,
+        63,
+        17,
+        5,
+        10,
+        8,
+        14,
+        6,
+        16,
+        14,
+        7,
+        14,
+        8,
+        6,
+        10,
+        14,
+        8,
+        15,
+        10,
+        15,
+        10,
+        14,
+        8,
+        16,
+        6,
+        10,
+        7,
+        14,
+        9,
+        12,
+        7,
+        15,
+        9,
+        24,
+        9,
+        13,
+        11,
+        16,
+        15,
+        14,
+        10,
+        8,
+        13,
+        9,
+        12,
+        7,
+        8,
+        12,
+        9,
+        10,
+        14,
+        8,
+        22,
+        5,
+        17
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Here's how the pieces fit together:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe generic Repository<T, ID> interface defines the contract.",
+        0.9554
+      ],
+      [
+        "For integration tests, I use a real MongoDB instance or an in-memory MongoDB\nlike mongodb-memory-server.",
+        0.8885
+      ],
+      [
+        "[Martin Fowler: Repository Pattern](https://martinfowler.com/eaaCatalog/repository.html):\n  the original description of the pattern from Patterns of Enterprise Application\n  Archit",
+        0.867
+      ],
+      [
+        "The tests didn't change\nat all.",
+        0.8605
+      ],
+      [
+        "These tests should be fast and cover every branch.",
+        0.7934
+      ],
+      [
+        "Don't let MongooseError escape into your service layer.",
+        0.7308
+      ],
+      [
+        "Mongoose\n  documents have methods like .save() and .populate() that don't belong in\n  the domain layer.",
+        0.728
+      ],
+      [
+        "The key question is: will you ever need to test the service without the\ndatabase?",
+        0.7229
+      ],
+      [
+        "It acts like an in-memory collection of domain\nobjects, abstracting persistence details so services stay focused on business\nlogic.",
+        0.7195
+      ],
+      [
+        "DTOs are for API responses and should\nbe mapped from entities in the service or API layer.",
+        0.7061
+      ],
+      [
+        "Unit tests need to run without a real database.",
+        0.6883
+      ],
+      [
+        "I've used this pattern on projects where we swapped MongoDB for PostgreSQL mid-\nproject.",
+        0.6861
+      ],
+      [
+        "findById and findAll cover basics, but custom queries like \"find users by\nrole and last login date\" need either a specialized interface or a specification\npattern.",
+        0.6737
+      ],
+      [
+        "I prefer extending the interface per aggregate when needed, rather than\nbuilding a generic query builder that loses type safety.",
+        0.6626
+      ],
+      [
+        "The repository pattern adds a layer of abstraction.",
+        0.6518
+      ],
+      [
+        "I've seen\nteams add repositories \"for future flexibility\" and then never swap the\ndatabase.",
+        0.6444
+      ],
+      [
+        "[Repository Pattern](/patterns/repository-pattern/): the language-agnostic\n  version of this pattern.",
+        0.633
+      ],
+      [
+        "If no, active record is simpler.",
+        0.6273
+      ],
+      [
+        "[Active Record Pattern](/patterns/active-record-pattern/): the alternative\n  approach that mixes data access and domain logic.",
+        0.6254
+      ],
+      [
+        "See [Unit of Work](/patterns/repository-pattern/) for the\n  pattern.",
+        0.6225
+      ],
+      [
+        "InMemoryRepository is what makes service testing without a database possible.",
+        0.5998
+      ],
+      [
+        "The repository pattern\nseparates them, making the domain layer independent from persistence.",
+        0.5946
+      ],
+      [
+        "Tests run in milliseconds and are deterministic.",
+        0.5888
+      ],
+      [
+        "Persistence concerns keep leaking into your service layer.",
+        0.5854
+      ],
+      [
+        "[TypeScript Generics Handbook](https://www.typescriptlang.org/docs/handbook/2/generics.html):\n  official documentation on generics, the foundation of the type-safe\n  Repository<T, ",
+        0.5847
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "repository-pattern-typescript-es",
+    "model": "desklib",
+    "model_ai_pct": 43.8,
+    "ai_count": 31,
+    "human_count": 57,
+    "skipped_count": 3,
+    "total": 91,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.1,
+      "stddev": 7.8,
+      "cv": 0.56,
+      "verdict": "natural variation",
+      "sentence_count": 88,
+      "lengths": [
+        13,
+        27,
+        14,
+        21,
+        5,
+        21,
+        14,
+        10,
+        9,
+        11,
+        11,
+        10,
+        14,
+        15,
+        16,
+        8,
+        11,
+        19,
+        32,
+        12,
+        10,
+        16,
+        12,
+        8,
+        8,
+        18,
+        16,
+        28,
+        17,
+        7,
+        14,
+        27,
+        21,
+        68,
+        19,
+        5,
+        6,
+        12,
+        9,
+        11,
+        7,
+        16,
+        14,
+        7,
+        15,
+        10,
+        9,
+        10,
+        16,
+        12,
+        18,
+        12,
+        15,
+        8,
+        13,
+        12,
+        18,
+        6,
+        12,
+        10,
+        12,
+        9,
+        16,
+        8,
+        17,
+        12,
+        25,
+        9,
+        18,
+        17,
+        15,
+        15,
+        16,
+        11,
+        10,
+        15,
+        9,
+        13,
+        7,
+        10,
+        14,
+        9,
+        14,
+        18,
+        12,
+        21,
+        7,
+        14
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Las preocupaciones de persistencia siguen filtr\u00e1ndose en tu capa de servicios.",
+        0.9754
+      ],
+      [
+        "Ignorar la paginaci\u00f3n para conjuntos grandes.",
+        0.8827
+      ],
+      [
+        "Inyectar la interfaz del repositorio, no la implementaci\u00f3n concreta.",
+        0.8631
+      ],
+      [
+        "Los DTOs son para respuestas de API.",
+        0.8369
+      ],
+      [
+        "[Mongoose Documentation](https://mongoosejs.com/docs/models.html): el ORM usado\n  en los ejemplos de implementaci\u00f3n concreta.",
+        0.8279
+      ],
+      [
+        "Las reglas de negocio van\n  en los servicios, no en los repositorios.",
+        0.796
+      ],
+      [
+        "Agregar paginaci\u00f3n para findAll con muchos resultados.",
+        0.7806
+      ],
+      [
+        "Si no, active record es m\u00e1s simple.",
+        0.7736
+      ],
+      [
+        "[TypeScript Generics Handbook](https://www.typescriptlang.org/docs/handbook/2/generics.html):\n  documentaci\u00f3n oficial sobre generics, la base de la interfaz type-safe\n  Repository<",
+        0.7394
+      ],
+      [
+        "[Repository Pattern](/patterns/repository-pattern/): la versi\u00f3n agn\u00f3stica del\n  lenguaje de este patr\u00f3n.",
+        0.7281
+      ],
+      [
+        "Mapealos desde las entidades en el\nservicio o capa API, no en el repositorio.",
+        0.7254
+      ],
+      [
+        "Los tests unitarios necesitan ejecutarse sin base de datos real.",
+        0.7216
+      ],
+      [
+        "InMemoryRepository es lo que hace posible testear servicios sin base de datos.",
+        0.7216
+      ],
+      [
+        "Los documentos de Mongoose tienen m\u00e9todos como .save() y .populate() que\n  no pertenecen a la capa de dominio.",
+        0.6836
+      ],
+      [
+        "Envolvelos\n  en excepciones de dominio para que el servicio no necesite conocer los c\u00f3digos\n  de error de MongoDB.",
+        0.6469
+      ],
+      [
+        "Los tests corren en milisegundos y son determin\u00edsticos.",
+        0.6415
+      ],
+      [
+        "Los tests no\ncambiaron nada.",
+        0.6115
+      ],
+      [
+        "Para tests de integraci\u00f3n, uso una instancia real de MongoDB o un MongoDB en\nmemoria como mongodb-memory-server.",
+        0.6103
+      ],
+      [
+        "Filtrar queries del ORM en los m\u00e9todos del servicio.",
+        0.5964
+      ],
+      [
+        "MongooseRepository mapea documentos de base de datos a entidades de dominio.",
+        0.5958
+      ],
+      [
+        "Si\n  inyect\u00e1s la clase concreta, perdiste el beneficio entero del patr\u00f3n.",
+        0.5846
+      ],
+      [
+        "**Mapeo del repositorio**: us\u00e1 una base de datos real, verific\u00e1 que toEntity\n  elimine los campos del ORM correctamente.",
+        0.5799
+      ],
+      [
+        "Si tu repositorio tiene\n  if sobre reglas de negocio, movelos al servicio.",
+        0.5753
+      ],
+      [
+        "No dejes que MongooseError escape a tu capa de\n  servicio.",
+        0.5705
+      ],
+      [
+        "Estos tests deben ser r\u00e1pidos y cubrir cada rama.",
+        0.5604
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
