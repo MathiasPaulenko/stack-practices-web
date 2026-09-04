@@ -1,0 +1,433 @@
+[
+  {
+    "label": "prometheus-monitoring-alerts-en",
+    "model": "desklib",
+    "model_ai_pct": 45.3,
+    "ai_count": 39,
+    "human_count": 55,
+    "skipped_count": 2,
+    "total": 96,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.5,
+      "stddev": 6.1,
+      "cv": 0.45,
+      "verdict": "somewhat uniform",
+      "sentence_count": 94,
+      "lengths": [
+        15,
+        27,
+        22,
+        7,
+        23,
+        22,
+        13,
+        19,
+        10,
+        13,
+        9,
+        9,
+        11,
+        11,
+        15,
+        8,
+        5,
+        8,
+        5,
+        7,
+        12,
+        11,
+        11,
+        10,
+        17,
+        17,
+        23,
+        21,
+        7,
+        14,
+        15,
+        17,
+        14,
+        12,
+        11,
+        10,
+        13,
+        26,
+        27,
+        13,
+        11,
+        12,
+        15,
+        11,
+        13,
+        7,
+        13,
+        27,
+        10,
+        46,
+        18,
+        11,
+        15,
+        10,
+        16,
+        10,
+        20,
+        13,
+        12,
+        12,
+        9,
+        12,
+        15,
+        11,
+        14,
+        10,
+        19,
+        6,
+        16,
+        8,
+        13,
+        10,
+        21,
+        7,
+        19,
+        10,
+        20,
+        6,
+        19,
+        11,
+        9,
+        15,
+        12,
+        14,
+        12,
+        6,
+        12,
+        9,
+        15,
+        11,
+        9,
+        11,
+        10,
+        10
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "This is the #1 cause of alert\n  fatigue in my experience \u2014 a 30-second spike triggers a page at 3 AM.",
+        0.9759
+      ],
+      [
+        "Forgetting to set for, so every blip pages the team.",
+        0.8963
+      ],
+      [
+        "When you need a push model for metrics: use the Pushgateway only for short-lived\n  jobs.",
+        0.8798
+      ],
+      [
+        "Don't\nuse it for long-running services.",
+        0.8659
+      ],
+      [
+        "For long-term storage, [Thanos](https://thanos.io/) and\n[Cortex](https://cortexmetrics.io/) are the two main options.",
+        0.8636
+      ],
+      [
+        "Prometheus collects time-series metrics by scraping HTTP endpoints that expose data in\nits text format.",
+        0.7934
+      ],
+      [
+        "[prometheus_client (Python)](https://github.com/prometheus/client_python) \u2014 the\n  official Python client for Prometheus metrics.",
+        0.7796
+      ],
+      [
+        "Every unique combination of labels creates a new time series.",
+        0.7396
+      ],
+      [
+        "For deep debugging of individual events: use logs or traces instead.",
+        0.7113
+      ],
+      [
+        "Counters only go up \u2014 they're perfect for request counts and error\ncounts because you can compute a rate with rate() or increase().",
+        0.6751
+      ],
+      [
+        "[Prometheus documentation](https://prometheus.io/docs/introduction/overview/) \u2014\n  official docs covering configuration, PromQL, and best practices.",
+        0.674
+      ],
+      [
+        "**Gauge**: goes up and down.",
+        0.6671
+      ],
+      [
+        "Alerting on causes instead of symptoms.",
+        0.6594
+      ],
+      [
+        "In practice, histograms are the\ndefault choice because of this aggregation advantage.",
+        0.6463
+      ],
+      [
+        "Two to five minutes is a\ncommon starting point.",
+        0.6375
+      ],
+      [
+        "Use it for latency or response size.",
+        0.6332
+      ],
+      [
+        "That experience taught me that\ninstrumentation is only half the job \u2014 the other half is writing alerts that actually\nmean something.",
+        0.6272
+      ],
+      [
+        "A high CPU\n  alert doesn't tell you whether users are feeling the impact; a high error-rate alert does.",
+        0.6244
+      ],
+      [
+        "If you need per-user data, use logs or traces, not metrics.",
+        0.6243
+      ],
+      [
+        "Histograms and summaries both measure distributions, but they differ in where the\naggregation happens.",
+        0.6238
+      ],
+      [
+        "Using high-cardinality labels such as user IDs or session IDs.",
+        0.6215
+      ],
+      [
+        "I've seen this crash a\n  Prometheus instance in under an hour \u2014 50,000 new series from a single scrape.",
+        0.5963
+      ],
+      [
+        "For long-term storage without planning: Prometheus keeps data locally by default.",
+        0.5942
+      ],
+      [
+        "You want alerts based on symptoms (error rate, latency) rather than raw causes.",
+        0.5889
+      ],
+      [
+        "**Histogram**: counts observations into buckets.",
+        0.5839
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "prometheus-monitoring-alerts-es",
+    "model": "desklib",
+    "model_ai_pct": 35.6,
+    "ai_count": 18,
+    "human_count": 75,
+    "skipped_count": 4,
+    "total": 97,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.1,
+      "stddev": 6.9,
+      "cv": 0.46,
+      "verdict": "somewhat uniform",
+      "sentence_count": 93,
+      "lengths": [
+        19,
+        26,
+        22,
+        8,
+        25,
+        25,
+        16,
+        19,
+        13,
+        14,
+        8,
+        7,
+        13,
+        13,
+        15,
+        7,
+        8,
+        5,
+        7,
+        12,
+        16,
+        11,
+        9,
+        17,
+        16,
+        22,
+        23,
+        7,
+        13,
+        18,
+        18,
+        14,
+        14,
+        12,
+        10,
+        15,
+        29,
+        31,
+        14,
+        11,
+        12,
+        17,
+        13,
+        13,
+        9,
+        14,
+        32,
+        12,
+        54,
+        23,
+        14,
+        15,
+        9,
+        17,
+        10,
+        23,
+        15,
+        13,
+        14,
+        14,
+        13,
+        21,
+        11,
+        15,
+        11,
+        20,
+        7,
+        20,
+        10,
+        16,
+        9,
+        25,
+        6,
+        20,
+        10,
+        23,
+        9,
+        20,
+        13,
+        10,
+        17,
+        15,
+        15,
+        17,
+        8,
+        14,
+        10,
+        15,
+        12,
+        11,
+        13,
+        12,
+        13
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Esta es la causa #1 de\n  fatiga de alertas en mi experiencia \u2014 un pico de 30 segundos dispara un page a las 3 AM.",
+        0.8842
+      ],
+      [
+        "La mayor\u00eda de los servicios no necesita resoluci\u00f3n de 5 segundos \u2014 15s es el\n  default de Prometheus por una raz\u00f3n.",
+        0.8181
+      ],
+      [
+        "Dos a cinco minutos es un punto de partida com\u00fan.",
+        0.791
+      ],
+      [
+        "En la pr\u00e1ctica,\nlos histograms son la opci\u00f3n default por esta ventaja de agregaci\u00f3n.",
+        0.7619
+      ],
+      [
+        "Los logs son eventos discretos, mejores para debuggear incidentes\nespec\u00edficos.",
+        0.7547
+      ],
+      [
+        "No lo uses para servicios de larga duraci\u00f3n.",
+        0.744
+      ],
+      [
+        "Para debugging profundo de eventos individuales: us\u00e1 logs o traces en su lugar.",
+        0.7371
+      ],
+      [
+        "Eso significa que pod\u00e9s agregar entre\ninstancias \u2014 p95 entre 10 pods es una sola expresi\u00f3n de PromQL.",
+        0.7249
+      ],
+      [
+        "Para almacenamiento a largo\nplazo, [Thanos](https://thanos.io/) y [Cortex](https://cortexmetrics.io/) son las dos\nopciones principales.",
+        0.6698
+      ],
+      [
+        "Cuando necesit\u00e1s un modelo push de m\u00e9tricas: us\u00e1 Pushgateway solo para jobs de corta\n  duraci\u00f3n.",
+        0.6379
+      ],
+      [
+        "**Histogram**: agrupa observaciones en buckets.",
+        0.6124
+      ],
+      [
+        "Un summary calcula quantiles del lado del cliente y no te deja promediar entre instancias.",
+        0.592
+      ],
+      [
+        "Un histogram agrupa observaciones en el cliente y te deja computar quantiles\ndel lado del servidor con histogram_quantile().",
+        0.5905
+      ],
+      [
+        "Necesit\u00e1s datos num\u00e9ricos con timestamp sobre el comportamiento de la aplicaci\u00f3n e\n  infraestructura.",
+        0.589
+      ],
+      [
+        "Quer\u00e9s enrutar alertas por severidad o equipo.",
+        0.5758
+      ],
+      [
+        "[prom-client (Node.js)](https://github.com/siimon/prom-client) \u2014 la librer\u00eda usada en\n  los ejemplos TypeScript de esta receta.",
+        0.5675
+      ],
+      [
+        "[prometheus_client (Python)](https://github.com/prometheus/client_python) \u2014 el cliente\n  oficial de Python para m\u00e9tricas de Prometheus.",
+        0.5443
+      ],
+      [
+        "Usalo para requests, errores o tareas completadas.",
+        0.5076
+      ],
+      [
+        "Olvidar setear for, as\u00ed cada parpadeo despierta al equipo.",
+        0.4981
+      ],
+      [
+        "Sete\u00e1 una duraci\u00f3n for apropiada para evitar alertas intermitentes.",
+        0.4816
+      ],
+      [
+        "Alertar por causas en lugar de s\u00edntomas.",
+        0.4808
+      ],
+      [
+        "Para almacenamiento a largo plazo sin planificar: Prometheus guarda datos localmente\n  por default.",
+        0.4783
+      ],
+      [
+        "Cortex es un backend escalable horizontalmente compatible con Prometheus.",
+        0.4675
+      ],
+      [
+        "Los histograms y summaries miden distribuciones, pero difieren en d\u00f3nde ocurre la\nagregaci\u00f3n.",
+        0.4413
+      ],
+      [
+        "Version\u00e1 tus reglas de alertas en Git y revisalas en PRs.",
+        0.4411
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
