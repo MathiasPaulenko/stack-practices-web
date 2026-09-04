@@ -44,9 +44,9 @@
 42. - [x] **soft-deletes** (recipes) — 87/88 ✅ PROMOTE
 43. - [x] **complete-guide-rabbitmq-architecture** (guides) — 85/88 ✅ PROMOTE
 44. - [x] **domain-driven-design-guide** (guides) — 80/88 ✅ PROMOTE
-45. - [ ] **idempotent-consumer-pattern** (patterns)
-46. - [ ] **circuit-breaker-with-monitoring-pattern** (patterns)
-47. - [ ] **idempotent-api-endpoints** (recipes)
+45. - [x] **idempotent-consumer-pattern** (patterns) — 80/88 ✅ PROMOTE
+46. - [x] **circuit-breaker-with-monitoring-pattern** (patterns) — 80/88 ✅ PROMOTE
+47. - [x] **idempotent-api-endpoints** (recipes) — 78/88 ✅ PROMOTE
 48. - [ ] **repository-pattern-typescript** (patterns)
 49. - [ ] **repository-pattern** (patterns)
 50. - [ ] **complete-guide-graphql-caching** (guides)
