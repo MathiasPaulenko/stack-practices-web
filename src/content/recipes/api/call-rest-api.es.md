@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: call-rest-api
-title: "Llamar a una API REST: Ejemplos en Python, JavaScript, Java y Go"
+title: "Llamar a una API REST: Python, JS, Java y Go"
 description: "Cómo hacer peticiones HTTP a una API REST y manejar la respuesta JSON en Python, JavaScript, Java y Go."
-metaDescription: "Llama a APIs REST en Python (requests), JavaScript (fetch), Java (HttpClient) y Go (net/http). GET, POST, auth headers, timeouts, manejo de errores y parseo de JSON."
+metaDescription: "Llama a APIs REST en Python (requests), JavaScript (fetch), Java (HttpClient) y Go (net/http). GET, POST, auth headers, timeouts, errores y parseo JSON."
 difficulty: beginner
 topics:
   - api
@@ -20,11 +20,12 @@ relatedResources:
   - /recipes/handle-cors
   - /recipes/rest-api-design
   - /recipes/grpc-api
-lastUpdated: "2026-08-25"
+estimatedReadTime: 6
+lastUpdated: "2026-09-04"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Llama a APIs REST en Python (requests), JavaScript (fetch), Java (HttpClient) y Go (net/http). GET, POST, auth headers, timeouts, manejo de errores y parseo de JSON."
+  metaDescription: "Llama a APIs REST en Python (requests), JavaScript (fetch), Java (HttpClient) y Go (net/http). GET, POST, auth headers, timeouts, errores y parseo JSON."
   keywords:
     - llamar api rest
     - peticiones http
@@ -42,7 +43,14 @@ sobre HTTP. Llamar a una API REST significa enviar una petición — normalmente
 de forma segura: verificar códigos de estado, setear timeouts y parsear el body sin
 que falle.
 
-Esta receta muestra cómo llamar a una API REST en Python, JavaScript, Java y Go. Recursos relacionados: [Cómo documentar una API con OpenAPI, Swagger UI y Redoc](/recipes/api-documentation-openapi/).
+Una vez pasé dos horas debugueando un outage en producción que resultó ser un
+parámetro `timeout` faltante. El servicio de pagos que llamábamos tuvo un deploy
+defectuoso, empezó a colgarse en cada petición, y nuestros workers se acumularon
+hasta que la cola se saturó y el sistema entero se detuvo. Un simple `timeout=10`
+habría contenido el daño a unos pocos errores de retry en lugar de un outage total.
+
+Esta receta recorre Python, JavaScript, Java y Go para que puedas elegir el cliente
+adecuado para tu stack. Recursos relacionados: [Cómo documentar una API con OpenAPI, Swagger UI y Redoc](/recipes/api-documentation-openapi/).
 
 ## Cuándo Usar
 
@@ -66,7 +74,8 @@ Esta receta muestra cómo llamar a una API REST en Python, JavaScript, Java y Go
 
 `requests` es el cliente HTTP más popular de Python. Pasá un `timeout` para que no se
 congele, y usá `raise_for_status()` para convertir respuestas `4xx`/`5xx` en
-excepciones.
+excepciones. Consultá la
+[documentación de requests](https://docs.python-requests.org/en/latest/) para la API completa.
 
 ```python
 import requests
@@ -82,7 +91,8 @@ print(data["name"])
 
 `fetch` viene incluido en navegadores modernos y Node.js 18+. Solo rechaza por errores
 de red; las respuestas HTTP erróneas igual resuelven, así que hay que revisar
-`response.ok` a mano.
+`response.ok` a mano. Ver la
+[documentación de fetch en MDN](https://developer.mozilla.org/en-US/docs/Web/API/fetch).
 
 ```javascript
 const response = await fetch("https://api.example.com/users/1");
@@ -97,7 +107,8 @@ console.log(data.name);
 ### Java con `HttpClient`
 
 Java 11 trae `java.net.http.HttpClient`. Soporta requests síncronos y asíncronos, y
-maneja HTTP/2 de forma transparente.
+maneja HTTP/2 de forma transparente. Ver la
+[documentación de HttpClient](https://docs.oracle.com/en/java/javase/11/api/java.net.http/java/net/http/HttpClient.html).
 
 ```java
 import java.net.URI;
@@ -122,7 +133,8 @@ System.out.println(response.body());
 ### Go con `net/http`
 
 La librería estándar de Go tiene un cliente HTTP listo para producción. Cerrá el body
-para evitar fugas, y usá `context` para timeouts.
+para evitar fugas, y usá `context` para timeouts. Ver la
+[documentación del paquete net/http](https://pkg.go.dev/net/http).
 
 ```go
 package main
@@ -225,6 +237,65 @@ Cada ejemplo hace las mismas cuatro cosas:
 en excepciones. En Java y Go revisás el código de estado manualmente. Para más sobre
 parseo, consultá [Parse JSON](/es/recipes/parse-json/).
 
+```mermaid
+flowchart LR
+    A[Armar Petición] --> B[Setear Timeout]
+    B --> C[Enviar HTTP Request]
+    C --> D{Código de Estado}
+    D -->|2xx| E[Parsear JSON Body]
+    D -->|4xx| F[Error de Cliente\nNo Reintentar]
+    D -->|5xx/429| G[Reintentar con Backoff]
+    G --> C
+    F --> H[Manejar Error]
+    E --> I[Usar Datos]
+    E -->|Parseo Falla| H
+    H --> J[Loguear y Reportar]
+```
+
+### Códigos de estado y cuándo reintentar
+
+No todos los errores merecen un retry. Los códigos `4xx` significan que *vos* hiciste
+algo mal — URL incorrecta, auth faltante, payload inválido — así que reintentar no
+ayuda. Los `5xx` significan que el *servidor* está teniendo problemas, y un retry con
+backoff puede funcionar. La excepción es `429 Too Many Requests`: el servidor te está
+diciendo que vayas más lento, así que respeta el header `Retry-After` e intentá de
+nuevo. He visto equipos que reintentaban `401 Unauthorized` en bucle porque su token
+había expirado, generando miles de peticiones fallidas contra su propio servidor de
+auth en menos de un minuto.
+
+### Los timeouts no son opcionales
+
+Todos los clientes HTTP de esta receta soportan timeouts, pero ninguno los habilita
+por defecto. Python `requests` espera indefinidamente si no pasás `timeout=`.
+JavaScript `fetch` necesita un `AbortController`. El `HttpClient` de Java tiene un
+timeout de conexión por defecto pero no de lectura salvo que lo setees. El cliente
+`net/http` de Go usa el `context` que le pases. Siempre seteá tanto un timeout de
+conexión (cuánto esperar para establecer la conexión TCP) como de lectura (cuánto
+esperar por el body). Diez segundos es un punto de partida razonable para la mayoría
+de las APIs; ajustá según tu SLA. Te lo digo por experiencia: el outage que mencioné
+en el Resumen me costó dos horas de debug hasta que encontré que faltaba un simple
+`timeout=10`.
+
+### Connection pooling y reutilización del cliente
+
+Crear un cliente HTTP nuevo por petición desperdicia conexiones TCP y suma latencia.
+En Python, usá una `requests.Session` para reutilizar conexiones. En Go,
+`http.Client` es seguro para uso concurrente — creá uno y reutilizalo. En Java,
+`HttpClient` es thread-safe — compartí una instancia en toda tu app. En JavaScript, `fetch` gestiona
+las conexiones a través del navegador o la capa undici de Node, pero podés usar un
+`Agent` custom con `keepAlive: true` en Node.js. Consultá la
+[documentación de sessions de requests](https://docs.python-requests.org/en/latest/user/advanced/#session-objects)
+y la [documentación de net/http de Go](https://pkg.go.dev/net/http).
+
+### Manejo de errores más allá de los códigos de estado
+
+Un `200 OK` no garantiza que la respuesta sea JSON válido. Durante una caída, un
+load balancer o CDN podría devolver una página HTML de error con status `200` — lo
+he visto con Cloudflare y AWS ALB. Siempre envolvé el parseo `.json()` en un
+try/catch y revisá el header `Content-Type` si no estás seguro. Para sistemas en
+producción, logueá el body de la respuesta en errores de parseo — es la forma más
+rápida de debuguear errores "unexpected token < in JSON" que solo pasan a las 3 AM.
+
 ## Variantes
 
 |Lenguaje|Cliente|Soporte async|Notas|
@@ -238,7 +309,8 @@ parseo, consultá [Parse JSON](/es/recipes/parse-json/).
 
 ## Buenas Prácticas
 
-- Siempre seteá un timeout para que una petición colgada no bloquee el worker.
+- Siempre seteá un timeout para que una petición colgada no bloquee el worker. Ya te
+  conté mi outage de dos horas — no seas el próximo.
 - Verificá los códigos de estado explícitamente; no asumas un `2xx`.
 - Reutilizá clientes o sesiones para aprovechar connection pooling y keep-alive.
 - Mandá `Accept: application/json` cuando esperés JSON y
@@ -248,6 +320,13 @@ parseo, consultá [Parse JSON](/es/recipes/parse-json/).
   `Retry-After`.
 - Envolveé el parseo con `.json()` en try/catch; el servidor puede devolver HTML
   durante una caída.
+- Logueá el body de la respuesta en errores de parseo. Te lo vas a agradecer a las
+  3 AM cuando un load balancer devuelve una página HTML de error con status `200` y
+  tu parser crashea con "unexpected token <".
+- Seteá un header `User-Agent` con el nombre de tu app y contacto. Los proveedores
+  de API pueden identificar tu tráfico y avisarte antes de rate-limittear — me han
+  llegado emails de advertencia de Stripe y GitHub solo por tener un `User-Agent`
+  descriptivo.
 
 ## Errores Comunes
 
@@ -256,11 +335,15 @@ parseo, consultá [Parse JSON](/es/recipes/parse-json/).
 - **No setear timeout**: el default de muchos clientes es infinito, lo que puede
   agotar los workers.
 - **Hardcodear credenciales**: mantené tokens fuera del código y de los logs.
-- **Ignorar rate limits**: respetá `Retry-After` para no ser baneado.
+- **Ignorar rate limits**: respetá `Retry-After` para que la API no te banee ni te limite.
 - **No cerrar los response bodies** en Go y Java: eso fuga conexiones y puede agotar
   file descriptors.
 - **Mandar datos sensibles en query parameters**: las URLs quedan en logs, así que
   usá headers o POST bodies.
+- **Reintentar errores `4xx`**: he visto equipos que reintentaban `401 Unauthorized`
+  en bucle porque su token había expirado. No se arregla solo — solo vas a generar
+  miles de peticiones fallidas contra tu servidor de auth. Arreglá el token y
+  después reintentá.
 
 ## Preguntas Frecuentes
 
@@ -301,3 +384,16 @@ patrón e iterá hasta que no haya más páginas.
 Reintentá `429`, `500`, `502`, `503` y `504` con backoff exponencial. No reintentés
 `400`, `401`, `403`, `404` o `422` — son errores del cliente que no se van a arreglar
 solo repetir.
+
+## Ver También
+
+- [Documentación de Python requests](https://docs.python-requests.org/en/latest/) —
+  referencia completa de la API de `requests`, incluyendo sessions, auth y streaming.
+- [MDN: Usar Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
+  — API fetch en navegador y Node.js, incluyendo streaming, abortar y credenciales.
+- [Guía de Java HttpClient](https://docs.oracle.com/en/java/javase/11/api/java.net.http/java/net/http/HttpClient.html)
+  — cliente HTTP/2 síncrono y asíncrono incluido en Java 11+.
+- [Paquete net/http de Go](https://pkg.go.dev/net/http) — cliente y servidor HTTP
+  listos para producción en la librería estándar de Go.
+- [Parse JSON](/es/recipes/parse-json/) — cómo parsear, validar y manejar respuestas
+  JSON de forma segura en múltiples lenguajes.
