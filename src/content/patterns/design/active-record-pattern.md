@@ -18,6 +18,7 @@ relatedResources:
   - /patterns/data-access-object-pattern
   - /patterns/data-mapper-pattern
   - /patterns/repository-pattern
+  - /patterns/repository-pattern-typescript
   - /patterns/composite-entity-pattern
   - /patterns/unit-of-work-pattern
 lastUpdated: "2026-06-25"

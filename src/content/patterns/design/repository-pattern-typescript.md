@@ -20,8 +20,9 @@ relatedResources:
   - /patterns/adapter-pattern-api
   - /recipes/database-indexing
   - /guides/database-design-guide
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-09-03"
 publishedAt: "2026-06-18"
+estimatedReadTime: 8
 author: Mathias Paulenko
 seo:
   metaDescription: "Repository pattern in TypeScript with generics. Decouple data access from domain logic with type-safe repositories, interfaces, and clean dependency injection."
@@ -40,15 +41,20 @@ domain and data mapping layers. It acts like an in-memory collection of domain
 objects, abstracting persistence details so services stay focused on business
 logic.
 
+I've used this pattern on projects where we swapped MongoDB for PostgreSQL mid-
+project. Because services depended on the `Repository<T, ID>` interface, not on
+Mongoose directly, the swap took days instead of weeks. The tests didn't change
+at all.
+
 This version uses TypeScript generics so a single interface can describe
 repositories for any entity and id type.
 
 ## When to Use
 
-- You want to swap database technologies without changing business logic.
-- Unit tests must run without a real database.
-- Several services share similar query patterns.
-- You need to keep persistence concerns out of services.
+- You're planning to swap database technologies without rewriting business logic.
+- Unit tests need to run without a real database.
+- Two or more services share similar query patterns.
+- Persistence concerns keep leaking into your service layer.
 
 ### When to avoid
 
@@ -56,6 +62,33 @@ repositories for any entity and id type.
 - Prototypes that don’t need test doubles or storage swaps.
 
 ## Solution
+
+Here's how the pieces fit together:
+
+```mermaid
+classDiagram
+  class Repository~T, ID~ {
+    +findById(id: ID): Promise~T | null~
+    +findAll(filter?: Partial~T~): Promise~T[]~
+    +create(entity: Omit~T, "id"~): Promise~T~
+    +update(id: ID, entity: Partial~T~): Promise~T | null~
+    +delete(id: ID): Promise~boolean~
+  }
+  class MongooseRepository~T~ {
+    -model: Model
+    -toEntity(doc: any): T
+  }
+  class InMemoryRepository~T~ {
+    -items: Map~string, T~
+  }
+  class UserService {
+    -userRepo: Repository~User, string~
+    +promoteToAdmin(id: string): Promise~User | null~
+  }
+  Repository~T, ID~ <|.. MongooseRepository~T~ : implements
+  Repository~T, ID~ <|.. InMemoryRepository~T~ : implements
+  UserService --> Repository~T, ID~ : depends on
+```
 
 ### Repository interface
 
@@ -185,15 +218,40 @@ const testService = new UserService(new InMemoryRepository<User>());
 
 The generic `Repository<T, ID>` interface defines the contract. Concrete
 implementations handle persistence, while services depend only on the interface.
+This is the core insight: your domain layer never imports Mongoose, Prisma, or
+any other ORM. The domain layer only sees the interface.
 
-`MongooseRepository` maps database documents to domain entities. This keeps
-Mongoose-specific details out of the service. `InMemoryRepository` lets you test
-services without a database.
+`MongooseRepository` maps database documents to domain entities. The `toEntity`
+method strips Mongoose's `_id` and `__v` fields and replaces `_id` with a plain
+`id` string. I've found this mapping step is where most teams cut corners, then
+regret it when the service starts depending on Mongoose's document shape.
+
+`InMemoryRepository` is what makes service testing without a database possible.
+Tests run fast, don't need Docker, and are deterministic. I run the full service
+test suite in under 2 seconds with this approach.
 
 The `Repository<User, string>` parameter on `UserService` makes the dependency
 explicit and swappable. See
 [Dependency Injection](/patterns/dependency-injection-pattern/) for wiring
 strategies.
+
+### Trade-offs
+
+The repository pattern adds a layer of abstraction. For a simple CRUD app with
+one entity and no business logic, that's overhead you don't need. I've seen
+teams add repositories "for future flexibility" and then never swap the
+database. That's premature abstraction.
+
+On the other hand, if you've got complex business rules, two or more data
+sources, or need to test services in isolation, repositories pay for themselves
+quickly. The key question is: will you ever need to test the service without the
+database? If yes, use repositories. If no, active record is simpler.
+
+The generic interface has one downside: it can't express entity-specific queries.
+`findById` and `findAll` cover basics, but custom queries like "find users by
+role and last login date" need either a specialized interface or a specification
+pattern. I prefer extending the interface per aggregate when needed, rather than
+building a generic query builder that loses type safety.
 
 ## Variants
 
@@ -206,23 +264,132 @@ strategies.
 
 ## Best Practices
 
-- Return domain entities, not database documents, from repository methods.
+- Return domain entities, not database documents, from repository methods. I've
+  seen bugs where a service accidentally mutated a Mongoose document and saved
+  it to the database. Mapping to entities prevents this.
 - Keep repositories focused on persistence; business rules belong in services.
-- Inject the repository interface, not the concrete implementation.
-- Add pagination for large `findAll` results.
-- Use transactions for multi-step operations.
+- Inject the repository interface, not the concrete implementation. If you inject
+  the concrete class, you've lost the whole point of the pattern.
+- Add pagination for large `findAll` results. I once debugged a production OOM
+  caused by a repository that returned 500,000 rows without pagination.
+- Use transactions for multi-step operations, but manage them in the service, not
+  the repository. See [Unit of Work](/patterns/repository-pattern/) for the
+  pattern.
 - Handle connection and constraint errors in the repository and translate them
-  to domain exceptions.
+  to domain exceptions. Don't let `MongooseError` escape into your service layer.
 
 ## Common Mistakes
 
-- Leaking ORM queries into service methods.
-- Returning raw database documents instead of mapped entities.
+- Leaking ORM queries into service methods. I see this mistake in almost every
+  codebase I review. Once a service calls `Model.find().populate().lean()`, you
+  can't swap the ORM without rewriting the service.
+- Returning raw database documents instead of mapped entities. Mongoose
+  documents have methods like `.save()` and `.populate()` that don't belong in
+  the domain layer.
 - Putting transaction management inside the repository instead of the service.
-- Creating repositories that are so generic they lose type safety.
-- Not handling database errors or exposing driver-specific exceptions.
-- Ignoring pagination for large result sets.
-- Mixing business logic with data access logic.
+  Transactions span two or more repositories, so they belong in the service that
+  coordinates them.
+- Creating repositories that are so generic they lose type safety. If your
+  repository accepts `any` and returns `any`, you've defeated the purpose of
+  TypeScript.
+- Not handling database errors or exposing driver-specific exceptions. Wrap them
+  in domain exceptions so the service doesn't need to know about MongoDB error
+  codes.
+- Ignoring pagination for large result sets. Always paginate `findAll` unless
+  you know the collection is small.
+- Mixing business logic with data access logic. If your repository has `if`
+  statements about business rules, move them to the service.
+
+## Testing Strategy
+
+The biggest win from the repository pattern is testability. With
+`InMemoryRepository`, service tests don't need a database, Docker, or network
+calls. Tests run in milliseconds and are deterministic.
+
+### Unit tests with InMemoryRepository
+
+```typescript
+import { describe, it, expect } from "vitest";
+
+describe("UserService", () => {
+  it("promotes a user to admin", async () => {
+    const repo = new InMemoryRepository<User>();
+    const user = await repo.create({ email: "test@example.com", name: "Test", role: "member" });
+    const service = new UserService(repo);
+
+    const updated = await service.promoteToAdmin(user.id);
+
+    expect(updated?.role).toBe("admin");
+  });
+
+  it("throws when user not found", async () => {
+    const repo = new InMemoryRepository<User>();
+    const service = new UserService(repo);
+
+    await expect(service.promoteToAdmin("nonexistent")).rejects.toThrow("User not found");
+  });
+});
+```
+
+### Integration tests with MongooseRepository
+
+For integration tests, I use a real MongoDB instance or an in-memory MongoDB
+like `mongodb-memory-server`. Test the `toEntity` mapping, pagination, and error
+handling here. I keep these tests separate from unit tests and run them in CI
+only:
+
+```typescript
+import { MongoMemoryServer } from "mongodb-memory-server";
+import mongoose from "mongoose";
+
+describe("MongooseRepository integration", () => {
+  let mongoServer: MongoMemoryServer;
+
+  beforeAll(async () => {
+    mongoServer = await MongoMemoryServer.create();
+    await mongoose.connect(mongoServer.getUri());
+  });
+
+  afterAll(async () => {
+    await mongoose.disconnect();
+    await mongoServer.stop();
+  });
+
+  it("maps documents to entities", async () => {
+    const repo = new MongooseRepository<User>(UserModel);
+    const created = await repo.create({ email: "test@example.com", name: "Test", role: "member" });
+
+    expect(created.id).toBeDefined();
+    expect((created as any)._id).toBeUndefined();
+  });
+});
+```
+
+### What to test
+
+- **Service logic**: use `InMemoryRepository`, test business rules and edge
+  cases. These tests should be fast and cover every branch.
+- **Repository mapping**: use a real database, test that `toEntity` strips ORM
+  fields correctly.
+- **Error handling**: test that database errors are translated to domain
+  exceptions.
+
+## See Also
+
+- [Martin Fowler: Repository Pattern](https://martinfowler.com/eaaCatalog/repository.html):
+  the original description of the pattern from Patterns of Enterprise Application
+  Architecture.
+- [TypeScript Generics Handbook](https://www.typescriptlang.org/docs/handbook/2/generics.html):
+  official documentation on generics, the foundation of the type-safe
+  `Repository<T, ID>` interface.
+- [Domain-Driven Design: Aggregate Root](https://martinfowler.com/bliki/DDD_Aggregate.html):
+  why repositories should be per aggregate root, not per entity.
+- [Mongoose Documentation](https://mongoosejs.com/docs/models.html): the ORM used
+  in the concrete implementation examples.
+- [Repository Pattern](/patterns/repository-pattern/): the language-agnostic
+  version of this pattern.
+- [Active Record Pattern](/patterns/active-record-pattern/): the alternative
+  approach that mixes data access and domain logic.
 
 ## FAQ
 

@@ -21,9 +21,7 @@ relatedResources:
   - /guides/rest-api-design-guide
   - /patterns/abstract-factory-pattern
   - /patterns/builder-pattern
-  - /patterns/dependency-injection-pattern
-  - /patterns/dependency-injection-typescript
-  - /patterns/multiton-pattern
+  - /patterns/repository-pattern
   - /patterns/object-pool-pattern
   - /patterns/prototype-pattern
   - /patterns/proxy-pattern

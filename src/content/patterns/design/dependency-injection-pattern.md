@@ -19,10 +19,8 @@ relatedResources:
   - /patterns/factory-pattern
   - /patterns/singleton-pattern
   - /patterns/strategy-pattern
-  - /patterns/context-object-pattern
+  - /patterns/repository-pattern-typescript
   - /patterns/manager-pattern
-  - /patterns/null-object-pattern
-  - /patterns/registry-pattern
   - /guides/clean-architecture-guide
   - /guides/hexagonal-architecture-guide
   - /guides/onion-architecture-guide

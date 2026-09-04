@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/connection-pooling
   - /recipes/cache-invalidation
   - /recipes/query-optimization
-  - /recipes/soft-deletes
+  - /patterns/repository-pattern-typescript
 lastUpdated: "2026-07-09"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
