@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/python-pandas-etl-pipeline
   - /recipes/python-spark-groupby-aggregation
   - /recipes/python-dbt-model-transformations
-  - /recipes/cron-jobs
+  - /recipes/python-data-validation-pandera
   - /recipes/python-celery-task-queue
   - /guides/complete-guide-apache-airflow
 lastUpdated: "2026-08-31"

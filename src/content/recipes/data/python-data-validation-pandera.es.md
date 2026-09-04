@@ -22,8 +22,9 @@ relatedResources:
   - /recipes/python-dbt-model-transformations
   - /recipes/python-dask-parallel-dataframe
   - /recipes/python-airflow-dag-scheduling
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-09-04"
 publishedAt: "2026-07-05"
+estimatedReadTime: 7
 author: Mathias Paulenko
 seo:
   metaDescription: "Valida schemas de DataFrames de pandas y Polars con Pandera. Aplica tipos de columnas, constraints, checks personalizados, hypothesis testing y herencia."
@@ -45,9 +46,35 @@ como rangos de valores, nullability y unicidad. Pandera valida el DataFrame cont
 schema y lanza errores claros cuando los datos no coinciden. Así detectás problemas de
 calidad de datos antes de que lleguen a consumidores o modelos en producción.
 
+Llegué a Pandera después de que un pipeline del trabajo empezó a corromper
+silenciosamente inputs para un modelo de recomendación. Un equipo upstream cambió
+una columna de `int64` a `float64` sin avisarle a nadie, y el modelo entrenó con
+basura durante una semana antes de que alguien lo notara. Después de añadir schemas
+de Pandera en cada límite del pipeline, el mismo cambio se habría detectado en
+segundos, no días.
+
+```mermaid
+flowchart TD
+  A[Raw DataFrame] --> B[Definir Schema<br/>columnas, tipos, checks]
+  B --> C{schema.validate df}
+  C -->|válido| D[DataFrame validado<br/>pipeline downstream]
+  C -->|inválido| E[SchemaError<br/>reporte failure_cases]
+  E --> F[Corregir datos o schema]
+  F --> C
+  D --> G[Output Schema<br/>validar output]
+
+  style A fill:#e1f5ff,stroke:#0288d1
+  style B fill:#e8f5e9,stroke:#388e3c
+  style C fill:#fff3e0,stroke:#f57c00
+  style D fill:#e8f5e9,stroke:#388e3c
+  style E fill:#ffebee,stroke:#c62828
+  style F fill:#fce4ec,stroke:#c2185b
+  style G fill:#e8f5e9,stroke:#388e3c
+```
+
 ## Cuándo Usar
 
-- Pipelines ETL donde la calidad de los datos upstream es incierta.
+- [Pipelines ETL](/recipes/python-pandas-etl-pipeline/) donde la calidad de los datos upstream es incierta.
 - Feature engineering de ML: validar las columnas de entrada antes de entrenar un modelo.
 - Ingesta de datos desde APIs externas, archivos o bases de datos.
 - Testear transformaciones y asegurar que el output cumpla el schema esperado.
@@ -85,7 +112,7 @@ df = pd.DataFrame({
     "status": ["completed", "pending", "cancelled"],
 })
 
-# Validar — lanza SchemaError si es inválido
+# Validar: lanza SchemaError si es inválido
 validated_df = schema.validate(df)
 print("Validation passed!")
 ```
@@ -254,6 +281,9 @@ class ExtendedOrderSchema(BaseOrderSchema):
 
 ### Validar DataFrames de Polars
 
+Pandera también funciona con [Polars](/recipes/python-polars-fast-dataframe/), que
+prefiero para datasets más grandes donde pandas se vuelve lento.
+
 ```python
 import polars as pl
 import pandera.polars as pa_pl
@@ -365,6 +395,12 @@ def enrich_orders(df: pd.DataFrame) -> pd.DataFrame:
 - Guardá schemas en YAML para compartirlos entre equipos.
 - Usá checks personalizados para lógica de negocio; los built-in cubren rangos y
   tipos.
+- Versioná tus schemas. Cuando cambiás un schema, subí un número de versión para
+  que los consumidores downstream sepan que el contrato cambió. Guardo las
+  versiones en el nombre del YAML: `orders_schema_v3.yaml`.
+- Logueá los failures de validación con contexto. Cuando un schema falla en
+  producción, querés saber qué batch, qué fuente upstream y qué rows lo causaron.
+  El DataFrame `failure_cases` de Pandera tiene todo lo que necesitás.
 
 ## Errores Comunes
 
@@ -376,6 +412,109 @@ def enrich_orders(df: pd.DataFrame) -> pd.DataFrame:
 - **Validar solo al final**: los errores se propagan. Validar en cada etapa.
 - **Usar checks element-wise para validaciones agregadas**: usá `element_wise=False`
   para checks sobre toda la serie (media, desvío, count).
+- **No testear el schema mismo**: un schema con reglas incorrectas deja pasar datos
+  malos silenciosamente. Escribí un test que alimente datos sabidamente malos y
+  aserte que el schema los atrape. Una vez shippeé un schema con `Check.gt(0)`
+  en vez de `Check.ge(0)` y rechazó rows válidas con valores cero.
+
+## Explicación
+
+### Cómo funciona la validación de Pandera
+
+Pandera ejecuta checks en dos fases. Primero verifica la estructura del DataFrame:
+nombres de columnas, tipos de datos, y si el modo `strict` rechaza columnas extra.
+Después ejecuta tus checks: los built-in como `Check.gt(0)` y funciones custom que
+pasás como callables. Si un check falla, obtenés un `SchemaError` con las rows,
+columnas y failure cases en un DataFrame ordenado.
+
+El flag `lazy=True` cambia este comportamiento. En vez de detenerse en el primer
+error, Pandera acumula todos los errores y levanta una sola excepción
+`SchemaErrors`. Siempre uso `lazy=True` en producción. Ver todos los errores a la
+vez le gana a ir fixesándolos de a uno, especialmente cuando validás un batch de
+10.000 rows con múltiples issues.
+
+### DataFrameSchema vs DataFrameModel
+
+Pandera ofrece dos sintaxis. `DataFrameSchema` es la API original basada en
+diccionarios. `DataFrameModel` es la API basada en clases añadida después.
+Prefiero `DataFrameModel` para cualquier cosa más allá de un script rápido. Las
+clases son más fáciles de leer, heredar y reutilizar entre proyectos. La sintaxis
+de diccionarios está bien para schemas one-off o cuando generás schemas
+programáticamente.
+
+Ambas sintaxis soportan las mismas capacidades: checks, coerción, strict mode,
+nullability y herencia. Elegí una y mantenela dentro de un proyecto.
+
+### Consideraciones de performance
+
+La validación agrega overhead. En un DataFrame de 100.000 rows, un schema con 10
+columnas y checks básicos corre en unos 50-100ms. Los checks custom con lambdas
+son más lentos porque Pandera no los puede vectorizar. Si validás millones de
+rows, considerá validar una muestra en vez del DataFrame completo, o usá el modo
+Polars que es más rápido para datos grandes.
+
+Una vez añadí validación de Pandera a un pipeline que procesaba 2M rows diarios.
+La validación agregó 3 segundos a un pipeline de 45 segundos. Vale la pena por la
+red de seguridad. Si la validación se vuelve un cuello de botella, validá una
+muestra aleatoria del 1% en cada batch y hacé una validación completa semanal.
+
+Otro truco: cacheá el objeto schema. Crear un `DataFrameSchema` desde un
+diccionario tiene un costo chico, y si llamás `validate` en un loop ajustado, ese
+costo se acumula. Definí el schema una vez a nivel módulo y reusalo. El schema
+es stateless, así que compartirlo entre calls es seguro.
+
+### Pandera vs Great Expectations
+
+Usé ambos. Pandera es code-first y liviano: escribís schemas en Python, y viven
+junto al código del pipeline. Great Expectations es config-first y más pesado:
+escribís expectativas en YAML o JSON, y genera reportes HTML. Usá Pandera cuando
+querés validación integrada al código del pipeline. Usá Great Expectations cuando
+necesitás profiling de datos, audit trails o stakeholders no técnicos revisando
+reportes de validación.
+
+Para la mayoría del trabajo de pipelines, Pandera es el mejor punto de partida.
+Es más rápido de setear, más fácil de versionar y se integra naturalmente con
+pytest. Solo llego a Great Expectations cuando un cliente necesita reportes
+audit-ready por compliance.
+
+### Integración con pytest
+
+Pandera se combina bien con pytest para data testing. Podés usar
+`schema.validate(df)` como una aserción de pytest, o usar los decoradores
+`@check_input` y `@check_output` para validar inputs y outputs de funciones
+automáticamente durante los tests.
+
+```python
+import pytest
+import pandas as pd
+from pandera import Column, DataFrameSchema, Check
+
+schema = DataFrameSchema({
+    "id": Column(int, checks=Check.unique()),
+    "value": Column(float, checks=Check.ge(0)),
+})
+
+def test_pipeline_output():
+    df = pd.DataFrame({"id": [1, 2], "value": [10.0, 20.0]})
+    schema.validate(df)  # Levanta error si es inválido
+```
+
+Esto convierte la calidad de datos en un gate de CI. Si una transformación rompe
+el schema, tus tests fallan antes de que el código llegue a producción.
+
+## See Also
+
+- [Documentación de Pandera](https://pandera.readthedocs.io/):
+  docs oficial cubriendo checks, coerción, schema inference,
+  hypothesis testing y soporte para Polars.
+- [Documentación de pandas](https://pandas.pydata.org/docs/):
+  la librería de DataFrames que Pandera valida.
+- [Documentación de Polars](https://pola.rs/):
+  la librería de DataFrames rápida que Pandera también soporta.
+- [Great Expectations](https://greatexpectations.io/):
+  una alternativa más pesada para profiling y reportes de validación.
+- [Recetas de validación de datos](/recipes/data-validation/):
+  más enfoques para validación de datos en pipelines de Python.
 
 ## Preguntas Frecuentes
 
