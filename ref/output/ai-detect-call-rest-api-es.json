@@ -1,0 +1,217 @@
+[
+  {
+    "label": "call-rest-api.es-en",
+    "model": "desklib",
+    "model_ai_pct": 34.9,
+    "ai_count": 17,
+    "human_count": 76,
+    "skipped_count": 3,
+    "total": 96,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.3,
+      "stddev": 6.8,
+      "cv": 0.47,
+      "verdict": "somewhat uniform",
+      "sentence_count": 93,
+      "lengths": [
+        17,
+        26,
+        20,
+        17,
+        33,
+        19,
+        15,
+        12,
+        10,
+        10,
+        7,
+        11,
+        10,
+        13,
+        11,
+        9,
+        17,
+        9,
+        9,
+        20,
+        7,
+        11,
+        5,
+        12,
+        11,
+        6,
+        14,
+        14,
+        10,
+        10,
+        12,
+        10,
+        7,
+        7,
+        22,
+        16,
+        26,
+        30,
+        15,
+        8,
+        5,
+        19,
+        11,
+        22,
+        18,
+        13,
+        8,
+        13,
+        8,
+        27,
+        14,
+        11,
+        16,
+        17,
+        35,
+        45,
+        10,
+        10,
+        12,
+        11,
+        12,
+        15,
+        10,
+        30,
+        12,
+        13,
+        18,
+        16,
+        11,
+        9,
+        17,
+        18,
+        10,
+        13,
+        6,
+        7,
+        15,
+        10,
+        9,
+        10,
+        15,
+        14,
+        14,
+        11,
+        12,
+        17,
+        10,
+        21,
+        17,
+        15,
+        14,
+        18,
+        16
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Ver la\n[documentaci\u00f3n de HttpClient](https://docs.oracle.com/en/java/javase/11/api/java.net.http/java/net/http/HttpClient.html).",
+        0.8889
+      ],
+      [
+        "[Gu\u00eda de Java HttpClient](https://docs.oracle.com/en/java/javase/11/api/java.net.http/java/net/http/HttpClient.html)\n  \u2014 cliente HTTP/2 s\u00edncrono y as\u00edncrono incluido en Java 11+.",
+        0.757
+      ],
+      [
+        "Para subir archivos o consultar el estado de un job.",
+        0.7491
+      ],
+      [
+        "Esta receta muestra c\u00f3mo llamar a una API REST en Python, JavaScript, Java y Go.",
+        0.7459
+      ],
+      [
+        "Enviar la petici\u00f3n y verificar el c\u00f3digo de estado HTTP.",
+        0.7297
+      ],
+      [
+        "Un simple timeout=10\nhabr\u00eda contenido el da\u00f1o a unos pocos errores de retry en lugar de un outage total.",
+        0.6607
+      ],
+      [
+        "La mayor\u00eda de las aplicaciones se comunican con el exterior a trav\u00e9s de APIs REST\nsobre HTTP.",
+        0.645
+      ],
+      [
+        "Para integrar plataformas SaaS (pagos, email, analytics).",
+        0.6275
+      ],
+      [
+        "Logue\u00e1 el body de la respuesta en errores de parseo.",
+        0.6131
+      ],
+      [
+        "[Documentaci\u00f3n de Python requests](https://docs.python-requests.org/en/latest/) \u2014\n  referencia completa de la API de requests, incluyendo sessions, auth y streaming.",
+        0.5934
+      ],
+      [
+        "**Reintentar errores 4xx**: un 401 Unauthorized no se arregla reintentando.",
+        0.5801
+      ],
+      [
+        "Us\u00e1 GET para consultas idempotentes y cacheables cuando los par\u00e1metros entren en la\nURL.",
+        0.5624
+      ],
+      [
+        "La librer\u00eda est\u00e1ndar de Go tiene un cliente HTTP listo para producci\u00f3n.",
+        0.551
+      ],
+      [
+        "Python requests espera indefinidamente si no pas\u00e1s timeout=.",
+        0.5451
+      ],
+      [
+        "Para enviar datos de formularios o eventos a un backend.",
+        0.5313
+      ],
+      [
+        "Para construir un SDK o CLI que consuma un servicio HTTP.",
+        0.5278
+      ],
+      [
+        "Para versiones m\u00e1s viejas, us\u00e1 Apache HttpClient u OkHttp.",
+        0.5126
+      ],
+      [
+        "[MDN: Usar Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)\n  \u2014 API fetch en navegador y Node.js, incluyendo streaming, abortar y credenciales.",
+        0.4856
+      ],
+      [
+        "Para m\u00e1s sobre\nparseo, consult\u00e1 [Parse JSON](/es/recipes/parse-json/).",
+        0.4769
+      ],
+      [
+        "Para sistemas en producci\u00f3n, logue\u00e1 el body de la respuesta en errores\nde parseo \u2014 es la forma m\u00e1s r\u00e1pida de debuguear errores \"unexpected token < in JSON\"\nque solo pasan a las 3 A",
+        0.4763
+      ],
+      [
+        "**No setear timeout**: el default de muchos clientes es infinito, lo que puede\n  agotar los workers.",
+        0.4669
+      ],
+      [
+        "Java 11 incluye java.net.http.HttpClient, que soporta requests s\u00edncronos y\nas\u00edncronos.",
+        0.4519
+      ],
+      [
+        "No reintent\u00e9s\n400, 401, 403, 404 o 422 \u2014 son errores del cliente que no se van a arreglar\nsolo repetir.",
+        0.4494
+      ],
+      [
+        "En Java,\nHttpClient es thread-safe y deber\u00eda compartirse.",
+        0.4464
+      ],
+      [
+        "[Parse JSON](/es/recipes/parse-json/) \u2014 c\u00f3mo parsear, validar y manejar respuestas\n  JSON de forma segura en m\u00faltiples lenguajes.",
+        0.445
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

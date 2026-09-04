@@ -1,0 +1,433 @@
+[
+  {
+    "label": "call-rest-api-en",
+    "model": "desklib",
+    "model_ai_pct": 50.8,
+    "ai_count": 49,
+    "human_count": 43,
+    "skipped_count": 4,
+    "total": 96,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.0,
+      "stddev": 6.5,
+      "cv": 0.47,
+      "verdict": "somewhat uniform",
+      "sentence_count": 92,
+      "lengths": [
+        11,
+        22,
+        19,
+        18,
+        32,
+        18,
+        19,
+        13,
+        24,
+        9,
+        8,
+        11,
+        7,
+        9,
+        12,
+        8,
+        15,
+        8,
+        8,
+        15,
+        7,
+        11,
+        8,
+        12,
+        5,
+        14,
+        13,
+        8,
+        9,
+        11,
+        10,
+        9,
+        6,
+        19,
+        15,
+        24,
+        27,
+        14,
+        9,
+        5,
+        15,
+        8,
+        25,
+        15,
+        13,
+        8,
+        14,
+        12,
+        24,
+        16,
+        11,
+        27,
+        15,
+        29,
+        42,
+        7,
+        11,
+        16,
+        9,
+        11,
+        17,
+        7,
+        27,
+        11,
+        27,
+        15,
+        13,
+        10,
+        13,
+        16,
+        18,
+        16,
+        16,
+        5,
+        6,
+        13,
+        11,
+        9,
+        11,
+        11,
+        14,
+        13,
+        10,
+        11,
+        16,
+        10,
+        18,
+        17,
+        14,
+        13,
+        13,
+        14
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "A 404 resolves normally, so check\nresponse.ok or response.status before reading the body.",
+        0.8647
+      ],
+      [
+        "Reach for this recipe when you need an app to talk to another service over HTTP:\nFetching data from a third-party or internal API.",
+        0.8431
+      ],
+      [
+        "In\nPython, use requests.post(url, json=payload); in JavaScript, pass a stringified\nobject.",
+        0.8138
+      ],
+      [
+        "[Parse JSON](/recipes/parse-json/) \u2014 how to parse, validate, and handle JSON\n  responses safely across languages.",
+        0.7729
+      ],
+      [
+        "raise_for_status() in Python and response.ok in JavaScript throw on HTTP errors.",
+        0.7708
+      ],
+      [
+        "Set a User-Agent header with your app name and contact info.",
+        0.7608
+      ],
+      [
+        "I once spent two hours debugging a production outage that turned out to be a missing\ntimeout parameter.",
+        0.7521
+      ],
+      [
+        "It won't fix itself \u2014 you'll just generate thousands\n  of failed requests against your auth server.",
+        0.748
+      ],
+      [
+        "A single timeout=10 would have contained the damage to a\nfew retry errors instead of a full outage.",
+        0.7365
+      ],
+      [
+        "A 200 OK doesn't guarantee the response body is valid JSON.",
+        0.7349
+      ],
+      [
+        "[Python requests documentation](https://docs.python-requests.org/en/latest/) \u2014 the\n  full API reference for the requests library, including sessions, auth, and\n  streaming.",
+        0.7262
+      ],
+      [
+        "For older Java versions, use Apache HttpClient or OkHttp.",
+        0.713
+      ],
+      [
+        "[Java HttpClient guide](https://docs.oracle.com/en/java/javase/11/api/java.net.http/java/net/http/HttpClient.html)\n  \u2014 sync and async HTTP/2 client shipped with Java 11+.",
+        0.7127
+      ],
+      [
+        "Send the request and check the status code.",
+        0.7123
+      ],
+      [
+        "In Go, http.Client is safe\nfor concurrent use \u2014 create one and reuse it.",
+        0.7066
+      ],
+      [
+        "Parse the body as JSON and handle parse errors.",
+        0.6963
+      ],
+      [
+        "This recipe walks through Python, JavaScript, Java, and Go so you can pick the right\nclient for your stack.",
+        0.6905
+      ],
+      [
+        "During an outage, a\nload balancer or CDN might return an HTML error page with a 200 status \u2014 I've seen\nthis with Cloudflare and AWS ALB.",
+        0.6864
+      ],
+      [
+        "It supports both sync and async requests and\nhandles HTTP/2 transparently.",
+        0.6814
+      ],
+      [
+        "Python requests waits forever if you don't pass timeout=.",
+        0.6653
+      ],
+      [
+        "See the\n[requests docs](https://docs.python-requests.org/en/latest/) for the full API.",
+        0.6647
+      ],
+      [
+        "Uploading files or polling for job status.",
+        0.6493
+      ],
+      [
+        "Integrating with SaaS platforms \u2014 payments, email, analytics.",
+        0.6459
+      ],
+      [
+        "Check the API docs to find the pattern and loop\nuntil no more pages come back.",
+        0.6387
+      ],
+      [
+        "**Hardcoding credentials**: keep tokens out of source code and logs.",
+        0.6381
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "call-rest-api-es",
+    "model": "desklib",
+    "model_ai_pct": 33.9,
+    "ai_count": 17,
+    "human_count": 78,
+    "skipped_count": 3,
+    "total": 98,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.0,
+      "stddev": 7.0,
+      "cv": 0.47,
+      "verdict": "somewhat uniform",
+      "sentence_count": 95,
+      "lengths": [
+        17,
+        26,
+        20,
+        17,
+        33,
+        19,
+        18,
+        12,
+        10,
+        10,
+        7,
+        11,
+        10,
+        13,
+        11,
+        9,
+        17,
+        9,
+        9,
+        20,
+        7,
+        11,
+        5,
+        12,
+        11,
+        6,
+        14,
+        14,
+        10,
+        10,
+        12,
+        10,
+        7,
+        7,
+        22,
+        16,
+        26,
+        30,
+        15,
+        8,
+        5,
+        19,
+        11,
+        22,
+        18,
+        26,
+        13,
+        8,
+        13,
+        13,
+        27,
+        14,
+        11,
+        27,
+        17,
+        35,
+        45,
+        13,
+        10,
+        10,
+        12,
+        11,
+        12,
+        15,
+        10,
+        30,
+        12,
+        30,
+        18,
+        16,
+        11,
+        15,
+        17,
+        18,
+        17,
+        18,
+        6,
+        7,
+        15,
+        10,
+        9,
+        10,
+        15,
+        14,
+        14,
+        11,
+        12,
+        17,
+        10,
+        21,
+        17,
+        15,
+        14,
+        18,
+        16
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Ver la\n[documentaci\u00f3n de HttpClient](https://docs.oracle.com/en/java/javase/11/api/java.net.http/java/net/http/HttpClient.html).",
+        0.8889
+      ],
+      [
+        "[Gu\u00eda de Java HttpClient](https://docs.oracle.com/en/java/javase/11/api/java.net.http/java/net/http/HttpClient.html)\n  \u2014 cliente HTTP/2 s\u00edncrono y as\u00edncrono incluido en Java 11+.",
+        0.757
+      ],
+      [
+        "Para subir archivos o consultar el estado de un job.",
+        0.7491
+      ],
+      [
+        "Enviar la petici\u00f3n y verificar el c\u00f3digo de estado HTTP.",
+        0.7297
+      ],
+      [
+        "Un simple timeout=10\nhabr\u00eda contenido el da\u00f1o a unos pocos errores de retry en lugar de un outage total.",
+        0.6607
+      ],
+      [
+        "La mayor\u00eda de las aplicaciones se comunican con el exterior a trav\u00e9s de APIs REST\nsobre HTTP.",
+        0.645
+      ],
+      [
+        "Esta receta recorre Python, JavaScript, Java y Go para que puedas elegir el cliente\nadecuado para tu stack.",
+        0.6334
+      ],
+      [
+        "Para integrar plataformas SaaS (pagos, email, analytics).",
+        0.6275
+      ],
+      [
+        "Logue\u00e1 el body de la respuesta en errores de parseo.",
+        0.6131
+      ],
+      [
+        "[Documentaci\u00f3n de Python requests](https://docs.python-requests.org/en/latest/) \u2014\n  referencia completa de la API de requests, incluyendo sessions, auth y streaming.",
+        0.5934
+      ],
+      [
+        "Us\u00e1 GET para consultas idempotentes y cacheables cuando los par\u00e1metros entren en la\nURL.",
+        0.5624
+      ],
+      [
+        "La librer\u00eda est\u00e1ndar de Go tiene un cliente HTTP listo para producci\u00f3n.",
+        0.551
+      ],
+      [
+        "Python requests espera indefinidamente si no pas\u00e1s timeout=.",
+        0.5451
+      ],
+      [
+        "Para enviar datos de formularios o eventos a un backend.",
+        0.5313
+      ],
+      [
+        "Para construir un SDK o CLI que consuma un servicio HTTP.",
+        0.5278
+      ],
+      [
+        "Para versiones m\u00e1s viejas, us\u00e1 Apache HttpClient u OkHttp.",
+        0.5126
+      ],
+      [
+        "Sete\u00e1 un header User-Agent con el nombre de tu app y contacto.",
+        0.5048
+      ],
+      [
+        "[MDN: Usar Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)\n  \u2014 API fetch en navegador y Node.js, incluyendo streaming, abortar y credenciales.",
+        0.4856
+      ],
+      [
+        "Para m\u00e1s sobre\nparseo, consult\u00e1 [Parse JSON](/es/recipes/parse-json/).",
+        0.4769
+      ],
+      [
+        "Para sistemas en\nproducci\u00f3n, logue\u00e1 el body de la respuesta en errores de parseo \u2014 es la forma m\u00e1s\nr\u00e1pida de debuguear errores \"unexpected token < in JSON\" que solo pasan a las 3 A",
+        0.4763
+      ],
+      [
+        "**No setear timeout**: el default de muchos clientes es infinito, lo que puede\n  agotar los workers.",
+        0.4669
+      ],
+      [
+        "Java 11 incluye java.net.http.HttpClient, que soporta requests s\u00edncronos y\nas\u00edncronos.",
+        0.4519
+      ],
+      [
+        "No reintent\u00e9s\n400, 401, 403, 404 o 422 \u2014 son errores del cliente que no se van a arreglar\nsolo repetir.",
+        0.4494
+      ],
+      [
+        "[Parse JSON](/es/recipes/parse-json/) \u2014 c\u00f3mo parsear, validar y manejar respuestas\n  JSON de forma segura en m\u00faltiples lenguajes.",
+        0.445
+      ],
+      [
+        "No todos los errores merecen un retry.",
+        0.4409
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
