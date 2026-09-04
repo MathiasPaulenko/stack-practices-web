@@ -1,0 +1,438 @@
+[
+  {
+    "label": "python-data-validation-pandera-en",
+    "model": "desklib",
+    "model_ai_pct": 45.0,
+    "ai_count": 34,
+    "human_count": 56,
+    "skipped_count": 10,
+    "total": 100,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.7,
+      "stddev": 5.2,
+      "cv": 0.41,
+      "verdict": "somewhat uniform",
+      "sentence_count": 90,
+      "lengths": [
+        18,
+        14,
+        23,
+        24,
+        18,
+        25,
+        19,
+        19,
+        12,
+        9,
+        13,
+        7,
+        13,
+        9,
+        9,
+        12,
+        15,
+        12,
+        12,
+        12,
+        8,
+        14,
+        11,
+        12,
+        13,
+        16,
+        9,
+        5,
+        20,
+        7,
+        12,
+        7,
+        5,
+        9,
+        10,
+        5,
+        18,
+        14,
+        13,
+        18,
+        6,
+        17,
+        16,
+        20,
+        6,
+        17,
+        6,
+        27,
+        7,
+        7,
+        10,
+        10,
+        13,
+        13,
+        9,
+        16,
+        12,
+        25,
+        13,
+        9,
+        6,
+        19,
+        6,
+        23,
+        10,
+        12,
+        18,
+        18,
+        11,
+        16,
+        10,
+        14,
+        15,
+        8,
+        24,
+        8,
+        14,
+        14,
+        8,
+        10,
+        11,
+        11,
+        11,
+        13,
+        15,
+        6,
+        6,
+        5,
+        12,
+        11
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "[pandas Documentation](https://pandas.pydata.org/docs/):\n  the DataFrame library Pandera checks against.",
+        0.9683
+      ],
+      [
+        "DataFrameSchema came first: it's the dictionary-based\nAPI.",
+        0.9516
+      ],
+      [
+        "Store schemas in YAML so your team can reuse them across projects.",
+        0.9197
+      ],
+      [
+        "Call schema.example(size=10) and it returns a sample DataFrame that\npasses validation:",
+        0.8447
+      ],
+      [
+        "I reach for\nDataFrameModel for anything beyond a quick script.",
+        0.7282
+      ],
+      [
+        "Pick one and stick with it within a project.",
+        0.7279
+      ],
+      [
+        "**Skipping lazy=True**: the default stops at the first failure, hiding\n  the rest.",
+        0.7076
+      ],
+      [
+        "Worth it for the safety net.",
+        0.6853
+      ],
+      [
+        "If you're validating millions of\nrows, consider validating a sample instead of the full DataFrame, or use Polars\nmode which is faster for large data.",
+        0.6757
+      ],
+      [
+        "I\nonly reach for Great Expectations when a client needs audit-ready reports for\ncompliance reasons.",
+        0.6745
+      ],
+      [
+        "Then it\nruns your checks: built-in ones like Check.gt(0) and custom functions you pass\nas callables.",
+        0.6666
+      ],
+      [
+        "I always use lazy=True in production.",
+        0.6651
+      ],
+      [
+        "Pandera also works with [Polars](/recipes/python-polars-fast-dataframe/), which I\nprefer for larger datasets where pandas gets slow.",
+        0.661
+      ],
+      [
+        "**Using element-wise checks for aggregate rules**: pass element_wise=False\n  when a check needs the whole series (mean, std, count).",
+        0.6561
+      ],
+      [
+        "You pick the columns, the data types, and the rules: value\nranges, nullability, uniqueness.",
+        0.6556
+      ],
+      [
+        "They read better and are easier to reuse.",
+        0.6527
+      ],
+      [
+        "Pandera runs checks in two phases.",
+        0.6516
+      ],
+      [
+        "DataFrameModel arrived later as the class-based alternative.",
+        0.6467
+      ],
+      [
+        "Check at each\n  stage boundary.",
+        0.6145
+      ],
+      [
+        "Seeing all failures at once\nbeats fixing them one at a time, especially when you're validating a batch of\n10,000 rows with three or four different issues.",
+        0.6143
+      ],
+      [
+        "You ingest data from external APIs, files, or databases.",
+        0.6019
+      ],
+      [
+        "The schema\nitself is stateless, so sharing it across calls is safe.",
+        0.5999
+      ],
+      [
+        "The lazy=True flag changes this behavior.",
+        0.5941
+      ],
+      [
+        "Pandera isn't always worth the overhead:\nOne-off notebooks: df.dtypes and df.describe() are enough.",
+        0.584
+      ],
+      [
+        "If a transformation breaks the schema,\nyour tests fail before the code reaches production.",
+        0.5725
+      ]
+    ],
+    "diagnostics_sample": [
+      {
+        "sentence": "Pandera offers two syntaxes.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "offers",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "python-data-validation-pandera-es",
+    "model": "desklib",
+    "model_ai_pct": 36.7,
+    "ai_count": 20,
+    "human_count": 71,
+    "skipped_count": 8,
+    "total": 99,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.1,
+      "stddev": 5.2,
+      "cv": 0.39,
+      "verdict": "somewhat uniform",
+      "sentence_count": 91,
+      "lengths": [
+        14,
+        20,
+        16,
+        17,
+        20,
+        29,
+        21,
+        11,
+        14,
+        11,
+        11,
+        10,
+        7,
+        9,
+        10,
+        12,
+        16,
+        19,
+        14,
+        10,
+        9,
+        12,
+        10,
+        8,
+        13,
+        19,
+        9,
+        7,
+        18,
+        10,
+        16,
+        9,
+        7,
+        9,
+        8,
+        17,
+        15,
+        15,
+        18,
+        6,
+        20,
+        15,
+        18,
+        6,
+        19,
+        5,
+        26,
+        8,
+        9,
+        11,
+        12,
+        14,
+        13,
+        8,
+        18,
+        14,
+        26,
+        14,
+        11,
+        8,
+        24,
+        6,
+        22,
+        10,
+        11,
+        16,
+        17,
+        10,
+        18,
+        14,
+        15,
+        13,
+        9,
+        26,
+        11,
+        17,
+        16,
+        10,
+        12,
+        12,
+        15,
+        9,
+        13,
+        12,
+        6,
+        9,
+        6,
+        7,
+        12,
+        5,
+        12
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "[Documentaci\u00f3n de pandas](https://pandas.pydata.org/docs/):\n  la librer\u00eda de DataFrames que Pandera valida.",
+        0.9778
+      ],
+      [
+        "DataFrameModel es la API basada en clases a\u00f1adida despu\u00e9s.",
+        0.9446
+      ],
+      [
+        "DataFrameSchema es la API original basada en\ndiccionarios.",
+        0.9393
+      ],
+      [
+        "Prefiero DataFrameModel para cualquier cosa m\u00e1s all\u00e1 de un script r\u00e1pido.",
+        0.8783
+      ],
+      [
+        "Cualquier pipeline donde la corrupci\u00f3n silenciosa de datos cause problemas.",
+        0.7623
+      ],
+      [
+        "Defin\u00ed schemas como clases (pa.DataFrameModel) para legibilidad y reutilizaci\u00f3n.",
+        0.7276
+      ],
+      [
+        "Pandera es una librer\u00eda de validaci\u00f3n de datos para DataFrames de pandas y Polars.",
+        0.6619
+      ],
+      [
+        "[Documentaci\u00f3n de Polars](https://pola.rs/):\n  la librer\u00eda de DataFrames r\u00e1pida que Pandera tambi\u00e9n soporta.",
+        0.6301
+      ],
+      [
+        "Valid\u00e1 en los l\u00edmites del pipeline: entrada y salida de cada etapa.",
+        0.6283
+      ],
+      [
+        "Para la mayor\u00eda del trabajo de pipelines, Pandera es el mejor punto de partida.",
+        0.6118
+      ],
+      [
+        "Eleg\u00ed una y mantenela dentro de un proyecto.",
+        0.5922
+      ],
+      [
+        "La API es igual a\nla versi\u00f3n de pandas.",
+        0.5811
+      ],
+      [
+        "**No usar lazy=True**: el default se detiene en el primer error y se pierden\n  los dem\u00e1s.",
+        0.5792
+      ],
+      [
+        "Las\nclases son m\u00e1s f\u00e1ciles de leer, heredar y reutilizar entre proyectos.",
+        0.558
+      ],
+      [
+        "Validaci\u00f3n en tiempo real con latencia estricta: Pandera agrega overhead.",
+        0.5502
+      ],
+      [
+        "[Great Expectations](https://greatexpectations.io/):\n  una alternativa m\u00e1s pesada para profiling y reportes de validaci\u00f3n.",
+        0.5395
+      ],
+      [
+        "Cuando el schema cambia constantemente y el costo de mantenimiento es alto.",
+        0.5332
+      ],
+      [
+        "Us\u00e1 schema.example(size=10) para generar un DataFrame de ejemplo que pase la\nvalidaci\u00f3n:",
+        0.5311
+      ],
+      [
+        "Logue\u00e1 los failures de validaci\u00f3n con contexto.",
+        0.5282
+      ],
+      [
+        "Por default, las columnas son no\nnullable.",
+        0.5249
+      ],
+      [
+        "[Recetas de validaci\u00f3n de datos](/recipes/data-validation/):\n  m\u00e1s enfoques para validaci\u00f3n de datos en pipelines de Python.",
+        0.4999
+      ],
+      [
+        "En un DataFrame de 100.000 rows, un schema con 10\ncolumnas y checks b\u00e1sicos corre en unos 50-100ms.",
+        0.496
+      ],
+      [
+        "Guard\u00e1 schemas en YAML para compartirlos entre equipos.",
+        0.4727
+      ],
+      [
+        "Guardo las\n  versiones en el nombre del YAML: orders_schema_v3.yaml.",
+        0.4686
+      ],
+      [
+        "En vez de detenerse en el primer\nerror, Pandera acumula todos los errores y levanta una sola excepci\u00f3n\nSchemaErrors.",
+        0.4546
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
