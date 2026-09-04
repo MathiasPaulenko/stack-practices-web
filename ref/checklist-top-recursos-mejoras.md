@@ -51,7 +51,7 @@
 49. - [x] **repository-pattern** (patterns) — 79/88 ✅ PROMOTE
 50. - [x] **complete-guide-graphql-caching** (guides) — 81/88 ✅ PROMOTE
 51. - [x] **python-data-validation-pandera** (recipes) — 80/88 ✅ PROMOTE
-52. - [ ] **call-rest-api** (recipes)
+52. - [x] **call-rest-api** (recipes) — 79/88 ✅ PROMOTE
 53. - [ ] **prometheus-monitoring-alerts** (recipes)
 54. - [ ] **database-views-materialized** (recipes)
 55. - [ ] **parse-config-files** (recipes)
