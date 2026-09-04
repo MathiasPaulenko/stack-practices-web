@@ -47,9 +47,9 @@
 45. - [x] **idempotent-consumer-pattern** (patterns) — 80/88 ✅ PROMOTE
 46. - [x] **circuit-breaker-with-monitoring-pattern** (patterns) — 80/88 ✅ PROMOTE
 47. - [x] **idempotent-api-endpoints** (recipes) — 78/88 ✅ PROMOTE
-48. - [ ] **repository-pattern-typescript** (patterns)
-49. - [ ] **repository-pattern** (patterns)
-50. - [ ] **complete-guide-graphql-caching** (guides)
+48. - [x] **repository-pattern-typescript** (patterns) — 78/88 ✅ PROMOTE
+49. - [x] **repository-pattern** (patterns) — 79/88 ✅ PROMOTE
+50. - [x] **complete-guide-graphql-caching** (guides) — 81/88 ✅ PROMOTE
 51. - [ ] **python-data-validation-pandera** (recipes)
 52. - [ ] **call-rest-api** (recipes)
 53. - [ ] **prometheus-monitoring-alerts** (recipes)
