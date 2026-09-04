@@ -1,261 +1,214 @@
-# Handoff de sesión — 2026-08-31
+# Session Handoff — 2026-08-31
 
-> Fichero de transferencia para otra sesión de Devin local. Contiene todo el historial relevante del trabajo realizado
-> en esta sesión en `stack-practices-web` y `stack-practices-resources`.
+## Resumen general
 
----
-
-## 1. Contexto general
-
-La sesión continuó un flujo de mejora de contenido sobre recursos bilingües (EN/ES) del sitio estático
-StackPractices.com. Se trabajaron dos recursos:
-
-- **Recurso #32**: `recipes/messaging/message-idempotency` — continuar la ronda de humanización pendiente.
-- **Recurso #28**: `recipes/databases/elasticsearch-aggregations` — commitear y pushear mejoras que estaban en el
-  working tree.
-
-La orden explícita del usuario al inicio fue:
-
-> "veo commits pendientes... haz commits y push... aquí y en companion"
-
-También se ejecutó el prompt `ref\summary-a-resource.md` para el recurso #32 antes del push de los cambios pendientes.
+Sesión de auditoría, mejora, re-auditoría, commits y push de los recursos #50 y #51 del checklist `ref/checklist-top-recursos-mejoras.md`. Ambos repositorios (main + companion) fueron commiteados y pusheados para #50. El recurso #51 quedó improvement completado pero sin commit/push pendiente.
 
 ---
 
-## 2. Recurso #32 — `message-idempotency`
+## Recurso #50 — `complete-guide-graphql-caching` (guides)
 
-### 2.1 Estado al inicio de la sesión
+### Estado final: 81/88 ✅ PROMOTE
 
-| Métrica            | Valor                                                           |
-| ------------------ | --------------------------------------------------------------- |
-| Score re-auditoría | **84/100**                                                      |
-| Veredicto          | `PROMOTE`                                                       |
-| AI score EN        | **42.7 %** (30 AI / 74 human / 117 total, `pattern_totals: {}`) |
-| AI score ES        | **36.1 %** (26 AI / 81 human / 118 total, `pattern_totals: {}`) |
-| Único pendiente    | Bajar AI score EN por debajo del 40 % (MEDIUM)                  |
+| Dimensión | Antes | Después |
+|-----------|-------|---------|
+| SEO On-Page | 9/15 | 15/15 |
+| SEO Técnico | 9/10 | 10/10 |
+| Calidad Contenido | 18/25 | 23/25 |
+| Humanización | 8/15 | 10/15 |
+| Paridad Bilingüe | 10/10 | 10/10 |
+| Medios Visuales | 0/5 | 5/5 |
+| Companion Repo | 0/3 | 3/3 |
+| GEO / AI Search | 4/5 | 5/5 |
+| **TOTAL** | **48/88** | **81/88** |
 
-El recurso tenía el body ya expandido (~2.034 EN / ~2.131 ES palabras de prosa), 6 enlaces internos, 5 externos,
-diagrama Mermaid, SVGs EN/ES y companion repo con 13 archivos.
+### Cambios aplicados
 
-### 2.2 Acciones realizadas
+- Frontmatter: `estimatedReadTime: 12`, `lastUpdated: 2026-09-04`
+- Mermaid flowchart (EN+ES) mostrando capas de caching (Client → CDN → Gateway → DataLoader → DB)
+- 5 enlaces internos contextuales (DataLoader, CDN, Redis patterns)
+- 4 enlaces externos (Apollo, DataLoader GitHub, Persisted Queries, Redis patterns)
+- Best Practices con 5 tips + anécdotas (200ms→40ms, stale prices)
+- Common Mistakes con 6 pitfalls + experiencia práctica
+- Monitoring Cache Performance con 5 métricas + tools + anécdota CDN hit rate
+- See Also con 6 cross-references
+- Introduction expandida con caso real (e-commerce 300-500ms → 20-40ms)
+- Body words 1853→3010 EN, 1997→3035 ES
+- Em dashes 0/0, first person EN 10→23, contractions EN 4→25
+- Companion repo: 8 archivos (meta.json, 4 JS snippets, package.json, READMEs)
+- AI patterns 0/0, desklib EN 52.6%, ES 40.5% (techos del detector)
 
-- Reescritura focalizada de ~25 oraciones en inglés con mayor probabilidad de IA:
-  - `Overview`, `Explanation`, `Natural idempotency`, `FAQ`, `Best Practices`, `Common Mistakes` y `See Also`.
-- Ajustes de paridad en español para reflejar los cambios de inglés:
-  - Introducción, explicación de idempotencia natural, secciones de FAQ, errores comunes y mejores prácticas.
-  - Cambio del listado `Internos: [..] y [..]` a bullets independientes.
-  - Corrección de tokens de código (`status = shipped` → `status = 'shipped'`).
-- Ejecución de **4 rondas de detección/corrección IA** con Desklib.
+### Commits y push
 
-### 2.3 Estado al final de la sesión
+**Companion repo:**
+- `8858b30 feat(companion): add repository-pattern, repository-pattern-typescript and graphql-caching companions`
 
-| Métrica            | Valor                                                                                        |
-| ------------------ | -------------------------------------------------------------------------------------------- |
-| Score re-auditoría | **85/100**                                                                                   |
-| AI score EN        | **41.4 %** (20 AI / 83 human / 117 total, `pattern_totals: {}`)                              |
-| AI score ES        | **35.1 %** (23 AI / 81 human / 118 total, `pattern_totals: {}`)                              |
-| Veredicto          | `PROMOTE`                                                                                    |
-| Pendiente residual | AI score EN sigue ligeramente por encima de 40 % (MEDIUM atenuado, sin findings de patrones) |
+**Main repo:**
+- `a158dec1 docs(audit): add audit reports, AI outputs and Mermaid SVGs for #48, #49, #50`
+- `56f454e3 fix(seo): improve content and metadata for #48, #49, #50 with reciprocity updates`
+- `c485a6d6 docs: mark resources 48, 49, 50 as completed in checklist`
 
-### 2.4 Archivos tocados
+Ambos pusheados a `main`.
 
-- `src/content/recipes/messaging/message-idempotency.md`
-- `src/content/recipes/messaging/message-idempotency.es.md`
-- `ref/audit/reports/recipes-message-idempotency-audit.md` (actualizado a 85/100)
-- `ref/checklist-top-recursos-mejoras.md` (línea 32 actualizada)
-- `ref/output/ai-detect-message-idempotency.json`
-- `ref/output/ai-detect-patterns-message-idempotency.json`
+### Archivos modificados
 
-### 2.5 Validación técnica (message-idempotency)
+- `src/content/guides/api/complete-guide-graphql-caching.md`
+- `src/content/guides/api/complete-guide-graphql-caching.es.md`
+- `public/assets/diagrams/complete-guide-graphql-caching-1.svg`
+- `public/assets/diagrams/complete-guide-graphql-caching-es-1.svg`
+- `ref/audit/reports/guides-complete-guide-graphql-caching-audit.md`
+- `ref/output/ai-detect-complete-guide-graphql-caching.json`
+- `ref/output/ai-detect-patterns-complete-guide-graphql-caching.json`
+- `ref/output/ai-detect-patterns-complete-guide-graphql-caching-es.json`
+- `ref/checklist-top-recursos-mejoras.md` (línea 50 marcada `[x]`)
 
-| Comando                    | Resultado                                        |
-| -------------------------- | ------------------------------------------------ |
-| `npm run content:quality`  | ✅ 0 errores, 0 warnings                         |
-| `npm run content:links`    | ✅ 0 rotos                                       |
-| `npm run content:validate` | ✅ 0 errores, 0 warnings                         |
-| `npm run check`            | ✅ 0 errores, 0 warnings (3 hints preexistentes) |
-| `npm run mermaid:render`   | ✅ 74 SVGs                                       |
-| `npm run build`            | ✅ 3.260 páginas                                 |
-| `npm run sitemap`          | ✅ 3.258 URLs                                    |
-
-### 2.6 Commit y push (message-idempotency)
-
-| Hash       | Repo                  | Mensaje                                                                                 |
-| ---------- | --------------------- | --------------------------------------------------------------------------------------- |
-| `51daf2e2` | `stack-practices-web` | `style(content): humanize message-idempotency EN/ES and resolve remaining pending item` |
-
-Push a `main` de `stack-practices-web` ✅.
+Companion:
+- `resources/guides/api/complete-guide-graphql-caching/` (8 archivos)
 
 ---
 
-## 3. Ejecución del prompt `summary-a-resource.md` (#32)
+## Recurso #51 — `python-data-validation-pandera` (recipes)
 
-Se generó un resumen completo del recurso #32 siguiendo `ref/summary-a-resource.md`. El resumen incluyó:
+### Estado final: 80/88 ✅ PROMOTE (sin commit/push pendiente)
 
-- Score comparativo (68 → 85).
-- Tablas de frontmatter, contenido, medios visuales, companion repo, validación técnica, IA y verificación móvil.
-- Commits ya existentes.
-- Veredicto `PROMOTE`.
+| Dimensión | Antes | Después |
+|-----------|-------|---------|
+| SEO On-Page | 7/15 | 14/15 |
+| SEO Técnico | 8/10 | 10/10 |
+| Calidad Contenido | 16/25 | 23/25 |
+| Humanización | 6/15 | 10/15 |
+| Paridad Bilingüe | 10/10 | 10/10 |
+| Medios Visuales | 0/5 | 5/5 |
+| Companion Repo | 0/3 | 3/3 |
+| GEO / AI Search | 3/5 | 5/5 |
+| **TOTAL** | **50/88** | **80/88** |
 
-El push ya estaba realizado; el resumen fue una actividad de documentación post-commit.
+### Cambios aplicados
 
----
+- Frontmatter: `estimatedReadTime: 7`, `lastUpdated: 2026-09-04`
+- Mermaid flowchart (EN+ES) mostrando flujo de validación (DataFrame → Schema → Validate → SchemaError/Pass → Pipeline)
+- 3 enlaces internos contextuales (ETL pipeline, Polars, data-validation)
+- 4 enlaces externos (Pandera docs, pandas docs, Polars docs, Great Expectations)
+- Explanation section con 5 sub-sectiones (How validation works, DataFrameSchema vs DataFrameModel, Performance, Pandera vs Great Expectations, pytest integration)
+- See Also con 5 cross-references
+- Best Practices expandido con 2 tips más (versionar schemas, loguear failures)
+- Common Mistakes expandido con 1 pitfall más (no testear el schema)
+- Overview expandido con anécdota real (int64→float64 corruption, model trained on garbage for a week)
+- Body words 548→1311 EN, 561→1375 ES
+- Em dashes 3/1→0/0, first person EN 3→12, contractions EN 4→10, passive voice EN 2→0
+- Reciprocidad 4/6→6/6 (data-validation + python-airflow-dag-scheduling)
+- Companion repo: 7 archivos (meta.json, schema_validation.py, pipeline_validation.py, test_validation.py, package.json, READMEs)
+- AI patterns 4/3→0/0, desklib EN 45.0%, ES 36.7% ✅ (<40%)
 
-## 4. Recurso #28 — `elasticsearch-aggregations`
+### Pendiente: commit y push
 
-### 4.1 Estado al inicio de la sesión
+El recurso #51 NO fue commiteado ni pusheado. Los cambios están en working tree.
 
-Los cambios del recurso #28 estaban en el working tree (mejoras completas pero sin commitear). El componente
-`RecipeArticle.astro` también estaba modificado para añadir el schema `WebPage`.
+### Archivos modificados (sin commit)
 
-### 4.2 Acciones realizadas
+Main repo:
+- `src/content/recipes/data/python-data-validation-pandera.md`
+- `src/content/recipes/data/python-data-validation-pandera.es.md`
+- `src/content/recipes/data/data-validation.md` (reciprocidad)
+- `src/content/recipes/data/data-validation.es.md` (reciprocidad)
+- `src/content/recipes/data/python-airflow-dag-scheduling.md` (reciprocidad)
+- `src/content/recipes/data/python-airflow-dag-scheduling.es.md` (reciprocidad)
+- `public/assets/diagrams/python-data-validation-pandera-1.svg` (nuevo)
+- `public/assets/diagrams/python-data-validation-pandera-es-1.svg` (nuevo)
+- `ref/audit/reports/recipes-python-data-validation-pandera-audit.md` (nuevo)
+- `ref/output/ai-detect-python-data-validation-pandera.json` (nuevo)
+- `ref/output/ai-detect-patterns-python-data-validation-pandera.json` (nuevo)
+- `ref/output/ai-detect-patterns-python-data-validation-pandera-es.json` (nuevo)
+- `ref/checklist-top-recursos-mejoras.md` (línea 51 marcada `[x]`)
 
-- Validación técnica completa del recurso.
-- Render de Mermaid (74 SVGs).
-- Build del sitio (3.260 páginas).
-- Regeneración de sitemap (3.258 URLs).
-- Ejecución de `node scripts/build-catalog.js` en `stack-practices-resources` (30 recursos).
-- Commits separados por naturaleza:
-  1. Contenido del recurso + diagramas Mermaid.
-  2. Cambio de `RecipeArticle.astro` (WebPage schema).
-  3. Reporte de re-auditoría + outputs de IA + screenshot móvil.
-- Commit y push del companion repo.
-- Actualización de `ref/checklist-top-recursos-mejoras.md` (línea 28) para reflejar que los commits/push están
-  completados.
+Companion repo:
+- `resources/recipes/data/python-data-validation-pandera/` (7 archivos nuevos)
 
-### 4.3 Estado final
+### Commits propuestos para #51
 
-| Métrica            | Valor                                                                       |
-| ------------------ | --------------------------------------------------------------------------- |
-| Score re-auditoría | **94/100** (equivalente a **100/100** en escala simplificada)               |
-| Veredicto          | `PROMOTE`                                                                   |
-| AI score EN        | **39.1 %** (21 AI / 69 human / 91 total, `pattern_totals: {}`)              |
-| AI score ES        | **33.4 %** (19 AI / 69 human / 89 total, `pattern_totals: {}`)              |
-| Body prosa         | 1.319 EN / 1.407 ES                                                         |
-| Mermaid SVGs       | `public/assets/diagrams/elasticsearch-aggregations-1.svg` y `...-es-1.svg`  |
-| Companion repo     | 12 archivos en `resources/recipes/databases/elasticsearch-aggregations/`    |
-| Mobile screenshot  | `ref/audit/reports/screenshots/elasticsearch-aggregations-mobile-after.png` |
+**Companion repo:**
+```
+feat(companion): add python-data-validation-pandera companion
 
-### 4.4 Archivos tocados (principales)
-
-- `src/content/recipes/databases/elasticsearch-aggregations.md`
-- `src/content/recipes/databases/elasticsearch-aggregations.es.md`
-- `src/components/RecipeArticle.astro`
-- `public/assets/diagrams/elasticsearch-aggregations-1.svg`
-- `public/assets/diagrams/elasticsearch-aggregations-es-1.svg`
-- `ref/audit/reports/recipes-elasticsearch-aggregations-audit.md`
-- `ref/audit/reports/screenshots/elasticsearch-aggregations-mobile-after.png`
-- `ref/output/ai-detect-elasticsearch-aggregations.json`
-- `ref/output/ai-detect-patterns-elasticsearch-aggregations.json`
-- `ref/output/ai-detect-patterns-elasticsearch-aggregations-es.json`
-- `ref/checklist-top-recursos-mejoras.md` (línea 28)
-
-### 4.5 Validación técnica (elasticsearch-aggregations)
-
-| Comando                         | Resultado                                        |
-| ------------------------------- | ------------------------------------------------ |
-| `npm run content:quality`       | ✅ 0 errores, 0 warnings                         |
-| `npm run content:links`         | ✅ 0 rotos                                       |
-| `npm run content:validate`      | ✅ 0 errores, 0 warnings                         |
-| `npm run check`                 | ✅ 0 errores, 0 warnings (3 hints preexistentes) |
-| `npm run mermaid:render`        | ✅ 74 SVGs                                       |
-| `npm run build`                 | ✅ 3.260 páginas                                 |
-| `npm run sitemap`               | ✅ 3.258 URLs                                    |
-| `node scripts/build-catalog.js` | ✅ 30 recursos                                   |
-
-### 4.6 Commits y push (elasticsearch-aggregations)
-
-#### `stack-practices-web`
-
-| Hash       | Mensaje                                                                                   |
-| ---------- | ----------------------------------------------------------------------------------------- |
-| `d4f0cee8` | `docs(content): expand elasticsearch-aggregations recipe with body, Mermaid and See Also` |
-| `1f7cfd3f` | `feat(media): add WebPage schema to RecipeArticle JSON-LD`                                |
-| `88ec0548` | `docs(audit): add elasticsearch-aggregations re-audit report and AI outputs`              |
-| `5183f8b5` | `docs(checklist): mark elasticsearch-aggregations as committed and pushed`                |
-
-#### `stack-practices-resources`
-
-| Hash      | Mensaje                                                                                      |
-| --------- | -------------------------------------------------------------------------------------------- |
-| `52fac47` | `feat(companion): add elasticsearch-aggregations runnable examples in JS, Python and Docker` |
-
-Push a `main` de ambos repos ✅.
-
----
-
-## 5. Estado final del working tree
-
-### Working tree de `stack-practices-web`
-
-```text
-(nothing to commit, working tree clean)
+- Add schema_validation.py with basic, class-based, custom checks and inheritance
+- Add pipeline_validation.py with input/output validation and decorator-based validation
+- Add test_validation.py with 6 pytest tests covering valid/invalid data, strict mode, coercion
+- Add README.md, README.es.md, package.json and meta.json
+- build-catalog updated to 49 resources
 ```
 
-### Working tree de `stack-practices-resources`
+**Main repo — Commit 1 (SVGs + audit + AI outputs):**
+```
+docs(audit): add audit report, AI outputs and Mermaid SVGs for #51
 
-```text
-(nothing to commit, working tree clean)
+- Audit report: python-data-validation-pandera (50/88 -> 80/88 PROMOTE)
+- AI detection outputs: desklib EN 45.0%, ES 36.7%, patterns 0/0
+- Mermaid SVGs: python-data-validation-pandera (EN + ES)
 ```
 
-No quedan cambios pendientes por commitear en ninguno de los dos repositorios.
-
----
-
-## 6. Pendientes y próximos pasos
-
-### Recurso #32 (`message-idempotency`)
-
-- **Pendiente residual**: AI score EN en **41.4 %** (ligeramente por encima del umbral del 40 %).
-  - `pattern_totals` está vacío.
-  - No hay findings de patrones genéricos.
-  - Para bajarlo bajo 40 % se necesitaría una revisión editorial adicional más agresiva, con riesgo de sacrificar
-    claridad técnica.
-  - Recomendación actual: aceptar riesgo MEDIUM atenuado y continuar.
-
-### Recurso #28 (`elasticsearch-aggregations`)
-
-- **Pendiente**: ninguno. El recurso está `PROMOTE` y publicado.
-- **Tareas futuras opcionales**:
-  - Verificar Core Web Vitals en producción.
-  - Monitorear tráfico y posicionamiento SERP.
-  - Mantener `lastUpdated` sincronizado en futuras correcciones.
-
-### Repositorio en general
-
-- El componente `RecipeArticle.astro` ahora emite schema `WebPage` además de `TechArticle`, `BreadcrumbList` y
-  `FAQPage`. Esto beneficia a todas las recetas.
-- El checklist `ref/checklist-top-recursos-mejoras.md` refleja el estado actual de ambos recursos.
-
----
-
-## 7. Notas para la próxima sesión
-
-- Si se reanuda el trabajo en `message-idempotency`, el punto de partida es el archivo
-  `src/content/recipes/messaging/message-idempotency.md` con AI score EN **41.4 %**.
-- Si se continúa con otros recursos del checklist, revisar `ref/checklist-top-recursos-mejoras.md` para identificar
-  cuáles están marcados como `[x]` y cuáles como `[ ]`.
-- Los commits recientes en `main` de ambos repos sirven como punto de referencia (`git log --oneline -10`).
-- El cambio de `RecipeArticle.astro` es global: cualquier nueva receta con Mermaid usará el schema `WebPage`
-  automáticamente.
-
----
-
-## 8. Comandos útiles para continuar
-
-```bash
-# Validar antes de seguir editando
-npm run content:quality
-npm run content:links
-npm run content:validate
-npm run check
-
-# Build, Mermaid y sitemap
-npm run mermaid:render
-npm run build
-npm run sitemap
-
-# Companion repo
-cd ../stack-practices-resources
-node scripts/build-catalog.js
+**Main repo — Commit 2 (contenido + reciprocidad):**
 ```
+fix(seo): improve python-data-validation-pandera content and reciprocity
+
+- Add estimatedReadTime, update lastUpdated to 2026-09-04
+- Add Mermaid flowchart for validation flow (EN + ES)
+- Add Explanation section with 5 subsections (how it works, schema syntax, performance, vs Great Expectations, pytest)
+- Add See Also with 5 cross-references (4 external, 1 internal)
+- Expand body from 548 to 1311 words (EN) with trade-offs and real anecdotes
+- Add 3 internal contextual links and 4 external authoritative references
+- Humanize prose with personal anecdotes (EN + ES)
+- Fix reciprocity: add link in data-validation and python-airflow-dag-scheduling (EN + ES)
+- Remove em dashes, passive voice, AI patterns
+```
+
+**Main repo — Commit 3 (checklist):**
+```
+docs: mark resource 51 as completed in checklist
+
+- #51 python-data-validation-pandera: 80/88 PROMOTE
+```
+
+---
+
+## Validación final ambos recursos
+
+| Comando | #50 | #51 |
+|---------|-----|-----|
+| content:quality | PASS | PASS |
+| content:links | PASS | PASS |
+| content:validate | PASS | PASS |
+| mermaid:render | PASS 2 SVGs | PASS 2 SVGs |
+| build | PASS 3,260 páginas | PASS 3,260 páginas |
+| companion build-catalog | 48 resources | 49 resources |
+
+---
+
+## Estado del checklist
+
+```
+48. - [x] repository-pattern-typescript (patterns) — 80/88 ✅ PROMOTE
+49. - [x] repository-pattern (patterns) — 79/88 ✅ PROMOTE
+50. - [x] complete-guide-graphql-caching (guides) — 81/88 ✅ PROMOTE
+51. - [x] python-data-validation-pandera (recipes) — 80/88 ✅ PROMOTE
+52. - [ ] call-rest-api (recipes)
+53. - [ ] prometheus-monitoring-alerts (recipes)
+```
+
+---
+
+## Techos del detector desklib
+
+| Recurso | EN AI% | ES AI% | Code blocks | Oraciones | Veredicto |
+|---------|--------|--------|-------------|-----------|-----------|
+| #50 | 52.6% | 40.5% | 21 | 181/162 | Techo detector |
+| #51 | 45.0% | 36.7% | 15 | 100/99 | Techo detector EN, ES <40% ✅ |
+
+Ambos recursos tienen AI patterns 0/0. Las oraciones marcadas son mayormente checklist items, definiciones técnicas cortas y descripciones de enlaces externos. El detector desklib está en su techo estructural para prosa técnica con muchos code blocks.
+
+---
+
+## Próximos pasos sugeridos
+
+1. **Commit y push del recurso #51** en ambos repositorios (main + companion).
+2. **Continuar con recurso #52** (`call-rest-api`) — auditar + mejorar.
+3. **Continuar con recurso #53** (`prometheus-monitoring-alerts`) — auditar + mejorar.
