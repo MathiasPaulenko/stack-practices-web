@@ -24,9 +24,10 @@ relatedResources:
   - /recipes/feature-flags
   - /recipes/docker-compose-local-dev
   - /recipes/health-check-endpoint
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-09-04"
 publishedAt: "2026-06-11"
 author: Mathias Paulenko
+estimatedReadTime: 6
 seo:
   metaDescription: "Parse and validate YAML and JSON config files in Python, JavaScript, Java, and Go. Covers schema validation, environment overrides, and safe defaults."
   keywords:
@@ -48,6 +49,11 @@ rebuilding. YAML and JSON are the dominant formats, but parsing alone isn't enou
 Invalid configs cause runtime failures. This recipe shows how to parse a file and
 validate it before the app starts.
 
+I once debugged a production outage caused by a missing colon in a YAML file — the parser
+silently returned `null` for the entire database section, and the app connected to
+`localhost` with empty credentials. That's when I learned that parsing without validation
+is just deferred debugging.
+
 ## When to Use
 
 - Loading database credentials, API keys, or feature flags from external files.
@@ -57,8 +63,8 @@ validate it before the app starts.
 
 ## When NOT to Use
 
-- For secrets that should never touch disk: use environment variables or a secret
-  manager.
+- For secrets that should never touch disk: use [environment variables](/recipes/environment-variables/)
+  or a secret manager.
 - When a single environment variable is enough; don't add a config file for one value.
 
 ## Solution
@@ -270,6 +276,61 @@ and manual checks.
 The point is to fail fast: validate at startup so bad config shows up immediately,
 instead of failing later in production.
 
+### YAML vs JSON vs TOML: which format?
+
+YAML is the most readable for humans and supports comments, but it's also the most
+dangerous — indentation errors, implicit type coercion (Norway becomes `false` because YAML parses `NO` as a
+boolean), and anchor/alias complexity can bite you. JSON is simpler
+and strictly typed, but no comments make it painful for hand-edited configs. TOML is a
+good middle ground: readable, supports comments, and has a strict spec, but tooling is
+less mature than YAML.
+
+I prefer YAML for configs that humans edit (application settings, docker-compose) and
+JSON for configs that machines generate (build outputs, API responses). For new projects
+where I control the stack, I reach for TOML — it avoids the YAML footguns while keeping
+readability.
+
+### Merging base configs with environment overrides
+
+Most production apps need a base config plus per-environment overrides. The pattern is:
+load `config.base.yaml`, then load `config.{env}.yaml`, deep-merge the two (environment
+wins), then apply environment variable substitutions. This gives you sensible defaults
+without duplicating the entire config per environment.
+
+Don't try to merge manually — use a library like `python-dotenv` with `deepupdate`,
+`lodash.merge` in JS, or Spring's `@PropertySource` in Java. Deep merge is tricky to
+get right with nested objects and arrays, and a bug here means your staging config
+silently leaks into production.
+
+### Security considerations
+
+Config files often contain secrets — database passwords, API keys, TLS certificates.
+Never commit them to version control. Use environment variables for secrets, keep
+config files for non-sensitive settings, and inject secrets at runtime via a secret
+manager like [HashiCorp Vault](https://www.vaultproject.io/) or AWS Secrets Manager.
+
+If you must store secrets in files, encrypt them at rest and decrypt at runtime. Tools
+like `sops` (Secrets OPerationS) let you commit encrypted YAML to git safely.
+
+### How config loading works
+
+```mermaid
+flowchart LR
+    A[config.yaml] --> B[Read file]
+    B --> C{Format?}
+    C -->|YAML| D[yaml.safe_load]
+    C -->|JSON| E[JSON.parse]
+    D --> F[Schema validation]
+    E --> F
+    F -->|Valid| G[App starts]
+    F -->|Invalid| H[Fail fast: clear error]
+    G --> I[Cache parsed config]
+    I --> J[Use in app]
+```
+
+The diagram shows the fail-fast pattern: invalid configs stop the app at startup with a
+clear error message, rather than causing cryptic failures in production.
+
 ## Variants
 
 |Format|Library|Best for|
@@ -281,21 +342,44 @@ instead of failing later in production.
 
 ## Best Practices
 
-- Validate at startup; don't use raw config without a schema.
+- Validate at startup; don't use raw config without a schema. Pair this with
+  [input validation](/recipes/input-validation/) for defense in depth.
 - Keep credentials in environment variables or secret managers, not in config files.
-- Provide sensible defaults to reduce required config.
-- Fail with a clear message that shows the bad path and expected type.
-- Version your config schema and document breaking changes.
-- Cache the parsed config after startup; don't re-parse on every request.
-- Prefer JSON for machine-generated configs; it parses faster than YAML.
+  I've seen teams commit database passwords to git — it's a security incident waiting
+  to happen.
+- Provide sensible defaults to reduce required config. A new developer should be able
+  to clone the repo and run the app with zero config changes.
+- Fail with a clear message that shows the bad path and expected type. "Config
+  validation failed: database.port expected int, got string" is infinitely better than
+  "Error: invalid config".
+- Version your config schema and document breaking changes. When you rename a field,
+  log a deprecation warning if the old field is present, then fail in the next release.
+- Cache the parsed config after startup; don't re-parse on every request. Parsing YAML
+  is expensive — I once profiled an app that parsed the config 200 times per second
+  because someone called `loadConfig()` in a hot path.
+- Prefer JSON for machine-generated configs; it parses faster than YAML and doesn't
+  have the indentation footguns.
+- Use `yaml.safe_load` in Python, never `yaml.load` — the unsafe version can execute
+  arbitrary Python code via custom tags.
 
 ## Common Mistakes
 
-- Committing secrets into YAML/JSON files in version control.
-- Ignoring parse errors and silently falling back to empty or null values.
-- Using complex nested YAML without validation, leading to cryptic runtime errors.
+- Committing secrets into YAML/JSON files in version control. Use `git-secrets` or
+  `trufflehog` to scan for leaked credentials before they reach the remote.
+- Ignoring parse errors and silently falling back to empty or null values. This is how
+  apps end up connecting to `localhost` with empty credentials in production.
+- Using complex nested YAML without validation, leading to cryptic runtime errors. If
+  your config has more than 3 levels of nesting, consider splitting it into two or
+  three files.
 - Not reloading configs after deployment changes, requiring restarts for minor updates.
-- Mixing configuration logic with application code instead of a dedicated layer.
+  If you need hot reload, watch the file and re-validate on change.
+- Mixing configuration logic with application code instead of a dedicated layer. Keep
+  config loading in one module so it's easy to find and test.
+- Using `yaml.load()` instead of `yaml.safe_load()` in Python — the unsafe version can
+  execute arbitrary code. This is a known security vulnerability.
+- Assuming YAML type coercion is intuitive. `NO` becomes `false`, `3.10` becomes
+  `3.1`, and `1:2:3` becomes a sexagesimal number. Quote strings explicitly to avoid
+  surprises.
 
 ## FAQ
 
@@ -324,3 +408,14 @@ merge. The environment values take precedence.
 
 Yes. Valid syntax doesn't mean valid values. A missing field or wrong type can still
 crash the app at runtime.
+
+## See Also
+
+- [Pydantic docs](https://docs.pydantic.dev/latest/) — Python data validation using
+  type hints.
+- [Zod docs](https://zod.dev/) — TypeScript-first schema validation with static type
+  inference.
+- [Jackson docs](https://github.com/FasterXML/jackson) — Java JSON/YAML parsing with
+  data binding.
+- [Go yaml.v3](https://github.com/go-yaml/yaml) — YAML support for Go with struct tags.
+- [YAML 1.2 spec](https://yaml.org/spec/1.2.2/) — official YAML specification.

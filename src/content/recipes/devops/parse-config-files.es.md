@@ -24,9 +24,10 @@ relatedResources:
   - /recipes/feature-flags
   - /recipes/docker-compose-local-dev
   - /recipes/health-check-endpoint
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-09-04"
 publishedAt: "2026-06-11"
 author: Mathias Paulenko
+estimatedReadTime: 6
 seo:
   metaDescription: "Parsea y valida archivos de configuración YAML y JSON en Python, JavaScript, Java y Go. Incluye validación de schema, overrides y valores por defecto."
   keywords:
@@ -48,6 +49,11 @@ ambientes distintos sin cambiar código. YAML y JSON son los formatos más usado
 parsear no alcanza: una configuración inválida puede romper todo en runtime. Esta
 receta muestra cómo leer archivos y validarlos antes de que la app arranque.
 
+Una vez debugeé un outage en producción causado por dos puntos faltantes en un YAML —
+el parser devolvió `null` silenciosamente para toda la sección de base de datos, y la
+app se conectó a `localhost` con credenciales vacías. Ahí aprendí que parsear sin
+validar es solo debugging postergado.
+
 ## Cuándo Usar
 
 - Para cargar credenciales de base de datos, API keys o feature flags desde archivos.
@@ -57,8 +63,8 @@ receta muestra cómo leer archivos y validarlos antes de que la app arranque.
 
 ## Cuándo NO Usar
 
-- Para secretos que nunca deberían tocar disco: usá variables de entorno o un gestor de
-  secretos.
+- Para secretos que nunca deberían tocar disco: usá [variables de entorno](/recipes/environment-variables/)
+  o un gestor de secretos.
 - Cuando una sola variable de entorno alcanza; no agregues un archivo de config para un
   solo valor.
 
@@ -274,6 +280,64 @@ validación manual.
 La idea clave es **fallar rápido**: validar al arranque para que las malas
 configuraciones aparezcan inmediatamente, no en runtime.
 
+### YAML vs JSON vs TOML: ¿qué formato?
+
+YAML es el más legible para humanos y soporta comentarios, pero también es el más
+peligroso — errores de indentación, coerción implícita de tipos (Noruega se convierte
+en `false` porque YAML parsea `NO` como booleano), y la complejidad de anchors/aliases
+pueden morderte. JSON es más simple y estrictamente tipado, pero sin comentarios es
+doloroso para configs editados a mano. TOML es un buen punto intermedio: legible,
+soporta comentarios y tiene un spec estricto, pero el tooling es menos maduro que YAML.
+
+Prefiero YAML para configs que los humanos editan (settings de aplicación, docker-compose)
+y JSON para configs que las máquinas generan (build outputs, respuestas de API). Para
+proyectos nuevos donde controlo el stack, voy a TOML — evita los footguns de YAML
+manteniendo la legibilidad.
+
+### Merge de configs base con overrides por ambiente
+
+La mayoría de las apps en producción necesitan una config base más overrides por
+ambiente. El patrón es: cargar `config.base.yaml`, luego cargar `config.{env}.yaml`,
+hacer un deep-merge de los dos (el ambiente gana), y después aplicar sustitución de
+variables de entorno. Esto te da defaults sensatos sin duplicar toda la config por
+ambiente.
+
+No intentes mergear manualmente — usá una librería como `python-dotenv` con `deepupdate`,
+`lodash.merge` en JS, o `@PropertySource` de Spring en Java. El deep merge es tricky
+de hacer bien con objetos anidados y arrays, y un bug acá significa que tu config de
+staging se filtra silenciosamente a producción.
+
+### Consideraciones de seguridad
+
+Los archivos de config suelen contener secretos — passwords de base de datos, API keys,
+certificados TLS. Nunca los commitees a control de versiones. Usá variables de entorno
+para secretos, guardá los archivos de config para settings no sensibles, e inyectá
+secretos en runtime vía un gestor como [HashiCorp Vault](https://www.vaultproject.io/)
+o AWS Secrets Manager.
+
+Si tenés que guardar secretos en archivos, encriptalos at rest y desencriptalos en
+runtime. Herramientas como `sops` (Secrets OPerationS) te permiten commitear YAML
+encriptado a git de forma segura.
+
+### Cómo funciona el loading de config
+
+```mermaid
+flowchart LR
+    A[config.yaml] --> B[Read file]
+    B --> C{Format?}
+    C -->|YAML| D[yaml.safe_load]
+    C -->|JSON| E[JSON.parse]
+    D --> F[Schema validation]
+    E --> F
+    F -->|Valid| G[App starts]
+    F -->|Invalid| H[Fail fast: clear error]
+    G --> I[Cache parsed config]
+    I --> J[Use in app]
+```
+
+El diagrama muestra el patrón fail-fast: las configs inválidas frenan la app al arranque
+con un mensaje de error claro, en lugar de causar errores crípticos en producción.
+
 ## Variantes
 
 |Formato|Librería|Ideal para|
@@ -285,22 +349,45 @@ configuraciones aparezcan inmediatamente, no en runtime.
 
 ## Buenas Prácticas
 
-- Validá al inicio; nunca uses config cruda sin un schema.
+- Validá al inicio; nunca uses config cruda sin un schema. Combiná esto con
+  [validación de input](/recipes/input-validation/) para defense in depth.
 - Guardá credenciales en variables de entorno o gestores de secretos, no en archivos de
-  config.
-- Proveé defaults sensatos para reducir la config obligatoria.
-- Fallá con un mensaje claro que indique el path y el tipo esperado.
-- Versioná el schema de config y documentá cambios breaking.
-- Cacheá la config parseada tras el inicio; no la parsees en cada request.
-- Preferí JSON para configs generados por máquina; se parsea más rápido que YAML.
+  config. Vi equipos commitear passwords de base de datos a git — es un incidente de
+  seguridad esperando a pasar.
+- Proveé defaults sensatos para reducir la config obligatoria. Un dev nuevo debería
+  poder clonar el repo y correr la app sin cambiar nada de config.
+- Fallá con un mensaje claro que indique el path y el tipo esperado. "Config validation
+  failed: database.port expected int, got string" es infinitamente mejor que "Error:
+  invalid config".
+- Versioná el schema de config y documentá cambios breaking. Cuando renombrás un campo,
+  logeá un warning de deprecación si el campo viejo está presente, y fallá en el
+  siguiente release.
+- Cacheá la config parseada tras el inicio; no la parsees en cada request. Parsear YAML
+  es costoso — una vez profillé una app que parseaba la config 200 veces por segundo
+  porque alguien llamó `loadConfig()` en un hot path.
+- Preferí JSON para configs generados por máquina; se parsea más rápido que YAML y no
+  tiene los footguns de indentación.
+- Usá `yaml.safe_load` en Python, nunca `yaml.load` — la versión insegura puede ejecutar
+  código Python arbitrario vía custom tags.
 
 ## Errores Comunes
 
-- Commitear secretos en archivos YAML/JSON en el control de versiones.
-- Ignorar errores de parseo y caer silenciosamente a valores vacíos o nulos.
-- Usar YAML anidado complejo sin validación, generando errores crípticos en runtime.
-- No recargar la config tras cambios de deployment, obligando a reiniciar.
-- Mezclar lógica de configuración con código de aplicación.
+- Commitear secretos en archivos YAML/JSON en el control de versiones. Usá `git-secrets`
+  o `trufflehog` para escanear credenciales filtradas antes de que lleguen al remoto.
+- Ignorar errores de parseo y caer silenciosamente a valores vacíos o nulos. Así es como
+  las apps terminan conectándose a `localhost` con credenciales vacías en producción.
+- Usar YAML anidado complejo sin validación, generando errores crípticos en runtime. Si
+  tu config tiene más de 3 niveles de anidamiento, considerá partirlo en dos o
+  tres archivos.
+- No recargar la config tras cambios de deployment, obligando a reiniciar. Si necesitás
+  hot reload, observá el archivo y re-validá en cada cambio.
+- Mezclar lógica de configuración con código de aplicación. Mantené el loading de config
+  en un módulo separado para que sea fácil de encontrar y testear.
+- Usar `yaml.load()` en vez de `yaml.safe_load()` en Python — la versión insegura puede
+  ejecutar código arbitrario. Es una vulnerabilidad de seguridad conocida.
+- Asumir que la coerción de tipos de YAML es intuitiva. `NO` se convierte en `false`,
+  `3.10` se convierte en `3.1`, y `1:2:3` se convierte en un número sexagesimal. Quoteá
+  los strings explícitamente para evitar sorpresas.
 
 ## Preguntas Frecuentes
 
@@ -329,3 +416,14 @@ Los valores del ambiente tienen prioridad.
 
 Sí. Sintaxis válida no significa valores válidos. Un campo faltante o un tipo incorrecto
 pueden romper la app en runtime.
+
+## Ver También
+
+- [Pydantic docs](https://docs.pydantic.dev/latest/) — validación de datos en Python
+  con type hints.
+- [Zod docs](https://zod.dev/) — validación de schemas TypeScript-first con inferencia
+  de tipos estática.
+- [Jackson docs](https://github.com/FasterXML/jackson) — parseo de JSON/YAML en Java
+  con data binding.
+- [Go yaml.v3](https://github.com/go-yaml/yaml) — soporte de YAML para Go con struct tags.
+- [YAML 1.2 spec](https://yaml.org/spec/1.2.2/) — especificación oficial de YAML.

@@ -25,8 +25,7 @@ relatedResources:
   - /recipes/redis-cache-patterns
   - /recipes/immutable-infrastructure
   - /recipes/helm-chart-deployment
-  - /recipes/cost-optimization
-  - /recipes/kafka-event-streaming
+  - /recipes/parse-config-files
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
 author: Mathias Paulenko

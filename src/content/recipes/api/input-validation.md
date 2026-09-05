@@ -19,10 +19,7 @@ relatedResources:
   - /patterns/strategy-pattern
   - /recipes/api-versioning
   - /recipes/handle-cors
-  - /recipes/rate-limiting
-  - /recipes/send-emails-smtp
-  - /recipes/webhooks
-  - /recipes/api-documentation-openapi
+  - /recipes/parse-config-files
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
