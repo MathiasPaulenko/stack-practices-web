@@ -20,6 +20,7 @@ relatedResources:
   - /guides/complete-guide-python-asyncio
   - /guides/complete-guide-api-versioning-strategies
   - /docs/ai-llm-prompt-template-library
+  - /guides/complete-guide-local-llm-deployment
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-02"
 author: Mathias Paulenko
