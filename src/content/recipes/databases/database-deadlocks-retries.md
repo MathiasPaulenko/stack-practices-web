@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/locks-and-mutexes
   - /recipes/database-indexing
   - /recipes/database-connection-pooling
-  - /recipes/deadlock-prevention-sql
+  - /recipes/database-views-materialized
 lastUpdated: "2026-08-28"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
